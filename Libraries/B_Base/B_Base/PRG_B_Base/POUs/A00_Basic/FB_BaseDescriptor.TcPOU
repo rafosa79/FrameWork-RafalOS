@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseDescriptor" Id="{91493404-5653-0352-2d94-26778011a0ca}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		19.09.2025		TC 4024.66
+	
+*)
+FUNCTION_BLOCK FB_BaseDescriptor IMPLEMENTS ITF_BaseDescriptor
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

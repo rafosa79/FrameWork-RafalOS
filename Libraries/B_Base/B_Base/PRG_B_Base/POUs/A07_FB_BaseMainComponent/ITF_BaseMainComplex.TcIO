@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseMainComplex" Id="{2822f205-b986-005f-04be-ccc64a012929}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseMainComplex
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

@@ -3,6 +3,19 @@
   <POU Name="PRG_Compilation" Id="{1360e8a4-0d65-02a4-26da-1d595118164a}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
+	fbBaseTime				: FB_BaseTime;
+	fbBaseCommand			: FB_BaseCommand;
+	fbBaseDescriptor		: FB_BaseDescriptor;
+	fbBaseFlag				: FB_BaseFlag;
+	fbBaseImplulse			: FB_BaseImpulse;
+	fbBaseLocation			: FB_BaseLocation;
+	
+	fbBaseLogger			: FB_BaseLogger;
+	fbBaseLoggerElement		: FB_BaseLoggerElement;
+	fbBaseComponent			: FB_BaseComponent;
+	fbBaseExecutiveElement	: FB_BaseExecutiveElement;
+	fbBaseComplexElement	: FB_BaseComplexElement;
+	fbBaseMainComponent		: FB_BaseMainComponent;
 END_VAR
 ]]></Declaration>
     <Implementation>

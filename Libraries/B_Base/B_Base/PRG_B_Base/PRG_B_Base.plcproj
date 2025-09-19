@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.1</ProjectVersion>
+    <ProjectVersion>0.0.0.2</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -89,13 +89,76 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A02_FB_Logger\FB_Logger.TcPOU">
+    <Compile Include="POUs\A00_Basic\FB_BaseTime.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A02_FB_Logger\ITF_Logger.TcIO">
+    <Compile Include="POUs\A00_Basic\FB_BaseCommand.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A03_FB_LoggerElement\FB_LoggerElement.TcPOU">
+    <Compile Include="POUs\A00_Basic\FB_BaseDescriptor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\FB_BaseFlag.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\FB_BaseImpulse.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\FB_BaseLocation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseCommand.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseDescriptor.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseFlag.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseImpulse.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseLocation.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseTime.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A02_FB_BaseLogger\FB_BaseLogger.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A02_FB_BaseLogger\ITF_BaseLogger.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A03_FB_BaseLoggerElement\FB_BaseLoggerElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A03_FB_BaseLoggerElement\ITF_BaseLoggerElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A04_FB_BaseComponent\FB_BaseComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A04_FB_BaseComponent\ITF_BaseComponent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A05_FB_BaseExecutiveElement\FB_BaseExecutiveElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A05_FB_BaseExecutiveElement\ITF_BaseExecutiveElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06_FB_BaseComplexElement\FB_BaseComplexElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06_FB_BaseComplexElement\ITF_BaseComplexElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07_FB_BaseMainComponent\FB_BaseMainComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07_FB_BaseMainComponent\ITF_BaseMainComplex.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -103,8 +166,14 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
-    <Folder Include="POUs\A02_FB_Logger" />
-    <Folder Include="POUs\A03_FB_LoggerElement" />
+    <Folder Include="POUs\A04_FB_BaseComponent" />
+    <Folder Include="POUs\A02_FB_BaseLogger" />
+    <Folder Include="POUs\A03_FB_BaseLoggerElement" />
+    <Folder Include="POUs\A00_Basic" />
+    <Folder Include="POUs\A01_" />
+    <Folder Include="POUs\A05_FB_BaseExecutiveElement" />
+    <Folder Include="POUs\A06_FB_BaseComplexElement" />
+    <Folder Include="POUs\A07_FB_BaseMainComponent" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

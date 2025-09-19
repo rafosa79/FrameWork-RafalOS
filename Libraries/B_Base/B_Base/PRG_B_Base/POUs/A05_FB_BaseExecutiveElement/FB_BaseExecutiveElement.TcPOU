@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseExecutiveElement" Id="{4411e8b6-2e2c-0151-1419-8a5f32f7c37c}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		19.09.2025		TC 4024.66
+	Rodzic dla wszystkich elementów wykonawczych
+*)
+FUNCTION_BLOCK FB_BaseExecutiveElement EXTENDS FB_BaseComponent IMPLEMENTS ITF_BaseExecutiveElement
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

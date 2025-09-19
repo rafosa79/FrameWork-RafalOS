@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseImpulse" Id="{a073b66d-3394-06c6-376a-ecde61bd42a8}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseImpulse
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

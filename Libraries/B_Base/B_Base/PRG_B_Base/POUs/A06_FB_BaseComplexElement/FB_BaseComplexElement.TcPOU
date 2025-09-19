@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_Logger" Id="{e337bc65-3f4c-06e8-12c9-a1d49597b716}" SpecialFunc="None">
+  <POU Name="FB_BaseComplexElement" Id="{1f8518b0-2e03-0c13-2a4a-ffc3b6f9b887}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
 	RAFALOS
 	Rafał Osajda		19.09.2025		TC 4024.66
-	Moduł logujący wszsytkie zgłoszenia
+	FB Bazowy dla wszystkich elementów złożonych
 *)
-FUNCTION_BLOCK FB_Logger IMPLEMENTS ITF_Logger
+FUNCTION_BLOCK FB_BaseComplexElement EXTENDS FB_BaseExecutiveElement IMPLEMENTS ITF_BaseComplexElement
 VAR
 END_VAR
 ]]></Declaration>

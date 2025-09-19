@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseLocation" Id="{3dfcdf37-ccb5-05f1-3cc5-0b09ca33bbd8}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		19.09.2025		TC 4024.66
+	Sterowanie językiem systemu
+*)
+FUNCTION_BLOCK FB_BaseLocation IMPLEMENTS ITF_BaseLocation
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseLogger" Id="{e337bc65-3f4c-06e8-12c9-a1d49597b716}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		19.09.2025		TC 4024.66
+	Moduł logujący wszsytkie zgłoszenia
+*)
+FUNCTION_BLOCK FB_BaseLogger IMPLEMENTS ITF_BaseLogger
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
