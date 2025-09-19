@@ -3,24 +3,25 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{702dc0a4-99d9-4084-a379-ecc0f6322519}</ProjectGuid>
+    <ProjectGuid>{11d6c5cd-bc81-4262-a814-fb1287ccf196}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>PRG_B_Base</Name>
+    <Name>PRG_B_Base_HMI</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
-    <Application>{2e6cd779-2353-4ef8-9515-cf5d127a32d0}</Application>
-    <TypeSystem>{f845d0eb-6085-4f4b-8131-0fcef936f268}</TypeSystem>
-    <Implicit_Task_Info>{ea9fbd7b-76e2-4365-9ebb-cda6a6a006d3}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{1bd6d84d-7dc8-4036-8034-8a04701f917f}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{fa880441-f4cf-4a9c-9d1b-a63a0c8fed73}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{cef59e30-701d-430f-a988-a5d8b465c37d}</LibraryReferences>
+    <Application>{129d173a-37e3-465c-8763-7a3607f7ae9a}</Application>
+    <TypeSystem>{5ffcaf49-2d75-49bd-988f-b57938a65c0a}</TypeSystem>
+    <Implicit_Task_Info>{9e982a95-03a4-466b-971b-fddd9643534e}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{d717880b-5c67-4711-89a6-e674294b5831}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{03a2f208-66b7-4491-bd6d-25a197150930}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{80ab9ba8-e260-435f-a2d3-e133ee69734c}</LibraryReferences>
     <Released>false</Released>
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
-    <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.2</ProjectVersion>
+    <Title>B_Base_HMI_Connector</Title>
+    <DefaultNamespace>B_Base_HMI_Connector</DefaultNamespace>
+    <ProjectVersion>0.0.0.1</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -77,91 +78,15 @@
       </LibraryCategory>
     </LibraryCategories>
     <SelectedLibraryCategories>
-      <Id xmlns="">{b9904a12-953a-4ef3-ac35-10e52398b2c1}</Id>
+      <Id xmlns="">{d7993a17-e2cc-40b8-abc3-8f6a6054b793}</Id>
     </SelectedLibraryCategories>
-    <DefaultNamespace>B_Base</DefaultNamespace>
     <Author>Rafał Osajda</Author>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DUTs\ST_CommonData.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A00_Basic\FB_BaseTime.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A00_Basic\FB_BaseCommand.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A00_Basic\FB_BaseDescriptor.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A00_Basic\FB_BaseFlag.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A00_Basic\FB_BaseImpulse.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A00_Basic\FB_BaseLocation.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A00_Basic\ITF_BaseCommand.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A00_Basic\ITF_BaseDescriptor.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A00_Basic\ITF_BaseFlag.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A00_Basic\ITF_BaseImpulse.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A00_Basic\ITF_BaseLocation.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A00_Basic\ITF_BaseTime.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_FB_BaseLogger\FB_BaseLogger.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_FB_BaseLogger\ITF_BaseLogger.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A03_FB_BaseLoggerElement\FB_BaseLoggerElement.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A03_FB_BaseLoggerElement\ITF_BaseLoggerElement.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A04_FB_BaseComponent\FB_BaseComponent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A04_FB_BaseComponent\ITF_BaseComponent.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A05_FB_BaseExecutiveElement\FB_BaseExecutiveElement.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A05_FB_BaseExecutiveElement\ITF_BaseExecutiveElement.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_FB_BaseComplexElement\FB_BaseComplexElement.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_FB_BaseComplexElement\ITF_BaseComplexElement.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A07_FB_BaseMainComponent\FB_BaseMainComponent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A07_FB_BaseMainComponent\ITF_BaseMainComplex.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -169,11 +94,11 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
-    <Folder Include="POUs\A04_FB_BaseComponent" />
+    <Folder Include="POUs\A00_BasicHMI" />
+    <Folder Include="POUs\A01_" />
     <Folder Include="POUs\A02_FB_BaseLogger" />
     <Folder Include="POUs\A03_FB_BaseLoggerElement" />
-    <Folder Include="POUs\A00_Basic" />
-    <Folder Include="POUs\A01_" />
+    <Folder Include="POUs\A04_FB_BaseComponent" />
     <Folder Include="POUs\A05_FB_BaseExecutiveElement" />
     <Folder Include="POUs\A06_FB_BaseComplexElement" />
     <Folder Include="POUs\A07_FB_BaseMainComponent" />
@@ -181,6 +106,9 @@
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="B_Base">
+      <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
@@ -193,11 +121,6 @@
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="PRG_B_Base.tmc">
-      <SubType>Content</SubType>
-    </None>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
