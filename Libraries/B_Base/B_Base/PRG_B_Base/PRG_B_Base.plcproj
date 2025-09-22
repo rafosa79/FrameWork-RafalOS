@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.2</ProjectVersion>
+    <ProjectVersion>0.0.0.4</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -128,6 +128,9 @@
     <Compile Include="POUs\A00_Basic\ITF_BaseTime.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A01_Base\FB_Base.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A02_FB_BaseLogger\FB_BaseLogger.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -191,7 +194,7 @@
     <Folder Include="POUs\A02_FB_BaseLogger" />
     <Folder Include="POUs\A03_FB_BaseLoggerElement" />
     <Folder Include="POUs\A00_Basic" />
-    <Folder Include="POUs\A01_" />
+    <Folder Include="POUs\A01_Base" />
     <Folder Include="POUs\A05_FB_BaseExecutiveElement" />
     <Folder Include="POUs\A06_FB_BaseComplexElement" />
     <Folder Include="POUs\A07_FB_BaseMainComponent" />
