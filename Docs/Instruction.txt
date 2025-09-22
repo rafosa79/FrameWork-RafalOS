@@ -1,0 +1,17 @@
+Przy tworzeniu nowego elementu należy dodać do niego ITF który rozszerza odpowiedni ITF_xx_HMI_Connector i Odbowiedni ITF z Base i nazwa go ITF_xx_HMI_Init
+dla przykładu tworzymy czujnik to 
+1. tworzymy FB_Czujnik 
+2. rozszerzamy go o odpowiedni typ EXTENDS FB_BaseComponent
+3. tworzymy dla nie go unikalny ITF - ITF_Czujnik 
+4. tworzymy dla niego ITF łącznika oraz ITF dla przekazywania do elementu czyli 
+	ITF_Czujnik_HMI_Connector EXTENDS ITF_BaseComponent_HMI_Connector
+	ITF_Czujnik_HMI_Init EXTENDS ITF_BaseComponent, ITF_Czujnik_HMI_Connector
+5. Tworzymy łącznika do HMI 
+	FB_Czujnik_HMI_Connector
+6. rozszerzamy go o odpowiedni typ EXTENDS FB_BaseComponent_HMI
+7. tworzymy dla niego uunikalny ITF - ITF_Czujnik_HMI
+8. tworzymy pola 
+	łącznik - itfCzujnikConnector	: ITF_Czujnik_HMI_Connector;
+	dane	- refstCzujnikData		: ST_CzujnikData;
+			ST_CzujnikData exetend ST_BaseComponent_HMI :
+9. w FB_Init przekazujemy FB_Czujnik_HMI_Init ui przepisujemy do wszystkich itf w FB
