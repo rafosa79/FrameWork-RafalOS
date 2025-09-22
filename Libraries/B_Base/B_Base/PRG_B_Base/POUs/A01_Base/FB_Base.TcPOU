@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Base" Id="{7a22c2ba-61a6-0678-2849-35514d2ac7b9}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		22.09.2025		TC 4024.66
+	Bazowy FB dla wszystkich elementów systemu, zawiera główne metody dla łaczenia danych
+*)
+FUNCTION_BLOCK FB_Base EXTENDS FB_BaseDescriptor
+VAR
+	refstCommonData			: REFERENCE TO ST_CommonData;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
