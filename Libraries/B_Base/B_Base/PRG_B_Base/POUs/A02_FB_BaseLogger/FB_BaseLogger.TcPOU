@@ -6,8 +6,9 @@
 	Rafał Osajda		19.09.2025		TC 4024.66
 	Moduł logujący wszsytkie zgłoszenia
 *)
-FUNCTION_BLOCK FB_BaseLogger IMPLEMENTS ITF_BaseLogger
+FUNCTION_BLOCK FB_BaseLogger EXTENDS FB_Base IMPLEMENTS ITF_BaseLogger, ITF_BaseLogger_HMI_Connector
 VAR
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
