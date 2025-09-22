@@ -15,5 +15,23 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="WiazanieZmiennych" Id="{b787f832-98eb-08e4-13a1-b117586dc5c5}" />
+    <Method Name="LinkData" Id="{4f5a813f-41fd-0c13-21e8-fdee6dda11cc}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkData : BOOL
+VAR_INPUT
+	stCommonData				: ST_CommonData;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstCommonData			REF= stCommonData;
+
+IF (__ISVALIDREF (THIS^.refstCommonData)) THEN
+	LinkData					:= TRUE;
+ELSE
+	LinkData					:= FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

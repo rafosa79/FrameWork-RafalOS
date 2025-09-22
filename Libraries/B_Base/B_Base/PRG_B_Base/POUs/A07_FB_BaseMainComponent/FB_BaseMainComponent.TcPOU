@@ -6,7 +6,7 @@
 	Rafał Osajda		19.09.2025		TC 4024.66
 	Rodzic dla wszystkich podzespołów głównych w maszynie 
 *)
-FUNCTION_BLOCK FB_BaseMainComponent EXTENDS FB_BaseComplexElement IMPLEMENTS ITF_BaseMainComplex
+FUNCTION_BLOCK FB_BaseMainComponent EXTENDS FB_BaseComplexElement IMPLEMENTS ITF_BaseMainComponent, ITF_BaseMainComponent_HMI_Connector
 VAR
 END_VAR
 ]]></Declaration>

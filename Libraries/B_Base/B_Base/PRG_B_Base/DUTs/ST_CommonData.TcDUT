@@ -4,7 +4,8 @@
     <Declaration><![CDATA[TYPE ST_CommonData :
 STRUCT
 	itfLogger				: ITF_BaseLogger;
-	itfBaseTime				: ITF_BaseTime;
+	itfTime					: ITF_BaseTime;
+	itfLocaciotn			: ITF_BaseLocation;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

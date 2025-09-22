@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.68" ClassName="CNestedPlcProjDef">
-	<Project GUID="{11D6C5CD-BC81-4262-A814-FB1287CCF196}" Name="PRG_B_Base_HMI" PrjFilePath="..\..\PRG_B_Base_HMI\PRG_B_Base_HMI.plcproj" TmcFilePath="..\..\PRG_B_Base_HMI\PRG_B_Base_HMI.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{B9A2F684-7D61-DE6C-1922-78FD5D7C1254}">
-			<Name>PRG_B_Base_HMI Instance</Name>
+	<Project GUID="{362EFF82-BD50-4E06-BCBE-65D9A1E70779}" Name="PRG_Test_Base" PrjFilePath="..\..\PRG_Test_Base\PRG_Test_Base.plcproj" TmcFilePath="..\..\PRG_Test_Base\PRG_Test_Base.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_Test_Base\PRG_Test_Base.tmc" TmcHash="{69F1DC1F-FE11-DD40-74F4-F328D5ECF2F2}">
+			<Name>PRG_Test_Base Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Contexts>
 				<Context>

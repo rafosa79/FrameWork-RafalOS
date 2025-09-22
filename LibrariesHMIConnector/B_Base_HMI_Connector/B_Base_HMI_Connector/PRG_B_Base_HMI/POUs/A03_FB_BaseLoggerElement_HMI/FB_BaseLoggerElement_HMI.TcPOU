@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseLoggerElement_HMI" Id="{024becb4-36e5-0a14-1436-0e8a32c5de12}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseLoggerElement_HMI EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement_HMI
+VAR
+	itfBaseLoggerConnector					: ITF_BaseLogger_HMI_Connector;
+	itfBaseLoggerElementConnector			: ITF_BaseLoggerElement_HMI_Connector;
+	refstBaseLoggerElementDataHMI			: REFERENCE TO ST_BaseLoggerElement_HMI;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

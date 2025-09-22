@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL" Id="{6d39e87a-3925-49a7-96a5-984769bb9c10}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	fbMyTime				: FB_BaseTime;
+	fbMyLocation			: FB_BaseLocation;
+	fbLogger				: FB_BaseLogger;
+	
+	stCommonData			: ST_CommonData;
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL_Variable" Id="{56e59208-4bbf-49fc-a1d8-9f400ac97c02}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	fbBasetest					: FB_Base;
+	
+	fbComponent_1				: FB_Component;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

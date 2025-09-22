@@ -3,6 +3,12 @@
   <POU Name="PRG_Compilation" Id="{b1995b4c-786d-03c5-204c-1db0d16f2c14}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
+	fbLoggerHMI				: FB_BaseLogger_HMI;
+	fbLoggerElementHMI		: FB_BaseLogger_HMI;
+	fbComponentHMI			: FB_BaseComponent_HMI;
+	fbExecutiveElementHMI	: FB_BaseExecutiveElement_HMI;
+	fbComplexElement		: FB_BaseComplexElement_HMI;
+	fbMainComponent			: FB_BaseMainComponent_HMI;
 END_VAR
 ]]></Declaration>
     <Implementation>

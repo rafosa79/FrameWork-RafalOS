@@ -6,7 +6,7 @@
 	Rafał Osajda		19.09.2025		TC 4024.66
 	Rodzic dla wszystkich elementów wykonawczych
 *)
-FUNCTION_BLOCK FB_BaseExecutiveElement EXTENDS FB_BaseComponent IMPLEMENTS ITF_BaseExecutiveElement
+FUNCTION_BLOCK FB_BaseExecutiveElement EXTENDS FB_BaseComponent IMPLEMENTS ITF_BaseExecutiveElement, ITF_BaseExecutiveElement_HMI_Connector
 VAR
 END_VAR
 ]]></Declaration>

@@ -6,7 +6,7 @@
 	Rafał Osajda		19.09.2025		TC 4024.66
 	FB Bazowy dla wszystkich elementów złożonych
 *)
-FUNCTION_BLOCK FB_BaseComplexElement EXTENDS FB_BaseExecutiveElement IMPLEMENTS ITF_BaseComplexElement
+FUNCTION_BLOCK FB_BaseComplexElement EXTENDS FB_BaseExecutiveElement IMPLEMENTS ITF_BaseComplexElement, ITF_BaseComplexElement_HMI_Connector
 VAR
 END_VAR
 ]]></Declaration>

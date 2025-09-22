@@ -13,11 +13,11 @@ VAR
 	fbBaseLocation			: FB_BaseLocation;
 	
 	fbBaseLogger			: FB_BaseLogger;
-	fbBaseLoggerElement		: FB_BaseLoggerElement (refstCommonData := sttmpCommonData);
-	fbBaseComponent			: FB_BaseComponent (refstCommonData := sttmpCommonData);
-	fbBaseExecutiveElement	: FB_BaseExecutiveElement (refstCommonData := sttmpCommonData);
-	fbBaseComplexElement	: FB_BaseComplexElement (refstCommonData := sttmpCommonData);
-	fbBaseMainComponent		: FB_BaseMainComponent (refstCommonData := sttmpCommonData);
+	fbBaseLoggerElement		: FB_BaseLoggerElement;
+	fbBaseComponent			: FB_BaseComponent;
+	fbBaseExecutiveElement	: FB_BaseExecutiveElement;
+	fbBaseComplexElement	: FB_BaseComplexElement;
+	fbBaseMainComponent		: FB_BaseMainComponent;
 END_VAR
 ]]></Declaration>
     <Implementation>

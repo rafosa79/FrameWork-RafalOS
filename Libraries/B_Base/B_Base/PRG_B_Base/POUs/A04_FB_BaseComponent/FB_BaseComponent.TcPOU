@@ -6,7 +6,7 @@
 	Rafał Osajda		19.09.2025		TC 4024.66
 	Komponent bazowy dla elementów prostych
 *)
-FUNCTION_BLOCK FB_BaseComponent EXTENDS FB_BaseLoggerElement IMPLEMENTS ITF_BaseComponent
+FUNCTION_BLOCK FB_BaseComponent EXTENDS FB_BaseLoggerElement IMPLEMENTS ITF_BaseComponent, ITF_BaseComponent_HMI_Connector
 VAR
 END_VAR
 ]]></Declaration>
