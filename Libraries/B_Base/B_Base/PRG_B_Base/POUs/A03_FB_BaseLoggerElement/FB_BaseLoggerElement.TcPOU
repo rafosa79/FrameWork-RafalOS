@@ -6,9 +6,8 @@
 	Rafał Osajda		19.09.2025		TC 4024.66
 	Element bazowy umożliwiający potomkom wysyłaś zgłoszenia do logera
 *)
-FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_BaseDescriptor IMPLEMENTS ITF_BaseLoggerElement
+FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector
 VAR
-	refstCommonData			: REFERENCE TO ST_CommonData;
 
 
 END_VAR
@@ -16,19 +15,5 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Init" Id="{a43ff208-6465-0856-03a7-b9aebcd62c45}" />
-    <Method Name="FB_init" Id="{97b134fe-0cbf-0c91-1da4-63b4d9677ccb}" FolderPath="Init\">
-      <Declaration><![CDATA[METHOD FB_init : BOOL
-VAR_INPUT
-	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	refstCommonData			: REFERENCE TO ST_CommonData;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.refstCommonData			REF= refstCommonData;
-]]></ST>
-      </Implementation>
-    </Method>
   </POU>
 </TcPlcObject>
