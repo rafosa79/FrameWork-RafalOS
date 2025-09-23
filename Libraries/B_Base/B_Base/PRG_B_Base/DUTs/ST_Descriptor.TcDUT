@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_Descriptor" Id="{6599cd84-8a99-00ca-1312-c67e4a5fcf51}">
+    <Declaration><![CDATA[TYPE ST_Descriptor :
+STRUCT
+	stNames						: ST_Label;
+	sUnit						: STRING(6);
+	rValue						: REAL;
+	rMin						: REAL;
+	rMax						: REAL;
+	rDefaultValue				: REAL;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

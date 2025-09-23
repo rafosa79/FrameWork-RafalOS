@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseLabel" Id="{e151c3ef-0d70-0a6d-3db5-a2f1d96fba32}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		19.09.2025		TC 4024.66
+	
+*)
+FUNCTION_BLOCK FB_BaseLabel
+VAR
+	stTexts						: ST_Label;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="GetText" Id="{a0c7ed25-2400-05ca-0002-fe2f26536c5f}">
+      <Declaration><![CDATA[METHOD PUBLIC GetText : WSTRING
+VAR_INPUT
+	eLocation				: E_Location;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetText				:= THIS^.stTexts.arrText [eLocation];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetTexts" Id="{d80bba81-9353-01a2-25e9-143430746f38}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTexts : ST_Label
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetTexts				:=THIS^.stTexts;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetText" Id="{a325a82c-37c7-0885-1304-9e7776739f28}">
+      <Declaration><![CDATA[METHOD PUBLIC SetText
+VAR_INPUT
+	eLocation			: E_Location;
+	wsDescription		: WSTRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stTexts.arrText [eLocation]	:= wsDescription;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetTexts" Id="{ac0a0a67-d616-01b6-2ae1-e67d6995b8d6}">
+      <Declaration><![CDATA[METHOD PUBLIC SetTexts
+VAR_INPUT
+	stTexts				: ST_Label;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stTexts			:= stTexts;
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_BaseLabel">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseLabel.GetText">
+      <LineId Id="5" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseLabel.GetTexts">
+      <LineId Id="5" Count="1" />
+    </LineIds>
+    <LineIds Name="FB_BaseLabel.SetText">
+      <LineId Id="5" Count="0" />
+      <LineId Id="8" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseLabel.SetTexts">
+      <LineId Id="5" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

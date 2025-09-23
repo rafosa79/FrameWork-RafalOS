@@ -8,10 +8,14 @@
 *)
 FUNCTION_BLOCK FB_BaseDescriptor IMPLEMENTS ITF_BaseDescriptor
 VAR
+	stDeskryptor					: ST_Descriptor;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <LineIds Name="FB_BaseDescriptor">
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

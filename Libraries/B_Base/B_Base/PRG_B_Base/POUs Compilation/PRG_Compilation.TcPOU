@@ -3,6 +3,9 @@
   <POU Name="PRG_Compilation" Id="{1360e8a4-0d65-02a4-26da-1d595118164a}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
+	fbLabel					: FB_BaseLabel;
+	fbDescription			: FB_BaseDescriptor;
+
 	sttmpCommonData			: ST_CommonData;
 
 	fbBaseTime				: FB_BaseTime;
@@ -23,5 +26,8 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <LineIds Name="PRG_Compilation">
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

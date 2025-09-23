@@ -8,10 +8,39 @@
 *)
 FUNCTION_BLOCK FB_BaseTime IMPLEMENTS ITF_BaseTime
 VAR
+	fbLokalTime								: Tc2_Utilities.FB_LocalSystemTime;	//pobieranie czasu
+	stActulTime								: Tc2_Utilities.TIMESTRUCT;			//przychowywanie czasu
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Work" Id="{552cf3de-938f-0c47-0023-d37cf1f9e6e8}">
+      <Declaration><![CDATA[METHOD PUBLIC Work : BOOL
+VAR_INPUT
+	bIN				: bool;	//wlacz wyłacz
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbLokalTime(
+	sNetID									:= , 
+	bEnable									:= bIN, 
+	dwCycle									:= 1, 
+	dwOpt									:= , 
+	tTimeout								:= , 
+	bValid									=> Work, 
+	systemTime								=> stActulTime, 
+	tzID									=> 
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_BaseTime">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseTime.Work">
+      <LineId Id="3" Count="9" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>
