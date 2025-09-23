@@ -10,14 +10,25 @@ FUNCTION_BLOCK FB_Base EXTENDS FB_BaseDescriptor
 VAR
 	refstCommonData			: REFERENCE TO ST_CommonData;
 
+	bIsValidCommonData		:  bool;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="WiazanieZmiennych" Id="{b787f832-98eb-08e4-13a1-b117586dc5c5}" />
-    <Method Name="LinkData" Id="{4f5a813f-41fd-0c13-21e8-fdee6dda11cc}" FolderPath="WiazanieZmiennych\">
-      <Declaration><![CDATA[METHOD PUBLIC LinkData : BOOL
+    <Method Name="IsValidCommonData" Id="{6ff98029-6e25-03f9-2c55-fb673de1e900}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC IsValidCommonData : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsValidCommonData			:= THIS^.bIsValidCommonData;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkCommonData" Id="{4f5a813f-41fd-0c13-21e8-fdee6dda11cc}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
 VAR_INPUT
 	stCommonData				: ST_CommonData;
 END_VAR
@@ -26,9 +37,10 @@ END_VAR
         <ST><![CDATA[THIS^.refstCommonData			REF= stCommonData;
 
 IF (__ISVALIDREF (THIS^.refstCommonData)) THEN
-	LinkData					:= TRUE;
+	THIS^.bIsValidCommonData		:= TRUE;
+	LinkCommonData					:= TRUE;
 ELSE
-	LinkData					:= FALSE;
+	LinkCommonData					:= FALSE;
 END_IF
 ]]></ST>
       </Implementation>

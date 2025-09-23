@@ -10,6 +10,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_ControlElement_HMI" Id="{4058a596-c262-4ce5-adbb-2422ae7eb30c}" />
     <Method Name="FB_init" Id="{b9738a13-18ea-4753-90b7-8525f5e660e5}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
@@ -35,6 +36,22 @@ IF (THIS^.itfControlElementConnector <> 0 AND
 	THIS^.itfBaseControlElementConnector <> 0 AND
 	THIS^.itfBaseLoggerConnector <> 0) THEN
 	THIS^.bIsInit						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkControlElementData" Id="{9ee2bb6f-ad99-45ad-b84c-15e014e2b842}" FolderPath="ITF_ControlElement_HMI\">
+      <Declaration><![CDATA[METHOD LinkControlElementData : BOOL
+VAR_INPUT
+	stData				: ST_ControlElement_HMI;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstControlElementData	REF= stData;
+
+IF (__ISVALIDREF (THIS^.refstControlElementData)) THEN
+	THIS^.bIsValidData		:= TRUE;
+	LinkControlElementData	:= TRUE;
 END_IF
 ]]></ST>
       </Implementation>

@@ -10,6 +10,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_TopElement_HMI" Id="{cc456a88-f147-42c3-b563-9e014e00639c}" />
     <Method Name="FB_init" Id="{ee1e6a46-fdbb-4ec7-8f35-1725de8de569}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
@@ -39,6 +40,22 @@ IF (THIS^.itfTopElementConnector <> 0 AND
 	THIS^.itfBaseTopElementConnector <> 0 AND
 	THIS^.itfBaseLoggerConnector <> 0) THEN
 	THIS^.bIsInit						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkTopElementData" Id="{b5b619bd-8b68-4908-b96b-4f1ab05bb941}" FolderPath="ITF_TopElement_HMI\">
+      <Declaration><![CDATA[METHOD LinkTopElementData : BOOL
+VAR_INPUT
+	stData				: ST_TopElement_HMI;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstTopElementData	REF= stData;
+
+IF (__ISVALIDREF (THIS^.refstTopElementData)) THEN
+	THIS^.bIsValidData		:= TRUE;
+	LinkTopElementData		:= TRUE;
 END_IF
 ]]></ST>
       </Implementation>

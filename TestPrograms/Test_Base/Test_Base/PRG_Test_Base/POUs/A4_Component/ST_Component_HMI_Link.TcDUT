@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
-  <DUT Name="ST_Component_HMI" Id="{f58608a4-5954-4d37-86b7-4ce6ca0fa504}">
+  <DUT Name="ST_Component_HMI_Link" Id="{216acca6-72b9-42d5-bfc6-2be5c27a09ff}">
     <Declaration><![CDATA[(*	Struktura zawierające dane tylko tego elementu	*)
-TYPE ST_Component_HMI :
+TYPE ST_Component_HMI_Link EXTENDS ST_BaseComponent_HMI_Link :
 STRUCT
-	bZmiennaComponentHMI	: BOOL;
+	stComponent			: ST_Component_HMI;
 
 END_STRUCT
 END_TYPE

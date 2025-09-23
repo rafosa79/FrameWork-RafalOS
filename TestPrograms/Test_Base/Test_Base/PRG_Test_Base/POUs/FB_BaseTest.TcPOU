@@ -25,7 +25,7 @@ END_VAR]]></Declaration>
 	GVL.stCommonData.itfLocaciotn			:= GVL.fbMyLocation;
 	GVL.stCommonData.itfLogger				:= GVL.fbLogger;
 	
-	bWynik		:= GVL_Variable.fbBasetest.LinkData (stCommonData	:= GVL.stCommonData);
+	bWynik		:= GVL_Variable.fbBasetest.LinkCommonData (stCommonData	:= GVL.stCommonData);
 	
 	AssertTrue (Condition := bWynik, Message := 'T01 - test utworezenia referencji');
 	

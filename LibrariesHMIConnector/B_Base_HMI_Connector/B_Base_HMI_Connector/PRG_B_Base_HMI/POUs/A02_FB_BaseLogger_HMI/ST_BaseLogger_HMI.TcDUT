@@ -3,6 +3,7 @@
   <DUT Name="ST_BaseLogger_HMI" Id="{5fb8738b-690e-028a-35e6-f12e4079a5f0}">
     <Declaration><![CDATA[TYPE ST_BaseLogger_HMI :
 STRUCT
+	bDanaBaseLogger		: BOOL;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

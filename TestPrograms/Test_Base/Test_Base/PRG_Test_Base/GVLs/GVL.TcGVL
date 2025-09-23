@@ -9,6 +9,11 @@ VAR_GLOBAL
 	
 	stCommonData			: ST_CommonData;
 	
+	stComponentData_1		: ST_Component_HMI_Link;
+	stControlElementData_1	: ST_ControlElement_HMI;
+	stGroupElementData_1	: ST_GroupElement_HMI;
+	stTopElementData_1		: ST_TopElement_HMI;
+	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

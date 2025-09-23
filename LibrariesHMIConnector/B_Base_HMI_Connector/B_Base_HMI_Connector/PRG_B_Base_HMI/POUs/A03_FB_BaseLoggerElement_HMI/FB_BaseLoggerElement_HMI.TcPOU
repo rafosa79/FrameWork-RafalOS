@@ -13,33 +13,33 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="GetIsInit" Id="{ff032025-bb47-0541-2e34-4756feab4ddd}">
+    <Method Name="IsInit" Id="{ff032025-bb47-0541-2e34-4756feab4ddd}">
       <Declaration><![CDATA[(*			
 	RAFALOS
 	Rafał Osajda		23.09.2025		TC 4024.66
 	Zwraca informację czy dane są podpięte do systemu
 *)
-METHOD PUBLIC GetIsInit : BOOL
+METHOD PUBLIC IsInit : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetIsInit			:= THIS^.bIsInit;
+        <ST><![CDATA[IsInit			:= THIS^.bIsInit;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetIsValidData" Id="{f2f46b20-d299-05ed-341f-5d54b19130b7}">
+    <Method Name="IsValidData" Id="{f2f46b20-d299-05ed-341f-5d54b19130b7}">
       <Declaration><![CDATA[(*			
 	RAFALOS
 	Rafał Osajda		23.09.2025		TC 4024.66
 	Zwraca flagę przypisywaną w FB_Init tworzonego elementu
 *)
-METHOD GetIsValidData : BOOL
+METHOD IsValidData : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetIsValidData				:= THIS^.bIsValidData;
+        <ST><![CDATA[IsValidData				:= THIS^.bIsValidData;
 ]]></ST>
       </Implementation>
     </Method>

@@ -3,6 +3,8 @@
   <DUT Name="ST_BaseControlElement_HMI" Id="{eb9c7dc9-a2ac-0d87-200e-8ddc8d79ced0}">
     <Declaration><![CDATA[TYPE ST_BaseControlElement_HMI :
 STRUCT
+	bDanaBaseControlElement		: BOOL;
+	
 END_STRUCT
 END_TYPE
 ]]></Declaration>

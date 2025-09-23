@@ -3,5 +3,12 @@
   <Itf Name="ITF_Component_HMI" Id="{53d14405-dc04-4c14-986c-e6dfca1c6596}">
     <Declaration><![CDATA[INTERFACE ITF_Component_HMI
 ]]></Declaration>
+    <Method Name="LinkComponentData" Id="{e5e73123-96ac-4aa2-9edb-e5564f66e9d9}">
+      <Declaration><![CDATA[METHOD LinkComponentData : BOOL
+VAR_INPUT
+	stData					: REFERENCE TO ST_Component_HMI_Link;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

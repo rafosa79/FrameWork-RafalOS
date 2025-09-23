@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseComponent_HMI_Link" Id="{175661a4-aa2d-0650-1cf8-8a651fc90cc4}">
+    <Declaration><![CDATA[TYPE ST_BaseComponent_HMI_Link :
+STRUCT
+	stBaseLoggerElement				: ST_BaseLoggerElement_HMI;
+	stBaseComponent					: ST_BaseComponent_HMI;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -3,5 +3,12 @@
   <Itf Name="ITF_GroupElement_HMI" Id="{56ded6a8-c57d-4918-9207-29ee5c9f0bfe}">
     <Declaration><![CDATA[INTERFACE ITF_GroupElement_HMI
 ]]></Declaration>
+    <Method Name="LinkGroupelementData" Id="{64ef952f-6751-437c-b0de-46c34b5f4196}">
+      <Declaration><![CDATA[METHOD LinkGroupelementData : BOOL
+VAR_INPUT
+	stData					: ST_GroupElement_HMI;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>
