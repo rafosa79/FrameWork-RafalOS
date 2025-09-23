@@ -8,14 +8,64 @@
 *)
 FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector
 VAR
-
-
+	stIdentifier								: ST_ElementIdentifier;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ID" Id="{9f4accde-c200-0e3a-3280-17fd6d107d51}" />
     <Folder Name="ITF_BaseLoggerElement_HMI_Connector" Id="{abdbf241-16b7-0948-3bea-83a764b01a75}" />
+    <Method Name="GetCode" Id="{af745aea-1b66-059b-10b2-395e94251847}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetCode : STRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetCode			:= THIS^.stIdentifier.sCode;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetID" Id="{76a78e74-7761-0532-0c6a-49d51d5b5955}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetID : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetID				:= THIS^.stIdentifier.uiID;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIdentyfier" Id="{48d63181-6e27-0c5e-3c1d-ae09759ac84b}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetIdentyfier : ST_ElementIdentifier
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIdentyfier				:= THIS^.stIdentifier;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetName" Id="{f31b5203-9f85-03eb-3e31-406645634fd5}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetName : ST_Label
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetName				:= THIS^.stIdentifier.stName;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetType" Id="{61940ec7-463b-0e69-2135-9287ae34093b}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetType : E_ElementType
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetType				:= THIS^.stIdentifier.eType;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="MetodaBaseLoggerElementHMIConnector" Id="{437aee4c-8ff1-0551-0c74-ef940e363677}" FolderPath="ITF_BaseLoggerElement_HMI_Connector\">
       <Declaration><![CDATA[METHOD MetodaBaseLoggerElementHMIConnector : BOOL
 VAR_INPUT
@@ -23,6 +73,49 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCode" Id="{fe7a56f6-55e1-0e90-11d6-90800c0cf084}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetCode
+VAR_INPUT
+	sCode							: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stIdentifier.sCode				:= sCode;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetID" Id="{9acba3a6-fc5f-0ece-1ab3-a775104efe88}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetID
+VAR_INPUT
+	uiID					: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stIdentifier.uiID			:= uiID;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetName" Id="{206e85b8-29f8-08fa-23dd-60a3f6071df5}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetName
+VAR_INPUT
+	stName				: ST_Label;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[this^.stIdentifier.stName			:= stName;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetType" Id="{bf11665f-1c90-0e8a-0bd5-6357f50d48e0}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetType
+VAR_INPUT
+	eType					: E_ElementType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stIdentifier.eType				:= eType;
+]]></ST>
       </Implementation>
     </Method>
   </POU>

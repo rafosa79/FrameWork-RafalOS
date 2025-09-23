@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_ElementType" Id="{73587c91-1fa0-06c4-0f91-253f9abd65e6}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_ElementType :
+(
+	eComponent 	:= 1,
+	eControl	:= 2,
+	eGroup		:= 3,
+	eTop		:= 4
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
