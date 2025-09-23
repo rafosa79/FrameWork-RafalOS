@@ -6,7 +6,7 @@
     <Method Name="LinkGroupelementData" Id="{64ef952f-6751-437c-b0de-46c34b5f4196}">
       <Declaration><![CDATA[METHOD LinkGroupelementData : BOOL
 VAR_INPUT
-	stData					: ST_GroupElement_HMI;
+	stData					: REFERENCE TO ST_GroupElement_HMI_Link;
 END_VAR
 ]]></Declaration>
     </Method>

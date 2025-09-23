@@ -128,6 +128,9 @@
     <Compile Include="POUs\A05_FB_BaseControlElement_HMI\ST_BaseControlElement_HMI.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A05_FB_BaseControlElement_HMI\ST_BaseControlElement_HMI_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A06_FB_BaseGroupElement_HMI\FB_BaseGroupElement_HMI.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -137,6 +140,9 @@
     <Compile Include="POUs\A06_FB_BaseGroupElement_HMI\ST_BaseGroupElement_HMI.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A06_FB_BaseGroupElement_HMI\ST_BaseGroupElement_HMI_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A07_FB_BaseTopElement_HMI\FB_BaseTopElement_HMI.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -144,6 +150,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A07_FB_BaseTopElement_HMI\ST_BaseTopElement_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07_FB_BaseTopElement_HMI\ST_BaseTopElement_HMI_Link.TcDUT">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -43,13 +43,20 @@ END_IF
     <Method Name="LinkControlElementData" Id="{9ee2bb6f-ad99-45ad-b84c-15e014e2b842}" FolderPath="ITF_ControlElement_HMI\">
       <Declaration><![CDATA[METHOD LinkControlElementData : BOOL
 VAR_INPUT
-	stData				: ST_ControlElement_HMI;
+	stData				: reference to ST_ControlElement_HMI_Link;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.refstControlElementData	REF= stData;
+        <ST><![CDATA[THIS^.refstControlElementData	REF= stData.stControlElement;
 
-IF (__ISVALIDREF (THIS^.refstControlElementData)) THEN
+THIS^.refstBaseLoggerElementDataHMI	REF= stData.stBaseLoggerElement;
+THIS^.refstBaseComponentDataHMI		REF= stData.stBaseComponent;
+THIS^.refstBaseControlElementDataHMI	REF= stData.stBaseControlElement;
+
+IF (__ISVALIDREF (THIS^.refstControlElementData) AND
+	__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI) AND
+	__ISVALIDREF (THIS^.refstBaseComponentDataHMI) AND
+	__ISVALIDREF (THIS^.refstBaseControlElementDataHMI)) THEN
 	THIS^.bIsValidData		:= TRUE;
 	LinkControlElementData	:= TRUE;
 END_IF

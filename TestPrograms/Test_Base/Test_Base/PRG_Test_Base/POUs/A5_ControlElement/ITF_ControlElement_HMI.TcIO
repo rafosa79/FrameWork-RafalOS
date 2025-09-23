@@ -6,7 +6,7 @@
     <Method Name="LinkControlElementData" Id="{6809e73f-35c9-4469-9ccd-79e6c59c7c58}">
       <Declaration><![CDATA[METHOD LinkControlElementData : BOOL
 VAR_INPUT
-	stData				: ST_ControlElement_HMI;
+	stData				: REFERENCE TO ST_ControlElement_HMI_Link;
 END_VAR
 ]]></Declaration>
     </Method>
