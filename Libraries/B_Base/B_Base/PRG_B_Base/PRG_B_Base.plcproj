@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <FileVersion>1.0.0.0</FileVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{702dc0a4-99d9-4084-a379-ecc0f6322519}</ProjectGuid>
+    <SubObjectsSortedByName>True</SubObjectsSortedByName>
+    <DownloadApplicationInfo>true</DownloadApplicationInfo>
+    <WriteProductVersion>false</WriteProductVersion>
+    <GenerateTpy>false</GenerateTpy>
+    <Name>PRG_B_Base</Name>
+    <ProgramVersion>3.1.4024.0</ProgramVersion>
+    <Application>{2e6cd779-2353-4ef8-9515-cf5d127a32d0}</Application>
+    <TypeSystem>{f845d0eb-6085-4f4b-8131-0fcef936f268}</TypeSystem>
+    <Implicit_Task_Info>{ea9fbd7b-76e2-4365-9ebb-cda6a6a006d3}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{1bd6d84d-7dc8-4036-8034-8a04701f917f}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{fa880441-f4cf-4a9c-9d1b-a63a0c8fed73}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{cef59e30-701d-430f-a988-a5d8b465c37d}</LibraryReferences>
+    <Released>false</Released>
+    <CombineIds>true</CombineIds>
+    <Company>RafalOS</Company>
+    <Title>B_Base</Title>
+    <ProjectVersion>0.0.0.8</ProjectVersion>
+    <LibraryCategories>
+      <LibraryCategory xmlns="">
+        <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
+        <Version>1.0.0.0</Version>
+        <DefaultName>RafalOS</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
+        </ParentCategory>
+        <DefaultName>Libraries and their elements</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{b9904a12-953a-4ef3-ac35-10e52398b2c1}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        </ParentCategory>
+        <DefaultName>Libraries</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{d7993a17-e2cc-40b8-abc3-8f6a6054b793}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        </ParentCategory>
+        <DefaultName>Libraries HMI Connector</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{965bfd45-94a6-4019-b3e4-d0869ce533c6}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        </ParentCategory>
+        <DefaultName>Decorators for library elements</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{501eed1d-c165-4994-a262-657bb34e1119}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        </ParentCategory>
+        <DefaultName>Libraries PLCHMI</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{4b941d07-e34c-48f7-83cf-ea402c5a73e5}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
+        </ParentCategory>
+        <DefaultName>Smarownica</DefaultName>
+      </LibraryCategory>
+    </LibraryCategories>
+    <SelectedLibraryCategories>
+      <Id xmlns="">{b9904a12-953a-4ef3-ac35-10e52398b2c1}</Id>
+    </SelectedLibraryCategories>
+    <DefaultNamespace>B_Base</DefaultNamespace>
+    <Author>Rafał Osajda</Author>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="DUTs\ST_CommonData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\FB_BaseTime.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\FB_BaseCommand.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\FB_BaseDescriptor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\FB_BaseFlag.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\FB_BaseImpulse.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\FB_BaseLocation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseCommand.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseDescriptor.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseFlag.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseImpulse.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseLocation.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseTime.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A01_Base\FB_Base.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A02_FB_BaseLogger\FB_BaseLogger.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A02_FB_BaseLogger\ITF_BaseLogger.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A02_FB_BaseLogger\ITF_BaseLogger_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A03_FB_BaseLoggerElement\FB_BaseLoggerElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A03_FB_BaseLoggerElement\ITF_BaseLoggerElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A03_FB_BaseLoggerElement\ITF_BaseLoggerElement_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A04_FB_BaseComponent\FB_BaseComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A04_FB_BaseComponent\ITF_BaseComponent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A04_FB_BaseComponent\ITF_BaseComponent_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A05_FB_BaseControlElement\FB_BaseControlElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A05_FB_BaseControlElement\ITF_BaseControlElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A05_FB_BaseControlElement\ITF_BaseControlElement_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06_FB_BaseGroupElement\FB_BaseGroupElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06_FB_BaseGroupElement\ITF_BaseGroupElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06_FB_BaseGroupElement\ITF_BaseGroupElement_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07_FB_BaseTopElement\FB_BaseTopElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseTopElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseTopElement_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DUTs" />
+    <Folder Include="GVLs" />
+    <Folder Include="POUs Compilation" />
+    <Folder Include="POUs\A04_FB_BaseComponent" />
+    <Folder Include="POUs\A02_FB_BaseLogger" />
+    <Folder Include="POUs\A03_FB_BaseLoggerElement" />
+    <Folder Include="POUs\A00_Basic" />
+    <Folder Include="POUs\A01_Base" />
+    <Folder Include="POUs\A05_FB_BaseControlElement" />
+    <Folder Include="POUs\A06_FB_BaseGroupElement" />
+    <Folder Include="POUs\A07_FB_BaseTopElement" />
+    <Folder Include="VISUs" />
+    <Folder Include="POUs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderReference Include="Tc2_Standard">
+      <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Standard</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_System">
+      <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_Module">
+      <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_Module</Namespace>
+    </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PRG_B_Base.tmc">
+      <SubType>Content</SubType>
+    </None>
+  </ItemGroup>
+  <ProjectExtensions>
+    <PlcProjectOptions>
+      <XmlArchive>
+        <Data>
+          <o xml:space="preserve" t="OptionKey">
+      <v n="Name">"&lt;ProjectRoot&gt;"</v>
+      <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+        <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>
+        <o>
+          <v n="Name">"{40450F57-0AA3-4216-96F3-5444ECB29763}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="String">
+            <v>ActiveVisuProfile</v>
+            <v>IR0whWr8bwfwBwAAiD2qpQAAAABVAgAA37x72QAAAAABAAAAAAAAAAEaUwB5AHMAdABlAG0ALgBTAHQAcgBpAG4AZwACTHsAZgA5ADUAYgBiADQAMgA2AC0ANQA1ADIANAAtADQAYgA0ADUALQA5ADQAMAAwAC0AZgBiADAAZgAyAGUANwA3AGUANQAxAGIAfQADCE4AYQBtAGUABDBUAHcAaQBuAEMAQQBUACAAMwAuADEAIABCAHUAaQBsAGQAIAA0ADAAMgA0AC4ANwAFFlAAcgBvAGYAaQBsAGUARABhAHQAYQAGTHsAMQA2AGUANQA1AGIANgAwAC0ANwAwADQAMwAtADQAYQA2ADMALQBiADYANQBiAC0ANgAxADQANwAxADMAOAA3ADgAZAA0ADIAfQAHEkwAaQBiAHIAYQByAGkAZQBzAAhMewAzAGIAZgBkADUANAA1ADkALQBiADAANwBmAC0ANABkADYAZQAtAGEAZQAxAGEALQBhADgAMwAzADUANgBhADUANQAxADQAMgB9AAlMewA5AGMAOQA1ADgAOQA2ADgALQAyAGMAOAA1AC0ANAAxAGIAYgAtADgAOAA3ADEALQA4ADkANQBmAGYAMQBmAGUAZABlADEAYQB9AAoOVgBlAHIAcwBpAG8AbgALBmkAbgB0AAwKVQBzAGEAZwBlAA0KVABpAHQAbABlAA4aVgBpAHMAdQBFAGwAZQBtAE0AZQB0AGUAcgAPDkMAbwBtAHAAYQBuAHkAEAxTAHkAcwB0AGUAbQARElYAaQBzAHUARQBsAGUAbQBzABIwVgBpAHMAdQBFAGwAZQBtAHMAUwBwAGUAYwBpAGEAbABDAG8AbgB0AHIAbwBsAHMAEyhWAGkAcwB1AEUAbABlAG0AcwBXAGkAbgBDAG8AbgB0AHIAbwBsAHMAFCRWAGkAcwB1AEUAbABlAG0AVABlAHgAdABFAGQAaQB0AG8AcgAVIlYAaQBzAHUATgBhAHQAaQB2AGUAQwBvAG4AdAByAG8AbAAWFHYAaQBzAHUAaQBuAHAAdQB0AHMAFwxzAHkAcwB0AGUAbQAYGFYAaQBzAHUARQBsAGUAbQBCAGEAcwBlABkmRABlAHYAUABsAGEAYwBlAGgAbwBsAGQAZQByAHMAVQBzAGUAZAAaCGIAbwBvAGwAGyJQAGwAdQBnAGkAbgBDAG8AbgBzAHQAcgBhAGkAbgB0AHMAHEx7ADQAMwBkADUAMgBiAGMAZQAtADkANAAyAGMALQA0ADQAZAA3AC0AOQBlADkANAAtADEAYgBmAGQAZgAzADEAMABlADYAMwBjAH0AHRxBAHQATABlAGEAcwB0AFYAZQByAHMAaQBvAG4AHhRQAGwAdQBnAGkAbgBHAHUAaQBkAB8WUwB5AHMAdABlAG0ALgBHAHUAaQBkACBIYQBmAGMAZAA1ADQANAA2AC0ANAA5ADEANAAtADQAZgBlADcALQBiAGIANwA4AC0AOQBiAGYAZgBlAGIANwAwAGYAZAAxADcAIRRVAHAAZABhAHQAZQBJAG4AZgBvACJMewBiADAAMwAzADYANgBhADgALQBiADUAYwAwAC0ANABiADkAYQAtAGEAMAAwAGUALQBlAGIAOAA2ADAAMQAxADEAMAA0AGMAMwB9ACMOVQBwAGQAYQB0AGUAcwAkTHsAMQA4ADYAOABmAGYAYwA5AC0AZQA0AGYAYwAtADQANQAzADIALQBhAGMAMAA2AC0AMQBlADMAOQBiAGIANQA1ADcAYgA2ADkAfQAlTHsAYQA1AGIAZAA0ADgAYwAzAC0AMABkADEANwAtADQAMQBiADUALQBiADEANgA0AC0ANQBmAGMANgBhAGQAMgBiADkANgBiADcAfQAmFk8AYgBqAGUAYwB0AHMAVAB5AHAAZQAnVFUAcABkAGEAdABlAEwAYQBuAGcAdQBhAGcAZQBNAG8AZABlAGwARgBvAHIAQwBvAG4AdgBlAHIAdABpAGIAbABlAEwAaQBiAHIAYQByAGkAZQBzACgQTABpAGIAVABpAHQAbABlACkUTABpAGIAQwBvAG0AcABhAG4AeQAqHlUAcABkAGEAdABlAFAAcgBvAHYAaQBkAGUAcgBzACs4UwB5AHMAdABlAG0ALgBDAG8AbABsAGUAYwB0AGkAbwBuAHMALgBIAGEAcwBoAHQAYQBiAGwAZQAsEnYAaQBzAHUAZQBsAGUAbQBzAC1INgBjAGIAMQBjAGQAZQAxAC0AZAA1AGQAYwAtADQAYQAzAGIALQA5ADAANQA0AC0AMgAxAGYAYQA3ADUANgBhADMAZgBhADQALihJAG4AdABlAHIAZgBhAGMAZQBWAGUAcgBzAGkAbwBuAEkAbgBmAG8AL0x7AGMANgAxADEAZQA0ADAAMAAtADcAZgBiADkALQA0AGMAMwA1AC0AYgA5AGEAYwAtADQAZQAzADEANABiADUAOQA5ADYANAAzAH0AMBhNAGEAagBvAHIAVgBlAHIAcwBpAG8AbgAxGE0AaQBuAG8AcgBWAGUAcgBzAGkAbwBuADIMTABlAGcAYQBjAHkAMzBMAGEAbgBnAHUAYQBnAGUATQBvAGQAZQBsAFYAZQByAHMAaQBvAG4ASQBuAGYAbwA0MEwAbwBhAGQATABpAGIAcgBhAHIAaQBlAHMASQBuAHQAbwBQAHIAbwBqAGUAYwB0ADUaQwBvAG0AcABhAHQAaQBiAGkAbABpAHQAeQDQAAIaA9ADAS0E0AUGGgfQBwgaAUUHCQjQAAkaBEUKCwQDAAAABQAAAA0AAAAAAAAA0AwLrQIAAADQDQEtDtAPAS0Q0AAJGgRFCgsEAwAAAAUAAAANAAAAKAAAANAMC60BAAAA0A0BLRHQDwEtENAACRoERQoLBAMAAAAFAAAADQAAAAAAAADQDAutAgAAANANAS0S0A8BLRDQAAkaBEUKCwQDAAAABQAAAA0AAAAUAAAA0AwLrQIAAADQDQEtE9APAS0Q0AAJGgRFCgsEAwAAAAUAAAANAAAAAAAAANAMC60CAAAA0A0BLRTQDwEtENAACRoERQoLBAMAAAAFAAAADQAAAAAAAADQDAutAgAAANANAS0V0A8BLRDQAAkaBEUKCwQDAAAABQAAAA0AAAAAAAAA0AwLrQIAAADQDQEtFtAPAS0X0AAJGgRFCgsEAwAAAAUAAAANAAAAKAAAANAMC60EAAAA0A0BLRjQDwEtENAZGq0BRRscAdAAHBoCRR0LBAMAAAAFAAAADQAAAAAAAADQHh8tINAhIhoCRSMkAtAAJRoFRQoLBAMAAAADAAAAAAAAAAoAAADQJgutAAAAANADAS0n0CgBLRHQKQEtENAAJRoFRQoLBAMAAAADAAAAAAAAAAoAAADQJgutAQAAANADAS0n0CgBLRHQKQEtEJoqKwFFAAEC0AABLSzQAAEtF9AAHy0t0C4vGgPQMAutAQAAANAxC60XAAAA0DIarQDQMy8aA9AwC60CAAAA0DELrQMAAADQMhqtANA0Gq0A0DUarQA=</v>
+          </d>
+        </o>
+        <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
+        <o>
+          <v n="Name">"{192FAD59-8248-4824-A8DE-9177C94C195A}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
+      </d>
+      <d n="Values" t="Hashtable" />
+    </o>
+        </Data>
+        <TypeList>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+          <Type n="String">System.String</Type>
+        </TypeList>
+      </XmlArchive>
+    </PlcProjectOptions>
+  </ProjectExtensions>
+</Project>

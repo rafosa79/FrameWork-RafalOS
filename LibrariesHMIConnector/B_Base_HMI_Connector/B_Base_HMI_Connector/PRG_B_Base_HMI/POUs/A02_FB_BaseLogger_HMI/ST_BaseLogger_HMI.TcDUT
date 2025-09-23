@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseLogger_HMI" Id="{5fb8738b-690e-028a-35e6-f12e4079a5f0}">
+    <Declaration><![CDATA[TYPE ST_BaseLogger_HMI :
+STRUCT
+	bDanaBaseLogger		: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

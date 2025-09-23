@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Component_HMI" Id="{262cdf04-054e-404a-a25f-05e09b93d66c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Component_HMI EXTENDS FB_BaseComponent_HMI IMPLEMENTS ITF_Component_HMI
+VAR
+	itfComponentConnector				: ITF_Component_HMI_Connector;
+	refstComponentData					: REFERENCE TO ST_Component_HMI;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_Component_HMI" Id="{8af39644-3a9d-42e3-845c-3c356144c7ca}" />
+    <Method Name="FB_init" Id="{c67d7f75-7170-4625-b120-67c67145bf97}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfBaseLoggerConnector				: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
+	itfComponentConnector				: ITF_Component_HMI_Init;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Przypisanie do elementu który własnie stworzyliśmy
+THIS^.itfComponentConnector				:= itfComponentConnector;
+//Przypisanie do elementów z biblioteki
+THIS^.itfBaseLoggerElementConnector		:= itfComponentConnector;
+THIS^.itfBaseComponentConnector			:= itfComponentConnector;
+
+//
+THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
+
+IF (THIS^.itfComponentConnector <> 0 AND
+	THIS^.itfBaseLoggerElementConnector <> 0 AND
+	THIS^.itfBaseComponentConnector	<> 0 AND
+	THIS^.itfBaseLoggerConnector <> 0) THEN
+	THIS^.bIsInit						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkComponentData" Id="{8516c3e7-bb63-4986-8e5e-2f700f985d34}" FolderPath="ITF_Component_HMI\">
+      <Declaration><![CDATA[METHOD LinkComponentData : BOOL
+VAR_INPUT
+	stData					: REFERENCE TO ST_Component_HMI_Link;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstComponentData	REF= stData.stComponent;
+
+THIS^.refstBaseLoggerElementDataHMI	REF= stData.stBaseLoggerElement;
+THIS^.refstBaseComponentDataHMI		REF= stData.stBaseComponent;
+
+IF (__ISVALIDREF (THIS^.refstComponentData) AND
+	__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI) AND
+	__ISVALIDREF (THIS^.refstBaseComponentDataHMI) ) THEN
+	THIS^.bIsValidData		:= TRUE;
+	LinkComponentData		:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

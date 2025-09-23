@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Base" Id="{7a22c2ba-61a6-0678-2849-35514d2ac7b9}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		22.09.2025		TC 4024.66
+	Bazowy FB dla wszystkich elementów systemu, zawiera główne metody dla łaczenia danych
+*)
+FUNCTION_BLOCK FB_Base EXTENDS FB_BaseDescriptor
+VAR
+	refstCommonData			: REFERENCE TO ST_CommonData;
+
+	bIsValidCommonData		:  bool;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="WiazanieZmiennych" Id="{b787f832-98eb-08e4-13a1-b117586dc5c5}" />
+    <Method Name="IsValidCommonData" Id="{6ff98029-6e25-03f9-2c55-fb673de1e900}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC IsValidCommonData : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsValidCommonData			:= THIS^.bIsValidCommonData;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkCommonData" Id="{4f5a813f-41fd-0c13-21e8-fdee6dda11cc}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
+VAR_INPUT
+	stCommonData				: ST_CommonData;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstCommonData			REF= stCommonData;
+
+IF (__ISVALIDREF (THIS^.refstCommonData)) THEN
+	THIS^.bIsValidCommonData		:= TRUE;
+	LinkCommonData					:= TRUE;
+ELSE
+	LinkCommonData					:= FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

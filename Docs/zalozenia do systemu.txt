@@ -1,0 +1,3 @@
+Loger tylko zbiera dane dopisuje do listy z kolejki i konczy potwierdza jak przyjdzie komenda do kolejki
+Element_HMI pobiera całą ref do całej tablicy i sam sobie filtruje 
+Loger_HMI - póki co niepotrzbne 

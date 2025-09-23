@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseTopElement_HMI" Id="{d9fb61e2-46e3-081a-2db2-ee62cb4cde2f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseTopElement_HMI EXTENDS FB_BaseGroupElement_HMI IMPLEMENTS ITF_BaseTopElement_HMI
+VAR
+	itfBaseTopElementConnector			: ITF_BaseTopElement_HMI_Connector;
+	refstBaseTopElementDataHMI			: REFERENCE TO ST_BaseTopElement_HMI;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseComponent" Id="{87e0f050-2d49-0545-1d2d-1d8cc43d61c2}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		19.09.2025		TC 4024.66
+	Komponent bazowy dla elementów prostych
+*)
+FUNCTION_BLOCK FB_BaseComponent EXTENDS FB_BaseLoggerElement IMPLEMENTS ITF_BaseComponent, ITF_BaseComponent_HMI_Connector
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

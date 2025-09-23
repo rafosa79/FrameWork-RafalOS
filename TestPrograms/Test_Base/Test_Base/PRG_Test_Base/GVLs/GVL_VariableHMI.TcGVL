@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL_VariableHMI" Id="{b9a94705-a932-4492-af2c-d0486e584051}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	fbComponentHMI_1			: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbComponent_1);
+	fbControlrElementHMI_1		: FB_ControlElement_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfControlElementConnector := GVL_Variable.fbControlElement_1);
+	fbGroupElementHMI_1			: FB_GroupElement_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfGroupelementConnector := GVL_Variable.fbGroupElement_1);
+	fbTopElementHMI_1			: FB_TopElement_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfTopElementConnector := GVL_Variable.fbTopElement_1);
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

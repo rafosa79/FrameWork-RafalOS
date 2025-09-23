@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseLoggerElement" Id="{84ce134f-38cc-08bd-3d60-40e507799b32}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		19.09.2025		TC 4024.66
+	Element bazowy umożliwiający potomkom wysyłaś zgłoszenia do logera
+*)
+FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector
+VAR
+
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_BaseLoggerElement_HMI_Connector" Id="{abdbf241-16b7-0948-3bea-83a764b01a75}" />
+    <Method Name="MetodaBaseLoggerElementHMIConnector" Id="{437aee4c-8ff1-0551-0c74-ef940e363677}" FolderPath="ITF_BaseLoggerElement_HMI_Connector\">
+      <Declaration><![CDATA[METHOD MetodaBaseLoggerElementHMIConnector : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

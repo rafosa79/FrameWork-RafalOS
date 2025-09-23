@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <Itf Name="ITF_ControlElement" Id="{877b1e1f-83e8-44f6-8ffa-51e9467885b8}">
+    <Declaration><![CDATA[INTERFACE ITF_ControlElement
+
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_GroupElement_HMI" Id="{19883d18-afce-4591-ab72-0deda3f3642e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_GroupElement_HMI EXTENDS FB_BaseGroupElement_HMI IMPLEMENTS ITF_GroupElement_HMI
+VAR
+	itfGroupElementConnector			: ITF_GroupElement_HMI_Connector;
+	refstGroupElementData				: REFERENCE TO ST_GroupElement_HMI;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_GroupElement_HMI" Id="{c7262793-080a-4a80-b8cd-5912156ea0a0}" />
+    <Method Name="FB_init" Id="{60cf9aa3-a3c1-477d-943b-0793fbe6bf08}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfBaseLoggerConnector				: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
+	itfGroupElementConnector			: ITF_GroupElement_HMI_Init;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Przypisanie do elementu który własnie stworzyliśmy
+THIS^.itfGroupElementConnector			:= itfGroupElementConnector;
+//Przypisanie do elementów z biblioteki
+THIS^.itfBaseLoggerElementConnector		:= itfGroupElementConnector;
+THIS^.itfBaseComponentConnector			:= itfGroupElementConnector;
+THIS^.itfBaseControlElementConnector	:= itfGroupElementConnector;
+THIS^.itfBaseGroupElementConnector		:= itfGroupElementConnector;
+//
+THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
+
+IF (THIS^.itfGroupElementConnector <> 0 AND
+	THIS^.itfBaseLoggerElementConnector <> 0 AND
+	THIS^.itfBaseComponentConnector	<> 0 AND
+	THIS^.itfBaseControlElementConnector <> 0 AND
+	THIS^.itfBaseGroupElementConnector <> 0 AND
+	THIS^.itfBaseLoggerConnector <> 0) THEN
+	THIS^.bIsInit						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkGroupelementData" Id="{a9cd9d23-e72d-4255-8d5b-60aaf945db36}" FolderPath="ITF_GroupElement_HMI\">
+      <Declaration><![CDATA[METHOD LinkGroupelementData : BOOL
+VAR_INPUT
+	stData					: REFERENCE TO ST_GroupElement_HMI_Link;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstGroupElementData	REF= stData.stGroupElement;
+
+THIS^.refstBaseLoggerElementDataHMI	REF= stData.stBaseLoggerElement;
+THIS^.refstBaseComponentDataHMI		REF= stData.stBaseComponent;
+THIS^.refstBaseControlElementDataHMI	REF= stData.stBaseControlElement;
+THIS^.refstBaseGroupElementDataHMI		REF= stData.stBaseGroupElement;
+
+IF (__ISVALIDREF (THIS^.refstGroupElementData) AND
+	__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI) AND
+	__ISVALIDREF (THIS^.refstBaseComponentDataHMI) AND
+	__ISVALIDREF (THIS^.refstBaseControlElementDataHMI) AND
+	__ISVALIDREF (THIS^.refstBaseGroupElementDataHMI)) THEN
+	THIS^.bIsValidData		:= TRUE;
+	LinkGroupelementData	:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

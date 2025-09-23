@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseLoggerElement_HMI_Connector" Id="{18066f33-5cce-0b8b-2b60-e60e4addcc02}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseLoggerElement_HMI_Connector
+]]></Declaration>
+    <Method Name="MetodaBaseLoggerElementHMIConnector" Id="{8f04a3c2-b20b-06c3-06ac-780ac0820909}">
+      <Declaration><![CDATA[METHOD MetodaBaseLoggerElementHMIConnector : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

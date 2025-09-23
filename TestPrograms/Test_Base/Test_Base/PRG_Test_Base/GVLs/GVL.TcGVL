@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL" Id="{6d39e87a-3925-49a7-96a5-984769bb9c10}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	fbMyTime				: FB_BaseTime;
+	fbMyLocation			: FB_BaseLocation;
+	fbLogger				: FB_BaseLogger;
+	
+	stCommonData			: ST_CommonData;
+	
+	stComponentData_1		: ST_Component_HMI_Link;
+	stControlElementData_1	: ST_ControlElement_HMI_Link;
+	stGroupElementData_1	: ST_GroupElement_HMI_Link;
+	stTopElementData_1		: ST_TopElement_HMI_Link;
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>
