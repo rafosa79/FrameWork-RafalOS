@@ -6,9 +6,9 @@ VAR_GLOBAL
 	fbBasetest					: FB_Base;
 	
 	fbComponent_1				: FB_Component;
-	fbExecutiverElement_1		: FB_ControlElement;
-	fbComplexElement_1			: FB_GroupElement;
-	fbMainElement_1				: FB_TopElement;
+	fbControlElement_1			: FB_ControlElement;
+	fbGroupElement_1			: FB_GroupElement;
+	fbTopElement_1				: FB_TopElement;
 	
 	
 END_VAR]]></Declaration>

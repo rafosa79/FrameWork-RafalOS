@@ -3,13 +3,45 @@
   <POU Name="FB_BaseLoggerElement_HMI" Id="{024becb4-36e5-0a14-1436-0e8a32c5de12}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseLoggerElement_HMI EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement_HMI
 VAR
-	itfBaseLoggerConnector					: ITF_BaseLogger_HMI_Connector;
+	itfBaseLoggerConnector					: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
 	itfBaseLoggerElementConnector			: ITF_BaseLoggerElement_HMI_Connector;
 	refstBaseLoggerElementDataHMI			: REFERENCE TO ST_BaseLoggerElement_HMI;
+	bIsInit									: BOOL;	//flaga informująca czy wszystkie interfejsy są dobrze przypisane
+	bIsValidData							: bool;	//flaga informująca czy wszystkie dane sa podpięte 
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="GetIsInit" Id="{ff032025-bb47-0541-2e34-4756feab4ddd}">
+      <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		23.09.2025		TC 4024.66
+	Zwraca informację czy dane są podpięte do systemu
+*)
+METHOD PUBLIC GetIsInit : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIsInit			:= THIS^.bIsInit;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIsValidData" Id="{f2f46b20-d299-05ed-341f-5d54b19130b7}">
+      <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		23.09.2025		TC 4024.66
+	Zwraca flagę przypisywaną w FB_Init tworzonego elementu
+*)
+METHOD GetIsValidData : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIsValidData				:= THIS^.bIsValidData;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

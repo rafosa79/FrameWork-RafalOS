@@ -6,7 +6,6 @@ VAR_GLOBAL
 	fbMyTime				: FB_BaseTime;
 	fbMyLocation			: FB_BaseLocation;
 	fbLogger				: FB_BaseLogger;
-	fbLoggerHMI				: FB_BaseLogger_HMI;
 	
 	stCommonData			: ST_CommonData;
 	

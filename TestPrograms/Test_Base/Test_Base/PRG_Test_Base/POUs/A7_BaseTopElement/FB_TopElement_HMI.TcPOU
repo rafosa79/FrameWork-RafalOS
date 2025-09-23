@@ -3,12 +3,45 @@
   <POU Name="FB_TopElement_HMI" Id="{54abd47c-3eb0-49fb-a4d6-79dd6427523e}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_TopElement_HMI EXTENDS FB_BaseTopElement_HMI IMPLEMENTS ITF_TopElement_HMI
 VAR
-	itfMainElementConnector				: ITF_TopElement_HMI_Connector;
-	refstMainElementData				: REFERENCE TO ST_TopElement_HMI;
+	itfTopElementConnector				: ITF_TopElement_HMI_Connector;
+	refstTopElementData					: REFERENCE TO ST_TopElement_HMI;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="FB_init" Id="{ee1e6a46-fdbb-4ec7-8f35-1725de8de569}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfBaseLoggerConnector				: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
+	itfTopElementConnector				: ITF_TopElement_HMI_Init;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Przypisanie do elementu który własnie stworzyliśmy
+THIS^.itfTopElementConnector			:= itfTopElementConnector;
+//Przypisanie do elementów z biblioteki
+THIS^.itfBaseLoggerElementConnector		:= itfTopElementConnector;
+THIS^.itfBaseComponentConnector			:= itfTopElementConnector;
+THIS^.itfBaseControlElementConnector	:= itfTopElementConnector;
+THIS^.itfBaseGroupElementConnector		:= itfTopElementConnector;
+THIS^.itfBaseTopElementConnector		:= itfTopElementConnector;
+//
+THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
+
+IF (THIS^.itfTopElementConnector <> 0 AND
+	THIS^.itfBaseLoggerElementConnector <> 0 AND
+	THIS^.itfBaseComponentConnector	<> 0 AND
+	THIS^.itfBaseControlElementConnector <> 0 AND
+	THIS^.itfBaseGroupElementConnector <> 0 AND
+	THIS^.itfBaseTopElementConnector <> 0 AND
+	THIS^.itfBaseLoggerConnector <> 0) THEN
+	THIS^.bIsInit						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

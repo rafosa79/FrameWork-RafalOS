@@ -24,22 +24,29 @@ END_VAR]]></Declaration>
 	GVL_VariableHMI.fbComponentHMI_1.LinkData (stCommonData := GVL.stCommonData);
 	AssertTrue (Condition := bWynik, Message := 'T02 - test linkowania zmiennych ');
 	
-	bWynik := GVL_Variable.fbExecutiverElement_1.LinkData (stCommonData := gvl.stCommonData);
+	bWynik := GVL_Variable.fbControlElement_1.LinkData (stCommonData := gvl.stCommonData);
 	AssertTrue (Condition := bWynik, Message := 'T03 - test linkowania zmiennych ');
-	GVL_VariableHMI.fbExecutiverElementHMI_1.LinkData (stCommonData := GVL.stCommonData);
+	GVL_VariableHMI.fbControlrElementHMI_1.LinkData (stCommonData := GVL.stCommonData);
 	AssertTrue (Condition := bWynik, Message := 'T04 - test linkowania zmiennych ');
 	
-	bWynik := GVL_Variable.fbComplexElement_1.LinkData (stCommonData := gvl.stCommonData);
+	bWynik := GVL_Variable.fbGroupElement_1.LinkData (stCommonData := gvl.stCommonData);
 	AssertTrue (Condition := bWynik, Message := 'T05 - test linkowania zmiennych ');
-	GVL_VariableHMI.fbComplexElementHMI_1.LinkData (stCommonData := GVL.stCommonData);
+	GVL_VariableHMI.fbGroupElementHMI_1.LinkData (stCommonData := GVL.stCommonData);
 	AssertTrue (Condition := bWynik, Message := 'T06 - test linkowania zmiennych ');
 	
-	bWynik := GVL_Variable.fbMainElement_1.LinkData (stCommonData := gvl.stCommonData);
+	bWynik := GVL_Variable.fbTopElement_1.LinkData (stCommonData := gvl.stCommonData);
 	AssertTrue (Condition := bWynik, Message := 'T07 - test linkowania zmiennych ');
-	GVL_VariableHMI.fbMainElementHMI_1.LinkData (stCommonData := GVL.stCommonData);
+	GVL_VariableHMI.fbTopElementHMI_1.LinkData (stCommonData := GVL.stCommonData);
 	AssertTrue (Condition := bWynik, Message := 'T08 - test linkowania zmiennych ');
 	
+(*	Test czy itf są przepisane	*)	
+
+	AssertTrue (Condition := GVL_VariableHMI.fbComponentHMI_1.GetIsInit (), Message := 'T09 - Blad inicjalizacji');
+	AssertTrue (Condition := GVL_VariableHMI.fbControlrElementHMI_1.GetIsInit (), Message := 'T10 - Blad inicjalizacji');
+	AssertTrue (Condition := GVL_VariableHMI.fbGroupElementHMI_1.GetIsInit (), Message := 'T11 - Blad inicjalizacji');
+	AssertTrue (Condition := GVL_VariableHMI.fbTopElementHMI_1.GetIsInit (), Message := 'T12 - Blad inicjalizacji');
 	
+		
 	TcUnit.TEST_FINISHED ();
 END_IF]]></ST>
       </Implementation>

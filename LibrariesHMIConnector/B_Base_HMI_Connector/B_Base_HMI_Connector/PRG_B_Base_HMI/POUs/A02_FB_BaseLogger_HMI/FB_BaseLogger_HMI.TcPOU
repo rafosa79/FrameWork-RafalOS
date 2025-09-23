@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_BaseLogger_HMI" Id="{d0482a64-a787-07e9-091f-0aa37b0b61f7}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseLogger_HMI EXTENDS FB_Base IMPLEMENTS ITF_BaseLogger_HMI
+    <Declaration><![CDATA[(* póki co ten FB jest zbędny ale zostawiam jakby co*)
+FUNCTION_BLOCK FB_BaseLogger_HMI EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement_HMI
 VAR
-	itfBaseLoggerConnector			: ITF_BaseLogger_HMI_Connector;
+	itfBaseLoggerConnector			: ITF_BaseLogger_HMI_Connector;	//łącznik bezpośredni do Logera
 	refstBaseLoggerDataHMI			: REFERENCE TO ST_BaseLogger_HMI;
 END_VAR
 ]]></Declaration>
