@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseEvents_RowInQueue" Id="{f444b0ca-18c7-0625-1f7a-9be02a9ec795}">
+    <Declaration><![CDATA[TYPE ST_BaseEvents_RowInQueue :
+STRUCT
+	eTypZgloszenia							: E_Zgloszenia_Typ;	//okresla rodzaj zgloszenia w kolejce Start stop 
+	uiIDZgloszenia							: UINT;				//unikalny numer zgloszenia dla całego projektu nadawany automatycznie 
+	uiIDElementu							: UINT;				// unikalny numer elementu w systemie
+	bAktywne								: BOOL;
+	bIgnorujPowtorzenia						: BOOL;				//jak true nie zliczaj powtorzeń wystapienia np komunikaty
+	uiLicznikPowtorzen						: UINT;
+	dtStart									: DT;				//poczatek wystepowania zgłoszenia
+	dtKoniec								: DT;				//koniec wystepowaniazgloszenia
+	dtZatwierdzenie							: DT;				// stempel potwierdzenia 
+	bPotwierdz								: BOOL;
+	eRodzajZgloszenia						: E_BaseEvents_Type;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

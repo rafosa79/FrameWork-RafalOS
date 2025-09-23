@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseEvents_Queue" Id="{4e318b6c-464f-0304-022f-336d7f1a110e}">
+    <Declaration><![CDATA[TYPE ST_BaseEvents_Queue :
+STRUCT
+	arrZgloszenie					: ARRAY [1..GVL_BaseConstans.LICZBA_ZGLOSZEN_W_KOLEJCE] OF ST_BaseEvents_RowInQueue;
+	iIloscZgloszen					: INT;
+	bZmianaListyWPamieci			: BOOL;		//informacja dla wyświetlania żeby odświerzyć
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

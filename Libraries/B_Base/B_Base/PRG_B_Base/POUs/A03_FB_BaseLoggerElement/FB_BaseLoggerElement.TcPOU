@@ -8,14 +8,68 @@
 *)
 FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector
 VAR
-	stIdentifier								: ST_ElementIdentifier;
+	stIdentifier					: ST_ElementIdentifier;
+	stEvents						: ST_BaseEvents;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Events" Id="{0a451ccb-a5c6-0466-1fb3-43b9aac577ff}" />
     <Folder Name="ID" Id="{9f4accde-c200-0e3a-3280-17fd6d107d51}" />
     <Folder Name="ITF_BaseLoggerElement_HMI_Connector" Id="{abdbf241-16b7-0948-3bea-83a764b01a75}" />
+    <Method Name="AddEvent" Id="{634f9b8e-85a8-02a3-013c-6c409e6a5e93}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Dodawanie zgłoszenia do systemu
+*)
+METHOD PUBLIC AddEvent : BOOL
+VAR_INPUT
+	bIgnorujPowtorzenia					: BOOL;					//jak true nie zliczaj powtorzeń wystapienia np komunikaty
+	eRodzajZdarzenia					: E_BaseEvents_Type;	//BYTE;	//1 - blad, 2 - ostrzezenie, 3 - wiadomosc, 4 - safety
+	bWymagaZatwierdzenia				: BOOL;
+	stOpis								: ST_Label;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.stEvents.uiIloscDodanych + 1 <= GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT) THEN
+	THIS^.stEvents.uiIloscDodanych														:= THIS^.stEvents.uiIloscDodanych + 1;
+	THIS^.stEvents.arrDefinicje [THIS^.stEvents.uiIloscDodanych].uiIDWElemencie			:= THIS^.stEvents.uiIloscDodanych;
+	THIS^.stEvents.arrDefinicje [THIS^.stEvents.uiIloscDodanych].bIgnorujPowtorzenia	:= bIgnorujPowtorzenia;
+	THIS^.stEvents.arrDefinicje [THIS^.stEvents.uiIloscDodanych].eRodzajZdarzenia		:= eRodzajZdarzenia;
+	THIS^.stEvents.arrDefinicje [THIS^.stEvents.uiIloscDodanych].stOpis  				:= stOpis;
+	this^.stEvents.arrDefinicje [this^.stEvents.uiIloscDodanych].bWymagaPotwierdzenia	:= bWymagaZatwierdzenia;
+//	THIS^.stZgloszenia.arrDefinicje [THIS^.stZgloszenia.uiIloscDodanych].fbOpis.PowiarzJezyk (fbLokalizacja := THIS^.itfLokalizacja);
+//	THIS^.stZgloszenia.itfObslugaZdarzen														:= THIS^.itfLoger;
+	
+	AddEvent						:= TRUE;
+ELSE
+	AddEvent						:= FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EventsDefinition" Id="{d570146c-fc2a-0a65-1409-5460668a36c6}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MEMSET (
+	destAddr		:= ADR (THIS^.stEvents.arrDefinicje),
+	fillByte		:= 0,
+	n				:= SIZEOF (THIS^.stEvents.arrDefinicje)
+);
+THIS^.stEvents.uiIloscDodanych	:= 0;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetCode" Id="{af745aea-1b66-059b-10b2-395e94251847}" FolderPath="ID\">
       <Declaration><![CDATA[METHOD PUBLIC GetCode : STRING
 VAR_INPUT

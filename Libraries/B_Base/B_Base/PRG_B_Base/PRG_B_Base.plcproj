@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.9</ProjectVersion>
+    <ProjectVersion>0.0.0.10</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -83,6 +83,33 @@
     <Author>Rafał Osajda</Author>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs Events\E_BaseEvents_Type.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_ActiveEvents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_Definition.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_Queue.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_Memory.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_RowInQueue.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_RowInMemory.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_InformationAboutEventsForHMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\E_ElementType.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -201,6 +228,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="DUTs Events" />
     <Folder Include="POUs Compilation" />
     <Folder Include="POUs\A04_FB_BaseComponent" />
     <Folder Include="POUs\A02_FB_BaseLogger" />

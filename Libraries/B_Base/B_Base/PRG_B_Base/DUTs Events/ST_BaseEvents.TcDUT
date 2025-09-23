@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseEvents" Id="{0e38572f-f2fe-4686-bec2-1d64e92ff5ec}">
+    <Declaration><![CDATA[TYPE ST_BaseEvents :
+STRUCT
+	uiIloscDodanych					: UINT;	//Iloscdodanych zgloszen
+	
+	arrDefinicje					: ARRAY [1..GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT] OF ST_BaseEvents_Definition;
+	arrStan							: ARRAY [1..GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT] OF BOOL;
+	arrPotwierdzenie				: ARRAY [1..GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT] OF BOOL;
+
+	iIloscAktywnychZgloszen			: INT; //zmienna pomocnicza informująca o ilości wszystkich aktywnych zgłoszeń
+
+	bDaneLogeraUzupelnione			: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
