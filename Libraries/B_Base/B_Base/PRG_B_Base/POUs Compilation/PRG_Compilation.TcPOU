@@ -15,9 +15,9 @@ VAR
 	fbBaseLogger			: FB_BaseLogger;
 	fbBaseLoggerElement		: FB_BaseLoggerElement;
 	fbBaseComponent			: FB_BaseComponent;
-	fbBaseExecutiveElement	: FB_BaseExecutiveElement;
-	fbBaseComplexElement	: FB_BaseComplexElement;
-	fbBaseMainComponent		: FB_BaseMainComponent;
+	fbBaseExecutiveElement	: FB_BaseControlElement;
+	fbBaseComplexElement	: FB_BaseGroupElement;
+	fbBaseMainComponent		: FB_BaseTopElement;
 END_VAR
 ]]></Declaration>
     <Implementation>

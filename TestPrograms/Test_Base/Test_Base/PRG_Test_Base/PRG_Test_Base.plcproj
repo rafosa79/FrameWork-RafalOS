@@ -32,31 +32,94 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A0_Component\FB_Component.TcPOU">
+    <Compile Include="POUs\A4_Component\FB_Component.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A0_Component\FB_Component_HMI.TcPOU">
+    <Compile Include="POUs\A4_Component\FB_Component_HMI.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A0_Component\ITF_Component.TcIO">
+    <Compile Include="POUs\A4_Component\ITF_Component.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A0_Component\ITF_Component_HMI.TcIO">
+    <Compile Include="POUs\A4_Component\ITF_Component_HMI.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A0_Component\ITF_Component_HMI_Connector.TcIO">
+    <Compile Include="POUs\A4_Component\ITF_Component_HMI_Connector.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A0_Component\ITF_Component_HMI_Init.TcIO">
+    <Compile Include="POUs\A4_Component\ITF_Component_HMI_Init.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A0_Component\ST_Component_HMI.TcDUT">
+    <Compile Include="POUs\A4_Component\ST_Component_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_BaseControlElement\FB_ControlElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_BaseControlElement\FB_ControlElement_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_BaseControlElement\ITF_ControlElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_BaseControlElement\ITF_ControlElement_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_BaseControlElement\ITF_ControlElement_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_BaseControlElement\ITF_ControlElement_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_BaseControlElement\ST_ControlElement_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A6_BaseGroupElement\FB_GroupElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A6_BaseGroupElement\FB_GroupElement_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A6_BaseGroupElement\ITF_GroupElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A6_BaseGroupElement\ITF_GroupElement_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A6_BaseGroupElement\ITF_GroupElement_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A6_BaseGroupElement\ITF_GroupElement_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A6_BaseGroupElement\ST_GroupElement_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A7_BaseTopElement\FB_TopElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A7_BaseTopElement\FB_TopElement_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A7_BaseTopElement\ITF_TopElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A7_BaseTopElement\ITF_TopElement_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A7_BaseTopElement\ITF_TopElement_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A7_BaseTopElement\ITF_TopElement_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A7_BaseTopElement\ST_TopElement_HMI.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_BaseTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_ComponentTest.TcPOU">
+    <Compile Include="POUs\FB_ElementTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TESTs\PRG_Test.TcPOU">
@@ -66,7 +129,10 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
-    <Folder Include="POUs\A0_Component" />
+    <Folder Include="POUs\A4_Component" />
+    <Folder Include="POUs\A5_BaseControlElement" />
+    <Folder Include="POUs\A6_BaseGroupElement" />
+    <Folder Include="POUs\A7_BaseTopElement" />
     <Folder Include="TESTs" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />

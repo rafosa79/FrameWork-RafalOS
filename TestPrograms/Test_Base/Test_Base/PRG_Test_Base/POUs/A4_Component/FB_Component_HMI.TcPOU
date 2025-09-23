@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Component_HMI" Id="{262cdf04-054e-404a-a25f-05e09b93d66c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Component_HMI EXTENDS FB_BaseComponent_HMI IMPLEMENTS ITF_Component_HMI
+VAR
+	itfComponentConnector				: ITF_Component_HMI_Connector;
+	refstComponentData					: reference to ST_Component_HMI;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{c67d7f75-7170-4625-b120-67c67145bf97}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfComponentConnector				: ITF_Component_HMI_Init;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfBaseComponentConnector			:= itfComponentConnector;
+THIS^.itfComponentConnector				:= itfComponentConnector;
+THIS^.itfBaseLoggerElementConnector		:= itfComponentConnector;
+
+THIS^.itfBaseLoggerElementConnector		:= itfComponentConnector;
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

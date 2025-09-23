@@ -21,7 +21,7 @@
     <Company>RafalOS</Company>
     <Title>B_Base_HMI_Connector</Title>
     <DefaultNamespace>B_Base_HMI_Connector</DefaultNamespace>
-    <ProjectVersion>0.0.0.2</ProjectVersion>
+    <ProjectVersion>0.0.0.3</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -116,31 +116,31 @@
     <Compile Include="POUs\A04_FB_BaseComponent_HMI\ST_BaseComponent_HMI.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A05_FB_BaseExecutiveElement_HMI\FB_BaseExecutiveElement_HMI.TcPOU">
+    <Compile Include="POUs\A05_FB_BaseControlElement_HMI\FB_BaseControlElement_HMI.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A05_FB_BaseExecutiveElement_HMI\ITF_BaseExecutiveElement_HMI.TcIO">
+    <Compile Include="POUs\A05_FB_BaseControlElement_HMI\ITF_BaseControlElement_HMI.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A05_FB_BaseExecutiveElement_HMI\ST_BaseExecutiveElement_HMI.TcDUT">
+    <Compile Include="POUs\A05_FB_BaseControlElement_HMI\ST_BaseControlElement_HMI.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A06_FB_BaseComplexElement_HMI\FB_BaseComplexElement_HMI.TcPOU">
+    <Compile Include="POUs\A06_FB_BaseGroupElement_HMI\FB_BaseGroupElement_HMI.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A06_FB_BaseComplexElement_HMI\ITF_BaseComplexElement_HMI.TcIO">
+    <Compile Include="POUs\A06_FB_BaseGroupElement_HMI\ITF_BaseGroupElement_HMI.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A06_FB_BaseComplexElement_HMI\ST_BaseComplexElement_HMI.TcDUT">
+    <Compile Include="POUs\A06_FB_BaseGroupElement_HMI\ST_BaseGroupElement_HMI.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A07_FB_BaseMainComponent_HMI\FB_BaseMainComponent_HMI.TcPOU">
+    <Compile Include="POUs\A07_FB_BaseTopElement_HMI\FB_BaseTopElement_HMI.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A07_FB_BaseMainComponent_HMI\ITF_BaseMainComponent_HMI.TcIO">
+    <Compile Include="POUs\A07_FB_BaseTopElement_HMI\ITF_BaseTopElement_HMI.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A07_FB_BaseMainComponent_HMI\ST_BaseMainComponent_HMI.TcDUT">
+    <Compile Include="POUs\A07_FB_BaseTopElement_HMI\ST_BaseTopElement_HMI.TcDUT">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -153,9 +153,9 @@
     <Folder Include="POUs\A02_FB_BaseLogger_HMI" />
     <Folder Include="POUs\A03_FB_BaseLoggerElement_HMI" />
     <Folder Include="POUs\A04_FB_BaseComponent_HMI" />
-    <Folder Include="POUs\A05_FB_BaseExecutiveElement_HMI" />
-    <Folder Include="POUs\A06_FB_BaseComplexElement_HMI" />
-    <Folder Include="POUs\A07_FB_BaseMainComponent_HMI" />
+    <Folder Include="POUs\A05_FB_BaseControlElement_HMI" />
+    <Folder Include="POUs\A06_FB_BaseGroupElement_HMI" />
+    <Folder Include="POUs\A07_FB_BaseTopElement_HMI" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

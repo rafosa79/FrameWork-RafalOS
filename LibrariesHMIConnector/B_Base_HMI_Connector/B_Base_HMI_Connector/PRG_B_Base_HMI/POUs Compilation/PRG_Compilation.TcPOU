@@ -6,9 +6,9 @@ VAR
 	fbLoggerHMI				: FB_BaseLogger_HMI;
 	fbLoggerElementHMI		: FB_BaseLogger_HMI;
 	fbComponentHMI			: FB_BaseComponent_HMI;
-	fbExecutiveElementHMI	: FB_BaseExecutiveElement_HMI;
-	fbComplexElement		: FB_BaseComplexElement_HMI;
-	fbMainComponent			: FB_BaseMainComponent_HMI;
+	fbExecutiveElementHMI	: FB_BaseControlElement_HMI;
+	fbComplexElement		: FB_BaseGroupElement_HMI;
+	fbMainComponent			: FB_BaseTopElement_HMI;
 END_VAR
 ]]></Declaration>
     <Implementation>

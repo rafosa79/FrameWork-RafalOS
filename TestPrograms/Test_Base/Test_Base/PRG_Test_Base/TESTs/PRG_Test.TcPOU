@@ -4,7 +4,7 @@
     <Declaration><![CDATA[PROGRAM PRG_Test
 VAR
 	fbBaseTest				: FB_Basetest;
-	fbComponentTest			: FB_ComponentTest;
+	fbComponentTest			: FB_ElementTest;
 END_VAR
 ]]></Declaration>
     <Implementation>

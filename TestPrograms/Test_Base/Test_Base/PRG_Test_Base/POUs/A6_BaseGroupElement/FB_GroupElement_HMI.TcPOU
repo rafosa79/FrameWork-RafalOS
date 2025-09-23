@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_GroupElement_HMI" Id="{19883d18-afce-4591-ab72-0deda3f3642e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_GroupElement_HMI EXTENDS FB_BaseGroupElement_HMI IMPLEMENTS ITF_Component_HMI
+VAR
+	itfGroupElementConnector			: ITF_GroupElement_HMI_Connector;
+	refstGroupElementData				: REFERENCE TO ST_GroupElement_HMI;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

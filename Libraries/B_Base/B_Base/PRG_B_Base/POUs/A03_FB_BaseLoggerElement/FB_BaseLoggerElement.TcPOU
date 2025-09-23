@@ -15,5 +15,15 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_BaseLoggerElement_HMI_Connector" Id="{abdbf241-16b7-0948-3bea-83a764b01a75}" />
+    <Method Name="MetodaBaseLoggerElementHMIConnector" Id="{437aee4c-8ff1-0551-0c74-ef940e363677}" FolderPath="ITF_BaseLoggerElement_HMI_Connector\">
+      <Declaration><![CDATA[METHOD MetodaBaseLoggerElementHMIConnector : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

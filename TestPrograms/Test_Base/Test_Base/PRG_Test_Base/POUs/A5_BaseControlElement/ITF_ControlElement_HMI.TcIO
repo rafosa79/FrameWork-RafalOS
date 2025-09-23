@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <Itf Name="ITF_ControlElement_HMI" Id="{9ab225a5-6d3a-489a-8f21-bf97c3be3e87}">
+    <Declaration><![CDATA[INTERFACE ITF_ControlElement_HMI
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

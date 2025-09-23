@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_ElementTest" Id="{3cbac2ab-f33e-495d-b5c8-b7ba1b9f5011}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ElementTest EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+T01_TestCreateAndLinkData ();]]></ST>
+    </Implementation>
+    <Method Name="T01_TestCreateAndLinkData" Id="{d3c385be-3c77-42c2-89b9-e1b9a0939a42}">
+      <Declaration><![CDATA[METHOD PRIVATE T01_TestCreateAndLinkData
+VAR_INPUT
+END_VAR
+
+VAR
+	bWynik: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestCreateAndLinkData')) THEN
+	bWynik := GVL_Variable.fbComponent_1.LinkData (stCommonData := gvl.stCommonData);
+	AssertTrue (Condition := bWynik, Message := 'T01 - test linkowania zmiennych ');
+	GVL_VariableHMI.fbComponentHMI_1.LinkData (stCommonData := GVL.stCommonData);
+	AssertTrue (Condition := bWynik, Message := 'T02 - test linkowania zmiennych ');
+	
+	bWynik := GVL_Variable.fbExecutiverElement_1.LinkData (stCommonData := gvl.stCommonData);
+	AssertTrue (Condition := bWynik, Message := 'T03 - test linkowania zmiennych ');
+	GVL_VariableHMI.fbExecutiverElementHMI_1.LinkData (stCommonData := GVL.stCommonData);
+	AssertTrue (Condition := bWynik, Message := 'T04 - test linkowania zmiennych ');
+	
+	bWynik := GVL_Variable.fbComplexElement_1.LinkData (stCommonData := gvl.stCommonData);
+	AssertTrue (Condition := bWynik, Message := 'T05 - test linkowania zmiennych ');
+	GVL_VariableHMI.fbComplexElementHMI_1.LinkData (stCommonData := GVL.stCommonData);
+	AssertTrue (Condition := bWynik, Message := 'T06 - test linkowania zmiennych ');
+	
+	bWynik := GVL_Variable.fbMainElement_1.LinkData (stCommonData := gvl.stCommonData);
+	AssertTrue (Condition := bWynik, Message := 'T07 - test linkowania zmiennych ');
+	GVL_VariableHMI.fbMainElementHMI_1.LinkData (stCommonData := GVL.stCommonData);
+	AssertTrue (Condition := bWynik, Message := 'T08 - test linkowania zmiennych ');
+	
+	
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
