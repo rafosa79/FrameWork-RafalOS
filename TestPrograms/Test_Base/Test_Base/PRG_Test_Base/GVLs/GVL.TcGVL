@@ -7,6 +7,10 @@ VAR_GLOBAL
 	fbMyLocation			: FB_BaseLocation;
 	fbLogger				: FB_BaseLogger;
 	
+	fbCommandEasy			: FB_BaseCommand;
+//	fbCommand				: FB_CommandChild;
+
+	
 	stCommonData			: ST_BaseCommonData;
 	
 	stComponentData_1		: ST_Component_HMI_Link;

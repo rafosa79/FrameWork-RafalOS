@@ -51,6 +51,16 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetBusy" Id="{9fb27f90-4f10-08c2-1017-dd41e6f351c7}">
+      <Declaration><![CDATA[METHOD PUBLIC GetBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetBusy			:= THIS^.bBusy;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetFirstCycle" Id="{21c262c5-69b6-0f4d-3d26-e252ba31daa4}">
       <Declaration><![CDATA[METHOD PUBLIC GetFirstCycle : BOOL
 VAR_INPUT
@@ -67,7 +77,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetLastCycle				:= THIS^.bOstatniCykl;
+        <ST><![CDATA[GetLastCycle				:= THIS^.bLastCycle;
 ]]></ST>
       </Implementation>
     </Method>
@@ -252,30 +262,79 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ustawTrwa" Id="{42521e56-60c3-0994-3ae9-d934e7f6c136}">
-      <Declaration><![CDATA[METHOD PUBLIC ustawTrwa
-VAR_INPUT
-	bIn			: BOOL;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF (THIS^.bBusy AND NOT bIn) THEN
-	THIS^.bStatus				:= TRUE;
-	THIS^.iExternalCommandMethodStep		:= 0;
-END_IF
-THIS^.bBusy			:= bIn;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="zwrocTrwa" Id="{9fb27f90-4f10-08c2-1017-dd41e6f351c7}">
-      <Declaration><![CDATA[METHOD PUBLIC zwrocTrwa : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[zwrocTrwa			:= THIS^.bBusy;
-]]></ST>
-      </Implementation>
-    </Method>
+    <LineIds Name="FB_BaseCommand">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.Abort">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.Execute">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.GetAborted">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.GetBusy">
+      <LineId Id="10" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.GetFirstCycle">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.GetLastCycle">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.GetStatus">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.GetStep">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.Operation">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.OperationExecute">
+      <LineId Id="3" Count="18" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.Reset">
+      <LineId Id="3" Count="8" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.SetStep">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.SetStepAsFinal">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.SetStepINC1">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.SetStepINC10">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.SetStepINC5">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.Test">
+      <LineId Id="3" Count="10" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_BaseCommand.TurnOff">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>
