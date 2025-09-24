@@ -8,10 +8,92 @@
 *)
 FUNCTION_BLOCK FB_BaseLocation IMPLEMENTS ITF_BaseLocation
 VAR
+	eLocation		: E_BaseLocation;
+	arrLocation		: ARRAY [1..GVL_BaseConstans.LICZBA_DODANYCH_JEZYKOW] OF ST_BaseLocationDesctription := 
+						[(wsDescription := "Polski", sCode := 'pl'),
+						(wsDescription := "English", sCode := 'en'),
+						(wsDescription := "German", sCode := 'de')];;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="GetActualCode" Id="{0792d8a4-a27f-0269-346b-d1f0c252f8f1}">
+      <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		24.09.2025		TC 4024.66
+	Zwraca kod jezyka tzn 
+*)
+METHOD PUBLIC GetActualCode : STRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActualCode				:= THIS^.arrLocation [THIS^.eLocation].sCode;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetActualDescription" Id="{055a3d2d-79cd-0f09-0faf-bff15d1193e1}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActualDescription : WSTRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActualDescription			:= THIS^.arrLocation [THIS^.eLocation].wsDescription;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetCode" Id="{8339f251-4cea-0989-179c-b5279209f3e1}">
+      <Declaration><![CDATA[METHOD PUBLIC GetCode : STRING(5)
+VAR_INPUT
+	iIN				: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetCode					:= THIS^.arrLocation [iIN].sCode;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetDescription" Id="{d5196393-4ada-05db-317f-ff428e81fb58}">
+      <Declaration><![CDATA[METHOD PUBLIC GetDescription : WSTRING
+VAR_INPUT
+	iIN				: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetDescription				:= THIS^.arrLocation [iIN].wsDescription;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetLocation" Id="{fb34d029-b8a1-0ef0-3f71-42e9c3022c0c}">
+      <Declaration><![CDATA[METHOD PUBLIC GetLocation : E_BaseLocation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetLocation			:= THIS^.eLocation;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetLocation" Id="{ff1593dc-b625-0ed5-2e8d-1ef6110727ae}">
+      <Declaration><![CDATA[METHOD PUBLIC SetLocation : BOOL
+VAR_INPUT
+	sLocation				: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (sLocation = TO_STRING (E_BaseLocation.pl)) THEN
+	THIS^.eLocation		:= E_BaseLocation.pl;
+	SetLocation			:= TRUE;
+ELSIF (sLocation = TO_STRING (E_BaseLocation.en)) THEN
+	THIS^.eLocation		:= E_BaseLocation.en;
+	SetLocation			:= TRUE;
+ELSIF (sLocation = TO_STRING (E_BaseLocation.de)) THEN
+	THIS^.eLocation		:= E_BaseLocation.de;
+	SetLocation			:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

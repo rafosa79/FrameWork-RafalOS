@@ -5,6 +5,7 @@
 VAR
 	fbLabel					: FB_BaseLabel;
 	fbDescription			: FB_BaseDescriptor;
+	fbLocation				: FB_BaseLocation;
 
 	sttmpCommonData			: ST_BaseCommonData;
 
