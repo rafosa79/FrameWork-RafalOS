@@ -21,29 +21,20 @@ VAR_INPUT
 END_VAR
 
 VAR
-	stName: ST_Label;
+	stName	: ST_BaseLabel;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.EventsDefinition ();
+        <ST><![CDATA[(*
+SUPER^.EventsDefinition ();
 
 THIS^.AddEvent (
 	bIgnorujPowtorzenia		:= TRUE,
 	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
-	bWymagaZatwierdzenia	:=FALSE,
+	bWymagaZatwierdzenia	:= FALSE,
 	stOpis					:= stName
 );
-]]></ST>
+*)]]></ST>
       </Implementation>
     </Method>
-    <LineIds Name="FB_Component">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_Component.EventsDefinition">
-      <LineId Id="2" Count="0" />
-      <LineId Id="18" Count="0" />
-      <LineId Id="17" Count="0" />
-      <LineId Id="19" Count="4" />
-      <LineId Id="27" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

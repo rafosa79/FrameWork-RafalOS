@@ -32,6 +32,9 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A0_BaseFB\Time\FB_BaseTimeTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A4_Component\FB_Component.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -141,10 +144,12 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\A0_BaseFB\Time" />
     <Folder Include="POUs\A4_Component" />
     <Folder Include="POUs\A5_ControlElement" />
     <Folder Include="POUs\A6_GroupElement" />
     <Folder Include="POUs\A7_TopElement" />
+    <Folder Include="POUs\A0_BaseFB" />
     <Folder Include="TESTs" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />

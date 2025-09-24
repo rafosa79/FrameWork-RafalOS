@@ -8,10 +8,274 @@
 *)
 FUNCTION_BLOCK FB_BaseCommand IMPLEMENTS ITF_BaseCommand
 VAR
+	bStatus								: BOOL := TRUE;		//flaga informująca o tym czy polecenia aktywne czy nie  - DONE
+	bFirstCycle							: BOOL;
+	bLastCycle							: BOOL;
+	bExecute							: BOOL;				//wlączanie polecenia
+	bBusy								: BOOL;				//trwa - BUSY
+	iExternalCommandMethodStep			: INT := 0;			//krok używany w metodzie zewnętrzej polecenia poprzez dostepne metody
+	iInternalCommandMethodStep			: INT := 0;			//Krok Wywoływania Metody Polecenia - krok 
+	bAborted							: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Abort" Id="{654d236c-c6f7-0834-0dd9-3c34634e2ec1}">
+      <Declaration><![CDATA[METHOD PUBLIC Abort
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Execute" Id="{305fc6c1-129b-095b-3ee6-b758c4dff241}">
+      <Declaration><![CDATA[METHOD PUBLIC Execute
+VAR_INPUT
+	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bExecute			:= TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetAborted" Id="{fa7fde8b-48e0-019c-0513-892f3e9c8056}">
+      <Declaration><![CDATA[METHOD PUBLIC GetAborted : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetAborted			:= THIS^.bAborted;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetFirstCycle" Id="{21c262c5-69b6-0f4d-3d26-e252ba31daa4}">
+      <Declaration><![CDATA[METHOD PUBLIC GetFirstCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetFirstCycle				:= THIS^.bFirstCycle;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetLastCycle" Id="{9e7d887b-95a2-0fd4-2d72-97d77cd65a4f}">
+      <Declaration><![CDATA[METHOD PUBLIC GetLastCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetLastCycle				:= THIS^.bOstatniCykl;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetStatus" Id="{6115b59a-da09-0c40-0662-66a8b03c42e1}">
+      <Declaration><![CDATA[METHOD PUBLIC GetStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetStatus		:= THIS^.bStatus;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetStep" Id="{bb78349c-c965-03dc-04c5-d20d5e89718d}">
+      <Declaration><![CDATA[METHOD PUBLIC GetStep : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetStep				:= THIS^.iExternalCommandMethodStep;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Operation" Id="{c69ea91e-0e08-0dff-2e7a-e47c16840171}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.05.2025		TC 4024.66
+	Metoda wykonywana co cykl - jako wejście przyjmuje czy cykl polecenia się skończył czy nie - jak false czyli się skończył to ustawia flagę ostatniego cyklu
+*)
+METHOD Operation : BOOL
+VAR_INPUT
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (NOT bIN) THEN
+	THIS^.bLastCycle						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OperationExecute" Id="{366df8b3-cde0-0ec2-0a08-438fcb01af3a}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.05.2025		TC 4024.66
+	Metoda wykonywana co cykl sprawdza czy jest uruchomone polecenie 
+*)
+METHOD OperationExecute : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE THIS^.iInternalCommandMethodStep OF
+0	:
+	IF (THIS^.bBusy AND NOT THIS^.bFirstCycle) THEN
+		THIS^.bFirstCycle					:= TRUE;
+		THIS^.iInternalCommandMethodStep	:= 10;
+		OperationExecute					:= FALSE;
+	END_IF
+10	:
+	THIS^.bFirstCycle						:= FALSE;
+	IF (THIS^.bLastCycle) THEN
+		THIS^.bLastCycle					:= FALSE;
+		THIS^.iInternalCommandMethodStep	:= 0;
+		THIS^.bBusy							:= FALSE;
+		THIS^.bStatus						:= TRUE;
+		OperationExecute					:= FALSE;
+	ELSE
+		OperationExecute					:= TRUE;
+	END_IF
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{64c4b905-a73c-092c-2fd7-6f02b9f1aff8}">
+      <Declaration><![CDATA[METHOD PUBLIC Reset ]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bStatus							:= TRUE;
+THIS^.bExecute							:= FALSE;
+THIS^.bBusy								:= FALSE;
+THIS^.iExternalCommandMethodStep		:= 0;
+THIS^.iInternalCommandMethodStep		:= 0;
+THIS^.bFirstCycle						:= FALSE;
+THIS^.bLastCycle						:= FALSE;
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStep" Id="{562010a5-15a3-0a38-01fb-30004f6b4ee8}">
+      <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		24.09.2025		TC 4024.66
+	ustawoienie kroku zewnętrznej metody
+*)
+METHOD PUBLIC SetStep
+VAR_INPUT
+	iIn				: int;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.iExternalCommandMethodStep			:= iIn;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStepAsFinal" Id="{caa1c443-02b5-0bc5-2dfe-6d66ba2c4c8e}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStepAsFinal : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.iExternalCommandMethodStep			:= GVL_BaseConstans.OSTATNI_KROK;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStepINC1" Id="{3d2cc147-46cd-0f33-11c0-648d0407d398}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStepINC1 : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.iExternalCommandMethodStep			:= THIS^.iExternalCommandMethodStep + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStepINC10" Id="{6f014b14-a2a7-0061-27bc-9be719ce8a39}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStepINC10 : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.iExternalCommandMethodStep			:= THIS^.iExternalCommandMethodStep + 10;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStepINC5" Id="{9f2ee501-7ce4-098a-2471-6f9176c6233f}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStepINC5 : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.iExternalCommandMethodStep			:= THIS^.iExternalCommandMethodStep + 5;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test" Id="{81478e65-f057-0bd1-13be-f5d82ad84836}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.05.2025		TC 4024.66
+	Metoda wykonywana co cykl testująca czy ma się polecenie wykonać
+*)
+METHOD PUBLIC Test : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.bExecute AND NOT THIS^.bBusy) THEN
+	THIS^.iExternalCommandMethodStep	:= 0;
+	THIS^.bStatus						:= FALSE;
+	THIS^.bBusy							:= TRUE;
+	THIS^.bExecute						:= FALSE;
+	THIS^.bLastCycle					:= FALSE;
+	THIS^.bFirstCycle					:= FALSE;	//zmienione z true przy reogranizacji 
+	THIS^.iInternalCommandMethodStep	:= 0;
+	Test								:= TRUE;
+	
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TurnOff" Id="{1ae14523-f886-0e12-12d4-4ff0bd8aa1c1}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.05.2025		TC 4024.66
+	Metoda wylacza zgloszone uruchomienie
+*)
+METHOD PUBLIC TurnOff : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bExecute		:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ustawTrwa" Id="{42521e56-60c3-0994-3ae9-d934e7f6c136}">
+      <Declaration><![CDATA[METHOD PUBLIC ustawTrwa
+VAR_INPUT
+	bIn			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.bBusy AND NOT bIn) THEN
+	THIS^.bStatus				:= TRUE;
+	THIS^.iExternalCommandMethodStep		:= 0;
+END_IF
+THIS^.bBusy			:= bIn;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocTrwa" Id="{9fb27f90-4f10-08c2-1017-dd41e6f351c7}">
+      <Declaration><![CDATA[METHOD PUBLIC zwrocTrwa : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[zwrocTrwa			:= THIS^.bBusy;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>
