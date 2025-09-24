@@ -3,5 +3,49 @@
   <Itf Name="ITF_BaseLocation" Id="{ccad8ee0-a020-06c4-1cac-6daab23bc46c}">
     <Declaration><![CDATA[INTERFACE ITF_BaseLocation
 ]]></Declaration>
+    <Method Name="GetActualCode" Id="{47aa584c-63c6-0e95-370f-61bdda614c08}">
+      <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		24.09.2025		TC 4024.66
+	Zwraca kod jezyka tzn 
+*)
+METHOD PUBLIC GetActualCode : STRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetActualDescription" Id="{e493b952-92ce-0dd1-1ac2-d9f99eb12478}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActualDescription : WSTRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetCode" Id="{f5089d95-88fa-01be-274f-0d9f536d6d36}">
+      <Declaration><![CDATA[METHOD PUBLIC GetCode : STRING(5)
+VAR_INPUT
+	iIN				: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetDescription" Id="{fd682f2c-e94e-0f53-3370-7eac0692997d}">
+      <Declaration><![CDATA[METHOD PUBLIC GetDescription : WSTRING
+VAR_INPUT
+	iIN				: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetLocation" Id="{693da18a-9977-06f8-0550-0f564dc1fdb9}">
+      <Declaration><![CDATA[METHOD PUBLIC GetLocation : E_BaseLocation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetLocation" Id="{7f17b2a1-acf1-02df-03f1-1a0db3d441c3}">
+      <Declaration><![CDATA[METHOD PUBLIC SetLocation : BOOL
+VAR_INPUT
+	sLocation				: STRING;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>
