@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <DUT Name="ST_Descriptor" Id="{6599cd84-8a99-00ca-1312-c67e4a5fcf51}">
-    <Declaration><![CDATA[TYPE ST_Descriptor :
+  <DUT Name="ST_BaseDescriptor" Id="{6599cd84-8a99-00ca-1312-c67e4a5fcf51}">
+    <Declaration><![CDATA[TYPE ST_BaseDescriptor :
 STRUCT
-	stNames						: ST_Label;
+	stTexts						: ST_BaseLabel;
 	sUnit						: STRING(6);
 	rValue						: REAL;
 	rMin						: REAL;

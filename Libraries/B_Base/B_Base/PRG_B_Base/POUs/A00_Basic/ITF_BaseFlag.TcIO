@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_BaseFlag" Id="{53c74f07-99f7-0225-2af2-5711ac58b2c9}">
-    <Declaration><![CDATA[INTERFACE ITF_BaseFlag
+    <Declaration><![CDATA[INTERFACE ITF_BaseFlag extends ITF_BaseFlagGet, ITF_BaseFlagSet
 ]]></Declaration>
   </Itf>
 </TcPlcObject>

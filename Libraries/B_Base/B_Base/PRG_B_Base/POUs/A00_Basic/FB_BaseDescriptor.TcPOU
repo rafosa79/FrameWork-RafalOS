@@ -8,14 +8,148 @@
 *)
 FUNCTION_BLOCK FB_BaseDescriptor IMPLEMENTS ITF_BaseDescriptor
 VAR
-	stDeskryptor					: ST_Descriptor;
+	stDeskryptor					: ST_BaseDescriptor;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <LineIds Name="FB_BaseDescriptor">
-      <LineId Id="2" Count="0" />
-    </LineIds>
+    <Method Name="GetDefaultValue" Id="{7672acfb-69d1-0152-0da7-f699bf266bad}">
+      <Declaration><![CDATA[METHOD PUBLIC GetDefaultValue : REAL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetDefaultValue			:= THIS^.stDeskryptor.rDefaultValue;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetMax" Id="{8c76e190-abee-0b2f-27c2-dfbab096def1}">
+      <Declaration><![CDATA[METHOD PUBLIC GetMax : REAL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetMax					:= THIS^.stDeskryptor.rMax;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetMin" Id="{1bb9af4c-532c-0d65-0fa1-3f85303ee695}">
+      <Declaration><![CDATA[METHOD PUBLIC GetMin : REAL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetMin				:= THIS^.stDeskryptor.rMin;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetTexts" Id="{417909bc-3071-05d7-1b3f-8468c5f7f250}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTexts : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetTexts				:=THIS^.stDeskryptor.stTexts;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetUnit" Id="{c59d07ba-453e-0fd3-241b-d8705866834f}">
+      <Declaration><![CDATA[METHOD PUBLIC GetUnit : STRING(6)
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetUnit			:= THIS^.stDeskryptor.sUnit;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetValue" Id="{1fbad2d2-c73a-00b7-272a-3bd1a663b3de}">
+      <Declaration><![CDATA[METHOD PUBLIC GetValue : REAL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetValue			:= this^.stDeskryptor.rValue;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetDefaultValue" Id="{09cf2edb-c6b5-0603-37d0-2e6642dcc45f}">
+      <Declaration><![CDATA[METHOD PUBLIC SetDefaultValue
+VAR_INPUT
+	rDefaultValue: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stDeskryptor.rDefaultValue		:= rDefaultValue;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetMax" Id="{0f50b22f-5dec-0af4-1e0b-94d421cf37c6}">
+      <Declaration><![CDATA[METHOD PUBLIC SetMax
+VAR_INPUT
+	rMax: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stDeskryptor.rMax		:= rMax;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetMin" Id="{cdcb8462-e776-0a08-04c6-034dd95fa910}">
+      <Declaration><![CDATA[METHOD PUBLIC SetMin
+VAR_INPUT
+	rMin: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stDeskryptor.rMin		:= rMin;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetText" Id="{3c16ad50-9b2e-080a-1ab9-d69019c1102c}">
+      <Declaration><![CDATA[METHOD PUBLIC SetText
+VAR_INPUT
+	eLocation			: E_BaseLocation;
+	wsDescription		: WSTRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stDeskryptor.stTexts.arrText [eLocation]	:= wsDescription;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetTexts" Id="{31ae5e96-267f-0a74-148a-8b7537ed702e}">
+      <Declaration><![CDATA[METHOD PUBLIC SetTexts
+VAR_INPUT
+	stTexts				: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stDeskryptor.stTexts			:= stTexts;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetUnit" Id="{c7b5bc13-b76d-0bbe-0ade-846421544371}">
+      <Declaration><![CDATA[METHOD PUBLIC SetUnit
+VAR_INPUT
+	sUnit: STRING(6);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stDeskryptor.sUnit		:= sUnit;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValue" Id="{fe9b8b66-0a69-0021-26b6-4b3d78392ea8}">
+      <Declaration><![CDATA[METHOD PUBLIC SetValue
+VAR_INPUT
+	rValue: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stDeskryptor.rValue		:= rValue;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

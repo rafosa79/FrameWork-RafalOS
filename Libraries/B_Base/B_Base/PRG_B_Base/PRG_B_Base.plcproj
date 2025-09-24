@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.10</ProjectVersion>
+    <ProjectVersion>0.0.0.11</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -110,25 +110,25 @@
     <Compile Include="DUTs Events\ST_BaseEvents_InformationAboutEventsForHMI.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\E_ElementType.TcDUT">
+    <Compile Include="DUTs\E_BaseElementType.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\E_Location.TcDUT">
+    <Compile Include="DUTs\E_BaseLocation.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\ST_CommonData.TcDUT">
+    <Compile Include="DUTs\ST_BaseCommonData.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\ST_Descriptor.TcDUT">
+    <Compile Include="DUTs\ST_BaseDescriptor.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\ST_ElementIdentifier.TcDUT">
+    <Compile Include="DUTs\ST_BaseElementIdentifier.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\ST_LocationDesctription.TcDUT">
+    <Compile Include="DUTs\ST_BaseLocationDesctription.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\ST_Label.TcDUT">
+    <Compile Include="DUTs\ST_BaseLabel.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GVLs\GVL_BaseConstans.TcGVL">
@@ -170,7 +170,16 @@
     <Compile Include="POUs\A00_Basic\ITF_BaseFlag.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseFlagGet.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseFlagSet.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A00_Basic\ITF_BaseImpulse.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseLabel.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A00_Basic\ITF_BaseLocation.TcIO">

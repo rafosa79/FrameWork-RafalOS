@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <DUT Name="ST_Label" Id="{a8bc978c-f860-0716-3224-49a452076ff3}">
-    <Declaration><![CDATA[TYPE ST_Label :
+  <DUT Name="ST_BaseLabel" Id="{a8bc978c-f860-0716-3224-49a452076ff3}">
+    <Declaration><![CDATA[TYPE ST_BaseLabel :
 STRUCT
 	arrText		: ARRAY [1..GVL_BaseConstans.LICZBA_DODANYCH_JEZYKOW] OF WSTRING;
 	

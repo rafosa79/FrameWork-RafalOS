@@ -6,7 +6,7 @@ VAR
 	fbLabel					: FB_BaseLabel;
 	fbDescription			: FB_BaseDescriptor;
 
-	sttmpCommonData			: ST_CommonData;
+	sttmpCommonData			: ST_BaseCommonData;
 
 	fbBaseTime				: FB_BaseTime;
 	fbBaseCommand			: FB_BaseCommand;
@@ -26,8 +26,5 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <LineIds Name="PRG_Compilation">
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

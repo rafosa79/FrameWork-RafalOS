@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <DUT Name="ST_LocationDesctription" Id="{1af1b441-63c2-0606-1554-fb8c58ce1fee}">
-    <Declaration><![CDATA[TYPE ST_LocationDesctription :
+  <DUT Name="ST_BaseLocationDesctription" Id="{1af1b441-63c2-0606-1554-fb8c58ce1fee}">
+    <Declaration><![CDATA[TYPE ST_BaseLocationDesctription :
 STRUCT
 	wsDescription		: WSTRING;
 	sCade				: STRING;
