@@ -3,7 +3,13 @@
   <POU Name="PRG_Compilation" Id="{1360e8a4-0d65-02a4-26da-1d595118164a}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
-	sttmpCommonData			: ST_CommonData;
+	fbLabel					: FB_BaseLabel;
+	fbDescription			: FB_BaseDescriptor;
+	fbLocation				: FB_BaseLocation;
+	fbCommand				: FB_BaseCommand;
+	fbImpuls				: FB_BaseImpulse;
+	
+	sttmpCommonData			: ST_BaseCommonData;
 
 	fbBaseTime				: FB_BaseTime;
 	fbBaseCommand			: FB_BaseCommand;

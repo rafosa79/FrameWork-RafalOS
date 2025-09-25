@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseFlagGet" Id="{bf82d5ac-7771-0224-1c56-44ab98f3236a}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseFlagGet
+]]></Declaration>
+    <Method Name="GetFlag" Id="{ecfd5ed9-c2f7-0d14-0ba2-89dbc527f18f}">
+      <Declaration><![CDATA[METHOD PUBLIC GetFlag : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

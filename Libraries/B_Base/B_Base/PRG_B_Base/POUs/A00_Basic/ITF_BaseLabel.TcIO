@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseLabel" Id="{49a26894-6851-0f07-3e7d-7cbc97664af4}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseLabel
+]]></Declaration>
+    <Method Name="GetTexts" Id="{73c62efa-0c36-08b7-3a53-87bb2d91d63a}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTexts : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetText" Id="{509b15f9-c5e8-0c64-1b87-88f27c7d7140}">
+      <Declaration><![CDATA[METHOD PUBLIC SetText
+VAR_INPUT
+	eLocation			: E_BaseLocation;
+	wsDescription		: WSTRING;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetTexts" Id="{0f59c1e5-32c3-0669-3211-70313c6495c8}">
+      <Declaration><![CDATA[METHOD PUBLIC SetTexts
+VAR_INPUT
+	stTexts				: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

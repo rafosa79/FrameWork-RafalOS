@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseEvents_InformationAboutEventsForHMI" Id="{cc4a62d2-f4f7-0dcb-3af9-48448cec2c5e}">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.09.2025		TC 4024.66
+	Informacja czy w danym elemencie jest jakieś nowe zgłoszenie jeszcze nei wyświetlane i ilosc zgloszen calkowita
+*)
+TYPE ST_BaseEvents_InformationAboutEventsForHMI :
+STRUCT
+	bNowe				: BOOL;
+	iIlosc				: INT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_BaseTimeTest" Id="{9789b716-38f8-02f1-048e-ffb782076a00}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK internal FB_BaseTimeTest EXTENDS FB_TestSuite
+VAR
+	bWork									: BOOL := TRUE;	//uruchomienie pracy
+	bWorks									: BOOL;	//flaga czy działa
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[T01_TestDzialania ();
+T02_TestWyswietlania ();
+T03_TestKonwertowaniaDT ();
+]]></ST>
+    </Implementation>
+    <Method Name="T01_TestDzialania" Id="{a6698d21-004e-0ba0-0d80-a9c795a73928}">
+      <Declaration><![CDATA[METHOD PROTECTED T01_TestDzialania
+VAR_INST
+	iKrok				: INT;
+	sData				: STRING;
+	sGodzina			: STRING;
+	dtStempel			: DATE_AND_TIME;
+	sStempel			: STRING;
+	ltStempel			: LTIME;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestDzialania')) THEN
+	
+	CASE iKrok OF
+	0	:
+		IF (GVL.fbMyTime.Work (bIN := TRUE)) THEN
+//			sData								:= fbCzas.Stempel_STRING (eFormat := E_FormatCzasu.eDDMMYYYY);
+//			AssertEquals_STRING (
+//				Actual							:= sData,
+//				Expected						:= '12/07/2025',
+//				Message							:= 'Test Czas - 01 - Blednie pobrana data'
+//			);
+//			sGodzina							:= fbCzas.Stempel_STRING (eFormat := E_FormatCzasu.eGGMM);
+//			AssertEquals_STRING (
+//				Actual							:= sGodzina,
+//				Expected						:= '14:29',
+//				Message							:= 'Test Czas - 02 - Blednie pobrana godzina'
+//			);
+//			
+//			dtStempel							:= fbCzas.Stempel_DT ();
+//			ltStempel							:= DT_TO_LTIME (dtStempel);
+//			sStempel							:= fbCzas.Czas_To_String (ltCzas := ltStempel, bPokazMS := FALSE);
+			
+			
+			iKrok								:= iKrok + 10;
+		END_IF
+	10	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T02_TestWyswietlania" Id="{c1721fdf-c169-0269-31c4-add1b9083564}">
+      <Declaration><![CDATA[METHOD PROTECTED T02_TestWyswietlania
+VAR
+    // przykładowe czasy
+    lt1 : LTIME := LTIME#10s500ms;
+    lt2 : LTIME := LTIME#5d10h20m45s123ms;
+    lt3 : LTIME := LTIME#745d3h5m;   // ok. 2 lata
+    lt4 : LTIME := LTIME#123ms;
+
+    // wyniki
+    sShort1, sFull1 : STRING;
+
+	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestWyswietlania')) THEN
+	
+	sShort1 := GVL.fbMyTime.BaseLTimeToString (ltTime := lt1, bShowMS := FALSE);
+	sFull1  := GVL.fbMyTime.BaseLTimeToString (ltTime := lt1, bShowMS := TRUE);
+	AssertEquals_STRING (Expected := '00d:00:00:10', Actual := sShort1, Message := 'T01a - bledne wyswietlenia skrotu');
+	AssertEquals_STRING (Expected := '00d:00:00:10.500', Actual := sFull1, Message 	:= 'T01b - bledne wyswietlenia pelnego');
+	
+	sShort1 := GVL.fbMyTime.BaseLTimeToString (ltTime := lt2,  bShowMS := FALSE);
+	sFull1  := GVL.fbMyTime.BaseLTimeToString (ltTime := lt2,  bShowMS := TRUE);
+	AssertEquals_STRING (Expected := '05d:10:20:45', Actual := sShort1, Message := 'T02a - bledne wyswietlenia skrotu');
+	AssertEquals_STRING (Expected := '05d:10:20:45.123', Actual := sFull1, Message 	:= 'T02b - bledne wyswietlenia pelnego');
+	
+	sShort1 := GVL.fbMyTime.BaseLTimeToString (ltTime := lt3, bShowMS := FALSE);
+	sFull1  := GVL.fbMyTime.BaseLTimeToString (ltTime := lt3, bShowMS := TRUE);
+	AssertEquals_STRING (Expected := '745d:03:05:00', Actual := sShort1, Message := 'T03a - bledne wyswietlenia skrotu');
+	AssertEquals_STRING (Expected := '745d:03:05:00.000', Actual := sFull1, Message 	:= 'T03b - bledne wyswietlenia pelnego');
+	
+	sShort1 := GVL.fbMyTime.BaseLTimeToString (ltTime := lt4, bShowMS := FALSE);
+	sFull1  := GVL.fbMyTime.BaseLTimeToString (ltTime := lt4, bShowMS := TRUE);
+	AssertEquals_STRING (Expected := '00d:00:00:00', Actual := sShort1, Message := 'T04a - bledne wyswietlenia skrotu');
+	AssertEquals_STRING (Expected := '00d:00:00:00.123', Actual := sFull1, Message 	:= 'T04b - bledne wyswietlenia pelnego');
+
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T03_TestKonwertowaniaDT" Id="{cfb3110e-4283-070c-043f-2013b33d3ef9}">
+      <Declaration><![CDATA[METHOD PROTECTED T03_TestKonwertowaniaDT
+VAR_INST
+	dt1			: DT;
+	swynik		: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T03_TestKonwertowaniaDT')) THEN
+	dt1			:=  DT#2025-08-21-08:55:41;
+	swynik		:= GVL.fbMyTime.BaseDTToString (inDT := dt1);
+	
+	AssertEquals_STRING (Expected := '21/08/2025 08:55:41', Actual := swynik, Message := 'T01 - Bledna konwersja');
+
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

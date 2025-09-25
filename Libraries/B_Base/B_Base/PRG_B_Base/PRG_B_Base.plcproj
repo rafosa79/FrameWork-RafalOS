@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.8</ProjectVersion>
+    <ProjectVersion>0.0.0.15</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -83,13 +83,64 @@
     <Author>Rafał Osajda</Author>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DUTs\ST_CommonData.TcDUT">
+    <Compile Include="DUTs Events\E_BaseEvents_Type.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_ActiveEvents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_Definition.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_Queue.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_Memory.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_RowInQueue.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_RowInMemory.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\ST_BaseEvents_InformationAboutEventsForHMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\E_BaseElementType.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\E_BaseLocation.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\ST_BaseCommonData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\ST_BaseDescriptor.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\ST_BaseElementIdentifier.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\ST_BaseLocationDesctription.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\ST_BaseLabel.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GVLs\GVL_BaseConstans.TcGVL">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\FB_BaseLabel.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A00_Basic\FB_BaseTime.TcPOU">
@@ -110,16 +161,22 @@
     <Compile Include="POUs\A00_Basic\FB_BaseLocation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A00_Basic\ITF_BaseCommand.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\A00_Basic\ITF_BaseDescriptor.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A00_Basic\ITF_BaseFlag.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseFlagGet.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseFlagSet.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A00_Basic\ITF_BaseImpulse.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A00_Basic\ITF_BaseLabel.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A00_Basic\ITF_BaseLocation.TcIO">
@@ -189,6 +246,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="DUTs Events" />
     <Folder Include="POUs Compilation" />
     <Folder Include="POUs\A04_FB_BaseComponent" />
     <Folder Include="POUs\A02_FB_BaseLogger" />
@@ -209,6 +267,10 @@
     <PlaceholderReference Include="Tc2_System">
       <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Utilities">
+      <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Utilities</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>

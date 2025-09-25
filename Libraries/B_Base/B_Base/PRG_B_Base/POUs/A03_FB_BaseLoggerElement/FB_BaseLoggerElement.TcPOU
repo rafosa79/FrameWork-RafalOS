@@ -8,14 +8,118 @@
 *)
 FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector
 VAR
-
-
+	stIdentifier					: ST_BaseElementIdentifier;
+	stEvents						: ST_BaseEvents;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Events" Id="{0a451ccb-a5c6-0466-1fb3-43b9aac577ff}" />
+    <Folder Name="ID" Id="{9f4accde-c200-0e3a-3280-17fd6d107d51}" />
     <Folder Name="ITF_BaseLoggerElement_HMI_Connector" Id="{abdbf241-16b7-0948-3bea-83a764b01a75}" />
+    <Method Name="AddEvent" Id="{634f9b8e-85a8-02a3-013c-6c409e6a5e93}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Dodawanie zgłoszenia do systemu
+*)
+METHOD PUBLIC AddEvent : BOOL
+VAR_INPUT
+	bIgnorujPowtorzenia					: BOOL;					//jak true nie zliczaj powtorzeń wystapienia np komunikaty
+	eRodzajZdarzenia					: E_BaseEvents_Type;	//BYTE;	//1 - blad, 2 - ostrzezenie, 3 - wiadomosc, 4 - safety
+	bWymagaZatwierdzenia				: BOOL;
+	stOpis								: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.stEvents.uiIloscDodanych + 1 <= GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT) THEN
+	THIS^.stEvents.uiIloscDodanych														:= THIS^.stEvents.uiIloscDodanych + 1;
+	THIS^.stEvents.arrDefinicje [THIS^.stEvents.uiIloscDodanych].uiIDWElemencie			:= THIS^.stEvents.uiIloscDodanych;
+	THIS^.stEvents.arrDefinicje [THIS^.stEvents.uiIloscDodanych].bIgnorujPowtorzenia	:= bIgnorujPowtorzenia;
+	THIS^.stEvents.arrDefinicje [THIS^.stEvents.uiIloscDodanych].eRodzajZdarzenia		:= eRodzajZdarzenia;
+	THIS^.stEvents.arrDefinicje [THIS^.stEvents.uiIloscDodanych].stOpis  				:= stOpis;
+	this^.stEvents.arrDefinicje [this^.stEvents.uiIloscDodanych].bWymagaPotwierdzenia	:= bWymagaZatwierdzenia;
+//	THIS^.stZgloszenia.arrDefinicje [THIS^.stZgloszenia.uiIloscDodanych].fbOpis.PowiarzJezyk (fbLokalizacja := THIS^.itfLokalizacja);
+//	THIS^.stZgloszenia.itfObslugaZdarzen														:= THIS^.itfLoger;
+	
+	AddEvent						:= TRUE;
+ELSE
+	AddEvent						:= FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EventsDefinition" Id="{d570146c-fc2a-0a65-1409-5460668a36c6}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MEMSET (
+	destAddr		:= ADR (THIS^.stEvents.arrDefinicje),
+	fillByte		:= 0,
+	n				:= SIZEOF (THIS^.stEvents.arrDefinicje)
+);
+THIS^.stEvents.uiIloscDodanych	:= 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetCode" Id="{af745aea-1b66-059b-10b2-395e94251847}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetCode : STRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetCode			:= THIS^.stIdentifier.sCode;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetID" Id="{76a78e74-7761-0532-0c6a-49d51d5b5955}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetID : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetID				:= THIS^.stIdentifier.uiID;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIdentyfier" Id="{48d63181-6e27-0c5e-3c1d-ae09759ac84b}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetIdentyfier : ST_BaseElementIdentifier
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIdentyfier				:= THIS^.stIdentifier;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetName" Id="{f31b5203-9f85-03eb-3e31-406645634fd5}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetName				:= THIS^.stIdentifier.stName;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetType" Id="{61940ec7-463b-0e69-2135-9287ae34093b}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetType : E_BaseElementType
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetType				:= THIS^.stIdentifier.eType;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="MetodaBaseLoggerElementHMIConnector" Id="{437aee4c-8ff1-0551-0c74-ef940e363677}" FolderPath="ITF_BaseLoggerElement_HMI_Connector\">
       <Declaration><![CDATA[METHOD MetodaBaseLoggerElementHMIConnector : BOOL
 VAR_INPUT
@@ -23,6 +127,49 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCode" Id="{fe7a56f6-55e1-0e90-11d6-90800c0cf084}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetCode
+VAR_INPUT
+	sCode							: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stIdentifier.sCode				:= sCode;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetID" Id="{9acba3a6-fc5f-0ece-1ab3-a775104efe88}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetID
+VAR_INPUT
+	uiID					: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stIdentifier.uiID			:= uiID;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetName" Id="{206e85b8-29f8-08fa-23dd-60a3f6071df5}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetName
+VAR_INPUT
+	stName				: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[this^.stIdentifier.stName			:= stName;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetType" Id="{bf11665f-1c90-0e8a-0bd5-6357f50d48e0}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetType
+VAR_INPUT
+	eType					: E_BaseElementType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stIdentifier.eType				:= eType;
+]]></ST>
       </Implementation>
     </Method>
   </POU>

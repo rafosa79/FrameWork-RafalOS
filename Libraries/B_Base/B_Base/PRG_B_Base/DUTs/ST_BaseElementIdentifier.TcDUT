@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseElementIdentifier" Id="{a640e5c6-59c4-4947-8e18-94accbba0643}">
+    <Declaration><![CDATA[{attribute 'global_init_slot' := '40501'} 
+TYPE ST_BaseElementIdentifier :
+STRUCT
+	stName					: ST_BaseLabel;
+	sCode					: STRING;		//unikalny kod elementu w postaci X.X.X
+	uiID					: UINT;			//unikalny numer elementu
+	eType					: E_BaseElementType;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

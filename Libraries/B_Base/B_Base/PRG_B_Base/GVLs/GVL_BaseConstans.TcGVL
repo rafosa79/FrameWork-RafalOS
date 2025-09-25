@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="GVL_BaseConstans" Id="{58f203da-95c4-05df-0908-6a9d990a495f}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'global_init_slot' := '40502'} 
+VAR_GLOBAL CONSTANT
+//OGÓLNE
+	OSTATNI_KROK							: INT := 1000;
+//Tryby i stany
+//	LICZBA_TRYBOW_PRACY						: int := 5;	//liczba trybów plus niedostepny w 0
+//JEZYKI
+	LICZBA_DODANYCH_JEZYKOW					: INT := 3;// Parametry.LICZBA_DODANYCH_JEZYKOW;
+//Loger
+	MAX_ILOSC_ZGLOSZEN_NA_ELEMENT			: UINT := 50;// Parametry.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT;	//maksymalna ilosc zgłoszeń dla jednego elementu
+	LICZBA_ZGLOSZEN_W_KOLEJCE				: UINT := 20;
+	MAX_LICZBA_PAMIETANYCH_ZGLOSZEN			: UINT := 500;
+	MAX_LICZBA_WYSWIETLANYCH_ZGLOSZEN		: UINT := 100;
+	MAX_LICZBA_RODZAJOW_ZGLOSZEN			: INT := 4;
+//Receptury
+	MAX_ILOSC_SKLADNIKOW					: UINT := 400;// Parametry.MAX_ILOSC_SKLADNIKOW;
+	MAX_ILOSC_SZABLONOW						: UINT := 5;// Parametry.MAX_ILOSC_SZABLONOW;
+	MAX_ILOSC_RECEPTUR						: UINT := 10;// Parametry.MAX_ILOSC_RECEPTUR;
+//Parametry
+	MAX_ILOSC_PARAMETROW					: INT := 100;// Parametry.MAX_ILOSC_PARAMETROW;
+//komponenty i elementy
+	MAX_ILOSC_PB							: UINT := 10;
+	MAX_ILOSC_KOMPONENTOW					: UINT := 50;	// MAX_ILOSC_KOMPONENTOW;
+	MAX_ILOSC_ZAGNIEZDZEN_PODZESPOLOW		: UINT := 5;	// MAX_ILOSC_ZAGNIEZDZEN_PODZESPOLOW;
+	MAX_ILOSC_ELEMENTOW_NA_ELEMENT_ZLOZONY	: INT := 20;	// Max ilsoc elementow w elemencie zlozonym, moga to być też elementu złożone i liczone sa tylko elementy dodawane bez podelementow
+	MAX_ILOSC_WSZYSTKICH_KOMPONENTOW		: UINT := 200;	// liczba wszystkich komponentów we wszystkich podzespolach bazowych
+//Komunikator
+	MAX_ILOSC_KLIENTOW						: INT := 20;
+	MAX_ILOSC_KOMUNIKATOW					: INT := 200;
+	MAX_ILOSC_KOMUNIKATOW_NA_STOSIE			: INT := 200;
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

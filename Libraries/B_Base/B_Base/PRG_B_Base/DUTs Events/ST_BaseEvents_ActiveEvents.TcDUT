@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseEvents_ActiveEvents" Id="{03355258-b260-09fe-29ba-9e70eaee8e24}">
+    <Declaration><![CDATA[TYPE ST_BaseEvents_ActiveEvents :
+STRUCT
+	bJestAktywny							: BOOL;	//informacja o wszysktkich aktywnych zgloszeniach
+	iIloscAktywnych							: INT;
+	iIloscWszystkich						: INT;	//ilosc wszystkich zgloszonych zgloszen
+	bJestAktywnyZPotwierdzeniem				: BOOL;	//infdormacja o aktywnych bledach ktore wymagaja potwierdzenia
+	iIloscAktywnychZPotwierdzeniem			: INT;
+	
+	arrIloscAktywnych						: ARRAY [0..GVL_BaseConstans.MAX_LICZBA_RODZAJOW_ZGLOSZEN] OF INT;	//ilosc wszystkich aktywnych zgloszen z podziałem na rodzaje
+	arrIloscWszystkich						: ARRAY [0..GVL_BaseConstans.MAX_LICZBA_RODZAJOW_ZGLOSZEN] OF INT;	//ilosc wszystkich zgloszonych z podzialem na rodzaje
+	arrInfoDlaHMI							: ARRAY [0..GVL_BaseConstans.MAX_ILOSC_WSZYSTKICH_KOMPONENTOW] OF ST_BaseEvents_InformationAboutEventsForHMI;	//ilosc zgloszen dla poszczegolnych elementow
+	bNoweZgloszenieInfoDlaHMI				: BOOL; 	//informacja ze pojawiło się nowe zgfłoszenie
+								
+	arrAktywne								: ARRAY [0..GVL_BaseConstans.MAX_LICZBA_RODZAJOW_ZGLOSZEN] OF BOOL; 	//informacja który z rodzajów zgłoszęń jest aktywny
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

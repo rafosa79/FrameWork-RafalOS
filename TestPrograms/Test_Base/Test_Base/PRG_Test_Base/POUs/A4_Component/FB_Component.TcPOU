@@ -9,5 +9,32 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Events" Id="{7bb4e45e-1048-4dff-a472-983f58eabfc3}" />
+    <Method Name="EventsDefinition" Id="{a55dd4c8-65f3-4ae1-b770-b8a090b813df}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+VAR_INPUT
+END_VAR
+
+VAR
+	stName	: ST_BaseLabel;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+SUPER^.EventsDefinition ();
+
+THIS^.AddEvent (
+	bIgnorujPowtorzenia		:= TRUE,
+	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
+	bWymagaZatwierdzenia	:= FALSE,
+	stOpis					:= stName
+);
+*)]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>
