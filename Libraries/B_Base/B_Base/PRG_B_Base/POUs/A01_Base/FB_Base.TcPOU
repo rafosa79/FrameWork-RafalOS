@@ -10,7 +10,7 @@ FUNCTION_BLOCK FB_Base EXTENDS FB_BaseDescriptor
 VAR
 	refstCommonData			: REFERENCE TO ST_BaseCommonData;
 
-	bIsValidCommonData		:  bool;
+	bIsValidCommonData		:  BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
