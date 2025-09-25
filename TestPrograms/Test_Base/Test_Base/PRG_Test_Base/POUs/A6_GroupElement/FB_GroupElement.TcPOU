@@ -9,5 +9,51 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Events" Id="{8e43150b-394a-48b5-b1ff-049b0624ded8}" />
+    <Method Name="EventsDefinition" Id="{aa2960bd-29a7-4630-9705-f2de41ca8f1b}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+VAR
+	fbName					: FB_BaseLabel;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.EventsDefinition ();
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie Zlozonego 1 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie Zlozonego 1 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie Zlozonego 1 DE");
+THIS^.AddEvent (
+	bIgnorujPowtorzenia		:= TRUE,
+	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
+	bWymagaZatwierdzenia	:= FALSE,
+	stOpis					:= fbName.GetTexts ()
+);
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie Zlozonego 2 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie Zlozonego 2 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie Zlozonego 2 DE");
+THIS^.AddEvent (
+	bIgnorujPowtorzenia		:= TRUE,
+	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
+	bWymagaZatwierdzenia	:= FALSE,
+	stOpis					:= fbName.GetTexts ()
+);
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie Zlozonego 3 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie Zlozonego 3 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie Zlozonego 3 DE");
+THIS^.AddEvent (
+	bIgnorujPowtorzenia		:= TRUE,
+	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
+	bWymagaZatwierdzenia	:= FALSE,
+	stOpis					:= fbName.GetTexts ()
+);
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

@@ -3,15 +3,15 @@
   <DUT Name="ST_BaseEvents" Id="{0e38572f-f2fe-4686-bec2-1d64e92ff5ec}">
     <Declaration><![CDATA[TYPE ST_BaseEvents :
 STRUCT
-	uiIloscDodanych					: UINT;	//Iloscdodanych zgloszen
+	uiNumberOfAdded					: UINT;	//Iloscdodanych zgloszen
 	
-	arrDefinicje					: ARRAY [1..GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT] OF ST_BaseEvents_Definition;
-	arrStan							: ARRAY [1..GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT] OF BOOL;
-	arrPotwierdzenie				: ARRAY [1..GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT] OF BOOL;
+	arrDefinitions					: ARRAY [1..GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT] OF ST_BaseEvents_Definition;
+	arrState						: ARRAY [1..GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT] OF BOOL;
+	arrConfirmation					: ARRAY [1..GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT] OF BOOL;
 
-	iIloscAktywnychZgloszen			: INT; //zmienna pomocnicza informująca o ilości wszystkich aktywnych zgłoszeń
+	iNumberOfActiveEvents			: INT; //zmienna pomocnicza informująca o ilości wszystkich aktywnych zgłoszeń
 
-	bDaneLogeraUzupelnione			: BOOL;
+	bLoggerDataCompleted			: BOOL;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

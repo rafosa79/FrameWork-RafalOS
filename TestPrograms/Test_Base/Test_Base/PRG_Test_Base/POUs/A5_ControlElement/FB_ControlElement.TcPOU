@@ -9,5 +9,51 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Events" Id="{4e999132-d206-4c35-b450-725b9c2298f3}" />
+    <Method Name="EventsDefinition" Id="{a281ab05-7ab5-4949-9946-c10943928145}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+VAR
+	fbName					: FB_BaseLabel;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.EventsDefinition ();
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie Wykonawczego 1 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie Wykonawczego 1 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie Wykonawczego 1 DE");
+THIS^.AddEvent (
+	bIgnorujPowtorzenia		:= TRUE,
+	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
+	bWymagaZatwierdzenia	:= FALSE,
+	stOpis					:= fbName.GetTexts ()
+);
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie Wykonawczego 2 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie Wykonawczego 2 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie Wykonawczego 2 DE");
+THIS^.AddEvent (
+	bIgnorujPowtorzenia		:= TRUE,
+	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
+	bWymagaZatwierdzenia	:= FALSE,
+	stOpis					:= fbName.GetTexts ()
+);
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie Wykonawczego 3 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie Wykonawczego 3 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie Wykonawczego 3 DE");
+THIS^.AddEvent (
+	bIgnorujPowtorzenia		:= TRUE,
+	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
+	bWymagaZatwierdzenia	:= FALSE,
+	stOpis					:= fbName.GetTexts ()
+);
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

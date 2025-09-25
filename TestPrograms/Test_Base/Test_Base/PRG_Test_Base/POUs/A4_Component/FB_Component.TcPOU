@@ -17,23 +17,42 @@ END_VAR
 	Definicja nowego zgłoszenia
 *)
 METHOD PUBLIC EventsDefinition : BOOL
-VAR_INPUT
-END_VAR
-
 VAR
-	stName	: ST_BaseLabel;
+	fbName					: FB_BaseLabel;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[(*
-SUPER^.EventsDefinition ();
+        <ST><![CDATA[SUPER^.EventsDefinition ();
 
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie komponentu 1 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie komponentu 1 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie komponentu 1 DE");
 THIS^.AddEvent (
 	bIgnorujPowtorzenia		:= TRUE,
 	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
 	bWymagaZatwierdzenia	:= FALSE,
-	stOpis					:= stName
+	stOpis					:= fbName.GetTexts ()
 );
-*)]]></ST>
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie komponentu 2 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie komponentu 2 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie komponentu 2 DE");
+THIS^.AddEvent (
+	bIgnorujPowtorzenia		:= TRUE,
+	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
+	bWymagaZatwierdzenia	:= FALSE,
+	stOpis					:= fbName.GetTexts ()
+);
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie komponentu 3 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie komponentu 3 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie komponentu 3 DE");
+THIS^.AddEvent (
+	bIgnorujPowtorzenia		:= TRUE,
+	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
+	bWymagaZatwierdzenia	:= FALSE,
+	stOpis					:= fbName.GetTexts ()
+);
+]]></ST>
       </Implementation>
     </Method>
   </POU>

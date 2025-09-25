@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="FB_TopElement" Id="{cc86d706-1c34-4c72-a8d7-812d241a4b66}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_TopElement EXTENDS FB_GroupElement IMPLEMENTS ITF_TopElement, ITF_TopElement_HMI_Init
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TopElement EXTENDS FB_BaseGroupElement IMPLEMENTS ITF_TopElement, ITF_TopElement_HMI_Init
 VAR
 	
 END_VAR
@@ -9,5 +9,51 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Events" Id="{fec9ee10-fac7-4184-b061-31b1950153c8}" />
+    <Method Name="EventsDefinition" Id="{7075b3d5-b40b-4bd4-bda3-34d6a35a57d2}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+VAR
+	fbName					: FB_BaseLabel;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.EventsDefinition ();
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie PB 1 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie PB 1 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie PB 1 DE");
+THIS^.AddEvent (
+	bIgnorujPowtorzenia		:= TRUE,
+	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
+	bWymagaZatwierdzenia	:= FALSE,
+	stOpis					:= fbName.GetTexts ()
+);
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie PB 2 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie PB 2 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie PB 2 DE");
+THIS^.AddEvent (
+	bIgnorujPowtorzenia		:= TRUE,
+	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
+	bWymagaZatwierdzenia	:= FALSE,
+	stOpis					:= fbName.GetTexts ()
+);
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie PB 3 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie PB 3 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie PB 3 DE");
+THIS^.AddEvent (
+	bIgnorujPowtorzenia		:= TRUE,
+	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
+	bWymagaZatwierdzenia	:= FALSE,
+	stOpis					:= fbName.GetTexts ()
+);
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

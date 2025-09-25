@@ -1,8 +1,5 @@
 Do zrobienia cały serwis
 
-Zgłoszenia w systemie 
-    identyfikator
-
 identyfikacja elemtów w systemie - pobieranie id i tworzenie kodu dodawanie nazw i ich zwracanie 
 rozwinięcie systemu zgłoszeń 
     możliwość tworzenia zgłoszęń w elementach

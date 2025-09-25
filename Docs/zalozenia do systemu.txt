@@ -1,3 +1,6 @@
 Loger tylko zbiera dane dopisuje do listy z kolejki i konczy potwierdza jak przyjdzie komenda do kolejki
 Element_HMI pobiera całą ref do całej tablicy i sam sobie filtruje 
 Loger_HMI - póki co niepotrzbne 
+
+Przekazywanie itf w initach tylko dla dekoratorow i lacznkow hmi reszte przekazywać w pierwszym przejsciu 
+całe przekazywanie referecji z danymi w pierwszym przejsciu elementy przekazuja sobie na wzajem PB do złożonego do wykonawczego do komponentu

@@ -8,6 +8,7 @@
 *)
 FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector
 VAR
+	itfLogger						: ITF_BaseLogger;
 	stIdentifier					: ST_BaseElementIdentifier;
 	stEvents						: ST_BaseEvents;
 END_VAR
@@ -33,13 +34,13 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.stEvents.uiIloscDodanych + 1 <= GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT) THEN
-	THIS^.stEvents.uiIloscDodanych														:= THIS^.stEvents.uiIloscDodanych + 1;
-	THIS^.stEvents.arrDefinicje [THIS^.stEvents.uiIloscDodanych].uiIDWElemencie			:= THIS^.stEvents.uiIloscDodanych;
-	THIS^.stEvents.arrDefinicje [THIS^.stEvents.uiIloscDodanych].bIgnorujPowtorzenia	:= bIgnorujPowtorzenia;
-	THIS^.stEvents.arrDefinicje [THIS^.stEvents.uiIloscDodanych].eRodzajZdarzenia		:= eRodzajZdarzenia;
-	THIS^.stEvents.arrDefinicje [THIS^.stEvents.uiIloscDodanych].stOpis  				:= stOpis;
-	this^.stEvents.arrDefinicje [this^.stEvents.uiIloscDodanych].bWymagaPotwierdzenia	:= bWymagaZatwierdzenia;
+        <ST><![CDATA[IF (THIS^.stEvents.uiNumberOfAdded + 1 <= GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT) THEN
+	THIS^.stEvents.uiNumberOfAdded														:= THIS^.stEvents.uiNumberOfAdded + 1;
+	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].uiIDWElemencie			:= THIS^.stEvents.uiNumberOfAdded;
+	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].bIgnorujPowtorzenia	:= bIgnorujPowtorzenia;
+	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].eRodzajZdarzenia		:= eRodzajZdarzenia;
+	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].stOpis  				:= stOpis;
+	this^.stEvents.arrDefinitions [this^.stEvents.uiNumberOfAdded].bWymagaPotwierdzenia	:= bWymagaZatwierdzenia;
 //	THIS^.stZgloszenia.arrDefinicje [THIS^.stZgloszenia.uiIloscDodanych].fbOpis.PowiarzJezyk (fbLokalizacja := THIS^.itfLokalizacja);
 //	THIS^.stZgloszenia.itfObslugaZdarzen														:= THIS^.itfLoger;
 	
@@ -57,16 +58,31 @@ END_IF
 	Definicja nowego zgłoszenia
 *)
 METHOD PUBLIC EventsDefinition : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MEMSET (
+	destAddr		:= ADR (THIS^.stEvents.arrDefinitions),
+	fillByte		:= 0,
+	n				:= SIZEOF (THIS^.stEvents.arrDefinitions)
+);
+THIS^.stEvents.uiNumberOfAdded	:= 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FirstCycle" Id="{c59af0fe-9b69-0431-255c-4b5a82a26450}">
+      <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		25.09.2025		TC 4024.66
+	Metoda wywoływana w pierwszym cyklu
+*)
+METHOD PUBLIC FirstCycle : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[MEMSET (
-	destAddr		:= ADR (THIS^.stEvents.arrDefinicje),
-	fillByte		:= 0,
-	n				:= SIZEOF (THIS^.stEvents.arrDefinicje)
-);
-THIS^.stEvents.uiIloscDodanych	:= 0;
+        <ST><![CDATA[
+FirstCycle				:= TRUE;
 ]]></ST>
       </Implementation>
     </Method>
