@@ -38,6 +38,9 @@
     <Compile Include="POUs\A0_BaseFB\Command\FB_CommandTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A0_BaseFB\Command\FB_Impulstest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A0_BaseFB\Time\FB_BaseTimeTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>

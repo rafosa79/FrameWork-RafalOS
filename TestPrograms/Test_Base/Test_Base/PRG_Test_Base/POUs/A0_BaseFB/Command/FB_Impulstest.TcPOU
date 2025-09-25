@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Impulstest" Id="{cebafe51-2565-4de2-8e79-cb313cbe32b6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Impulstest EXTENDS TcUnit.FB_TestSuite
+VAR
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//T01_TestDzialania ();]]></ST>
+    </Implementation>
+    <Method Name="T01_TestDzialania" Id="{3f02e688-7f1b-41a7-8dd9-366eb05aabcd}">
+      <Declaration><![CDATA[METHOD PRIVATE T01_TestDzialania
+VAR_INST
+	bUstawCzas: BOOL := TRUE;
+	bWyjscie: BOOL;
+	bKoniec: BOOL;
+	rTimeOn		: REAL := 5000;
+	rTimeOff	: REAL := 2500;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestDzialania')) THEN
+	IF (bUstawCzas) THEN
+		GVL.fbImpuls.SetTimeOn (rIN		:= rTimeOn);
+		GVL.fbImpuls.SetTimeOff (rIN	:= rTimeOff);
+		bUstawCzas						:= FALSE;
+	END_IF
+	GVL.fbImpuls ();
+	
+	bWyjscie							:= GVL.fbImpuls.GetExit ();
+	
+	IF (bKoniec) THEN
+		TcUnit.TEST_FINISHED ();
+	END_IF
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

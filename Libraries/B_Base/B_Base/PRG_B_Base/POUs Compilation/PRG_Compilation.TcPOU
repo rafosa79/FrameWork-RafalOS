@@ -6,7 +6,9 @@ VAR
 	fbLabel					: FB_BaseLabel;
 	fbDescription			: FB_BaseDescriptor;
 	fbLocation				: FB_BaseLocation;
-
+	fbCommand				: FB_BaseCommand;
+	fbImpuls				: FB_BaseImpulse;
+	
 	sttmpCommonData			: ST_BaseCommonData;
 
 	fbBaseTime				: FB_BaseTime;

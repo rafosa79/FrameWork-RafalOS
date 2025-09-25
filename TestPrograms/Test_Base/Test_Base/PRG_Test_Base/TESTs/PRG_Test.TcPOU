@@ -5,6 +5,7 @@
 VAR
 	fbBaseTimeTest			: FB_BaseTimeTest;
 	fbCommandTest			: FB_CommandTest;
+	fbImpulsTest			: FB_Impulstest;
 
 	fbBaseTest				: FB_Basetest;
 	fbComponentTest			: FB_ElementTest;
@@ -15,9 +16,5 @@ END_VAR
 	TcUnit.RUN_IN_SEQUENCE ();
 ]]></ST>
     </Implementation>
-    <LineIds Name="PRG_Test">
-      <LineId Id="3" Count="1" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

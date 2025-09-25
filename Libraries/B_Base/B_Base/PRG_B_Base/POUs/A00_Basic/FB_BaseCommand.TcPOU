@@ -6,7 +6,7 @@
 	Rafał Osajda		19.09.2025		TC 4024.66
 	
 *)
-FUNCTION_BLOCK FB_BaseCommand IMPLEMENTS ITF_BaseCommand
+FUNCTION_BLOCK FB_BaseCommand
 VAR
 	bStatus								: BOOL := TRUE;		//flaga informująca o tym czy polecenia aktywne czy nie  - DONE
 	bFirstCycle							: BOOL;

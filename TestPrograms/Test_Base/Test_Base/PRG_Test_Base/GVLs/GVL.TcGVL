@@ -9,7 +9,8 @@ VAR_GLOBAL
 	
 	fbCommandEasy			: FB_BaseCommand;
 	fbCommand				: FB_CommandChild;
-
+	
+	fbImpuls				: FB_BaseImpulse;
 	
 	stCommonData			: ST_BaseCommonData;
 	

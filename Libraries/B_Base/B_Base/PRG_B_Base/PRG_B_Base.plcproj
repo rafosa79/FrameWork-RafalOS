@@ -161,9 +161,6 @@
     <Compile Include="POUs\A00_Basic\FB_BaseLocation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A00_Basic\ITF_BaseCommand.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\A00_Basic\ITF_BaseDescriptor.TcIO">
       <SubType>Code</SubType>
     </Compile>
