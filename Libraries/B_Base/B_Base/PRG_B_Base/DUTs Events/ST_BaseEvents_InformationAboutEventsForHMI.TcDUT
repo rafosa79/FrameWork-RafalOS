@@ -8,8 +8,8 @@
 *)
 TYPE ST_BaseEvents_InformationAboutEventsForHMI :
 STRUCT
-	bNowe				: BOOL;
-	iIlosc				: INT;
+	bNew				: BOOL;	//nowe
+	iQuantity			: INT;	//Ilość
 END_STRUCT
 END_TYPE
 ]]></Declaration>

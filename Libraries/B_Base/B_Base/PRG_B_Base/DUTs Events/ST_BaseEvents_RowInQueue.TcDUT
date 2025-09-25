@@ -3,17 +3,17 @@
   <DUT Name="ST_BaseEvents_RowInQueue" Id="{f444b0ca-18c7-0625-1f7a-9be02a9ec795}">
     <Declaration><![CDATA[TYPE ST_BaseEvents_RowInQueue :
 STRUCT
-	eTypZgloszenia							: E_BaseEvents_Action;	//okresla rodzaj zgloszenia w kolejce Start stop 
-	uiIDZgloszenia							: UINT;				//unikalny numer zgloszenia dla całego projektu nadawany automatycznie 
-	uiIDElementu							: UINT;				// unikalny numer elementu w systemie
-	bAktywne								: BOOL;
-	bIgnorujPowtorzenia						: BOOL;				//jak true nie zliczaj powtorzeń wystapienia np komunikaty
-	uiLicznikPowtorzen						: UINT;
-	dtStart									: DT;				//poczatek wystepowania zgłoszenia
-	dtKoniec								: DT;				//koniec wystepowaniazgloszenia
-	dtZatwierdzenie							: DT;				// stempel potwierdzenia 
-	bPotwierdz								: BOOL;
-	eRodzajZgloszenia						: E_BaseEvents_Category;
+	uiIDEvent								: UINT;					//unikalny numer zgloszenia dla całego projektu nadawany automatycznie 
+	uiIDItem								: UINT;					// unikalny numer elementu w systemie
+	bActive									: BOOL;             	
+	bIgnoreRepetitions						: BOOL;					//jak true nie zliczaj powtorzeń wystapienia np komunikaty
+	uiRepetitionCounter						: UINT;             	
+	dtStart									: DT;					//poczatek wystepowania zgłoszenia
+	dtFinish								: DT;					//koniec wystepowaniazgloszenia
+	dtConfirmed								: DT;					// stempel potwierdzenia 
+	bConfirmed								: BOOL;
+	eEventCategory							: E_BaseEvents_Category;
+	eEventAction							: E_BaseEvents_Action;	//okresla rodzaj zgloszenia w kolejce Start stop 
 END_STRUCT
 END_TYPE
 ]]></Declaration>

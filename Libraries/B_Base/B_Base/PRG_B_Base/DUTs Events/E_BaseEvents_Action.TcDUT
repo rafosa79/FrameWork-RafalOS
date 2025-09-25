@@ -8,7 +8,7 @@ TYPE E_BaseEvents_Action :
 (
 	Start 		:= 0,
 	Stop		:= 1,
-	Confirm	:= 2
+	Confirm		:= 2
 );
 END_TYPE
 ]]></Declaration>
