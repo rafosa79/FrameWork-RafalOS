@@ -8,7 +8,7 @@ VAR_GLOBAL
 	fbLogger				: FB_BaseLogger;
 	
 	fbCommandEasy			: FB_BaseCommand;
-//	fbCommand				: FB_CommandChild;
+	fbCommand				: FB_CommandChild;
 
 	
 	stCommonData			: ST_BaseCommonData;

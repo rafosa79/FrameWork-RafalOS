@@ -26,26 +26,14 @@ END_VAR
         <ST><![CDATA[CASE THIS^.GetStep () OF
 0	:
 	THIS^.SetStepINC10 ();
-//	CyklTestu		:= TRUE;
 10	:
 	IF (THIS^.bFinish) THEN
 		THIS^.SetStepAsFinal ();
 	END_IF
-//	CyklTestu		:= TRUE;
-//STALE.OSTATNI_KROK	:
-//	CyklTestu		:= FALSE;
 END_CASE
-//CyklTestu			:= THIS^.TestOstatniegoKroku ();
+CyklTestu			:= THIS^.TestingLastCycle ();
 ]]></ST>
       </Implementation>
     </Method>
-    <LineIds Name="FB_CommandChild">
-      <LineId Id="3" Count="5" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_CommandChild.CyklTestu">
-      <LineId Id="3" Count="12" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

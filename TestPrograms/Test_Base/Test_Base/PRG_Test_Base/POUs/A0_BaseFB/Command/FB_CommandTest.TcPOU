@@ -3,33 +3,14 @@
   <POU Name="FB_CommandTest" Id="{20ace256-dafa-058e-3c0b-f94a17f6a90e}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_CommandTest EXTENDS TcUnit.FB_TestSuite
 VAR
-	
-	
-	
-	sTekst				: string;
-	bJest				: BOOL;
-	bKoniec				: BOOL;
+	sText			: STRING;
+	iCounter		: INT;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//GVL.fbCommandEasy (); //wywolanie testowe w normalnym programie tego nei trzeba robić
-//GVL.fbCommandEasy.Test ();
-//GVL.fbPolecenieProste ();
-//GVL.fbPolecenieProste.Test ();
-
-
-//IF (GVL.fbCommandEasy.OperationExecute ()) THEN
-//	GVL.fbCommandEasy.Operation (bIN := MetodaDlaPolecenbiaProstego ());
-//END_IF
-
-//IF (GVL.fbPolecenie.OperacjeWykonaj ()) THEN
-//	GVL.fbPolecenie.Operacje (bIN := GVL_Zmienne.fbPolecenie.CyklTestu ());
-//END_IF
-
+      <ST><![CDATA[
 T01_TestPoleceniaProstego ();
-
-//T02_TestPoleceniaZlozonego ();
-//T99_Test ();
+T02_TestPoleceniaZlozonego ();
 ]]></ST>
     </Implementation>
     <Method Name="MetodaDlaPolecenbiaProstego" Id="{a3669c83-8900-0492-1d65-080f0e67aca3}">
@@ -38,7 +19,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.sTekst := 'jestem w tej metodzie';
+        <ST><![CDATA[THIS^.sText := 'jestem w tej metodzie';
+iCounter := iCounter + 1;
 MetodaDlaPolecenbiaProstego	:= FALSE;
 
 ]]></ST>
@@ -63,13 +45,14 @@ END_VAR
 	GVL.fbCommandEasy.Operation (bIN := MetodaDlaPolecenbiaProstego ());
 	
 	AssertTrue (Condition := GVL.fbCommandEasy.GetFirstCycle (),Message := 'T03a - Bledny stan pierwszego przejscia');
+	AssertTrue (Condition := GVL.fbCommandEasy.GetLastCycle (),	Message := 'T03b - Bledny stan ostatniego przejscia');
 	
-	GVL.fbCommandEasy.Operation (bIN := MetodaDlaPolecenbiaProstego ());
+	GVL.fbCommandEasy.OperationExecute ();
 	
 	AssertFalse (Condition := GVL.fbCommandEasy.GetFirstCycle (),	Message := 'T04a - Bledny stan pierwszego przejscia');
-	AssertTrue (Condition := GVL.fbCommandEasy.GetLastCycle (),		Message := 'T04b - Bledny stan ostatniego przejscia');
+	AssertFalse (Condition := GVL.fbCommandEasy.GetLastCycle (),		Message := 'T04b - Bledny stan ostatniego przejscia');
 
-	GVL.fbCommandEasy.Operation (bIN := MetodaDlaPolecenbiaProstego ());
+	GVL.fbCommandEasy.OperationExecute ();
 	
 	AssertFalse (Condition := GVL.fbCommandEasy.GetLastCycle (),	Message := 'T05a - Bledny stan pierwszego przejscia');
 	AssertTrue (Condition := GVL.fbCommandEasy.GetStatus (),		Message := 'T05b - Bledny stan statusy');
@@ -81,116 +64,68 @@ END_IF
     </Method>
     <Method Name="T02_TestPoleceniaZlozonego" Id="{43608b7a-59c3-0e6c-3955-7f748c17b7f8}">
       <Declaration><![CDATA[METHOD PROTECTED T02_TestPoleceniaZlozonego : BOOL
-VAR_INST
-	iKrok				: INT;
-
-END_VAR
 
 VAR
-	bWynik: BOOL;
+	bResult: BOOL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[(*
-IF (TcUnit.TEST_ORDERED ('T01_TestPolecenia')) THEN
-	CASE iKrok OF
-	0	:
-		GVL_Zmienne.fbPolecenie.Wykonaj (bIN	:= TRUE);
-		AssertTrue (Condition := GVL_Zmienne.fbPolecenie.bWykonaj, 				Message := 'K00 - T01 - polecenie nie uruchomone');
-		iKrok 						:= iKrok + 10;
-	10		:
-		AssertTrue (Condition := 	GVL_Zmienne.fbPolecenie.zwrocTrwa (),		Message := 'K10 - T01 - polecenie nie zalaczone');
-		AssertTrue (Condition := 	GVL_Zmienne.fbPolecenie.PierwszyCykl (),	Message := 'K10 - T02 - pierwszy cykl');
-		AssertFalse (Condition := 	GVL_Zmienne.fbPolecenie.zwrocStatus (),		Message := 'K10 - T03 - bledny status');
-		AssertFalse (Condition := 	GVL_Zmienne.fbPolecenie.OstatniCykl (),		Message := 'K10 - T04 - bledny ostatni cykl');
-		iKrok						:= iKrok + 10;
-	20		:
-		AssertTrue (Condition := 	GVL_Zmienne.fbPolecenie.zwrocTrwa (),		Message := 'K20 - T01 - polecenie nie zalaczone');
-		AssertFalse (Condition := 	GVL_Zmienne.fbPolecenie.PierwszyCykl (),	Message := 'K20 - T02 - pierwszy cykl');
-		AssertFalse (Condition := 	GVL_Zmienne.fbPolecenie.zwrocStatus (),		Message := 'K20 - T03 - bledny status');
-		AssertFalse (Condition := 	GVL_Zmienne.fbPolecenie.OstatniCykl (),		Message := 'K20 - T04 - bledny ostatni cykl');
-		iKrok						:= iKrok + 10;
-	30	:	
-		AssertTrue (Condition := 	GVL_Zmienne.fbPolecenie.zwrocTrwa (),		Message := 'K30 - T01 - polecenie nie zalaczone');
-		AssertFalse (Condition := 	GVL_Zmienne.fbPolecenie.PierwszyCykl (),	Message := 'K30 - T02 - pierwszy cykl');
-		AssertFalse (Condition := 	GVL_Zmienne.fbPolecenie.zwrocStatus (),		Message := 'K30 - T03 - bledny status');
-		AssertFalse (Condition := 	GVL_Zmienne.fbPolecenie.OstatniCykl (),		Message := 'K30 - T04 - bledny ostatni cykl');
-		WRITE_PROTECTED_BOOL (ADR (GVL_Zmienne.fbPolecenie.bZakoncz), TRUE);
-		iKrok						:= iKrok + 10;
-	40		:
-//		AssertTrue (Condition := 	fbPolecenie.zwrocTrwa (),		Message := 'K40 - T01 - polecenie nie zalaczone');
-//		AssertFalse (Condition := 	fbPolecenie.PierwszyCykl (),	Message := 'K40 - T02 - pierwszy cykl');
-//		AssertFalse (Condition := 	fbPolecenie.zwrocStatus (),		Message := 'K40 - T03 - bledny status');
-//		Assertfalse (Condition := 	fbPolecenie.OstatniCykl (),		Message := 'K40 - T04 - bledny ostatni cykl');
-//		iKrok						:= iKrok + 10;
-//	50		:
-		AssertTrue (Condition := 	GVL_Zmienne.fbPolecenie.zwrocTrwa (),		Message := 'K50 - T01 - polecenie nie zalaczone');
-		AssertFalse (Condition := 	GVL_Zmienne.fbPolecenie.PierwszyCykl (),	Message := 'K50 - T02 - pierwszy cykl');
-		AssertFalse (Condition := 	GVL_Zmienne.fbPolecenie.zwrocStatus (),		Message := 'K50 - T03 - bledny status');
-		Asserttrue (Condition := 	GVL_Zmienne.fbPolecenie.OstatniCykl (),		Message := 'K50 - T04 - bledny ostatni cykl');
-		iKrok						:= iKrok + 10;
-	50	:
-		Assertfalse (Condition := 	GVL_Zmienne.fbPolecenie.zwrocTrwa (),		Message := 'K60 - T01 - polecenie nie zalaczone');
-		AssertFalse (Condition := 	GVL_Zmienne.fbPolecenie.PierwszyCykl (),	Message := 'K60 - T02 - pierwszy cykl');
-		AssertTrue (Condition := 	GVL_Zmienne.fbPolecenie.zwrocStatus (),		Message := 'K60 - T03 - bledny status');
-		AssertFalse (Condition := 	GVL_Zmienne.fbPolecenie.OstatniCykl (),		Message := 'K60 - T04 - bledny ostatni cykl');
-		iKrok						:= 1000;
-	1000	:
-		TcUnit.TEST_FINISHED ();
-	END_CASE
-
-END_IF
-*)]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="T99_Test" Id="{6713c4ba-ed0c-0cdf-32c3-aa85ba0eb5b1}">
-      <Declaration><![CDATA[METHOD PROTECTED T99_Test
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T99_test')) THEN
-	bJest				:= TRUE;
-	IF bKoniec THEN
-		TcUnit.TEST_FINISHED ();
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestPolecenia')) THEN
+	GVL.fbCommand.Test ();
+	AssertTrue (Condition := GVL.fbCommand.GetStatus (), 	Message := 'T01a - Bledny status');
+	AssertFalse (Condition := GVL.fbCommand.GetBusy (),		Message := 'T01b - Bledny stan');
+	
+	GVL.fbCommand.Execute ();
+	GVL.fbCommand.Test ();
+	AssertFalse (Condition := GVL.fbCommand.GetStatus (), 	Message := 'T02a - Bledny status');
+	AssertTrue (Condition := GVL.fbCommand.GetBusy (),		Message := 'T02b - Bledny stan');
+	
+	IF (GVL.fbCommand.OperationExecute ()) THEN;
+		bResult				:= TRUE;
+		GVL.fbCommand.Operation (bIN := GVL.fbCommand.CyklTestu ());
+	ELSE
+		bResult				:= FALSE;
 	END_IF
+	AssertTrue (Condition := GVL.fbCommand.GetFirstCycle (),Message := 'T03a - Bledny stan pierwszego przejscia');
+	AssertFalse (Condition := GVL.fbCommand.GetLastCycle (),Message := 'T03b - Bledny stan ostatniego przejscia');
+	AssertFalse (Condition := bResult, 						Message := 'T03c - Bledny wynik');
+	
+	IF (GVL.fbCommand.OperationExecute ()) THEN;
+		bResult				:= TRUE;
+		GVL.fbCommand.Operation (bIN := GVL.fbCommand.CyklTestu ());
+	ELSE
+		bResult				:= FALSE;
+	END_IF
+	AssertFalse (Condition := GVL.fbCommand.GetFirstCycle (),	Message := 'T04a - Bledny stan pierwszego przejscia');
+	AssertFalse (Condition := GVL.fbCommand.GetLastCycle (),	Message := 'T04b - Bledny stan ostatniego przejscia');
+	AssertTrue (Condition := bResult, 							Message := 'T04c - Bledny wynik');
+	
+	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL.fbCommand.bFinish), Value := TRUE);
+	IF (GVL.fbCommand.OperationExecute ()) THEN;
+		bResult				:= TRUE;
+		GVL.fbCommand.Operation (bIN := GVL.fbCommand.CyklTestu ());
+	ELSE
+		bResult				:= FALSE;
+	END_IF
+	AssertFalse (Condition := GVL.fbCommand.GetFirstCycle (),	Message := 'T05a - Bledny stan pierwszego przejscia');
+	Asserttrue (Condition := GVL.fbCommand.GetLastCycle (),		Message := 'T05b - Bledny stan ostatniego przejscia');
+	AssertTrue (Condition := bResult, 							Message := 'T05c - Bledny wynik');
+	
+	IF (GVL.fbCommand.OperationExecute ()) THEN;
+		bResult				:= TRUE;
+		GVL.fbCommand.Operation (bIN := GVL.fbCommand.CyklTestu ());
+	ELSE
+		bResult				:= FALSE;
+	END_IF
+	AssertFalse (Condition := GVL.fbCommand.GetFirstCycle (),	Message := 'T06a - Bledny stan pierwszego przejscia');
+	AssertFalse (Condition := GVL.fbCommand.GetLastCycle (),	Message := 'T06b - Bledny stan ostatniego przejscia');
+	AssertFalse (Condition := bResult, 							Message := 'T06c - Bledny wynik');
+
+	
+
+	TcUnit.TEST_FINISHED ();
 END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <LineIds Name="FB_CommandTest">
-      <LineId Id="32" Count="17" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_CommandTest.MetodaDlaPolecenbiaProstego">
-      <LineId Id="3" Count="2" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_CommandTest.T01_TestPoleceniaProstego">
-      <LineId Id="5" Count="0" />
-      <LineId Id="11" Count="2" />
-      <LineId Id="15" Count="0" />
-      <LineId Id="17" Count="2" />
-      <LineId Id="16" Count="0" />
-      <LineId Id="10" Count="0" />
-      <LineId Id="20" Count="1" />
-      <LineId Id="23" Count="0" />
-      <LineId Id="22" Count="0" />
-      <LineId Id="24" Count="2" />
-      <LineId Id="28" Count="0" />
-      <LineId Id="27" Count="0" />
-      <LineId Id="29" Count="3" />
-      <LineId Id="14" Count="0" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="7" Count="1" />
-    </LineIds>
-    <LineIds Name="FB_CommandTest.T02_TestPoleceniaZlozonego">
-      <LineId Id="107" Count="0" />
-      <LineId Id="59" Count="47" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_CommandTest.T99_Test">
-      <LineId Id="3" Count="5" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>
