@@ -3,5 +3,12 @@
   <Itf Name="ITF_BaseLogger" Id="{dde1500f-ba43-0973-2072-39e8d4239f74}">
     <Declaration><![CDATA[INTERFACE ITF_BaseLogger
 ]]></Declaration>
+    <Method Name="ReportEvent" Id="{bf8e154d-88a6-07c9-1886-c0d273a4c7f4}">
+      <Declaration><![CDATA[METHOD PUBLIC ReportEvent : BOOL
+VAR_INPUT
+	stEvent					: ST_BaseEvents_RowInQueue;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

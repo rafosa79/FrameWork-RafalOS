@@ -14,7 +14,7 @@ STRUCT
 	dtZatwierdzenie							: DT;				// stempel potwierdzenia 
 	bPotwierdz								: BOOL;				//informacja czy potrzebne jest potwierdzenie 
 	bPotwierdzone							: bool;				//pamięta czy już potwierdzone
-	eRodzajZgloszenia						: E_BaseEvents_Type;
+	eRodzajZgloszenia						: E_BaseEvents_Category;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

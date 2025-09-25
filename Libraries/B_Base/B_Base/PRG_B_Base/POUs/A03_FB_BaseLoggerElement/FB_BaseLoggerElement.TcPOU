@@ -28,7 +28,7 @@ END_VAR
 METHOD PUBLIC AddEvent : BOOL
 VAR_INPUT
 	bIgnorujPowtorzenia					: BOOL;					//jak true nie zliczaj powtorzeń wystapienia np komunikaty
-	eRodzajZdarzenia					: E_BaseEvents_Type;	//BYTE;	//1 - blad, 2 - ostrzezenie, 3 - wiadomosc, 4 - safety
+	eRodzajZdarzenia					: E_BaseEvents_Category;	//BYTE;	//1 - blad, 2 - ostrzezenie, 3 - wiadomosc, 4 - safety
 	bWymagaZatwierdzenia				: BOOL;
 	stOpis								: ST_BaseLabel;
 END_VAR

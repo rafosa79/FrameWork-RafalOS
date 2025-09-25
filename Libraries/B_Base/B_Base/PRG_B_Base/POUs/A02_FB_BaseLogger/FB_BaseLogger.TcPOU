@@ -13,10 +13,21 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_BaseLogger" Id="{c54055ab-2569-0322-10a1-be1e8232e254}" />
     <Folder Name="ITF_BaseLogger_HMI_Connector" Id="{58ae1150-aaab-05cc-1931-89d90fea9543}" />
     <Method Name="MetodaBaseLogerHMIConnector" Id="{2c18dbe3-a520-0877-1292-b2d303ed756b}" FolderPath="ITF_BaseLogger_HMI_Connector\">
       <Declaration><![CDATA[METHOD MetodaBaseLogerHMIConnector : BOOL
 VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReportEvent" Id="{f0263bde-b6df-0833-2a35-a64ae2a95f5b}" FolderPath="ITF_BaseLogger\">
+      <Declaration><![CDATA[METHOD PUBLIC ReportEvent : BOOL
+VAR_INPUT
+	stEvent					: ST_BaseEvents_RowInQueue;
 END_VAR
 ]]></Declaration>
       <Implementation>

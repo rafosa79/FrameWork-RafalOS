@@ -83,7 +83,10 @@
     <Author>Rafał Osajda</Author>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DUTs Events\E_BaseEvents_Type.TcDUT">
+    <Compile Include="DUTs Events\E_BaseEvents_Category.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs Events\E_BaseEvents_Action.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs Events\ST_BaseEvents.TcDUT">
@@ -129,6 +132,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\ST_BaseLabel.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FUNs\CreateElementCode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GVLs\GVL_BaseConstans.TcGVL">
@@ -245,6 +251,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
+    <Folder Include="FUNs" />
     <Folder Include="GVLs" />
     <Folder Include="DUTs Events" />
     <Folder Include="POUs Compilation" />

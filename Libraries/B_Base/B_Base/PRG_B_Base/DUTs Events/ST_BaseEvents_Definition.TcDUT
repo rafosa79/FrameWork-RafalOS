@@ -7,7 +7,7 @@ STRUCT
 	uiIDWElemencie							: UINT;						//unikalny numer w elemencie - ustawiany podczas dodawania zgłoszenia DO elementu
 	bIgnorujPowtorzenia						: BOOL;						//jak true nie zliczaj powtorzeń wystapienia np komunikaty - alarmy 
 	uiLicznikPowtorzen						: UINT;						//licznik powtórzeń po którym ma się zgłosic błąd
-	eRodzajZdarzenia						: E_BaseEvents_Type;			//BYTE;	//1 - blad, 2 - ostrzezenie, 3 - wiadomosc, 4 - safety
+	eRodzajZdarzenia						: E_BaseEvents_Category;			//BYTE;	//1 - blad, 2 - ostrzezenie, 3 - wiadomosc, 4 - safety
 	stOpis									: ST_BaseLabel;
 	bWymagaPotwierdzenia					: BOOL;						// w przypadków niektórych zgłoszeń żeby błąd został skasowany należy go zatwierdzić że operator go zobaczył
 END_STRUCT

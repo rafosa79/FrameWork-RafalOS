@@ -3,7 +3,7 @@
   <DUT Name="ST_BaseEvents_RowInQueue" Id="{f444b0ca-18c7-0625-1f7a-9be02a9ec795}">
     <Declaration><![CDATA[TYPE ST_BaseEvents_RowInQueue :
 STRUCT
-	eTypZgloszenia							: E_Zgloszenia_Typ;	//okresla rodzaj zgloszenia w kolejce Start stop 
+	eTypZgloszenia							: E_BaseEvents_Action;	//okresla rodzaj zgloszenia w kolejce Start stop 
 	uiIDZgloszenia							: UINT;				//unikalny numer zgloszenia dla całego projektu nadawany automatycznie 
 	uiIDElementu							: UINT;				// unikalny numer elementu w systemie
 	bAktywne								: BOOL;
@@ -13,7 +13,7 @@ STRUCT
 	dtKoniec								: DT;				//koniec wystepowaniazgloszenia
 	dtZatwierdzenie							: DT;				// stempel potwierdzenia 
 	bPotwierdz								: BOOL;
-	eRodzajZgloszenia						: E_BaseEvents_Type;
+	eRodzajZgloszenia						: E_BaseEvents_Category;
 END_STRUCT
 END_TYPE
 ]]></Declaration>
