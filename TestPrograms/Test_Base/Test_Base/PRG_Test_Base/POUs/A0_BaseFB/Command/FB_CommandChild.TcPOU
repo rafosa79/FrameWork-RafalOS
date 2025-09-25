@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_CommandChild" Id="{89337024-df50-0664-2c86-2b19a77ee069}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CommandChild EXTENDS FB_BaseCommand
+VAR
+	bFinish				: BOOL;
+	iI1					: INT;
+	iI2					: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (THIS^.GetFirstCycle ()) THEN
+	iI1 := iI1 + 1;
+END_IF
+IF (THIS^.GetLastCycle ()) THEN
+	iI2 := iI2 + 1;
+END_IF
+]]></ST>
+    </Implementation>
+    <Method Name="CyklTestu" Id="{14177c23-ba6a-003d-3575-79b543b483f4}">
+      <Declaration><![CDATA[METHOD PUBLIC CyklTestu : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE THIS^.GetStep () OF
+0	:
+	THIS^.SetStepINC10 ();
+10	:
+	IF (THIS^.bFinish) THEN
+		THIS^.SetStepAsFinal ();
+	END_IF
+END_CASE
+CyklTestu			:= THIS^.TestingLastCycle ();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

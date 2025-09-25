@@ -8,10 +8,277 @@
 *)
 FUNCTION_BLOCK FB_BaseTime IMPLEMENTS ITF_BaseTime
 VAR
+	fbLokalTime								: Tc2_Utilities.FB_LocalSystemTime;	//pobieranie czasu
+	stActualTime							: Tc2_Utilities.TIMESTRUCT;			//przychowywanie czasu
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="BaseDTToString" Id="{a75947e7-b658-04f6-3fab-065836a29d1c}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		01.09.2025		TC 4024.66
+	Konwetrtuje DT to string do postaci DD/MM/YYYY GG:MM:SS
+*)
+METHOD PUBLIC BaseDTToString : STRING
+VAR_INPUT
+	inDT					: DT;
+END_VAR
+VAR
+    stTime 					: Tc2_Utilities.TIMESTRUCT;
+    sYear, sMonth, sDay 	: STRING(4);
+    sHour, sMin, sSec 		: STRING(2);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Rozbijamy DT na strukturę
+stTime := DT_TO_SYSTEMTIME (inDT);
+
+// Konwersja na stringi z zerami wiodącymi
+sYear  := UDINT_TO_STRING(stTime.wYear);
+
+sMonth := RIGHT(CONCAT('0', UINT_TO_STRING(stTime.wMonth)), 2);
+sDay   := RIGHT(CONCAT('0', UINT_TO_STRING(stTime.wDay)), 2);
+sHour  := RIGHT(CONCAT('0', UINT_TO_STRING(stTime.wHour)), 2);
+sMin   := RIGHT(CONCAT('0', UINT_TO_STRING(stTime.wMinute)), 2);
+sSec   := RIGHT(CONCAT('0', UINT_TO_STRING(stTime.wSecond)), 2);
+
+// Format końcowy: DD/MM/YYYY HH:MM:SS
+BaseDTToString := CONCAT(
+                CONCAT(CONCAT(sDay, '/'), CONCAT(sMonth, '/')),
+                CONCAT(CONCAT(sYear, ' '), 
+                    CONCAT(CONCAT(sHour, ':'), 
+                        CONCAT(CONCAT(sMin, ':'), sSec)
+                    )
+                )
+             );
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="BaseDTToString_" Id="{f2b6639f-e013-0cdc-2743-05f8bfebb2ea}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		01.09.2025		TC 4024.66
+	Konwetrtuje DT to string do postaci DD_MM_YYYY GG_MM_SS - wersja do nazywania plików logów
+*)
+METHOD PUBLIC BaseDTToString_ : STRING
+VAR_INPUT
+	inDT				: DT;
+END_VAR
+VAR
+    stTime 					: Tc2_Utilities.TIMESTRUCT;
+    sYear, sMonth, sDay 	: STRING(4);
+    sHour, sMin, sSec 		: STRING(2);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Rozbijamy DT na strukturę
+stTime := DT_TO_SYSTEMTIME (inDT);
+
+// Konwersja na stringi z zerami wiodącymi
+sYear  := UDINT_TO_STRING(stTime.wYear);
+sMonth := CONCAT(SEL(stTime.wMonth < 10, '', '0'), UDINT_TO_STRING(stTime.wmonth));
+sDay   := CONCAT(SEL(stTime.wday   < 10, '', '0'), UDINT_TO_STRING(stTime.wday));
+sHour  := CONCAT(SEL(stTime.whour  < 10, '', '0'), UDINT_TO_STRING(stTime.whour));
+sMin   := CONCAT(SEL(stTime.wminute< 10, '', '0'), UDINT_TO_STRING(stTime.wminute));
+sSec   := CONCAT(SEL(stTime.wsecond< 10, '', '0'), UDINT_TO_STRING(stTime.wsecond));
+
+// Format końcowy: YYYY-MM-DD_HH-MM-SS
+BaseDTToString_ := CONCAT(
+                        CONCAT(CONCAT(sDAY, '-'), CONCAT(sMonth, '-')),
+                        CONCAT(CONCAT(sYear, '_'),
+                            CONCAT(CONCAT(sHour, '-'),
+                                CONCAT(CONCAT(sMin, '-'), sSec)
+                            )
+                        )
+                     );
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="BaseLTimeToString" Id="{eed01935-abe6-0c28-2da0-bbab31ecee00}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		01.09.2025		TC 4024.66
+	Konwertuje czas LTIME do stringa z możliwością wyłączenia milisekund
+*)
+METHOD PUBLIC BaseLTimeToString : STRING
+VAR_INPUT
+	ltTime				: LTIME;
+	bShowMS			: BOOL;
+END_VAR
+VAR
+	ulNsTotal 			: ULINT;
+    uliMsTotal   	  	: ULINT;
+
+    udiDays      	  	: UDINT;
+    udiHours     	  	: UDINT;
+    udiMinutes   	  	: UDINT;
+    udiSeconds   	  	: UDINT;
+    udiMs        	  	: UDINT;
+	sResult				: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ulNsTotal 	:= LTIME_TO_ULINT (ltTime);    // LTIME → ULINT (ns)
+uliMsTotal 	:= ulNsTotal / 1000000; // ns → ms
+
+
+// rozbijamy na jednostki
+udiDays    	:= TO_UDINT (uliMsTotal / 86400000);           // dni
+udiHours    := TO_UDINT ((uliMsTotal MOD 86400000) / 3600000);
+udiMinutes  := TO_UDINT ((uliMsTotal MOD 3600000) / 60000);
+udiSeconds  := TO_UDINT ((uliMsTotal MOD 60000) / 1000);
+udiMs       := TO_UDINT (uliMsTotal MOD 1000);
+
+// budowanie stringa
+sResult := '';
+
+sResult := CONCAT(sResult, THIS^.FormatTwoCharacter (udiValue := udiDays));
+sResult := CONCAT(sResult, 'd:');
+sResult := CONCAT(sResult, THIS^.FormatTwoCharacter (udiValue := udiHours));
+sResult := CONCAT(sResult, ':');
+sResult := CONCAT(sResult, THIS^.FormatTwoCharacter (udiValue := udiMinutes));
+sResult := CONCAT(sResult, ':');
+sResult := CONCAT(sResult, THIS^.FormatTwoCharacter (udiValue := udiSeconds));
+
+IF bShowMS THEN
+    sResult := CONCAT(sResult, '.');
+    sResult := CONCAT(sResult, THIS^.FormatThreeCharacter (udiValue := udiMs));
+END_IF
+
+BaseLTimeToString		:= sResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="BaseLTimeToString_WhatShow" Id="{09e557b4-5bc4-0374-0169-03f5b7933204}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		01.09.2025		TC 4024.66
+	Konwertuje czas LTIME do stringa z możliwością wybrnia co ma być pokazywane do postaci DDDd:GG:MM:SS:MS
+	dni nie rodziala na miesiące i lata 
+*)
+METHOD PUBLIC BaseLTimeToString_WhatShow : STRING
+VAR_INPUT
+	ltTime				: LTIME;
+	bSwahDays			: BOOL;
+	bShowHours			: BOOL;
+	bShowMinutes		: BOOL;
+	bShowSeconds		: BOOL;
+	bShowMS				: BOOL;
+END_VAR
+VAR
+	ulNsTotal 			: ULINT;
+    uliMsTotal   	  	: ULINT;
+
+    udiDays      	  	: UDINT;
+    udiHours     	  	: UDINT;
+    udiMinutes   	  	: UDINT;
+    udiSeconds   	  	: UDINT;
+    udiMs        	  	: UDINT;
+	sResult				: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ulNsTotal 	:= LTIME_TO_ULINT (ltTime);    // LTIME → ULINT (ns)
+uliMsTotal 	:= ulNsTotal / 1000000; // ns → ms
+
+
+// rozbijamy na jednostki
+udiDays    	:= TO_UDINT (uliMsTotal / 86400000);           // dni
+udiHours    := TO_UDINT ((uliMsTotal MOD 86400000) / 3600000);
+udiMinutes  := TO_UDINT ((uliMsTotal MOD 3600000) / 60000);
+udiSeconds  := TO_UDINT ((uliMsTotal MOD 60000) / 1000);
+udiMs       := TO_UDINT (uliMsTotal MOD 1000);
+
+// budowanie stringa
+sResult := '';
+
+IF bSwahDays THEN
+	sResult := CONCAT(sResult, THIS^.FormatTwoCharacter (udiValue := udiDays));
+	sResult := CONCAT(sResult, 'd:');
+END_IF
+IF bShowHours THEN
+	sResult := CONCAT(sResult, THIS^.FormatTwoCharacter (udiValue := udiHours));
+	sResult := CONCAT(sResult, ':');
+END_IF
+IF bShowMinutes THEN
+	sResult := CONCAT(sResult, THIS^.FormatTwoCharacter (udiValue := udiMinutes));
+	sResult := CONCAT(sResult, ':');
+END_IF
+IF bShowSeconds THEN
+	sResult := CONCAT(sResult, THIS^.FormatTwoCharacter (udiValue := udiSeconds));
+END_IF
+IF bShowMS THEN
+    sResult := CONCAT(sResult, '.');
+    sResult := CONCAT(sResult, THIS^.FormatThreeCharacter (udiValue := udiMs));
+END_IF
+
+BaseLTimeToString_WhatShow		:= sResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FormatThreeCharacter" Id="{d2ef0a7c-d7d4-09bc-215d-e4058a530c2f}">
+      <Declaration><![CDATA[METHOD PRIVATE FormatThreeCharacter : STRING
+VAR_INPUT
+    udiValue : ULINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF udiValue < 10 THEN
+    FormatThreeCharacter := CONCAT('00', TO_STRING(udiValue));
+ELSIF udiValue < 100 THEN
+    FormatThreeCharacter := CONCAT('0', TO_STRING(udiValue));
+ELSE
+    FormatThreeCharacter := TO_STRING(udiValue);
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FormatTwoCharacter" Id="{fc0682a3-6edf-0de0-0087-0e7d3ae78224}">
+      <Declaration><![CDATA[METHOD PRIVATE FormatTwoCharacter : STRING
+VAR_INPUT
+    udiValue : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF udiValue < 10 THEN
+    FormatTwoCharacter := CONCAT('0', TO_STRING(udiValue));
+ELSE
+    FormatTwoCharacter := TO_STRING(udiValue);
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StampDT" Id="{f9ef2160-b82b-0549-3302-67dd63a48821}">
+      <Declaration><![CDATA[METHOD PUBLIC StampDT : DT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[StampDT									:= SYSTEMTIME_TO_DT (TIMESTR := THIS^.stActualTime);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Work" Id="{552cf3de-938f-0c47-0023-d37cf1f9e6e8}">
+      <Declaration><![CDATA[METHOD PUBLIC Work : BOOL
+VAR_INPUT
+	bIN				: bool;	//wlacz wyłacz
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbLokalTime(
+	sNetID									:= , 
+	bEnable									:= bIN, 
+	dwCycle									:= 1, 
+	dwOpt									:= , 
+	tTimeout								:= , 
+	bValid									=> Work, 
+	systemTime								=> stActualTime, 
+	tzID									=> 
+);
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

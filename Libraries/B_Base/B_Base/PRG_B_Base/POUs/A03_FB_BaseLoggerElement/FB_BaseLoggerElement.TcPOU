@@ -8,7 +8,7 @@
 *)
 FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector
 VAR
-	stIdentifier					: ST_ElementIdentifier;
+	stIdentifier					: ST_BaseElementIdentifier;
 	stEvents						: ST_BaseEvents;
 END_VAR
 ]]></Declaration>
@@ -29,7 +29,7 @@ VAR_INPUT
 	bIgnorujPowtorzenia					: BOOL;					//jak true nie zliczaj powtorzeń wystapienia np komunikaty
 	eRodzajZdarzenia					: E_BaseEvents_Type;	//BYTE;	//1 - blad, 2 - ostrzezenie, 3 - wiadomosc, 4 - safety
 	bWymagaZatwierdzenia				: BOOL;
-	stOpis								: ST_Label;
+	stOpis								: ST_BaseLabel;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -91,7 +91,7 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="GetIdentyfier" Id="{48d63181-6e27-0c5e-3c1d-ae09759ac84b}" FolderPath="ID\">
-      <Declaration><![CDATA[METHOD PUBLIC GetIdentyfier : ST_ElementIdentifier
+      <Declaration><![CDATA[METHOD PUBLIC GetIdentyfier : ST_BaseElementIdentifier
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -101,7 +101,7 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="GetName" Id="{f31b5203-9f85-03eb-3e31-406645634fd5}" FolderPath="ID\">
-      <Declaration><![CDATA[METHOD PUBLIC GetName : ST_Label
+      <Declaration><![CDATA[METHOD PUBLIC GetName : ST_BaseLabel
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -111,7 +111,7 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="GetType" Id="{61940ec7-463b-0e69-2135-9287ae34093b}" FolderPath="ID\">
-      <Declaration><![CDATA[METHOD PUBLIC GetType : E_ElementType
+      <Declaration><![CDATA[METHOD PUBLIC GetType : E_BaseElementType
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -154,7 +154,7 @@ END_VAR
     <Method Name="SetName" Id="{206e85b8-29f8-08fa-23dd-60a3f6071df5}" FolderPath="ID\">
       <Declaration><![CDATA[METHOD PUBLIC SetName
 VAR_INPUT
-	stName				: ST_Label;
+	stName				: ST_BaseLabel;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -164,7 +164,7 @@ END_VAR
     <Method Name="SetType" Id="{bf11665f-1c90-0e8a-0bd5-6357f50d48e0}" FolderPath="ID\">
       <Declaration><![CDATA[METHOD PUBLIC SetType
 VAR_INPUT
-	eType					: E_ElementType;
+	eType					: E_BaseElementType;
 END_VAR
 ]]></Declaration>
       <Implementation>

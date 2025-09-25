@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseFlagSet" Id="{adfc721f-2d18-0ae5-076c-500568af33b4}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseFlagSet
+]]></Declaration>
+    <Method Name="SetFlag" Id="{468fe690-b436-00c7-2772-f4df5ee911d4}">
+      <Declaration><![CDATA[METHOD PUBLIC SetFlag
+VAR_INPUT
+	bState				: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

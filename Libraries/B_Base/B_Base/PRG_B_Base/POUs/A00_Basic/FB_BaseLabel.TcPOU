@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseLabel" Id="{e151c3ef-0d70-0a6d-3db5-a2f1d96fba32}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		19.09.2025		TC 4024.66
+	
+*)
+FUNCTION_BLOCK FB_BaseLabel IMPLEMENTS ITF_BaseLabel
+VAR
+	stTexts						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="GetTexts" Id="{48c65d85-0110-0682-03fd-c7611014a5da}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTexts : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetTexts				:=THIS^.stTexts;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetText" Id="{01c46aa5-5158-0de6-3de6-622f1312f85f}">
+      <Declaration><![CDATA[METHOD PUBLIC SetText
+VAR_INPUT
+	eLocation			: E_BaseLocation;
+	wsDescription		: WSTRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stTexts.arrText [eLocation]	:= wsDescription;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetTexts" Id="{484642fe-0139-0cba-07ab-f3a4561ab09d}">
+      <Declaration><![CDATA[METHOD PUBLIC SetTexts
+VAR_INPUT
+	stTexts				: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stTexts			:= stTexts;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

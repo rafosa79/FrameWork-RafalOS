@@ -8,10 +8,32 @@
 *)
 FUNCTION_BLOCK FB_BaseFlag IMPLEMENTS ITF_BaseFlag
 VAR
+	bState				: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="GetFlag" Id="{7e86e6a8-5c6a-0c08-063a-dbd6b6149b83}">
+      <Declaration><![CDATA[METHOD PUBLIC GetFlag : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetFlag			:= THIS^.bState;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetFlag" Id="{37efbdda-7095-09eb-2668-2e143dcbc25c}">
+      <Declaration><![CDATA[METHOD PUBLIC SetFlag
+VAR_INPUT
+	bState				: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bState			:= bState;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

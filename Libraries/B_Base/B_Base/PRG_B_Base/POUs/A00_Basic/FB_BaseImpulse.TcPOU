@@ -3,10 +3,87 @@
   <POU Name="FB_BaseImpulse" Id="{6dbbd40b-fdc8-08db-2df3-88660c36c74c}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseImpulse IMPLEMENTS ITF_BaseImpulse
 VAR
+	tExitOn				: TON;
+	tExitOff			: TON;
+	rExitOn				: REAL;
+	rExitOff			: REAL;
+	
+	bExecute			: BOOL;
+	bFlashing			: BOOL;
+	bExit				: BOOL;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[THIS^.tExitOn 	(IN := (NOT THIS^.tExitOff.Q AND THIS^.bExecute AND THIS^.bFlashing),PT := REAL_TO_TIME (THIS^.rExitOn));
+THIS^.tExitOff 	(IN := (THIS^.tExitOn.Q),PT := REAL_TO_TIME (THIS^.rExitOff));
+
+THIS^.bExit		:= (NOT THIS^.tExitOn.Q AND THIS^.bFlashing) OR (THIS^.bExecute AND NOT THIS^.bFlashing);
+
+]]></ST>
     </Implementation>
+    <Method Name="GetExit" Id="{d6afa48a-7984-034a-072e-853ba8bb6126}">
+      <Declaration><![CDATA[METHOD PUBLIC GetExit : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetExit				:= THIS^.bExit;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetExecuteOff" Id="{7c2fc002-cb2b-0715-3606-95093d82e313}">
+      <Declaration><![CDATA[METHOD PUBLIC SetExecuteOff
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bExecute				:= FALSE;
+THIS^.bFlashing				:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetExecuteOn" Id="{79ba7cd9-9e4c-05f2-24a5-31b5a2ae7391}">
+      <Declaration><![CDATA[METHOD PUBLIC SetExecuteOn
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bExecute			:= TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetFlashing" Id="{dee2c5ed-cc5c-0510-1b11-5b7fc2649291}">
+      <Declaration><![CDATA[METHOD PUBLIC SetFlashing
+VAR_INPUT
+	bIN				: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bFlashing				:= bIN;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetTimeOff" Id="{206e5d9d-264a-000d-0e30-95795176ce5c}">
+      <Declaration><![CDATA[METHOD PUBLIC SetTimeOff
+VAR_INPUT
+	rIN: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.rExitOff			:= rIN;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetTimeOn" Id="{140018c9-2914-0a4b-2ba2-7a795a2a66b7}">
+      <Declaration><![CDATA[METHOD PUBLIC SetTimeOn
+VAR_INPUT
+	rIN					: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.rExitOn			:= rIN;]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

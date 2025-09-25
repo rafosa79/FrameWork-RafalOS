@@ -3,5 +3,66 @@
   <Itf Name="ITF_BaseTime" Id="{b1a3bb1d-6bec-0fd1-09bc-0dce04dcea5e}">
     <Declaration><![CDATA[INTERFACE ITF_BaseTime
 ]]></Declaration>
+    <Method Name="BaseDTToString" Id="{19cce1c8-fa42-05f9-0abc-40d705251638}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		01.09.2025		TC 4024.66
+	Konwetrtuje DT to string do postaci DD/MM/YYYY GG:MM:SS
+*)
+METHOD PUBLIC BaseDTToString : STRING
+VAR_INPUT
+	inDT					: DT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="BaseDTToString_" Id="{ee5d33a0-7045-0622-0a0c-39a986f5da65}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		01.09.2025		TC 4024.66
+	Konwetrtuje DT to string do postaci DD_MM_YYYY GG_MM_SS - wersja do nazywania plików logów
+*)
+METHOD PUBLIC BaseDTToString_ : STRING
+VAR_INPUT
+	inDT				: DT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="BaseLTimeToString" Id="{6a17a54d-7049-0620-18d5-ae78d46c7111}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		01.09.2025		TC 4024.66
+	Konwertuje czas LTIME do stringa z możliwością wyłączenia milisekund
+*)
+METHOD PUBLIC BaseLTimeToString : STRING
+VAR_INPUT
+	ltTime				: LTIME;
+	bShowMS			: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="BaseLTimeToString_WhatShow" Id="{238e54c1-4d9a-0bb7-1d97-54186f225bda}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		01.09.2025		TC 4024.66
+	Konwertuje czas LTIME do stringa z możliwością wybrnia co ma być pokazywane do postaci DDDd:GG:MM:SS:MS
+	dni nie rodziala na miesiące i lata 
+*)
+METHOD PUBLIC BaseLTimeToString_WhatShow : STRING
+VAR_INPUT
+	ltTime				: LTIME;
+	bSwahDays			: BOOL;
+	bShowHours			: BOOL;
+	bShowMinutes		: BOOL;
+	bShowSeconds		: BOOL;
+	bShowMS				: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="StampDT" Id="{ae55e432-cec1-0d73-24fd-8a3a7321f891}">
+      <Declaration><![CDATA[METHOD PUBLIC StampDT : DT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

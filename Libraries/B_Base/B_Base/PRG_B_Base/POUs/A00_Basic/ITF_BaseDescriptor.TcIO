@@ -3,5 +3,91 @@
   <Itf Name="ITF_BaseDescriptor" Id="{ada92c2f-1741-06d9-3083-5dca405ada51}">
     <Declaration><![CDATA[INTERFACE ITF_BaseDescriptor
 ]]></Declaration>
+    <Method Name="GetDefaultValue" Id="{0001106c-cdff-0475-27f0-eb00a18be38e}">
+      <Declaration><![CDATA[METHOD PUBLIC GetDefaultValue : REAL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetMax" Id="{bae076a0-3150-01b8-3c53-4367e86f3b43}">
+      <Declaration><![CDATA[METHOD PUBLIC GetMax : REAL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetMin" Id="{e657ef90-b27c-03de-0c7c-5543479dfc1c}">
+      <Declaration><![CDATA[METHOD PUBLIC GetMin : REAL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetTexts" Id="{d80bba81-9353-01a2-25e9-143430746f38}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTexts : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetUnit" Id="{e28259f1-3474-03b8-0931-d0fb54d804c7}">
+      <Declaration><![CDATA[METHOD PUBLIC GetUnit : STRING(6)
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetValue" Id="{527925d6-48f4-0a8c-3620-625e15c2c437}">
+      <Declaration><![CDATA[METHOD PUBLIC GetValue : REAL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetDefaultValue" Id="{b1fdf0f6-b449-078c-0cd0-63fd394ce2b9}">
+      <Declaration><![CDATA[METHOD PUBLIC SetDefaultValue
+VAR_INPUT
+	rDefaultValue: REAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetMax" Id="{224191b0-b2d2-0604-27db-6f5018206d35}">
+      <Declaration><![CDATA[METHOD PUBLIC SetMax
+VAR_INPUT
+	rMax: REAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetMin" Id="{636d9330-761a-01b1-09e9-9bea1c1f04aa}">
+      <Declaration><![CDATA[METHOD PUBLIC SetMin
+VAR_INPUT
+	rMin: REAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetText" Id="{a325a82c-37c7-0885-1304-9e7776739f28}">
+      <Declaration><![CDATA[METHOD PUBLIC SetText
+VAR_INPUT
+	eLocation			: E_BaseLocation;
+	wsDescription		: WSTRING;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetTexts" Id="{ac0a0a67-d616-01b6-2ae1-e67d6995b8d6}">
+      <Declaration><![CDATA[METHOD PUBLIC SetTexts
+VAR_INPUT
+	stTexts				: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetUnit" Id="{063eb5d1-150b-042b-3b06-66430baeec81}">
+      <Declaration><![CDATA[METHOD PUBLIC SetUnit
+VAR_INPUT
+	sUnit: STRING(6);
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetValue" Id="{28cee76f-1074-00e9-37db-eacf1b2c2368}">
+      <Declaration><![CDATA[METHOD PUBLIC SetValue
+VAR_INPUT
+	rValue: REAL;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

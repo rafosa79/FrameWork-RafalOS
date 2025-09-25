@@ -8,9 +8,9 @@
 *)
 FUNCTION_BLOCK FB_Base EXTENDS FB_BaseDescriptor
 VAR
-	refstCommonData			: REFERENCE TO ST_CommonData;
+	refstCommonData			: REFERENCE TO ST_BaseCommonData;
 
-	bIsValidCommonData		:  bool;
+	bIsValidCommonData		:  BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -30,7 +30,7 @@ END_VAR
     <Method Name="LinkCommonData" Id="{4f5a813f-41fd-0c13-21e8-fdee6dda11cc}" FolderPath="WiazanieZmiennych\">
       <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
 VAR_INPUT
-	stCommonData				: ST_CommonData;
+	stCommonData				: ST_BaseCommonData;
 END_VAR
 ]]></Declaration>
       <Implementation>

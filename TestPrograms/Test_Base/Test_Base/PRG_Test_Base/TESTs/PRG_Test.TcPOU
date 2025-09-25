@@ -3,6 +3,10 @@
   <POU Name="PRG_Test" Id="{08f2cb9f-fc15-489b-a378-35435c110658}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Test
 VAR
+	fbBaseTimeTest			: FB_BaseTimeTest;
+	fbCommandTest			: FB_CommandTest;
+	fbImpulsTest			: FB_Impulstest;
+
 	fbBaseTest				: FB_Basetest;
 	fbComponentTest			: FB_ElementTest;
 END_VAR
