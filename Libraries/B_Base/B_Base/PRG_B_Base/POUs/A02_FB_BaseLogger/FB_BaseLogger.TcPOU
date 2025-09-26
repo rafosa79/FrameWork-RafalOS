@@ -113,7 +113,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Tc2_System.MEMCPY (
+        <ST><![CDATA[Tc2_System.MEMMOVE (
 	destAddr			:= ADR (THIS^.stMemory.arrRow [2]),
 	srcAddr				:= ADR (THIS^.stMemory.arrRow [1]), 
 	n					:= (SIZEOF (THIS^.stMemory.arrRow [1]) * TO_UINT (THIS^.stMemory.iNumberOfRow))

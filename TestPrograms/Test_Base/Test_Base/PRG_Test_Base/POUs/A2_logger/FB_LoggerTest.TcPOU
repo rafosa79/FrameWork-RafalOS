@@ -10,6 +10,7 @@ END_VAR
       <ST><![CDATA[
 T01_TestDodawaniaZgloszen ();
 T02_TestDodawaniaZgloszen2 ();
+T03_TestDodawaniaZgloszen3 ();
 ]]></ST>
     </Implementation>
     <Method Name="T01_TestDodawaniaZgloszen" Id="{95b1bee2-2fa2-40b4-ace9-9bed2d0ad664}">
@@ -27,7 +28,7 @@ END_VAR]]></Declaration>
 	sttmpEvent.bActive				:= TRUE;
 	sttmpEvent.bConfirm				:= TRUE;
 	sttmpEvent.bIgnoreRepetitions	:= TRUE;
-	sttmpEvent.dtStart				:= DT#2025-09-25-09:22:42;
+	sttmpEvent.dtStart				:= DT#2025-09-25-01:00:00;
 	sttmpEvent.eEventCategory		:= E_BaseEvents_Category.Error;
 	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Start;
 	sttmpEvent.uiIDEvent			:= 1;
@@ -47,7 +48,7 @@ END_VAR]]></Declaration>
 	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Confirm;
 	sttmpEvent.uiIDEvent			:= 1;
 	sttmpEvent.uiIDItem				:= 2;
-	sttmpEvent.dtConfirmed			:= DT#2025-09-25-10:44:12;
+	sttmpEvent.dtConfirmed			:= DT#2025-09-25-01:01:00;
 	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
 	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T04a - bledna ilosc w kolejce');
 	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T04b - bledna ilosc zgloszen');
@@ -63,7 +64,7 @@ END_VAR]]></Declaration>
 	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Stop;
 	sttmpEvent.uiIDEvent			:= 1;
 	sttmpEvent.uiIDItem				:= 2;
-	sttmpEvent.dtFinish				:= DT#2025-09-25-10:50:32;
+	sttmpEvent.dtFinish				:= DT#2025-09-25-01:02:00;
 	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
 	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T04a - bledna ilosc w kolejce');
 	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T04b - bledna ilosc zgloszen');
@@ -96,7 +97,7 @@ END_VAR]]></Declaration>
 	sttmpEvent.bActive				:= TRUE;
 	sttmpEvent.bConfirm				:= TRUE;
 	sttmpEvent.bIgnoreRepetitions	:= TRUE;
-	sttmpEvent.dtStart				:= DT#2025-09-25-10:22:42;
+	sttmpEvent.dtStart				:= DT#2025-09-25-02:00:00;
 	sttmpEvent.eEventCategory		:= E_BaseEvents_Category.Error;
 	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Start;
 	sttmpEvent.uiIDEvent			:= 1;
@@ -116,7 +117,7 @@ END_VAR]]></Declaration>
 	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Stop;
 	sttmpEvent.uiIDEvent			:= 1;
 	sttmpEvent.uiIDItem				:= 2;
-	sttmpEvent.dtFinish				:= DT#2025-09-25-11:50:32;
+	sttmpEvent.dtFinish				:= DT#2025-09-25-02:00:00;
 	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
 	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T04a - bledna ilosc w kolejce');
 	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T04b - bledna ilosc zgloszen');
@@ -132,7 +133,7 @@ END_VAR]]></Declaration>
 	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Confirm;
 	sttmpEvent.uiIDEvent			:= 1;
 	sttmpEvent.uiIDItem				:= 2;
-	sttmpEvent.dtConfirmed			:= DT#2025-09-25-12:44:12;
+	sttmpEvent.dtConfirmed			:= DT#2025-09-25-02:01:00;
 	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
 	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T06a - bledna ilosc w kolejce');
 	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T06b - bledna ilosc zgloszen');
@@ -148,7 +149,7 @@ END_VAR]]></Declaration>
 	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Stop;
 	sttmpEvent.uiIDEvent			:= 1;
 	sttmpEvent.uiIDItem				:= 2;
-	sttmpEvent.dtFinish				:= DT#2025-09-25-12:50:32;
+	sttmpEvent.dtFinish				:= DT#2025-09-25-02:02:00;
 	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
 	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T08a - bledna ilosc w kolejce');
 	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T08b - bledna ilosc zgloszen');
@@ -160,6 +161,103 @@ END_VAR]]></Declaration>
 	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Alarm],	Message := 'T09d - bledny stan');
 	Assertfalse (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T09e - bledny stan');
 	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T09f - bledna ilosc zgloszen');
+	
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T03_TestDodawaniaZgloszen3" Id="{26235af6-606c-4534-abe3-d37bb2afacab}">
+      <Declaration><![CDATA[METHOD PRIVATE T03_TestDodawaniaZgloszen3
+VAR
+	sttmpEvent: ST_BaseEvents_RowInQueue;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T03_TestDodawaniaZgloszen3')) THEN
+//wyslanie zgloszenia 
+	sttmpEvent.bActive				:= TRUE;
+	sttmpEvent.bConfirm				:= FALSE;
+	sttmpEvent.bIgnoreRepetitions	:= FALSE;
+	sttmpEvent.dtStart				:= DT#2025-09-25-03:00:00;
+	sttmpEvent.eEventCategory		:= E_BaseEvents_Category.Alarm;
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Start;
+	sttmpEvent.uiIDEvent			:= 1;
+	sttmpEvent.uiIDItem				:= 1;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	GVL.fbLogger ();
+//zamkniecie zgloszenia 
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Stop;
+	sttmpEvent.uiIDEvent			:= 1;
+	sttmpEvent.uiIDItem				:= 1;
+	sttmpEvent.dtFinish				:= DT#2025-09-25-03:02:00;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	GVL.fbLogger ();
+//wyslanie zgloszenia 
+	sttmpEvent.bActive				:= TRUE;
+	sttmpEvent.bConfirm				:= FALSE;
+	sttmpEvent.bIgnoreRepetitions	:= FALSE;
+	sttmpEvent.dtStart				:= DT#2025-09-25-03:10:00;
+	sttmpEvent.eEventCategory		:= E_BaseEvents_Category.Alarm;
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Start;
+	sttmpEvent.uiIDEvent			:= 1;
+	sttmpEvent.uiIDItem				:= 1;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	GVL.fbLogger ();
+//wyslanie zgloszenia 
+	sttmpEvent.bActive				:= TRUE;
+	sttmpEvent.bConfirm				:= TRUE;
+	sttmpEvent.bIgnoreRepetitions	:= TRUE;
+	sttmpEvent.dtStart				:= DT#2025-09-25-03:20:00;
+	sttmpEvent.eEventCategory		:= E_BaseEvents_Category.Error;
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Start;
+	sttmpEvent.uiIDEvent			:= 2;
+	sttmpEvent.uiIDItem				:= 1;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	GVL.fbLogger ();
+//potwierdzenie zgloszenia 
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Confirm;
+	sttmpEvent.uiIDEvent			:= 2;
+	sttmpEvent.uiIDItem				:= 1;
+	sttmpEvent.dtConfirmed			:= DT#2025-09-25-03:21:00;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	GVL.fbLogger ();
+//zamkniecie zgloszenia 
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Stop;
+	sttmpEvent.uiIDEvent			:= 2;
+	sttmpEvent.uiIDItem				:= 1;
+	sttmpEvent.dtFinish				:= DT#2025-09-25-03:22:00;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	GVL.fbLogger ();
+//wyslanie zgloszenia 
+	sttmpEvent.bActive				:= TRUE;
+	sttmpEvent.bConfirm				:= FALSE;
+	sttmpEvent.bIgnoreRepetitions	:= TRUE;
+	sttmpEvent.dtStart				:= DT#2025-09-25-04:00:00;
+	sttmpEvent.eEventCategory		:= E_BaseEvents_Category.Error;
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Start;
+	sttmpEvent.uiIDEvent			:= 3;
+	sttmpEvent.uiIDItem				:= 1;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	GVL.fbLogger ();
+//wyslanie zgloszenia 
+	sttmpEvent.bActive				:= TRUE;
+	sttmpEvent.bConfirm				:= FALSE;
+	sttmpEvent.bIgnoreRepetitions	:= TRUE;
+	sttmpEvent.dtStart				:= DT#2025-09-25-04:20:00;
+	sttmpEvent.eEventCategory		:= E_BaseEvents_Category.Message;
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Start;
+	sttmpEvent.uiIDEvent			:= 4;
+	sttmpEvent.uiIDItem				:= 1;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	GVL.fbLogger ();
+//zamkniecie zgloszenia 
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Stop;
+	sttmpEvent.uiIDEvent			:= 4;
+	sttmpEvent.uiIDItem				:= 1;
+	sttmpEvent.dtFinish				:= DT#2025-09-25-04:22:00;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	GVL.fbLogger ();
 	
 	
 	TcUnit.TEST_FINISHED ();
