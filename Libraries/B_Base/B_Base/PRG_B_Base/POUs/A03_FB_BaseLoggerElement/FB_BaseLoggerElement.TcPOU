@@ -133,15 +133,6 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="MetodaBaseLoggerElementHMIConnector" Id="{437aee4c-8ff1-0551-0c74-ef940e363677}" FolderPath="ITF_BaseLoggerElement_HMI_Connector\">
-      <Declaration><![CDATA[METHOD MetodaBaseLoggerElementHMIConnector : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="SetCode" Id="{fe7a56f6-55e1-0e90-11d6-90800c0cf084}" FolderPath="ID\">
       <Declaration><![CDATA[METHOD PUBLIC SetCode
 VAR_INPUT

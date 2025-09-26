@@ -3,9 +3,10 @@
   <Itf Name="ITF_BaseLogger_HMI_Connector" Id="{77898fe0-1ee7-0a01-1a2c-9ed188780169}">
     <Declaration><![CDATA[INTERFACE ITF_BaseLogger_HMI_Connector
 ]]></Declaration>
-    <Method Name="MetodaBaseLogerHMIConnector" Id="{5dec95c0-3e54-05a3-23dd-35faabcebddc}">
-      <Declaration><![CDATA[METHOD MetodaBaseLogerHMIConnector : BOOL
+    <Method Name="GetReferenceToStmemory" Id="{cd9afe9d-8904-045f-3d51-457b59128ac2}">
+      <Declaration><![CDATA[METHOD GetReferenceToStmemory : REFERENCE TO ST_BaseEvents_Memory
 VAR_INPUT
+	
 END_VAR
 ]]></Declaration>
     </Method>

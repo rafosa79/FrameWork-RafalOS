@@ -4,7 +4,7 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseLoggerElement_HMI EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement_HMI
 VAR
 	itfBaseLoggerConnector					: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
-	itfBaseLoggerElementConnector			: ITF_BaseLoggerElement_HMI_Connector;
+	itfBaseLoggerElementConnector			: ITF_BaseLoggerElement_HMI_Connector;	//lacznik do FB_BaseLoggerElement np zeby wyciągnąć identyfikator
 	refstBaseLoggerElementDataHMI			: REFERENCE TO ST_BaseLoggerElement_HMI;
 	bIsInit									: BOOL;	//flaga informująca czy wszystkie interfejsy są dobrze przypisane
 	bIsValidData							: bool;	//flaga informująca czy wszystkie dane sa podpięte 
@@ -13,6 +13,23 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="WiazanieZmiennych" Id="{4d450796-b575-0397-39db-94123d6241c4}" />
+    <Method Name="CreateLinkToEventsMemory" Id="{95a4fe1d-262b-028d-22e6-1fe12c2c7cc8}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC CreateLinkToEventsMemory : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstBaseLoggerElementDataHMI.refstMemoryEvents	REF= THIS^.itfBaseLoggerConnector.GetReferenceToStmemory ();
+
+
+IF (__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI.refstMemoryEvents)) THEN
+	CreateLinkToEventsMemory		:= TRUE;
+ELSE
+	CreateLinkToEventsMemory		:= FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="IsInit" Id="{ff032025-bb47-0541-2e34-4756feab4ddd}">
       <Declaration><![CDATA[(*			
 	RAFALOS

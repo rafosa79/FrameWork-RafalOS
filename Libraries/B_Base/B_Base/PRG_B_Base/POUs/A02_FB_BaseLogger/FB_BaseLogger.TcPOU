@@ -173,6 +173,17 @@ END_FOR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetReferenceToStmemory" Id="{f211c4f1-fdf6-0f0d-3b07-7dcc3e732694}" FolderPath="ITF_BaseLogger_HMI_Connector\">
+      <Declaration><![CDATA[METHOD GetReferenceToStmemory : REFERENCE TO ST_BaseEvents_Memory
+VAR_INPUT
+		
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetReferenceToStmemory			REF= THIS^.stMemory;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="IncreaseTheNumberOfActiveReports" Id="{a2524881-7034-023a-3007-d281bb954a2a}">
       <Declaration><![CDATA[METHOD PRIVATE IncreaseTheNumberOfActiveReports
 VAR_INPUT
@@ -193,15 +204,6 @@ THIS^.stNumberOfReports.iTotalNumer							:= THIS^.stNumberOfReports.iTotalNumer
 THIS^.stNumberOfReports.arrTotalNumer [eEventsCategory]		:= THIS^.stNumberOfReports.arrTotalNumer [eEventsCategory] + 1;
 THIS^.stNumberOfReports.arrActive [eEventsCategory]			:= THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory] > 0;
 ]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="MetodaBaseLogerHMIConnector" Id="{2c18dbe3-a520-0877-1292-b2d303ed756b}" FolderPath="ITF_BaseLogger_HMI_Connector\">
-      <Declaration><![CDATA[METHOD MetodaBaseLogerHMIConnector : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
     <Method Name="ReduceTheNumberOfActiveEvents" Id="{c19440a0-d10b-0381-218e-2a269605ff9b}">
