@@ -90,12 +90,12 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[//szukanie w tablicy pamiętanych danych z pierwszego wierszza kolejki 
 
-FOR iI := 1 TO TO_INT (THIS^.stPamiec.iIlosc) DO 
-	IF (THIS^.stPamiec.arrWiersz [iI].uiIDZgloszenia = THIS^.stKolejka.arrZgloszenie [1].uiIDZgloszenia AND
-		((THIS^.stPamiec.arrWiersz [iI].bPotwierdz AND NOT THIS^.stPamiec.arrWiersz [iI].bPotwierdzone) OR NOT THIS^.stPamiec.arrWiersz [iI].bPotwierdz)) THEN
-		THIS^.stPamiec.arrWiersz [iI].bPotwierdzone		:= TRUE;
-		THIS^.stPamiec.arrWiersz [iI].dtZatwierdzenie	:= THIS^.stKolejka.arrZgloszenie [1].dtZatwierdzenie;
-		THIS^.ZmniejszIloscPotwierdzen ();
+FOR iI := 1 TO TO_INT (THIS^.stMemory.iNumberOfRow) DO 
+	IF (THIS^.stMemory.arrRow [iI].uiIDEvent = THIS^.stBuffer.arrEvents [1].uiIDEvent AND
+    	((THIS^.stMemory.arrRow [iI].bConfirm AND NOT THIS^.stMemory.arrRow [iI].bConfirmed) OR NOT THIS^.stMemory.arrRow [iI].bConfirm)) THEN
+		THIS^.stMemory.arrRow [iI].bConfirm		:= TRUE;
+		THIS^.stMemory.arrRow [iI].dtConfirmed	:= THIS^.stBuffer.arrEvents [1].dtConfirmed;
+		THIS^.ReduceTheNumberOfConfirmations ();
 		EXIT;
 	END_IF
 END_FOR]]></ST>
@@ -134,14 +134,14 @@ THIS^.stmemory.arrRow [1].uiIDItem				:= THIS^.stBuffer.arrEvents [1].uiIDItem;
 
 THIS^.stMemory.iNumberOfRow						:= THIS^.stMemory.iNumberOfRow + 1;
 
-THIS^.stNumberOfReports.arrInfoForHMI [THIS^.stKolejka.arrZgloszenie [1].uiIDElementu].bNowe	:= TRUE;
-THIS^.stNumberOfReports.arrInfoForHMI [THIS^.stKolejka.arrZgloszenie [1].uiIDElementu].iIlosc	:= THIS^.stIlosciZgloszonych.arrInfoDlaHMI [THIS^.stKolejka.arrZgloszenie [1].uiIDElementu].iIlosc + 1;
+THIS^.stNumberOfReports.arrInfoForHMI [THIS^.stBuffer.arrEvents [1].uiIDItem].bNew	:= TRUE;
+THIS^.stNumberOfReports.arrInfoForHMI [THIS^.stBuffer.arrEvents [1].uiIDItem].iQuantity	:= THIS^.stNumberOfReports.arrInfoForHMI [THIS^.stBuffer.arrEvents [1].uiIDItem].iQuantity + 1;
 THIS^.stNumberOfReports.bNewEventsForHmi	:= TRUE;
 
 	(*	informacja dla systemu że jest aktywny błąd 	*)
-THIS^.ZwiekszIloscAktywnychBledow (
-	bPotwierdzenie					:= THIS^.stPamiec.arrWiersz [1].bPotwierdz,
-	eRodzajZgloszenia				:= THIS^.stPamiec.arrWiersz [1].eRodzajZgloszenia
+THIS^.IncreaseTheNumberOfActiveReports (
+	bConfirm					:= THIS^.stMemory.arrRow [1].bConfirm,
+	eEventsCategory				:= THIS^.stMemory.arrRow [1].eEventCategory
 );
 ]]></ST>
       </Implementation>
@@ -160,15 +160,37 @@ VAR
 	iI: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.stPamiec.iIlosc) DO 
-	IF (THIS^.stPamiec.arrWiersz [iI].uiIDZgloszenia = THIS^.stKolejka.arrZgloszenie [1].uiIDZgloszenia AND
-		((THIS^.stPamiec.arrWiersz [iI].bPotwierdz AND THIS^.stPamiec.arrWiersz [iI].bPotwierdzone) OR NOT THIS^.stPamiec.arrWiersz [iI].bPotwierdz)) THEN
-		THIS^.stPamiec.arrWiersz [iI].bAktywne		:= FALSE;
-		THIS^.stPamiec.arrWiersz [iI].dtKoniec		:= THIS^.stKolejka.arrZgloszenie [1].dtKoniec;
-		THIS^.ZmniejszIloscAktywnychBledow (eRodzajZgloszenia	:= THIS^.stPamiec.arrWiersz [iI].eRodzajZgloszenia);
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.stMemory.iNumberOfRow) DO 
+	IF (THIS^.stMemory.arrRow [iI].uiIDEvent = THIS^.stBuffer.arrEvents [1].uiIDEvent AND
+		((THIS^.stMemory.arrRow [iI].bConfirm AND THIS^.stMemory.arrRow [iI].bConfirmed) OR NOT THIS^.stMemory.arrRow [iI].bConfirm)) THEN
+		THIS^.stMemory.arrRow [iI].bActive		:= FALSE;
+		THIS^.stMemory.arrRow [iI].dtFinish		:= THIS^.stBuffer.arrEvents [1].dtFinish;
+		THIS^.ReduceTheNumberOfActiveEvents (eEventsCategory	:= THIS^.stMemory.arrRow [iI].eEventCategory);
 		EXIT;
 	END_IF
 END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IncreaseTheNumberOfActiveReports" Id="{a2524881-7034-023a-3007-d281bb954a2a}">
+      <Declaration><![CDATA[METHOD PRIVATE IncreaseTheNumberOfActiveReports
+VAR_INPUT
+	bConfirm				: BOOL;		//informacja czy wymaga potwierdzenia
+	eEventsCategory			: E_BaseEvents_Category;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stNumberOfReports.iNumberOfActive						:= THIS^.stNumberOfReports.iNumberOfActive + 1;
+THIS^.stNumberOfReports.bIsActive							:= TRUE;
+IF (bConfirm) THEN
+	THIS^.stNumberOfReports.bIsActiveWithConfirmation		:= TRUE;
+	THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation	:= THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation + 1;
+END_IF
+
+THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory]	:= THIS^.STNumberOfReports.arrNumberOfActive [eEventsCategory] + 1;
+THIS^.stNumberOfReports.iTotalNumer							:= THIS^.stNumberOfReports.iTotalNumer + 1;
+THIS^.stNumberOfReports.arrTotalNumer [eEventsCategory]		:= THIS^.stNumberOfReports.arrTotalNumer [eEventsCategory] + 1;
+THIS^.stNumberOfReports.arrActive [eEventsCategory]			:= THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory] > 0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -179,6 +201,46 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReduceTheNumberOfActiveEvents" Id="{c19440a0-d10b-0381-218e-2a269605ff9b}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		12.06.2025		TC 4024.66
+	Zmniejsza ilosć aktywnych błędów
+*)
+METHOD PRIVATE ReduceTheNumberOfActiveEvents : BOOL
+VAR_INPUT
+	eEventsCategory		: E_BaseEvents_Category;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stNumberOfReports.iNumberOfActive	:= THIS^.stNumberOfReports.iNumberOfActive - 1;
+IF (THIS^.stNumberOfReports.iNumberOfActive = 0) THEN
+	THIS^.stNumberOfReports.bIsActive	:= FALSE;
+END_IF
+
+THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory]	:= THIS^.stnumberOfReports.arrNumberOfActive [eEventsCategory] - 1;
+THIS^.stNumberOfReports.arrActive [eEventsCategory]			:= THIS^.stnumberOfReports.arrNumberOfActive [eEventsCategory] > 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReduceTheNumberOfConfirmations" Id="{d63962d3-9a36-0744-2bb5-feff8aca8d88}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		12.06.2025		TC 4024.66
+	Zminiejsza ilość potwierdzeń w aktywnych błedach
+*)
+METHOD PRIVATE ReduceTheNumberOfConfirmations : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation		:= THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation - 1;
+IF (THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation = 0) THEN
+	THIS^.stNumberOfReports.bIsActiveWithConfirmation	:= FALSE;
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="ReportEvent" Id="{f0263bde-b6df-0833-2a35-a64ae2a95f5b}" FolderPath="ITF_BaseLogger\">
