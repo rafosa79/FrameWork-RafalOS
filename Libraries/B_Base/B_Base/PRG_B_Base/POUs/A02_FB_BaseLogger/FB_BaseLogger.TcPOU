@@ -244,13 +244,25 @@ END_IF
       </Implementation>
     </Method>
     <Method Name="ReportEvent" Id="{f0263bde-b6df-0833-2a35-a64ae2a95f5b}" FolderPath="ITF_BaseLogger\">
-      <Declaration><![CDATA[METHOD PUBLIC ReportEvent : BOOL
+      <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		26.09.2025		TC 4024.66
+	Dodanie do kolejki
+*)
+METHOD PUBLIC ReportEvent : BOOL
 VAR_INPUT
 	stEvent					: ST_BaseEvents_RowInQueue;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[	
+	(*		Kolejka FIFO dodajemy na koniec pobieramy z początku	*)
+	(*		Dodanie na koniec kolejki	*)
+	
+IF (THIS^.stBuffer.inumerOfEvents + 1 <= TO_INT (GVL_BaseConstans.LICZBA_ZGLOSZEN_W_KOLEJCE)) THEN
+	THIS^.stBuffer.iNumerOfEvents								:= THIS^.stBuffer.iNumerOfEvents  + 1;
+	THIS^.stBuffer.arrEvents [THIS^.stBuffer.iNumerOfEvents]	:= stEvent;
+END_IF]]></ST>
       </Implementation>
     </Method>
   </POU>

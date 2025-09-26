@@ -44,6 +44,9 @@
     <Compile Include="POUs\A0_BaseFB\Time\FB_BaseTimeTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A2_logger\FB_LoggerTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A4_Component\FB_Component.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -160,6 +163,7 @@
     <Folder Include="POUs\A6_GroupElement" />
     <Folder Include="POUs\A7_TopElement" />
     <Folder Include="POUs\A0_BaseFB" />
+    <Folder Include="POUs\A2_logger" />
     <Folder Include="TESTs" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />

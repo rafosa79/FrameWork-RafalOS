@@ -30,7 +30,7 @@ VAR_INPUT
 	bIgnoreRepetitions					: BOOL;						//jak true nie zliczaj powtorzeń wystapienia np komunikaty
 	eEventCategory						: E_BaseEvents_Category;	//BYTE;	//1 - blad, 2 - ostrzezenie, 3 - wiadomosc, 4 - safety
 	bConfirm							: BOOL;						//wymaga powtierdzenia
-	stOpis								: ST_BaseLabel;
+	stDescription						: ST_BaseLabel;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -39,7 +39,7 @@ END_VAR
 	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].uiIDInItem			:= THIS^.stEvents.uiNumberOfAdded;
 	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].bIgnoreRepetitions	:= bIgnoreRepetitions;
 	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].eEventCategory		:= eEventCategory;
-	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].stDescription		:= stOpis;
+	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].stDescription		:= stDescription;
 	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].bConfirm				:= bConfirm;
 	AddEvent						:= TRUE;
 ELSE
