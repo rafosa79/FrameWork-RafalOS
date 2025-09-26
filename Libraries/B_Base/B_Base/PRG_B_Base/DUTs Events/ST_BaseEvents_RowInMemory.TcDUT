@@ -3,18 +3,17 @@
   <DUT Name="ST_BaseEvents_RowInMemory" Id="{29b6bf65-deca-4755-a6e5-1d76d28b8f6b}">
     <Declaration><![CDATA[TYPE ST_BaseEvents_RowInMemory :
 STRUCT
-//	eTypZgloszenia							: E_Zgloszenia_Typ;	//okresla rodzaj zgloszenia w kolejce Start stop 
-	uiIDZgloszenia							: UINT;				//unikalny numer zgloszenia dla całego projektu nadawany automatycznie 
-	uiIDElementu							: UINT;				// unikalny numer elementu w systemie
-	bAktywne								: BOOL;
-	bIgnorujPowtorzenia						: BOOL;				//jak true nie zliczaj powtorzeń wystapienia np komunikaty
-	uiLicznikPowtorzen						: UINT;
+	uiIDEvent								: UINT;				//unikalny numer zgloszenia dla całego projektu nadawany automatycznie 
+	uiIDItem								: UINT;				// unikalny numer elementu w systemie
+	bActive									: BOOL;
+	bIgnoreRepetitions						: BOOL;				//jak true nie zliczaj powtorzeń wystapienia np komunikaty
+	uiRepetitionCounter						: UINT;
 	dtStart									: DT;				//poczatek wystepowania zgłoszenia
-	dtKoniec								: DT;				//koniec wystepowaniazgloszenia
-	dtZatwierdzenie							: DT;				// stempel potwierdzenia 
-	bPotwierdz								: BOOL;				//informacja czy potrzebne jest potwierdzenie 
-	bPotwierdzone							: bool;				//pamięta czy już potwierdzone
-	eRodzajZgloszenia						: E_BaseEvents_Category;
+	dtFinish								: DT;				//koniec wystepowaniazgloszenia
+	dtConfirmed								: DT;				// stempel potwierdzenia 
+	bConfirm								: BOOL;				//informacja czy potrzebne jest potwierdzenie 
+	bConfirmed								: BOOL;				//pamięta czy już potwierdzone
+	eEventCategory							: E_BaseEvents_Category;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

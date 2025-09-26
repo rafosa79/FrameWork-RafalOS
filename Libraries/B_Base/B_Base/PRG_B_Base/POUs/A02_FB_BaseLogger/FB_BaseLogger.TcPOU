@@ -8,13 +8,193 @@
 *)
 FUNCTION_BLOCK FB_BaseLogger EXTENDS FB_Base IMPLEMENTS ITF_BaseLogger, ITF_BaseLogger_HMI_Connector
 VAR
+	stBuffer						: ST_BaseEvents_Queue;
+	uiNumerOfReportsIntheSystem		: UINT;						//informacja ogólna o ilosc wszystkich zgłoszeń
+	bClearMemory					: BOOL;						//czyści pamięć
+END_VAR
+VAR PERSISTENT
+	stMemory						: ST_BaseEvents_Memory;			//zapamiętane zgłoszenia
+	stNumberOfReports				: ST_BaseEvents_ActiveEvents;	//ilości różnych zgłoszęń w rozróżnieniu na kategorie
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[	(*	Pobranie z kolejki zgłoszeń i dodanie do pamięci	*)
+
+WHILE THIS^.stBuffer.iNumerOfEvents > 0 DO
+	THIS^.BufferFIFOSupport ();
+END_WHILE
+
+IF (THIS^.bClearMemory) THEN
+	THIS^.bClearMemory				:= FALSE;
+	Tc2_System.MEMSET (
+		destAddr					:= ADR (THIS^.stMemory),
+		fillByte					:= 0,
+		n							:= SIZEOF (THIS^.stMemory)
+	);
+	Tc2_System.MEMSET (
+		destAddr					:= ADR (THIS^.stNumberOfReports),
+		fillByte					:= 0,
+		n							:= SIZEOF (THIS^.stNumberOfReports)
+	);
+END_IF
+]]></ST>
     </Implementation>
     <Folder Name="ITF_BaseLogger" Id="{c54055ab-2569-0322-10a1-be1e8232e254}" />
     <Folder Name="ITF_BaseLogger_HMI_Connector" Id="{58ae1150-aaab-05cc-1931-89d90fea9543}" />
+    <Method Name="BufferFIFOSupport" Id="{e129154d-ae16-0d4d-3b2a-e5726803dcad}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.06.2025		TC 4024.66
+	Przenisienie danych z kolejki do zgloszen pamiętanych
+*)
+METHOD PRIVATE BufferFIFOSupport
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[	
+	(*	W zależnosci od tego czy to jest nowe, aktualizacja czy zokończenie zadanie wykonaj odpowiednie zadanie 	*)
+IF (THIS^.stBuffer.iNumerOfEvents > 0) THEN
+	CASE THIS^.stBuffer.arrEvents [1].eEventAction OF
+		E_BaseEvents_Action.Start				: 	THIS^.BufferFIFOSupportStart ();
+		E_BaseEvents_Action.Confirm				: 	THIS^.BufferFIFOSupportConfirm ();
+		E_BaseEvents_Action.Stop				: 	THIS^.BufferFIFOSupportStop ();
+	END_CASE
+	
+(*		przesuniecie danych w kolejce o 1 i zmniejszenie liczy w kolejce o jeden 	*)
+	
+	Tc2_System.MEMCPY (
+		destAddr			:= ADR (THIS^.stBuffer.arrEvents [1]),
+		srcAddr				:= ADR (THIS^.stBuffer.arrEvents [2]),
+		n					:= (SIZEOF (THIS^.stBuffer.arrEvents [1]) * TO_UINT (THIS^.stBuffer.iNumerOfEvents))
+	);
+	THIS^.stBuffer.iNumerOfEvents	:= THIS^.stBuffer.iNumerOfEvents - 1;
+	
+	THIS^.stBuffer.bChangeInMemory	:= TRUE;
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="BufferFIFOSupportConfirm" Id="{f1844e3b-d002-0aae-0a0a-7787991dac5a}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.06.2025		TC 4024.66
+	znalezienie w pamiętach odpowiedniego wiersza i przepisanie danych 
+*)
+METHOD PRIVATE BufferFIFOSupportConfirm
+VAR_INPUT
+END_VAR
+
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//szukanie w tablicy pamiętanych danych z pierwszego wierszza kolejki 
+
+FOR iI := 1 TO TO_INT (THIS^.stMemory.iNumberOfRow) DO 
+	IF (THIS^.stMemory.arrRow [iI].uiIDEvent = THIS^.stBuffer.arrEvents [1].uiIDEvent AND
+    	((THIS^.stMemory.arrRow [iI].bConfirm AND NOT THIS^.stMemory.arrRow [iI].bConfirmed) OR NOT THIS^.stMemory.arrRow [iI].bConfirm)) THEN
+		THIS^.stMemory.arrRow [iI].bConfirmed	:= TRUE;
+		THIS^.stMemory.arrRow [iI].dtConfirmed	:= THIS^.stBuffer.arrEvents [1].dtConfirmed;
+		THIS^.ReduceTheNumberOfConfirmations ();
+		EXIT;
+	END_IF
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="BufferFIFOSupportStart" Id="{19eeb431-8176-061d-17ea-c2f43dedc551}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.06.2025		TC 4024.66
+	Przenisienie pamietanych o jeden, zwiekszenie liczby pamietanych o jeden 
+	przekopiowanie z koeljki wiersz 1 
+*)
+METHOD PRIVATE BufferFIFOSupportStart
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Tc2_System.MEMCPY (
+	destAddr			:= ADR (THIS^.stMemory.arrRow [2]),
+	srcAddr				:= ADR (THIS^.stMemory.arrRow [1]), 
+	n					:= (SIZEOF (THIS^.stMemory.arrRow [1]) * TO_UINT (THIS^.stMemory.iNumberOfRow))
+);
+Tc2_System.MEMSET (
+	destAddr			:= ADR (THIS^.stMemory.arrRow [1]),
+	fillByte			:= 0,
+	n					:= SIZEOF (THIS^.stMemory.arrRow [1])
+);
+THIS^.stmemory.arrRow [1].bActive				:= THIS^.stBuffer.arrEvents [1].bActive;
+THIS^.stmemory.arrRow [1].bIgnoreRepetitions	:= THIS^.stBuffer.arrEvents [1].bIgnoreRepetitions;
+THIS^.stmemory.arrRow [1].eEventCategory		:= THIS^.stBuffer.arrEvents [1].eEventCategory;
+THIS^.stmemory.arrRow [1].uiIDEvent				:= THIS^.stBuffer.arrEvents [1].uiIDEvent;
+THIS^.stmemory.arrRow [1].uiRepetitionCounter	:= THIS^.stBuffer.arrEvents [1].uiRepetitionCounter;
+THIS^.stmemory.arrRow [1].dtStart				:= THIS^.stBuffer.arrEvents [1].dtStart;
+THIS^.stmemory.arrRow [1].bConfirm				:= THIS^.stBuffer.arrEvents [1].bConfirm;
+THIS^.stmemory.arrRow [1].uiIDItem				:= THIS^.stBuffer.arrEvents [1].uiIDItem;
+
+THIS^.stMemory.iNumberOfRow						:= THIS^.stMemory.iNumberOfRow + 1;
+
+THIS^.stNumberOfReports.arrInfoForHMI [THIS^.stBuffer.arrEvents [1].uiIDItem].bNew	:= TRUE;
+THIS^.stNumberOfReports.arrInfoForHMI [THIS^.stBuffer.arrEvents [1].uiIDItem].iQuantity	:= THIS^.stNumberOfReports.arrInfoForHMI [THIS^.stBuffer.arrEvents [1].uiIDItem].iQuantity + 1;
+THIS^.stNumberOfReports.bNewEventsForHmi	:= TRUE;
+
+	(*	informacja dla systemu że jest aktywny błąd 	*)
+THIS^.IncreaseTheNumberOfActiveReports (
+	bConfirm					:= THIS^.stMemory.arrRow [1].bConfirm,
+	eEventsCategory				:= THIS^.stMemory.arrRow [1].eEventCategory
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="BufferFIFOSupportStop" Id="{4a2dc8bf-8638-0f38-0bfd-d5f6d09101e0}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.06.2025		TC 4024.66
+	Znalezienie w pamieci odpowiedniego wiersza i przypisanie odpowiednich danych stempel i zmiena flagi
+*)
+METHOD PRIVATE BufferFIFOSupportStop
+VAR_INPUT
+END_VAR
+
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.stMemory.iNumberOfRow) DO 
+	IF (THIS^.stMemory.arrRow [iI].uiIDEvent = THIS^.stBuffer.arrEvents [1].uiIDEvent AND
+		((THIS^.stMemory.arrRow [iI].bConfirm AND THIS^.stMemory.arrRow [iI].bConfirmed AND
+			THIS^.stMemory.arrRow [iI].dtFinish = DT#1970-1-1-0:0:0) OR NOT THIS^.stMemory.arrRow [iI].bConfirm)) THEN
+		THIS^.stMemory.arrRow [iI].bActive		:= FALSE;
+		THIS^.stMemory.arrRow [iI].dtFinish		:= THIS^.stBuffer.arrEvents [1].dtFinish;
+		THIS^.ReduceTheNumberOfActiveEvents (eEventsCategory	:= THIS^.stMemory.arrRow [iI].eEventCategory);
+		EXIT;
+	END_IF
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IncreaseTheNumberOfActiveReports" Id="{a2524881-7034-023a-3007-d281bb954a2a}">
+      <Declaration><![CDATA[METHOD PRIVATE IncreaseTheNumberOfActiveReports
+VAR_INPUT
+	bConfirm				: BOOL;		//informacja czy wymaga potwierdzenia
+	eEventsCategory			: E_BaseEvents_Category;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stNumberOfReports.iNumberOfActive						:= THIS^.stNumberOfReports.iNumberOfActive + 1;
+THIS^.stNumberOfReports.bIsActive							:= TRUE;
+IF (bConfirm) THEN
+	THIS^.stNumberOfReports.bIsActiveWithConfirmation		:= TRUE;
+	THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation	:= THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation + 1;
+END_IF
+
+THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory]	:= THIS^.STNumberOfReports.arrNumberOfActive [eEventsCategory] + 1;
+THIS^.stNumberOfReports.iTotalNumer							:= THIS^.stNumberOfReports.iTotalNumer + 1;
+THIS^.stNumberOfReports.arrTotalNumer [eEventsCategory]		:= THIS^.stNumberOfReports.arrTotalNumer [eEventsCategory] + 1;
+THIS^.stNumberOfReports.arrActive [eEventsCategory]			:= THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory] > 0;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="MetodaBaseLogerHMIConnector" Id="{2c18dbe3-a520-0877-1292-b2d303ed756b}" FolderPath="ITF_BaseLogger_HMI_Connector\">
       <Declaration><![CDATA[METHOD MetodaBaseLogerHMIConnector : BOOL
 VAR_INPUT
@@ -24,14 +204,66 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
+    <Method Name="ReduceTheNumberOfActiveEvents" Id="{c19440a0-d10b-0381-218e-2a269605ff9b}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		12.06.2025		TC 4024.66
+	Zmniejsza ilosć aktywnych błędów
+*)
+METHOD PRIVATE ReduceTheNumberOfActiveEvents : BOOL
+VAR_INPUT
+	eEventsCategory		: E_BaseEvents_Category;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stNumberOfReports.iNumberOfActive	:= THIS^.stNumberOfReports.iNumberOfActive - 1;
+IF (THIS^.stNumberOfReports.iNumberOfActive = 0) THEN
+	THIS^.stNumberOfReports.bIsActive	:= FALSE;
+END_IF
+
+THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory]	:= THIS^.stnumberOfReports.arrNumberOfActive [eEventsCategory] - 1;
+THIS^.stNumberOfReports.arrActive [eEventsCategory]			:= THIS^.stnumberOfReports.arrNumberOfActive [eEventsCategory] > 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReduceTheNumberOfConfirmations" Id="{d63962d3-9a36-0744-2bb5-feff8aca8d88}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		12.06.2025		TC 4024.66
+	Zminiejsza ilość potwierdzeń w aktywnych błedach
+*)
+METHOD PRIVATE ReduceTheNumberOfConfirmations : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation		:= THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation - 1;
+IF (THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation = 0) THEN
+	THIS^.stNumberOfReports.bIsActiveWithConfirmation	:= FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="ReportEvent" Id="{f0263bde-b6df-0833-2a35-a64ae2a95f5b}" FolderPath="ITF_BaseLogger\">
-      <Declaration><![CDATA[METHOD PUBLIC ReportEvent : BOOL
+      <Declaration><![CDATA[(*			
+	RAFALOS
+	Rafał Osajda		26.09.2025		TC 4024.66
+	Dodanie do kolejki
+*)
+METHOD PUBLIC ReportEvent : BOOL
 VAR_INPUT
 	stEvent					: ST_BaseEvents_RowInQueue;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[	
+	(*		Kolejka FIFO dodajemy na koniec pobieramy z początku	*)
+	(*		Dodanie na koniec kolejki	*)
+	
+IF (THIS^.stBuffer.inumerOfEvents + 1 <= TO_INT (GVL_BaseConstans.LICZBA_ZGLOSZEN_W_KOLEJCE)) THEN
+	THIS^.stBuffer.iNumerOfEvents								:= THIS^.stBuffer.iNumerOfEvents  + 1;
+	THIS^.stBuffer.arrEvents [THIS^.stBuffer.iNumerOfEvents]	:= stEvent;
+END_IF]]></ST>
       </Implementation>
     </Method>
   </POU>
