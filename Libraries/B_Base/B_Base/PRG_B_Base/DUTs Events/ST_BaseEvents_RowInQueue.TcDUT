@@ -11,7 +11,7 @@ STRUCT
 	dtStart									: DT;					//poczatek wystepowania zgłoszenia
 	dtFinish								: DT;					//koniec wystepowaniazgloszenia
 	dtConfirmed								: DT;					// stempel potwierdzenia 
-	bConfirmed								: BOOL;
+	bConfirm								: BOOL;					//informacja czy bo byc zgłoszenie potwierdzone
 	eEventCategory							: E_BaseEvents_Category;
 	eEventAction							: E_BaseEvents_Action;	//okresla rodzaj zgloszenia w kolejce Start stop 
 END_STRUCT

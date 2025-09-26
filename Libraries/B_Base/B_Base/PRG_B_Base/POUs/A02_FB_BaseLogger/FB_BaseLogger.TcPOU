@@ -93,7 +93,7 @@ END_VAR]]></Declaration>
 FOR iI := 1 TO TO_INT (THIS^.stMemory.iNumberOfRow) DO 
 	IF (THIS^.stMemory.arrRow [iI].uiIDEvent = THIS^.stBuffer.arrEvents [1].uiIDEvent AND
     	((THIS^.stMemory.arrRow [iI].bConfirm AND NOT THIS^.stMemory.arrRow [iI].bConfirmed) OR NOT THIS^.stMemory.arrRow [iI].bConfirm)) THEN
-		THIS^.stMemory.arrRow [iI].bConfirm		:= TRUE;
+		THIS^.stMemory.arrRow [iI].bConfirmed	:= TRUE;
 		THIS^.stMemory.arrRow [iI].dtConfirmed	:= THIS^.stBuffer.arrEvents [1].dtConfirmed;
 		THIS^.ReduceTheNumberOfConfirmations ();
 		EXIT;
@@ -129,7 +129,7 @@ THIS^.stmemory.arrRow [1].eEventCategory		:= THIS^.stBuffer.arrEvents [1].eEvent
 THIS^.stmemory.arrRow [1].uiIDEvent				:= THIS^.stBuffer.arrEvents [1].uiIDEvent;
 THIS^.stmemory.arrRow [1].uiRepetitionCounter	:= THIS^.stBuffer.arrEvents [1].uiRepetitionCounter;
 THIS^.stmemory.arrRow [1].dtStart				:= THIS^.stBuffer.arrEvents [1].dtStart;
-THIS^.stmemory.arrRow [1].bConfirm				:= THIS^.stBuffer.arrEvents [1].bConfirmed;
+THIS^.stmemory.arrRow [1].bConfirm				:= THIS^.stBuffer.arrEvents [1].bConfirm;
 THIS^.stmemory.arrRow [1].uiIDItem				:= THIS^.stBuffer.arrEvents [1].uiIDItem;
 
 THIS^.stMemory.iNumberOfRow						:= THIS^.stMemory.iNumberOfRow + 1;
@@ -162,7 +162,8 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.stMemory.iNumberOfRow) DO 
 	IF (THIS^.stMemory.arrRow [iI].uiIDEvent = THIS^.stBuffer.arrEvents [1].uiIDEvent AND
-		((THIS^.stMemory.arrRow [iI].bConfirm AND THIS^.stMemory.arrRow [iI].bConfirmed) OR NOT THIS^.stMemory.arrRow [iI].bConfirm)) THEN
+		((THIS^.stMemory.arrRow [iI].bConfirm AND THIS^.stMemory.arrRow [iI].bConfirmed AND
+			THIS^.stMemory.arrRow [iI].dtFinish = DT#1970-1-1-0:0:0) OR NOT THIS^.stMemory.arrRow [iI].bConfirm)) THEN
 		THIS^.stMemory.arrRow [iI].bActive		:= FALSE;
 		THIS^.stMemory.arrRow [iI].dtFinish		:= THIS^.stBuffer.arrEvents [1].dtFinish;
 		THIS^.ReduceTheNumberOfActiveEvents (eEventsCategory	:= THIS^.stMemory.arrRow [iI].eEventCategory);

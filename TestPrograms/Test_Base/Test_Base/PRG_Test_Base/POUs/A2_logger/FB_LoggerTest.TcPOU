@@ -9,6 +9,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[
 T01_TestDodawaniaZgloszen ();
+T02_TestDodawaniaZgloszen2 ();
 ]]></ST>
     </Implementation>
     <Method Name="T01_TestDodawaniaZgloszen" Id="{95b1bee2-2fa2-40b4-ace9-9bed2d0ad664}">
@@ -24,7 +25,7 @@ END_VAR]]></Declaration>
 	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stmemory.iNumberOfRow,		Message := 'T01b - bledna ilosc zgloszen');
 //wyslanie zgloszenia 
 	sttmpEvent.bActive				:= TRUE;
-	sttmpEvent.bConfirmed			:= FALSE;
+	sttmpEvent.bConfirm				:= TRUE;
 	sttmpEvent.bIgnoreRepetitions	:= TRUE;
 	sttmpEvent.dtStart				:= DT#2025-09-25-09:22:42;
 	sttmpEvent.eEventCategory		:= E_BaseEvents_Category.Error;
@@ -35,9 +36,130 @@ END_VAR]]></Declaration>
 	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 	Message := 'T02a - bledna ilosc w kolejce');
 	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stmemory.iNumberOfRow,		Message := 'T02b - bledna ilosc zgloszen');
 	GVL.fbLogger ();
-	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 				Message := 'T03a - bledna ilosc w kolejce');
-	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stmemory.iNumberOfRow,					Message := 'T03b - bledna ilosc zgloszen');
-	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stNumberOfReports.iNumberOfActive,		Message := 'T03c - bledna ilosc zgloszen');
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T03a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T03b - bledna ilosc zgloszen');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stNumberOfReports.iNumberOfActive,			Message := 'T03c - bledna ilosc zgloszen');
+	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Error],	Message := 'T03d - bledny stan');
+	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Alarm],	Message := 'T03d - bledny stan');
+	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T03e - bledny stan');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T03f - bledna ilosc zgloszen');
+//potwierdzenie zgloszenia 
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Confirm;
+	sttmpEvent.uiIDEvent			:= 1;
+	sttmpEvent.uiIDItem				:= 2;
+	sttmpEvent.dtConfirmed			:= DT#2025-09-25-10:44:12;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T04a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T04b - bledna ilosc zgloszen');
+	GVL.fbLogger ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T05a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T05b - bledna ilosc zgloszen');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stNumberOfReports.iNumberOfActive,			Message := 'T05c - bledna ilosc zgloszen');
+	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Error],	Message := 'T05d - bledny stan');
+	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Alarm],	Message := 'T05d - bledny stan');
+	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T05e - bledny stan');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T05f - bledna ilosc zgloszen');
+//zamkniecie zgloszenia 
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Stop;
+	sttmpEvent.uiIDEvent			:= 1;
+	sttmpEvent.uiIDItem				:= 2;
+	sttmpEvent.dtFinish				:= DT#2025-09-25-10:50:32;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T04a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T04b - bledna ilosc zgloszen');
+	GVL.fbLogger ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T05a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T05b - bledna ilosc zgloszen');
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stNumberOfReports.iNumberOfActive,			Message := 'T05c - bledna ilosc zgloszen');
+	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Error],	Message := 'T05d - bledny stan');
+	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Alarm],	Message := 'T05d - bledny stan');
+	Assertfalse (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T05e - bledny stan');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T05f - bledna ilosc zgloszen');
+	
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T02_TestDodawaniaZgloszen2" Id="{c6c2cab5-9412-4025-920f-725b656de169}">
+      <Declaration><![CDATA[METHOD PRIVATE T02_TestDodawaniaZgloszen2
+VAR
+	sttmpEvent: ST_BaseEvents_RowInQueue;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestDodawaniaZgloszen2')) THEN
+	GVL.fbLogger ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 	Message := 'T01a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stmemory.iNumberOfRow,		Message := 'T01b - bledna ilosc zgloszen');
+//wyslanie zgloszenia 
+	sttmpEvent.bActive				:= TRUE;
+	sttmpEvent.bConfirm				:= TRUE;
+	sttmpEvent.bIgnoreRepetitions	:= TRUE;
+	sttmpEvent.dtStart				:= DT#2025-09-25-10:22:42;
+	sttmpEvent.eEventCategory		:= E_BaseEvents_Category.Error;
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Start;
+	sttmpEvent.uiIDEvent			:= 1;
+	sttmpEvent.uiIDItem				:= 2;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T02a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T02b - bledna ilosc zgloszen');
+	GVL.fbLogger ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T03a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T03b - bledna ilosc zgloszen');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stNumberOfReports.iNumberOfActive,			Message := 'T03c - bledna ilosc zgloszen');
+	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Error],	Message := 'T03d - bledny stan');
+	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Alarm],	Message := 'T03d - bledny stan');
+	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T03e - bledny stan');
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T03f - bledna ilosc zgloszen');
+//zamkniecie zgloszenia  bez potwierdzenia a wymagane nic się nei powinno stać
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Stop;
+	sttmpEvent.uiIDEvent			:= 1;
+	sttmpEvent.uiIDItem				:= 2;
+	sttmpEvent.dtFinish				:= DT#2025-09-25-11:50:32;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T04a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T04b - bledna ilosc zgloszen');
+	GVL.fbLogger ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T05a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T05b - bledna ilosc zgloszen');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stNumberOfReports.iNumberOfActive,			Message := 'T05c - bledna ilosc zgloszen');
+	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Error],	Message := 'T05d - bledny stan');
+	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Alarm],	Message := 'T05d - bledny stan');
+	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T05e - bledny stan');
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T05f - bledna ilosc zgloszen');
+//potwierdzenie zgloszenia 
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Confirm;
+	sttmpEvent.uiIDEvent			:= 1;
+	sttmpEvent.uiIDItem				:= 2;
+	sttmpEvent.dtConfirmed			:= DT#2025-09-25-12:44:12;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T06a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T06b - bledna ilosc zgloszen');
+	GVL.fbLogger ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T07a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T07b - bledna ilosc zgloszen');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stNumberOfReports.iNumberOfActive,			Message := 'T07c - bledna ilosc zgloszen');
+	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Error],	Message := 'T07d - bledny stan');
+	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Alarm],	Message := 'T07d - bledny stan');
+	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T07e - bledny stan');
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T07f - bledna ilosc zgloszen');
+//zamkniecie zgloszenia 
+	sttmpEvent.eEventAction			:= E_BaseEvents_Action.Stop;
+	sttmpEvent.uiIDEvent			:= 1;
+	sttmpEvent.uiIDItem				:= 2;
+	sttmpEvent.dtFinish				:= DT#2025-09-25-12:50:32;
+	GVL.fbLogger.ReportEvent (stEvent := sttmpEvent);
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T08a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T08b - bledna ilosc zgloszen');
+	GVL.fbLogger ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stBuffer.iNumerOfEvents, 					Message := 'T09a - bledna ilosc w kolejce');
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stmemory.iNumberOfRow,						Message := 'T09b - bledna ilosc zgloszen');
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.stNumberOfReports.iNumberOfActive,			Message := 'T09c - bledna ilosc zgloszen');
+	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Error],	Message := 'T09d - bledny stan');
+	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.arrActive [E_BaseEvents_Category.Alarm],	Message := 'T09d - bledny stan');
+	Assertfalse (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T09e - bledny stan');
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T09f - bledna ilosc zgloszen');
 	
 	
 	TcUnit.TEST_FINISHED ();
