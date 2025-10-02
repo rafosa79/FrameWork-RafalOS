@@ -82,20 +82,15 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 		FOR iI := 1 TO refstMemory.iNumberOfRow DO
 			IF (uiIdItem = refstMemory.arrRow [iI].uiIDItem OR uiIdItem = 0) THEN
 				stRowFromMemory	:= refstMemory.arrRow [iI];
-				IF (uiIdItem > 0) THEN	//jeżeli jest podany ID elementu to dane o eleemntcie pobiez z elementu
-					stItemInformation		:= THIS^.itfBaseLoggerConnector.GetIfmormationFromItem (uiIDItem := uiIdItem, uiIDEvent := stRowFromMemory.uiIDEvent);
-					
-				END_IF
+				stItemInformation		:= THIS^.itfBaseLoggerConnector.GetIfmormationFromItem (uiIDItem := uiIdItem, uiIDEvent := stRowFromMemory.uiIDEvent);
 				
-				
-//				bUsunZListy		:= FALSE;
-//				bUsunZListy		:= bUsunZListy OR (refstFilter.bActive AND NOT stRowFromMemory.bActive);
-//				bUsunZListy		:= bUsunZListy OR (refstFilter.bNotActive AND stRowFromMemory.bActive);
-//				bUsunZListy		:= bUsunZListy OR (refstFilter.bIDItem	AND stWynik.uiIDElementu <> refstFilter.uiIDItem);
-//				bUsunZListy		:= bUsunZListy OR (refstFilter.bIDEvent AND THIS^.stPamiec.arrWiersz [iI_Pamietanych].uiIDZgloszenia <> THIS^.refstDane.stFiltr.uiIDZgloszenia);			
-//				bUsunZListy		:= bUsunZListy OR (refstFiltr.bIDZgloszenia AND stWiersz.uiIDZgloszenia <> refstFiltr.uiIDZgloszenia);			
-//				bUsunZListy 	:= bUsunZListy OR ((refstFiltr.bAlarmy OR refstFiltr.bBledy OR 
-//													refstFiltr.bSafety OR refstFiltr.bWiadomosci) AND	//jak jest który kolwiek z warunków  
+				bUsunZListy		:= FALSE;
+				bUsunZListy		:= bUsunZListy OR (refstFilter.bActive AND NOT stRowFromMemory.bActive);
+				bUsunZListy		:= bUsunZListy OR (refstFilter.bNotActive AND stRowFromMemory.bActive);
+				bUsunZListy		:= bUsunZListy OR (refstFilter.bIDItem	AND stRowFromMemory.uiIDItem <> refstFilter.uiIDItem);
+				bUsunZListy		:= bUsunZListy OR (refstFilter.bIDEvent AND stRowFromMemory.uiIDEvent <> refstFilter.uiIDEvent);			
+//				bUsunZListy 	:= bUsunZListy OR ((refstFilter.bAlarmy OR refstFiltr.bBledy OR 
+//													refstFilter.bSafety OR refstFiltr.bWiadomosci) AND	//jak jest który kolwiek z warunków  
 //															NOT ((refstFiltr.bAlarmy AND stWynik.eRodzajZgloszenia = B_Baza.E_Zgloszenia_Rodzaj.ALARM) OR													// i dodatowo jak rodzaj zgłoszenia nie pokrywa się z rodzajem w wierszu to wyklucz 
 //																(refstFiltr.bBledy AND stWynik.eRodzajZgloszenia = B_Baza.E_Zgloszenia_Rodzaj.BLAD) OR														//warunek odwrotny do tych co jest w aktywny nieaktywny
 //														(refstFiltr.bSafety AND stWynik.eRodzajZgloszenia = B_Baza.E_Zgloszenia_Rodzaj.SAFETY) OR

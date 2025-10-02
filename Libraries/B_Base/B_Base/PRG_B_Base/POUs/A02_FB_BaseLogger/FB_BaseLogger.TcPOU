@@ -42,6 +42,17 @@ END_IF
     </Implementation>
     <Folder Name="ITF_BaseLogger" Id="{c54055ab-2569-0322-10a1-be1e8232e254}" />
     <Folder Name="ITF_BaseLogger_HMI_Connector" Id="{58ae1150-aaab-05cc-1931-89d90fea9543}" />
+    <Method Name="AddItem" Id="{4e41a193-1126-0b14-2759-d72b294fb741}">
+      <Declaration><![CDATA[METHOD PUBLIC AddItem : BOOL
+VAR_INPUT
+	itfItem				: ITF_BaseLogger_Item;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrItem [itfItem.GetID ()]	:= itfItem;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="BufferFIFOSupport" Id="{e129154d-ae16-0d4d-3b2a-e5726803dcad}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.

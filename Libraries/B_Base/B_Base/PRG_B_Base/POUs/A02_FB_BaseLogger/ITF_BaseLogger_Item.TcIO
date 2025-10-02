@@ -3,6 +3,12 @@
   <Itf Name="ITF_BaseLogger_Item" Id="{9acb94a3-79f9-0d22-1a7a-50b9e1991d9a}">
     <Declaration><![CDATA[INTERFACE ITF_BaseLogger_Item
 ]]></Declaration>
+    <Method Name="GetID" Id="{94ee4911-8643-0cde-2f4d-b033ebc42178}">
+      <Declaration><![CDATA[METHOD PUBLIC GetID : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="GetInformationToDisplayEvent" Id="{93fc010a-fb9f-082f-1e1f-a9126d7f1608}">
       <Declaration><![CDATA[METHOD GetInformationToDisplayEvent : ST_BaseLogger_ItemDataToDisplay
 VAR_INPUT
