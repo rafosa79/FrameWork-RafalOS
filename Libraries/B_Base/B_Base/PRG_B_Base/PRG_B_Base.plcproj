@@ -203,6 +203,12 @@
     <Compile Include="POUs\A02_FB_BaseLogger\ITF_BaseLogger_HMI_Connector.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A02_FB_BaseLogger\ITF_BaseLogger_Item.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A02_FB_BaseLogger\ST_BaseLogger_ItemDataToDisplay.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A03_FB_BaseLoggerElement\FB_BaseLoggerElement.TcPOU">
       <SubType>Code</SubType>
     </Compile>

@@ -3,6 +3,9 @@
   <DUT Name="ST_BaseHMIConnectorEvents_ListToDisplay" Id="{a76f8388-425a-0985-338a-d3a600172d4b}">
     <Declaration><![CDATA[TYPE ST_BaseHMIConnectorEvents_ListToDisplay :
 STRUCT
+	arrToDisplay				: ARRAY [1..GVL_BaseConstans.MAX_LICZBA_WYSWIETLANYCH_ZGLOSZEN] OF ST_BaseHMIConnectorEvents_ListToDisplayRow;
+	iNumberOfRow				: INT;
+
 END_STRUCT
 END_TYPE
 ]]></Declaration>

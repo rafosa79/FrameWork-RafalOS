@@ -9,6 +9,7 @@
 FUNCTION_BLOCK FB_BaseLogger EXTENDS FB_Base IMPLEMENTS ITF_BaseLogger, ITF_BaseLogger_HMI_Connector
 VAR
 	stBuffer						: ST_BaseEvents_Queue;
+	arrItem							: ARRAY  [1..GVL_BaseConstans.MAX_ILOSC_WSZYSTKICH_KOMPONENTOW] OF ITF_BaseLogger_Item;
 	uiNumerOfReportsIntheSystem		: UINT;						//informacja ogólna o ilosc wszystkich zgłoszeń
 	bClearMemory					: BOOL;						//czyści pamięć
 END_VAR
@@ -185,6 +186,18 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetChangeInMemory			:= THIS^.stBuffer.bChangeInMemory;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIfmormationFromItem" Id="{5e131f5a-7862-01ee-0e76-2fc95be51520}" FolderPath="ITF_BaseLogger_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetIfmormationFromItem : ST_BaseLogger_ItemDataToDisplay
+VAR_INPUT
+	uiIDItem				: UINT;
+	uiIDEvent				: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIfmormationFromItem		:= THIS^.arrItem [uiIDItem].GetInformationToDisplayEvent (uiIDEvent := uiIDEvent);
 ]]></ST>
       </Implementation>
     </Method>

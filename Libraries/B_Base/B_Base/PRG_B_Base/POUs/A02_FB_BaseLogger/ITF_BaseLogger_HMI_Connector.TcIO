@@ -14,6 +14,14 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetIfmormationFromItem" Id="{e03af02b-30ef-08f3-2938-f43d70776345}">
+      <Declaration><![CDATA[METHOD PUBLIC GetIfmormationFromItem : ST_BaseLogger_ItemDataToDisplay
+VAR_INPUT
+	uiIDItem				: UINT;
+	uiIDEvent				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="GetReferenceToStmemory" Id="{cd9afe9d-8904-045f-3d51-457b59128ac2}">
       <Declaration><![CDATA[METHOD GetReferenceToStmemory : REFERENCE TO ST_BaseEvents_Memory
 VAR_INPUT
