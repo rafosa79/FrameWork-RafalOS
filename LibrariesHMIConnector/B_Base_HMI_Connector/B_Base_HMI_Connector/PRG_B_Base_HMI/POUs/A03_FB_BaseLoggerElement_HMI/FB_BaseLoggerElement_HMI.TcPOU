@@ -6,6 +6,7 @@ VAR
 	itfBaseLoggerConnector					: ITF_BaseLogger_HMI_Connector;			//bezpośredni łącznik do logera
 	itfBaseLoggerElementConnector			: ITF_BaseLoggerElement_HMI_Connector;	//lacznik do FB_BaseLoggerElement np zeby wyciągnąć identyfikator
 	refstBaseLoggerElementDataHMI			: REFERENCE TO ST_BaseLoggerElement_HMI;
+	refstMemoryEvents						: REFERENCE TO ST_BaseEvents_Memory;	//referencja do tablicy zgłoszeń
 	bIsInit									: BOOL;	//flaga informująca czy wszystkie interfejsy są dobrze przypisane
 	bIsValidData							: bool;	//flaga informująca czy wszystkie dane sa podpięte 
 END_VAR
@@ -21,10 +22,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.refstBaseLoggerElementDataHMI.refstMemoryEvents	REF= THIS^.itfBaseLoggerConnector.GetReferenceToStmemory ();
+        <ST><![CDATA[THIS^.refstMemoryEvents	REF= THIS^.itfBaseLoggerConnector.GetReferenceToStmemory ();
 
 
-IF (__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI.refstMemoryEvents)) THEN
+IF (__ISVALIDREF (THIS^.refstMemoryEvents)) THEN
 	CreateLinkToEventsMemory		:= TRUE;
 ELSE
 	CreateLinkToEventsMemory		:= FALSE;
@@ -41,13 +42,27 @@ METHOD PUBLIC GetEventTableForIDItem : BOOL
 VAR_INPUT
 	uiIdItem			: UINT;
 END_VAR
-]]></Declaration>
+VAR
+	iI					: INT;
+	refstMemory_skr		: REFERENCE TO ST_BaseEvents_Memory;
+	refstListToDisplay	: REFERENCE TO ST_BaseHMIConnectorEvents_ListToDisplay;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[(*
 	sprawdzenie czy jest coś nowego - tak generuj
 	jak już jest wygenerowana jakaś lista i zmienił się filtr - tak to generuj
 
-*)]]></ST>
+*)
+IF (THIS^.itfBaseLoggerConnector.GetChangeInMemory ()) THEN
+	THIS^.itfBaseLoggerConnector.ResetChangeInMemory ();
+	refstMemory_skr			REF= THIS^.refstMemoryEvents;
+	FOR iI := 1 TO refstMemory_skr.iNumberOfRow DO
+		IF (uiIdItem = refstMemory_skr.arrRow [iI].uiIDItem OR uiIdItem = 0) THEN
+			;
+		END_IF
+	END_FOR
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetYourEventTable" Id="{368f0f11-8005-0717-354f-559c5b808c9c}" FolderPath="ITF_BaseLoggerElement_HMI\">
