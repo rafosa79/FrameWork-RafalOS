@@ -3,10 +3,32 @@
   <Itf Name="ITF_BaseLogger_HMI_Connector" Id="{77898fe0-1ee7-0a01-1a2c-9ed188780169}">
     <Declaration><![CDATA[INTERFACE ITF_BaseLogger_HMI_Connector
 ]]></Declaration>
+    <Method Name="GetChangeInMemory" Id="{cefe7588-5f63-083f-0636-0b6488cb4e6e}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		02.10.2025		TC 4024.66
+	Zwraca czy nastąpiła jakaś zmiana w pamięci zgłoszeń - całej nie tylko dla jakiegoś elementu
+*)
+METHOD PUBLIC GetChangeInMemory : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="GetReferenceToStmemory" Id="{cd9afe9d-8904-045f-3d51-457b59128ac2}">
       <Declaration><![CDATA[METHOD GetReferenceToStmemory : REFERENCE TO ST_BaseEvents_Memory
 VAR_INPUT
 	
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ResetChangeInMemory" Id="{d381c273-43a8-0471-16dd-328c4ccf4ec4}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		02.10.2025		TC 4024.66
+	
+*)
+METHOD PUBLIC ResetChangeInMemory : BOOL
+VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>

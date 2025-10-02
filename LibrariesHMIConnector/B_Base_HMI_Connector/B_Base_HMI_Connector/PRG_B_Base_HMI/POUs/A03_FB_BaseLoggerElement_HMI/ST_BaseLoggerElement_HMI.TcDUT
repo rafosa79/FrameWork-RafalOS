@@ -5,6 +5,7 @@
 STRUCT
 	refstMemoryEvents				: REFERENCE TO ST_BaseEvents_Memory;
 	
+	stFilter						: ST_BaseHMIConnectorEvents_Filter;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

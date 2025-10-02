@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseHMIConnectorEvents_Filter" Id="{0a75babb-bdad-091c-1ce3-1452b30582ad}">
+    <Declaration><![CDATA[TYPE ST_BaseHMIConnectorEvents_Filter :
+STRUCT
+	bActive						: BOOL;
+	bNotActive					: BOOL;
+	
+	bIDItem						: BOOL;
+	uiIDItem					: UINT;
+	
+	bIDEvent					: BOOL;
+	uiIDEvent					: UINT;
+	
+	arrSelectedEventCategory	: ARRAY [0..GVL_BaseConstans.MAX_LICZBA_RODZAJOW_ZGLOSZEN] OF BOOL;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

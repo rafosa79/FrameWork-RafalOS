@@ -173,6 +173,21 @@ END_FOR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetChangeInMemory" Id="{30e56975-ef12-0478-3171-fc9f16cc540a}" FolderPath="ITF_BaseLogger_HMI_Connector\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		02.10.2025		TC 4024.66
+	Zwraca czy nastąpiła jakaś zmiana w pamięci zgłoszeń - całej nie tylko dla jakiegoś elementu
+*)
+METHOD PUBLIC GetChangeInMemory : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetChangeInMemory			:= THIS^.stBuffer.bChangeInMemory;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetReferenceToStmemory" Id="{f211c4f1-fdf6-0f0d-3b07-7dcc3e732694}" FolderPath="ITF_BaseLogger_HMI_Connector\">
       <Declaration><![CDATA[METHOD GetReferenceToStmemory : REFERENCE TO ST_BaseEvents_Memory
 VAR_INPUT
@@ -266,6 +281,21 @@ IF (THIS^.stBuffer.inumerOfEvents + 1 <= TO_INT (GVL_BaseConstans.LICZBA_ZGLOSZE
 	THIS^.stBuffer.iNumerOfEvents								:= THIS^.stBuffer.iNumerOfEvents  + 1;
 	THIS^.stBuffer.arrEvents [THIS^.stBuffer.iNumerOfEvents]	:= stEvent;
 END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetChangeInMemory" Id="{79e32bb1-beaf-052c-2bb3-d0bd24838ba7}" FolderPath="ITF_BaseLogger_HMI_Connector\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		02.10.2025		TC 4024.66
+	
+*)
+METHOD PUBLIC ResetChangeInMemory : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stBuffer.bChangeInMemory			:= FALSE;
+]]></ST>
       </Implementation>
     </Method>
   </POU>

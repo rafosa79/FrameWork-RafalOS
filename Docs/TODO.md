@@ -1,5 +1,6 @@
 Do zrobienia cały serwis
 
+
 1. wywołać z loggerlement metodę przygotowanie listy zgłoszeń dla elemntu i dla wszystkich z parametrem 0
 2. dodać możliwość filtrowania
 3. dodać możliwość potwierdzania i zamykania zgłoszeń

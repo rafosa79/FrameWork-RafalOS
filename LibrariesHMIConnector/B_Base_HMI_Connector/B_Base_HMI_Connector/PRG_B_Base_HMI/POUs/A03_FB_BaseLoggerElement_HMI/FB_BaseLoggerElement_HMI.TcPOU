@@ -3,7 +3,7 @@
   <POU Name="FB_BaseLoggerElement_HMI" Id="{024becb4-36e5-0a14-1436-0e8a32c5de12}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseLoggerElement_HMI EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement_HMI
 VAR
-	itfBaseLoggerConnector					: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
+	itfBaseLoggerConnector					: ITF_BaseLogger_HMI_Connector;			//bezpośredni łącznik do logera
 	itfBaseLoggerElementConnector			: ITF_BaseLoggerElement_HMI_Connector;	//lacznik do FB_BaseLoggerElement np zeby wyciągnąć identyfikator
 	refstBaseLoggerElementDataHMI			: REFERENCE TO ST_BaseLoggerElement_HMI;
 	bIsInit									: BOOL;	//flaga informująca czy wszystkie interfejsy są dobrze przypisane
@@ -13,6 +13,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_BaseLoggerElement_HMI" Id="{490d29d6-def9-07f2-16cf-bb21a6440bb9}" />
     <Folder Name="WiazanieZmiennych" Id="{4d450796-b575-0397-39db-94123d6241c4}" />
     <Method Name="CreateLinkToEventsMemory" Id="{95a4fe1d-262b-028d-22e6-1fe12c2c7cc8}" FolderPath="WiazanieZmiennych\">
       <Declaration><![CDATA[METHOD PUBLIC CreateLinkToEventsMemory : BOOL
@@ -28,6 +29,40 @@ IF (__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI.refstMemoryEvents)) THEN
 ELSE
 	CreateLinkToEventsMemory		:= FALSE;
 END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetEventTableForIDItem" Id="{d7402387-758c-09da-06b8-6d4ae8c9312e}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.09.2025		TC 4024.66
+	Generuje tablicę zdarzeń dla podanego ID dla 0 dla wszystkich elementów
+*)
+METHOD PUBLIC GetEventTableForIDItem : BOOL
+VAR_INPUT
+	uiIdItem			: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+	sprawdzenie czy jest coś nowego - tak generuj
+	jak już jest wygenerowana jakaś lista i zmienił się filtr - tak to generuj
+
+*)]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetYourEventTable" Id="{368f0f11-8005-0717-354f-559c5b808c9c}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.09.2025		TC 4024.66
+	Zwraca tablicę swoich zdarzeń
+*)
+METHOD PUBLIC GetYourEventTable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.GetEventTableForIDItem (uiIdItem := THIS^.itfBaseLoggerElementConnector.GetID ());		//przygotowanie tablicy dla siebie
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="IsInit" Id="{ff032025-bb47-0541-2e34-4756feab4ddd}">
