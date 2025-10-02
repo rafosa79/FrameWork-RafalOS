@@ -10,6 +10,10 @@ VAR_GLOBAL
 	fbGroupElement_1			: FB_GroupElement;
 	fbTopElement_1				: FB_TopElement;
 	
+	fbComponent_1_L				: FB_Component;
+	fbComponent_2_L				: FB_Component;
+	fbComponent_3_L				: FB_Component;
+	
 	
 END_VAR]]></Declaration>
   </GVL>

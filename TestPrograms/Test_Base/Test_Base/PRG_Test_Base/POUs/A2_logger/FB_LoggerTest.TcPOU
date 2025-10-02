@@ -11,6 +11,7 @@ END_VAR
 T01_TestDodawaniaZgloszen ();
 T02_TestDodawaniaZgloszen2 ();
 T03_TestDodawaniaZgloszen3 ();
+T04_TestDodawaniaKomponentowDoLogera ();
 ]]></ST>
     </Implementation>
     <Method Name="T01_TestDodawaniaZgloszen" Id="{95b1bee2-2fa2-40b4-ace9-9bed2d0ad664}">
@@ -260,6 +261,28 @@ END_VAR]]></Declaration>
 	GVL.fbLogger ();
 	
 	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T04_TestDodawaniaKomponentowDoLogera" Id="{e4d2f7e6-e99a-4701-b464-32e151edbb73}">
+      <Declaration><![CDATA[METHOD PROTECTED T04_TestDodawaniaKomponentowDoLogera
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T04_TestDodawaniaKomponentowDoLogera')) THEN
+	GVL_Variable.fbComponent_1_L.SetID (uiID 	:= 1);
+	GVL_Variable.fbComponent_2_L.SetID (uiID 	:= 2);
+	GVL_Variable.fbComponent_3_L.SetID (uiID 	:= 3);
+	
+
+	GVL.fbLogger.AddItem (itfItem := GVL_Variable.fbComponent_1_L);
+	GVL.fbLogger.AddItem (itfItem := GVL_Variable.fbComponent_2_L);
+	GVL.fbLogger.AddItem (itfItem := GVL_Variable.fbComponent_3_L);
+	
+//dodać testowanie dodawania FB_Control FB_Group i FB_Top	
 	TcUnit.TEST_FINISHED ();
 END_IF
 ]]></ST>

@@ -129,6 +129,7 @@ sttmpResult.sCode			:= THIS^.stIdentifier.sCode;
 sttmpResult.stDescription	:= THIS^.stEvents.arrDefinitions [uiIDEvent].stDescription;
 sttmpResult.eEventCategory	:= THIS^.stEvents.arrDefinitions [uiIDEvent].eEventCategory;
 sttmpResult.sEventCategory	:= TO_STRING (THIS^.stEvents.arrDefinitions [uiIDEvent].eEventCategory);
+sttmpResult.uiRepetitionCounter	:= THIS^.stEvents.arrDefinitions [uiIDEvent].uiRepetitionCounter;
 
 GetInformationToDisplayEvent	:= sttmpResult;
 ]]></ST>

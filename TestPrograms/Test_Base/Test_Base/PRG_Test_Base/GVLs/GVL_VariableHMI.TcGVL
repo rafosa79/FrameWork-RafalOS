@@ -7,6 +7,11 @@ VAR_GLOBAL
 	fbControlrElementHMI_1		: FB_ControlElement_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfControlElementConnector := GVL_Variable.fbControlElement_1);
 	fbGroupElementHMI_1			: FB_GroupElement_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfGroupelementConnector := GVL_Variable.fbGroupElement_1);
 	fbTopElementHMI_1			: FB_TopElement_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfTopElementConnector := GVL_Variable.fbTopElement_1);
+
+	fbComponentHMI_1_L			: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbComponent_1_L);
+	fbComponentHMI_2_L			: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbComponent_2_L);
+	fbComponentHMI_3_L			: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbComponent_3_L);
+
 	
 END_VAR]]></Declaration>
   </GVL>
