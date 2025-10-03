@@ -7,7 +7,8 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-T01_TestAddItems ();]]></ST>
+T01_TestAddItems ();
+T02_TestFirstCycle ();]]></ST>
     </Implementation>
     <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">
       <Declaration><![CDATA[METHOD PRIVATE T01_TestAddItems
@@ -34,10 +35,22 @@ END_IF]]></ST>
       <Declaration><![CDATA[METHOD PRIVATE T02_TestFirstCycle
 VAR_INPUT
 END_VAR
-]]></Declaration>
+
+VAR
+	bResult: BOOL;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02-TestFirstCycle')) THEN
-	GVL_Variable.fbPB1.FirstCycle ();
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestFirstCycle')) THEN
+	GVL.stCommonData.itfTime				:= GVL.fbMyTime;
+	GVL.stCommonData.itfLocaciotn			:= GVL.fbMyLocation;
+	GVL.stCommonData.itfLogger				:= GVL.fbLogger;
+	
+	bResult 	:= GVL_Variable.fbPB1.LinkCommonData (stCommonData	:= GVL.stCommonData);
+	
+	AssertTrue (Condition := bResult, Message := 'T01a - bladny wynik przepisania');
+	
+	bResult 	:= GVL_Variable.fbPB1.FirstCycle ();
+	AssertTrue (Condition := bResult, Message := 'T02a - bladny wynik pierwszego przejścia');
 	
 	TcUnit.TEST_FINISHED ();
 END_IF

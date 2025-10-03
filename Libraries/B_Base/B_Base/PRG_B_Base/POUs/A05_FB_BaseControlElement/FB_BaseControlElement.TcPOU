@@ -15,6 +15,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="WiazanieZmiennych" Id="{b467be5a-6d2a-0ee1-246f-4160ba6824ae}" />
     <Method Name="AddComponent" Id="{b669ca95-b30c-0759-193e-b3e939cb13c5}">
       <Declaration><![CDATA[METHOD PROTECTED AddComponent : BOOL
 VAR_INPUT
@@ -60,6 +61,46 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
 END_FOR
 
 FirstCycle			:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsValidCommonData" Id="{c5bea3e9-5107-01a5-0892-d2a631bfb529}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC IsValidCommonData : BOOL
+VAR_INPUT
+END_VAR
+
+VAR
+	bResult: BOOL;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult						:= SUPER^.IsValidCommonData ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	bResult					:= bResult AND THIS^.arrComponent [iI].IsValidCommonData ();
+END_FOR
+
+IsValidCommonData			:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkCommonData" Id="{b42470a5-2d5d-0208-37a9-226f0cd025bb}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
+VAR_INPUT
+	stCommonData				: REFERENCE TO ST_BaseCommonData;
+END_VAR
+VAR
+	bResult						: BOOL;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult							:= SUPER^.LinkCommonData (stCommonData := stCommonData);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	bResult := bResult AND THIS^.arrComponent [iI].LinkCommonData (stCommonData := stCommonData);
+END_FOR
+
+LinkCommonData					:= bResult;
 ]]></ST>
       </Implementation>
     </Method>

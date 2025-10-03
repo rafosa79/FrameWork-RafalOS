@@ -8,7 +8,6 @@
 *)
 FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector, ITF_BaseLogger_Item
 VAR
-	itfLogger						: ITF_BaseLogger;			//Logger
 	stIdentifier					: ST_BaseElementIdentifier;	//Identyfikacja elementu
 	stEvents						: ST_BaseEvents;			//dane elementu dotyczące zdarzeń
 END_VAR

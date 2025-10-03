@@ -9,5 +9,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="IsValidCommonData" Id="{79422fac-c686-0f81-2652-4e5411a92a86}">
+      <Declaration><![CDATA[METHOD PUBLIC IsValidCommonData : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkCommonData" Id="{a28b3732-9a1a-0508-12b7-66129c063dab}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
+VAR_INPUT
+	stCommonData				: REFERENCE TO ST_BaseCommonData;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

@@ -30,7 +30,7 @@ END_VAR
     <Method Name="LinkCommonData" Id="{4f5a813f-41fd-0c13-21e8-fdee6dda11cc}" FolderPath="WiazanieZmiennych\">
       <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
 VAR_INPUT
-	stCommonData				: ST_BaseCommonData;
+	stCommonData				: REFERENCE TO ST_BaseCommonData;
 END_VAR
 ]]></Declaration>
       <Implementation>

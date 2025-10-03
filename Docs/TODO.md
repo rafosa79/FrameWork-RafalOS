@@ -1,6 +1,6 @@
 Do zrobienia cały serwis
 
-LinkCommonData dodaje do PB a ten to kaskadowo przepisuje 
+
 Nadawanie ID dla elementów i zgłoszeń 
 Nadawanie Kodów
 
