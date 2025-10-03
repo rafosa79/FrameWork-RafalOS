@@ -149,6 +149,9 @@
     <Compile Include="POUs\FB_ElementTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_ItemTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="TESTs\PRG_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>

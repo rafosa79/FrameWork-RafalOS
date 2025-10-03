@@ -3,7 +3,7 @@
   <DUT Name="ST_BaseEvents_Queue" Id="{4e318b6c-464f-0304-022f-336d7f1a110e}">
     <Declaration><![CDATA[TYPE ST_BaseEvents_Queue :
 STRUCT
-	arrEvents						: ARRAY [1..GVL_BaseConstans.LICZBA_ZGLOSZEN_W_KOLEJCE] OF ST_BaseEvents_RowInQueue;
+	arrEvents						: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_EVENTS_IN_THE_QUEUE] OF ST_BaseEvents_RowInQueue;
 	iNumerOfEvents					: INT;
 	bChangeInMemory					: BOOL;		//informacja dla wyświetlania żeby odświerzyć
 	

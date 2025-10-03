@@ -18,6 +18,7 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestCreateAndLinkData')) THEN
+	
 	bWynik := GVL_Variable.fbComponent_1.LinkCommonData (stCommonData := gvl.stCommonData);
 	AssertTrue (Condition := bWynik, Message := 'T01a - test linkowania zmiennych ');
 	bWynik := GVL_VariableHMI.fbComponentHMI_1.LinkCommonData (stCommonData := GVL.stCommonData);
@@ -49,6 +50,7 @@ END_VAR]]></Declaration>
 	AssertTrue (Condition := GVL_VariableHMI.fbGroupElementHMI_1.IsInit (), Message := 'T05c - Blad inicjalizacji');
 	AssertTrue (Condition := GVL_VariableHMI.fbTopElementHMI_1.IsInit (), Message := 'T05d - Blad inicjalizacji');
 
+	
 	bWynik := GVL_VariableHMI.fbComponentHMI_1.LinkComponentData (stData := GVL.stComponentData_1);
 	AssertTrue (Condition := bWynik, Message := 'T06a - test linkowania zmiennych ');
 	AssertTrue (Condition := GVL_VariableHMI.fbComponentHMI_1.IsValidData (), Message := 'T06b - blad pwiazania zmiennych');
@@ -65,6 +67,19 @@ END_VAR]]></Declaration>
 	AssertTrue (Condition := bWynik, Message := 'T09a - test linkowania zmiennych ');
 	AssertTrue (Condition := GVL_VariableHMI.fbTopElementHMI_1.IsValidData (), Message := 'T09b - blad pwiazania zmiennych');
 
+	bWynik := GVL_VariableHMI.fbComponentHMI_1.CreateLinkToEventsMemory ();
+	AssertTrue (Condition := bWynik, Message := 'T10a - test linkowania zmiennych ');
+
+	bWynik := GVL_VariableHMI.fbControlrElementHMI_1.CreateLinkToEventsMemory ();
+	AssertTrue (Condition := bWynik, Message := 'T11a - test linkowania zmiennych ');
+
+	bWynik := GVL_VariableHMI.fbGroupElementHMI_1.CreateLinkToEventsMemory ();
+	AssertTrue (Condition := bWynik, Message := 'T12a - test linkowania zmiennych ');
+
+	bWynik := GVL_VariableHMI.fbTopElementHMI_1.CreateLinkToEventsMemory ();
+	AssertTrue (Condition := bWynik, Message := 'T13a - test linkowania zmiennych ');
+	
+	
 		
 	TcUnit.TEST_FINISHED ();
 END_IF]]></ST>

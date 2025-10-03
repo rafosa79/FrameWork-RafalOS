@@ -6,11 +6,11 @@
 	Rafał Osajda		19.09.2025		TC 4024.66
 	Element bazowy umożliwiający potomkom wysyłaś zgłoszenia do logera
 *)
-FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector
+FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector, ITF_BaseLogger_Item
 VAR
-	itfLogger						: ITF_BaseLogger;
-	stIdentifier					: ST_BaseElementIdentifier;
-	stEvents						: ST_BaseEvents;
+	itfLogger						: ITF_BaseLogger;			//Logger
+	stIdentifier					: ST_BaseElementIdentifier;	//Identyfikacja elementu
+	stEvents						: ST_BaseEvents;			//dane elementu dotyczące zdarzeń
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -18,6 +18,7 @@ END_VAR
     </Implementation>
     <Folder Name="Events" Id="{0a451ccb-a5c6-0466-1fb3-43b9aac577ff}" />
     <Folder Name="ID" Id="{9f4accde-c200-0e3a-3280-17fd6d107d51}" />
+    <Folder Name="ITF_BaseLogger_Item" Id="{dbd5ee07-415c-0f41-0935-285bdd005cb3}" />
     <Folder Name="ITF_BaseLoggerElement_HMI_Connector" Id="{abdbf241-16b7-0948-3bea-83a764b01a75}" />
     <Method Name="AddEvent" Id="{634f9b8e-85a8-02a3-013c-6c409e6a5e93}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
@@ -34,7 +35,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.stEvents.uiNumberOfAdded + 1 <= GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT) THEN
+        <ST><![CDATA[IF (THIS^.stEvents.uiNumberOfAdded + 1 <= GVL_BaseConstans.MAX_EVENTS_PER_ITEM) THEN
 	THIS^.stEvents.uiNumberOfAdded														:= THIS^.stEvents.uiNumberOfAdded + 1;
 	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].uiIDInItem			:= THIS^.stEvents.uiNumberOfAdded;
 	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].bIgnoreRepetitions	:= bIgnoreRepetitions;
@@ -78,8 +79,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[
-FirstCycle				:= TRUE;
+        <ST><![CDATA[FirstCycle					:= TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -113,6 +113,27 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetInformationToDisplayEvent" Id="{250fc7d9-7cf6-0559-0b55-e164b6a582bc}" FolderPath="ITF_BaseLogger_Item\">
+      <Declaration><![CDATA[METHOD GetInformationToDisplayEvent : ST_BaseLogger_ItemDataToDisplay
+VAR_INPUT
+	uiIDEvent				: UINT;
+END_VAR
+VAR
+	sttmpResult				: ST_BaseLogger_ItemDataToDisplay;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[sttmpResult.stItemName		:= THIS^.stIdentifier.stName;
+sttmpResult.sCode			:= THIS^.stIdentifier.sCode;
+sttmpResult.stDescription	:= THIS^.stEvents.arrDefinitions [uiIDEvent].stDescription;
+sttmpResult.eEventCategory	:= THIS^.stEvents.arrDefinitions [uiIDEvent].eEventCategory;
+sttmpResult.sEventCategory	:= TO_STRING (THIS^.stEvents.arrDefinitions [uiIDEvent].eEventCategory);
+sttmpResult.uiRepetitionCounter	:= THIS^.stEvents.arrDefinitions [uiIDEvent].uiRepetitionCounter;
+
+GetInformationToDisplayEvent	:= sttmpResult;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetName" Id="{f31b5203-9f85-03eb-3e31-406645634fd5}" FolderPath="ID\">
       <Declaration><![CDATA[METHOD PUBLIC GetName : ST_BaseLabel
 VAR_INPUT
@@ -133,15 +154,6 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="MetodaBaseLoggerElementHMIConnector" Id="{437aee4c-8ff1-0551-0c74-ef940e363677}" FolderPath="ITF_BaseLoggerElement_HMI_Connector\">
-      <Declaration><![CDATA[METHOD MetodaBaseLoggerElementHMIConnector : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="SetCode" Id="{fe7a56f6-55e1-0e90-11d6-90800c0cf084}" FolderPath="ID\">
       <Declaration><![CDATA[METHOD PUBLIC SetCode
 VAR_INPUT
@@ -154,7 +166,7 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="SetID" Id="{9acba3a6-fc5f-0ece-1ab3-a775104efe88}" FolderPath="ID\">
-      <Declaration><![CDATA[METHOD PUBLIC SetID
+      <Declaration><![CDATA[METHOD PUBLIC SetID : UINT
 VAR_INPUT
 	uiID					: UINT;
 END_VAR

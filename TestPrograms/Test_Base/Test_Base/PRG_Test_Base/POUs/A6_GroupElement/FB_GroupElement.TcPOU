@@ -3,7 +3,10 @@
   <POU Name="FB_GroupElement" Id="{beeb3d35-878d-4bf3-be89-bef516a524fb}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_GroupElement EXTENDS FB_BaseGroupElement IMPLEMENTS ITF_GroupElement, ITF_GroupElement_HMI_Init
 VAR
-	
+	itfControlElement1			: ITF_ControlElement;
+	itfControlElement2			: ITF_ControlElement;
+	itfComponent1				: ITF_Component;
+	itfComponent2				: ITF_Component;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -52,6 +55,48 @@ THIS^.AddEvent (
 	bConfirm				:= FALSE,
 	stDescription			:= fbName.GetTexts ()
 );
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{f9f3f989-7a3e-4df1-9e9b-a1ee246158c4}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfControlElement1			: ITF_ControlElement;
+	itfControlElement2			: ITF_ControlElement;
+	itfComponent1				: ITF_Component;
+	itfComponent2				: ITF_Component;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement1			:= itfControlElement1;
+THIS^.AddControlElement (itfControlElement	:= itfControlElement1);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
+THIS^.itfControlElement1.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfControlElement2			:= itfControlElement2;
+THIS^.AddControlElement (itfControlElement	:= itfControlElement2);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
+THIS^.itfControlElement2.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfComponent1					:= itfComponent1;
+THIS^.AddComponent (itfComponent	:= itfComponent1);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
+THIS^.itfComponent1.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfComponent2					:= itfComponent2;
+THIS^.AddComponent (itfComponent	:= itfComponent2);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu złożenia 2");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu złożenia 2");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu złożenia 2");
+THIS^.itfComponent2.SetName (stName	:= THIS^.GetTexts ());
 ]]></ST>
       </Implementation>
     </Method>

@@ -3,7 +3,8 @@
   <POU Name="FB_ControlElement" Id="{e992bc3e-7895-4c18-b6c0-85825d004486}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_ControlElement EXTENDS FB_BaseControlElement IMPLEMENTS ITF_ControlElement, ITF_ControlElement_HMI_Init
 VAR
-	
+	itfComponent1				: ITF_Component;
+	itfComponent2				: ITF_Component;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -52,6 +53,32 @@ THIS^.AddEvent (
 	bConfirm				:= FALSE,
 	stDescription			:= fbName.GetTexts ()
 );
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{0b1c5c36-4060-4fd1-9129-2ee98cf60a54}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfComponent1				: ITF_Component;
+	itfComponent2				: ITF_Component;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfComponent1					:= itfComponent1;
+THIS^.AddComponent (itfComponent	:= itfComponent1);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 1");
+THIS^.itfComponent1.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfComponent2					:= itfComponent2;
+THIS^.AddComponent (itfComponent	:= itfComponent2);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 2");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 2");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 2");
+THIS^.itfComponent2.SetName (stName	:= THIS^.GetTexts ());
 ]]></ST>
       </Implementation>
     </Method>
