@@ -4,6 +4,16 @@
     <Declaration><![CDATA[INTERFACE ITF_BaseLoggerElement
 ]]></Declaration>
     <Folder Name="ID" Id="{ebebc54b-7071-0c25-1f06-3769663c0ef5}" />
+    <Method Name="EventsDefinition" Id="{9fbb4552-8362-0324-08b0-1fb2884dba78}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+
+]]></Declaration>
+    </Method>
     <Method Name="GetCode" Id="{8b6863d7-2a35-07f8-278a-c5063af13d5f}" FolderPath="ID\">
       <Declaration><![CDATA[METHOD PUBLIC GetCode : STRING
 VAR_INPUT
@@ -40,6 +50,20 @@ VAR_INPUT
 	sCode							: STRING;
 END_VAR
 ]]></Declaration>
+    </Method>
+    <Method Name="SetEventsIDs" Id="{7d9014b4-e5ff-0f63-0ed0-28063bd071c8}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.10.2025		TC 4024.66
+	nadawanie unikalnych ID dla zdarzeń
+*)
+METHOD PUBLIC SetEventsIDs : UINT
+VAR_INPUT
+	uiNewID		: UINT;
+END_VAR
+VAR
+	uiI			: UINT;
+END_VAR]]></Declaration>
     </Method>
     <Method Name="SetID" Id="{a88625bd-06f5-0c5d-1bbf-fce303221e21}" FolderPath="ID\">
       <Declaration><![CDATA[METHOD PUBLIC SetID : UINT

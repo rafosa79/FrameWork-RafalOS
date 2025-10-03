@@ -15,6 +15,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Events" Id="{20f6f417-5dd7-052c-022d-8978faa14be3}" />
     <Folder Name="WiazanieZmiennych" Id="{2b50b030-a9ec-06ce-1ddf-f0356b93fad0}" />
     <Method Name="AddControlElement" Id="{175b37ba-638b-0727-26cf-573800512486}">
       <Declaration><![CDATA[METHOD PROTECTED AddControlElement : BOOL
@@ -101,6 +102,30 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
 END_FOR
 
 LinkCommonData					:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEventsIDs" Id="{0185e120-5cb8-0dba-3756-ff856ef7df3c}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.10.2025		TC 4024.66
+	nadawanie unikalnych ID dla zdarzeń
+*)
+METHOD PUBLIC SetEventsIDs : UINT
+VAR_INPUT
+	uiNewID		: UINT;
+END_VAR
+VAR
+	iI			: INT;
+	uiLastID	: UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[uiLastID		:= SUPER^.SetEventsIDs (uiNewID	:= uiNewID);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO 
+	uiLastID			:= THIS^.arrControlElement [iI].SetEventsIDs (uiNewID	:= uiLastID);
+END_FOR
+SetEventsIDs				:= uiLastID;
 ]]></ST>
       </Implementation>
     </Method>
