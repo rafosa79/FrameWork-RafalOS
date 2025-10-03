@@ -79,8 +79,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[
-FirstCycle				:= TRUE;
+        <ST><![CDATA[FirstCycle					:= TRUE;
 ]]></ST>
       </Implementation>
     </Method>

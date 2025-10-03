@@ -26,18 +26,19 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PierwszePrzejscie" Id="{59d66408-2df1-04a5-240d-93e8399a3b7e}">
+    <Method Name="FirstCycle" Id="{59d66408-2df1-04a5-240d-93e8399a3b7e}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		03.10.2025		TC 4024.66
 	
 *)
-METHOD PUBLIC PierwszePrzejscie : BOOL
+METHOD PUBLIC FirstCycle : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[FirstCycle				:= SUPER^.FirstCycle ();
+]]></ST>
       </Implementation>
     </Method>
   </POU>

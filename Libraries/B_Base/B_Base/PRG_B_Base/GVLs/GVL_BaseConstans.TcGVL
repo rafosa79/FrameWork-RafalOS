@@ -15,6 +15,7 @@ VAR_GLOBAL CONSTANT
 	MAX_EVENTS_PER_ITEM						: UINT := 50;	//maksymalna ilosc zgłoszeń dla jednego elementu
 	MAX_EVENTS_IN_MEMORY					: UINT := 500;	//ilość pamiętanych zgłoszeń
 	NUMBER_OF_EVENT_CATEGORIES				: INT := 4;
+	MAX_EVENTS_TO_SHOW						: INT := 100;
 
 	(*	Receptury	*)
 //	MAX_ILOSC_SKLADNIKOW					: UINT := 400;// Parametry.MAX_ILOSC_SKLADNIKOW;

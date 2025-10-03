@@ -6,10 +6,13 @@ VAR
 	fbBaseTimeTest			: FB_BaseTimeTest;
 	fbCommandTest			: FB_CommandTest;
 	fbImpulsTest			: FB_Impulstest;
-	fbLoggerTest			: FB_LoggerTest;
 
-	fbBaseTest				: FB_Basetest;
-	fbComponentTest			: FB_ElementTest;
+	fbItemTest				: FB_ItemTest;
+//	fbBaseTest				: FB_Basetest;
+//	fbComponentTest			: FB_ElementTest;
+//
+//	fbLoggerTest			: FB_LoggerTest;
+
 END_VAR
 ]]></Declaration>
     <Implementation>

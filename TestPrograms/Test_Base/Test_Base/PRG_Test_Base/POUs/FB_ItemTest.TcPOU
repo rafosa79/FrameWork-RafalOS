@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_ItemTest" Id="{67cd6caa-e017-4b34-bb8d-f0159d16d57a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ItemTest EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+T01_TestAddItems ();]]></ST>
+    </Implementation>
+    <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">
+      <Declaration><![CDATA[METHOD PRIVATE T01_TestAddItems
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestAddItems')) THEN
+	AssertEquals_UINT (Expected := 3, Actual := GVL_Variable.fbPB1.uiNumberOfComponents, 		Message := 'T01 - bledna ilosc elementow');
+	AssertEquals_UINT (Expected := 3, Actual := GVL_Variable.fbPB1.uiNumberOfControlElement, 	Message := 'T02 - bledna ilosc elementow');
+
+	AssertEquals_UINT (Expected := 2, Actual := GVL_Variable.fbPB1_ZL1.uiNumberOfComponents, 	Message := 'T03 - bledna ilosc elementow');
+	AssertEquals_UINT (Expected := 2, Actual := GVL_Variable.fbPB1_ZL1.uiNumberOfControlElement,Message := 'T04 - bledna ilosc elementow');
+	
+	AssertEquals_UINT (Expected := 2, Actual := GVL_Variable.fbPB1_Wyk1.uiNumberOfComponents, 	Message := 'T05 - bledna ilosc elementow');
+	AssertEquals_UINT (Expected := 2, Actual := GVL_Variable.fbPB1_Wyk2.uiNumberOfComponents, 	Message := 'T06 - bledna ilosc elementow');
+	
+
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T02_TestFirstCycle" Id="{eff700b2-b65f-406d-a00d-f480c059d093}">
+      <Declaration><![CDATA[METHOD PRIVATE T02_TestFirstCycle
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02-TestFirstCycle')) THEN
+	GVL_Variable.fbPB1.FirstCycle ();
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

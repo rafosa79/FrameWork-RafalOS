@@ -44,13 +44,23 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PierwszePrzejscie" Id="{fede4491-2815-0c5d-25f3-a52cafaf5311}">
-      <Declaration><![CDATA[METHOD PUBLIC PierwszePrzejscie : BOOL
+    <Method Name="FirstCycle" Id="{fede4491-2815-0c5d-25f3-a52cafaf5311}">
+      <Declaration><![CDATA[METHOD PUBLIC FirstCycle : BOOL
 VAR_INPUT
 END_VAR
-]]></Declaration>
+VAR
+	bResult			: bool;
+	iI				: INT;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[bResult				:= SUPER^.FirstCycle ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	bResult			:= bResult AND THIS^.arrControlElement [iI].FirstCycle ();
+END_FOR
+
+FirstCycle			:= bResult;
+]]></ST>
       </Implementation>
     </Method>
   </POU>
