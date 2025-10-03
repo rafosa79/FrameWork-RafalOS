@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="CreateElementCode" Id="{2eb6bf3a-c71b-47ca-a0d7-73b7b7514efe}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+	Rafał Osajda		16.10.2024		TC 4026.11		wer. 0.0.0.1
+	Utworzenie kodu elementu 
+*)
+FUNCTION CreateElementCode : STRING
+VAR_INPUT
+	sParentCode					: STRING;
+	sAdd						: STRING;
+END_VAR
+VAR
+	arrSegments					: ARRAY [0..GVL_BaseConstans.MAX_ILOSC_ZAGNIEZDZEN_PODZESPOLOW] OF STRING;
+	iI							: INT;
+	iDotPosition				: INT;
+	sCodeResult					: STRING;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (LEN (STR := sParentCode) > 0) THEN
+	arrSegments [0]				:= sParentCode;
+	FOR iI := 1 TO TO_INT (GVL_BaseConstans.MAX_ILOSC_ZAGNIEZDZEN_PODZESPOLOW) DO
+		iDotPosition			:= find (STR1 := arrSegments [0], STR2 := '.');
+		IF (iDotPosition = 0) THEN
+			arrSegments [iI]	:= arrSegments [0];
+			EXIT;
+		ELSE
+			arrSegments [iI]	:= LEFT (STR := arrSegments [0], SIZE := iDotPosition - 1);
+			arrSegments [0]		:= delete (STR := arrSegments [0], POS := 1, LEN := iDotPosition);
+		END_IF
+	END_FOR
+END_IF
+FOR iI := 1 TO TO_INT (GVL_BaseConstans.MAX_ILOSC_ZAGNIEZDZEN_PODZESPOLOW) DO
+	IF (arrSegments [iI] = '0' OR arrSegments [iI] = '') THEN
+		arrSegments [iI] := sAdd;
+		sAdd			:= '0';
+	END_IF
+	sCodeResult			:= CONCAT (STR1 := sCodeResult, STR2 := arrSegments [iI]);
+	IF (iI < TO_INT (GVL_BaseConstans.MAX_ILOSC_ZAGNIEZDZEN_PODZESPOLOW)) THEN
+		sCodeResult		:= CONCAT (STR1 := sCodeResult, STR2 := '.');
+	END_IF
+END_FOR
+
+CreateElementCode							:= sCodeResult;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

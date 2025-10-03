@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseHMIConnectorEvents_ListToDisplayRow" Id="{86235e5d-1e0a-0681-3d12-fda4e262c45c}">
+    <Declaration><![CDATA[TYPE ST_BaseHMIConnectorEvents_ListToDisplayRow :
+STRUCT
+	uiIDEvent						: UINT;
+	uiIDItem						: UINT;				//id elementu
+	sCode							: STRING;			//kod elementu
+	bActive							: BOOL;
+	bIgnoreRepetitions				: BOOL;				//jak true nie zliczaj powtorzeń wystapienia np komunikaty
+	uiRepetitionCounter				: UINT;
+	sStart							: STRING;			//poczatek wystepowania zgłoszenia
+	sFinish							: STRING;			//koniec wystepowaniazgloszenia
+	sConfirmed						: STRING;			// stempel potwierdzenia 
+	bConfirm						: BOOL;				//informacja czy potrzebne jest potwierdzenie 
+	bConfirmed						: BOOL;				//pamięta czy już potwierdzone
+	sEventCategory					: STRING;
+	wsDescription					: WSTRING;
+	wsDescriptionFull				: WSTRING;
+	wsNameOfitem					: WSTRING;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

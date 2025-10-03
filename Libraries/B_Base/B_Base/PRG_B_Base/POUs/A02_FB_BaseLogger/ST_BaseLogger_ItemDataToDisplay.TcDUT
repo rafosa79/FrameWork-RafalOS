@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseLogger_ItemDataToDisplay" Id="{b202b704-3b06-00db-040c-eac199ffc5d7}">
+    <Declaration><![CDATA[TYPE ST_BaseLogger_ItemDataToDisplay :
+STRUCT
+	sCode						: STRING;
+	sEventCategory				: STRING;
+	eEventCategory				: E_BaseEvents_Category;
+	stDescription				: ST_BaseLabel;
+	stItemName					: ST_BaseLabel;
+	uiRepetitionCounter			: UINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

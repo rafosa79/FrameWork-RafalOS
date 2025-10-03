@@ -3,5 +3,28 @@
   <Itf Name="ITF_BaseLoggerElement_HMI" Id="{5cb45a4d-d295-0879-1e7e-f79957b9c07c}">
     <Declaration><![CDATA[INTERFACE ITF_BaseLoggerElement_HMI
 ]]></Declaration>
+    <Method Name="GetEventTableForIDItem" Id="{423d51d2-ec85-0a49-364c-a80a033c440a}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.09.2025		TC 4024.66
+	Generuje tablicę zdarzeń dla podanego ID dla 0 dla wszystkich elementów
+*)
+METHOD PUBLIC GetEventTableForIDItem : BOOL
+VAR_INPUT
+	uiIdItem			: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetYourEventTable" Id="{df9a6c22-c1eb-0762-0f16-bbe7328d9649}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.09.2025		TC 4024.66
+	Zwraca tablicę swoich zdarzeń
+*)
+METHOD PUBLIC GetYourEventTable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

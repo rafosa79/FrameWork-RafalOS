@@ -3,9 +3,10 @@
   <POU Name="FB_BaseLoggerElement_HMI" Id="{024becb4-36e5-0a14-1436-0e8a32c5de12}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseLoggerElement_HMI EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement_HMI
 VAR
-	itfBaseLoggerConnector					: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
-	itfBaseLoggerElementConnector			: ITF_BaseLoggerElement_HMI_Connector;
+	itfBaseLoggerConnector					: ITF_BaseLogger_HMI_Connector;			//bezpośredni łącznik do logera
+	itfBaseLoggerElementConnector			: ITF_BaseLoggerElement_HMI_Connector;	//lacznik do FB_BaseLoggerElement np zeby wyciągnąć identyfikator
 	refstBaseLoggerElementDataHMI			: REFERENCE TO ST_BaseLoggerElement_HMI;
+	refstMemoryEvents						: REFERENCE TO ST_BaseEvents_Memory;	//referencja do tablicy zgłoszeń
 	bIsInit									: BOOL;	//flaga informująca czy wszystkie interfejsy są dobrze przypisane
 	bIsValidData							: bool;	//flaga informująca czy wszystkie dane sa podpięte 
 END_VAR
@@ -13,6 +14,187 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_BaseLoggerElement_HMI" Id="{490d29d6-def9-07f2-16cf-bb21a6440bb9}" />
+    <Folder Name="WiazanieZmiennych" Id="{4d450796-b575-0397-39db-94123d6241c4}" />
+    <Method Name="CreateLinkToEventsMemory" Id="{95a4fe1d-262b-028d-22e6-1fe12c2c7cc8}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC CreateLinkToEventsMemory : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstMemoryEvents	REF= THIS^.itfBaseLoggerConnector.GetReferenceToStmemory ();
+
+
+IF (__ISVALIDREF (THIS^.refstMemoryEvents)) THEN
+	CreateLinkToEventsMemory		:= TRUE;
+ELSE
+	CreateLinkToEventsMemory		:= FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetEventTableForIDItem" Id="{d7402387-758c-09da-06b8-6d4ae8c9312e}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.09.2025		TC 4024.66
+	Generuje tablicę zdarzeń dla podanego ID dla 0 dla wszystkich elementów
+*)
+METHOD PUBLIC GetEventTableForIDItem : BOOL
+VAR_INPUT
+	uiIdItem				: UINT;
+END_VAR
+VAR
+	iI						: INT;
+	bFilterIsActive			: BOOL;
+	bUsunZListy				: BOOL;
+	btmpUsunZListy			: BOOL;
+	refstMemory				: REFERENCE TO ST_BaseEvents_Memory;
+	refstListToDisplay		: REFERENCE TO ST_BaseHMIConnectorEvents_ListToDisplay;
+	refstFilter				: REFERENCE TO ST_BaseHMIConnectorEvents_Filter;
+	stRowFromMemory			: ST_BaseEvents_RowInMemory;
+	stItemInformation		: ST_BaseLogger_ItemDataToDisplay;
+	wstmpDescription		: WSTRING;
+	wstmpDescriptionFull	: WSTRING;
+	iDltmp					: INT;
+	iNumerOfEvents			: INT;
+	iNumerOfActive			: INT;
+	iNumberOfNotActive		: INT;
+	iNumerToConfirmed		: INT;
+	arrNumberByCategory		: ARRAY  [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+	sprawdzenie czy jest coś nowego - tak generuj
+	jak już jest wygenerowana jakaś lista i zmienił się filtr - tak to generuj
+
+*)
+IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
+	refstMemory				REF= THIS^.refstMemoryEvents;
+	refstListToDisplay		REF= THIS^.refstBaseLoggerElementDataHMI.arrListOfEventsToDisplay;
+	refstFilter				REF= THIS^.refstBaseLoggerElementDataHMI.stFilter;
+	bFilterIsActive				:= 	refstFilter.bActive OR 
+									refstFilter.bNotActive OR
+									refstFilter.bIDEvent OR
+									refstFilter.bIDItem;
+	FOR iI := 1 TO GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES DO
+		bFilterIsActive			:= bFilterIsActive OR refstFilter.arrSelectedEventCategory [iI];
+	END_FOR
+
+	IF (THIS^.itfBaseLoggerConnector.GetChangeInMemory () OR bFilterIsActive) THEN
+		THIS^.itfBaseLoggerConnector.ResetChangeInMemory ();
+		(*	Wyczyszczenie tablicy wyświetlania		*)
+		Tc2_System.MEMSET (
+			destAddr		:= ADR (refstListToDisplay.arrToDisplay),
+			fillByte		:= 0,
+			n				:= SIZEOF (refstListToDisplay.arrToDisplay)
+		);
+		refstListToDisplay.iNumberOfRow		:= 0;
+		FOR iI := 1 TO refstMemory.iNumberOfRow DO
+			IF (uiIdItem = refstMemory.arrRow [iI].uiIDItem OR uiIdItem = 0) THEN
+				stRowFromMemory			:= refstMemory.arrRow [iI];
+				stItemInformation		:= THIS^.itfBaseLoggerConnector.GetIfmormationFromItem (uiIDItem := uiIdItem, uiIDEvent := stRowFromMemory.uiIDEvent);
+				
+				bUsunZListy		:= FALSE;
+				bUsunZListy		:= bUsunZListy OR (refstFilter.bActive AND NOT stRowFromMemory.bActive);
+				bUsunZListy		:= bUsunZListy OR (refstFilter.bNotActive AND stRowFromMemory.bActive);
+				bUsunZListy		:= bUsunZListy OR (refstFilter.bIDItem	AND stRowFromMemory.uiIDItem <> refstFilter.uiIDItem);
+				bUsunZListy		:= bUsunZListy OR (refstFilter.bIDEvent AND stRowFromMemory.uiIDEvent <> refstFilter.uiIDEvent);
+		
+
+				FOR iI := 1 TO GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES DO
+					CASE iI OF 
+						E_BaseEvents_Category.Error		: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Error;
+						E_BaseEvents_Category.Alarm		: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Alarm;
+						E_BaseEvents_Category.Safety	: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Safety;
+						E_BaseEvents_Category.Message	: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Message;
+					END_CASE
+					bUsunZListy		:= bUsunZListy OR (refstFilter.arrSelectedEventCategory [iI] AND btmpUsunZListy);
+				END_FOR
+		//przeddział czasowy
+				IF (NOT bUsunZListy) THEN
+					refstListToDisplay.iNumberOfRow		:= refstListToDisplay.iNumberOfRow + 1;
+//					IF (refstLista.uiIDZgloszeniaWybrany = stWiersz.uiIDZgloszenia AND NOT refstListToDisplay.bSelected) THEN
+//						refstLista.iWybranyZListy		:= iI_Wyswietlanych;
+//						refstLista.bZaznaczony			:= TRUE;
+//					END_IF
+//					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow];
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].uiIDEvent				:= stRowFromMemory.uiIDEvent;
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].uiIDItem				:= stRowFromMemory.uiIDItem;
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bActive				:= stRowFromMemory.bActive;
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sCode					:= stItemInformation.sCode; 
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bIgnoreRepetitions	:= stRowFromMemory.bIgnoreRepetitions;
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bConfirm				:= stRowFromMemory.bConfirm;
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bConfirmed			:= stRowFromMemory.bConfirmed;
+			
+(*					THIS^.refstDane.arrDoWyswietlenia [iI_Wyswietlanych].sStart					:= THIS^.itfCzas.Konwertuj_DT_String (inDT := stWiersz.dtStart);  //DELETE (TO_STRING (stWiersz.dtStart), 3, 1);
+					IF (TO_STRING (stWiersz.dtZatwierdzenie) <> 'DT#1970-01-01-00:00:00') THEN
+						THIS^.refstDane.arrDoWyswietlenia [iI_Wyswietlanych].sZatwierdzenie		:= THIS^.itfCzas.Konwertuj_DT_String (inDT := stWiersz.dtZatwierdzenie);	// DELETE (TO_STRING (stWiersz.dtZatwierdzenie), 3, 1);
+					ELSE
+						THIS^.refstDane.arrDoWyswietlenia [iI_Wyswietlanych].sZatwierdzenie		:= '';
+					END_IF
+					IF (TO_STRING (TO_STRING (stWiersz.dtKoniec)) <> 'DT#1970-01-01-00:00:00') THEN
+						THIS^.refstDane.arrDoWyswietlenia [iI_Wyswietlanych].sKoniec			:= THIS^.itfCzas.Konwertuj_DT_String (inDT := stWiersz.dtKoniec);	//DELETE (TO_STRING (TO_STRING (stWiersz.dtKoniec)), 3, 1);
+					ELSE
+						THIS^.refstDane.arrDoWyswietlenia [iI_Wyswietlanych].sKoniec			:= '';
+					END_IF
+*)
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sEventCategory		:= stItemInformation.sEventCategory; 
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].uiRepetitionCounter	:= stItemInformation.uiRepetitionCounter;
+					wstmpDescriptionFull		:= THIS^.GetTextFromLabel (stLabel	:= stItemInformation.stDescription);
+					iDltmp																					:= WLEN (wstmpDescriptionFull);
+					IF (iDltmp > 100) THEN
+						wstmpDescription																	:= WDELETE (wstmpDescriptionFull, iDltmp - 100, iDltmp);
+					END_IF
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].wsDescription			:= wstmpDescription;
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].wsDescriptionFull		:= wstmpDescriptionFull;
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].wsNameOfitem			:= THIS^.GetTextFromLabel (stLabel := stItemInformation.stItemName);
+
+	(*	Informacja o ilosciach zgloszen na wyswietlanej liście 		*)
+
+					iNumerOfEvents				:= iNumerOfEvents + 1;
+					IF (refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bActive) THEN
+						iNumerOfActive			:= iNumerOfActive + 1;
+					ELSE
+						iNumberOfNotActive		:= iNumberOfNotActive + 1;
+					END_IF
+					IF (refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bConfirm AND 
+						NOT refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bConfirmed) THEN
+						iNumerToConfirmed	:= iNumerToConfirmed + 1;
+					END_IF
+					arrNumberByCategory [stItemInformation.eEventCategory]	:= arrNumberByCategory [stItemInformation.eEventCategory] + 1;
+				END_IF
+
+			END_IF
+		END_FOR
+	END_IF
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetTextFromLabel" Id="{a9b62345-93c3-08b6-28c4-c9ac0ac3d039}">
+      <Declaration><![CDATA[METHOD PROTECTED GetTextFromLabel : WSTRING
+VAR_INPUT
+	stLabel				: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetTextFromLabel			:= stLabel.arrText [refstCommonData.itfLocaciotn.GetLocation ()];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetYourEventTable" Id="{368f0f11-8005-0717-354f-559c5b808c9c}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.09.2025		TC 4024.66
+	Zwraca tablicę swoich zdarzeń
+*)
+METHOD PUBLIC GetYourEventTable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.GetEventTableForIDItem (uiIdItem := THIS^.itfBaseLoggerElementConnector.GetID ());		//przygotowanie tablicy dla siebie
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="IsInit" Id="{ff032025-bb47-0541-2e34-4756feab4ddd}">
       <Declaration><![CDATA[(*			
 	RAFALOS

@@ -5,9 +5,9 @@
 STRUCT
 	uiNumberOfAdded					: UINT;	//Iloscdodanych zgloszen
 	
-	arrDefinitions					: ARRAY [1..GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT] OF ST_BaseEvents_Definition;
-	arrState						: ARRAY [1..GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT] OF BOOL;
-	arrConfirmation					: ARRAY [1..GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT] OF BOOL;
+	arrDefinitions					: ARRAY [1..GVL_BaseConstans.MAX_EVENTS_PER_ITEM] OF ST_BaseEvents_Definition;
+	arrState						: ARRAY [1..GVL_BaseConstans.MAX_EVENTS_PER_ITEM] OF BOOL;
+	arrConfirmation					: ARRAY [1..GVL_BaseConstans.MAX_EVENTS_PER_ITEM] OF BOOL;
 
 	iNumberOfActiveEvents			: INT; //zmienna pomocnicza informująca o ilości wszystkich aktywnych zgłoszeń
 

@@ -3,7 +3,12 @@
   <POU Name="FB_TopElement" Id="{cc86d706-1c34-4c72-a8d7-812d241a4b66}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_TopElement EXTENDS FB_BaseGroupElement IMPLEMENTS ITF_TopElement, ITF_TopElement_HMI_Init
 VAR
-	
+	itfControlElement1				: ITF_ControlElement;
+	itfControlElement2				: ITF_ControlElement;
+	itfGroupElement1				: ITF_GroupElement;
+	itfComponent1					: ITF_Component;
+	itfComponent2					: ITF_Component;
+	itfComponent3					: ITF_Component;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -27,32 +32,89 @@ fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie PB 
 fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie PB 1 EN");
 fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie PB 1 DE");
 THIS^.AddEvent (
-	bIgnorujPowtorzenia		:= TRUE,
-	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
-	bWymagaZatwierdzenia	:= FALSE,
-	stOpis					:= fbName.GetTexts ()
+	bIgnoreRepetitions		:= TRUE,
+	eEventCategory			:= E_BaseEvents_Category.ALARM,
+	bConfirm				:= FALSE,
+	stDescription			:= fbName.GetTexts ()
 );
 
 fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie PB 2 PL");
 fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie PB 2 EN");
 fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie PB 2 DE");
 THIS^.AddEvent (
-	bIgnorujPowtorzenia		:= TRUE,
-	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
-	bWymagaZatwierdzenia	:= FALSE,
-	stOpis					:= fbName.GetTexts ()
+	bIgnoreRepetitions		:= TRUE,
+	eEventCategory			:= E_BaseEvents_Category.ALARM,
+	bConfirm				:= FALSE,
+	stDescription			:= fbName.GetTexts ()
 );
 
 fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie PB 3 PL");
 fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie PB 3 EN");
 fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie PB 3 DE");
 THIS^.AddEvent (
-	bIgnorujPowtorzenia		:= TRUE,
-	eRodzajZdarzenia		:= E_BaseEvents_Type.ALARM,
-	bWymagaZatwierdzenia	:= FALSE,
-	stOpis					:= fbName.GetTexts ()
+	bIgnoreRepetitions		:= TRUE,
+	eEventCategory			:= E_BaseEvents_Category.ALARM,
+	bConfirm				:= FALSE,
+	stDescription			:= fbName.GetTexts ()
 );
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{f3efd994-de3f-4c86-bc2a-8aaaa2851b5d}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfControlElement1				: ITF_ControlElement;
+	itfControlElement2				: ITF_ControlElement;
+	itfGroupElement1				: ITF_GroupElement;
+	itfComponent1					: ITF_Component;
+	itfComponent2					: ITF_Component;
+	itfComponent3					: ITF_Component;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement1			:= itfControlElement1;
+THIS^.AddControlElement (itfControlElement	:= itfControlElement1);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa control eleemntu PB - 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa control eleemntu PB - 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa control eleemntu PB - 1");
+THIS^.itfControlElement1.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfControlElement2			:= itfControlElement2;
+THIS^.AddControlElement (itfControlElement	:= itfControlElement2);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa control elementu PB - 2");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa control elementu PB - 2");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa control elementu PB - 2");
+THIS^.itfControlElement2.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfGroupElement1				:= itfGroupElement1;
+THIS^.AddControlElement (itfControlElement	:= itfGroupElement1);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa group elementu PB - 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa group elementu PB - 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa group elementu PB - 1");
+THIS^.itfGroupElement1.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfComponent1					:= itfComponent1;
+THIS^.AddComponent (itfComponent	:= itfComponent1);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu PB - 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu PB - 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu PB - 1");
+THIS^.itfComponent1.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfComponent2					:= itfComponent2;
+THIS^.AddComponent (itfComponent	:= itfComponent2);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu PB -2");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu PB -2");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu PB -2");
+THIS^.itfComponent2.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfComponent3					:= itfComponent3;
+THIS^.AddComponent (itfComponent	:= itfComponent3);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu PB - 3");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu PB - 3");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu PB - 3");
+THIS^.itfComponent3.SetName (stName	:= THIS^.GetTexts ());]]></ST>
       </Implementation>
     </Method>
   </POU>

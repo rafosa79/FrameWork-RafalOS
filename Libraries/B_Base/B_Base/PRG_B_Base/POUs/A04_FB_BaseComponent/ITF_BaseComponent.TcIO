@@ -1,7 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_BaseComponent" Id="{bfd259ad-b5a7-0c3e-25af-f416d786cc1f}">
-    <Declaration><![CDATA[INTERFACE ITF_BaseComponent
+    <Declaration><![CDATA[INTERFACE ITF_BaseComponent EXTENDS ITF_BaseLoggerElement
 ]]></Declaration>
+    <Method Name="FirstCycle" Id="{5bb3c28d-6dff-0c9d-3483-ca1fcada3e23}">
+      <Declaration><![CDATA[METHOD PUBLIC FirstCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

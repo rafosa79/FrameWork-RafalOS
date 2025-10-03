@@ -9,7 +9,7 @@
 FUNCTION_BLOCK FB_BaseLocation IMPLEMENTS ITF_BaseLocation
 VAR
 	eLocation		: E_BaseLocation;
-	arrLocation		: ARRAY [1..GVL_BaseConstans.LICZBA_DODANYCH_JEZYKOW] OF ST_BaseLocationDesctription := 
+	arrLocation		: ARRAY [1..GVL_BaseConstans.NUMBER_OF_LOCATIONS] OF ST_BaseLocationDesctription := 
 						[(wsDescription := "Polski", sCode := 'pl'),
 						(wsDescription := "English", sCode := 'en'),
 						(wsDescription := "German", sCode := 'de')];;

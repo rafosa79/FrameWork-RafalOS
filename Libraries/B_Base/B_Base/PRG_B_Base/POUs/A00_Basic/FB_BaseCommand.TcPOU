@@ -188,7 +188,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.iExternalCommandMethodStep			:= GVL_BaseConstans.OSTATNI_KROK;
+        <ST><![CDATA[THIS^.iExternalCommandMethodStep			:= GVL_BaseConstans.FINISH_STEP;
 ]]></ST>
       </Implementation>
     </Method>
@@ -253,7 +253,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.iExternalCommandMethodStep = GVL_BaseConstans.OSTATNI_KROK) THEN
+        <ST><![CDATA[IF (THIS^.iExternalCommandMethodStep = GVL_BaseConstans.FINISH_STEP) THEN
 	TestingLastCycle					:= FALSE;
 ELSE
 	TestingLastCycle					:= TRUE;
