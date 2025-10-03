@@ -8,6 +8,8 @@
 *)
 FUNCTION_BLOCK FB_BaseGroupElement EXTENDS FB_BaseControlElement IMPLEMENTS ITF_BaseGroupElement, ITF_BaseGroupElement_HMI_Connector
 VAR
+	arrControlElement		: ARRAY [1..GVL_BaseConstans.MAX_ITEM_PER_ELEMENT] OF ITF_BaseControlElement;
+	iNumberOfControlElement	: INT;
 END_VAR
 ]]></Declaration>
     <Implementation>

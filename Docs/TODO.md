@@ -15,7 +15,7 @@ Do zrobienia cały serwis
 9. -> pierwsze przejscie i przekazywanie zmiennych i struktur
 10. polecenia i metody wywoływane co cykl
 
-
+po dodaniu wszystkich elementów PB sprawdzić czy liczba wszystkich elementów nie przekracza wmax możliwej liczby dla wszystkich elementów
 
 
 identyfikacja elemtów w systemie - pobieranie id i tworzenie kodu dodawanie nazw i ich zwracanie 

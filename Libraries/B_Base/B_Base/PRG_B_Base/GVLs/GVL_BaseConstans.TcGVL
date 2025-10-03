@@ -6,27 +6,30 @@
 VAR_GLOBAL CONSTANT
 	(*	Ogólne		*)
 	FINISH_STEP								: INT := 1000;
+
 	(* Lokalizacje	*)
-	NUMBER_OF_LOCACIONS						: INT := 3;// Parametry.LICZBA_DODANYCH_JEZYKOW;
+	NUMBER_OF_LOCATIONS						: INT := 3;		//Ilość obsługiwanych języków w systemi
+
 	(*	Loger		*)
-	MAX_NUMBER_OF_EVENTS_IN_THE_QUEUE		: UINT := 20;
-	MAX_NUMBER_EVENTS_FOR_ITEM				: UINT := 50;// Parametry.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT;	//maksymalna ilosc zgłoszeń dla jednego elementu//	MAX_LICZBA_PAMIETANYCH_ZGLOSZEN			: UINT := 500;
-	MAX_NUMBER_EVENTS_IN_MEMORY				: UINT := 100;
+	MAX_NUMBER_OF_EVENTS_IN_THE_QUEUE		: UINT := 20;	//rozmiar kolejki 
+	MAX_EVENTS_PER_ITEM						: UINT := 50;	//maksymalna ilosc zgłoszeń dla jednego elementu
+	MAX_EVENTS_IN_MEMORY					: UINT := 500;	//ilość pamiętanych zgłoszeń
 	NUMBER_OF_EVENT_CATEGORIES				: INT := 4;
+
 	(*	Receptury	*)
 //	MAX_ILOSC_SKLADNIKOW					: UINT := 400;// Parametry.MAX_ILOSC_SKLADNIKOW;
 //	MAX_ILOSC_SZABLONOW						: UINT := 5;// Parametry.MAX_ILOSC_SZABLONOW;
 //	MAX_ILOSC_RECEPTUR						: UINT := 10;// Parametry.MAX_ILOSC_RECEPTUR;
+
 	(*	Parametry	*)
 //	MAX_ILOSC_PARAMETROW					: INT := 100;// Parametry.MAX_ILOSC_PARAMETROW;
+
 	(*	Komponenty i Elementy	*)
 	MAX_NUMBER_OF_ALL_ITEM					: UINT := 200;	// liczba wszystkich komponentów we wszystkich podzespolach bazowych
-	
-	
-//	MAX_ILOSC_PB							: UINT := 10;
-//	MAX_ILOSC_KOMPONENTOW					: UINT := 50;	// MAX_ILOSC_KOMPONENTOW;
-//	MAX_ILOSC_ZAGNIEZDZEN_PODZESPOLOW		: UINT := 5;	// MAX_ILOSC_ZAGNIEZDZEN_PODZESPOLOW;
-//	MAX_ILOSC_ELEMENTOW_NA_ELEMENT_ZLOZONY	: INT := 20;	// Max ilsoc elementow w elemencie zlozonym, moga to być też elementu złożone i liczone sa tylko elementy dodawane bez podelementow
+	MAX_ITEM_PER_ELEMENT					: UINT := 20;
+	MAX_NUMBER_OF_TOP_ELEMENT				: UINT := 10;
+	MAX_NESTING_LEVEL						: UINT	:= 5;	//ilość zagnieżdzonych elementów liczone z topelement
+
 	(*	Komunikator		*)
 //	MAX_ILOSC_KLIENTOW						: INT := 20;
 //	MAX_ILOSC_KOMUNIKATOW					: INT := 200;
