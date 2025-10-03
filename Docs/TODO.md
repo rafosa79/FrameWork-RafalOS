@@ -9,10 +9,10 @@ Do zrobienia cały serwis
 5. wywoływanie z loggerelement przygotowywania listy do wyświetlania
 6. edycja paramatróz z loggerelementhmi 
 
-7. Dodawanie kompotenetów do wykonawczych
-8. dodawnaie wykonawczych do zlozonych
+7. -> Dodawanie kompotenetów do wykonawczych
+8. -> dodawnaie wykonawczych do zlozonych
 
-9. pierwsze przejscie i przekazywanie zmiennych i struktur
+9. -> pierwsze przejscie i przekazywanie zmiennych i struktur
 10. polecenia i metody wywoływane co cykl
 
 

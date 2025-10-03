@@ -8,10 +8,32 @@
 *)
 FUNCTION_BLOCK FB_BaseControlElement EXTENDS FB_BaseComponent IMPLEMENTS ITF_BaseControlElement, ITF_BaseControlElement_HMI_Connector
 VAR
+//	arrComponent			: array  [] of ITF_BaseComponent;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="FB_init" Id="{7b78c27a-7119-0af8-2842-5faf4638ec35}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stIdentifier.eType			:= E_BaseElementType.eControl;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PierwszePrzejscie" Id="{33027043-dafe-0ff6-0703-6840d7d72448}">
+      <Declaration><![CDATA[METHOD PUBLIC PierwszePrzejscie : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

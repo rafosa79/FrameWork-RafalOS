@@ -13,5 +13,26 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="FB_init" Id="{a18f7400-8689-05ae-3b31-59cab5e8ddb8}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stIdentifier.eType			:= E_BaseElementType.eGroup;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PierwszePrzejscie" Id="{fede4491-2815-0c5d-25f3-a52cafaf5311}">
+      <Declaration><![CDATA[METHOD PUBLIC PierwszePrzejscie : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

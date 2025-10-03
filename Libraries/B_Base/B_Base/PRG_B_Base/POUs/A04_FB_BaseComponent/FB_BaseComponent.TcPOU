@@ -8,10 +8,37 @@
 *)
 FUNCTION_BLOCK FB_BaseComponent EXTENDS FB_BaseLoggerElement IMPLEMENTS ITF_BaseComponent, ITF_BaseComponent_HMI_Connector
 VAR
+	fbReset						: FB_BaseCommand;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="FB_init" Id="{f6b4fcc3-c3c0-0af2-28d1-79ccbb610da2}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stIdentifier.eType			:= E_BaseElementType.eComponent;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PierwszePrzejscie" Id="{59d66408-2df1-04a5-240d-93e8399a3b7e}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.10.2025		TC 4024.66
+	
+*)
+METHOD PUBLIC PierwszePrzejscie : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

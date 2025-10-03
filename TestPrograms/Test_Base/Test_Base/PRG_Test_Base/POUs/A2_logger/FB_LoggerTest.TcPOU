@@ -12,6 +12,9 @@ T01_TestDodawaniaZgloszen ();
 T02_TestDodawaniaZgloszen2 ();
 T03_TestDodawaniaZgloszen3 ();
 T04_TestDodawaniaKomponentowDoLogera ();
+//T05_TestDodawaniaWykonawczychDoLogera ();
+//T06_TestDodawaniaZlozonychDoLogera ();
+//T07_TestDodawaniaBazowychDoLogera ();
 ]]></ST>
     </Implementation>
     <Method Name="T01_TestDodawaniaZgloszen" Id="{95b1bee2-2fa2-40b4-ace9-9bed2d0ad664}">
@@ -270,13 +273,15 @@ END_IF
       <Declaration><![CDATA[METHOD PROTECTED T04_TestDodawaniaKomponentowDoLogera
 VAR_INPUT
 END_VAR
-]]></Declaration>
+
+VAR
+	iWynik: INT;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T04_TestDodawaniaKomponentowDoLogera')) THEN
-	GVL_Variable.fbComponent_1_L.SetID (uiID 	:= 1);
-	GVL_Variable.fbComponent_2_L.SetID (uiID 	:= 2);
-	GVL_Variable.fbComponent_3_L.SetID (uiID 	:= 3);
-	
+	iWynik :=	GVL_Variable.fbComponent_1_L.SetID (uiID 	:= 1);
+	iWynik :=	GVL_Variable.fbComponent_2_L.SetID (uiID 	:= TO_UINT (iWynik + 1));
+	iWynik :=	GVL_Variable.fbComponent_3_L.SetID (uiID 	:= TO_UINT (iWynik + 1));
 
 	GVL.fbLogger.AddItem (itfItem := GVL_Variable.fbComponent_1_L);
 	GVL.fbLogger.AddItem (itfItem := GVL_Variable.fbComponent_2_L);

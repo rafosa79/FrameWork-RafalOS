@@ -3,7 +3,7 @@
   <DUT Name="ST_BaseEvents_Memory" Id="{089aa9a1-f075-03e9-310d-329f75ba9664}">
     <Declaration><![CDATA[TYPE ST_BaseEvents_Memory :
 STRUCT
-	arrRow						: ARRAY [1..GVL_BaseConstans.MAX_LICZBA_PAMIETANYCH_ZGLOSZEN] OF ST_BaseEvents_RowInMemory;
+	arrRow						: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_EVENTS_IN_MEMORY] OF ST_BaseEvents_RowInMemory;
 	iNumberOfRow				: INT;
 	
 END_STRUCT

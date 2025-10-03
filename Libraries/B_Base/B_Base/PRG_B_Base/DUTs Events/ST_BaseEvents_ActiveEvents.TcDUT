@@ -9,12 +9,12 @@ STRUCT
 	bIsActiveWithConfirmation				: BOOL;	//infdormacja o aktywnych bledach ktore wymagaja potwierdzenia
 	iNumerOfActiveWithConfirmation			: INT;
 	
-	arrNumberOfActive						: ARRAY [0..GVL_BaseConstans.MAX_LICZBA_RODZAJOW_ZGLOSZEN] OF INT;	//ilosc wszystkich aktywnych zgloszen z podziałem na rodzaje
-	arrTotalNumer							: ARRAY [0..GVL_BaseConstans.MAX_LICZBA_RODZAJOW_ZGLOSZEN] OF INT;	//ilosc wszystkich zgloszonych z podzialem na rodzaje
-	arrInfoForHMI							: ARRAY [0..GVL_BaseConstans.MAX_ILOSC_WSZYSTKICH_KOMPONENTOW] OF ST_BaseEvents_InformationAboutEventsForHMI;	//ilosc zgloszen dla poszczegolnych elementow
+	arrNumberOfActive						: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;	//ilosc wszystkich aktywnych zgloszen z podziałem na rodzaje
+	arrTotalNumer							: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;	//ilosc wszystkich zgloszonych z podzialem na rodzaje
+	arrInfoForHMI							: ARRAY [0..GVL_BaseConstans.MAX_NUMBER_OF_ALL_ITEM] OF ST_BaseEvents_InformationAboutEventsForHMI;	//ilosc zgloszen dla poszczegolnych elementow
 	bNewEventsForHmi						: BOOL; 	//informacja ze pojawiło się nowe zgfłoszenie
 								
-	arrActive								: ARRAY [0..GVL_BaseConstans.MAX_LICZBA_RODZAJOW_ZGLOSZEN] OF BOOL; 	//informacja który z rodzajów zgłoszęń jest aktywny
+	arrActive								: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF BOOL; 	//informacja który z rodzajów zgłoszęń jest aktywny
 	
 END_STRUCT
 END_TYPE

@@ -8,9 +8,9 @@
 *)
 FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector, ITF_BaseLogger_Item
 VAR
-	itfLogger						: ITF_BaseLogger;
-	stIdentifier					: ST_BaseElementIdentifier;
-	stEvents						: ST_BaseEvents;
+	itfLogger						: ITF_BaseLogger;			//Logger
+	stIdentifier					: ST_BaseElementIdentifier;	//Identyfikacja elementu
+	stEvents						: ST_BaseEvents;			//dane elementu dotyczące zdarzeń
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -35,7 +35,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.stEvents.uiNumberOfAdded + 1 <= GVL_BaseConstans.MAX_ILOSC_ZGLOSZEN_NA_ELEMENT) THEN
+        <ST><![CDATA[IF (THIS^.stEvents.uiNumberOfAdded + 1 <= GVL_BaseConstans.MAX_NUMBER_EVENTS_FOR_ITEM) THEN
 	THIS^.stEvents.uiNumberOfAdded														:= THIS^.stEvents.uiNumberOfAdded + 1;
 	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].uiIDInItem			:= THIS^.stEvents.uiNumberOfAdded;
 	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].bIgnoreRepetitions	:= bIgnoreRepetitions;
@@ -167,7 +167,7 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="SetID" Id="{9acba3a6-fc5f-0ece-1ab3-a775104efe88}" FolderPath="ID\">
-      <Declaration><![CDATA[METHOD PUBLIC SetID
+      <Declaration><![CDATA[METHOD PUBLIC SetID : UINT
 VAR_INPUT
 	uiID					: UINT;
 END_VAR
