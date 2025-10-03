@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <Itf Name="ITF_Component" Id="{049be64b-6a97-47c2-87b8-7adecc4d1d51}">
-    <Declaration><![CDATA[INTERFACE ITF_Component
+    <Declaration><![CDATA[INTERFACE ITF_Component EXTENDS ITF_BaseComponent
 
 ]]></Declaration>
   </Itf>

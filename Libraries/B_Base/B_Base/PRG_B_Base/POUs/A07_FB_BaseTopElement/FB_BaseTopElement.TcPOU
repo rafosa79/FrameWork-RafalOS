@@ -25,14 +25,5 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PierwszePrzejscie" Id="{6e135063-cf1d-0182-35da-13dbdee6cbc3}">
-      <Declaration><![CDATA[METHOD PUBLIC PierwszePrzejscie : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
   </POU>
 </TcPlcObject>

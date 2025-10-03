@@ -35,7 +35,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.stEvents.uiNumberOfAdded + 1 <= GVL_BaseConstans.MAX_NUMBER_EVENTS_FOR_ITEM) THEN
+        <ST><![CDATA[IF (THIS^.stEvents.uiNumberOfAdded + 1 <= GVL_BaseConstans.MAX_EVENTS_PER_ITEM) THEN
 	THIS^.stEvents.uiNumberOfAdded														:= THIS^.stEvents.uiNumberOfAdded + 1;
 	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].uiIDInItem			:= THIS^.stEvents.uiNumberOfAdded;
 	THIS^.stEvents.arrDefinitions [THIS^.stEvents.uiNumberOfAdded].bIgnoreRepetitions	:= bIgnoreRepetitions;
@@ -79,8 +79,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[
-FirstCycle				:= TRUE;
+        <ST><![CDATA[FirstCycle					:= TRUE;
 ]]></ST>
       </Implementation>
     </Method>

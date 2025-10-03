@@ -3,7 +3,7 @@
   <DUT Name="ST_BaseLabel" Id="{a8bc978c-f860-0716-3224-49a452076ff3}">
     <Declaration><![CDATA[TYPE ST_BaseLabel :
 STRUCT
-	arrText		: ARRAY [1..GVL_BaseConstans.NUMBER_OF_LOCACIONS] OF WSTRING;
+	arrText		: ARRAY [1..GVL_BaseConstans.NUMBER_OF_LOCATIONS] OF WSTRING;
 	
 END_STRUCT
 END_TYPE

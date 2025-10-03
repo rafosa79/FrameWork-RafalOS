@@ -8,11 +8,30 @@
 *)
 FUNCTION_BLOCK FB_BaseGroupElement EXTENDS FB_BaseControlElement IMPLEMENTS ITF_BaseGroupElement, ITF_BaseGroupElement_HMI_Connector
 VAR
+	arrControlElement			: ARRAY [1..GVL_BaseConstans.MAX_ITEM_PER_ELEMENT] OF ITF_BaseControlElement;
+	uiNumberOfControlElement	: UINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="AddControlElement" Id="{175b37ba-638b-0727-26cf-573800512486}">
+      <Declaration><![CDATA[METHOD PROTECTED AddControlElement : BOOL
+VAR_INPUT
+	itfControlElement		: ITF_BaseControlElement;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.uiNumberOfControlElement + 1 <= GVL_BaseConstans.MAX_ITEM_PER_ELEMENT) THEN
+	THIS^.uiNumberOfControlElement		:= THIS^.uiNumberOfControlElement + 1;
+	THIS^.arrControlElement [THIS^.uiNumberOfControlElement]	:= itfControlElement;
+	AddControlElement			:= TRUE;
+ELSE
+	;//zwrocenie zbyt dużo komponentow
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FB_init" Id="{a18f7400-8689-05ae-3b31-59cab5e8ddb8}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
@@ -25,13 +44,23 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PierwszePrzejscie" Id="{fede4491-2815-0c5d-25f3-a52cafaf5311}">
-      <Declaration><![CDATA[METHOD PUBLIC PierwszePrzejscie : BOOL
+    <Method Name="FirstCycle" Id="{fede4491-2815-0c5d-25f3-a52cafaf5311}">
+      <Declaration><![CDATA[METHOD PUBLIC FirstCycle : BOOL
 VAR_INPUT
 END_VAR
-]]></Declaration>
+VAR
+	bResult			: bool;
+	iI				: INT;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[bResult				:= SUPER^.FirstCycle ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	bResult			:= bResult AND THIS^.arrControlElement [iI].FirstCycle ();
+END_FOR
+
+FirstCycle			:= bResult;
+]]></ST>
       </Implementation>
     </Method>
   </POU>

@@ -59,7 +59,7 @@ VAR
 	iNumerOfActive			: INT;
 	iNumberOfNotActive		: INT;
 	iNumerToConfirmed		: INT;
-	arrNumberByCategory		: ARRAY  [0..GVL_BaseConstans.MAX_LICZBA_RODZAJOW_ZGLOSZEN] OF INT;
+	arrNumberByCategory		: ARRAY  [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[(*
@@ -75,7 +75,7 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 									refstFilter.bNotActive OR
 									refstFilter.bIDEvent OR
 									refstFilter.bIDItem;
-	FOR iI := 1 TO GVL_BaseConstans.MAX_LICZBA_RODZAJOW_ZGLOSZEN DO
+	FOR iI := 1 TO GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES DO
 		bFilterIsActive			:= bFilterIsActive OR refstFilter.arrSelectedEventCategory [iI];
 	END_FOR
 
@@ -100,7 +100,7 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 				bUsunZListy		:= bUsunZListy OR (refstFilter.bIDEvent AND stRowFromMemory.uiIDEvent <> refstFilter.uiIDEvent);
 		
 
-				FOR iI := 1 TO GVL_BaseConstans.MAX_LICZBA_RODZAJOW_ZGLOSZEN DO
+				FOR iI := 1 TO GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES DO
 					CASE iI OF 
 						E_BaseEvents_Category.Error		: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Error;
 						E_BaseEvents_Category.Alarm		: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Alarm;

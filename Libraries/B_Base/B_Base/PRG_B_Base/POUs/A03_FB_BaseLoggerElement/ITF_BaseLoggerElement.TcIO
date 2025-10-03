@@ -3,5 +3,64 @@
   <Itf Name="ITF_BaseLoggerElement" Id="{040130d5-be8c-0d8f-3758-2f1440aef3cb}">
     <Declaration><![CDATA[INTERFACE ITF_BaseLoggerElement
 ]]></Declaration>
+    <Folder Name="ID" Id="{ebebc54b-7071-0c25-1f06-3769663c0ef5}" />
+    <Method Name="GetCode" Id="{8b6863d7-2a35-07f8-278a-c5063af13d5f}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetCode : STRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetID" Id="{01682019-6db3-0ac2-2322-ec1c5cb9c3b3}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetID : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetIdentyfier" Id="{9e739503-7893-0bf4-399c-b179c7bd0bc7}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetIdentyfier : ST_BaseElementIdentifier
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetName" Id="{878e4ebd-33ce-0ec5-047c-9c76b95779fa}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetType" Id="{c399515a-c57b-0d5c-3183-92e3bee5c2f8}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetType : E_BaseElementType
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetCode" Id="{709cb346-bc66-0698-2a3d-3e8bbcb515cf}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetCode
+VAR_INPUT
+	sCode							: STRING;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetID" Id="{a88625bd-06f5-0c5d-1bbf-fce303221e21}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetID : UINT
+VAR_INPUT
+	uiID					: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetName" Id="{29cdd36c-9b48-00dd-03f0-d496e99bfd2c}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetName
+VAR_INPUT
+	stName				: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetType" Id="{e92df368-a313-0d19-20bc-127474f2c3f1}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetType
+VAR_INPUT
+	eType					: E_BaseElementType;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

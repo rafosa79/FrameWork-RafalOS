@@ -5,15 +5,29 @@
 VAR_GLOBAL
 	fbBasetest					: FB_Base;
 	
-	fbComponent_1				: FB_Component;
-	fbControlElement_1			: FB_ControlElement;
-	fbGroupElement_1			: FB_GroupElement;
-	fbTopElement_1				: FB_TopElement;
+	fbPB1_Wyk1_K1				: FB_Component;
+	fbPB1_Wyk1_K2				: FB_Component;
+	fbPB1_Wyk1					: FB_ControlElement (fbPB1_Wyk1_K1, fbPB1_Wyk1_K2);
 	
-	fbComponent_1_L				: FB_Component;
-	fbComponent_2_L				: FB_Component;
-	fbComponent_3_L				: FB_Component;
+	fbPB1_Wyk2_K1				: FB_Component;
+	fbPB1_Wyk2_K2				: FB_Component;
+	fbPB1_Wyk2					: FB_ControlElement (fbPB1_Wyk2_K1, fbPB1_Wyk2_K2);
+
+	fbPB1_ZL1_Wyk1_K1			: FB_Component;
+	fbPB1_ZL1_Wyk1_K2			: FB_Component;
+	fbPB1_ZL1_Wyk1				: FB_ControlElement (fbPB1_ZL1_Wyk1_K1, fbPB1_ZL1_Wyk1_K2);
+	fbPB1_ZL1_Wyk2_K1			: FB_Component;
+	fbPB1_ZL1_Wyk2_K2			: FB_Component;
+	fbPB1_ZL1_Wyk2				: FB_ControlElement (fbPB1_ZL1_Wyk2_K1, fbPB1_ZL1_Wyk2_K2);
+	fbPB1_ZL1_K1				: FB_Component;
+	fbPB1_ZL1_K2				: FB_Component;
+	fbPB1_ZL1					: FB_GroupElement (fbPB1_ZL1_Wyk1, fbPB1_ZL1_Wyk2, fbPB1_ZL1_K1, fbPB1_ZL1_K2);
 	
+	fbPB1_K1					: FB_Component;
+	fbPB1_K2					: FB_Component;
+	fbPB1_K3					: FB_Component;
+	
+	fbPB1						: FB_TopElement (fbPB1_Wyk1, fbPB1_Wyk2, fbPB1_ZL1, fbPB1_K1, fbPB1_K2, fbPB1_K3);
 	
 END_VAR]]></Declaration>
   </GVL>
