@@ -114,15 +114,16 @@ VAR_INPUT
 END_VAR
 VAR
 	sItemCode						: STRING;
-	iI: INT;
+	iI								: INT;
+	sComponentCode					: STRING;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[sItemCode		:=  CreateElementCode (sParentCode := sCode, sAdd := sAdd);
 SUPER^.SetCode (sCode := sItemCode, sAdd := '');
 
 FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
-	sItemCode	:= CreateElementCode (sParentCode := sItemCode, sAdd := TO_STRING (iI));
-	THIS^.arrComponent [iI].SetCode (sCode	:= sItemCode, sAdd := '');
+	sComponentCode	:= CreateElementCode (sParentCode := sItemCode, sAdd := TO_STRING (iI));
+	THIS^.arrComponent [iI].SetCode (sCode	:= sComponentCode, sAdd := '');
 END_FOR
 ]]></ST>
       </Implementation>

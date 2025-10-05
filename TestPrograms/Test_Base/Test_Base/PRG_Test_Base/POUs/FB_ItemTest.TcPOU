@@ -110,7 +110,31 @@ END_VAR]]></Declaration>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T05_TestSetCodeItem')) THEN
 	GVL_Variable.fbPB1.SetCode (sCode := '0.0.0.0.0', sAdd := '1');
 //	AssertEquals_UINT (Expected := 19, Actual := uiResult, Message := 'T01 - bledny numer id');
+	AssertEquals_STRING (Expected := '1.0.0.0.0', Actual := GVL_Variable.fbPB1.GetCode (), Message := 'T01 - Bledny kod PB');
+
+	AssertEquals_STRING (Expected := '1.1.0.0.0', Actual := GVL_Variable.fbPB1_K1.GetCode (), Message := 'T01 - Bledny kod PB K1');
+	AssertEquals_STRING (Expected := '1.2.0.0.0', Actual := GVL_Variable.fbPB1_K2.GetCode (), Message := 'T02 - Bledny kod PB K2');
+	AssertEquals_STRING (Expected := '1.3.0.0.0', Actual := GVL_Variable.fbPB1_K3.GetCode (), Message := 'T03 - Bledny kod PB K3');
 	
+	AssertEquals_STRING (Expected := '1.4.0.0.0', Actual := GVL_Variable.fbPB1_Wyk1.GetCode (), 	Message := 'T04 - Bledny kod PB WYK1');
+	AssertEquals_STRING (Expected := '1.4.1.0.0', Actual := GVL_Variable.fbPB1_Wyk1_K1.GetCode (), 	Message := 'T05 - Bledny kod PB WYK1 K1');
+	AssertEquals_STRING (Expected := '1.4.2.0.0', Actual := GVL_Variable.fbPB1_Wyk1_K2.GetCode (), 	Message := 'T06 - Bledny kod PB WYK1 K2');
+	
+	AssertEquals_STRING (Expected := '1.5.0.0.0', Actual := GVL_Variable.fbPB1_Wyk2.GetCode (), 	Message := 'T07 - Bledny kod PB WYK1');
+	AssertEquals_STRING (Expected := '1.5.1.0.0', Actual := GVL_Variable.fbPB1_Wyk2_K1.GetCode (), 	Message := 'T08 - Bledny kod PB WYK1 K1');
+	AssertEquals_STRING (Expected := '1.5.2.0.0', Actual := GVL_Variable.fbPB1_Wyk2_K2.GetCode (), 	Message := 'T09 - Bledny kod PB WYK1 K2');
+	
+	AssertEquals_STRING (Expected := '1.6.0.0.0', Actual := GVL_Variable.fbPB1_ZL1.GetCode (), 		Message := 'T10 - Bledny kod PB ZL1');
+	AssertEquals_STRING (Expected := '1.6.1.0.0', Actual := GVL_Variable.fbPB1_ZL1_K1.GetCode (), 	Message := 'T11 - Bledny kod PB ZL1 K1');
+	AssertEquals_STRING (Expected := '1.6.2.0.0', Actual := GVL_Variable.fbPB1_ZL1_K2.GetCode (), 	Message := 'T12 - Bledny kod PB ZL1 K2');
+	
+	AssertEquals_STRING (Expected := '1.6.3.0.0', Actual := GVL_Variable.fbPB1_ZL1_Wyk1.GetCode (), 	Message := 'T13 - Bledny kod PB ZL1 WYK1');
+	AssertEquals_STRING (Expected := '1.6.3.1.0', Actual := GVL_Variable.fbPB1_ZL1_Wyk1_K1.GetCode (), 	Message := 'T14 - Bledny kod PB ZL1 WYK1 K1');
+	AssertEquals_STRING (Expected := '1.6.3.2.0', Actual := GVL_Variable.fbPB1_ZL1_Wyk1_K2.GetCode (), 	Message := 'T15 - Bledny kod PB ZL1 WYK1 K2');
+	
+	AssertEquals_STRING (Expected := '1.6.4.0.0', Actual := GVL_Variable.fbPB1_ZL1_Wyk2.GetCode (), 	Message := 'T16 - Bledny kod PB ZL2 WYK1');
+	AssertEquals_STRING (Expected := '1.6.4.1.0', Actual := GVL_Variable.fbPB1_ZL1_Wyk2_K1.GetCode (), 	Message := 'T17 - Bledny kod PB ZL2 WYK1 K1');
+	AssertEquals_STRING (Expected := '1.6.4.2.0', Actual := GVL_Variable.fbPB1_ZL1_Wyk2_K2.GetCode (), 	Message := 'T18 - Bledny kod PB ZL2 WYK1 K2');
 	
 	TcUnit.TEST_FINISHED ();
 END_IF]]></ST>
