@@ -3,15 +3,67 @@
   <GVL Name="GVL_VariableHMI" Id="{b9a94705-a932-4492-af2c-d0486e584051}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-//	fbComponentHMI_1			: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbComponent_1);
-//	fbControlrElementHMI_1		: FB_ControlElement_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfControlElementConnector := GVL_Variable.fbControlElement_1);
-//	fbGroupElementHMI_1			: FB_GroupElement_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfGroupelementConnector := GVL_Variable.fbGroupElement_1);
-//	fbTopElementHMI_1			: FB_TopElement_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfTopElementConnector := GVL_Variable.fbTopElement_1);
-//
-//	fbComponentHMI_1_L			: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbComponent_1_L);
-//	fbComponentHMI_2_L			: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbComponent_2_L);
-//	fbComponentHMI_3_L			: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbComponent_3_L);
 
+
+	fbPB1_Wyk1_K1_HMI				: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_Wyk1_K1);
+	fbPB1_Wyk1_K2_HMI				: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_Wyk1_K2);
+	fbPB1_Wyk1_HMI					: FB_ControlElement_HMI (
+										itfBaseLoggerConnector 		:= GVL.fbLogger,
+										itfControlElementConnector 	:= GVL_Variable.fbPB1_Wyk1,
+										itfComponent1				:= fbPB1_Wyk1_K1_HMI,
+										itfComponent2				:= fbPB1_Wyk1_K2_HMI
+									);
+//	
+	fbPB1_Wyk2_K1_HMI				: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_Wyk2_K1);
+	fbPB1_Wyk2_K2_HMI				: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_Wyk2_K2);
+	fbPB1_Wyk2_HMI					: FB_ControlElement_HMI (
+										itfBaseLoggerConnector 		:= GVL.fbLogger,
+										itfControlElementConnector 	:= GVL_Variable.fbPB1_Wyk2,
+										itfComponent1				:= fbPB1_Wyk2_K1_HMI,
+										itfComponent2				:= fbPB1_Wyk2_K2_HMI
+									);
+//
+	fbPB1_ZL1_Wyk1_K1_HMI			: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_ZL1_Wyk1_K1);
+	fbPB1_ZL1_Wyk1_K2_HMI			: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_ZL1_Wyk1_K2);
+	fbPB1_ZL1_Wyk1_HMI				: FB_ControlElement_HMI (
+										itfBaseLoggerConnector 		:= GVL.fbLogger,
+										itfControlElementConnector 	:= GVL_Variable.fbPB1_ZL1_Wyk1,
+										itfComponent1				:= fbPB1_ZL1_Wyk1_K1_HMI,
+										itfComponent2				:= fbPB1_ZL1_Wyk1_K2_HMI
+									);
+	fbPB1_ZL1_Wyk2_K1_HMI			: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_ZL1_Wyk2_K1);
+	fbPB1_ZL1_Wyk2_K2_HMI			: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_ZL1_Wyk2_K2);
+	fbPB1_ZL1_Wyk2_HMI				: FB_ControlElement_HMI (
+										itfBaseLoggerConnector 		:= GVL.fbLogger,
+										itfControlElementConnector 	:= GVL_Variable.fbPB1_ZL1_Wyk2,
+										itfComponent1				:= fbPB1_ZL1_Wyk2_K1_HMI,
+										itfComponent2				:= fbPB1_ZL1_Wyk2_K2_HMI
+									);
+	fbPB1_ZL1_K1_HMI				: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_ZL1_K1);
+	fbPB1_ZL1_K2_HMI				: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_ZL1_K2);
+	fbPB1_ZL1_HMI					: FB_GroupElement_HMI (
+										itfBaseLoggerConnector 		:= GVL.fbLogger,
+										itfGroupElementConnector 	:= GVL_Variable.fbPB1_ZL1,
+										itfControlElement1			:= fbPB1_ZL1_Wyk1_HMI,
+										itfControlElement2			:= fbPB1_ZL1_Wyk2_HMI,
+										itfComponent1				:= fbPB1_ZL1_K1_HMI,
+										itfComponent2				:= fbPB1_ZL1_K2_HMI
+									);
+	
+	fbPB1_K1_HMI					: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_K1);
+	fbPB1_K2_HMI					: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_K2);
+	fbPB1_K3_HMI					: FB_Component_HMI (itfBaseLoggerConnector := GVL.fbLogger, itfComponentConnector := GVL_Variable.fbPB1_K3);
+//	
+	fbPB1_HMI						: FB_TopElement_HMI (
+										itfBaseLoggerConnector				:= GVL.fbLogger,
+                                        itfTopElementConnector				:= GVL_Variable.fbPB1,
+                                        itfControlElement1					:= fbPB1_Wyk1_HMI,
+                                        itfControlElement2					:= fbPB1_Wyk2_HMI,
+                                        itfGroupElement1					:= fbPB1_ZL1_HMI,
+                                        itfComponent1						:= fbPB1_K1_HMI,
+                                        itfComponent2						:= fbPB1_K2_HMI,
+                                        itfComponent3						:= fbPB1_K3_HMI
+									);
 	
 END_VAR]]></Declaration>
   </GVL>

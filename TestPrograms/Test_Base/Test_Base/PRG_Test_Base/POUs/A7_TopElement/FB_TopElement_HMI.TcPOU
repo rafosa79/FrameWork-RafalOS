@@ -5,6 +5,12 @@
 VAR
 	itfTopElementConnector				: ITF_TopElement_HMI_Connector;
 	refstTopElementData					: REFERENCE TO ST_TopElement_HMI;
+	itfControlElement1					: ITF_ControlElement_HMI;
+	itfControlElement2					: ITF_ControlElement_HMI;
+	itfGroupElement1					: ITF_GroupElement_HMI;
+	itfComponent1						: ITF_Component_HMI;
+	itfComponent2						: ITF_Component_HMI;
+	itfComponent3						: ITF_Component_HMI;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -18,6 +24,12 @@ VAR_INPUT
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 	itfBaseLoggerConnector				: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
 	itfTopElementConnector				: ITF_TopElement_HMI_Init;
+	itfControlElement1					: ITF_ControlElement_HMI;
+	itfControlElement2					: ITF_ControlElement_HMI;
+	itfGroupElement1					: ITF_GroupElement_HMI;
+	itfComponent1						: ITF_Component_HMI;
+	itfComponent2						: ITF_Component_HMI;
+	itfComponent3						: ITF_Component_HMI;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -31,6 +43,13 @@ THIS^.itfBaseGroupElementConnector		:= itfTopElementConnector;
 THIS^.itfBaseTopElementConnector		:= itfTopElementConnector;
 //
 THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
+THIS^.itfControlElement1				:= itfControlElement1;
+THIS^.itfControlElement2				:= itfControlElement2;
+THIS^.itfGroupElement1					:= itfGroupElement1;
+THIS^.itfComponent1						:= itfComponent1;
+THIS^.itfComponent2						:= itfComponent2;
+THIS^.itfComponent3						:= itfComponent3;
+
 
 IF (THIS^.itfTopElementConnector <> 0 AND
 	THIS^.itfBaseLoggerElementConnector <> 0 AND

@@ -1,9 +1,6 @@
 Do zrobienia cały serwis
 
 
-Nadawanie ID dla elementów i zgłoszeń 
-Nadawanie Kodów
-
 Następnie linkowanie common dada do FB_HMI  oraz itfLogera tego co jest w init przenieść może zrobić w hmi extend commondata i tam to dać 
 
 1. wywołać z loggerlement metodę przygotowanie listy zgłoszeń dla elemntu i dla wszystkich z parametrem 0
