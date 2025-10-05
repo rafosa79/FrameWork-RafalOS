@@ -61,9 +61,7 @@ METHOD PUBLIC SetEventsIDs : UINT
 VAR_INPUT
 	uiNewID		: UINT;
 END_VAR
-VAR
-	uiI			: UINT;
-END_VAR]]></Declaration>
+]]></Declaration>
     </Method>
     <Method Name="SetID" Id="{a88625bd-06f5-0c5d-1bbf-fce303221e21}" FolderPath="ID\">
       <Declaration><![CDATA[METHOD PUBLIC SetID : UINT

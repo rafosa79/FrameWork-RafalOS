@@ -16,6 +16,7 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Events" Id="{1dd56da8-fa40-0d20-065c-a56138eede25}" />
+    <Folder Name="ID" Id="{4718b15a-f934-0f59-1b79-1caa8a3a3eb5}" />
     <Folder Name="WiazanieZmiennych" Id="{b467be5a-6d2a-0ee1-246f-4160ba6824ae}" />
     <Method Name="AddComponent" Id="{b669ca95-b30c-0759-193e-b3e939cb13c5}">
       <Declaration><![CDATA[METHOD PROTECTED AddComponent : BOOL
@@ -126,6 +127,25 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
 	uiLastID			:= THIS^.arrComponent [iI].SetEventsIDs (uiNewID	:= uiLastID);
 END_FOR
 SetEventsIDs				:= uiLastID;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetID" Id="{9d6c78d9-d779-0f26-1754-0cfd4425d778}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetID : UINT
+VAR_INPUT
+	uiID					: UINT;
+END_VAR
+VAR
+	uiLastID				: UINT;
+	iI						: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[uiLastID				:= SUPER^.SetID (uiID	:= uiID);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO 
+	uiLastID			:= THIS^.arrComponent [iI].SetID (uiID	:= uiLastID + 1);
+END_FOR
+SetID					:= uiLastID;
 ]]></ST>
       </Implementation>
     </Method>

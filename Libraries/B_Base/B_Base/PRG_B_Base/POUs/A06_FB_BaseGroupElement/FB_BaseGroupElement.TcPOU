@@ -16,6 +16,7 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Events" Id="{20f6f417-5dd7-052c-022d-8978faa14be3}" />
+    <Folder Name="ID" Id="{9d43db93-a825-0ef2-1289-7c7210b94e63}" />
     <Folder Name="WiazanieZmiennych" Id="{2b50b030-a9ec-06ce-1ddf-f0356b93fad0}" />
     <Method Name="AddControlElement" Id="{175b37ba-638b-0727-26cf-573800512486}">
       <Declaration><![CDATA[METHOD PROTECTED AddControlElement : BOOL
@@ -126,6 +127,25 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
 	uiLastID			:= THIS^.arrControlElement [iI].SetEventsIDs (uiNewID	:= uiLastID);
 END_FOR
 SetEventsIDs				:= uiLastID;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetID" Id="{fea103d8-a0ad-03db-1bf2-3008a70fc842}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetID : UINT
+VAR_INPUT
+	uiID					: UINT;
+END_VAR
+VAR
+	uiLastID				: UINT;
+	iI						: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[uiLastID				:= SUPER^.SetID (uiID	:= uiID);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO 
+	uiLastID			:= THIS^.arrControlElement [iI].SetID (uiID	:= uiLastID + 1);
+END_FOR
+SetID					:= uiLastID;
 ]]></ST>
       </Implementation>
     </Method>

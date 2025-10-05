@@ -72,30 +72,30 @@ END_VAR
       <Implementation>
         <ST><![CDATA[THIS^.itfControlElement1			:= itfControlElement1;
 THIS^.AddControlElement (itfControlElement	:= itfControlElement1);
-THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
-THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
-THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1 de");
 THIS^.itfControlElement1.SetName (stName	:= THIS^.GetTexts ());
 
 THIS^.itfControlElement2			:= itfControlElement2;
 THIS^.AddControlElement (itfControlElement	:= itfControlElement2);
-THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
-THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
-THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu zlozenia 1 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu zlozenia 1 de");
 THIS^.itfControlElement2.SetName (stName	:= THIS^.GetTexts ());
 
 THIS^.itfComponent1					:= itfComponent1;
 THIS^.AddComponent (itfComponent	:= itfComponent1);
-THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
-THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
-THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu zlozenia 1 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu zlozenia 1 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu zlozenia 1 de");
 THIS^.itfComponent1.SetName (stName	:= THIS^.GetTexts ());
 
 THIS^.itfComponent2					:= itfComponent2;
 THIS^.AddComponent (itfComponent	:= itfComponent2);
-THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu złożenia 2");
-THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu złożenia 2");
-THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu złożenia 2");
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu złożenia 2 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu złożenia 2 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu złożenia 2 de");
 THIS^.itfComponent2.SetName (stName	:= THIS^.GetTexts ());
 ]]></ST>
       </Implementation>

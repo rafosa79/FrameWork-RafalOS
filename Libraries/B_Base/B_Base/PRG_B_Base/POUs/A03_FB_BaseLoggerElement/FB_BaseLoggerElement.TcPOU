@@ -200,6 +200,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.stIdentifier.uiID			:= uiID;
+SetID							:= uiID;
 ]]></ST>
       </Implementation>
     </Method>

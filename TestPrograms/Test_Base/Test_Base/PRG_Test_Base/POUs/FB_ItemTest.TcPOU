@@ -8,7 +8,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[
 T01_TestAddItems ();
-T02_TestFirstCycle ();]]></ST>
+T02_TestFirstCycle ();
+T03_TestSetidEvent ();
+]]></ST>
     </Implementation>
     <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">
       <Declaration><![CDATA[METHOD PRIVATE T01_TestAddItems
@@ -55,6 +57,26 @@ END_VAR]]></Declaration>
 	TcUnit.TEST_FINISHED ();
 END_IF
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T03_TestSetidEvent" Id="{9bdc2d0f-632e-4b95-9aba-3f7935f9d98b}">
+      <Declaration><![CDATA[METHOD PRIVATE T03_TestSetidEvent
+VAR_INPUT
+END_VAR
+
+VAR
+	uiLastID: UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T03_TestSetidEvent')) THEN
+	uiLastID		:= GVL_Variable.fbPB1.SetEventsIDs (uiNewID	:= 1);
+	
+	AssertEquals_UINT (Expected := 58, Actual := uiLastID, Message := 'T01 - Bledna ilosc nadanych ID zgloszeniom');
+	//58 przekazywany do następnego defacto jest zgłoszęń o jeden mniej
+	
+	
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
       </Implementation>
     </Method>
   </POU>
