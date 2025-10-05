@@ -143,12 +143,6 @@
     <Compile Include="POUs\A7_TopElement\ST_TopElement_HMI_Link.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_BaseTest.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_ElementTest.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\FB_ItemTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>

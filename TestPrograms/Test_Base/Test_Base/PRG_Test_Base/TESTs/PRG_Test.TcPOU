@@ -8,10 +8,6 @@ VAR
 	fbImpulsTest			: FB_Impulstest;
 
 	fbItemTest				: FB_ItemTest;
-//	fbBaseTest				: FB_Basetest;
-//	fbComponentTest			: FB_ElementTest;
-//
-//	fbLoggerTest			: FB_LoggerTest;
 
 END_VAR
 ]]></Declaration>

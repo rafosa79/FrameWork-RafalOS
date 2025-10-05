@@ -11,7 +11,9 @@ T01_TestAddItems ();
 T02_TestFirstCycle ();
 T03_TestSetidEvent ();
 T04_TestSetIditem ();
-T05_TestSetCodeItem ();]]></ST>
+T05_TestSetCodeItem ();
+T06_TestEventsAdd ();
+]]></ST>
     </Implementation>
     <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">
       <Declaration><![CDATA[METHOD PRIVATE T01_TestAddItems
@@ -138,6 +140,29 @@ END_VAR]]></Declaration>
 	
 	TcUnit.TEST_FINISHED ();
 END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T06_TestEventsAdd" Id="{6c65f74b-5234-4258-a261-2ba1552d9089}">
+      <Declaration><![CDATA[METHOD PRIVATE T06_TestEventsAdd
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestEventsAdd')) THEN
+	AssertEquals_UINT (Expected := 3, Actual := GVL_Variable.fbPB1.stEvents.uiNumberOfAdded, 	Message := 'T01 - bledna ilosc');
+	
+	AssertEquals_UINT (Expected := 3, Actual := GVL_Variable.fbPB1_K1.stEvents.uiNumberOfAdded, Message := 'T02 - bledna ilosc');
+	AssertEquals_UINT (Expected := 3, Actual := GVL_Variable.fbPB1_K2.stEvents.uiNumberOfAdded, Message := 'T03 - bledna ilosc');
+	AssertEquals_UINT (Expected := 3, Actual := GVL_Variable.fbPB1_K3.stEvents.uiNumberOfAdded, Message := 'T04 - bledna ilosc');
+ 	
+	AssertEquals_UINT (Expected := 3, Actual := GVL_Variable.fbPB1_Wyk1.stEvents.uiNumberOfAdded, Message := 'T05 - bledna ilosc');
+	AssertEquals_UINT (Expected := 3, Actual := GVL_Variable.fbPB1_Wyk2.stEvents.uiNumberOfAdded, Message := 'T07 - bledna ilosc');
+	
+	AssertEquals_UINT (Expected := 3, Actual := GVL_Variable.fbPB1_ZL1.stEvents.uiNumberOfAdded, Message := 'T07 - bledna ilosc');
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
       </Implementation>
     </Method>
   </POU>
