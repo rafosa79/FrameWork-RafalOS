@@ -15,6 +15,8 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Events" Id="{20f6f417-5dd7-052c-022d-8978faa14be3}" />
+    <Folder Name="ID" Id="{9d43db93-a825-0ef2-1289-7c7210b94e63}" />
     <Folder Name="WiazanieZmiennych" Id="{2b50b030-a9ec-06ce-1ddf-f0356b93fad0}" />
     <Method Name="AddControlElement" Id="{175b37ba-638b-0727-26cf-573800512486}">
       <Declaration><![CDATA[METHOD PROTECTED AddControlElement : BOOL
@@ -101,6 +103,95 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
 END_FOR
 
 LinkCommonData					:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCode" Id="{3432e546-4149-00a7-0fb9-e73b7e1c9dbd}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetCode
+VAR_INPUT
+	sCode							: STRING;
+	sAdd							: STRING;
+END_VAR
+VAR
+	sItemCode						: STRING;
+	iI								: INT;
+	sParentCode						: STRING;
+	arrSegment						: ARRAY [0..GVL_BaseConstans.MAX_NESTING_LEVEL] OF STRING;
+	iDotPosition					: INT;
+	iLast							: INT;
+	
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//sKodRodzica	:=  UtworzKodElementu (sKodRodzica := sKod, sDopisz := TO_STRING (THIS^.zwrocID ()));
+SUPER^.SetCode (sCode := sCode, sAdd := sAdd);
+sParentCode						:= THIS^.GetCode ();
+
+IF (THIS^.uiNumberOfComponents > 0) THEN
+	arrSegment [0]				:= THIS^.arrComponent [THIS^.uiNumberOfComponents].GetCode ();
+	FOR iI := 1 TO TO_INT (GVL_BaseConstans.MAX_NESTING_LEVEL) DO
+		iDotPosition			:= find (STR1 := arrSegment [0], STR2 := '.');
+		IF (iDotPosition = 0) THEN
+			arrSegment [iI]	:= arrSegment [0];
+			EXIT;
+		ELSE
+			arrSegment [iI]		:= Tc2_Standard.LEFT (STR := arrSegment [0], SIZE := iDotPosition - 1);
+			arrSegment [0]		:= Tc2_Standard.DELETE (STR := arrSegment [0], POS := 1, LEN := iDotPosition);
+		END_IF
+	END_FOR
+	FOR iI := 0 TO TO_INT (GVL_BaseConstans.MAX_NESTING_LEVEL) - 1 DO
+		IF (TO_INT (arrSegment [TO_INT (GVL_BaseConstans.MAX_NESTING_LEVEL) - iI]) <> 0 ) THEN
+			iLast			:= TO_INT (arrSegment [TO_INT (GVL_BaseConstans.MAX_NESTING_LEVEL) - iI]);
+			EXIT;
+		END_IF
+	END_FOR
+END_IF
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+//	sKodKomponentu	:= UtworzKodElementu (sKodRodzica := sKod, sDopisz := TO_STRING (iI));
+	THIS^.arrControlElement [iI].SetCode (sCode	:= sParentCode, sAdd := TO_STRING (iI + iLast));
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEventsIDs" Id="{0185e120-5cb8-0dba-3756-ff856ef7df3c}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.10.2025		TC 4024.66
+	nadawanie unikalnych ID dla zdarzeń
+*)
+METHOD PUBLIC SetEventsIDs : UINT
+VAR_INPUT
+	uiNewID		: UINT;
+END_VAR
+VAR
+	iI			: INT;
+	uiLastID	: UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[uiLastID		:= SUPER^.SetEventsIDs (uiNewID	:= uiNewID);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO 
+	uiLastID			:= THIS^.arrControlElement [iI].SetEventsIDs (uiNewID	:= uiLastID);
+END_FOR
+SetEventsIDs				:= uiLastID;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetID" Id="{fea103d8-a0ad-03db-1bf2-3008a70fc842}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetID : UINT
+VAR_INPUT
+	uiID					: UINT;
+END_VAR
+VAR
+	uiLastID				: UINT;
+	iI						: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[uiLastID				:= SUPER^.SetID (uiID	:= uiID);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO 
+	uiLastID			:= THIS^.arrControlElement [iI].SetID (uiID	:= uiLastID + 1);
+END_FOR
+SetID					:= uiLastID;
 ]]></ST>
       </Implementation>
     </Method>

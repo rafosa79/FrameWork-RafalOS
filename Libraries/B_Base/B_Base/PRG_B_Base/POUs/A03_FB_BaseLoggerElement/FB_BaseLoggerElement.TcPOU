@@ -78,7 +78,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[FirstCycle					:= TRUE;
+        <ST><![CDATA[	(*	Zdefiniowanie zdarzeń dla elementu	*)
+THIS^.EventsDefinition ();
+
+FirstCycle					:= TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -157,10 +160,36 @@ END_VAR
       <Declaration><![CDATA[METHOD PUBLIC SetCode
 VAR_INPUT
 	sCode							: STRING;
+	sAdd							: STRING;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.stIdentifier.sCode				:= sCode;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEventsIDs" Id="{84a4a006-1e0f-0e23-3e24-f3c4945bc416}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.10.2025		TC 4024.66
+	nadawanie unikalnych ID dla zdarzeń
+*)
+METHOD PUBLIC SetEventsIDs : UINT
+VAR_INPUT
+	uiNewID		: UINT;
+END_VAR
+VAR
+	uiI			: UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.stEvents.uiNumberOfAdded > 0) THEN
+	FOR uiI := 1 TO THIS^.stEvents.uiNumberOfAdded DO
+		THIS^.stEvents.arrDefinitions [uiI].uiIDEvent	:= uiNewID + uiI - 1;
+	END_FOR
+	SetEventsIDs				:= uiNewID + THIS^.stEvents.uiNumberOfAdded;
+ELSE
+	SetEventsIDs				:= uiNewID;
+END_IF
 ]]></ST>
       </Implementation>
     </Method>
@@ -172,6 +201,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.stIdentifier.uiID			:= uiID;
+SetID							:= uiID;
 ]]></ST>
       </Implementation>
     </Method>

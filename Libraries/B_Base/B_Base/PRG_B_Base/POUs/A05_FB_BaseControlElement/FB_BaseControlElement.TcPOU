@@ -15,6 +15,8 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Events" Id="{1dd56da8-fa40-0d20-065c-a56138eede25}" />
+    <Folder Name="ID" Id="{4718b15a-f934-0f59-1b79-1caa8a3a3eb5}" />
     <Folder Name="WiazanieZmiennych" Id="{b467be5a-6d2a-0ee1-246f-4160ba6824ae}" />
     <Method Name="AddComponent" Id="{b669ca95-b30c-0759-193e-b3e939cb13c5}">
       <Declaration><![CDATA[METHOD PROTECTED AddComponent : BOOL
@@ -101,6 +103,71 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
 END_FOR
 
 LinkCommonData					:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCode" Id="{37dd4a69-1f19-013c-275a-96bfa9a71136}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetCode
+VAR_INPUT
+	sCode							: STRING;
+	sAdd							: STRING;
+END_VAR
+VAR
+	sItemCode						: STRING;
+	iI								: INT;
+	sComponentCode					: STRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[sItemCode		:=  CreateElementCode (sParentCode := sCode, sAdd := sAdd);
+SUPER^.SetCode (sCode := sItemCode, sAdd := '');
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	sComponentCode	:= CreateElementCode (sParentCode := sItemCode, sAdd := TO_STRING (iI));
+	THIS^.arrComponent [iI].SetCode (sCode	:= sComponentCode, sAdd := '');
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEventsIDs" Id="{dc108b4c-3b69-0baa-3256-55757a5a651a}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.10.2025		TC 4024.66
+	nadawanie unikalnych ID dla zdarzeń
+*)
+METHOD PUBLIC SetEventsIDs : UINT
+VAR_INPUT
+	uiNewID		: UINT;
+END_VAR
+VAR
+	iI			: INT;
+	uiLastID	: UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[uiLastID		:= SUPER^.SetEventsIDs (uiNewID	:= uiNewID);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO 
+	uiLastID			:= THIS^.arrComponent [iI].SetEventsIDs (uiNewID	:= uiLastID);
+END_FOR
+SetEventsIDs				:= uiLastID;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetID" Id="{9d6c78d9-d779-0f26-1754-0cfd4425d778}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetID : UINT
+VAR_INPUT
+	uiID					: UINT;
+END_VAR
+VAR
+	uiLastID				: UINT;
+	iI						: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[uiLastID				:= SUPER^.SetID (uiID	:= uiID);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO 
+	uiLastID			:= THIS^.arrComponent [iI].SetID (uiID	:= uiLastID + 1);
+END_FOR
+SetID					:= uiLastID;
 ]]></ST>
       </Implementation>
     </Method>
