@@ -114,17 +114,42 @@ VAR_INPUT
 END_VAR
 VAR
 	sItemCode						: STRING;
-	iI: INT;
+	iI								: INT;
+	sParentCode						: STRING;
+	arrSegment						: ARRAY [0..GVL_BaseConstans.MAX_NESTING_LEVEL] OF STRING;
+	iDotPosition					: INT;
+	iLast							: INT;
+	
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[sItemCode		:=  CreateElementCode (sParentCode := sCode, sAdd := sAdd);
-SUPER^.SetCode (sCode := sItemCode, sAdd := '');
+        <ST><![CDATA[//sKodRodzica	:=  UtworzKodElementu (sKodRodzica := sKod, sDopisz := TO_STRING (THIS^.zwrocID ()));
+SUPER^.SetCode (sCode := sCode, sAdd := sAdd);
+sParentCode						:= THIS^.GetCode ();
+
+IF (THIS^.uiNumberOfComponents > 0) THEN
+	arrSegment [0]				:= THIS^.arrComponent [THIS^.uiNumberOfComponents].GetCode ();
+	FOR iI := 1 TO TO_INT (GVL_BaseConstans.MAX_NESTING_LEVEL) DO
+		iDotPosition			:= find (STR1 := arrSegment [0], STR2 := '.');
+		IF (iDotPosition = 0) THEN
+			arrSegment [iI]	:= arrSegment [0];
+			EXIT;
+		ELSE
+			arrSegment [iI]		:= Tc2_Standard.LEFT (STR := arrSegment [0], SIZE := iDotPosition - 1);
+			arrSegment [0]		:= Tc2_Standard.DELETE (STR := arrSegment [0], POS := 1, LEN := iDotPosition);
+		END_IF
+	END_FOR
+	FOR iI := 0 TO TO_INT (GVL_BaseConstans.MAX_NESTING_LEVEL) - 1 DO
+		IF (TO_INT (arrSegment [TO_INT (GVL_BaseConstans.MAX_NESTING_LEVEL) - iI]) <> 0 ) THEN
+			iLast			:= TO_INT (arrSegment [TO_INT (GVL_BaseConstans.MAX_NESTING_LEVEL) - iI]);
+			EXIT;
+		END_IF
+	END_FOR
+END_IF
 
 FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
-	sItemCode	:= CreateElementCode (sParentCode := sItemCode, sAdd := TO_STRING (iI));
-	THIS^.arrControlElement [iI].SetCode (sCode	:= sItemCode, sAdd := '');
-END_FOR
-]]></ST>
+//	sKodKomponentu	:= UtworzKodElementu (sKodRodzica := sKod, sDopisz := TO_STRING (iI));
+	THIS^.arrControlElement [iI].SetCode (sCode	:= sParentCode, sAdd := TO_STRING (iI + iLast));
+END_FOR]]></ST>
       </Implementation>
     </Method>
     <Method Name="SetEventsIDs" Id="{0185e120-5cb8-0dba-3756-ff856ef7df3c}" FolderPath="Events\">

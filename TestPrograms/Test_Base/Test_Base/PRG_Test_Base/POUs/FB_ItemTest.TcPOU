@@ -11,7 +11,7 @@ T01_TestAddItems ();
 T02_TestFirstCycle ();
 T03_TestSetidEvent ();
 T04_TestSetIditem ();
-]]></ST>
+T05_TestSetCodeItem ();]]></ST>
     </Implementation>
     <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">
       <Declaration><![CDATA[METHOD PRIVATE T01_TestAddItems
@@ -92,6 +92,24 @@ END_VAR]]></Declaration>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T04_TestSetIditem')) THEN
 	uiResult 	:= GVL_Variable.fbPB1.SetID (uiID := 1);
 	AssertEquals_UINT (Expected := 19, Actual := uiResult, Message := 'T01 - bledny numer id');
+	
+	
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T05_TestSetCodeItem" Id="{044a7e9a-475a-4c86-bfa2-472cee579292}">
+      <Declaration><![CDATA[METHOD PRIVATE T05_TestSetCodeItem
+VAR_INPUT
+END_VAR
+
+VAR
+	sResult: string;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T05_TestSetCodeItem')) THEN
+	GVL_Variable.fbPB1.SetCode (sCode := '0.0.0.0.0', sAdd := '1');
+//	AssertEquals_UINT (Expected := 19, Actual := uiResult, Message := 'T01 - bledny numer id');
 	
 	
 	TcUnit.TEST_FINISHED ();
