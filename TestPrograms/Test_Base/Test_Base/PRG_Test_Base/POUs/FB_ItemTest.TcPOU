@@ -10,6 +10,7 @@ END_VAR
 T01_TestAddItems ();
 T02_TestFirstCycle ();
 T03_TestSetidEvent ();
+T04_TestSetIditem ();
 ]]></ST>
     </Implementation>
     <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">
@@ -73,6 +74,24 @@ END_VAR]]></Declaration>
 	
 	AssertEquals_UINT (Expected := 58, Actual := uiLastID, Message := 'T01 - Bledna ilosc nadanych ID zgloszeniom');
 	//58 przekazywany do następnego defacto jest zgłoszęń o jeden mniej
+	
+	
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T04_TestSetIditem" Id="{a33bae01-cbe9-4abe-b62e-d4ad4b94da31}">
+      <Declaration><![CDATA[METHOD PRIVATE T04_TestSetIditem
+VAR_INPUT
+END_VAR
+
+VAR
+	uiResult: UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T04_TestSetIditem')) THEN
+	uiResult 	:= GVL_Variable.fbPB1.SetID (uiID := 1);
+	AssertEquals_UINT (Expected := 19, Actual := uiResult, Message := 'T01 - bledny numer id');
 	
 	
 	TcUnit.TEST_FINISHED ();

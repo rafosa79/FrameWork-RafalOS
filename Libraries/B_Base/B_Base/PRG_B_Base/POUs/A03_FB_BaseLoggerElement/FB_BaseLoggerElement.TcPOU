@@ -160,6 +160,7 @@ END_VAR
       <Declaration><![CDATA[METHOD PUBLIC SetCode
 VAR_INPUT
 	sCode							: STRING;
+	sAdd							: STRING;
 END_VAR
 ]]></Declaration>
       <Implementation>

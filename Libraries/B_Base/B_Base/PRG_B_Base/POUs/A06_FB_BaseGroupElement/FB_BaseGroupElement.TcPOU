@@ -106,6 +106,27 @@ LinkCommonData					:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SetCode" Id="{3432e546-4149-00a7-0fb9-e73b7e1c9dbd}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetCode
+VAR_INPUT
+	sCode							: STRING;
+	sAdd							: STRING;
+END_VAR
+VAR
+	sItemCode						: STRING;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[sItemCode		:=  CreateElementCode (sParentCode := sCode, sAdd := sAdd);
+SUPER^.SetCode (sCode := sItemCode, sAdd := '');
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	sItemCode	:= CreateElementCode (sParentCode := sItemCode, sAdd := TO_STRING (iI));
+	THIS^.arrControlElement [iI].SetCode (sCode	:= sItemCode, sAdd := '');
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetEventsIDs" Id="{0185e120-5cb8-0dba-3756-ff856ef7df3c}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.

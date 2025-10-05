@@ -11,7 +11,7 @@ VAR_INPUT
 	sAdd						: STRING;
 END_VAR
 VAR
-	arrSegments					: ARRAY [0..GVL_BaseConstans.MAX_ILOSC_ZAGNIEZDZEN_PODZESPOLOW] OF STRING;
+	arrSegments					: ARRAY [0..GVL_BaseConstans.MAX_NESTING_LEVEL] OF STRING;
 	iI							: INT;
 	iDotPosition				: INT;
 	sCodeResult					: STRING;
@@ -20,7 +20,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[IF (LEN (STR := sParentCode) > 0) THEN
 	arrSegments [0]				:= sParentCode;
-	FOR iI := 1 TO TO_INT (GVL_BaseConstans.MAX_ILOSC_ZAGNIEZDZEN_PODZESPOLOW) DO
+	FOR iI := 1 TO TO_INT (GVL_BaseConstans.MAX_NESTING_LEVEL) DO
 		iDotPosition			:= find (STR1 := arrSegments [0], STR2 := '.');
 		IF (iDotPosition = 0) THEN
 			arrSegments [iI]	:= arrSegments [0];
@@ -31,13 +31,13 @@ END_VAR
 		END_IF
 	END_FOR
 END_IF
-FOR iI := 1 TO TO_INT (GVL_BaseConstans.MAX_ILOSC_ZAGNIEZDZEN_PODZESPOLOW) DO
+FOR iI := 1 TO TO_INT (GVL_BaseConstans.MAX_NESTING_LEVEL) DO
 	IF (arrSegments [iI] = '0' OR arrSegments [iI] = '') THEN
 		arrSegments [iI] := sAdd;
 		sAdd			:= '0';
 	END_IF
 	sCodeResult			:= CONCAT (STR1 := sCodeResult, STR2 := arrSegments [iI]);
-	IF (iI < TO_INT (GVL_BaseConstans.MAX_ILOSC_ZAGNIEZDZEN_PODZESPOLOW)) THEN
+	IF (iI < TO_INT (GVL_BaseConstans.MAX_NESTING_LEVEL)) THEN
 		sCodeResult		:= CONCAT (STR1 := sCodeResult, STR2 := '.');
 	END_IF
 END_FOR
