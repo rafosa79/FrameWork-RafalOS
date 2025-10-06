@@ -7,7 +7,7 @@ STRUCT
 
 	stControlElement1		: ST_ControlElement_HMI_Link;
 	stControlElement2		: ST_ControlElement_HMI_Link;
-	stCroupElement1			: ST_GroupElement_HMI_Link;
+	stGroupElement1			: ST_GroupElement_HMI_Link;
 	stComponent1			: ST_Component_HMI_Link;
 	stComponent2			: ST_Component_HMI_Link;
 	stComponent3			: ST_Component_HMI_Link;

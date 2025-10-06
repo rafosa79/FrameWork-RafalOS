@@ -170,10 +170,17 @@ END_IF
       <Declaration><![CDATA[METHOD PRIVATE T07_TestLinkData
 VAR_INPUT
 END_VAR
-]]></Declaration>
+
+VAR
+	bResult: BOOL;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T07_TestLinkData')) THEN
+	bResult 	:= GVL_VariableHMI.fbPB1_HMI.LinkCommonData (stCommonData	:= GVL.stCommonData);
+	AssertTrue (Condition := bResult, Message := 'T01a - bladny wynik przepisania');
+	
 	GVL_VariableHMI.fbPB1_HMI.LinkTopElementData (stData := gvl.stTopElementData);
+	
 	TcUnit.TEST_FINISHED ();
 END_IF]]></ST>
       </Implementation>

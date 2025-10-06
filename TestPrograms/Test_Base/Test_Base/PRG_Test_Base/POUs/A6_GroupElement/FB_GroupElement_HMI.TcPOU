@@ -72,6 +72,13 @@ THIS^.refstBaseComponentDataHMI		REF= stData.stBaseComponent;
 THIS^.refstBaseControlElementDataHMI	REF= stData.stBaseControlElement;
 THIS^.refstBaseGroupElementDataHMI		REF= stData.stBaseGroupElement;
 
+THIS^.itfControlElement1.LinkControlElementData (stData := stData.stControlElement1);
+THIS^.itfControlElement2.LinkControlElementData (stData := stData.stControlElement2);
+THIS^.itfComponent1.LinkComponentData (stData := stData.stComponent1);
+THIS^.itfComponent2.LinkComponentData (stData := stData.stComponent2);
+
+THIS^.CreateLinkToEventsMemory ();
+
 IF (__ISVALIDREF (THIS^.refstGroupElementData) AND
 	__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI) AND
 	__ISVALIDREF (THIS^.refstBaseComponentDataHMI) AND
