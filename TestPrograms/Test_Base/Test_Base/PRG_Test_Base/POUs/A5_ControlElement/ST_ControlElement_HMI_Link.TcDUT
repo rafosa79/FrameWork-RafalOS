@@ -4,6 +4,10 @@
     <Declaration><![CDATA[TYPE ST_ControlElement_HMI_Link EXTENDS ST_BaseControlElement_HMI_Link :
 STRUCT
 	stControlElement			: ST_ControlElement_HMI;
+	
+	stComponent1				: ST_Component_HMI_Link;
+	stComponent2				: ST_Component_HMI_Link;
+	
 END_STRUCT
 END_TYPE
 ]]></Declaration>

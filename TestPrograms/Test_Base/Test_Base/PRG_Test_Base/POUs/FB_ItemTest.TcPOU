@@ -6,13 +6,14 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-T01_TestAddItems ();
+      <ST><![CDATA[T01_TestAddItems ();
 T02_TestFirstCycle ();
 T03_TestSetidEvent ();
 T04_TestSetIditem ();
 T05_TestSetCodeItem ();
 T06_TestEventsAdd ();
+T07_TestLinkData ();
+//T08_TestGenerateListEvent ();
 ]]></ST>
     </Implementation>
     <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">
@@ -163,6 +164,31 @@ END_VAR
 	TcUnit.TEST_FINISHED ();
 END_IF
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T07_TestLinkData" Id="{1b5302c2-980b-44f9-a646-403ed298179b}">
+      <Declaration><![CDATA[METHOD PRIVATE T07_TestLinkData
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T07_TestLinkData')) THEN
+	GVL_VariableHMI.fbPB1_HMI.LinkTopElementData (stData := gvl.stTopElementData);
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T08_TestGenerateListEvent" Id="{241b2ddc-41df-4506-9318-83efcc8ca76c}">
+      <Declaration><![CDATA[METHOD PRIVATE T08_TestGenerateListEvent
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T08_TestGenerateListEvent')) THEN
+	GVL_VariableHMI.fbPB1_K1_HMI.GetYourEventTable ();
+
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
       </Implementation>
     </Method>
   </POU>

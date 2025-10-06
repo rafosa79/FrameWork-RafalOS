@@ -4,6 +4,11 @@
     <Declaration><![CDATA[TYPE ST_GroupElement_HMI_Link EXTENDS ST_BaseGroupElement_HMI_Link :
 STRUCT
 	stGroupElement			: ST_GroupElement_HMI;
+
+	stControlElement1		: ST_ControlElement_HMI_Link;
+	stControlElement2		: ST_ControlElement_HMI_Link;
+	stComponent1			: ST_Component_HMI_Link;
+	stComponent2			: ST_Component_HMI_Link;
 END_STRUCT
 END_TYPE
 ]]></Declaration>
