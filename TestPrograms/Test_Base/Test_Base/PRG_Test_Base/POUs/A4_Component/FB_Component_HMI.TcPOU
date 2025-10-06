@@ -54,9 +54,7 @@ THIS^.refstBaseComponentDataHMI		REF= stData.stBaseComponent;
 
 THIS^.CreateLinkToEventsMemory ();
 
-IF (__ISVALIDREF (THIS^.refstComponentData) AND
-	__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI) AND
-	__ISVALIDREF (THIS^.refstBaseComponentDataHMI) ) THEN
+IF (__ISVALIDREF (THIS^.refstComponentData) AND THIS^.IsLinkedReferences ()) THEN
 	THIS^.bIsValidData		:= TRUE;
 	LinkComponentData		:= TRUE;
 END_IF

@@ -96,12 +96,7 @@ THIS^.CreateLinkToEventsMemory ();
 
 
 
-IF (__ISVALIDREF (THIS^.refstTopElementData) AND
-	__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI) AND
-	__ISVALIDREF (THIS^.refstBaseComponentDataHMI) AND
-	__ISVALIDREF (THIS^.refstBaseControlElementDataHMI) AND
-	__ISVALIDREF (THIS^.refstBaseGroupElementDataHMI) AND
-	__ISVALIDREF (THIS^.refstBaseTopElementDataHMI)) THEN
+IF (__ISVALIDREF (THIS^.refstTopElementData) AND this^.IsLinkedReferences ()) THEN
 	THIS^.bIsValidData		:= TRUE;
 	LinkTopElementData		:= TRUE;
 END_IF

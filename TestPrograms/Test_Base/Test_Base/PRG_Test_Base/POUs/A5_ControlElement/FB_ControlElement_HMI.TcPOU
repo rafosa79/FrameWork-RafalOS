@@ -68,10 +68,7 @@ THIS^.itfComponent2.LinkComponentData (stData := stData.stComponent2);
 
 THIS^.CreateLinkToEventsMemory ();	//wywołanie metody linkującą poamięc zgłoszęń
 
-IF (__ISVALIDREF (THIS^.refstControlElementData) AND
-	__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI) AND
-	__ISVALIDREF (THIS^.refstBaseComponentDataHMI) AND
-	__ISVALIDREF (THIS^.refstBaseControlElementDataHMI)) THEN
+IF (__ISVALIDREF (THIS^.refstControlElementData) AND this^.IsLinkedReferences ()) THEN
 	THIS^.bIsValidData		:= TRUE;
 	LinkControlElementData	:= TRUE;
 END_IF
