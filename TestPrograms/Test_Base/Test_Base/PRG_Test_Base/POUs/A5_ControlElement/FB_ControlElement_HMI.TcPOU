@@ -36,7 +36,9 @@ THIS^.itfBaseControlElementConnector	:= itfControlElementConnector;
 THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
 //
 THIS^.itfComponent1						:= itfComponent1;
+THIS^.AddComponent (itfComponentHMI		:= itfComponent1);
 THIS^.itfComponent2						:= itfComponent2;
+this^.AddComponent (itfComponentHMI		:= itfComponent2);
 
 IF (THIS^.itfControlElementConnector <> 0 AND
 	THIS^.itfBaseLoggerElementConnector <> 0 AND

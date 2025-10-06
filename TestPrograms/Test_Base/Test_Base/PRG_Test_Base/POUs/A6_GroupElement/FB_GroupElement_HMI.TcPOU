@@ -43,9 +43,13 @@ THIS^.itfBaseGroupElementConnector		:= itfGroupElementConnector;
 THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
 //
 THIS^.itfControlElement1				:= itfControlElement1;
+THIS^.AddControlElement (itfControlElementHMI	:= itfControlElement1);
 THIS^.itfControlElement2				:= itfControlElement2;
+THIS^.AddControlElement (itfControlElementHMI	:= itfControlElement2);
 THIS^.itfComponent1						:= itfComponent1;
+THIS^.AddComponent (itfComponentHMI		:= itfComponent1);
 THIS^.itfComponent2						:= itfComponent2;
+THIS^.AddComponent (itfComponentHMI 	:= itfComponent2);
 
 IF (THIS^.itfGroupElementConnector <> 0 AND
 	THIS^.itfBaseLoggerElementConnector <> 0 AND
