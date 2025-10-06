@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <Itf Name="ITF_TopElement_HMI" Id="{3b91dccd-4a6c-4fc9-b449-5eb45f3b7186}">
-    <Declaration><![CDATA[INTERFACE ITF_TopElement_HMI
+    <Declaration><![CDATA[INTERFACE ITF_TopElement_HMI EXTENDS ITF_BaseTopElement_HMI
 ]]></Declaration>
     <Method Name="LinkTopElementData" Id="{80ed8e80-1707-4d86-8843-f28ac024cbfc}">
       <Declaration><![CDATA[METHOD LinkTopElementData : BOOL

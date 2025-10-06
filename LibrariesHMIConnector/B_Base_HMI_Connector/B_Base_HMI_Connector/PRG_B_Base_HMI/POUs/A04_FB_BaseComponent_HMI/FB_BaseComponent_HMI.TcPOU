@@ -10,5 +10,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="WiazanieZmiennych" Id="{870c23bf-4b00-0970-28a0-73e67a9b4230}" />
+    <Method Name="IsLinkedReferences" Id="{7e0f46e5-1712-0fd2-084d-d6fe8737dc5c}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC IsLinkedReferences : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (SUPER^.IsLinkedReferences () AND __ISVALIDREF (THIS^.refstBaseComponentDataHMI)) THEN
+	IsLinkedReferences			:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

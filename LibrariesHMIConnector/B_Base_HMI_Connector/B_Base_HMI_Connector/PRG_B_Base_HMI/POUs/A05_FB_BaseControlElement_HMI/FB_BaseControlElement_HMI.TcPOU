@@ -14,6 +14,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="WiazanieZmiennych" Id="{d59cbb33-4872-0c07-2f02-56b2cb96f021}" />
     <Method Name="AddComponent" Id="{d792cffc-9654-05bf-1253-a43b4835c74a}">
       <Declaration><![CDATA[METHOD PROTECTED AddComponent : BOOL
 VAR_INPUT
@@ -28,6 +29,58 @@ END_VAR
 ELSE
 	;//zwrocenie zbyt dużo komponentow
 END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsLinkedReferences" Id="{dc1a6837-3c44-0bee-3b81-e102a455fb15}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC IsLinkedReferences : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (SUPER^.IsLinkedReferences () AND __ISVALIDREF (THIS^.refstBaseControlElementDataHMI)) THEN
+	IsLinkedReferences			:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsValidCommonData" Id="{a445a680-745f-0343-03ff-c574404161a6}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC IsValidCommonData : BOOL
+VAR_INPUT
+END_VAR
+
+VAR
+	bResult: BOOL;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult						:= SUPER^.IsValidCommonData ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	bResult					:= bResult AND THIS^.arrComponent [iI].IsValidCommonData ();
+END_FOR
+
+IsValidCommonData			:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkCommonData" Id="{d5df75cc-0805-00ee-3cc4-35bd7d2ef134}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
+VAR_INPUT
+	stCommonData				: REFERENCE TO ST_BaseCommonData;
+END_VAR
+VAR
+	bResult						: BOOL;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult							:= SUPER^.LinkCommonData (stCommonData := stCommonData);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	bResult := bResult AND THIS^.arrComponent [iI].LinkCommonData (stCommonData := stCommonData);
+END_FOR
+
+LinkCommonData					:= bResult;
 ]]></ST>
       </Implementation>
     </Method>

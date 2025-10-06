@@ -195,7 +195,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsInit" Id="{ff032025-bb47-0541-2e34-4756feab4ddd}">
+    <Method Name="IsInit" Id="{ff032025-bb47-0541-2e34-4756feab4ddd}" FolderPath="WiazanieZmiennych\">
       <Declaration><![CDATA[(*			
 	RAFALOS
 	Rafał Osajda		23.09.2025		TC 4024.66
@@ -210,7 +210,19 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsValidData" Id="{f2f46b20-d299-05ed-341f-5d54b19130b7}">
+    <Method Name="IsLinkedReferences" Id="{0bb5653a-e044-0c0e-035c-5823debef6f0}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC IsLinkedReferences : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI)) THEN
+	IsLinkedReferences			:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsValidData" Id="{f2f46b20-d299-05ed-341f-5d54b19130b7}" FolderPath="WiazanieZmiennych\">
       <Declaration><![CDATA[(*			
 	RAFALOS
 	Rafał Osajda		23.09.2025		TC 4024.66

@@ -181,6 +181,8 @@ END_VAR]]></Declaration>
 	
 	GVL_VariableHMI.fbPB1_HMI.LinkTopElementData (stData := gvl.stTopElementData);
 	
+	AssertTrue (Condition := GVL_VariableHMI.fbPB1_HMI.IsValidCommonData (), Message := 'T02 - bledna flaga podlaczenia danych wspólnych');
+	
 	TcUnit.TEST_FINISHED ();
 END_IF]]></ST>
       </Implementation>

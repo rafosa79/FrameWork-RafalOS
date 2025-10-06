@@ -13,6 +13,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="WiazanieZmiennych" Id="{4dfffb3d-2831-0778-0d83-d737d6645326}" />
     <Method Name="AddControlElement" Id="{76a032d3-46d3-05c1-2da2-40ea71aff009}">
       <Declaration><![CDATA[METHOD PROTECTED AddControlElement : BOOL
 VAR_INPUT
@@ -27,6 +28,58 @@ END_VAR
 ELSE
 	;//zwrocenie zbyt dużo komponentow
 END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsLinkedReferences" Id="{10415db9-e9ae-0eda-0306-424e71472c92}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC IsLinkedReferences : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (SUPER^.IsLinkedReferences () AND __ISVALIDREF (THIS^.refstBaseGroupElementDataHMI)) THEN
+	IsLinkedReferences			:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsValidCommonData" Id="{5d939d1c-53e8-00ed-38cd-40de2c94258f}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC IsValidCommonData : BOOL
+VAR_INPUT
+END_VAR
+
+VAR
+	bResult: BOOL;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult						:= SUPER^.IsValidCommonData ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	bResult					:= bResult AND THIS^.arrControlElement [iI].IsValidCommonData ();
+END_FOR
+
+IsValidCommonData			:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkCommonData" Id="{22a632e2-05dc-0cea-3d80-261c3ce0e978}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
+VAR_INPUT
+	stCommonData				: REFERENCE TO ST_BaseCommonData;
+END_VAR
+VAR
+	bResult						: BOOL;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult							:= SUPER^.LinkCommonData (stCommonData := stCommonData);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	bResult := bResult AND THIS^.arrControlElement [iI].LinkCommonData (stCommonData := stCommonData);
+END_FOR
+
+LinkCommonData					:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
