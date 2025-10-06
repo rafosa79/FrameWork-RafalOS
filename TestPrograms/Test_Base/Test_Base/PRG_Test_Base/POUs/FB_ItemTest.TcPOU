@@ -13,7 +13,7 @@ T04_TestSetIditem ();
 T05_TestSetCodeItem ();
 T06_TestEventsAdd ();
 T07_TestLinkData ();
-//T08_TestGenerateListEvent ();
+T08_TestGenerateListEvent ();
 ]]></ST>
     </Implementation>
     <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">

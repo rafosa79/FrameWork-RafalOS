@@ -3,11 +3,26 @@
   <POU Name="FB_Component" Id="{2de1b166-2e29-435f-8ec0-de550667ad0a}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Component EXTENDS FB_BaseComponent IMPLEMENTS ITF_Component, ITF_Component_HMI_Init
 VAR
-	
+	bSetAlarm		: BOOL;
+	bSetError1		: BOOL;
+	bSetError2		: BOOL;
+	sttmpEvent		: ST_BaseEvents_RowInQueue;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[IF (bSetAlarm) THEN
+	bSetAlarm		:= FALSE;
+	
+END_IF
+IF (bSetError1) THEN
+	bSetError1		:= FALSE;
+	
+END_IF
+IF (bSetError2) THEN
+	bSetError2		:= FALSE;
+	
+END_IF
+]]></ST>
     </Implementation>
     <Folder Name="Events" Id="{7bb4e45e-1048-4dff-a472-983f58eabfc3}" />
     <Method Name="EventsDefinition" Id="{a55dd4c8-65f3-4ae1-b770-b8a090b813df}" FolderPath="Events\">
@@ -38,7 +53,7 @@ fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie kom
 fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie komponentu 2 DE");
 THIS^.AddEvent (
 	bIgnoreRepetitions		:= TRUE,
-	eEventCategory			:= E_BaseEvents_Category.ALARM,
+	eEventCategory			:= E_BaseEvents_Category.Error,
 	bConfirm				:= FALSE,
 	stDescription			:= fbName.GetTexts ()
 );
@@ -48,8 +63,8 @@ fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie kom
 fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie komponentu 3 DE");
 THIS^.AddEvent (
 	bIgnoreRepetitions		:= TRUE,
-	eEventCategory			:= E_BaseEvents_Category.ALARM,
-	bConfirm				:= FALSE,
+	eEventCategory			:= E_BaseEvents_Category.Error,
+	bConfirm				:= TRUE,
 	stDescription			:= fbName.GetTexts ()
 );
 ]]></ST>
