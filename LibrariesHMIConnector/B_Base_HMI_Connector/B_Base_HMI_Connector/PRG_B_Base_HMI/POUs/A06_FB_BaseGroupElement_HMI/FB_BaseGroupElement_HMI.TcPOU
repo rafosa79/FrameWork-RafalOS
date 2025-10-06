@@ -5,10 +5,30 @@
 VAR
 	itfBaseGroupElementConnector		: ITF_BaseGroupElement_HMI_Connector;
 	refstBaseGroupElementDataHMI		: REFERENCE TO ST_BaseGroupElement_HMI;
+	(*	lista elementów składających się na ten element w elemencie docelowym dodać itf dla konkretnych elementów	*)
+	arrControlElement					: ARRAY [1..GVL_BaseConstans.MAX_ITEM_PER_ELEMENT] OF ITF_BaseControlElement_HMI;
+	uiNumberOfControlElement			: UINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="AddControlElement" Id="{76a032d3-46d3-05c1-2da2-40ea71aff009}">
+      <Declaration><![CDATA[METHOD PROTECTED AddControlElement : BOOL
+VAR_INPUT
+	itfControlElementHMI		: ITF_BaseControlElement_HMI;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.uiNumberOfControlElement + 1 <= GVL_BaseConstans.MAX_ITEM_PER_ELEMENT) THEN
+	THIS^.uiNumberOfControlElement		:= THIS^.uiNumberOfControlElement + 1;
+	THIS^.arrControlElement [THIS^.uiNumberOfControlElement]	:= itfControlElementHMI;
+	AddControlElement			:= TRUE;
+ELSE
+	;//zwrocenie zbyt dużo komponentow
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

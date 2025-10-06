@@ -52,6 +52,8 @@ END_VAR
 THIS^.refstBaseLoggerElementDataHMI	REF= stData.stBaseLoggerElement;
 THIS^.refstBaseComponentDataHMI		REF= stData.stBaseComponent;
 
+THIS^.CreateLinkToEventsMemory ();
+
 IF (__ISVALIDREF (THIS^.refstComponentData) AND
 	__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI) AND
 	__ISVALIDREF (THIS^.refstBaseComponentDataHMI) ) THEN

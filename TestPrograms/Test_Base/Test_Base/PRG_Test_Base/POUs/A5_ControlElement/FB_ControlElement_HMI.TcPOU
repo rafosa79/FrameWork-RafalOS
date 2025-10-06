@@ -36,7 +36,9 @@ THIS^.itfBaseControlElementConnector	:= itfControlElementConnector;
 THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
 //
 THIS^.itfComponent1						:= itfComponent1;
+THIS^.AddComponent (itfComponentHMI		:= itfComponent1);
 THIS^.itfComponent2						:= itfComponent2;
+this^.AddComponent (itfComponentHMI		:= itfComponent2);
 
 IF (THIS^.itfControlElementConnector <> 0 AND
 	THIS^.itfBaseLoggerElementConnector <> 0 AND
@@ -60,6 +62,11 @@ END_VAR
 THIS^.refstBaseLoggerElementDataHMI	REF= stData.stBaseLoggerElement;
 THIS^.refstBaseComponentDataHMI		REF= stData.stBaseComponent;
 THIS^.refstBaseControlElementDataHMI	REF= stData.stBaseControlElement;
+
+THIS^.itfComponent1.LinkComponentData (stData := stData.stComponent1);
+THIS^.itfComponent2.LinkComponentData (stData := stData.stComponent2);
+
+THIS^.CreateLinkToEventsMemory ();
 
 IF (__ISVALIDREF (THIS^.refstControlElementData) AND
 	__ISVALIDREF (THIS^.refstBaseLoggerElementDataHMI) AND

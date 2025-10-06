@@ -15,6 +15,7 @@
     <Implicit_KindOfTask>{ad03df1c-ba23-4984-b154-fd4f3af78c70}</Implicit_KindOfTask>
     <Implicit_Jitter_Distribution>{0d02c480-6af5-436a-bcfc-43f2127ac279}</Implicit_Jitter_Distribution>
     <LibraryReferences>{762d21b8-b5b8-40d3-b4de-0909af2f8a74}</LibraryReferences>
+    <Released>false</Released>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GVLs\GVL.TcGVL">
@@ -141,12 +142,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A7_TopElement\ST_TopElement_HMI_Link.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_BaseTest.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_ElementTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_ItemTest.TcPOU">
