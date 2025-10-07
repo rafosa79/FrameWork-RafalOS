@@ -15,6 +15,17 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="JoinTheLogger" Id="{6452dc54-6621-0a82-3e77-69f38e77752f}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		07.10.2025		TC 4024.66
+	Dodpisywanie się do listy logera
+*)
+METHOD PUBLIC JoinTheLogger : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="LinkCommonData" Id="{a28b3732-9a1a-0508-12b7-66129c063dab}">
       <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
 VAR_INPUT

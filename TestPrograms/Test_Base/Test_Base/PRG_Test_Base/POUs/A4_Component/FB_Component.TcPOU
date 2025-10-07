@@ -6,21 +6,103 @@ VAR
 	bSetAlarm		: BOOL;
 	bSetError1		: BOOL;
 	bSetError2		: BOOL;
-	sttmpEvent		: ST_BaseEvents_RowInQueue;
+	bResetAlarm		: BOOL;
+	bResetError1	: BOOL;
+	bResetError2	: BOOL;
+	bAckAlarm		: BOOL;
+	bAckError1		: BOOL;
+	bAckError2		: BOOL;
+
+	bSetAlarm2		: BOOL;
+	bSetError3		: BOOL;
+	bSetError4		: BOOL;
+	bResetAlarm2	: BOOL;
+	bResetError3	: BOOL;
+	bResetError4	: BOOL;
+	bAckAlarm2		: BOOL;
+	bAckError3		: BOOL;
+	bAckError4		: BOOL;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF (bSetAlarm) THEN
 	bSetAlarm		:= FALSE;
-	
+	THIS^.EventSetActive (iNumber := 1);
 END_IF
 IF (bSetError1) THEN
 	bSetError1		:= FALSE;
-	
+	THIS^.EventSetActive (iNumber := 2);
 END_IF
 IF (bSetError2) THEN
 	bSetError2		:= FALSE;
-	
+	THIS^.EventSetActive (iNumber := 3);
+END_IF
+//
+IF (bResetAlarm) THEN
+	bResetAlarm		:= FALSE;
+	THIS^.EventSetInactive (iNumber := 1);
+END_IF
+IF (bResetError1) THEN
+	bResetError1		:= FALSE;
+	THIS^.EventSetInactive (iNumber := 2);
+END_IF
+IF (bResetError2) THEN
+	bResetError2		:= FALSE;
+	THIS^.EventSetInactive (iNumber := 3);
+END_IF
+//
+IF (bAckAlarm) THEN
+	bAckAlarm		:= FALSE;
+	THIS^.EventAcknowledge (iNumber := 1);
+END_IF
+IF (bAckError1) THEN
+	bAckError1		:= FALSE;
+	THIS^.EventAcknowledge (iNumber := 2);
+END_IF
+IF (bAckError2) THEN
+	bAckError2		:= FALSE;
+	THIS^.EventAcknowledge (iNumber := 3);
+END_IF
+
+
+IF (bSetAlarm2) THEN
+	bSetAlarm2		:= FALSE;
+	THIS^.EventSetActive (iNumber := 4);
+END_IF
+IF (bSetError3) THEN
+	bSetError3		:= FALSE;
+	THIS^.EventSetActive (iNumber := 5);
+END_IF
+IF (bSetError4) THEN
+	bSetError4		:= FALSE;
+	THIS^.EventSetActive (iNumber := 6);
+END_IF
+//
+IF (bResetAlarm2) THEN
+	bResetAlarm2		:= FALSE;
+	THIS^.EventSetInactive (iNumber := 4);
+END_IF
+IF (bResetError3) THEN
+	bResetError3		:= FALSE;
+	THIS^.EventSetInactive (iNumber := 5);
+END_IF
+IF (bResetError4) THEN
+	bResetError4		:= FALSE;
+	THIS^.EventSetInactive (iNumber := 6);
+END_IF
+//
+IF (bAckAlarm2) THEN
+	bAckAlarm2		:= FALSE;
+	THIS^.EventAcknowledge (iNumber := 4);
+END_IF
+IF (bAckError3) THEN
+	bAckError3		:= FALSE;
+	THIS^.EventAcknowledge (iNumber := 5);
+END_IF
+IF (bAckError4) THEN
+	bAckError4		:= FALSE;
+	THIS^.EventAcknowledge (iNumber := 6);
 END_IF
 ]]></ST>
     </Implementation>
@@ -61,6 +143,36 @@ THIS^.AddEvent (
 fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie komponentu 3 PL");
 fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie komponentu 3 EN");
 fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie komponentu 3 DE");
+THIS^.AddEvent (
+	bIgnoreRepetitions		:= TRUE,
+	eEventCategory			:= E_BaseEvents_Category.Error,
+	bConfirm				:= TRUE,
+	stDescription			:= fbName.GetTexts ()
+);
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie komponentu 4 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie komponentu 4 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie komponentu 4 DE");
+THIS^.AddEvent (
+	bIgnoreRepetitions		:= TRUE,
+	eEventCategory			:= E_BaseEvents_Category.ALARM,
+	bConfirm				:= FALSE,
+	stDescription			:= fbName.GetTexts ()
+);
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie komponentu 5 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie komponentu 5 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie komponentu 5 DE");
+THIS^.AddEvent (
+	bIgnoreRepetitions		:= TRUE,
+	eEventCategory			:= E_BaseEvents_Category.Error,
+	bConfirm				:= FALSE,
+	stDescription			:= fbName.GetTexts ()
+);
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie komponentu 6 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie komponentu 6 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie komponentu 6 DE");
 THIS^.AddEvent (
 	bIgnoreRepetitions		:= TRUE,
 	eEventCategory			:= E_BaseEvents_Category.Error,

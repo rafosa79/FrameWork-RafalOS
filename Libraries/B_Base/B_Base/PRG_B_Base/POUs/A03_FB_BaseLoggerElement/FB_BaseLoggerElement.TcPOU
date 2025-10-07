@@ -48,36 +48,8 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="EventAcknowledgeByID" Id="{d6ae372f-a167-0547-2911-1a7a4a3c6316}" FolderPath="Events\">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		09.06.2025		TC 4024.66
-	Szuka czy ma zgłoszenie i zadanym ID jak tak to usuwa i zwraca true w przeciwnym razie zwraca false 
-*)
-METHOD PUBLIC EventAcknowledgeByID : BOOL
-VAR_INPUT
-	uiIDEvent				: UINT;
-END_VAR
-
-VAR
-	iI: INT;
-	bResult: BOOL;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.stEvents.uiNumberOfAdded) DO
-	IF (THIS^.stEvents.arrDefinitions [iI].uiIDEvent = uiIDEvent AND THIS^.stEvents.arrDefinitions [iI].bConfirm) THEN	//Zgłoszenie znalezione
-		IF (THIS^.EventConfirmState (iNumber	:= iI)) THEN
-			bResult							:= TRUE;
-			EXIT;
-		END_IF
-	END_IF
-END_FOR
-EventAcknowledgeByID					:= bResult;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="EventConfirmState" Id="{97aef371-631d-0164-2cc9-de1694ec8bde}" FolderPath="Events\">
-      <Declaration><![CDATA[METHOD PROTECTED EventConfirmState : BOOL
+    <Method Name="EventAcknowledge" Id="{97aef371-631d-0164-2cc9-de1694ec8bde}" FolderPath="Events\">
+      <Declaration><![CDATA[METHOD PROTECTED EventAcknowledge : BOOL
 VAR_INPUT
 	iNumber				: INT;
 END_VAR
@@ -103,7 +75,35 @@ END_VAR
 		END_IF
 	END_IF	
 END_IF
-EventConfirmState					:= btmpExit;
+EventAcknowledge					:= btmpExit;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EventAcknowledgeByID" Id="{d6ae372f-a167-0547-2911-1a7a4a3c6316}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.06.2025		TC 4024.66
+	Szuka czy ma zgłoszenie i zadanym ID jak tak to usuwa i zwraca true w przeciwnym razie zwraca false 
+*)
+METHOD PUBLIC EventAcknowledgeByID : BOOL
+VAR_INPUT
+	uiIDEvent				: UINT;
+END_VAR
+
+VAR
+	iI: INT;
+	bResult: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.stEvents.uiNumberOfAdded) DO
+	IF (THIS^.stEvents.arrDefinitions [iI].uiIDEvent = uiIDEvent AND THIS^.stEvents.arrDefinitions [iI].bConfirm) THEN	//Zgłoszenie znalezione
+		IF (THIS^.EventAcknowledge (iNumber	:= iI)) THEN
+			bResult							:= TRUE;
+			EXIT;
+		END_IF
+	END_IF
+END_FOR
+EventAcknowledgeByID					:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
@@ -275,6 +275,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[	(*	Zdefiniowanie zdarzeń dla elementu	*)
 THIS^.EventsDefinition ();
+(* sprawdzenie czy jest podłaczony loger	*)
+THIS^.stEvents.bLoggerDataCompleted	:= THIS^.refstCommonData.itfLogger <> 0;
 
 FirstCycle					:= TRUE;
 ]]></ST>

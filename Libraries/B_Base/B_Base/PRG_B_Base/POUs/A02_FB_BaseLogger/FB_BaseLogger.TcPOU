@@ -43,7 +43,7 @@ END_IF
     </Implementation>
     <Folder Name="ITF_BaseLogger" Id="{c54055ab-2569-0322-10a1-be1e8232e254}" />
     <Folder Name="ITF_BaseLogger_HMI_Connector" Id="{58ae1150-aaab-05cc-1931-89d90fea9543}" />
-    <Method Name="AddItem" Id="{4e41a193-1126-0b14-2759-d72b294fb741}">
+    <Method Name="AddItem" Id="{4e41a193-1126-0b14-2759-d72b294fb741}" FolderPath="ITF_BaseLogger\">
       <Declaration><![CDATA[METHOD PUBLIC AddItem : INT
 VAR_INPUT
 	itfItem				: ITF_BaseLogger_Item;
@@ -107,7 +107,7 @@ END_VAR]]></Declaration>
 
 FOR iI := 1 TO TO_INT (THIS^.stMemory.iNumberOfRow) DO 
 	IF (THIS^.stMemory.arrRow [iI].uiIDEvent = THIS^.stBuffer.arrEvents [1].uiIDEvent AND
-    	((THIS^.stMemory.arrRow [iI].bConfirm AND NOT THIS^.stMemory.arrRow [iI].bConfirmed) OR NOT THIS^.stMemory.arrRow [iI].bConfirm)) THEN
+    	(THIS^.stMemory.arrRow [iI].bConfirm AND NOT THIS^.stMemory.arrRow [iI].bConfirmed)) THEN
 		THIS^.stMemory.arrRow [iI].bConfirmed	:= TRUE;
 		THIS^.stMemory.arrRow [iI].dtConfirmed	:= THIS^.stBuffer.arrEvents [1].dtConfirmed;
 		THIS^.ReduceTheNumberOfConfirmations ();

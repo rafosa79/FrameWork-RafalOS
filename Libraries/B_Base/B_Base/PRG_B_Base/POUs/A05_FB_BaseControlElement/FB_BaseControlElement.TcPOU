@@ -86,6 +86,31 @@ IsValidCommonData			:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="JoinTheLogger" Id="{6f6c3a2f-1ef9-0d75-3b9a-48c4bdd1460d}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		07.10.2025		TC 4024.66
+	Dodpisywanie się do listy logera
+*)
+METHOD PUBLIC JoinTheLogger : BOOL
+VAR_INPUT
+END_VAR
+
+VAR
+	bResult: BOOL;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult			:= SUPER^.JoinTheLogger ();
+
+FOR iI := 1 TO  TO_INT (THIS^.uiNumberOfComponents) DO
+	bResult 	:= bResult AND THIS^.arrComponent [iI].JoinTheLogger ();
+END_FOR
+
+JoinTheLogger	:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="LinkCommonData" Id="{b42470a5-2d5d-0208-37a9-226f0cd025bb}" FolderPath="WiazanieZmiennych\">
       <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
 VAR_INPUT
