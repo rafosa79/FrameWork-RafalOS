@@ -53,7 +53,9 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (THIS^.bIsValidCommonData) THEN
-	THIS^.refstCommonData.itfLogger.AddItem (itfItem := THIS^);
+	IF (THIS^.refstCommonData.itfLogger.AddItem (itfItem := THIS^) > 0 ) THEN
+		JoinTheLogger		:= TRUE;
+	END_IF
 END_IF
 ]]></ST>
       </Implementation>

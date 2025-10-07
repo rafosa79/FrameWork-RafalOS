@@ -60,6 +60,7 @@ VAR
 	iNumberOfNotActive		: INT;
 	iNumerToConfirmed		: INT;
 	arrNumberByCategory		: ARRAY  [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;
+	iK: INT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[(*
@@ -68,6 +69,7 @@ END_VAR]]></Declaration>
 
 *)
 IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
+
 	refstMemory				REF= THIS^.refstMemoryEvents;
 	refstListToDisplay		REF= THIS^.refstBaseLoggerElementDataHMI.arrListOfEventsToDisplay;
 	refstFilter				REF= THIS^.refstBaseLoggerElementDataHMI.stFilter;
@@ -98,18 +100,16 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 				bUsunZListy		:= bUsunZListy OR (refstFilter.bNotActive AND stRowFromMemory.bActive);
 				bUsunZListy		:= bUsunZListy OR (refstFilter.bIDItem	AND stRowFromMemory.uiIDItem <> refstFilter.uiIDItem);
 				bUsunZListy		:= bUsunZListy OR (refstFilter.bIDEvent AND stRowFromMemory.uiIDEvent <> refstFilter.uiIDEvent);
-		
-
-				FOR iI := 1 TO GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES DO
-					CASE iI OF 
+				FOR iK := 1 TO GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES DO
+					CASE iK OF 
 						E_BaseEvents_Category.Error		: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Error;
 						E_BaseEvents_Category.Alarm		: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Alarm;
 						E_BaseEvents_Category.Safety	: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Safety;
 						E_BaseEvents_Category.Message	: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Message;
 					END_CASE
-					bUsunZListy		:= bUsunZListy OR (refstFilter.arrSelectedEventCategory [iI] AND btmpUsunZListy);
+					bUsunZListy		:= bUsunZListy OR (refstFilter.arrSelectedEventCategory [iK] AND btmpUsunZListy);
 				END_FOR
-		//przeddział czasowy
+				//przeddział czasowy
 				IF (NOT bUsunZListy) THEN
 					refstListToDisplay.iNumberOfRow		:= refstListToDisplay.iNumberOfRow + 1;
 //					IF (refstLista.uiIDZgloszeniaWybrany = stWiersz.uiIDZgloszenia AND NOT refstListToDisplay.bSelected) THEN
@@ -125,18 +125,18 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bConfirm				:= stRowFromMemory.bConfirm;
 					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bConfirmed			:= stRowFromMemory.bConfirmed;
 			
-(*					THIS^.refstDane.arrDoWyswietlenia [iI_Wyswietlanych].sStart					:= THIS^.itfCzas.Konwertuj_DT_String (inDT := stWiersz.dtStart);  //DELETE (TO_STRING (stWiersz.dtStart), 3, 1);
-					IF (TO_STRING (stWiersz.dtZatwierdzenie) <> 'DT#1970-01-01-00:00:00') THEN
-						THIS^.refstDane.arrDoWyswietlenia [iI_Wyswietlanych].sZatwierdzenie		:= THIS^.itfCzas.Konwertuj_DT_String (inDT := stWiersz.dtZatwierdzenie);	// DELETE (TO_STRING (stWiersz.dtZatwierdzenie), 3, 1);
+					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sStart				:= THIS^.refstCommonData.itfTime.BaseDTToString (inDT := stRowFromMemory.dtStart);
+					IF (TO_STRING (stRowFromMemory.dtConfirmed) <> 'DT#1970-01-01-00:00:00') THEN
+						refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sConfirmed		:= THIS^.refstCommonData.itfTime.BaseDTToString (inDT := stRowFromMemory.dtConfirmed);
 					ELSE
-						THIS^.refstDane.arrDoWyswietlenia [iI_Wyswietlanych].sZatwierdzenie		:= '';
+						refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sConfirmed		:= '';
 					END_IF
-					IF (TO_STRING (TO_STRING (stWiersz.dtKoniec)) <> 'DT#1970-01-01-00:00:00') THEN
-						THIS^.refstDane.arrDoWyswietlenia [iI_Wyswietlanych].sKoniec			:= THIS^.itfCzas.Konwertuj_DT_String (inDT := stWiersz.dtKoniec);	//DELETE (TO_STRING (TO_STRING (stWiersz.dtKoniec)), 3, 1);
+					IF (TO_STRING (TO_STRING (stRowFromMemory.dtFinish)) <> 'DT#1970-01-01-00:00:00') THEN
+						refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sFinish			:= THIS^.refstCommonData.itfTime.BaseDTToString (inDT := stRowFromMemory.dtFinish);
 					ELSE
-						THIS^.refstDane.arrDoWyswietlenia [iI_Wyswietlanych].sKoniec			:= '';
+						refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sFinish			:= '';
 					END_IF
-*)
+
 					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sEventCategory		:= stItemInformation.sEventCategory; 
 					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].uiRepetitionCounter	:= stItemInformation.uiRepetitionCounter;
 					wstmpDescriptionFull		:= THIS^.GetTextFromLabel (stLabel	:= stItemInformation.stDescription);
@@ -162,11 +162,11 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 					END_IF
 					arrNumberByCategory [stItemInformation.eEventCategory]	:= arrNumberByCategory [stItemInformation.eEventCategory] + 1;
 				END_IF
-
 			END_IF
 		END_FOR
 	END_IF
-END_IF]]></ST>
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetTextFromLabel" Id="{a9b62345-93c3-08b6-28c4-c9ac0ac3d039}">

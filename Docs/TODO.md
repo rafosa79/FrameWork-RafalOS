@@ -1,6 +1,6 @@
 Do zrobienia cały serwis
 
-metody w logerelement dotyczące zgłasznia gotowe dodać w testach wywoływanie tych metod i przetestować czy w pamięci się zmienia i w kolejce następnie mozna zabrać się za wywoływanie listy zdarzeń dla elementów i dla wszystkiego 
+metoda przygotowywania listy działa teraz dodać obsługe czasu w niej dobre formatownie i filtry oraz testy a następnie zamykanie i potwierdzanie zgłoszeń i potem przetestować filtry 
 
 1. -> wywołać z loggerlement metodę przygotowanie listy zgłoszeń dla elemntu i dla wszystkich z parametrem 0
 2. -> dodać możliwość filtrowania
