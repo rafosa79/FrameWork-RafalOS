@@ -4,7 +4,7 @@
     <Declaration><![CDATA[TYPE ST_BaseLoggerElement_HMI :
 STRUCT
 	stFilter						: ST_BaseHMIConnectorEvents_Filter;
-	arrListOfEventsToDisplay		: ST_BaseHMIConnectorEvents_ListToDisplay;
+	stListOfEventsToDisplay			: ST_BaseHMIConnectorEvents_ListToDisplay;
 	stButtons						: ST_BaseHMIConnectorEvents_ActionButtuns;
 	bSelected						: BOOL;
 	iSelectedRow					: INT;

@@ -405,6 +405,8 @@ END_VAR
 	GVL.fbLogger ();
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_K1.bResetAlarm2), Value := TRUE);
 	GVL_Variable.fbPB1_K1 ();
+	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_Wyk1_K1.bResetAlarm2), Value := TRUE);
+	GVL_Variable.fbPB1_Wyk1_K1 ();
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_K1.bSetError1), Value := TRUE);
 	GVL_Variable.fbPB1_K1 ();
 	GVL.fbLogger ();
@@ -421,7 +423,55 @@ END_VAR
       <Implementation>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T11_TestGenerateListEvent')) THEN
 	GVL_VariableHMI.fbPB1_K1_HMI.GetYourEventTable ();
+	AssertEquals_INT (Expected := 7, Actual := GVL.fbLogger.arrNumberOfReportsForItem [2].iTotalNumer, Message := 'T01 - bledna ilosc zgloszen');
+	AssertEquals_INT (Expected := 3, Actual := GVL.fbLogger.arrNumberOfReportsForItem [2].iNumberOfActive, Message := 'T02 - bledna ilosc zgloszen aktywnych');
+	AssertTrue (Condition := GVL.fbLogger.arrNumberOfReportsForItem [2].bIsActive, Message := 'T03 - bledny stan aktywnosci');
+	AssertTrue (Condition := GVL.fbLogger.arrNumberOfReportsForItem [2].bIsActiveWithConfirmation, Message := 'T04 - bledny stan do potwierdzenia');
+	
+	AssertEquals_INT (Expected := 3, Actual := GVL.fbLogger.arrNumberOfReportsForItem [2].arrNumberOfActive [1], Message := 'T05 - bledna ilosc zgloszen');
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbLogger.arrNumberOfReportsForItem [2].arrNumberOfActive [2], Message := 'T06 - bledna ilosc zgloszen');
+	AssertTrue (Condition := GVL.fbLogger.arrNumberOfReportsForItem [2].arrActive [1], Message := 'T07 - bledny stan');
+	AssertFalse (Condition := GVL.fbLogger.arrNumberOfReportsForItem [2].arrActive [2], Message := 'T08 - bledny stan');
+	
+	AssertEquals_INT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.iNumberOfRow , Message := 'T10 - bledna ilosc do wyswietlenia');
+	AssertEquals_UINT (Expected := 5, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [1].uiIDEvent , Message := 'T10 - [01] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [2].uiIDEvent , Message := 'T10 - [02] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 6, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [3].uiIDEvent , Message := 'T10 - [03] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [4].uiIDEvent , Message := 'T10 - [04] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 6, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [5].uiIDEvent , Message := 'T10 - [05] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 4, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [6].uiIDEvent , Message := 'T10 - [06] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 4, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [7].uiIDEvent , Message := 'T10 - [07] - Bledny ID zdarzenia');
+	
+//tylko aktywne	
+	GVL.stTopElementData.stComponent1.stBaseLoggerElement.stFilter.bActive	:= TRUE;
+	GVL_VariableHMI.fbPB1_K1_HMI.GetYourEventTable ();
+	AssertEquals_INT (Expected := 3, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.iNumberOfRow , Message := 'T11 - bledna ilosc do wyswietlenia');
+	AssertEquals_UINT (Expected := 5, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [1].uiIDEvent , Message := 'T11 - [01] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [2].uiIDEvent , Message := 'T11 - [02] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 6, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [3].uiIDEvent , Message := 'T11 - [03] - Bledny ID zdarzenia');
+	
+//tylko nie aktywne	
+	GVL.stTopElementData.stComponent1.stBaseLoggerElement.stFilter.bActive	:= FALSE;
+	GVL.stTopElementData.stComponent1.stBaseLoggerElement.stFilter.bNotActive	:= TRUE;	
+	GVL_VariableHMI.fbPB1_K1_HMI.GetYourEventTable ();
+	AssertEquals_INT (Expected := 4, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.iNumberOfRow , Message := 'T12 - bledna ilosc do wyswietlenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [1].uiIDEvent , Message := 'T12 - [01] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 6, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [2].uiIDEvent , Message := 'T12 - [02] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 4, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [3].uiIDEvent , Message := 'T12 - [03] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 4, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [4].uiIDEvent , Message := 'T12 - [04] - Bledny ID zdarzenia');
 
+	GVL.stTopElementData.stComponent1.stBaseLoggerElement.stFilter.bNotActive	:= FALSE;	
+	GVL_VariableHMI.fbPB1_K1_HMI.GetYourEventTable ();
+	AssertEquals_INT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.iNumberOfRow , Message := 'T13 - bledna ilosc do wyswietlenia');
+	AssertEquals_UINT (Expected := 5, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [1].uiIDEvent , Message := 'T13 - [01] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [2].uiIDEvent , Message := 'T13 - [02] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 6, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [3].uiIDEvent , Message := 'T13 - [03] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [4].uiIDEvent , Message := 'T13 - [04] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 6, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [5].uiIDEvent , Message := 'T13 - [05] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 4, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [6].uiIDEvent , Message := 'T13 - [06] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 4, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [7].uiIDEvent , Message := 'T13 - [07] - Bledny ID zdarzenia');
+
+	
 	TcUnit.TEST_FINISHED ();
 END_IF]]></ST>
       </Implementation>

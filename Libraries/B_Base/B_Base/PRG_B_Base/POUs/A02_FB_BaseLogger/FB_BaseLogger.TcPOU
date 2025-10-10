@@ -19,7 +19,7 @@ END_VAR
 VAR PERSISTENT
 	stMemory						: ST_BaseEvents_Memory;			//zapamiętane zgłoszenia
 	stNumberOfReports				: ST_BaseEvents_ActiveEvents;	//ilości różnych zgłoszeń
-	arrNumberOfreportsPerItem		: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_ALL_ITEM] OF ST_BaseEvents_ActiveEvents;
+	arrNumberOfReportsForItem		: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_ALL_ITEM] OF ST_BaseEvents_ActiveEvents;
 	
 END_VAR
 ]]></Declaration>
@@ -36,6 +36,7 @@ IF (THIS^.bClearMemory) THEN
 	THIS^.bClearMemory				:= FALSE;
 	Tc2_System.MEMSET (destAddr := ADR (THIS^.stMemory), fillByte := 0, n := SIZEOF (THIS^.stMemory));
 	Tc2_System.MEMSET (destAddr := ADR (THIS^.stNumberOfReports), fillByte := 0, n	:= SIZEOF (THIS^.stNumberOfReports));
+	Tc2_System.MEMSET (destAddr := ADR (THIS^.arrNumberOfReportsForItem), fillByte := 0, n	:= SIZEOF (THIS^.arrNumberOfReportsForItem));
 END_IF
 ]]></ST>
     </Implementation>
@@ -106,9 +107,11 @@ FOR iI := 1 TO TO_INT (THIS^.stMemory.iNumberOfRow) DO
 		THIS^.stMemory.arrRow [iI].bConfirmed	:= TRUE;
 		THIS^.stMemory.arrRow [iI].dtConfirmed	:= THIS^.stBuffer.arrEvents [1].dtConfirmed;
 		THIS^.ReduceTheNumberOfConfirmations ();
+		THIS^.ReduceTheNumberOfConfirmationsForItem (uiIDItem := THIS^.stMemory.arrRow [iI].uiIDItem);
 		EXIT;
 	END_IF
-END_FOR]]></ST>
+END_FOR
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="BufferFIFOSupportStart" Id="{19eeb431-8176-061d-17ea-c2f43dedc551}">
@@ -124,7 +127,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[	(*	Aktualizacja lości wierszy pamiętanych	*)
-IF (THIS^.stMemory.iNumberOfRow + 1 >= TO_INT (GVL_BaseConstans.MAX_EVENTS_IN_MEMORY)) THEN
+IF (THIS^.stMemory.iNumberOfRow + 1 <= TO_INT (GVL_BaseConstans.MAX_EVENTS_IN_MEMORY)) THEN
 	THIS^.stMemory.iNumberOfRow			:= THIS^.stMemory.iNumberOfRow + 1;
 ELSE
 	THIS^.DecreaseTheNumberOfReports (stRow := THIS^.stMemory.arrRow [GVL_BaseConstans.MAX_EVENTS_IN_MEMORY]);
@@ -173,6 +176,7 @@ END_VAR]]></Declaration>
 		THIS^.stMemory.arrRow [iI].bActive		:= FALSE;
 		THIS^.stMemory.arrRow [iI].dtFinish		:= THIS^.stBuffer.arrEvents [1].dtFinish;
 		THIS^.ReduceTheNumberOfActiveEvents (eEventsCategory	:= THIS^.stMemory.arrRow [iI].eEventCategory);
+		THIS^.ReduceTheNumberOfActiveEventsForItem (uiIDItem := THIS^.stMemory.arrRow [iI].uiIDItem, eEventsCategory := THIS^.stMemory.arrRow [iI].eEventCategory);
 		EXIT;
 	END_IF
 END_FOR
@@ -319,17 +323,17 @@ END_VAR]]></Declaration>
 bConfirm					:= stRow.bConfirm;
 eEventsCategory				:= stRow.eEventCategory;
 
-THIS^.arrNumberOfreportsPerItem [uiIDItem].iNumberOfActive	:= THIS^.arrNumberOfreportsPerItem [uiIDItem].iNumberOfActive + 1;
-THIS^.arrNumberOfreportsPerItem [uiIDItem].bIsActive		:= TRUE;
+THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActive	:= THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActive + 1;
+THIS^.arrNumberOfReportsForItem [uiIDItem].bIsActive		:= TRUE;
 IF (bConfirm) THEN
-	THIS^.arrNumberOfreportsPerItem [uiIDItem].bIsActiveWithConfirmation		:= TRUE;
-	THIS^.arrNumberOfreportsPerItem [uiIDItem].iNumerOfActiveWithConfirmation	:= THIS^.arrNumberOfreportsPerItem [uiIDItem].iNumerOfActiveWithConfirmation + 1;
+	THIS^.arrNumberOfReportsForItem [uiIDItem].bIsActiveWithConfirmation		:= TRUE;
+	THIS^.arrNumberOfReportsForItem [uiIDItem].iNumerOfActiveWithConfirmation	:= THIS^.arrNumberOfReportsForItem [uiIDItem].iNumerOfActiveWithConfirmation + 1;
 END_IF
 
-THIS^.arrNumberOfreportsPerItem [uiIDItem].arrNumberOfActive [eEventsCategory]	:= THIS^.arrNumberOfreportsPerItem [uiIDItem].arrNumberOfActive [eEventsCategory] + 1;
-THIS^.arrNumberOfreportsPerItem [uiIDItem].iTotalNumer							:= THIS^.arrNumberOfreportsPerItem [uiIDItem].iTotalNumer + 1;
-THIS^.arrNumberOfreportsPerItem [uiIDItem].arrTotalNumer [eEventsCategory]		:= THIS^.arrNumberOfreportsPerItem [uiIDItem].arrTotalNumer [eEventsCategory] + 1;
-THIS^.arrNumberOfreportsPerItem [uiIDItem].arrActive [eEventsCategory]			:= THIS^.arrNumberOfreportsPerItem [uiIDItem].arrNumberOfActive [eEventsCategory] > 0;
+THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory]	:= THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory] + 1;
+THIS^.arrNumberOfReportsForItem [uiIDItem].iTotalNumer							:= THIS^.arrNumberOfReportsForItem [uiIDItem].iTotalNumer + 1;
+THIS^.arrNumberOfReportsForItem [uiIDItem].arrTotalNumer [eEventsCategory]		:= THIS^.arrNumberOfReportsForItem [uiIDItem].arrTotalNumer [eEventsCategory] + 1;
+THIS^.arrNumberOfReportsForItem [uiIDItem].arrActive [eEventsCategory]			:= THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory] > 0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -355,6 +359,29 @@ THIS^.stNumberOfReports.arrActive [eEventsCategory]			:= THIS^.stnumberOfReports
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="ReduceTheNumberOfActiveEventsForItem" Id="{9c14cf0f-9c0e-0496-100f-95996887e44c}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		12.06.2025		TC 4024.66
+	Zmniejsza ilosć aktywnych błędów
+*)
+METHOD PRIVATE ReduceTheNumberOfActiveEventsForItem : BOOL
+VAR_INPUT
+	uiIDItem			: UINT;
+	eEventsCategory		: E_BaseEvents_Category;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActive	:= THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActive - 1;
+IF (THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActive = 0) THEN
+	THIS^.arrNumberOfReportsForItem [uiIDItem].bIsActive	:= FALSE;
+END_IF
+
+THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory]	:= THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory] - 1;
+THIS^.arrNumberOfReportsForItem [uiIDItem].arrActive [eEventsCategory]			:= THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory] > 0;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="ReduceTheNumberOfConfirmations" Id="{d63962d3-9a36-0744-2bb5-feff8aca8d88}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -369,6 +396,25 @@ END_VAR
         <ST><![CDATA[THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation		:= THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation - 1;
 IF (THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation = 0) THEN
 	THIS^.stNumberOfReports.bIsActiveWithConfirmation	:= FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReduceTheNumberOfConfirmationsForItem" Id="{798c1226-2037-0978-2a55-8378cbdbcdee}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		12.06.2025		TC 4024.66
+	Zminiejsza ilość potwierdzeń w aktywnych błedach
+*)
+METHOD PRIVATE ReduceTheNumberOfConfirmationsForItem : BOOL
+VAR_INPUT
+	uiIDItem: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrNumberOfReportsForItem [uiIDItem].iNumerOfActiveWithConfirmation		:= THIS^.arrNumberOfReportsForItem [uiIDItem].iNumerOfActiveWithConfirmation - 1;
+IF (THIS^.arrNumberOfReportsForItem [uiIDItem].iNumerOfActiveWithConfirmation = 0) THEN
+	THIS^.arrNumberOfReportsForItem [uiIDItem].bIsActiveWithConfirmation	:= FALSE;
 END_IF
 ]]></ST>
       </Implementation>

@@ -119,7 +119,7 @@ END_VAR]]></Declaration>
 IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 
 	refstMemory				REF= THIS^.refstMemoryEvents;
-	refstListToDisplay		REF= THIS^.refstBaseLoggerElementDataHMI.arrListOfEventsToDisplay;
+	refstListToDisplay		REF= THIS^.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay;
 	refstFilter				REF= THIS^.refstBaseLoggerElementDataHMI.stFilter;
 	refstActionButtons		REF= THIS^.refstBaseLoggerElementDataHMI.stButtons;
 	bFilterIsActive			:= GetIsActiveFilter (refstFilter := refstFilter);		//sprawdzenie czy jest aktywny filtr
@@ -232,7 +232,7 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 //			THIS^.itfSPM.WylaczZgloszenieOID (uiIDZgloszenia			:= THIS^.refstDane.uiIDZgloszeniaWybrany);
 //		END_IF
 //	END_IF
-
+(*
 	IF (THIS^.refstBaseLoggerElementDataHMI.stButtons.bAcknowledgeAll) THEN //potwierdz wszystkie niepotwierdzone zgłoszenie
 		FOR iIAck := 1 TO TO_INT (refstListToDisplay.iNumberOfRow) DO
 			IF (refstListToDisplay.arrToDisplay [iIAck].bConfirm AND 
@@ -249,6 +249,7 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 		END_FOR
 	END_IF
 	
+	
 	THIS^.refstBaseLoggerElementDataHMI.bOdswierzListe		:= THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenie OR THIS^.refstDane.stPrzyciski.bZamknijZgloszenie OR
 															THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenia OR THIS^.refstDane.stPrzyciski.bZamknijZgloszenia;
 	THIS^.refstBaseLoggerElementDataHMI.bOdswierzInfo		:= THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenie OR THIS^.refstDane.stPrzyciski.bZamknijZgloszenie OR
@@ -257,6 +258,7 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 	refstActionButtons.bCloseSelected						:= FALSE;
 	refstActionButtons.bAcknowledgeAll						:= FALSE;
 	refstActionButtons.bCloseAll							:= FALSE;	
+*)
 END_IF
 ]]></ST>
       </Implementation>
