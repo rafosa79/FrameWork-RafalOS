@@ -1,6 +1,7 @@
 Do zrobienia cały serwis
 
-metoda przygotowywania listy działa teraz dodać obsługe czasu w niej dobre formatownie i filtry oraz testy a następnie zamykanie i potwierdzanie zgłoszeń i potem przetestować filtry 
+zamykanie i potwierdzanie zgłoszeń i potem przetestować filtry 
+wybieranie z listy i test czy jest info przepisane
 
 teksty na przyciskach filtra zdarzeń
 

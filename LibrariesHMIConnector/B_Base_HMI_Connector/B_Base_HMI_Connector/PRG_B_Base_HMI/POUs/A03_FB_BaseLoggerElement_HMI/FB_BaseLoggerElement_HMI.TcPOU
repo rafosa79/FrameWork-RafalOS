@@ -89,6 +89,9 @@ METHOD PUBLIC GetEventTableForIDItem : BOOL
 VAR_INPUT
 	uiIdItem				: UINT;
 END_VAR
+VAR_INST
+	bFilterIsActivePrevius	: BOOL;	
+END_VAR
 VAR
 	iI						: INT;
 	bFilterIsActive			: BOOL;
@@ -119,8 +122,10 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 	refstFilter				REF= THIS^.refstBaseLoggerElementDataHMI.stFilter;
 	refstActionButtons		REF= THIS^.refstBaseLoggerElementDataHMI.stButtons;
 	bFilterIsActive			:= GetIsActiveFilter (refstFilter := refstFilter);		//sprawdzenie czy jest aktywny filtr
+	
+	IF (THIS^.itfBaseLoggerConnector.GetChangeInMemory () OR bFilterIsActive OR bFilterIsActivePrevius) THEN
+		bFilterIsActivePrevius	:= bFilterIsActive;
 
-	IF (THIS^.itfBaseLoggerConnector.GetChangeInMemory () OR bFilterIsActive) THEN
 		THIS^.itfBaseLoggerConnector.ResetChangeInMemory ();
 		(*	Wyczyszczenie tablicy wyświetlania		*)
 		Tc2_System.MEMSET (
@@ -369,15 +374,24 @@ END_VAR
 
 VAR
 	iI: INT;
+	stmp1: STRING;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.refstBaseLoggerElementDataHMI.stButtons.sAcknowledgeAll		:= CONCAT (TO_STRING (stCounted.iNumberOfActiveWithConfirmation), CONCAT ('/',TO_STRING (stFromLogger.iNumberOfActiveWithConfirmation)));
+        <ST><![CDATA[stmp1	:= CONCAT (stmp1,TO_STRING (stCounted.iNumberOfActiveWithConfirmation));
+stmp1	:= CONCAT (stmp1, '/');
+stmp1	:= CONCAT (stmp1, TO_STRING (stFromLogger.iNumberOfActiveWithConfirmation));
+
+THIS^.refstBaseLoggerElementDataHMI.stButtons.sAcknowledgeAll		:= stmp1;
 THIS^.refstBaseLoggerElementDataHMI.stButtons.sAcknowledgeSelected	:= '1/1';
-THIS^.refstBaseLoggerElementDataHMI.stButtons.sCloseAll				:= CONCAT (TO_STRING (stCounted.iNumberOfActive), CONCAT ('/',TO_STRING (stFromLogger.iNumberOfActive)));
+
+stmp1	:= CONCAT ('',TO_STRING (stCounted.iNumberOfActive));
+stmp1	:= CONCAT (stmp1, '/');
+stmp1	:= CONCAT (stmp1, TO_STRING (stFromLogger.iNumberOfActive));
+THIS^.refstBaseLoggerElementDataHMI.stButtons.sCloseAll				:= stmp1;
 THIS^.refstBaseLoggerElementDataHMI.stButtons.sCloseSelected		:= '1/1';
 
 FOR iI := 1	TO GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES DO
-	THIS^.refstBaseLoggerElementDataHMI.stFilter.arrTextOnEventCategory [E_BaseEvents_Category.Error]	:= 
+	THIS^.refstBaseLoggerElementDataHMI.stFilter.arrTextOnEventCategory [iI]	:= 
 		CONCAT (TO_STRING (stCounted.arrTotalNumer [iI]), CONCAT ('/',TO_STRING (stFromLogger.arrTotalNumer [iI])));
 END_FOR
 ]]></ST>

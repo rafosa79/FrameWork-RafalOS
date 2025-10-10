@@ -319,15 +319,21 @@ VAR_INPUT
 END_VAR
 VAR
 	sttmpResult				: ST_BaseLogger_ItemDataToDisplay;
+	iI: INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[sttmpResult.stItemName		:= THIS^.stIdentifier.stName;
 sttmpResult.sCode			:= THIS^.stIdentifier.sCode;
-sttmpResult.stDescription	:= THIS^.stEvents.arrDefinitions [uiIDEvent].stDescription;
-sttmpResult.eEventCategory	:= THIS^.stEvents.arrDefinitions [uiIDEvent].eEventCategory;
-sttmpResult.sEventCategory	:= TO_STRING (THIS^.stEvents.arrDefinitions [uiIDEvent].eEventCategory);
-sttmpResult.uiRepetitionCounter	:= THIS^.stEvents.arrDefinitions [uiIDEvent].uiRepetitionCounter;
+FOR iI := 1 TO TO_INT (THIS^.stEvents.uiNumberOfAdded) DO 
+	IF (THIS^.stEvents.arrDefinitions [iI].uiIDEvent = uiIDEvent) THEN
+		sttmpResult.stDescription	:= THIS^.stEvents.arrDefinitions [iI].stDescription;
+		sttmpResult.eEventCategory	:= THIS^.stEvents.arrDefinitions [iI].eEventCategory;
+		sttmpResult.sEventCategory	:= TO_STRING (THIS^.stEvents.arrDefinitions [iI].eEventCategory);
+		sttmpResult.uiRepetitionCounter	:= THIS^.stEvents.arrDefinitions [iI].uiRepetitionCounter;
+		EXIT;
+	END_IF
+END_FOR
 
 GetInformationToDisplayEvent	:= sttmpResult;
 ]]></ST>
