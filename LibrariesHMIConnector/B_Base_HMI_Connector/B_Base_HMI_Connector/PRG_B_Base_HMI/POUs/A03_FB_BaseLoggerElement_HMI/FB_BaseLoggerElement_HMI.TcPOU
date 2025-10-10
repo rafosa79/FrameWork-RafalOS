@@ -12,7 +12,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[ ]]></ST>
     </Implementation>
     <Folder Name="ITF_BaseLoggerElement_HMI" Id="{490d29d6-def9-07f2-16cf-bb21a6440bb9}" />
     <Folder Name="WiazanieZmiennych" Id="{4d450796-b575-0397-39db-94123d6241c4}" />
@@ -101,12 +101,8 @@ VAR
 	stRowFromMemory			: ST_BaseEvents_RowInMemory;
 	stItemInformation		: ST_BaseLogger_ItemDataToDisplay;
 (*	Ilosci zdarzen wyswietlanych na liscie	*)
-	iNumerOfEvents			: INT;
-	iNumerOfActive			: INT;
-	iNumberOfNotActive		: INT;
-	iNumerToConfirmed		: INT;
-	arrNumberByCategory		: ARRAY  [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;
-	arrActiveByCategory		: ARRAY  [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;
+	stNumberEventToDisplay	: ST_BaseEvents_ActiveEvents;
+//
 	iIAck: INT;
 	iIClose: INT;
 END_VAR]]></Declaration>
@@ -136,7 +132,7 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 		FOR iI := 1 TO refstMemory.iNumberOfRow DO
 			IF (uiIdItem = refstMemory.arrRow [iI].uiIDItem OR uiIdItem = 0) THEN
 				stRowFromMemory			:= refstMemory.arrRow [iI];
-				stItemInformation		:= THIS^.itfBaseLoggerConnector.GetIfmormationFromItem (uiIDItem := uiIdItem, uiIDEvent := stRowFromMemory.uiIDEvent);
+				stItemInformation		:= THIS^.itfBaseLoggerConnector.GetInformationFromItem (uiIDItem := uiIdItem, uiIDEvent := stRowFromMemory.uiIDEvent);
 				bUsunZListy		:= THIS^.RemoveRowFormList (
 										refstFilter 		:= refstFilter, 
 										uiIDEvent 			:= stRowFromMemory.uiIDEvent, 
@@ -153,28 +149,39 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 						stItemInformation				:= stItemInformation
 					);
 	(*	Informacja o ilosciach zgloszen na wyswietlanej liście 		*)
-					iNumerOfEvents				:= iNumerOfEvents + 1;
+					stNumberEventToDisplay.iTotalNumer	:= stNumberEventToDisplay.iTotalNumer + 1;
 					IF (refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bActive) THEN
-						iNumerOfActive			:= iNumerOfActive + 1;
-						arrActiveByCategory [stItemInformation.eEventCategory]	:= arrActiveByCategory [stItemInformation.eEventCategory] + 1;
-					ELSE
-						iNumberOfNotActive		:= iNumberOfNotActive + 1;
+						stNumberEventToDisplay.iNumberOfActive	:= stNumberEventToDisplay.iNumberOfActive + 1;
+						stNumberEventToDisplay.arrNumberOfActive [stItemInformation.eEventCategory] := stNumberEventToDisplay.arrNumberOfActive [stItemInformation.eEventCategory] + 1;
+						stNumberEventToDisplay.arrActive [stItemInformation.eEventCategory]	:= TRUE;
 					END_IF
 					IF (refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bConfirm AND 
 						NOT refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bConfirmed) THEN
-						iNumerToConfirmed	:= iNumerToConfirmed + 1;
+						stNumberEventToDisplay.iNumberOfActiveWithConfirmation	:= stNumberEventToDisplay.iNumberOfActiveWithConfirmation + 1;
 					END_IF
-					arrNumberByCategory [stItemInformation.eEventCategory]	:= arrNumberByCategory [stItemInformation.eEventCategory] + 1;
-				END_IF
+					stNumberEventToDisplay.arrTotalNumer [stItemInformation.eEventCategory] := stNumberEventToDisplay.arrTotalNumer [stItemInformation.eEventCategory] + 1;
+				END_IF	//usuwanie z listy
 			END_IF
 	(*	Liczba zgłoszeń większa od tych co wyświetlamy	starsze można zobaczyć na kompie po podłaczeniu 	*)
 			IF (refstListToDisplay.iNumberOfRow = TO_INT (GVL_BaseConstans.MAX_EVENTS_TO_SHOW)) THEN
 				EXIT;
 			END_IF
-		END_FOR
+		END_FOR	//koniec przechodzenia przez wiersze pamięci
 //		stAktywneZgloszenia								:= THIS^.itfSPM.ZwrocInformacjeOStanieZgloszen ();
 
-	(*	Informacja o aktywnych błędach	wszystkich		*)
+	(*	Informacja o ilosciach zgloszen		*)
+	IF (uiIdItem > 0) THEN
+		THIS^.PrepareQuantitiesForDisplay (
+			stCounted		:= stNumberEventToDisplay,
+			stFromLogger	:= THIS^.itfBaseLoggerConnector.GetEventCountsForItem (uiIDItem := uiIDItem)
+		);
+	ELSE
+		THIS^.PrepareQuantitiesForDisplay (
+			stCounted		:= stNumberEventToDisplay,
+			stFromLogger	:= THIS^.itfBaseLoggerConnector.GetEventCounts ()
+		);
+	END_IF
+
 (*		
 		THIS^.refstDane.stIlosciZgloszenNaLiscie.sIloscZgloszen			:= THIS^.PrzygotujILoscWYswietlanychZdarzen (iIlosc := iIloscZgloszen, iIloscLoger := stAktywneZgloszenia.iIloscWszystkich);
 		THIS^.refstDane.stIlosciZgloszenNaLiscie.bJestZgloszenie		:= stAktywneZgloszenia.iIloscWszystkich > 0;
@@ -350,6 +357,29 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IsValidData				:= THIS^.bIsValidData;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareQuantitiesForDisplay" Id="{4a51ff7a-bc42-01f0-2da8-11249a1d4598}">
+      <Declaration><![CDATA[METHOD PRIVATE PrepareQuantitiesForDisplay : BOOL
+VAR_INPUT
+	stCounted			: ST_BaseEvents_ActiveEvents;
+	stFromLogger		: ST_BaseEvents_ActiveEvents;
+END_VAR
+
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstBaseLoggerElementDataHMI.stButtons.sAcknowledgeAll		:= CONCAT (TO_STRING (stCounted.iNumberOfActiveWithConfirmation), CONCAT ('/',TO_STRING (stFromLogger.iNumberOfActiveWithConfirmation)));
+THIS^.refstBaseLoggerElementDataHMI.stButtons.sAcknowledgeSelected	:= '1/1';
+THIS^.refstBaseLoggerElementDataHMI.stButtons.sCloseAll				:= CONCAT (TO_STRING (stCounted.iNumberOfActive), CONCAT ('/',TO_STRING (stFromLogger.iNumberOfActive)));
+THIS^.refstBaseLoggerElementDataHMI.stButtons.sCloseSelected		:= '1/1';
+
+FOR iI := 1	TO GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES DO
+	THIS^.refstBaseLoggerElementDataHMI.stFilter.arrTextOnEventCategory [E_BaseEvents_Category.Error]	:= 
+		CONCAT (TO_STRING (stCounted.arrTotalNumer [iI]), CONCAT ('/',TO_STRING (stFromLogger.arrTotalNumer [iI])));
+END_FOR
 ]]></ST>
       </Implementation>
     </Method>

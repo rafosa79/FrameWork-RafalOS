@@ -7,7 +7,7 @@ STRUCT
 	iNumberOfActive					: INT;
 	iTotalNumer						: INT;	//ilosc wszystkich zgloszonych zgloszen
 	bIsActiveWithConfirmation		: BOOL;	//infdormacja o aktywnych bledach ktore wymagaja potwierdzenia
-	iNumerOfActiveWithConfirmation	: INT;	//ilosc wszystkich zdarzen do potwierdzenia
+	iNumberOfActiveWithConfirmation	: INT;	//ilosc wszystkich zdarzen do potwierdzenia
 	arrNumberOfActive				: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;	//ilosc wszystkich aktywnych zgloszen z podziałem na rodzaje
 	arrTotalNumer					: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;	//ilosc wszystkich zgloszonych z podzialem na rodzaje
 	arrActive						: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF BOOL; 	//informacja który z rodzajów zgłoszęń jest aktywny

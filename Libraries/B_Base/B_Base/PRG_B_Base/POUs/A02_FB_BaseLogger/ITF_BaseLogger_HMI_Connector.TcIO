@@ -14,8 +14,21 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="GetIfmormationFromItem" Id="{e03af02b-30ef-08f3-2938-f43d70776345}">
-      <Declaration><![CDATA[METHOD PUBLIC GetIfmormationFromItem : ST_BaseLogger_ItemDataToDisplay
+    <Method Name="GetEventCounts" Id="{515d209a-bf83-0d57-2f97-7f48446c4713}">
+      <Declaration><![CDATA[METHOD PUBLIC GetEventCounts : ST_BaseEvents_ActiveEvents
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetEventCountsForItem" Id="{5a0b0f72-7e2e-0356-11bd-46b2df6bcce5}">
+      <Declaration><![CDATA[METHOD PUBLIC GetEventCountsForItem : ST_BaseEvents_ActiveEvents
+VAR_INPUT
+	uiIDItem: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetInformationFromItem" Id="{e03af02b-30ef-08f3-2938-f43d70776345}">
+      <Declaration><![CDATA[METHOD PUBLIC GetInformationFromItem : ST_BaseLogger_ItemDataToDisplay
 VAR_INPUT
 	uiIDItem				: UINT;
 	uiIDEvent				: UINT;

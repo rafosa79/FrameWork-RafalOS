@@ -12,8 +12,8 @@ STRUCT
 	bIDEvent					: BOOL;
 	uiIDEvent					: UINT;
 	
-	arrSelectedEventCategory	: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF BOOL;	//przyciski selektora kategorii zdarzen
-	arrTextOnEventCategory		: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF WSTRING;	//teksty na przyciskach 
+	arrSelectedEventCategory	: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF BOOL;	//przyciski selektora kategorii zdarzen - czy nacisniety
+	arrTextOnEventCategory		: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF STRING;	//teksty na przyciskach 
 	
 END_STRUCT
 END_TYPE

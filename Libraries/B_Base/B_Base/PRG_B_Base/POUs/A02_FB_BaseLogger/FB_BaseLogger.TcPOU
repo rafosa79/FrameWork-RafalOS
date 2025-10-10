@@ -201,7 +201,7 @@ IF (stRow.bActive) THEN
 END_IF
 THIS^.stNumberOfReports.bIsActive							:= THIS^.stNumberOfReports.bIsActive > 0;
 IF (bConfirm) THEN
-	THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation	:= THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation - 1;
+	THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation	:= THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation - 1;
 	THIS^.stNumberOfReports.bIsActiveWithConfirmation		:= THIS^.stNumberOfReports.bIsActiveWithConfirmation > 0;
 END_IF
 
@@ -232,7 +232,7 @@ IF (stRow.bActive) THEN
 END_IF
 THIS^.stNumberOfReports.bIsActive							:= THIS^.stNumberOfReports.bIsActive > 0;
 IF (bConfirm) THEN
-	THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation	:= THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation - 1;
+	THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation	:= THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation - 1;
 	THIS^.stNumberOfReports.bIsActiveWithConfirmation		:= THIS^.stNumberOfReports.bIsActiveWithConfirmation > 0;
 END_IF
 
@@ -258,15 +258,36 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetIfmormationFromItem" Id="{5e131f5a-7862-01ee-0e76-2fc95be51520}" FolderPath="ITF_BaseLogger_HMI_Connector\">
-      <Declaration><![CDATA[METHOD PUBLIC GetIfmormationFromItem : ST_BaseLogger_ItemDataToDisplay
+    <Method Name="GetEventCounts" Id="{3c7ec761-8b67-0539-3c15-c2f3fa0cb7ba}" FolderPath="ITF_BaseLogger_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetEventCounts : ST_BaseEvents_ActiveEvents
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetEventCounts			:= THIS^.stNumberOfReports;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetEventCountsForItem" Id="{a0ea2e6b-7bad-025a-3da7-adabdef4a6be}" FolderPath="ITF_BaseLogger_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetEventCountsForItem : ST_BaseEvents_ActiveEvents
+VAR_INPUT
+	uiIDItem: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetEventCountsForItem		:= THIS^.arrNumberOfReportsForItem [uiIDItem];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetInformationFromItem" Id="{5e131f5a-7862-01ee-0e76-2fc95be51520}" FolderPath="ITF_BaseLogger_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetInformationFromItem : ST_BaseLogger_ItemDataToDisplay
 VAR_INPUT
 	uiIDItem				: UINT;
 	uiIDEvent				: UINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetIfmormationFromItem		:= THIS^.arrItem [uiIDItem].GetInformationToDisplayEvent (uiIDEvent := uiIDEvent);
+        <ST><![CDATA[GetInformationFromItem		:= THIS^.arrItem [uiIDItem].GetInformationToDisplayEvent (uiIDEvent := uiIDEvent);
 ]]></ST>
       </Implementation>
     </Method>
@@ -299,7 +320,7 @@ THIS^.stNumberOfReports.bIsActive							:= TRUE;
 THIS^.stNumberOfReports.iTotalNumer							:= THIS^.stNumberOfReports.iTotalNumer + 1;
 IF (bConfirm) THEN
 	THIS^.stNumberOfReports.bIsActiveWithConfirmation		:= TRUE;
-	THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation	:= THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation + 1;
+	THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation	:= THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation + 1;
 END_IF
 
 THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory]	:= THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory] + 1;
@@ -327,7 +348,7 @@ THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActive	:= THIS^.arrNumberOfR
 THIS^.arrNumberOfReportsForItem [uiIDItem].bIsActive		:= TRUE;
 IF (bConfirm) THEN
 	THIS^.arrNumberOfReportsForItem [uiIDItem].bIsActiveWithConfirmation		:= TRUE;
-	THIS^.arrNumberOfReportsForItem [uiIDItem].iNumerOfActiveWithConfirmation	:= THIS^.arrNumberOfReportsForItem [uiIDItem].iNumerOfActiveWithConfirmation + 1;
+	THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActiveWithConfirmation	:= THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActiveWithConfirmation + 1;
 END_IF
 
 THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory]	:= THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory] + 1;
@@ -393,8 +414,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation		:= THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation - 1;
-IF (THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation = 0) THEN
+        <ST><![CDATA[THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation		:= THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation - 1;
+IF (THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation = 0) THEN
 	THIS^.stNumberOfReports.bIsActiveWithConfirmation	:= FALSE;
 END_IF
 ]]></ST>
@@ -412,8 +433,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.arrNumberOfReportsForItem [uiIDItem].iNumerOfActiveWithConfirmation		:= THIS^.arrNumberOfReportsForItem [uiIDItem].iNumerOfActiveWithConfirmation - 1;
-IF (THIS^.arrNumberOfReportsForItem [uiIDItem].iNumerOfActiveWithConfirmation = 0) THEN
+        <ST><![CDATA[THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActiveWithConfirmation		:= THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActiveWithConfirmation - 1;
+IF (THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActiveWithConfirmation = 0) THEN
 	THIS^.arrNumberOfReportsForItem [uiIDItem].bIsActiveWithConfirmation	:= FALSE;
 END_IF
 ]]></ST>
