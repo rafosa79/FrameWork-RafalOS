@@ -16,6 +16,53 @@ END_VAR
     </Implementation>
     <Folder Name="ITF_BaseLoggerElement_HMI" Id="{490d29d6-def9-07f2-16cf-bb21a6440bb9}" />
     <Folder Name="WiazanieZmiennych" Id="{4d450796-b575-0397-39db-94123d6241c4}" />
+    <Method Name="CopyDataToDisplay" Id="{75592a02-6e87-039e-0670-1b22f05f769c}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[METHOD PRIVATE CopyDataToDisplay : BOOL
+VAR_INPUT
+	refarrToDisplay				: REFERENCE TO ARRAY [1..GVL_BaseConstans.MAX_EVENTS_TO_SHOW] OF ST_BaseHMIConnectorEvents_ListToDisplayRow;
+	iNumberOfRow				: INT;
+	stRowFromMemory				: ST_BaseEvents_RowInMemory;
+	stItemInformation			: ST_BaseLogger_ItemDataToDisplay;
+END_VAR
+VAR
+	wstmpDescriptionFull		: WSTRING;
+	wstmpDescription			: WSTRING;
+	iDltmp						: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[refarrToDisplay [iNumberOfRow].uiIDEvent			:= stRowFromMemory.uiIDEvent;
+refarrToDisplay [iNumberOfRow].uiIDItem				:= stRowFromMemory.uiIDItem;
+refarrToDisplay [iNumberOfRow].bActive				:= stRowFromMemory.bActive;
+refarrToDisplay [iNumberOfRow].sCode				:= stItemInformation.sCode; 
+refarrToDisplay [iNumberOfRow].bIgnoreRepetitions	:= stRowFromMemory.bIgnoreRepetitions;
+refarrToDisplay [iNumberOfRow].bConfirm				:= stRowFromMemory.bConfirm;
+refarrToDisplay [iNumberOfRow].bConfirmed			:= stRowFromMemory.bConfirmed;
+
+refarrToDisplay [iNumberOfRow].sStart				:= THIS^.refstCommonData.itfTime.BaseDTToString (inDT := stRowFromMemory.dtStart);
+IF (TO_STRING (stRowFromMemory.dtConfirmed) <> 'DT#1970-01-01-00:00:00') THEN
+	refarrToDisplay [iNumberOfRow].sConfirmed		:= THIS^.refstCommonData.itfTime.BaseDTToString (inDT := stRowFromMemory.dtConfirmed);
+ELSE
+	refarrToDisplay [iNumberOfRow].sConfirmed		:= '';
+END_IF
+IF (TO_STRING (TO_STRING (stRowFromMemory.dtFinish)) <> 'DT#1970-01-01-00:00:00') THEN
+	refarrToDisplay [iNumberOfRow].sFinish			:= THIS^.refstCommonData.itfTime.BaseDTToString (inDT := stRowFromMemory.dtFinish);
+ELSE
+	refarrToDisplay [iNumberOfRow].sFinish			:= '';
+END_IF
+
+refarrToDisplay [iNumberOfRow].sEventCategory		:= stItemInformation.sEventCategory; 
+refarrToDisplay [iNumberOfRow].uiRepetitionCounter	:= stItemInformation.uiRepetitionCounter;
+wstmpDescriptionFull		:= THIS^.GetTextFromLabel (stLabel	:= stItemInformation.stDescription);
+iDltmp												:= WLEN (wstmpDescriptionFull);
+IF (iDltmp > 100) THEN
+	wstmpDescription								:= WDELETE (wstmpDescriptionFull, iDltmp - 100, iDltmp);
+END_IF
+refarrToDisplay [iNumberOfRow].wsDescription		:= wstmpDescription;
+refarrToDisplay [iNumberOfRow].wsDescriptionFull	:= wstmpDescriptionFull;
+refarrToDisplay [iNumberOfRow].wsNameOfitem			:= THIS^.GetTextFromLabel (stLabel := stItemInformation.stItemName);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CreateLinkToEventsMemory" Id="{95a4fe1d-262b-028d-22e6-1fe12c2c7cc8}" FolderPath="WiazanieZmiennych\">
       <Declaration><![CDATA[METHOD PUBLIC CreateLinkToEventsMemory : BOOL
 VAR_INPUT
@@ -50,17 +97,18 @@ VAR
 	refstMemory				: REFERENCE TO ST_BaseEvents_Memory;
 	refstListToDisplay		: REFERENCE TO ST_BaseHMIConnectorEvents_ListToDisplay;
 	refstFilter				: REFERENCE TO ST_BaseHMIConnectorEvents_Filter;
+	refstActionButtons		: REFERENCE TO ST_BaseHMIConnectorEvents_ActionButtuns;
 	stRowFromMemory			: ST_BaseEvents_RowInMemory;
 	stItemInformation		: ST_BaseLogger_ItemDataToDisplay;
-	wstmpDescription		: WSTRING;
-	wstmpDescriptionFull	: WSTRING;
-	iDltmp					: INT;
+(*	Ilosci zdarzen wyswietlanych na liscie	*)
 	iNumerOfEvents			: INT;
 	iNumerOfActive			: INT;
 	iNumberOfNotActive		: INT;
 	iNumerToConfirmed		: INT;
 	arrNumberByCategory		: ARRAY  [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;
-	iK: INT;
+	arrActiveByCategory		: ARRAY  [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;
+	iIAck: INT;
+	iIClose: INT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[(*
@@ -73,13 +121,8 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 	refstMemory				REF= THIS^.refstMemoryEvents;
 	refstListToDisplay		REF= THIS^.refstBaseLoggerElementDataHMI.arrListOfEventsToDisplay;
 	refstFilter				REF= THIS^.refstBaseLoggerElementDataHMI.stFilter;
-	bFilterIsActive				:= 	refstFilter.bActive OR 
-									refstFilter.bNotActive OR
-									refstFilter.bIDEvent OR
-									refstFilter.bIDItem;
-	FOR iI := 1 TO GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES DO
-		bFilterIsActive			:= bFilterIsActive OR refstFilter.arrSelectedEventCategory [iI];
-	END_FOR
+	refstActionButtons		REF= THIS^.refstBaseLoggerElementDataHMI.stButtons;
+	bFilterIsActive			:= GetIsActiveFilter (refstFilter := refstFilter);		//sprawdzenie czy jest aktywny filtr
 
 	IF (THIS^.itfBaseLoggerConnector.GetChangeInMemory () OR bFilterIsActive) THEN
 		THIS^.itfBaseLoggerConnector.ResetChangeInMemory ();
@@ -94,65 +137,26 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 			IF (uiIdItem = refstMemory.arrRow [iI].uiIDItem OR uiIdItem = 0) THEN
 				stRowFromMemory			:= refstMemory.arrRow [iI];
 				stItemInformation		:= THIS^.itfBaseLoggerConnector.GetIfmormationFromItem (uiIDItem := uiIdItem, uiIDEvent := stRowFromMemory.uiIDEvent);
-				
-				bUsunZListy		:= FALSE;
-				bUsunZListy		:= bUsunZListy OR (refstFilter.bActive AND NOT stRowFromMemory.bActive);
-				bUsunZListy		:= bUsunZListy OR (refstFilter.bNotActive AND stRowFromMemory.bActive);
-				bUsunZListy		:= bUsunZListy OR (refstFilter.bIDItem	AND stRowFromMemory.uiIDItem <> refstFilter.uiIDItem);
-				bUsunZListy		:= bUsunZListy OR (refstFilter.bIDEvent AND stRowFromMemory.uiIDEvent <> refstFilter.uiIDEvent);
-				FOR iK := 1 TO GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES DO
-					CASE iK OF 
-						E_BaseEvents_Category.Error		: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Error;
-						E_BaseEvents_Category.Alarm		: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Alarm;
-						E_BaseEvents_Category.Safety	: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Safety;
-						E_BaseEvents_Category.Message	: btmpUsunZListy	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Message;
-					END_CASE
-					bUsunZListy		:= bUsunZListy OR (refstFilter.arrSelectedEventCategory [iK] AND btmpUsunZListy);
-				END_FOR
-				//przeddział czasowy
+				bUsunZListy		:= THIS^.RemoveRowFormList (
+										refstFilter 		:= refstFilter, 
+										uiIDEvent 			:= stRowFromMemory.uiIDEvent, 
+										uiIDItem 			:=  stRowFromMemory.uiIDItem,
+										bActive				:= stRowFromMemory.bActive,
+										stItemInformation	:= stItemInformation
+									);
 				IF (NOT bUsunZListy) THEN
 					refstListToDisplay.iNumberOfRow		:= refstListToDisplay.iNumberOfRow + 1;
-//					IF (refstLista.uiIDZgloszeniaWybrany = stWiersz.uiIDZgloszenia AND NOT refstListToDisplay.bSelected) THEN
-//						refstLista.iWybranyZListy		:= iI_Wyswietlanych;
-//						refstLista.bZaznaczony			:= TRUE;
-//					END_IF
-//					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow];
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].uiIDEvent				:= stRowFromMemory.uiIDEvent;
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].uiIDItem				:= stRowFromMemory.uiIDItem;
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bActive				:= stRowFromMemory.bActive;
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sCode					:= stItemInformation.sCode; 
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bIgnoreRepetitions	:= stRowFromMemory.bIgnoreRepetitions;
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bConfirm				:= stRowFromMemory.bConfirm;
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bConfirmed			:= stRowFromMemory.bConfirmed;
-			
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sStart				:= THIS^.refstCommonData.itfTime.BaseDTToString (inDT := stRowFromMemory.dtStart);
-					IF (TO_STRING (stRowFromMemory.dtConfirmed) <> 'DT#1970-01-01-00:00:00') THEN
-						refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sConfirmed		:= THIS^.refstCommonData.itfTime.BaseDTToString (inDT := stRowFromMemory.dtConfirmed);
-					ELSE
-						refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sConfirmed		:= '';
-					END_IF
-					IF (TO_STRING (TO_STRING (stRowFromMemory.dtFinish)) <> 'DT#1970-01-01-00:00:00') THEN
-						refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sFinish			:= THIS^.refstCommonData.itfTime.BaseDTToString (inDT := stRowFromMemory.dtFinish);
-					ELSE
-						refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sFinish			:= '';
-					END_IF
-
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].sEventCategory		:= stItemInformation.sEventCategory; 
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].uiRepetitionCounter	:= stItemInformation.uiRepetitionCounter;
-					wstmpDescriptionFull		:= THIS^.GetTextFromLabel (stLabel	:= stItemInformation.stDescription);
-					iDltmp																					:= WLEN (wstmpDescriptionFull);
-					IF (iDltmp > 100) THEN
-						wstmpDescription																	:= WDELETE (wstmpDescriptionFull, iDltmp - 100, iDltmp);
-					END_IF
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].wsDescription			:= wstmpDescription;
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].wsDescriptionFull		:= wstmpDescriptionFull;
-					refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].wsNameOfitem			:= THIS^.GetTextFromLabel (stLabel := stItemInformation.stItemName);
-
+					THIS^.CopyDataToDisplay (
+						refarrToDisplay					:= refstListToDisplay.arrToDisplay,
+						iNumberOfRow					:= refstListToDisplay.iNumberOfRow,
+						stRowFromMemory					:= stRowFromMemory,
+						stItemInformation				:= stItemInformation
+					);
 	(*	Informacja o ilosciach zgloszen na wyswietlanej liście 		*)
-
 					iNumerOfEvents				:= iNumerOfEvents + 1;
 					IF (refstListToDisplay.arrToDisplay [refstListToDisplay.iNumberOfRow].bActive) THEN
 						iNumerOfActive			:= iNumerOfActive + 1;
+						arrActiveByCategory [stItemInformation.eEventCategory]	:= arrActiveByCategory [stItemInformation.eEventCategory] + 1;
 					ELSE
 						iNumberOfNotActive		:= iNumberOfNotActive + 1;
 					END_IF
@@ -163,9 +167,119 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 					arrNumberByCategory [stItemInformation.eEventCategory]	:= arrNumberByCategory [stItemInformation.eEventCategory] + 1;
 				END_IF
 			END_IF
+	(*	Liczba zgłoszeń większa od tych co wyświetlamy	starsze można zobaczyć na kompie po podłaczeniu 	*)
+			IF (refstListToDisplay.iNumberOfRow = TO_INT (GVL_BaseConstans.MAX_EVENTS_TO_SHOW)) THEN
+				EXIT;
+			END_IF
+		END_FOR
+//		stAktywneZgloszenia								:= THIS^.itfSPM.ZwrocInformacjeOStanieZgloszen ();
+
+	(*	Informacja o aktywnych błędach	wszystkich		*)
+(*		
+		THIS^.refstDane.stIlosciZgloszenNaLiscie.sIloscZgloszen			:= THIS^.PrzygotujILoscWYswietlanychZdarzen (iIlosc := iIloscZgloszen, iIloscLoger := stAktywneZgloszenia.iIloscWszystkich);
+		THIS^.refstDane.stIlosciZgloszenNaLiscie.bJestZgloszenie		:= stAktywneZgloszenia.iIloscWszystkich > 0;
+		THIS^.refstDane.stIlosciZgloszenNaLiscie.sIloscDoPotwierdzenia	:= THIS^.PrzygotujILoscWYswietlanychZdarzen (iIlosc := iIloscDoPotwierdzenia, iIloscLoger := stAktywneZgloszenia.iIloscAktywnychZPotwierdzeniem);
+		THIS^.refstDane.stIlosciZgloszenNaLiscie.bJestDoPotwierdzenia	:= stAktywneZgloszenia.iIloscAktywnychZPotwierdzeniem > 0;
+		THIS^.refstDane.stIlosciZgloszenNaLiscie.sIloscAktywnych		:= THIS^.PrzygotujILoscWYswietlanychZdarzen (iIlosc := iIloscAktywnych, iIloscLoger := stAktywneZgloszenia.iIloscAktywnych);
+		THIS^.refstDane.stIlosciZgloszenNaLiscie.bJestAktywne			:= stAktywneZgloszenia.iIloscAktywnych > 0;
+		THIS^.refstDane.stIlosciZgloszenNaLiscie.sIloscNieAktywnych		:= THIS^.PrzygotujILoscWYswietlanychZdarzen (iIlosc := iIloscNieAktywnych, iIloscLoger := (stAktywneZgloszenia.iIloscWszystkich - stAktywneZgloszenia.iIloscAktywnych));
+		THIS^.refstDane.stIlosciZgloszenNaLiscie.bJestNieAktywne		:= (stAktywneZgloszenia.iIloscWszystkich - stAktywneZgloszenia.iIloscAktywnych) > 0;
+
+		FOR iI := 1 TO B_Baza.STALE.MAX_LICZBA_RODZAJOW_ZGLOSZEN DO
+			THIS^.refstDane.stIlosciZgloszenNaLiscie.arrIlosc [iI]		:= THIS^.PrzygotujILoscWYswietlanychZdarzen (iIlosc := arrIlosc [iI], iIloscLoger := stAktywneZgloszenia.arrIloscWszystkich [iI]);
+			THIS^.refstDane.stIlosciZgloszenNaLiscie.arrJest [iI]		:= stAktywneZgloszenia.arrIloscWszystkich [iI] > 0;
+		END_FOR
+
+		THIS^.refstDane.stPrzyciski.bPotwierdzZgloszeniaAktywny			:= iIloscDoPotwierdzenia = 0;
+		THIS^.refstDane.stPrzyciski.bZamknijZgloszeniaAktywny			:= iIloscAktywnych = 0;
+
+//
+		IF (THIS^.refstDane.uiIDZgloszeniaWybrany > 0 AND NOT THIS^.refstDane.bZaznaczony) THEN
+			THIS^.refstDane.uiIDZgloszeniaWybrany	:= 0;
+			THIS^.refstDane.iWybranyZListy			:= -1;
+			THIS^.refstDane.iWybranyZListy_Pop		:= -1;
+		END_IF
+		THIS^.refstDane.uiILoscZgloszenWSystemie	:= THIS^.itfSPM.ZwrocIloscZgloszenWSystemie ();
+		THIS^.refstDane.uiIloscElementowWSystemie	:= THIS^.itfSPM.ZwrocIloscElementowWSystemieZgloszen ();
+*)		
+	END_IF
+
+	(*	Wybor zgloszenia z listy	*)
+
+//	IF ((refstListToDisplay.iSelectedRow <> refstListToDisplay.iSelectedRowPrevius AND refstListToDisplay.bSelected) OR 
+//		refstFilter.bbOdswierzInfo ) THEN
+//		THIS^.UzupelnijDaneSzczegolowe ();
+//	ELSIF (THIS^.refstDane.iWybranyZListy < 0 OR THIS^.refstDane.iWybranyZListy > THIS^.refstDane.iIloscWierszyDoWyswietlenia) THEN
+//		THIS^.refstDane.stPrzyciski.bZamknijZgloszenieAktywny	:= FALSE;
+//		THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenieAktywny	:= FALSE;
+//		THIS^.refstDane.iWybranyZListy							:= -1;
+//		THIS^.refstDane.iWybranyZListy_Pop						:= -1;
+//	END_IF 
+	
+	(*	Obsługa przycisków zamykania i potwierrdzania zgłoszeń	*)
+
+//	IF (THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenie) THEN //potwierdz zgłoszenie
+//		IF (refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow].bConfirm AND 
+//			NOT refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow].bConfirmed) THEN
+//			
+//			THIS^.itfSPM.PotwierdzZgloszenieOID (uiIDZgloszenia			:= THIS^.refstDane.uiIDZgloszeniaWybrany);
+//		END_IF
+//	END_IF
+
+//	IF (THIS^.refstDane.stPrzyciski.bZamknijZgloszenie) THEN	//zamknij zgłoszenie
+//		IF (THIS^.refstDane.arrDoWyswietlenia [THIS^.refstDane.iWybranyZListy].bAktywne OR 
+//			THIS^.refstDane.arrDoWyswietlenia [THIS^.refstDane.iWybranyZListy].sKoniec <> '') THEN
+//			THIS^.itfSPM.WylaczZgloszenieOID (uiIDZgloszenia			:= THIS^.refstDane.uiIDZgloszeniaWybrany);
+//		END_IF
+//	END_IF
+
+	IF (THIS^.refstBaseLoggerElementDataHMI.stButtons.bAcknowledgeAll) THEN //potwierdz wszystkie niepotwierdzone zgłoszenie
+		FOR iIAck := 1 TO TO_INT (refstListToDisplay.iNumberOfRow) DO
+			IF (refstListToDisplay.arrToDisplay [iIAck].bConfirm AND 
+				NOT refstListToDisplay.arrToDisplay [iIAck].bConfirmed) THEN
+				THIS^.itfSPM.PotwierdzZgloszenieOID (uiIDZgloszenia			:= THIS^.refstDane.arrDoWyswietlenia [iI_Zamykania].uiIDZgloszenia);
+			END_IF
 		END_FOR
 	END_IF
+	IF (THIS^.refstBaseLoggerElementDataHMI.stButtons.bCloseAll) THEN	//zamknij wszystkie nie zamnknięte zgłoszenie
+		FOR iIClose := 1 TO TO_INT (refstListToDisplay.iNumberOfRow) DO
+			IF (refstListToDisplay.arrToDisplay [iIClose].bActive OR refstListToDisplay.arrToDisplay [iIClose].sFinish <> '') THEN
+				THIS^.itfSPM.WylaczZgloszenieOID (uiIDZgloszenia:= THIS^.refstDane.arrDoWyswietlenia [iI_Zamykania].uiIDZgloszenia);
+			END_IF
+		END_FOR
+	END_IF
+	
+	THIS^.refstBaseLoggerElementDataHMI.bOdswierzListe		:= THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenie OR THIS^.refstDane.stPrzyciski.bZamknijZgloszenie OR
+															THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenia OR THIS^.refstDane.stPrzyciski.bZamknijZgloszenia;
+	THIS^.refstBaseLoggerElementDataHMI.bOdswierzInfo		:= THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenie OR THIS^.refstDane.stPrzyciski.bZamknijZgloszenie OR
+															THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenia OR THIS^.refstDane.stPrzyciski.bZamknijZgloszenia;																
+	refstActionButtons.bAcknowledgeSelected					:= FALSE;
+	refstActionButtons.bCloseSelected						:= FALSE;
+	refstActionButtons.bAcknowledgeAll						:= FALSE;
+	refstActionButtons.bCloseAll							:= FALSE;	
 END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIsActiveFilter" Id="{79a84ee2-6eaf-0e54-0e23-81a9e7b0b6f8}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[METHOD PRIVATE GetIsActiveFilter : BOOL
+VAR_INPUT
+	refstFilter				: REFERENCE TO ST_BaseHMIConnectorEvents_Filter;
+END_VAR
+VAR
+	bResult: BOOL;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult				:= refstFilter.bActive OR 
+						refstFilter.bNotActive OR
+						refstFilter.bIDEvent OR
+						refstFilter.bIDItem;
+FOR iI := 1 TO GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES DO
+	bResult			:= bResult OR refstFilter.arrSelectedEventCategory [iI];
+END_FOR
+
+GetIsActiveFilter	:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
@@ -235,6 +349,41 @@ END_VAR
       <Implementation>
         <ST><![CDATA[IsValidData				:= THIS^.bIsValidData;
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveRowFormList" Id="{c7b91807-0b82-0e52-2df4-6abf6578c8bd}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[METHOD PRIVATE RemoveRowFormList : BOOL
+VAR_INPUT
+	refstFilter				: REFERENCE TO ST_BaseHMIConnectorEvents_Filter;
+	uiIDEvent				: UINT;
+	uiIDItem				: UINT;
+	bActive					: BOOL;
+	stItemInformation		: ST_BaseLogger_ItemDataToDisplay;
+END_VAR
+VAR
+	bRemove					: BOOL;
+	iK						: INT;
+	bRemoveHelp				: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bRemove		:= FALSE;
+bRemove		:= bRemove OR (refstFilter.bActive AND NOT bActive);
+bRemove		:= bRemove OR (refstFilter.bNotActive AND bActive);
+bRemove		:= bRemove OR (refstFilter.bIDItem	AND uiIDItem <> refstFilter.uiIDItem);
+bRemove		:= bRemove OR (refstFilter.bIDEvent AND 
+uiIDEvent <> refstFilter.uiIDEvent);
+FOR iK := 1 TO GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES DO
+	CASE iK OF 
+		E_BaseEvents_Category.Error		: bRemoveHelp	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Error;
+		E_BaseEvents_Category.Alarm		: bRemoveHelp	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Alarm;
+		E_BaseEvents_Category.Safety	: bRemoveHelp	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Safety;
+		E_BaseEvents_Category.Message	: bRemoveHelp	:=  stItemInformation.eEventCategory = E_BaseEvents_Category.Message;
+	END_CASE
+	bRemove		:= bRemove OR (refstFilter.arrSelectedEventCategory [iK] AND bRemoveHelp);
+END_FOR
+//przeddział czasowy
+
+RemoveRowFormList	:= bRemove;]]></ST>
       </Implementation>
     </Method>
   </POU>

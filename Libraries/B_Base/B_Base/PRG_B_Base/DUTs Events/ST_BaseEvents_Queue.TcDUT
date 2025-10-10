@@ -5,8 +5,7 @@
 STRUCT
 	arrEvents						: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_EVENTS_IN_THE_QUEUE] OF ST_BaseEvents_RowInQueue;
 	iNumerOfEvents					: INT;
-	bChangeInMemory					: BOOL;		//informacja dla wyświetlania żeby odświerzyć
-	
+
 END_STRUCT
 END_TYPE
 ]]></Declaration>

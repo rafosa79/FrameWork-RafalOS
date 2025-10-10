@@ -2,6 +2,8 @@ Do zrobienia cały serwis
 
 metoda przygotowywania listy działa teraz dodać obsługe czasu w niej dobre formatownie i filtry oraz testy a następnie zamykanie i potwierdzanie zgłoszeń i potem przetestować filtry 
 
+teksty na przyciskach filtra zdarzeń
+
 1. -> wywołać z loggerlement metodę przygotowanie listy zgłoszeń dla elemntu i dla wszystkich z parametrem 0
 2. -> dodać możliwość filtrowania
 3. -> dodać możliwość potwierdzania i zamykania zgłoszeń

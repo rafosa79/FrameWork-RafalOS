@@ -5,6 +5,10 @@
 STRUCT
 	stFilter						: ST_BaseHMIConnectorEvents_Filter;
 	arrListOfEventsToDisplay		: ST_BaseHMIConnectorEvents_ListToDisplay;
+	stButtons						: ST_BaseHMIConnectorEvents_ActionButtuns;
+	bSelected						: BOOL;
+	iSelectedRow					: INT;
+	iSelectedRowPrevius				: INT;
 	
 END_STRUCT
 END_TYPE
