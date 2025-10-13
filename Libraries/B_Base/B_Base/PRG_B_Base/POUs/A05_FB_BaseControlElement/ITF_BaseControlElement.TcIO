@@ -3,5 +3,21 @@
   <Itf Name="ITF_BaseControlElement" Id="{ad3f64dc-ad28-0928-11ba-a3b4f43ec05a}">
     <Declaration><![CDATA[INTERFACE ITF_BaseControlElement EXTENDS ITF_BaseComponent
 ]]></Declaration>
+    <Folder Name="WiazanieZmiennych" Id="{3ea49384-a761-0669-1c6e-519f81bf24fd}" />
+    <Method Name="LinkSS1" Id="{db097555-ff7f-040e-3bc7-54bad7054deb}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkSS1 : BOOL
+VAR_INPUT
+	fbSS1			: ITF_BaseFlagGet;
+END_VAR
+
+]]></Declaration>
+    </Method>
+    <Method Name="LinkSTO" Id="{af004b13-a591-0136-09de-53edc6e3a981}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkSTO : BOOL
+VAR_INPUT
+	fbSTO			: ITF_BaseFlagGet;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

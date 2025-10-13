@@ -203,6 +203,48 @@ LinkCommonData					:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="LinkSS1" Id="{76e517ec-0eff-075d-0625-cf0f5460cacb}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkSS1 : BOOL
+VAR_INPUT
+	fbSS1			: ITF_BaseFlagGet;
+END_VAR
+
+VAR
+	bresult: BOOL;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bresult				:= SUPER^.LinkSS1 (fbSS1 := fbSS1);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	bresult			:= bresult AND THIS^.arrControlElement [iI].LinkSS1 (fbSS1	:= fbSS1);
+END_FOR
+
+LinkSS1				:= bresult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkSTO" Id="{91e2e203-b610-04e4-1b52-ed4f584923fa}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkSTO : BOOL
+VAR_INPUT
+	fbSTO			: ITF_BaseFlagGet;
+END_VAR
+
+VAR
+	bresult: BOOL;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bresult				:= SUPER^.LinkSTO (fbSTO := fbSTO);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	bresult			:= bresult AND THIS^.arrControlElement [iI].LinkSTO (fbSTO	:= fbSTO);
+END_FOR
+
+LinkSTO				:= bresult;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetCode" Id="{3432e546-4149-00a7-0fb9-e73b7e1c9dbd}" FolderPath="ID\">
       <Declaration><![CDATA[METHOD PUBLIC SetCode
 VAR_INPUT
