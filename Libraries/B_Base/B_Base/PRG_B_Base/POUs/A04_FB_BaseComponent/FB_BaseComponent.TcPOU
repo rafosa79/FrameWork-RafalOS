@@ -41,5 +41,24 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="JoinTheLogger" Id="{c36b1ddd-e3f3-0707-2e1b-24a85c94c962}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		07.10.2025		TC 4024.66
+	Dodpisywanie się do listy logera
+*)
+METHOD PUBLIC JoinTheLogger : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.bIsValidCommonData) THEN
+	IF (THIS^.refstCommonData.itfLogger.AddItem (itfItem := THIS^) > 0 ) THEN
+		JoinTheLogger		:= TRUE;
+	END_IF
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

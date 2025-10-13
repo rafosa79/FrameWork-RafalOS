@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseHMIConnectorEvents_ActionButtuns" Id="{7d7fe425-f882-059a-3f8d-9f55cd18329b}">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		07.10.2025		TC 4024.66
+	Przyciski akcji w zgłoszeniach zatwierdzanie zamykanie
+*)
+TYPE ST_BaseHMIConnectorEvents_ActionButtuns :
+STRUCT
+	bAcknowledgeAll				: BOOL;
+	bAcknowledgeAllActive		: BOOL;		//widoczność przycisku 
+	sAcknowledgeAll				: STRING;	//ilosci 
+
+	bCloseAll					: BOOL;
+	bCloseAllActive				: BOOL;		//widoczność przycisku 
+	sCloseAll					: STRING;	//ilosci 
+	
+	bAcknowledgeSelected		: BOOL;
+	bAcknowledgeSelectedActive	: BOOL;		//widoczność przycisku 
+	sAcknowledgeSelected		: STRING;
+
+	bCloseSelected				: BOOL;
+	bCloseSelectedActive		: BOOL;		//widoczność przycisku 
+	sCloseSelected				: STRING;	//ilosci 
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

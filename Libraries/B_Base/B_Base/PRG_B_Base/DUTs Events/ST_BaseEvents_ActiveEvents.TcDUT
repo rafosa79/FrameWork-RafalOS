@@ -3,19 +3,14 @@
   <DUT Name="ST_BaseEvents_ActiveEvents" Id="{03355258-b260-09fe-29ba-9e70eaee8e24}">
     <Declaration><![CDATA[TYPE ST_BaseEvents_ActiveEvents :
 STRUCT
-	bIsActive								: BOOL;	//informacja o wszysktkich aktywnych zgloszeniach
-	iNumberOfActive							: INT;
-	iTotalNumer								: INT;	//ilosc wszystkich zgloszonych zgloszen
-	bIsActiveWithConfirmation				: BOOL;	//infdormacja o aktywnych bledach ktore wymagaja potwierdzenia
-	iNumerOfActiveWithConfirmation			: INT;
-	
-	arrNumberOfActive						: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;	//ilosc wszystkich aktywnych zgloszen z podziałem na rodzaje
-	arrTotalNumer							: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;	//ilosc wszystkich zgloszonych z podzialem na rodzaje
-	arrInfoForHMI							: ARRAY [0..GVL_BaseConstans.MAX_NUMBER_OF_ALL_ITEM] OF ST_BaseEvents_InformationAboutEventsForHMI;	//ilosc zgloszen dla poszczegolnych elementow
-	bNewEventsForHmi						: BOOL; 	//informacja ze pojawiło się nowe zgfłoszenie
-								
-	arrActive								: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF BOOL; 	//informacja który z rodzajów zgłoszęń jest aktywny
-	
+	bIsActive						: BOOL;	//informacja o wszysktkich aktywnych zgloszeniach
+	iNumberOfActive					: INT;
+	iTotalNumer						: INT;	//ilosc wszystkich zgloszonych zgloszen
+	bIsActiveWithConfirmation		: BOOL;	//infdormacja o aktywnych bledach ktore wymagaja potwierdzenia
+	iNumberOfActiveWithConfirmation	: INT;	//ilosc wszystkich zdarzen do potwierdzenia
+	arrNumberOfActive				: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;	//ilosc wszystkich aktywnych zgloszen z podziałem na rodzaje
+	arrTotalNumer					: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF INT;	//ilosc wszystkich zgloszonych z podzialem na rodzaje
+	arrActive						: ARRAY [0..GVL_BaseConstans.NUMBER_OF_EVENT_CATEGORIES] OF BOOL; 	//informacja który z rodzajów zgłoszęń jest aktywny
 END_STRUCT
 END_TYPE
 ]]></Declaration>

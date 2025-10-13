@@ -11,12 +11,16 @@ VAR
 	stBuffer						: ST_BaseEvents_Queue;
 	arrItem							: ARRAY  [1..GVL_BaseConstans.MAX_NUMBER_OF_ALL_ITEM] OF ITF_BaseLogger_Item;
 	iNumberOfItem					: INT;
-	uiNumerOfReportsIntheSystem		: UINT;						//informacja ogólna o ilosc wszystkich zgłoszeń
-	bClearMemory					: BOOL;						//czyści pamięć
+	uiNumerOfReportsIntheSystem		: UINT;		//informacja ogólna o ilosc wszystkich zgłoszeń
+	bClearMemory					: BOOL;		//czyści pamięć
+	bChangeInMemory					: BOOL;		//informacja dla wyświetlania żeby odświerzyć dla ogólnego wyświetlania
+	arrInfoForHMI					: ARRAY [0..GVL_BaseConstans.MAX_NUMBER_OF_ALL_ITEM] OF ST_BaseEvents_InformationAboutEventsForHMI;	//ilosc zgloszen dla poszczegolnych elementow
 END_VAR
 VAR PERSISTENT
 	stMemory						: ST_BaseEvents_Memory;			//zapamiętane zgłoszenia
-	stNumberOfReports				: ST_BaseEvents_ActiveEvents;	//ilości różnych zgłoszęń w rozróżnieniu na kategorie
+	stNumberOfReports				: ST_BaseEvents_ActiveEvents;	//ilości różnych zgłoszeń
+	arrNumberOfReportsForItem		: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_ALL_ITEM] OF ST_BaseEvents_ActiveEvents;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -26,24 +30,19 @@ WHILE THIS^.stBuffer.iNumerOfEvents > 0 DO
 	THIS^.BufferFIFOSupport ();
 END_WHILE
 
+	(*	Wyczyszczenie pamięci zdarzeń	*)
+	
 IF (THIS^.bClearMemory) THEN
 	THIS^.bClearMemory				:= FALSE;
-	Tc2_System.MEMSET (
-		destAddr					:= ADR (THIS^.stMemory),
-		fillByte					:= 0,
-		n							:= SIZEOF (THIS^.stMemory)
-	);
-	Tc2_System.MEMSET (
-		destAddr					:= ADR (THIS^.stNumberOfReports),
-		fillByte					:= 0,
-		n							:= SIZEOF (THIS^.stNumberOfReports)
-	);
+	Tc2_System.MEMSET (destAddr := ADR (THIS^.stMemory), fillByte := 0, n := SIZEOF (THIS^.stMemory));
+	Tc2_System.MEMSET (destAddr := ADR (THIS^.stNumberOfReports), fillByte := 0, n	:= SIZEOF (THIS^.stNumberOfReports));
+	Tc2_System.MEMSET (destAddr := ADR (THIS^.arrNumberOfReportsForItem), fillByte := 0, n	:= SIZEOF (THIS^.arrNumberOfReportsForItem));
 END_IF
 ]]></ST>
     </Implementation>
     <Folder Name="ITF_BaseLogger" Id="{c54055ab-2569-0322-10a1-be1e8232e254}" />
     <Folder Name="ITF_BaseLogger_HMI_Connector" Id="{58ae1150-aaab-05cc-1931-89d90fea9543}" />
-    <Method Name="AddItem" Id="{4e41a193-1126-0b14-2759-d72b294fb741}">
+    <Method Name="AddItem" Id="{4e41a193-1126-0b14-2759-d72b294fb741}" FolderPath="ITF_BaseLogger\">
       <Declaration><![CDATA[METHOD PUBLIC AddItem : INT
 VAR_INPUT
 	itfItem				: ITF_BaseLogger_Item;
@@ -65,13 +64,13 @@ AddItem								:= THIS^.iNumberOfItem;
 METHOD PRIVATE BufferFIFOSupport
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[	
-	(*	W zależnosci od tego czy to jest nowe, aktualizacja czy zokończenie zadanie wykonaj odpowiednie zadanie 	*)
+        <ST><![CDATA[	(*	W zależnosci od tego czy to jest nowe, aktualizacja czy zokończenie zadanie wykonaj odpowiednie zadanie 	*)
+
 IF (THIS^.stBuffer.iNumerOfEvents > 0) THEN
 	CASE THIS^.stBuffer.arrEvents [1].eEventAction OF
-		E_BaseEvents_Action.Start				: 	THIS^.BufferFIFOSupportStart ();
-		E_BaseEvents_Action.Confirm				: 	THIS^.BufferFIFOSupportConfirm ();
-		E_BaseEvents_Action.Stop				: 	THIS^.BufferFIFOSupportStop ();
+		E_BaseEvents_Action.Start		: 	THIS^.BufferFIFOSupportStart ();
+		E_BaseEvents_Action.Confirm		: 	THIS^.BufferFIFOSupportConfirm ();
+		E_BaseEvents_Action.Stop		: 	THIS^.BufferFIFOSupportStop ();
 	END_CASE
 	
 (*		przesuniecie danych w kolejce o 1 i zmniejszenie liczy w kolejce o jeden 	*)
@@ -82,10 +81,7 @@ IF (THIS^.stBuffer.iNumerOfEvents > 0) THEN
 		n					:= (SIZEOF (THIS^.stBuffer.arrEvents [1]) * TO_UINT (THIS^.stBuffer.iNumerOfEvents))
 	);
 	THIS^.stBuffer.iNumerOfEvents	:= THIS^.stBuffer.iNumerOfEvents - 1;
-	
-	THIS^.stBuffer.bChangeInMemory	:= TRUE;
 END_IF
-
 ]]></ST>
       </Implementation>
     </Method>
@@ -107,13 +103,15 @@ END_VAR]]></Declaration>
 
 FOR iI := 1 TO TO_INT (THIS^.stMemory.iNumberOfRow) DO 
 	IF (THIS^.stMemory.arrRow [iI].uiIDEvent = THIS^.stBuffer.arrEvents [1].uiIDEvent AND
-    	((THIS^.stMemory.arrRow [iI].bConfirm AND NOT THIS^.stMemory.arrRow [iI].bConfirmed) OR NOT THIS^.stMemory.arrRow [iI].bConfirm)) THEN
+    	(THIS^.stMemory.arrRow [iI].bConfirm AND NOT THIS^.stMemory.arrRow [iI].bConfirmed)) THEN
 		THIS^.stMemory.arrRow [iI].bConfirmed	:= TRUE;
 		THIS^.stMemory.arrRow [iI].dtConfirmed	:= THIS^.stBuffer.arrEvents [1].dtConfirmed;
 		THIS^.ReduceTheNumberOfConfirmations ();
+		THIS^.ReduceTheNumberOfConfirmationsForItem (uiIDItem := THIS^.stMemory.arrRow [iI].uiIDItem);
 		EXIT;
 	END_IF
-END_FOR]]></ST>
+END_FOR
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="BufferFIFOSupportStart" Id="{19eeb431-8176-061d-17ea-c2f43dedc551}">
@@ -128,16 +126,17 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Tc2_System.MEMMOVE (
-	destAddr			:= ADR (THIS^.stMemory.arrRow [2]),
-	srcAddr				:= ADR (THIS^.stMemory.arrRow [1]), 
-	n					:= (SIZEOF (THIS^.stMemory.arrRow [1]) * TO_UINT (THIS^.stMemory.iNumberOfRow))
-);
-Tc2_System.MEMSET (
-	destAddr			:= ADR (THIS^.stMemory.arrRow [1]),
-	fillByte			:= 0,
-	n					:= SIZEOF (THIS^.stMemory.arrRow [1])
-);
+        <ST><![CDATA[	(*	Aktualizacja lości wierszy pamiętanych	*)
+IF (THIS^.stMemory.iNumberOfRow + 1 <= TO_INT (GVL_BaseConstans.MAX_EVENTS_IN_MEMORY)) THEN
+	THIS^.stMemory.iNumberOfRow			:= THIS^.stMemory.iNumberOfRow + 1;
+ELSE
+	THIS^.DecreaseTheNumberOfReports (stRow := THIS^.stMemory.arrRow [GVL_BaseConstans.MAX_EVENTS_IN_MEMORY]);
+	THIS^.DecreaseTheNumberOfReportsForItem (stRow := THIS^.stMemory.arrRow [GVL_BaseConstans.MAX_EVENTS_IN_MEMORY]);
+END_IF
+	(*	Przesunięcie danych w pamięci o jeden i wyczyszczenie zawartości wiersza 1	*)
+Tc2_System.MEMMOVE (destAddr := ADR (THIS^.stMemory.arrRow [2]), srcAddr := ADR (THIS^.stMemory.arrRow [1]),n := (SIZEOF (THIS^.stMemory.arrRow [1]) * TO_UINT (THIS^.stMemory.iNumberOfRow)));
+Tc2_System.MEMSET (destAddr := ADR (THIS^.stMemory.arrRow [1]), fillByte := 0, n := SIZEOF (THIS^.stMemory.arrRow [1]));
+	(*	Przepisanie danych	do wiersza pierwszego	*)
 THIS^.stmemory.arrRow [1].bActive				:= THIS^.stBuffer.arrEvents [1].bActive;
 THIS^.stmemory.arrRow [1].bIgnoreRepetitions	:= THIS^.stBuffer.arrEvents [1].bIgnoreRepetitions;
 THIS^.stmemory.arrRow [1].eEventCategory		:= THIS^.stBuffer.arrEvents [1].eEventCategory;
@@ -147,17 +146,12 @@ THIS^.stmemory.arrRow [1].dtStart				:= THIS^.stBuffer.arrEvents [1].dtStart;
 THIS^.stmemory.arrRow [1].bConfirm				:= THIS^.stBuffer.arrEvents [1].bConfirm;
 THIS^.stmemory.arrRow [1].uiIDItem				:= THIS^.stBuffer.arrEvents [1].uiIDItem;
 
-THIS^.stMemory.iNumberOfRow						:= THIS^.stMemory.iNumberOfRow + 1;
-
-THIS^.stNumberOfReports.arrInfoForHMI [THIS^.stBuffer.arrEvents [1].uiIDItem].bNew	:= TRUE;
-THIS^.stNumberOfReports.arrInfoForHMI [THIS^.stBuffer.arrEvents [1].uiIDItem].iQuantity	:= THIS^.stNumberOfReports.arrInfoForHMI [THIS^.stBuffer.arrEvents [1].uiIDItem].iQuantity + 1;
-THIS^.stNumberOfReports.bNewEventsForHmi	:= TRUE;
-
-	(*	informacja dla systemu że jest aktywny błąd 	*)
-THIS^.IncreaseTheNumberOfActiveReports (
-	bConfirm					:= THIS^.stMemory.arrRow [1].bConfirm,
-	eEventsCategory				:= THIS^.stMemory.arrRow [1].eEventCategory
-);
+THIS^.arrInfoForHMI [THIS^.stBuffer.arrEvents [1].uiIDItem].bNew		:= TRUE;
+THIS^.arrInfoForHMI [THIS^.stBuffer.arrEvents [1].uiIDItem].iQuantity	:= THIS^.arrInfoForHMI [THIS^.stBuffer.arrEvents [1].uiIDItem].iQuantity + 1;
+THIS^.bChangeInMemory		:= TRUE;
+(*	informacja dla systemu że jest aktywny błąd 	*)
+THIS^.IncreaseTheNumberOfReports (stRow := THIS^.stMemory.arrRow [1]);
+THIS^.IncreaseTheNumberOfReportsForItem (stRow := THIS^.stMemory.arrRow [1]);
 ]]></ST>
       </Implementation>
     </Method>
@@ -182,9 +176,70 @@ END_VAR]]></Declaration>
 		THIS^.stMemory.arrRow [iI].bActive		:= FALSE;
 		THIS^.stMemory.arrRow [iI].dtFinish		:= THIS^.stBuffer.arrEvents [1].dtFinish;
 		THIS^.ReduceTheNumberOfActiveEvents (eEventsCategory	:= THIS^.stMemory.arrRow [iI].eEventCategory);
+		THIS^.ReduceTheNumberOfActiveEventsForItem (uiIDItem := THIS^.stMemory.arrRow [iI].uiIDItem, eEventsCategory := THIS^.stMemory.arrRow [iI].eEventCategory);
 		EXIT;
 	END_IF
 END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DecreaseTheNumberOfReports" Id="{d629b26c-6403-02a1-2a72-322da0326f3d}">
+      <Declaration><![CDATA[METHOD PRIVATE DecreaseTheNumberOfReports
+VAR_INPUT
+	stRow					: ST_BaseEvents_RowInMemory;
+END_VAR
+VAR
+	bConfirm				: BOOL;
+	eEventsCategory			: E_BaseEvents_Category;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bConfirm					:= stRow.bConfirm;
+eEventsCategory				:= stRow.eEventCategory;
+
+IF (stRow.bActive) THEN
+	THIS^.stNumberOfReports.iNumberOfActive					:= THIS^.stNumberOfReports.iNumberOfActive - 1;
+END_IF
+THIS^.stNumberOfReports.bIsActive							:= THIS^.stNumberOfReports.bIsActive > 0;
+IF (bConfirm) THEN
+	THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation	:= THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation - 1;
+	THIS^.stNumberOfReports.bIsActiveWithConfirmation		:= THIS^.stNumberOfReports.bIsActiveWithConfirmation > 0;
+END_IF
+
+THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory]	:= THIS^.STNumberOfReports.arrNumberOfActive [eEventsCategory] - 1;
+THIS^.stNumberOfReports.iTotalNumer							:= THIS^.stNumberOfReports.iTotalNumer - 1;
+THIS^.stNumberOfReports.arrTotalNumer [eEventsCategory]		:= THIS^.stNumberOfReports.arrTotalNumer [eEventsCategory] - 1;
+THIS^.stNumberOfReports.arrActive [eEventsCategory]			:= THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory] > 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DecreaseTheNumberOfReportsForItem" Id="{7d88b969-21e5-01e3-335e-7bb1fbee5947}">
+      <Declaration><![CDATA[METHOD PRIVATE DecreaseTheNumberOfReportsForItem
+VAR_INPUT
+	stRow					: ST_BaseEvents_RowInMemory;
+END_VAR
+VAR
+	uiIDItem				: UINT;
+	bConfirm				: BOOL;
+	eEventsCategory			: E_BaseEvents_Category;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[uiIDItem					:= stRow.uiIDItem;
+bConfirm					:= stRow.bConfirm;
+eEventsCategory				:= stRow.eEventCategory;
+
+IF (stRow.bActive) THEN
+	THIS^.stNumberOfReports.iNumberOfActive						:= THIS^.stNumberOfReports.iNumberOfActive - 1;
+END_IF
+THIS^.stNumberOfReports.bIsActive							:= THIS^.stNumberOfReports.bIsActive > 0;
+IF (bConfirm) THEN
+	THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation	:= THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation - 1;
+	THIS^.stNumberOfReports.bIsActiveWithConfirmation		:= THIS^.stNumberOfReports.bIsActiveWithConfirmation > 0;
+END_IF
+
+THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory]	:= THIS^.STNumberOfReports.arrNumberOfActive [eEventsCategory] - 1;
+THIS^.stNumberOfReports.iTotalNumer							:= THIS^.stNumberOfReports.iTotalNumer - 1;
+THIS^.stNumberOfReports.arrTotalNumer [eEventsCategory]		:= THIS^.stNumberOfReports.arrTotalNumer [eEventsCategory] - 1;
+THIS^.stNumberOfReports.arrActive [eEventsCategory]			:= THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory] > 0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -199,19 +254,40 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetChangeInMemory			:= THIS^.stBuffer.bChangeInMemory;
+        <ST><![CDATA[GetChangeInMemory			:= THIS^.bChangeInMemory;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetIfmormationFromItem" Id="{5e131f5a-7862-01ee-0e76-2fc95be51520}" FolderPath="ITF_BaseLogger_HMI_Connector\">
-      <Declaration><![CDATA[METHOD PUBLIC GetIfmormationFromItem : ST_BaseLogger_ItemDataToDisplay
+    <Method Name="GetEventCounts" Id="{3c7ec761-8b67-0539-3c15-c2f3fa0cb7ba}" FolderPath="ITF_BaseLogger_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetEventCounts : ST_BaseEvents_ActiveEvents
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetEventCounts			:= THIS^.stNumberOfReports;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetEventCountsForItem" Id="{a0ea2e6b-7bad-025a-3da7-adabdef4a6be}" FolderPath="ITF_BaseLogger_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetEventCountsForItem : ST_BaseEvents_ActiveEvents
+VAR_INPUT
+	uiIDItem: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetEventCountsForItem		:= THIS^.arrNumberOfReportsForItem [uiIDItem];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetInformationFromItem" Id="{5e131f5a-7862-01ee-0e76-2fc95be51520}" FolderPath="ITF_BaseLogger_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetInformationFromItem : ST_BaseLogger_ItemDataToDisplay
 VAR_INPUT
 	uiIDItem				: UINT;
 	uiIDEvent				: UINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetIfmormationFromItem		:= THIS^.arrItem [uiIDItem].GetInformationToDisplayEvent (uiIDEvent := uiIDEvent);
+        <ST><![CDATA[GetInformationFromItem		:= THIS^.arrItem [uiIDItem].GetInformationToDisplayEvent (uiIDEvent := uiIDEvent);
 ]]></ST>
       </Implementation>
     </Method>
@@ -226,25 +302,59 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IncreaseTheNumberOfActiveReports" Id="{a2524881-7034-023a-3007-d281bb954a2a}">
-      <Declaration><![CDATA[METHOD PRIVATE IncreaseTheNumberOfActiveReports
+    <Method Name="IncreaseTheNumberOfReports" Id="{a2524881-7034-023a-3007-d281bb954a2a}">
+      <Declaration><![CDATA[METHOD PRIVATE IncreaseTheNumberOfReports
 VAR_INPUT
-	bConfirm				: BOOL;		//informacja czy wymaga potwierdzenia
-	eEventsCategory			: E_BaseEvents_Category;
+	stRow					: ST_BaseEvents_RowInMemory;
 END_VAR
-]]></Declaration>
+VAR
+	bConfirm				: BOOL;
+	eEventsCategory			: E_BaseEvents_Category;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stNumberOfReports.iNumberOfActive						:= THIS^.stNumberOfReports.iNumberOfActive + 1;
+        <ST><![CDATA[bConfirm					:= stRow.bConfirm;
+eEventsCategory				:= stRow.eEventCategory;
+
+THIS^.stNumberOfReports.iNumberOfActive						:= THIS^.stNumberOfReports.iNumberOfActive + 1;
 THIS^.stNumberOfReports.bIsActive							:= TRUE;
+THIS^.stNumberOfReports.iTotalNumer							:= THIS^.stNumberOfReports.iTotalNumer + 1;
 IF (bConfirm) THEN
 	THIS^.stNumberOfReports.bIsActiveWithConfirmation		:= TRUE;
-	THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation	:= THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation + 1;
+	THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation	:= THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation + 1;
 END_IF
 
-THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory]	:= THIS^.STNumberOfReports.arrNumberOfActive [eEventsCategory] + 1;
-THIS^.stNumberOfReports.iTotalNumer							:= THIS^.stNumberOfReports.iTotalNumer + 1;
+THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory]	:= THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory] + 1;
 THIS^.stNumberOfReports.arrTotalNumer [eEventsCategory]		:= THIS^.stNumberOfReports.arrTotalNumer [eEventsCategory] + 1;
 THIS^.stNumberOfReports.arrActive [eEventsCategory]			:= THIS^.stNumberOfReports.arrNumberOfActive [eEventsCategory] > 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IncreaseTheNumberOfReportsForItem" Id="{48819360-128c-0961-2495-256678f7a87d}">
+      <Declaration><![CDATA[METHOD PRIVATE IncreaseTheNumberOfReportsForItem
+VAR_INPUT
+	stRow					: ST_BaseEvents_RowInMemory;
+END_VAR
+VAR
+	uiIDItem				: UINT;
+	bConfirm				: BOOL;
+	eEventsCategory			: E_BaseEvents_Category;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[uiIDItem					:= stRow.uiIDItem;
+bConfirm					:= stRow.bConfirm;
+eEventsCategory				:= stRow.eEventCategory;
+
+THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActive	:= THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActive + 1;
+THIS^.arrNumberOfReportsForItem [uiIDItem].bIsActive		:= TRUE;
+IF (bConfirm) THEN
+	THIS^.arrNumberOfReportsForItem [uiIDItem].bIsActiveWithConfirmation		:= TRUE;
+	THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActiveWithConfirmation	:= THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActiveWithConfirmation + 1;
+END_IF
+
+THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory]	:= THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory] + 1;
+THIS^.arrNumberOfReportsForItem [uiIDItem].iTotalNumer							:= THIS^.arrNumberOfReportsForItem [uiIDItem].iTotalNumer + 1;
+THIS^.arrNumberOfReportsForItem [uiIDItem].arrTotalNumer [eEventsCategory]		:= THIS^.arrNumberOfReportsForItem [uiIDItem].arrTotalNumer [eEventsCategory] + 1;
+THIS^.arrNumberOfReportsForItem [uiIDItem].arrActive [eEventsCategory]			:= THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory] > 0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -270,6 +380,29 @@ THIS^.stNumberOfReports.arrActive [eEventsCategory]			:= THIS^.stnumberOfReports
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="ReduceTheNumberOfActiveEventsForItem" Id="{9c14cf0f-9c0e-0496-100f-95996887e44c}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		12.06.2025		TC 4024.66
+	Zmniejsza ilosć aktywnych błędów
+*)
+METHOD PRIVATE ReduceTheNumberOfActiveEventsForItem : BOOL
+VAR_INPUT
+	uiIDItem			: UINT;
+	eEventsCategory		: E_BaseEvents_Category;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActive	:= THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActive - 1;
+IF (THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActive = 0) THEN
+	THIS^.arrNumberOfReportsForItem [uiIDItem].bIsActive	:= FALSE;
+END_IF
+
+THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory]	:= THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory] - 1;
+THIS^.arrNumberOfReportsForItem [uiIDItem].arrActive [eEventsCategory]			:= THIS^.arrNumberOfReportsForItem [uiIDItem].arrNumberOfActive [eEventsCategory] > 0;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="ReduceTheNumberOfConfirmations" Id="{d63962d3-9a36-0744-2bb5-feff8aca8d88}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -281,9 +414,28 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation		:= THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation - 1;
-IF (THIS^.stNumberOfReports.iNumerOfActiveWithConfirmation = 0) THEN
+        <ST><![CDATA[THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation		:= THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation - 1;
+IF (THIS^.stNumberOfReports.iNumberOfActiveWithConfirmation = 0) THEN
 	THIS^.stNumberOfReports.bIsActiveWithConfirmation	:= FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReduceTheNumberOfConfirmationsForItem" Id="{798c1226-2037-0978-2a55-8378cbdbcdee}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		12.06.2025		TC 4024.66
+	Zminiejsza ilość potwierdzeń w aktywnych błedach
+*)
+METHOD PRIVATE ReduceTheNumberOfConfirmationsForItem : BOOL
+VAR_INPUT
+	uiIDItem: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActiveWithConfirmation		:= THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActiveWithConfirmation - 1;
+IF (THIS^.arrNumberOfReportsForItem [uiIDItem].iNumberOfActiveWithConfirmation = 0) THEN
+	THIS^.arrNumberOfReportsForItem [uiIDItem].bIsActiveWithConfirmation	:= FALSE;
 END_IF
 ]]></ST>
       </Implementation>
@@ -321,7 +473,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stBuffer.bChangeInMemory			:= FALSE;
+        <ST><![CDATA[THIS^.bChangeInMemory			:= FALSE;
 ]]></ST>
       </Implementation>
     </Method>

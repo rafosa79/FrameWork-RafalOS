@@ -1,8 +1,11 @@
 Do zrobienia cały serwis
 
-1. -> wywołać z loggerlement metodę przygotowanie listy zgłoszeń dla elemntu i dla wszystkich z parametrem 0
-2. -> dodać możliwość filtrowania
-3. -> dodać możliwość potwierdzania i zamykania zgłoszeń
+zamykanie i potwierdzanie zgłoszeń i potem przetestować filtry 
+wybieranie z listy i test czy jest info przepisane
+teksty na przyciskach filtra zdarzeń
+przetestować zamykanie jak bedzie okienko 
+
+
 
 4. -> parametry w elementach począwszy od komponentów dodawanie i edycja itp
 5. -> wywoływanie z loggerelement przygotowywania listy do wyświetlania
@@ -13,10 +16,6 @@ Do zrobienia cały serwis
 po dodaniu wszystkich elementów PB sprawdzić czy liczba wszystkich elementów nie przekracza wmax możliwej liczby dla wszystkich elementów
 
 
-identyfikacja elemtów w systemie - pobieranie id i tworzenie kodu dodawanie nazw i ich zwracanie 
-rozwinięcie systemu zgłoszeń 
-    możliwość tworzenia zgłoszęń w elementach
-    obsluga kolejki zgłoszeń
 rozwijanie elemntów w bibliotece B_Base
     zasilanie 
     polecenia

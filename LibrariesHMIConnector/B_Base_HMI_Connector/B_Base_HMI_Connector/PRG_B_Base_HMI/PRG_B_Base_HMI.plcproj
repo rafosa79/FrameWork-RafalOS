@@ -21,7 +21,7 @@
     <Company>RafalOS</Company>
     <Title>B_Base_HMI_Connector</Title>
     <DefaultNamespace>B_Base_HMI_Connector</DefaultNamespace>
-    <ProjectVersion>0.0.0.12</ProjectVersion>
+    <ProjectVersion>0.0.0.16</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -102,6 +102,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A03_FB_BaseLoggerElement_HMI\ITF_BaseLoggerElement_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A03_FB_BaseLoggerElement_HMI\ST_BaseHMIConnectorEvents_ActionButtuns.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A03_FB_BaseLoggerElement_HMI\ST_BaseHMIConnectorEvents_DetailInformation.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A03_FB_BaseLoggerElement_HMI\ST_BaseHMIConnectorEvents_Filter.TcDUT">

@@ -48,6 +48,93 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="EventAcknowledge" Id="{97aef371-631d-0164-2cc9-de1694ec8bde}" FolderPath="Events\">
+      <Declaration><![CDATA[METHOD PROTECTED EventAcknowledge : BOOL
+VAR_INPUT
+	iNumber				: INT;
+END_VAR
+VAR
+	sttmpRow			: ST_BaseEvents_RowInQueue;
+	btmpExit			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (iNumber > 0 AND iNumber <= TO_INT (THIS^.stEvents.uiNumberOfAdded)) THEN
+	IF ((THIS^.stEvents.arrDefinitions [iNumber].bConfirm AND NOT THIS^.stEvents.arrConfirmation [iNumber]) OR NOT THIS^.stEvents.arrDefinitions [iNumber].bConfirm) THEN
+		THIS^.stEvents.arrConfirmation [iNumber] 	:= TRUE;
+		btmpExit									:= TRUE;
+		IF (THIS^.stEvents.bLoggerDataCompleted) THEN
+			sttmpRow.eEventAction		:= E_BaseEvents_Action.Confirm;
+			sttmpRow.uiIDEvent			:= THIS^.stEvents.arrDefinitions [iNumber].uiIDEvent;
+			sttmpRow.dtConfirmed		:= THIS^.refstCommonData.itfTime.StampDT ();
+		
+			THIS^.refstCommonData.itfLogger.ReportEvent (stEvent	:= sttmpRow);	
+			btmpExit						:= btmpExit;
+		ELSE
+			btmpExit						:= FALSE;
+		END_IF
+	END_IF	
+END_IF
+EventAcknowledge					:= btmpExit;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EventAcknowledgeByID" Id="{d6ae372f-a167-0547-2911-1a7a4a3c6316}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.06.2025		TC 4024.66
+	Szuka czy ma zgłoszenie i zadanym ID jak tak to usuwa i zwraca true w przeciwnym razie zwraca false 
+*)
+METHOD PUBLIC EventAcknowledgeByID : BOOL
+VAR_INPUT
+	uiIDEvent				: UINT;
+END_VAR
+
+VAR
+	iI: INT;
+	bResult: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.stEvents.uiNumberOfAdded) DO
+	IF (THIS^.stEvents.arrDefinitions [iI].uiIDEvent = uiIDEvent AND THIS^.stEvents.arrDefinitions [iI].bConfirm) THEN	//Zgłoszenie znalezione
+		IF (THIS^.EventAcknowledge (iNumber	:= iI)) THEN
+			bResult							:= TRUE;
+			EXIT;
+		END_IF
+	END_IF
+END_FOR
+EventAcknowledgeByID					:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EventDoesRequireConfirmation" Id="{ed9b1b27-2bf5-0d81-22a7-2afd78672f3a}" FolderPath="Events\">
+      <Declaration><![CDATA[METHOD PROTECTED EventDoesRequireConfirmation : BOOL
+VAR_INPUT
+	iNumber				: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[EventDoesRequireConfirmation		:= THIS^.stEvents.arrDefinitions [iNumber].bConfirm;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EventIsActive" Id="{26eab0fd-2bb3-0346-0602-400ebebb16bf}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+	Rafał Osajda		16.10.2024		TC 4026.11		wer. 0.0.0.1
+	Zwraca aktualny stan wybranego zgłoszenia
+*)
+METHOD PROTECTED EventIsActive : BOOL
+VAR_INPUT
+	iNumber					: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (iNumber > 0 AND iNumber <= TO_INT (THIS^.stEvents.uiNumberOfAdded)) THEN
+	EventIsActive			:= THIS^.stEvents.arrState [iNumber];
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="EventsDefinition" Id="{d570146c-fc2a-0a65-1409-5460668a36c6}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -67,6 +154,114 @@ THIS^.stEvents.uiNumberOfAdded	:= 0;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="EventSetActive" Id="{cd4c6b9b-bccf-068d-166d-01d15ad0e0f4}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Zgloszenie nowe wlacz 
+*)
+METHOD PROTECTED EventSetActive : BOOL
+VAR_INPUT
+	iNumber					: INT; //numer zgloszenia w elemencie
+END_VAR
+VAR
+	sttmpRow				: ST_BaseEvents_RowInQueue;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (iNumber > 0 AND iNumber <= TO_INT (THIS^.stEvents.uiNumberOfAdded) AND NOT THIS^.stEvents.arrState [iNumber]) THEN
+	THIS^.stEvents.arrState [iNumber]		:= TRUE;
+	IF (NOT THIS^.stEvents.arrDefinitions [iNumber].bIgnoreRepetitions) THEN
+		THIS^.stEvents.arrDefinitions [iNumber].uiRepetitionCounter := THIS^.stEvents.arrDefinitions [iNumber].uiRepetitionCounter + 1;
+	END_IF
+	IF (THIS^.stEvents.bLoggerDataCompleted) THEN
+		sttmpRow.eEventAction		:= E_BaseEvents_Action.Start;
+		sttmpRow.uiIDEvent			:= THIS^.stEvents.arrDefinitions [iNumber].uiIDEvent;
+		sttmpRow.bActive			:= TRUE;
+		sttmpRow.bIgnoreRepetitions	:= THIS^.stEvents.arrDefinitions [iNumber].bIgnoreRepetitions;
+		sttmpRow.dtStart			:= THIS^.refstCommonData.itfTime.StampDT ();
+		sttmpRow.uiRepetitionCounter:= THIS^.stEvents.arrDefinitions [iNumber].uiRepetitionCounter;
+		sttmpRow.eEventCategory		:= THIS^.stEvents.arrDefinitions [iNumber].eEventCategory;
+		sttmpRow.bConfirm			:= THIS^.stEvents.arrDefinitions [iNumber].bConfirm;
+		sttmpRow.uiIDItem			:= THIS^.stIdentifier.uiID;
+		
+		THIS^.refstCommonData.itfLogger.ReportEvent (stEvent := sttmpRow);
+		THIS^.stEvents.iNumberOfActiveEvents	:= THIS^.stEvents.iNumberOfActiveEvents + 1;
+	END_IF
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EventSetInactive" Id="{cbc377f7-8b9e-032f-3bcd-c0c642b3107f}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Zgloszenie zakonczone wylacz
+*)
+METHOD PROTECTED EventSetInactive : BOOL
+VAR_INPUT
+	iNumber				: INT;
+END_VAR
+VAR
+	iI					: INT;
+	sttmpRow			: ST_BaseEvents_RowInQueue;
+	btmpExit			: BOOL := FALSE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (iNumber > 0 AND iNumber <= TO_INT (THIS^.stEvents.uiNumberOfAdded) AND THIS^.stEvents.arrState [iNumber]) THEN
+	IF ((THIS^.stEvents.arrDefinitions [iNumber].bConfirm AND THIS^.stEvents.arrConfirmation [iNumber]) OR NOT THIS^.stEvents.arrDefinitions [iNumber].bConfirm) THEN
+		stEvents.arrState [iNumber]					:= FALSE;
+		THIS^.stEvents.arrConfirmation [iNumber]	:= FALSE;
+		btmpExit									:= TRUE;
+	END_IF
+	IF (THIS^.stEvents.bLoggerDataCompleted) THEN
+		sttmpRow.eEventAction		:= E_BaseEvents_Action.Stop;
+		sttmpRow.uiIDEvent			:= THIS^.stEvents.arrDefinitions [iNumber].uiIDEvent;
+		sttmpRow.dtFinish			:= THIS^.refstCommonData.itfTime.StampDT ();
+		sttmpRow.bActive			:= FALSE;
+	
+		THIS^.refstCommonData.itfLogger.ReportEvent (stEvent	:= sttmpRow);
+		THIS^.stEvents.iNumberOfActiveEvents	:= THIS^.stEvents.iNumberOfActiveEvents - 1;
+		btmpExit						:= btmpExit;
+	ELSE
+		btmpExit						:= FALSE;
+	END_IF
+END_IF
+EventSetInactive 						:= btmpExit;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EventSetInactiveByID" Id="{9d42079a-a5a3-0b10-1300-b37d8a078d2a}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.06.2025		TC 4024.66
+	Szuka czy ma zgłoszenie i zadanym ID jak tak to usuwa i zwraca true w przeciwnym razie zwraca false 
+*)
+METHOD PUBLIC EventSetInactiveByID : BOOL
+VAR_INPUT
+	uiIDEvent				: UINT;
+END_VAR
+
+VAR
+	iI: INT;
+	bResult: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.stEvents.uiNumberOfAdded) DO
+	IF (THIS^.stEvents.arrDefinitions [iI].uiIDEvent = uiIDEvent AND
+		((NOT THIS^.stEvents.arrDefinitions [iI].bConfirm) OR 
+			(THIS^.stEvents.arrDefinitions [iI].bConfirm AND THIS^.stEvents.arrConfirmation [iI]))) THEN	//Zgłoszenie znalezione
+		IF (THIS^.EventSetInactive (iNumber := iI)) THEN
+			bResult							:= TRUE;
+			EXIT;
+		END_IF
+	END_IF
+END_FOR
+EventSetInactiveByID						:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FirstCycle" Id="{c59af0fe-9b69-0431-255c-4b5a82a26450}">
       <Declaration><![CDATA[(*			
 	RAFALOS
@@ -80,6 +275,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[	(*	Zdefiniowanie zdarzeń dla elementu	*)
 THIS^.EventsDefinition ();
+(* sprawdzenie czy jest podłaczony loger	*)
+THIS^.stEvents.bLoggerDataCompleted	:= THIS^.refstCommonData.itfLogger <> 0;
 
 FirstCycle					:= TRUE;
 ]]></ST>
@@ -122,15 +319,21 @@ VAR_INPUT
 END_VAR
 VAR
 	sttmpResult				: ST_BaseLogger_ItemDataToDisplay;
+	iI: INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[sttmpResult.stItemName		:= THIS^.stIdentifier.stName;
 sttmpResult.sCode			:= THIS^.stIdentifier.sCode;
-sttmpResult.stDescription	:= THIS^.stEvents.arrDefinitions [uiIDEvent].stDescription;
-sttmpResult.eEventCategory	:= THIS^.stEvents.arrDefinitions [uiIDEvent].eEventCategory;
-sttmpResult.sEventCategory	:= TO_STRING (THIS^.stEvents.arrDefinitions [uiIDEvent].eEventCategory);
-sttmpResult.uiRepetitionCounter	:= THIS^.stEvents.arrDefinitions [uiIDEvent].uiRepetitionCounter;
+FOR iI := 1 TO TO_INT (THIS^.stEvents.uiNumberOfAdded) DO 
+	IF (THIS^.stEvents.arrDefinitions [iI].uiIDEvent = uiIDEvent) THEN
+		sttmpResult.stDescription	:= THIS^.stEvents.arrDefinitions [iI].stDescription;
+		sttmpResult.eEventCategory	:= THIS^.stEvents.arrDefinitions [iI].eEventCategory;
+		sttmpResult.sEventCategory	:= TO_STRING (THIS^.stEvents.arrDefinitions [iI].eEventCategory);
+		sttmpResult.uiRepetitionCounter	:= THIS^.stEvents.arrDefinitions [iI].uiRepetitionCounter;
+		EXIT;
+	END_IF
+END_FOR
 
 GetInformationToDisplayEvent	:= sttmpResult;
 ]]></ST>
@@ -223,6 +426,38 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.stIdentifier.eType				:= eType;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ZwrocDaneDlaZgloszeniaOID" Id="{783c910b-7378-0a9b-3338-86ff62a6be2a}" FolderPath="Events\">
+      <Declaration><![CDATA[METHOD PUBLIC ZwrocDaneDlaZgloszeniaOID : BOOL
+VAR_INPUT
+	uiIDZgloszenia				: UINT;
+END_VAR
+VAR_OUTPUT
+	uiIDElementu				: UINT;
+	sKodElementu				: STRING;
+	sRodzajZgloszenia			: STRING;
+	eRodzajZgloszenia			: E_BaseEvents_Category;
+	stOpis						: ST_BaseLabel;
+	stTekstElementu				: ST_BaseLabel;
+END_VAR
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.stEvents.uiNumberOfAdded) DO
+	IF (THIS^.stEvents.arrDefinitions [iI].uiIDEvent = uiIDElementu) THEN
+		uiIDElementu				:= THIS^.stIdentifier.uiID;
+	    sKodElementu				:= THIS^.stIdentifier.sCode;
+	    sRodzajZgloszenia			:= TO_STRING (THIS^.stEvents.arrDefinitions [iI].eEventCategory);
+	    eRodzajZgloszenia			:= THIS^.stEvents.arrDefinitions [iI].eEventCategory;
+	    stOpis						:= THIS^.stEvents.arrDefinitions [iI].stDescription;
+		stTekstElementu				:= THIS^.stIdentifier.stName;
+		ZwrocDaneDlaZgloszeniaOID	:= TRUE;
+		EXIT;
+	END_IF
+END_FOR
 ]]></ST>
       </Implementation>
     </Method>
