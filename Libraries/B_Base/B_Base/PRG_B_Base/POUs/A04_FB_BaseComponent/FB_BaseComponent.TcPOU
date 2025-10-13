@@ -9,8 +9,8 @@
 FUNCTION_BLOCK FB_BaseComponent EXTENDS FB_BaseLoggerElement IMPLEMENTS ITF_BaseComponent, ITF_BaseComponent_HMI_Connector
 VAR
 	fbReset							: FB_BaseCommand;
-	fbParametersCreate				: FB_baseCommand;
-	fbParametersRestoreToDefault	: FB_baseCommand;
+	fbParametersCreate				: FB_BaseCommand;
+	fbParametersRestoreToDefault	: FB_BaseCommand;
 	
 	
 END_VAR
@@ -21,6 +21,76 @@ END_VAR]]></Declaration>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Parameter" Id="{51f1d98c-bdeb-0f9b-3843-7bd8ef234ec3}" />
+    <Folder Name="Reset" Id="{4e599467-5d15-0090-0780-0c3384086e14}" />
+    <Method Name="ExecuteEveryCycle_Error" Id="{d0f95f17-dd99-064c-15eb-b6a90cafd74d}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
+*)
+METHOD PUBLIC ExecuteEveryCycle_Error
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Operation" Id="{513159e8-2790-0493-315a-cd955c8d31c5}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Wywolanie co cykl operacji 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Operation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.fbReset.OperationExecute ()) THEN
+	THIS^.fbReset.Operation (bIN		:= THIS^.ResetOperation ());
+END_IF
+
+IF (THIS^.fbParametersCreate.OperationExecute ()) THEN
+	THIS^.fbParametersCreate.Operation (bIN := THIS^.ParameterCreateTable ());
+END_IF
+
+IF (THIS^.fbParametersRestoreToDefault.OperationExecute ()) THEN
+	THIS^.fbParametersRestoreToDefault.Operation (bIN	:= THIS^.ParameterRestoreDefaultValueAll ());
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Status" Id="{4211d7fe-e3a3-005a-3d2b-874c421b8ff4}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Aktualizacja flag 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Status
+VAR_INST
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Test" Id="{4131c775-8fd3-0b9a-02c8-9e9a0a682b52}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Testowanie czy nei pojawil sie jakis rozkaz i uruchomienie odpowiednich operacji
+*)
+METHOD PUBLIC ExecuteEveryCycle_Test
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.fbReset.Test ();
+THIS^.fbParametersCreate.Test ();
+THIS^.fbParametersRestoreToDefault.Test ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FB_init" Id="{f6b4fcc3-c3c0-0af2-28d1-79ccbb610da2}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
@@ -170,7 +240,7 @@ END_IF]]></ST>
 	Rafał Osajda		31.03.2025		TC 4024.66
 	Metoda wymazująca dotychczasowe dane z tablicy parametrów i przypisująca je od nowa
 *)
-METHOD PUBLIC ParameterCreateTable : BOOL
+METHOD PROTECTED ParameterCreateTable : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -344,7 +414,7 @@ END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="ParameterRestoreDefaultValueAll" Id="{0026bcd4-2ada-0a85-0709-2aa759eab8a8}" FolderPath="Parameter\">
-      <Declaration><![CDATA[METHOD PUBLIC ParameterRestoreDefaultValueAll : BOOL
+      <Declaration><![CDATA[METHOD PROTECTED ParameterRestoreDefaultValueAll : BOOL
 VAR_INPUT
 END_VAR
 
@@ -383,6 +453,48 @@ METHOD PUBLIC ParameterSetToDefault : BOOL
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.fbParametersRestoreToDefault.Execute ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{c0bf4177-e97f-089b-34b4-b48fadeb74cc}" FolderPath="Reset\">
+      <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.fbReset.Execute ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetGetBusy" Id="{3b84d943-6444-09e4-127e-9583cbeebff0}" FolderPath="Reset\">
+      <Declaration><![CDATA[METHOD PUBLIC ResetGetBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ResetGetBusy		:= THIS^.fbReset.GetBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetGetStatus" Id="{d861273e-29d7-0151-12ed-78079fcd5e28}" FolderPath="Reset\">
+      <Declaration><![CDATA[METHOD PUBLIC ResetGetStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ResetGetStatus			:= THIS^.fbReset.GetStatus ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetOperation" Id="{2d760c90-c43b-0af4-3d18-a1d7b05cea9c}" FolderPath="Reset\">
+      <Declaration><![CDATA[METHOD PROTECTED ResetOperation : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+
+ResetOperation			:= FALSE;
 ]]></ST>
       </Implementation>
     </Method>
