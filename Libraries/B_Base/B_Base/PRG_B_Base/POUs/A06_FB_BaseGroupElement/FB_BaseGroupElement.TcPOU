@@ -35,6 +35,78 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="ExecuteEveryCycle_Error" Id="{27999fb5-d889-03ba-3e6e-c89cb8983a76}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
+*)
+METHOD PUBLIC ExecuteEveryCycle_Error
+VAR
+	iI					: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Error ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Operation" Id="{9b6c22a1-ff3d-0cb3-36d0-b2883b8e1ec9}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Wywolanie co cykl operacji 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Operation
+VAR
+	iI				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Operation ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Status" Id="{697110ad-2da0-0583-304b-85b1ad08e3bb}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Aktualizacja flag 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Status
+VAR
+	iI				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Status ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Test" Id="{879f7bc3-0f18-0b43-0dc5-691b7892df40}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Testowanie czy nei pojawil sie jakis rozkaz i uruchomienie odpowiednich operacji
+*)
+METHOD PUBLIC ExecuteEveryCycle_Test
+VAR
+	iI			: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Test ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FB_init" Id="{a18f7400-8689-05ae-3b31-59cab5e8ddb8}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT

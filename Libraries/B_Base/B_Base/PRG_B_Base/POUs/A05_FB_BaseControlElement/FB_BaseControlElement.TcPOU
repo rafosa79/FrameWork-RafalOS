@@ -10,6 +10,12 @@ FUNCTION_BLOCK FB_BaseControlElement EXTENDS FB_BaseComponent IMPLEMENTS ITF_Bas
 VAR
 	arrComponent			: ARRAY  [1..GVL_BaseConstans.MAX_ITEM_PER_ELEMENT] OF ITF_BaseComponent;
 	uiNumberOfComponents	: UINT;
+(*	Zasilanie	*)
+	itfSS1					: ITF_BaseFlagGet;
+	itfSTO					: ITF_BaseFlagGet;
+	stPower					: ST_BaseControlElement_Power;
+
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -18,6 +24,7 @@ END_VAR
     <Folder Name="Events" Id="{1dd56da8-fa40-0d20-065c-a56138eede25}" />
     <Folder Name="ID" Id="{4718b15a-f934-0f59-1b79-1caa8a3a3eb5}" />
     <Folder Name="WiazanieZmiennych" Id="{b467be5a-6d2a-0ee1-246f-4160ba6824ae}" />
+    <Folder Name="Zasilanie" Id="{c277cffb-ced9-0402-3821-c75c33def767}" />
     <Method Name="AddComponent" Id="{b669ca95-b30c-0759-193e-b3e939cb13c5}">
       <Declaration><![CDATA[METHOD PROTECTED AddComponent : BOOL
 VAR_INPUT
@@ -33,6 +40,170 @@ ELSE
 	;//zwrocenie zbyt dużo komponentow
 END_IF
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EventsDefinition" Id="{c334dad3-9bce-0917-045f-8a0401f150c4}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.EventsDefinition ();
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd uruchomienia zasilania - brak zgody od safety - BRAK SS1");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= TRUE,
+	eEventCategory				:= E_BaseEvents_Category.Error,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd uruchomienia zasilania - brak zgody od safety - BRAK STO");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= TRUE,
+	eEventCategory				:= E_BaseEvents_Category.Error,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Error" Id="{c53db952-8dc4-0d2b-12ad-d90bb93fe6ad}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
+*)
+METHOD PUBLIC ExecuteEveryCycle_Error
+VAR
+	iI				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Error ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Operation" Id="{2b392690-7f99-033f-26aa-9690fa663a58}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Wywolanie co cykl operacji 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Operation
+VAR
+	iI			: INT;
+	bError		: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Operation ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+END_FOR
+
+
+(* 	Zasilanie	*)
+IF (THIS^.stPower.cmdTurnOn.OperationExecute ()) THEN
+	bError				:= FALSE;
+	IF (NOT THIS^.itfSS1.GetFlag ()) THEN
+		//blad 
+		THIS^.EventSetActive (iNumber := 1);
+		bError			:= TRUE;
+	END_IF
+	IF (NOT THIS^.itfSTO.GetFlag ()) THEN
+		//blad
+		THIS^.EventSetActive (iNumber := 2);
+		bError			:= TRUE;
+	END_IF
+	IF (NOT bError) THEN
+		THIS^.stPower.cmdTurnOn.Operation (bIN		:= THIS^.PowerOnCycle ());
+		IF (THIS^.EventIsActive (iNumber := 1)) THEN
+			THIS^.EventSetInactive (iNumber := 1);
+		END_IF
+		IF (THIS^.EventIsActive (iNumber := 2)) THEN
+			THIS^.EventSetInactive (iNumber := 2);
+		END_IF
+	ELSE
+		THIS^.stPower.cmdTurnOn.Abort ();
+	END_IF
+END_IF
+IF (THIS^.stPower.cmdTurnOff.OperationExecute ()) THEN
+	THIS^.stPower.cmdTurnOff.Operation (bIN	:= THIS^.PowerOffCycle ());
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Status" Id="{ec9006a7-246a-0b2b-0a91-f4d80259e847}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Aktualizacja flag 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Status
+VAR
+	iI				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Status ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Test" Id="{0e170bd0-8bb2-0c38-0c54-35b280a40246}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Testowanie czy nei pojawil sie jakis rozkaz i uruchomienie odpowiednich operacji
+*)
+METHOD PUBLIC ExecuteEveryCycle_Test
+VAR
+	iI				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Test ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
+	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+END_FOR
+
+THIS^.stPower.cmdTurnOn.Test ();
+THIS^.stPower.cmdTurnOff.Test ();
+
+IF (THIS^.stPower.bStatus) THEN
+	THIS^.ExecuteEveryCycle_TestWithPower ();
+ELSE
+	THIS^.ExecuteEveryCycle_TestWithoutPower ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_TestWithoutPower" Id="{de69c8f0-7980-0c93-0e3d-f3f3e3fa8b51}">
+      <Declaration><![CDATA[METHOD PROTECTED ExecuteEveryCycle_TestWithoutPower
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_TestWithPower" Id="{8cfe3306-9675-090f-2cce-fa81e160e685}">
+      <Declaration><![CDATA[METHOD PROTECTED ExecuteEveryCycle_TestWithPower
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{7b78c27a-7119-0af8-2842-5faf4638ec35}">
@@ -128,6 +299,122 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
 END_FOR
 
 LinkCommonData					:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerGetStatus" Id="{f37f9c4a-7710-0cee-1290-80230f49bdb4}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Zwraca status zasilania	
+*)
+METHOD PUBLIC PowerGetStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[PowerGetStatus			:= THIS^.stPower.bStatus;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerOffCycle" Id="{53e0dca8-4e5c-03cd-15fe-b8eef14ae467}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		13.10.2025		TC 4024.66
+	Podstawowy cykl wyłączania zasilania. Dla Specyficznych urządzeń przeciążyć
+*)
+METHOD PROTECTED PowerOffCycle : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stPower.bStatus		:= FALSE;
+PowerOffCycle				:= FALSE;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerOnCycle" Id="{043b0c4d-ee30-0b8f-391b-0b2f137dacf9}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		13.10.2025		TC 4024.66
+	Podstawowy cykl włączania zasilania. Dla Specyficznych urządzeń przeciążyć
+*)
+METHOD PROTECTED PowerOnCycle : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stPower.bStatus		:= TRUE;
+PowerOnCycle				:= FALSE;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerTurnOff" Id="{6055b47c-5434-0f14-3d1a-3219a3d00404}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Wyłączenie zasilania
+*)
+METHOD PUBLIC PowerTurnOff : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stPower.cmdTurnOff.Execute ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerTurnOffDone" Id="{d67bb72d-3578-0e6c-3f7b-37b3bb1e378c}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[METHOD PUBLIC PowerTurnOffDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[PowerTurnOffDone		:= THIS^.stPower.cmdTurnOff.GetDone ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerTurnOffInProgress" Id="{ca077752-fb08-05a3-260b-900c56540db8}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[METHOD PUBLIC PowerTurnOffInProgress : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[PowerTurnOffInProgress			:= THIS^.stPower.cmdTurnOff.GetBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerTurnOn" Id="{2d017560-e541-07e0-08da-c8019890af49}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Uruchomienie zasialania
+*)
+METHOD PUBLIC PowerTurnOn
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stPower.cmdTurnOn.Execute ();
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerTurnOnDone" Id="{5a08921d-4ec3-0d0c-0a87-c43711b026ed}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[METHOD PUBLIC PowerTurnOnDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[PowerTurnOnDone		:= THIS^.stPower.cmdTurnOn.GetDone ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerTurnOnInProgress" Id="{508cb39c-d7a2-02bc-1a5e-05c8a3a0b75d}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[METHOD PUBLIC PowerTurnOnInProgress : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[PowerTurnOnInProgress		:= THIS^.stPower.cmdTurnOn.GetBusy ();
 ]]></ST>
       </Implementation>
     </Method>

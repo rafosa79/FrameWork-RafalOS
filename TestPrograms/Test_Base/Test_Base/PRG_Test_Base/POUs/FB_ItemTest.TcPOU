@@ -18,6 +18,8 @@ T09_TestEventReport ();
 T10_PreparetableEventsForTesting ();
 
 T11_TestGenerateListEvent ();
+
+T12_TestPower ();
 ]]></ST>
     </Implementation>
     <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">
@@ -473,6 +475,25 @@ END_VAR
 
 	
 	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T12_TestPower" Id="{e4e4c6b0-0f4a-4549-a00c-9441c17fe9b7}">
+      <Declaration><![CDATA[METHOD PROTECTED T12_TestPower
+VAR_INST
+	iStep				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T12_TestPower')) THEN
+	CASE iStep OF
+	0	:
+		iStep		:= iStep + 10;
+	10	:
+		iStep		:= iStep + 10;
+	
+	1000	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
 END_IF]]></ST>
       </Implementation>
     </Method>

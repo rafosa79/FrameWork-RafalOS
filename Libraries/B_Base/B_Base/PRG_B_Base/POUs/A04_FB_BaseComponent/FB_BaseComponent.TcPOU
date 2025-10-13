@@ -8,9 +8,9 @@
 *)
 FUNCTION_BLOCK FB_BaseComponent EXTENDS FB_BaseLoggerElement IMPLEMENTS ITF_BaseComponent, ITF_BaseComponent_HMI_Connector
 VAR
-	fbReset							: FB_BaseCommand;
-	fbParametersCreate				: FB_BaseCommand;
-	fbParametersRestoreToDefault	: FB_BaseCommand;
+	cmdReset						: FB_BaseCommand;
+	cmdParametersCreate				: FB_BaseCommand;
+	cmdParametersRestoreToDefault	: FB_BaseCommand;
 	
 	
 END_VAR
@@ -47,16 +47,16 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.fbReset.OperationExecute ()) THEN
-	THIS^.fbReset.Operation (bIN		:= THIS^.ResetOperation ());
+        <ST><![CDATA[IF (THIS^.cmdReset.OperationExecute ()) THEN
+	THIS^.cmdReset.Operation (bIN		:= THIS^.ResetOperation ());
 END_IF
 
-IF (THIS^.fbParametersCreate.OperationExecute ()) THEN
-	THIS^.fbParametersCreate.Operation (bIN := THIS^.ParameterCreateTable ());
+IF (THIS^.cmdParametersCreate.OperationExecute ()) THEN
+	THIS^.cmdParametersCreate.Operation (bIN := THIS^.ParameterCreateTable ());
 END_IF
 
-IF (THIS^.fbParametersRestoreToDefault.OperationExecute ()) THEN
-	THIS^.fbParametersRestoreToDefault.Operation (bIN	:= THIS^.ParameterRestoreDefaultValueAll ());
+IF (THIS^.cmdParametersRestoreToDefault.OperationExecute ()) THEN
+	THIS^.cmdParametersRestoreToDefault.Operation (bIN	:= THIS^.ParameterRestoreDefaultValueAll ());
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -85,9 +85,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.fbReset.Test ();
-THIS^.fbParametersCreate.Test ();
-THIS^.fbParametersRestoreToDefault.Test ();
+        <ST><![CDATA[THIS^.cmdReset.Test ();
+THIS^.cmdParametersCreate.Test ();
+THIS^.cmdParametersRestoreToDefault.Test ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -439,7 +439,7 @@ END_FOR
 METHOD PUBLIC ParametersCreate : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.fbParametersCreate.Execute ();
+        <ST><![CDATA[THIS^.cmdParametersCreate.Execute ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -452,7 +452,7 @@ METHOD PUBLIC ParametersCreate : BOOL
 METHOD PUBLIC ParameterSetToDefault : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.fbParametersRestoreToDefault.Execute ();
+        <ST><![CDATA[THIS^.cmdParametersRestoreToDefault.Execute ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -462,7 +462,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.fbReset.Execute ();
+        <ST><![CDATA[THIS^.cmdReset.Execute ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -472,7 +472,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ResetGetBusy		:= THIS^.fbReset.GetBusy ();
+        <ST><![CDATA[ResetGetBusy		:= THIS^.cmdReset.GetBusy ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -482,7 +482,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ResetGetStatus			:= THIS^.fbReset.GetStatus ();
+        <ST><![CDATA[ResetGetStatus			:= THIS^.cmdReset.GetStatus ();
 ]]></ST>
       </Implementation>
     </Method>

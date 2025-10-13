@@ -13,6 +13,7 @@ VAR
 	bLastCycle							: BOOL;
 	bExecute							: BOOL;				//wlączanie polecenia
 	bBusy								: BOOL;				//trwa - BUSY
+	bDone								: bool;				// informacja że polecenie zakończyło sie pomyślnie
 	iExternalCommandMethodStep			: INT := 0;			//krok używany w metodzie zewnętrzej polecenia poprzez dostepne metody
 	iInternalCommandMethodStep			: INT := 0;			//Krok Wywoływania Metody Polecenia - krok 
 	bAborted							: BOOL;
@@ -27,7 +28,15 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[THIS^.bStatus							:= TRUE;
+THIS^.bExecute							:= FALSE;
+THIS^.bBusy								:= FALSE;
+THIS^.bDone								:= FALSE;
+THIS^.iExternalCommandMethodStep		:= 0;
+THIS^.iInternalCommandMethodStep		:= 0;
+THIS^.bFirstCycle						:= FALSE;
+THIS^.bLastCycle						:= FALSE;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Execute" Id="{305fc6c1-129b-095b-3ee6-b758c4dff241}">
@@ -58,6 +67,16 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetBusy			:= THIS^.bBusy;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetDone" Id="{0539a3ec-208d-070d-0cbf-389e3d77aee5}">
+      <Declaration><![CDATA[METHOD PUBLIC GetDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetDone		:= THIS^.bDone;
 ]]></ST>
       </Implementation>
     </Method>
@@ -142,6 +161,7 @@ METHOD OperationExecute : BOOL
 		THIS^.bLastCycle					:= FALSE;
 		THIS^.iInternalCommandMethodStep	:= 0;
 		THIS^.bBusy							:= FALSE;
+		THIS^.bDone							:= TRUE;
 		THIS^.bStatus						:= TRUE;
 		OperationExecute					:= FALSE;
 	ELSE
@@ -157,6 +177,7 @@ END_CASE
         <ST><![CDATA[THIS^.bStatus							:= TRUE;
 THIS^.bExecute							:= FALSE;
 THIS^.bBusy								:= FALSE;
+THIS^.bDone								:= FALSE;
 THIS^.iExternalCommandMethodStep		:= 0;
 THIS^.iInternalCommandMethodStep		:= 0;
 THIS^.bFirstCycle						:= FALSE;
@@ -236,6 +257,7 @@ END_VAR
         <ST><![CDATA[IF (THIS^.bExecute AND NOT THIS^.bBusy) THEN
 	THIS^.iExternalCommandMethodStep	:= 0;
 	THIS^.bStatus						:= FALSE;
+	THIS^.bDone							:= FALSE;
 	THIS^.bBusy							:= TRUE;
 	THIS^.bExecute						:= FALSE;
 	THIS^.bLastCycle					:= FALSE;
