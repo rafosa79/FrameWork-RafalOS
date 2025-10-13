@@ -487,10 +487,19 @@ END_VAR]]></Declaration>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T12_TestPower')) THEN
 	CASE iStep OF
 	0	:
+		AssertFalse (Condition := GVL.fbSS1.GetFlag (), Message := 'S00 - T01 - Bledny stan');
+		AssertFalse (Condition := GVL.fbSTO.GetFlag (), Message := 'S00 - T02 - Bledny stan');
+		GVL_Variable.fbPB1_Wyk1.PowerTurnOn ();
 		iStep		:= iStep + 10;
 	10	:
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stEvents.arrState [1], 				Message := 'S10 - T01 - bledny stan bledu SS1');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stEvents.arrState [2], 				Message := 'S10 - T02 - bledny stan bledu STO');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.GetBusy (), 			Message := 'S10 - T03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.GetFirstCycle (), 	Message := 'S10 - T05 - bledny pierwszy cykl');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.GetLastCycle (), 	Message := 'S10 - T06 - bledny ostatni cykl');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.PowerGetStatus (), 					Message := 'S10 - T04 - bledny status');
+		
 		iStep		:= iStep + 10;
-	
 	1000	:
 		TcUnit.TEST_FINISHED ();
 	END_CASE

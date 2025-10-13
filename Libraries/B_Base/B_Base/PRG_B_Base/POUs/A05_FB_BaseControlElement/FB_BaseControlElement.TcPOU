@@ -302,6 +302,28 @@ LinkCommonData					:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="LinkSS1" Id="{49550dc1-69cc-02e6-2338-41a577cdb825}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkSS1 : BOOL
+VAR_INPUT
+	fbSS1			: ITF_BaseFlagGet;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfSS1		:= fbSS1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkSTO" Id="{e9338c59-044c-0f0a-0acf-ba143064a463}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkSTO : BOOL
+VAR_INPUT
+	fbSTO			: ITF_BaseFlagGet;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfSTO		:= fbSTO;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="PowerGetStatus" Id="{f37f9c4a-7710-0cee-1290-80230f49bdb4}" FolderPath="Zasilanie\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
