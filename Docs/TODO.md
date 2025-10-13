@@ -5,8 +5,6 @@ wybieranie z listy i test czy jest info przepisane
 teksty na przyciskach filtra zdarzeń
 przetestować zamykanie jak bedzie okienko 
 
-
-
 4. -> parametry w elementach począwszy od komponentów dodawanie i edycja itp
 5. -> wywoływanie z loggerelement przygotowywania listy do wyświetlania
 6. -> edycja paramatróz z loggerelementhmi 

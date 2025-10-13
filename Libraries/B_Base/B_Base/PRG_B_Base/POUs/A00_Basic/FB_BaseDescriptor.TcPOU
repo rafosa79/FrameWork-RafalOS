@@ -24,6 +24,17 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetDefaultValueFrom" Id="{93ecbc15-beae-07f7-0fee-7d8703a092f1}">
+      <Declaration><![CDATA[METHOD PUBLIC GetDefaultValueFrom : REAL
+VAR_INPUT
+	stIN				: ST_BaseDescriptor;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetDefaultValueFrom			:= stIN.rDefaultValue;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetMax" Id="{8c76e190-abee-0b2f-27c2-dfbab096def1}">
       <Declaration><![CDATA[METHOD PUBLIC GetMax : REAL
 VAR_INPUT
@@ -31,6 +42,17 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetMax					:= THIS^.stDeskryptor.rMax;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetMaxFrom" Id="{a5506df0-4038-0da5-194a-e313bfde06d7}">
+      <Declaration><![CDATA[METHOD PUBLIC GetMaxFrom : REAL
+VAR_INPUT
+	stIN				: ST_BaseDescriptor;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetMaxFrom				:= stIN.rMax;
 ]]></ST>
       </Implementation>
     </Method>
@@ -44,6 +66,17 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetMinFrom" Id="{f119c5bf-5215-04b0-3e90-a03de3b261d5}">
+      <Declaration><![CDATA[METHOD PUBLIC GetMinFrom : REAL
+VAR_INPUT
+	stIN			: ST_BaseDescriptor;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetMinFrom			:= stIN.rMin;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetTexts" Id="{417909bc-3071-05d7-1b3f-8468c5f7f250}">
       <Declaration><![CDATA[METHOD PUBLIC GetTexts : ST_BaseLabel
 VAR_INPUT
@@ -51,6 +84,17 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetTexts				:=THIS^.stDeskryptor.stTexts;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetTextsFrom" Id="{4acf1e5f-432e-00fe-0c6f-8c2f45e7aa09}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTextsFrom : ST_BaseLabel
+VAR_INPUT
+	stIN				: ST_BaseDescriptor;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetTextsFrom			:=stIN.stTexts;
 ]]></ST>
       </Implementation>
     </Method>
@@ -64,6 +108,17 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetUnitFrom" Id="{f5c9a08d-ebc0-0203-32b8-f0e9cf2245cf}">
+      <Declaration><![CDATA[METHOD PUBLIC GetUnitFrom : STRING(6)
+VAR_INPUT
+	stIN			: ST_BaseDescriptor;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetUnitFrom			:= stIN.sUnit;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetValue" Id="{1fbad2d2-c73a-00b7-272a-3bd1a663b3de}">
       <Declaration><![CDATA[METHOD PUBLIC GetValue : REAL
 VAR_INPUT
@@ -71,6 +126,16 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetValue			:= this^.stDeskryptor.rValue;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetValueFrom" Id="{5c626a0d-81f1-07da-12a6-85eff4b1e6ea}">
+      <Declaration><![CDATA[METHOD PUBLIC GetValueFrom : REAL
+VAR_INPUT
+	stIN			: ST_BaseDescriptor;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetValueFrom		:= stIN.rValue;]]></ST>
       </Implementation>
     </Method>
     <Method Name="SetDefaultValue" Id="{09cf2edb-c6b5-0603-37d0-2e6642dcc45f}">
@@ -81,6 +146,18 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.stDeskryptor.rDefaultValue		:= rDefaultValue;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetDefaultValueIn" Id="{3ee9ec08-c105-0f08-284f-f5553e811f9d}">
+      <Declaration><![CDATA[METHOD PUBLIC SetDefaultValueIn
+VAR_INPUT
+	stIN			: REFERENCE TO ST_BaseDescriptor;
+	rDefaultValue	: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stIN.rDefaultValue		:= rDefaultValue;
 ]]></ST>
       </Implementation>
     </Method>
@@ -95,6 +172,18 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SetMaxIn" Id="{e53c210a-480d-0ff4-3927-08a86a268ae7}">
+      <Declaration><![CDATA[METHOD PUBLIC SetMaxIn
+VAR_INPUT
+	stIN			: REFERENCE TO ST_BaseDescriptor;
+	rMax: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stIN.rMax		:= rMax;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetMin" Id="{cdcb8462-e776-0a08-04c6-034dd95fa910}">
       <Declaration><![CDATA[METHOD PUBLIC SetMin
 VAR_INPUT
@@ -103,6 +192,18 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.stDeskryptor.rMin		:= rMin;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetMinIn" Id="{8f149a5f-c077-01d6-158f-c2ff67bb05de}">
+      <Declaration><![CDATA[METHOD PUBLIC SetMinIn
+VAR_INPUT
+	stIN			: REFERENCE TO ST_BaseDescriptor;
+	rMin: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stIn.rMin		:= rMin;
 ]]></ST>
       </Implementation>
     </Method>
@@ -118,6 +219,19 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SetTextIn" Id="{cf04b86a-0e02-018b-326c-60ebfa4a50c3}">
+      <Declaration><![CDATA[METHOD PUBLIC SetTextIn
+VAR_INPUT
+	stIN				: REFERENCE TO ST_BaseDescriptor;
+	eLocation			: E_BaseLocation;
+	wsDescription		: WSTRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stIN.stTexts.arrText [eLocation]	:= wsDescription;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetTexts" Id="{31ae5e96-267f-0a74-148a-8b7537ed702e}">
       <Declaration><![CDATA[METHOD PUBLIC SetTexts
 VAR_INPUT
@@ -126,6 +240,18 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.stDeskryptor.stTexts			:= stTexts;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetTextsIn" Id="{78dd0fb2-206e-0adc-0dab-082cea18059a}">
+      <Declaration><![CDATA[METHOD PUBLIC SetTextsIn
+VAR_INPUT
+	stIN				: REFERENCE TO ST_BaseDescriptor;
+	stTexts				: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stIN.stTexts			:= stTexts;
 ]]></ST>
       </Implementation>
     </Method>
@@ -140,6 +266,18 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SetUnitIn" Id="{867b33d2-482b-0025-30a9-c6885b6af5ec}">
+      <Declaration><![CDATA[METHOD PUBLIC SetUnitIn
+VAR_INPUT
+	stIN			: REFERENCE TO ST_BaseDescriptor;
+	sUnit: STRING(6);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stIN.sUnit		:= sUnit;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetValue" Id="{fe9b8b66-0a69-0021-26b6-4b3d78392ea8}">
       <Declaration><![CDATA[METHOD PUBLIC SetValue
 VAR_INPUT
@@ -148,6 +286,18 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.stDeskryptor.rValue		:= rValue;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValueIn" Id="{929f6494-9bbe-072d-352f-3d44ac9b3a16}">
+      <Declaration><![CDATA[METHOD PUBLIC SetValueIn
+VAR_INPUT
+	stIN			: REFERENCE TO ST_BaseDescriptor;
+	rValue			: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stIN.rValue			:= rValue;
 ]]></ST>
       </Implementation>
     </Method>

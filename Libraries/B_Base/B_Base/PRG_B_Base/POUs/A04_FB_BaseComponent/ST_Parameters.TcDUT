@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_Parameters" Id="{26dfc3f9-57f9-01e4-2fa9-26266f16bf47}">
+    <Declaration><![CDATA[TYPE ST_Parameters :
+STRUCT
+	arrRow	 				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_PARAMETERS] OF ST_BaseDescriptor;
+	uiNumber				: UINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
