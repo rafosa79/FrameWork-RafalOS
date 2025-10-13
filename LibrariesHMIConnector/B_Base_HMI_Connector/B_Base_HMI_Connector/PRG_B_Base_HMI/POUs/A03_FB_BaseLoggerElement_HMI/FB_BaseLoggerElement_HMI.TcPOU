@@ -211,8 +211,19 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 				stFromLogger	:= THIS^.itfBaseLoggerConnector.GetEventCounts ()
 			);
 		END_IF
+		refstActionButtons.bAcknowledgeAllActive	:= stNumberEventToDisplay.iNumberOfActiveWithConfirmation > 0;
+		refstActionButtons.bCloseAllActive			:= stNumberEventToDisplay.iNumberOfActive > 0;
 	END_IF
-
+	IF (THIS^.refstBaseLoggerElementDataHMI.bSelected) THEN
+		refstActionButtons.bAcknowledgeSelectedActive	:= refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow].bConfirm AND 
+			NOT refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow].bConfirmed;
+		refstActionButtons.bCloseSelectedActive			:= refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow].bConfirm AND 
+			refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow].bConfirmed;
+	ELSE
+		refstActionButtons.bAcknowledgeSelectedActive	:= FALSE;
+		refstActionButtons.bCloseSelectedActive			:= FALSE;
+	END_IF
+	
 	(*	Wybor zgloszenia z listy	*)
 
 	IF ((THIS^.refstBaseLoggerElementDataHMI.iSelectedRow <> THIS^.refstBaseLoggerElementDataHMI.iSelectedRowPrevius AND
