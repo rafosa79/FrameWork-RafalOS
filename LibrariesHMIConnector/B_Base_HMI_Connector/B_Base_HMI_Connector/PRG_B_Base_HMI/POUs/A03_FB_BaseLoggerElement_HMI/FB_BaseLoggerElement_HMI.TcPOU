@@ -16,6 +16,31 @@ END_VAR
     </Implementation>
     <Folder Name="ITF_BaseLoggerElement_HMI" Id="{490d29d6-def9-07f2-16cf-bb21a6440bb9}" />
     <Folder Name="WiazanieZmiennych" Id="{4d450796-b575-0397-39db-94123d6241c4}" />
+    <Method Name="CompleteTheDetailedInformation" Id="{0b06bff0-7255-0a63-19f0-5ecb92dff9d6}">
+      <Declaration><![CDATA[METHOD PRIVATE CompleteTheDetailedInformation : BOOL
+VAR_INPUT
+	stRow			: ST_BaseHMIConnectorEvents_ListToDisplayRow;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.uiIDEvent						:= stRow.uiIDEvent;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.uiIDItem						:= stRow.uiIDItem;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.sCode							:= stRow.sCode;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.bActive							:= stRow.bActive;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.bIgnoreRepetitions				:= stRow.bIgnoreRepetitions;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.uiRepetitionCounter				:= stRow.uiRepetitionCounter;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.sStart							:= stRow.sStart;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.sFinish							:= stRow.sFinish;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.sConfirmed						:= stRow.sConfirmed;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.bConfirm						:= stRow.bConfirm;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.bConfirmed						:= stRow.bConfirmed;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.sEventCategory					:= stRow.sEventCategory;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.wsDescription					:= stRow.wsDescription;
+THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.wsDescriptionFull				:= stRow.wsDescriptionFull;
+
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CopyDataToDisplay" Id="{75592a02-6e87-039e-0670-1b22f05f769c}" FolderPath="ITF_BaseLoggerElement_HMI\">
       <Declaration><![CDATA[METHOD PRIVATE CopyDataToDisplay : BOOL
 VAR_INPUT
@@ -123,8 +148,10 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 	refstActionButtons		REF= THIS^.refstBaseLoggerElementDataHMI.stButtons;
 	bFilterIsActive			:= GetIsActiveFilter (refstFilter := refstFilter);		//sprawdzenie czy jest aktywny filtr
 	
-	IF (THIS^.itfBaseLoggerConnector.GetChangeInMemory () OR bFilterIsActive OR bFilterIsActivePrevius) THEN
-		bFilterIsActivePrevius	:= bFilterIsActive;
+	IF (THIS^.itfBaseLoggerConnector.GetChangeInMemory () OR bFilterIsActive 
+		OR bFilterIsActivePrevius OR THIS^.refstBaseLoggerElementDataHMI.bRefreshList) THEN
+		THIS^.refstBaseLoggerElementDataHMI.bRefreshList	:= FALSE;
+		bFilterIsActivePrevius								:= bFilterIsActive;
 
 		THIS^.itfBaseLoggerConnector.ResetChangeInMemory ();
 		(*	Wyczyszczenie tablicy wyświetlania		*)
@@ -172,105 +199,76 @@ IF (THIS^.refstMemoryEvents.iNumberOfRow > 0) THEN
 				EXIT;
 			END_IF
 		END_FOR	//koniec przechodzenia przez wiersze pamięci
-//		stAktywneZgloszenia								:= THIS^.itfSPM.ZwrocInformacjeOStanieZgloszen ();
-
 	(*	Informacja o ilosciach zgloszen		*)
-	IF (uiIdItem > 0) THEN
-		THIS^.PrepareQuantitiesForDisplay (
-			stCounted		:= stNumberEventToDisplay,
-			stFromLogger	:= THIS^.itfBaseLoggerConnector.GetEventCountsForItem (uiIDItem := uiIDItem)
-		);
-	ELSE
-		THIS^.PrepareQuantitiesForDisplay (
-			stCounted		:= stNumberEventToDisplay,
-			stFromLogger	:= THIS^.itfBaseLoggerConnector.GetEventCounts ()
-		);
-	END_IF
-
-(*		
-		THIS^.refstDane.stIlosciZgloszenNaLiscie.sIloscZgloszen			:= THIS^.PrzygotujILoscWYswietlanychZdarzen (iIlosc := iIloscZgloszen, iIloscLoger := stAktywneZgloszenia.iIloscWszystkich);
-		THIS^.refstDane.stIlosciZgloszenNaLiscie.bJestZgloszenie		:= stAktywneZgloszenia.iIloscWszystkich > 0;
-		THIS^.refstDane.stIlosciZgloszenNaLiscie.sIloscDoPotwierdzenia	:= THIS^.PrzygotujILoscWYswietlanychZdarzen (iIlosc := iIloscDoPotwierdzenia, iIloscLoger := stAktywneZgloszenia.iIloscAktywnychZPotwierdzeniem);
-		THIS^.refstDane.stIlosciZgloszenNaLiscie.bJestDoPotwierdzenia	:= stAktywneZgloszenia.iIloscAktywnychZPotwierdzeniem > 0;
-		THIS^.refstDane.stIlosciZgloszenNaLiscie.sIloscAktywnych		:= THIS^.PrzygotujILoscWYswietlanychZdarzen (iIlosc := iIloscAktywnych, iIloscLoger := stAktywneZgloszenia.iIloscAktywnych);
-		THIS^.refstDane.stIlosciZgloszenNaLiscie.bJestAktywne			:= stAktywneZgloszenia.iIloscAktywnych > 0;
-		THIS^.refstDane.stIlosciZgloszenNaLiscie.sIloscNieAktywnych		:= THIS^.PrzygotujILoscWYswietlanychZdarzen (iIlosc := iIloscNieAktywnych, iIloscLoger := (stAktywneZgloszenia.iIloscWszystkich - stAktywneZgloszenia.iIloscAktywnych));
-		THIS^.refstDane.stIlosciZgloszenNaLiscie.bJestNieAktywne		:= (stAktywneZgloszenia.iIloscWszystkich - stAktywneZgloszenia.iIloscAktywnych) > 0;
-
-		FOR iI := 1 TO B_Baza.STALE.MAX_LICZBA_RODZAJOW_ZGLOSZEN DO
-			THIS^.refstDane.stIlosciZgloszenNaLiscie.arrIlosc [iI]		:= THIS^.PrzygotujILoscWYswietlanychZdarzen (iIlosc := arrIlosc [iI], iIloscLoger := stAktywneZgloszenia.arrIloscWszystkich [iI]);
-			THIS^.refstDane.stIlosciZgloszenNaLiscie.arrJest [iI]		:= stAktywneZgloszenia.arrIloscWszystkich [iI] > 0;
-		END_FOR
-
-		THIS^.refstDane.stPrzyciski.bPotwierdzZgloszeniaAktywny			:= iIloscDoPotwierdzenia = 0;
-		THIS^.refstDane.stPrzyciski.bZamknijZgloszeniaAktywny			:= iIloscAktywnych = 0;
-
-//
-		IF (THIS^.refstDane.uiIDZgloszeniaWybrany > 0 AND NOT THIS^.refstDane.bZaznaczony) THEN
-			THIS^.refstDane.uiIDZgloszeniaWybrany	:= 0;
-			THIS^.refstDane.iWybranyZListy			:= -1;
-			THIS^.refstDane.iWybranyZListy_Pop		:= -1;
+		IF (uiIdItem > 0) THEN
+			THIS^.PrepareQuantitiesForDisplay (
+				stCounted		:= stNumberEventToDisplay,
+				stFromLogger	:= THIS^.itfBaseLoggerConnector.GetEventCountsForItem (uiIDItem := uiIDItem)
+			);
+		ELSE
+			THIS^.PrepareQuantitiesForDisplay (
+				stCounted		:= stNumberEventToDisplay,
+				stFromLogger	:= THIS^.itfBaseLoggerConnector.GetEventCounts ()
+			);
 		END_IF
-		THIS^.refstDane.uiILoscZgloszenWSystemie	:= THIS^.itfSPM.ZwrocIloscZgloszenWSystemie ();
-		THIS^.refstDane.uiIloscElementowWSystemie	:= THIS^.itfSPM.ZwrocIloscElementowWSystemieZgloszen ();
-*)		
 	END_IF
 
 	(*	Wybor zgloszenia z listy	*)
 
-//	IF ((refstListToDisplay.iSelectedRow <> refstListToDisplay.iSelectedRowPrevius AND refstListToDisplay.bSelected) OR 
-//		refstFilter.bbOdswierzInfo ) THEN
-//		THIS^.UzupelnijDaneSzczegolowe ();
-//	ELSIF (THIS^.refstDane.iWybranyZListy < 0 OR THIS^.refstDane.iWybranyZListy > THIS^.refstDane.iIloscWierszyDoWyswietlenia) THEN
-//		THIS^.refstDane.stPrzyciski.bZamknijZgloszenieAktywny	:= FALSE;
-//		THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenieAktywny	:= FALSE;
-//		THIS^.refstDane.iWybranyZListy							:= -1;
-//		THIS^.refstDane.iWybranyZListy_Pop						:= -1;
-//	END_IF 
+	IF ((THIS^.refstBaseLoggerElementDataHMI.iSelectedRow <> THIS^.refstBaseLoggerElementDataHMI.iSelectedRowPrevius AND
+		THIS^.refstBaseLoggerElementDataHMI.bSelected) OR THIS^.refstBaseLoggerElementDataHMI.bRefreshInfo ) THEN
+		THIS^.CompleteTheDetailedInformation (stRow := refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow]);
+	ELSIF (NOT THIS^.refstBaseLoggerElementDataHMI.bSelected) THEN
+		THIS^.refstBaseLoggerElementDataHMI.iSelectedRow		:= -1;
+		THIS^.refstBaseLoggerElementDataHMI.iSelectedRowPrevius	:= -1;
+	END_IF 
 	
 	(*	Obsługa przycisków zamykania i potwierrdzania zgłoszeń	*)
 
-//	IF (THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenie) THEN //potwierdz zgłoszenie
-//		IF (refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow].bConfirm AND 
-//			NOT refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow].bConfirmed) THEN
-//			
-//			THIS^.itfSPM.PotwierdzZgloszenieOID (uiIDZgloszenia			:= THIS^.refstDane.uiIDZgloszeniaWybrany);
-//		END_IF
-//	END_IF
+	IF (THIS^.refstBaseLoggerElementDataHMI.stButtons.bAcknowledgeSelected) THEN //potwierdz zgłoszenie
+		IF (refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow].bConfirm AND 
+			NOT refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow].bConfirmed) THEN
+			THIS^.itfBaseLoggerElementConnector.EventAcknowledgeByID (uiIDEvent := THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.uiIDEvent);
+		END_IF
+	END_IF
 
-//	IF (THIS^.refstDane.stPrzyciski.bZamknijZgloszenie) THEN	//zamknij zgłoszenie
-//		IF (THIS^.refstDane.arrDoWyswietlenia [THIS^.refstDane.iWybranyZListy].bAktywne OR 
-//			THIS^.refstDane.arrDoWyswietlenia [THIS^.refstDane.iWybranyZListy].sKoniec <> '') THEN
-//			THIS^.itfSPM.WylaczZgloszenieOID (uiIDZgloszenia			:= THIS^.refstDane.uiIDZgloszeniaWybrany);
-//		END_IF
-//	END_IF
-(*
+	IF (THIS^.refstBaseLoggerElementDataHMI.stButtons.bCloseSelected) THEN	//zamknij zgłoszenie
+		IF (refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow].bActive OR 
+			refstListToDisplay.arrToDisplay [THIS^.refstBaseLoggerElementDataHMI.iSelectedRow].sFinish <> '') THEN
+			THIS^.itfBaseLoggerElementConnector.EventSetInactiveByID (uiIDEvent := THIS^.refstBaseLoggerElementDataHMI.stDetailInformation.uiIDEvent);
+		END_IF
+	END_IF
+
 	IF (THIS^.refstBaseLoggerElementDataHMI.stButtons.bAcknowledgeAll) THEN //potwierdz wszystkie niepotwierdzone zgłoszenie
 		FOR iIAck := 1 TO TO_INT (refstListToDisplay.iNumberOfRow) DO
 			IF (refstListToDisplay.arrToDisplay [iIAck].bConfirm AND 
 				NOT refstListToDisplay.arrToDisplay [iIAck].bConfirmed) THEN
-				THIS^.itfSPM.PotwierdzZgloszenieOID (uiIDZgloszenia			:= THIS^.refstDane.arrDoWyswietlenia [iI_Zamykania].uiIDZgloszenia);
+				THIS^.itfBaseLoggerElementConnector.EventAcknowledgeByID (uiIDEvent := refstListToDisplay.arrToDisplay [iIAck].uiIDEvent);
 			END_IF
 		END_FOR
 	END_IF
 	IF (THIS^.refstBaseLoggerElementDataHMI.stButtons.bCloseAll) THEN	//zamknij wszystkie nie zamnknięte zgłoszenie
 		FOR iIClose := 1 TO TO_INT (refstListToDisplay.iNumberOfRow) DO
 			IF (refstListToDisplay.arrToDisplay [iIClose].bActive OR refstListToDisplay.arrToDisplay [iIClose].sFinish <> '') THEN
-				THIS^.itfSPM.WylaczZgloszenieOID (uiIDZgloszenia:= THIS^.refstDane.arrDoWyswietlenia [iI_Zamykania].uiIDZgloszenia);
+				THIS^.itfBaseLoggerElementConnector.EventSetInactiveByID (uiIDEvent := refstListToDisplay.arrToDisplay [iIClose].uiIDEvent);
 			END_IF
 		END_FOR
 	END_IF
 	
 	
-	THIS^.refstBaseLoggerElementDataHMI.bOdswierzListe		:= THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenie OR THIS^.refstDane.stPrzyciski.bZamknijZgloszenie OR
-															THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenia OR THIS^.refstDane.stPrzyciski.bZamknijZgloszenia;
-	THIS^.refstBaseLoggerElementDataHMI.bOdswierzInfo		:= THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenie OR THIS^.refstDane.stPrzyciski.bZamknijZgloszenie OR
-															THIS^.refstDane.stPrzyciski.bPotwierdzZgloszenia OR THIS^.refstDane.stPrzyciski.bZamknijZgloszenia;																
+	THIS^.refstBaseLoggerElementDataHMI.bRefreshList		:= 	refstActionButtons.bAcknowledgeSelected OR
+																refstActionButtons.bCloseSelected OR
+																refstActionButtons.bAcknowledgeAll OR
+																refstActionButtons.bCloseAll;
+	THIS^.refstBaseLoggerElementDataHMI.bRefreshInfo		:= 	refstActionButtons.bAcknowledgeSelected	OR
+																refstActionButtons.bCloseSelected OR
+	                                                          	refstActionButtons.bAcknowledgeAll OR
+                                                               	refstActionButtons.bCloseAll;
 	refstActionButtons.bAcknowledgeSelected					:= FALSE;
 	refstActionButtons.bCloseSelected						:= FALSE;
 	refstActionButtons.bAcknowledgeAll						:= FALSE;
-	refstActionButtons.bCloseAll							:= FALSE;	
-*)
+	refstActionButtons.bCloseAll							:= FALSE;
+
 END_IF
 ]]></ST>
       </Implementation>
