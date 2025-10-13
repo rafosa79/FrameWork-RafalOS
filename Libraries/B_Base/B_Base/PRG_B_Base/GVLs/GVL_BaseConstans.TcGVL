@@ -23,7 +23,7 @@ VAR_GLOBAL CONSTANT
 //	MAX_ILOSC_RECEPTUR						: UINT := 10;// Parametry.MAX_ILOSC_RECEPTUR;
 
 	(*	Parametry	*)
-//	MAX_ILOSC_PARAMETROW					: INT := 100;// Parametry.MAX_ILOSC_PARAMETROW;
+	MAX_NUMBER_OF_PARAMETERS				: INT := 100;
 
 	(*	Komponenty i Elementy	*)
 	MAX_NUMBER_OF_ALL_ITEM					: UINT := 200;	// liczba wszystkich komponentów we wszystkich podzespolach bazowych
