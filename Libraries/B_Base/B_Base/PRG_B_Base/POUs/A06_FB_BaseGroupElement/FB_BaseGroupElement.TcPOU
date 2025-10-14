@@ -15,6 +15,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Bazowanie" Id="{ac03e261-94f6-0d08-2b29-69a0f6f80414}" />
     <Folder Name="Events" Id="{20f6f417-5dd7-052c-022d-8978faa14be3}" />
     <Folder Name="ID" Id="{9d43db93-a825-0ef2-1289-7c7210b94e63}" />
     <Folder Name="WiazanieZmiennych" Id="{2b50b030-a9ec-06ce-1ddf-f0356b93fad0}" />
@@ -182,6 +183,59 @@ END_VAR]]></Declaration>
 END_FOR
 THIS^.bPosition0		:= btmpPosition0;
 GetPosition0			:= btmpPosition0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingCycle" Id="{5fc8b8d1-8229-0a71-1575-f7bc7c0780a2}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.05.2025		TC 4024.66
+	Metoda bazowania kontrektnego elementu 
+*)
+METHOD PROTECTED HomingCycle : BOOL
+VAR
+	iI			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE THIS^.stHoming.iElementHomingStep OF
+0	:
+	FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+		THIS^.arrControlElement [iI].HomingStart ();
+	END_FOR
+	THIS^.stHoming.iElementHomingStep	:= THIS^.stHoming.iElementHomingStep + 10;
+	HomingCycle							:= TRUE;
+10	:
+	IF (THIS^.HomingGetIsNeeded ()) THEN
+		THIS^.stHoming.iElementHomingStep 	:= GVL_BaseConstans.FINISH_STEP;
+	END_IF	
+	HomingCycle							:= TRUE;
+GVL_BaseConstans.FINISH_STEP :
+	THIS^.stHoming.bIsNeeded			:= FALSE;
+	HomingCycle							:= FALSE;
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingGetIsNeeded" Id="{1f91511b-58bd-09d6-1a5a-e46fda26b3f4}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		11.04.2025		TC 4024.66
+	Zwraca czy bazowanie jest potrzebne
+*)
+METHOD PUBLIC HomingGetIsNeeded : BOOL
+VAR
+	btmpHomingIsNeeded	: BOOL := FALSE;
+	iI					: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	btmpHomingIsNeeded	:= btmpHomingIsNeeded OR THIS^.arrControlElement [iI].HomingGetIsNeeded ();
+	IF (btmpHomingIsNeeded) THEN
+		EXIT;
+	END_IF
+END_FOR
+HomingGetIsNeeded		:= btmpHomingIsNeeded;
 ]]></ST>
       </Implementation>
     </Method>

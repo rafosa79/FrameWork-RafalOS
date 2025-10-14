@@ -24,7 +24,7 @@ T13_TestPowerForTopElement ();
 
 
 
-//T99_Test ();]]></ST>
+T99_Test ();]]></ST>
     </Implementation>
     <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">
       <Declaration><![CDATA[METHOD PRIVATE T01_TestAddItems
@@ -673,7 +673,6 @@ END_VAR]]></Declaration>
 		iStep			:= iStep + 10;
 	140	:
 		iStep			:= iStep + 10;
-		iStep 			:= 1000;
 	150	:
 		GVL_Variable.fbPB1.PowerTurnOff ();
 		iStep			:= iStep + 10;

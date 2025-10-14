@@ -13,10 +13,9 @@ przetestować zamykanie jak bedzie okienko
 po dodaniu wszystkich elementów PB sprawdzić czy liczba wszystkich elementów nie przekracza wmax możliwej liczby dla wszystkich elementów
 
 
-rozwijanie elemntów w bibliotece B_Base
-    Bazowanie
+Bazowanie - teroretycznie działa trzeba dorobić testy i metody i fb testujące
   
-    Komunikacja Pomiedzy elemetami 
+Pomiedzy elemetami 
 
 Dekoratory?
     

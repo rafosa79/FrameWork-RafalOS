@@ -3,6 +3,7 @@
   <Itf Name="ITF_BaseControlElement" Id="{ad3f64dc-ad28-0928-11ba-a3b4f43ec05a}">
     <Declaration><![CDATA[INTERFACE ITF_BaseControlElement EXTENDS ITF_BaseComponent
 ]]></Declaration>
+    <Folder Name="Bazowanie" Id="{683853aa-b098-0b06-1f91-4b58f7657d20}" />
     <Folder Name="WiazanieZmiennych" Id="{3ea49384-a761-0669-1c6e-519f81bf24fd}" />
     <Folder Name="Zasilanie" Id="{5277a279-1f79-0b64-1781-5812a3c092e7}" />
     <Method Name="GetDoNothing" Id="{ffddb488-5890-0adf-06a6-f772df0e09cc}">
@@ -22,6 +23,28 @@ METHOD PUBLIC GetDoNothing : BOOL
 *)
 METHOD PUBLIC GetPosition0 : BOOL
 
+]]></Declaration>
+    </Method>
+    <Method Name="HomingGetIsNeeded" Id="{af92a4dc-5ebd-0ea2-0b2f-d3ed007008d4}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		11.04.2025		TC 4024.66
+	Zwraca czy bazowanie jest potrzebne
+*)
+METHOD PUBLIC HomingGetIsNeeded : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="HomingStart" Id="{4da12ea9-04a5-0fd9-182f-16900ea540df}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.05.2025		TC 4024.66
+	Uruchomienie metody bazowania
+*)
+METHOD PUBLIC HomingStart
+VAR_INPUT
+END_VAR
 ]]></Declaration>
     </Method>
     <Method Name="LinkSS1" Id="{db097555-ff7f-040e-3bc7-54bad7054deb}" FolderPath="WiazanieZmiennych\">
