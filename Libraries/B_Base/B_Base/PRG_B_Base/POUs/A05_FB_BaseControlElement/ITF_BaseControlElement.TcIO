@@ -3,5 +3,74 @@
   <Itf Name="ITF_BaseControlElement" Id="{ad3f64dc-ad28-0928-11ba-a3b4f43ec05a}">
     <Declaration><![CDATA[INTERFACE ITF_BaseControlElement EXTENDS ITF_BaseComponent
 ]]></Declaration>
+    <Folder Name="WiazanieZmiennych" Id="{3ea49384-a761-0669-1c6e-519f81bf24fd}" />
+    <Folder Name="Zasilanie" Id="{5277a279-1f79-0b64-1781-5812a3c092e7}" />
+    <Method Name="GetDoNothing" Id="{ffddb488-5890-0adf-06a6-f772df0e09cc}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest czymś zajety
+*)
+METHOD PUBLIC GetDoNothing : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="GetPosition0" Id="{44c176d3-d246-039d-2b7a-13136bdef39e}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest w pozycji 0 - referencyjnej
+*)
+METHOD PUBLIC GetPosition0 : BOOL
+
+]]></Declaration>
+    </Method>
+    <Method Name="LinkSS1" Id="{db097555-ff7f-040e-3bc7-54bad7054deb}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkSS1 : BOOL
+VAR_INPUT
+	fbSS1			: ITF_BaseFlagGet;
+END_VAR
+
+]]></Declaration>
+    </Method>
+    <Method Name="LinkSTO" Id="{af004b13-a591-0136-09de-53edc6e3a981}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkSTO : BOOL
+VAR_INPUT
+	fbSTO			: ITF_BaseFlagGet;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="PowerGetStatus" Id="{365f79a7-e897-0e0f-0996-f98b05052eb0}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Zwraca status zasilania	
+*)
+METHOD PUBLIC PowerGetStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="PowerTurnOff" Id="{c3b82c4f-b776-099b-1ee8-48f958193ea3}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Wyłączenie zasilania
+*)
+METHOD PUBLIC PowerTurnOff : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="PowerTurnOn" Id="{a4b9ee87-99e7-08e4-233a-a1dfefa8327a}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Uruchomienie zasialania
+*)
+METHOD PUBLIC PowerTurnOn
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

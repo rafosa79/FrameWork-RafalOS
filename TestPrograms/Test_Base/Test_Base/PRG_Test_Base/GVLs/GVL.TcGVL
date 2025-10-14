@@ -6,6 +6,8 @@ VAR_GLOBAL
 	fbMyTime				: FB_BaseTime;
 	fbMyLocation			: FB_BaseLocation;
 	fbLogger				: FB_BaseLogger;
+	fbSS1					: FB_BaseFlag;
+	fbSTO					: FB_BaseFlag;
 	
 	fbCommandEasy			: FB_BaseCommand;
 	fbCommand				: FB_CommandChild;
