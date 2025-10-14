@@ -36,6 +36,7 @@ THIS^.iExternalCommandMethodStep		:= 0;
 THIS^.iInternalCommandMethodStep		:= 0;
 THIS^.bFirstCycle						:= FALSE;
 THIS^.bLastCycle						:= FALSE;
+THIS^.bAborted							:= TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -182,7 +183,7 @@ THIS^.iExternalCommandMethodStep		:= 0;
 THIS^.iInternalCommandMethodStep		:= 0;
 THIS^.bFirstCycle						:= FALSE;
 THIS^.bLastCycle						:= FALSE;
-
+THIS^.bAborted							:= FALSE;
 
 ]]></ST>
       </Implementation>
@@ -263,6 +264,7 @@ END_VAR
 	THIS^.bLastCycle					:= FALSE;
 	THIS^.bFirstCycle					:= FALSE;	//zmienione z true przy reogranizacji 
 	THIS^.iInternalCommandMethodStep	:= 0;
+	THIS^.bAborted						:= FALSE;
 	Test								:= TRUE;
 	
 END_IF

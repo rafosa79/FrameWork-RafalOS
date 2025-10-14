@@ -14,6 +14,9 @@ po dodaniu wszystkich elementów PB sprawdzić czy liczba wszystkich elementów 
 
 
 rozwijanie elemntów w bibliotece B_Base
-    zasilanie 
-    polecenia
+    Bazowanie
+  
+    Komunikacja Pomiedzy elemetami 
+
+Dekoratory?
     

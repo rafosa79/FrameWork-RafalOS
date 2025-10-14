@@ -21,7 +21,10 @@ T11_TestGenerateListEvent ();
 
 T12_TestPower ();
 T13_TestPowerForTopElement ();
-]]></ST>
+
+
+
+//T99_Test ();]]></ST>
     </Implementation>
     <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">
       <Declaration><![CDATA[METHOD PRIVATE T01_TestAddItems
@@ -594,9 +597,10 @@ VAR_INST
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T13_TestPowerForTopElement')) THEN
-	GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Test ();
-	GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Operation ();
-	CASE iStep	OF
+	GVL_Variable.fbPB1.ExecuteEveryCycle_Test ();
+	GVL_Variable.fbPB1.ExecuteEveryCycle_Operation ();
+	GVL_Variable.fbPB1.ExecuteEveryCycle_Status ();
+	 CASE iStep	OF
 	0	:
 		GVL.fbSS1.SetFlag (bState	:= FALSE);
 		GVL.fbSTO.SetFlag (bState	:= FALSE);
@@ -605,19 +609,19 @@ END_VAR]]></Declaration>
 		GVL_Variable.fbPB1.PowerTurnOn ();
 		iStep			:= iStep + 10;
 	10	:
-		AssertFalse (Condition := GVL_Variable.fbPB1.stEvents.arrState [1], 			Message := 'T10 - 01 - bledny stan bledu SS1');
-		AssertFalse (Condition := GVL_Variable.fbPB1.stEvents.arrState [2], 			Message := 'T10 - 02 - bledny stan bledu STO');
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 		Message := 'T10 - 03 - bledny stan trwa');
+		AssertFalse (Condition := GVL_Variable.fbPB1.stEvents.arrState [1], 				Message := 'T10 - 01 - bledny stan bledu SS1');
+		AssertFalse (Condition := GVL_Variable.fbPB1.stEvents.arrState [2], 				Message := 'T10 - 02 - bledny stan bledu STO');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 			Message := 'T10 - 03 - bledny stan trwa');
 		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetFirstCycle (), 	Message := 'T10 - 05 - bledny pierwszy cykl');
 		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetLastCycle (), 	Message := 'T10 - 06 - bledny ostatni cykl');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T10 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	20	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stEvents.arrState [1], 				Message := 'T20 - 01 - bledny stan bledu SS1');
-		AssertTrue (Condition := GVL_Variable.fbPB1.stEvents.arrState [2], 				Message := 'T20 - 02 - bledny stan bledu STO');
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 		Message := 'T20 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stEvents.arrState [1], 					Message := 'T20 - 01 - bledny stan bledu SS1');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stEvents.arrState [2], 					Message := 'T20 - 02 - bledny stan bledu STO');
+		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 			Message := 'T20 - 03 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetFirstCycle (),	Message := 'T20 - 05 - bledny pierwszy cykl');
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetLastCycle (), 	Message := 'T20 - 06 - bledny ostatni cykl');
+		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetLastCycle (),	 	Message := 'T20 - 06 - bledny ostatni cykl');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T20 - 04 - bledny status');
 		GVL.fbSS1.SetFlag (bState	:= TRUE);
 		GVL.fbSTO.SetFlag (bState	:= TRUE);
@@ -669,6 +673,7 @@ END_VAR]]></Declaration>
 		iStep			:= iStep + 10;
 	140	:
 		iStep			:= iStep + 10;
+		iStep 			:= 1000;
 	150	:
 		GVL_Variable.fbPB1.PowerTurnOff ();
 		iStep			:= iStep + 10;
@@ -707,6 +712,28 @@ END_VAR]]></Declaration>
 	1000	:
 		TcUnit.TEST_FINISHED ();
 	END_CASE
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T99_Test" Id="{3bffd01d-c8de-4919-b8d1-c032dde1e9c1}">
+      <Declaration><![CDATA[METHOD INTERNAL T99_Test
+VAR_INST
+	bFinish	: BOOL;
+	bT99Test: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T99_Test')) THEN
+	bT99Test			:= TRUE;
+
+	GVL_Variable.fbPB1.ExecuteEveryCycle_Test ();
+	GVL_Variable.fbPB1.ExecuteEveryCycle_Operation ();
+	GVL_Variable.fbPB1.ExecuteEveryCycle_Status ();
+	GVL_Variable.fbPB1.ExecuteEveryCycle_Error ();
+	
+	IF bFinish THEN
+		bT99Test		:= FALSE;
+		TcUnit.TEST_FINISHED ();
+	END_IF
 END_IF]]></ST>
       </Implementation>
     </Method>

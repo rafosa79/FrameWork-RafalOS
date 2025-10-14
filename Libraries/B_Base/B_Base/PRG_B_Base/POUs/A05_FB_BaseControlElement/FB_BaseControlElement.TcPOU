@@ -14,7 +14,9 @@ VAR
 	itfSS1					: ITF_BaseFlagGet;
 	itfSTO					: ITF_BaseFlagGet;
 	stPower					: ST_BaseControlElement_Power;
-
+(*	Flagi główne elementów	*)
+	bPosition0				: BOOL := TRUE;	//jak nie potrzebna to zostawić na true w przeciwnym przypadku przypisać odpowiednią logikę
+	bDoNothing				: BOOL := TRUE;	//jak nie potrzebna to zostawić na true w przeciwnym przypadku przypisać odpowiednią logikę
 	
 END_VAR
 ]]></Declaration>
@@ -89,7 +91,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[SUPER^.ExecuteEveryCycle_Error ();
 
 FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
-	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+	THIS^.arrComponent [iI].ExecuteEveryCycle_Error ();
 END_FOR]]></ST>
       </Implementation>
     </Method>
@@ -108,7 +110,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[SUPER^.ExecuteEveryCycle_Operation ();
 
 FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
-	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+	THIS^.arrComponent [iI].ExecuteEveryCycle_Operation ();
 END_FOR
 
 
@@ -156,7 +158,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[SUPER^.ExecuteEveryCycle_Status ();
 
 FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
-	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+	THIS^.arrComponent [iI].ExecuteEveryCycle_Status ();
 END_FOR]]></ST>
       </Implementation>
     </Method>
@@ -234,6 +236,33 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
 END_FOR
 
 FirstCycle			:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetDoNothing" Id="{374d26a0-ec77-0904-0e68-6d5f8f41e3a2}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest czymś zajety
+*)
+METHOD PUBLIC GetDoNothing : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetDoNothing				:= THIS^.bDoNothing;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetPosition0" Id="{b8caa6d7-84b6-0f11-0778-092adf43c4c2}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest w pozycji 0 - referencyjnej
+*)
+METHOD PUBLIC GetPosition0 : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetPosition0				:= THIS^.bPosition0;
 ]]></ST>
       </Implementation>
     </Method>

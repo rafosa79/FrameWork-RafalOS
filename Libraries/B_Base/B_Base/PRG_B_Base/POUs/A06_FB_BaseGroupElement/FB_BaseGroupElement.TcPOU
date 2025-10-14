@@ -18,6 +18,7 @@ END_VAR
     <Folder Name="Events" Id="{20f6f417-5dd7-052c-022d-8978faa14be3}" />
     <Folder Name="ID" Id="{9d43db93-a825-0ef2-1289-7c7210b94e63}" />
     <Folder Name="WiazanieZmiennych" Id="{2b50b030-a9ec-06ce-1ddf-f0356b93fad0}" />
+    <Folder Name="Zasilanie" Id="{27dafdd4-57cf-0313-207b-208322f99c30}" />
     <Method Name="AddControlElement" Id="{175b37ba-638b-0727-26cf-573800512486}">
       <Declaration><![CDATA[METHOD PROTECTED AddControlElement : BOOL
 VAR_INPUT
@@ -48,8 +49,8 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[SUPER^.ExecuteEveryCycle_Error ();
 
-FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
-	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	THIS^.arrControlElement [iI].ExecuteEveryCycle_Error ();
 END_FOR]]></ST>
       </Implementation>
     </Method>
@@ -66,8 +67,8 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[SUPER^.ExecuteEveryCycle_Operation ();
 
-FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
-	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	THIS^.arrControlElement [iI].ExecuteEveryCycle_Operation ();
 END_FOR]]></ST>
       </Implementation>
     </Method>
@@ -84,8 +85,8 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[SUPER^.ExecuteEveryCycle_Status ();
 
-FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
-	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	THIS^.arrControlElement [iI].ExecuteEveryCycle_Status ();
 END_FOR]]></ST>
       </Implementation>
     </Method>
@@ -102,8 +103,8 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[SUPER^.ExecuteEveryCycle_Test ();
 
-FOR iI := 1 TO TO_INT (THIS^.uiNumberOfComponents) DO
-	THIS^.arrComponent [iI].ExecuteEveryCycle_Test ();
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	THIS^.arrControlElement [iI].ExecuteEveryCycle_Test ();
 END_FOR]]></ST>
       </Implementation>
     </Method>
@@ -135,6 +136,52 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
 END_FOR
 
 FirstCycle			:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetDoNothing" Id="{f182bed7-6e94-09dd-3b80-e6560a2640bc}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest czymś zajety
+*)
+METHOD PUBLIC GetDoNothing : BOOL
+VAR
+	iI				: INT;
+	btmpDoNothing	: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	btmpDoNothing		:= btmpDoNothing AND THIS^.arrControlElement [iI].GetDoNothing ();
+	IF (NOT btmpDoNothing) THEN
+		EXIT;
+	END_IF
+END_FOR
+THIS^.bDoNothing		:= btmpDoNothing;
+GetDoNothing			:= btmpDoNothing;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetPosition0" Id="{71e3e5d7-b708-0c78-3ca1-830cdfe03509}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest w pozycji 0 - referencyjnej
+*)
+METHOD PUBLIC GetPosition0 : BOOL
+VAR
+	iI					: INT;
+	btmpPosition0		: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	btmpPosition0		:= btmpPosition0 AND THIS^.arrControlElement [iI].GetPosition0 ();
+	IF (NOT btmpPosition0) THEN
+		EXIT;
+	END_IF
+END_FOR
+THIS^.bPosition0		:= btmpPosition0;
+GetPosition0			:= btmpPosition0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -242,6 +289,71 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
 END_FOR
 
 LinkSTO				:= bresult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerOffCycle" Id="{418e83ec-8f97-07d4-0867-9ef529a73ef8}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[METHOD PROTECTED PowerOffCycle : BOOL
+VAR
+	iI							: INT;
+	bPowerStatus			: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE stPower.cmdTurnOff.GetStep () OF
+0	:
+	FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+		THIS^.arrControlElement [iI].PowerTurnOff ();
+	END_FOR
+	THIS^.stPower.cmdTurnOff.SetStepINC10 ();
+	PowerOffCycle			:= TRUE;
+10	:
+	bPowerStatus			:= FALSE;
+	FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+		bPowerStatus		:= bPowerStatus OR THIS^.arrControlElement [iI].PowerGetStatus ();
+		IF (bPowerStatus) THEN
+			EXIT;
+		END_IF
+	END_FOR	
+	IF (NOT bPowerStatus) THEN
+		THIS^.stPower.bStatus	:= FALSE;
+		THIS^.stPower.cmdTurnOff.SetStepAsFinal ();
+	ELSE
+		PowerOffCycle			:= TRUE;
+	END_IF	
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerOnCycle" Id="{08b33ced-f9ae-0bb9-1205-79dbe801e4dd}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[METHOD PROTECTED PowerOnCycle : BOOL
+VAR
+	iI						: INT;
+	bPowerStatus		: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE stPower.cmdTurnOn.GetStep () OF
+0	:
+	FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+		THIS^.arrControlElement [iI].PowerTurnOn ();
+	END_FOR
+	THIS^.stPower.cmdTurnOn.SetStepINC10 ();
+	PowerOnCycle				:= TRUE;
+10	:
+	bPowerStatus			:= TRUE;
+	FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+		bPowerStatus		:= bPowerStatus AND THIS^.arrControlElement [iI].PowerGetStatus ();
+		IF (NOT bPowerStatus) THEN
+			EXIT;
+		END_IF
+	END_FOR	
+	IF (bPowerStatus) THEN
+		THIS^.stPower.bStatus	:= TRUE;
+		THIS^.stPower.cmdTurnOn.SetStepAsFinal ();
+		PowerOnCycle			:= FALSE;
+	ELSE
+		PowerOnCycle			:= TRUE;
+	END_IF	
+END_CASE
 ]]></ST>
       </Implementation>
     </Method>
