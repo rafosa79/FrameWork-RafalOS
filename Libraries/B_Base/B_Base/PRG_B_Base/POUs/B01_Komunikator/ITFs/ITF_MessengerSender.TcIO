@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MessengerSender" Id="{f2c748b8-07c6-03cf-04c2-0bcc78ff32eb}">
+    <Declaration><![CDATA[INTERFACE ITF_MessengerSender
+]]></Declaration>
+    <Method Name="SendData_BOOL" Id="{298a0d8a-859a-0345-1b64-39c0a67da553}">
+      <Declaration><![CDATA[METHOD SendData_BOOL : BOOL
+VAR_INPUT
+	sNazwa		: STRING;
+	itfNadawca	: ITF_MessengerSender;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SendData_REAL" Id="{90c1e12c-5b0c-0772-240d-9c9ad6717b88}">
+      <Declaration><![CDATA[METHOD SendData_REAL : BOOL
+VAR_INPUT
+	sNazwa		: STRING;
+	rWartosc	: REAL;
+	itfNadawca	: ITF_MessengerSender;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

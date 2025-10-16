@@ -146,25 +146,25 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\FB_Komunikator.TcPOU">
+    <Compile Include="POUs\B01_Komunikator\FB_Communicator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\ITFs\ITF_Komunikator.TcIO">
+    <Compile Include="POUs\B01_Komunikator\ITFs\ITF_Communicator.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\ITFs\ITF_KomunikatorNadawca.TcIO">
+    <Compile Include="POUs\B01_Komunikator\ITFs\ITF_MessengerSender.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\ITFs\ITF_KomunikatorOdbiorca.TcIO">
+    <Compile Include="POUs\B01_Komunikator\ITFs\ITF_MessengerRecipient.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\ST_KomunikatorDane.TcDUT">
+    <Compile Include="POUs\B01_Komunikator\ST_CommunicatorData.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\ST_KomunikatorKolejka.TcDUT">
+    <Compile Include="POUs\B01_Komunikator\ST_CommunicatorStack.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\ST_KomunikatorKomunikat.TcDUT">
+    <Compile Include="POUs\B01_Komunikator\ST_CommunicatorMassege.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A00_Basic\FB_BaseLabel.TcPOU">

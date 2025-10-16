@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Communicator" Id="{95c8f21f-348b-0804-2e77-1d9f40277cd9}">
+    <Declaration><![CDATA[INTERFACE ITF_Communicator EXTENDS ITF_MessengerSender, ITF_MessengerRecipient
+]]></Declaration>
+  </Itf>
+</TcPlcObject>
