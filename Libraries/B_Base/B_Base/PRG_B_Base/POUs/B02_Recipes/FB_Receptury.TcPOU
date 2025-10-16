@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Receptury" Id="{03e2ca9f-77ac-071f-2df8-6ca780aace72}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		28.02.2025		TC 4026.13		wer. 0.0.0.1
+	Obsługa receptur
+*)
+FUNCTION_BLOCK FB_Receptury EXTENDS FB_Base
+VAR
+	bChoose						: BOOL;
+	iNumberToChoose				: INT;
+END_VAR
+VAR PERSISTENT
+	arrTemplates				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ST_Receptura;
+	arrRecipes					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_RECIPES] OF ST_Receptura;		
+	uiIloscSzablonow			: UINT;			//ilość dodanych szablonów
+	uiIloscReceptur				: UINT;			//ilość dodanych receptur
+	uiWybrana					: UINT;			//numer wybranej receptruy		
+	stWybrana					: ST_Receptura;												
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="dodajSkladnikDoSzablonu" Id="{0f0ee292-ddb9-015d-0fb4-0a56214e5144}">
+      <Declaration><![CDATA[METHOD PUBLIC dodajSkladnikDoSzablonu : BOOL
+VAR_INPUT
+	uiNumer		: UINT;
+	stSkladnik	: ST_BaseDescriptor;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.arrTemplates [uiNumer].uiIlosc + 1 <= GVL_BaseConstans.MAX_NUMBER_Of_INGREDIENTS) THEN
+	THIS^.arrTemplates [uiNumer].uiIlosc			:= THIS^.arrTemplates [uiNumer].uiIlosc + 1;
+	THIS^.arrTemplates [uiNumer].arrSkladnik [THIS^.arrTemplates [uiNumer].uiIlosc]	:= stSkladnik;
+//	THIS^.arrSzablony [uiNumer].arrSkladnik [THIS^.arrSzablony [uiNumer].uiIlosc].PowiarzJezyk (fbLokalizacja := THIS^.itfJezyk);
+	DodajSkladnikDoSzablonu						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="usunRecepture" Id="{53b2bec5-5d7d-0d47-2b2d-3884e18298a9}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC usunRecepture : BOOL
+VAR_INPUT
+	uiNumer				: uint;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (uiNumer > 0 AND uiNumer <= THIS^.uiIloscReceptur) THEN
+
+	MEMMOVE (
+		destAddr						:= ADR (THIS^.arrRecipes [uiNumer]),
+		srcAddr							:= ADR (THIS^.arrRecipes [uiNumer + 1]),
+		n								:= SIZEOF (THIS^.arrRecipes [1]) * (GVL_BaseConstans.MAX_NUMBER_OF_RECIPES - (uiNumer))
+	);
+	THIS^.uiIloscReceptur				:= THIS^.uiIloscReceptur - 1;
+	
+	usunRecepture			:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="utworzReceptureZReceptury" Id="{651128f8-f372-064a-0b31-eab503693b6e}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Kopiuje składniki z wybranej receptury i tworzy nową recepture
+*)
+METHOD PUBLIC utworzReceptureZReceptury : BOOL
+VAR_INPUT
+	uiNumerReceptury			: UINT;
+	stNazwa						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.uiIloscReceptur + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_RECIPES) THEN
+	THIS^.uiIloscReceptur					:= THIS^.uiIloscReceptur + 1;
+	THIS^.arrRecipes [THIS^.uiIloscReceptur]	:= THIS^.arrRecipes [uiNumerReceptury];
+	THIS^.arrRecipes [THIS^.uiIloscReceptur].stNazwa	:= stNazwa;
+//	THIS^.arrReceptury [THIS^.uiIloscReceptur].fbNazwa.PowiarzJezyk (fbLokalizacja := THIS^.itfJezyk);	
+	utworzReceptureZReceptury				:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="utworzReceptureZSzablonu" Id="{f52b2116-f623-0030-2d81-4397661a0136}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Kopiuje składniki z wybranego szablonu i tworzy nową recepture
+*)
+METHOD PUBLIC utworzReceptureZSzablonu : BOOL
+VAR_INPUT
+	uiNumerSzablonu				: UINT;
+	stNazwa						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.uiIloscReceptur + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_RECIPES) THEN
+	THIS^.uiIloscReceptur					:= THIS^.uiIloscReceptur + 1;
+	THIS^.arrRecipes [THIS^.uiIloscReceptur]	:= THIS^.arrTemplates [uiNumerSzablonu];
+	THIS^.arrRecipes [THIS^.uiIloscReceptur].stNazwa	:= stNazwa;
+//	THIS^.arrReceptury [THIS^.uiIloscReceptur].fbNazwa.PowiarzJezyk (fbLokalizacja := THIS^.itfJezyk);
+	utworzReceptureZSzablonu				:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="utworzSzablon" Id="{07b2ff28-6360-0746-3fd3-88d58ad87d2f}">
+      <Declaration><![CDATA[METHOD PUBLIC utworzSzablon : BOOL
+VAR_INPUT
+	stNazwa			: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.uiIloscSzablonow + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES) THEN
+	THIS^.uiIloscSzablonow									:= THIS^.uiIloscSzablonow + 1;
+	THIS^.arrTemplates [1].stNazwa							:=  stNazwa;
+	THIS^.arrTemplates [THIS^.uiIloscSzablonow].uiSzablon	:= THIS^.uiIloscSzablonow;
+	utworzSzablon											:= TRUE;
+END_IF
+
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Wybierz" Id="{d3d8f3be-0ff3-0bae-204e-3c67cd270da4}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Przypisuje do referencji wybraną rtecepture
+*)
+METHOD PUBLIC Wybierz : BOOL
+VAR_INPUT
+	uiNumer				: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//THIS^.refstWybrana				REF= THIS^.arrReceptury [uiNumer];
+THIS^.stWybrana					:= THIS^.arrRecipes [uiNumer];
+THIS^.uiWybrana					:= uiNumer;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WyczyscReceptury" Id="{172f62a0-9798-0cab-305e-feffa8cbdf70}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	usunięcie wszystkich receptur
+*)
+METHOD PUBLIC WyczyscReceptury : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MEMSET (
+	destAddr			:= ADR (THIS^.arrRecipes),
+	fillByte			:= 0,
+	n					:= SIZEOF (THIS^.arrRecipes)
+);
+THIS^.uiIloscReceptur 	:= 0;
+THIS^.uiWybrana			:= 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WyczyscSzablony" Id="{4b596d00-c06a-060f-25fd-144da0dc5122}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	usunięcie wszystkich szablonów
+*)
+METHOD PUBLIC WyczyscSzablony : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MEMSET (
+	destAddr			:= ADR (THIS^.arrTemplates),
+	fillByte			:= 0,
+	n					:= SIZEOF (THIS^.arrTemplates)
+);
+THIS^.uiIloscSzablonow 	:= 0;
+
+//THIS^.PowiazJezyk (fbLokalizacja := THIS^.itfJezyk);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WyczyscWybrana" Id="{160f797c-8196-0238-2a45-b769a3eb5c43}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.06.2025		TC 4024.66
+	usuwa referencje do wybranej
+*)
+METHOD PUBLIC WyczyscWybrana
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.uiWybrana := 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WyzerujUstawionaRecepture" Id="{51a84241-eda0-0452-15de-03118734a297}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		16.09.2025		TC 4024.66
+	Ustawia numer wybranej receptury na 0 
+*)
+METHOD PUBLIC WyzerujUstawionaRecepture : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.uiWybrana			:= 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zastapReceptrureReceptyraZReceptury" Id="{9d38f019-e018-0442-09b3-55a9a1042ed0}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zastępuje wybraną recepture przez istenijącą receputre
+*)
+METHOD PROTECTED zastapReceptrureReceptyraZReceptury : BOOL
+VAR_INPUT
+	uiNumerRecepturyCel			: UINT;
+	uiNumerRecepturyZrodlo		: UINT;	
+	stNazwa						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (uiNumerRecepturyCel > 0 AND uiNumerRecepturyCel <= THIS^.uiIloscReceptur AND
+	uiNumerRecepturyZrodlo > 0 AND uiNumerRecepturyZrodlo <= THIS^.uiIloscReceptur AND
+	uiNumerRecepturyCel <> uiNumerRecepturyZrodlo) THEN
+	THIS^.arrRecipes [uiNumerRecepturyZrodlo]	:= THIS^.arrTemplates [uiNumerRecepturyZrodlo];
+	THIS^.arrRecipes [uiNumerRecepturyCel].stNazwa	:= stNazwa;
+	zastapReceptrureReceptyraZReceptury 				:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zastapReceptureRecepturaZSzablonu" Id="{0b1e8d6f-ca25-0422-2111-a33a00a4d2b5}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zastępuje wybraną recepture przez istenijącą receputre z szablonu
+*)
+METHOD PUBLIC zastapReceptureRecepturaZSzablonu : BOOL
+VAR_INPUT
+	uiNumerRecepturyCel			: UINT;
+	uiNumerRecepturyZrodlo		: UINT;
+	stNazwa						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (uiNumerRecepturyCel > 0 AND uiNumerRecepturyCel <= THIS^.uiIloscReceptur AND
+	uiNumerRecepturyZrodlo > 0 AND uiNumerRecepturyZrodlo <= THIS^.uiIloscSzablonow) THEN
+	THIS^.arrRecipes [uiNumerRecepturyZrodlo]	:= THIS^.arrTemplates [uiNumerRecepturyZrodlo];
+	THIS^.arrRecipes [uiNumerRecepturyCel].stNazwa	:= stNazwa;
+	zastapReceptureRecepturaZSzablonu 			:= TRUE;
+END_IF
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ZwrocADR" Id="{13f1299c-1beb-03d3-2037-731660ef600e}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca referencje do  receptury
+*)
+METHOD PUBLIC ZwrocADR : POINTER TO ST_Receptura
+VAR_INPUT
+	uiNumer					: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//IF (__ISVALIDREF (THIS^.refstWybrana )) THEN
+//	Zwroc 		:= THIS^.refstWybrana;
+//END_IF
+ZwrocADR			:= ADR (THIS^.arrRecipes [uiNumer]);
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ZwrocCzyWybrana" Id="{4ec16f50-7578-088d-0803-c8d637862b3e}">
+      <Declaration><![CDATA[METHOD PUBLIC ZwrocCzyWybrana : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ZwrocCzyWybrana			:= THIS^.uiWybrana <> 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocIloscReceptur" Id="{bcfa9786-efb5-05d1-2c01-fcd720602155}">
+      <Declaration><![CDATA[METHOD PUBLIC zwrocIloscReceptur : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[zwrocIloscReceptur			:= THIS^.uiIloscReceptur;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocIloscSkladnikowReceptury" Id="{39c1e455-f5b9-089b-3e06-95352ee4e1fd}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC zwrocIloscSkladnikowReceptury : UINT
+VAR_INPUT
+	uiNumer				: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[zwrocIloscSkladnikowReceptury 		:= THIS^.arrRecipes [uiNumer].uiIlosc;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocIloscSkladnikowSzablonu" Id="{4e5e8392-2115-0d5d-255d-ca4de612e41b}">
+      <Declaration><![CDATA[METHOD PUBLIC zwrocIloscSkladnikowSzablonu : UINT
+VAR_INPUT
+	uiNumer				: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[zwrocIloscSkladnikowSzablonu 		:= THIS^.arrTemplates [uiNumer].uiIlosc;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocIloscSzablonow" Id="{536dce0f-5568-0985-160a-ca6053841bd4}">
+      <Declaration><![CDATA[METHOD PUBLIC zwrocIloscSzablonow : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[zwrocIloscSzablonow		:= THIS^.uiIloscSzablonow;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocNazweReceptury" Id="{2fc48bb8-42d0-065d-3520-1bf8b3127417}">
+      <Declaration><![CDATA[METHOD zwrocNazweReceptury : WSTRING
+VAR_INPUT
+	uiNumer			: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[zwrocNazweReceptury			:= THIS^.ZwrocTekstZ (stEtykieta := THIS^.arrReceptury [uiNumer].stNazwa);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocNazweSzablonu" Id="{670a7656-2f3a-079c-06a7-6a04bc38f501}">
+      <Declaration><![CDATA[METHOD PUBLIC zwrocNazweSzablonu : WSTRING
+VAR_INPUT
+	uiNumer			: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[zwrocNazweSzablonu			:= THIS^.ZwrocTekstZ (stEtykieta := THIS^.arrSzablony [uiNumer].stNazwa);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocNumerWybranejReceptury" Id="{d8bb23fb-2a14-0aef-20d1-d68158a22e59}">
+      <Declaration><![CDATA[METHOD PUBLIC zwrocNumerWybranejReceptury : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[zwrocNumerWybranejReceptury			:= THIS^.uiWybrana;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ZwrocReferencjeDoReceptury" Id="{e42b8556-fc97-0ff9-194c-62f7ba6208f4}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca referencje do  receptury
+*)
+METHOD PUBLIC ZwrocReferencjeDoReceptury : REFERENCE TO ST_Receptura
+VAR_INPUT
+	uiNumer					: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//IF (__ISVALIDREF (THIS^.refstWybrana )) THEN
+//	Zwroc 		:= THIS^.refstWybrana;
+//END_IF
+ZwrocReferencjeDoReceptury			REF= THIS^.arrRecipes [uiNumer];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocReferencjeWybranej" Id="{e9149c79-504e-0c5c-3057-2590aa04a45e}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Zwraca reference do wybranej receptury
+*)
+METHOD PUBLIC zwrocReferencjeWybranej : REFERENCE TO ST_Receptura
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[zwrocReferencjeWybranej			REF= THIS^.stWybrana;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocSkladnikReceptury" Id="{fa0b3268-f087-02b5-2150-6927c92d965d}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC zwrocSkladnikReceptury : ST_BaseDescriptor
+VAR_INPUT
+	uiNumerReceptury			: UINT;
+	uiNumerSkladnika			: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[zwrocSkladnikReceptury			:= THIS^.arrRecipes [uiNumerReceptury].arrSkladnik [uiNumerSkladnika];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocSkladnikSzablonu" Id="{dec3be3a-9832-066c-12f1-a481c32b69fa}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC zwrocSkladnikSzablonu : ST_BaseDescriptor
+VAR_INPUT
+	uiNumerSzablonu				: UINT;
+	uiNumerSkladnika			: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[zwrocSkladnikSzablonu			:= THIS^.arrRecipes [uiNumerSzablonu].arrSkladnik [uiNumerSkladnika];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ZwrocWybrana" Id="{0b6c1e02-8b31-0759-12bf-4304e5db0302}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca referencje do  receptury
+*)
+METHOD PUBLIC ZwrocWybrana : REFERENCE TO ST_Receptura
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//IF (__ISVALIDREF (THIS^.refstWybrana )) THEN
+//	Zwroc 		:= THIS^.refstWybrana;
+//END_IF
+ZwrocWybrana			REF= THIS^.ZwrocReferencjeDoReceptury (uiNumer := THIS^.uiWybrana);
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
