@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_CommunicatorClient" Id="{106a8397-58d1-4356-a1ee-f5b287b3decb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CommunicatorClient EXTENDS FB_BaseGroupElement
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Confirm" Id="{4119d05f-1194-4bdf-ba59-492cedcf1b68}">
+      <Declaration><![CDATA[METHOD PUBLIC Confirm : BOOL
+VAR_INPUT
+	sText: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Confirm		:= THIS^.itfCommunicator.ReceiveDataConfirm (sText := sText, itfRecipient := this^);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReceiveMessage" Id="{aedd4f62-5d76-4592-8054-8cb4ea314b46}">
+      <Declaration><![CDATA[METHOD PUBLIC ReceiveMessage : BOOL
+VAR_INPUT
+	sText: STRING;
+END_VAR
+
+VAR_OUTPUT
+	bValue: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ReceiveMessage		:= THIS^.itfCommunicator.ReceiveData_BOOL (sText := sText, itfRecipient := THIS^, bValue => bValue);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SendMessage" Id="{67cedbef-3f5f-47d6-88d7-3f00c3c91dff}">
+      <Declaration><![CDATA[METHOD PUBLIC SendMessage : BOOL
+VAR_INPUT
+	sText: STRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SendMessage	:= THIS^.itfCommunicator.SendData_BOOL (sText := sText, itfSender := THIS^);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

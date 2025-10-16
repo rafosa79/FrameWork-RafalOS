@@ -29,6 +29,15 @@ VAR_GLOBAL
 	
 	fbPB1						: FB_TopElement (fbPB1_Wyk1, fbPB1_Wyk2, fbPB1_ZL1, fbPB1_K1, fbPB1_K2, fbPB1_K3);
 	
+	fbClientComm1				: FB_BaseGroupElement;
+	fbClientComm2				: FB_BaseGroupElement;
+	fbClientComm3				: FB_BaseGroupElement;
+	fbClientComm4				: FB_BaseGroupElement;
+	fbClientComm5				: FB_BaseGroupElement;
+	fbClientComm6				: FB_BaseGroupElement;
+	
+	
+	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -25,13 +25,13 @@ END_VAR
 *)
 METHOD PUBLIC AddMessage : INT
 VAR_INPUT
-	sNazwa				: STRING;
+	sText				: STRING;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (THIS^.iNumberOfData + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_MASSAGES) THEN
 	THIS^.iNumberOfData		:= THIS^.iNumberOfData + 1;
-	THIS^.arrData [THIS^.iNumberOfData].stMessage.sText		:= sNazwa;
+	THIS^.arrData [THIS^.iNumberOfData].stMessage.sText		:= sText;
 	AddMessage			:= THIS^.iNumberOfData;
 ELSE
 	AddMessage			:= 0;
@@ -144,19 +144,19 @@ END_IF
     <Method Name="ReceiveData_BOOL" Id="{7aef4152-a5e6-0135-0aeb-909ceb511126}">
       <Declaration><![CDATA[METHOD PUBLIC ReceiveData_BOOL : BOOL
 VAR_INPUT
-	sNazwa		: STRING;
-	itfOdbiorca	: ITF_MessengerRecipient;
+	sText		: STRING;
+	itfRecipient	: ITF_MessengerRecipient;
 END_VAR
 VAR_OUTPUT
-	bWartosc	: BOOL;	
+	bValue	: BOOL;	
 END_VAR
 VAR
 	iIndex: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.GetIsMeesageExist (sText := sNazwa, iIndex => iIndex)) THEN
-	IF (THIS^.GetIsRecipientAuthorized (iIndex := iIndex, itfRecipient := itfOdbiorca)) THEN
-		bWartosc				:= THIS^.arrData [iIndex].stMessage.bValue;
+        <ST><![CDATA[IF (THIS^.GetIsMeesageExist (sText := sText, iIndex => iIndex)) THEN
+	IF (THIS^.GetIsRecipientAuthorized (iIndex := iIndex, itfRecipient := itfRecipient)) THEN
+		bValue				:= THIS^.arrData [iIndex].stMessage.bValue;
 		ReceiveData_BOOL			:= TRUE;
 		RETURN;
 	END_IF
@@ -168,19 +168,19 @@ ReceiveData_BOOL			:= FALSE;
     <Method Name="ReceiveData_REAL" Id="{a84b4166-5348-0cee-06f3-35a72c5e990e}">
       <Declaration><![CDATA[METHOD PUBLIC ReceiveData_REAL : BOOL
 VAR_INPUT
-	sNazwa		: STRING;
-	itfOdbiorca	: ITF_MessengerRecipient;
+	sText		: STRING;
+	itfRecipient	: ITF_MessengerRecipient;
 END_VAR
 VAR_OUTPUT
-	rWartosc	: REAL;	
+	rValue	: REAL;	
 END_VAR
 VAR
 	iIndex: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.GetIsMeesageExist (sText := sNazwa, iIndex => iIndex)) THEN
-	IF (THIS^.GetIsRecipientAuthorized (iIndex := iIndex, itfRecipient := itfOdbiorca)) THEN
-		rWartosc				:= THIS^.arrData [iIndex].stMessage.rValue;
+        <ST><![CDATA[IF (THIS^.GetIsMeesageExist (sText := sText, iIndex => iIndex)) THEN
+	IF (THIS^.GetIsRecipientAuthorized (iIndex := iIndex, itfRecipient := itfRecipient)) THEN
+		rValue				:= THIS^.arrData [iIndex].stMessage.rValue;
 		ReceiveData_REAL			:= TRUE;
 		RETURN;
 	END_IF
@@ -197,19 +197,19 @@ ReceiveData_REAL			:= FALSE;
 *)
 METHOD PUBLIC ReceiveDataConfirm : BOOL
 VAR_INPUT
-	sNazwa				: STRING;
-	itfOdbiorca			: ITF_MessengerRecipient;
+	sText				: STRING;
+	itfRecipient			: ITF_MessengerRecipient;
 END_VAR
 VAR
 	iIndex				: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.GetIsMeesageExist (sText := sNazwa, iIndex => iIndex)) THEN
-	IF (THIS^.GetIsRecipientAuthorized (iIndex := iIndex, itfRecipient := itfOdbiorca)) THEN
+        <ST><![CDATA[IF (THIS^.GetIsMeesageExist (sText := sText, iIndex => iIndex)) THEN
+	IF (THIS^.GetIsRecipientAuthorized (iIndex := iIndex, itfRecipient := itfRecipient)) THEN
 		THIS^.iNumberOfitemsInStack		:= THIS^.iNumberOfitemsInStack + 1;
-		THIS^.arrStack [THIS^.iNumberOfitemsInStack].stMessage.sText	:= sNazwa;
+		THIS^.arrStack [THIS^.iNumberOfitemsInStack].stMessage.sText	:= sText;
 		THIS^.arrStack [THIS^.iNumberOfitemsInStack].bConfirmation		:= TRUE;
-		THIS^.arrStack [THIS^.iNumberOfitemsInStack].itfRecipient			:= itfOdbiorca;
+		THIS^.arrStack [THIS^.iNumberOfitemsInStack].itfRecipient			:= itfRecipient;
 		ReceiveDataConfirm					:= TRUE;
 		RETURN;
 	END_IF
@@ -221,18 +221,18 @@ ReceiveDataConfirm					:= FALSE;
     <Method Name="SendData_BOOL" Id="{f7a4e4cc-4855-064a-383b-9fb358675d4a}">
       <Declaration><![CDATA[METHOD SendData_BOOL : BOOL
 VAR_INPUT
-	sNazwa		: STRING;
-	itfNadawca	: ITF_MessengerSender;
+	sText		: STRING;
+	itfSender	: ITF_MessengerSender;
 END_VAR
 VAR
 	iIndex: INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.GetIsMeesageExist (sText := sNazwa, iIndex => iIndex)) THEN
-	IF (THIS^.GetIsSenderAuthorized (iIndex := iIndex, itfSender := itfNadawca)) THEN
+        <ST><![CDATA[IF (THIS^.GetIsMeesageExist (sText := sText, iIndex => iIndex)) THEN
+	IF (THIS^.GetIsSenderAuthorized (iIndex := iIndex, itfSender := itfSender)) THEN
 		THIS^.iNumberOfitemsInStack	:= THIS^.iNumberOfitemsInStack + 1;
-		THIS^.arrStack [THIS^.iNumberOfitemsInStack].stMessage.sText		:= sNazwa;
+		THIS^.arrStack [THIS^.iNumberOfitemsInStack].stMessage.sText		:= sText;
 		THIS^.arrStack [THIS^.iNumberOfitemsInStack].stMessage.bValue		:= TRUE;
 		THIS^.arrStack [THIS^.iNumberOfitemsInStack].bSent				:= TRUE;
 		SendData_BOOL				:= TRUE;
@@ -246,20 +246,20 @@ SendData_BOOL				:= FALSE;
     <Method Name="SendData_REAL" Id="{eb8afa73-7af4-0b03-2118-dceb062b6fd4}">
       <Declaration><![CDATA[METHOD SendData_REAL : BOOL
 VAR_INPUT
-	sNazwa		: STRING;
-	rWartosc	: REAL;
-	itfNadawca	: ITF_MessengerSender;
+	sText		: STRING;
+	rValue		: REAL;
+	itfSender	: ITF_MessengerSender;
 END_VAR
 
 VAR
 	iIndex: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.GetIsMeesageExist (sText := sNazwa, iIndex => iIndex)) THEN
-	IF (THIS^.GetIsSenderAuthorized (iIndex := iIndex, itfSender := itfNadawca)) THEN
+        <ST><![CDATA[IF (THIS^.GetIsMeesageExist (sText := sText, iIndex => iIndex)) THEN
+	IF (THIS^.GetIsSenderAuthorized (iIndex := iIndex, itfSender := itfSender)) THEN
 		THIS^.iNumberOfitemsInStack	:= THIS^.iNumberOfitemsInStack + 1;
-		THIS^.arrStack [THIS^.iNumberOfitemsInStack].stMessage.sText		:= sNazwa;
-		THIS^.arrStack [THIS^.iNumberOfitemsInStack].stMessage.rValue		:= rWartosc;
+		THIS^.arrStack [THIS^.iNumberOfitemsInStack].stMessage.sText		:= sText;
+		THIS^.arrStack [THIS^.iNumberOfitemsInStack].stMessage.rValue		:= rValue;
 		THIS^.arrStack [THIS^.iNumberOfitemsInStack].bSent				:= TRUE;
 		SendData_REAL				:= TRUE;
 		RETURN;

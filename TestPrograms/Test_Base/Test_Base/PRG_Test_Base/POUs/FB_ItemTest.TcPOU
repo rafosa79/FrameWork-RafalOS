@@ -26,7 +26,10 @@ T13_TestPowerForTopElement ();
 //T15_TestHomingControlElementWithHomingMetod ();
 //T16_TestingTopElementHoming ();
 
-T99_Test ();]]></ST>
+T20_TestCommunicator ();
+
+
+//T99_Test ();]]></ST>
     </Implementation>
     <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">
       <Declaration><![CDATA[METHOD PRIVATE T01_TestAddItems
@@ -934,6 +937,190 @@ END_VAR
 	1000	:
 		TcUnit.TEST_FINISHED ();
 	END_CASE
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T20_TestCommunicator" Id="{f8e4c051-1d5a-4920-8450-5a5a92e5cf3a}">
+      <Declaration><![CDATA[METHOD PROTECTED T20_TestCommunicator
+VAR
+	bResult		: BOOL;
+	bWartosc	: BOOL;
+	itfSender		: ITF_MessengerSender;
+	itfRecipient	: ITF_MessengerRecipient;
+	itftmpSender	: ITF_MessengerSender;
+	itftmpRecipient	: ITF_MessengerRecipient;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T20_TestCommunicator')) THEN
+	GVL_Variable.fbClientComm1.LinkCommunicator (fbCommunicator := GVL.fbCommunicator);
+	GVL_Variable.fbClientComm2.LinkCommunicator (fbCommunicator := GVL.fbCommunicator);
+	GVL_Variable.fbClientComm3.LinkCommunicator (fbCommunicator := GVL.fbCommunicator);
+	GVL_Variable.fbClientComm4.LinkCommunicator (fbCommunicator := GVL.fbCommunicator);
+	GVL_Variable.fbClientComm5.LinkCommunicator (fbCommunicator := GVL.fbCommunicator);
+	GVL_Variable.fbClientComm6.LinkCommunicator (fbCommunicator := GVL.fbCommunicator);
+	
+	GVL.fbCommunicator.AddMessage (sText := 'Test1');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbCommunicator.iNumberOfData, Message := 'T01a- bledna ilosc komunikatow');
+	GVL.fbCommunicator.AddMessage (sText := 'Test2');
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbCommunicator.iNumberOfData, Message := 'T01b- bledna ilosc komunikatow');
+	GVL.fbCommunicator.AddMessage (sText := 'Test3');
+	AssertEquals_INT (Expected := 3, Actual := GVL.fbCommunicator.iNumberOfData, Message := 'T01c- bledna ilosc komunikatow');
+//dodawanie klientów
+	GVL.fbCommunicator.AddSenderToMessage (iMessageNumber := 1, itfSender := GVL_Variable.fbClientComm1);
+	itfSender			:= GVL_Variable.fbClientComm1;
+	itftmpSender		:= GVL.fbCommunicator.arrData [1].itfSender;
+	
+	AssertEquals (Expected := itfSender, Actual := itftmpSender, Message := 'T01 - bledny nadawca');
+	
+	GVL.fbCommunicator.AddSenderToMessage (iMessageNumber := 2, itfSender := GVL_Variable.fbClientComm2);
+	itfSender			:= GVL_Variable.fbClientComm2;
+	itftmpSender		:= GVL.fbCommunicator.arrData [2].itfSender;
+	AssertEquals (Expected := itfSender, Actual := itftmpSender, Message := 'T02 - bledny nadawca');
+
+	GVL.fbCommunicator.AddSenderToMessage (iMessageNumber := 3, itfSender := GVL_Variable.fbClientComm3);
+	itfSender			:= GVL_Variable.fbClientComm3;
+	itftmpSender		:= GVL.fbCommunicator.arrData [3].itfSender;
+	AssertEquals (Expected := itfSender, Actual := itftmpSender, Message := 'T03 - bledny nadawca');
+
+//Przypisanie odbiorców
+
+	GVL.fbCommunicator.AddRecipientToMessage (iMessageNumber := 1, itfRecipient := GVL_Variable.fbClientComm4);
+	itfRecipient		:= GVL_Variable.fbClientComm4;
+	itftmpRecipient		:= GVL.fbCommunicator.arrData [1].arritfRecipient [1];
+	AssertEquals (Expected := itfRecipient, Actual := itftmpRecipient, Message := 'T04 - bledny odbiorca');
+//	
+	GVL.fbCommunicator.AddRecipientToMessage (iMessageNumber := 2, itfRecipient := GVL_Variable.fbClientComm1);
+	itfRecipient		:= GVL_Variable.fbClientComm1;
+	itftmpRecipient		:= GVL.fbCommunicator.arrData [2].arritfRecipient [1];
+	AssertEquals (Expected := itfRecipient, Actual := itftmpRecipient, Message := 'T05 - bledny odbiorca');
+	
+	GVL.fbCommunicator.AddRecipientToMessage (iMessageNumber := 2, itfRecipient := GVL_Variable.fbClientComm5);
+	itfRecipient		:= GVL_Variable.fbClientComm5;
+	itftmpRecipient		:= GVL.fbCommunicator.arrData [2].arritfRecipient [2];
+	AssertEquals (Expected := itfRecipient, Actual := itftmpRecipient, Message := 'T05b - bledny odbiorca');
+	
+	GVL.fbCommunicator.AddRecipientToMessage (iMessageNumber := 2, itfRecipient := GVL_Variable.fbClientComm6);
+	itfRecipient		:= GVL_Variable.fbClientComm6;
+	itftmpRecipient		:= GVL.fbCommunicator.arrData [2].arritfRecipient [3];
+	AssertEquals (Expected := itfRecipient, Actual := itftmpRecipient, Message := 'T05c - bledny odbiorca');
+//	
+	GVL.fbCommunicator.AddRecipientToMessage (iMessageNumber := 3, itfRecipient := GVL_Variable.fbClientComm5);
+	itfRecipient		:= GVL_Variable.fbClientComm5;
+	itftmpRecipient		:= GVL.fbCommunicator.arrData [3].arritfRecipient [1];
+	AssertEquals (Expected := itfRecipient, Actual := itftmpRecipient, Message := 'T06 - bledny odbiorca');
+
+//Test nadawanie
+	bResult := GVL_Variable.fbClientComm1.Send_BOOL (sText := 'Test1');
+	AssertTrue (Condition := bResult, 														Message := 'T02a - Blad nadania');
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 	Message := 'T02b - bledna dlugosc kolejki');
+	AssertTrue (Condition := GVL.fbCommunicator.arrStack [1].stMessage.bValue, 				Message := 'T02c - baledna wartosc w kolejce');
+	AssertEquals_STRING (Expected := 'Test1', Actual := GVL.fbCommunicator.arrStack [1].stMessage.sText, Message := 'T02d - Bladna nazwa komunikatu');
+	
+	GVL.fbCommunicator.StackSupport ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 	Message := 'T04a - bledna dlugosc kolejki');
+	AssertFalse (Condition := GVL.fbCommunicator.arrStack [1].stMessage.bValue, 				Message := 'T04b - Bledna wartosc');
+	
+	bResult	:= GVL_Variable.fbClientComm1.Receive_BOOL (sText := 'Test1', bValue => bWartosc);
+	AssertFalse	(Condition := bResult, 														Message := 'T04c - blaedna zgoda na odczyt wiadomosci');
+	AssertFalse (Condition := bWartosc, 													Message := 'T04d - blednie odczytana wartosc');
+
+	bResult	:= GVL_Variable.fbClientComm4.Receive_BOOL (sText := 'Test1', bValue => bWartosc);
+	AssertTrue	(Condition := bResult, 														Message := 'T04e - blaedna zgoda na odczyt wiadomosci');
+	AssertTrue (Condition := bWartosc, 														Message := 'T04f - blednie odczytana wartosc');
+	
+	bResult	:= GVL_Variable.fbClientComm1.ConfirmReceipt (sText := 'Test1');
+	Assertfalse	(Condition := bResult, 														Message := 'T04g - powierdzone choc nie mozna');
+
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 	Message := 'T04h - bledna dlugosc kolejki');
+	GVL.fbCommunicator.StackSupport ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 	Message := 'T04i - bledna dlugosc kolejki');
+	AssertFalse (Condition := GVL.fbCommunicator.arrStack [1].stMessage.bValue, 			Message := 'T04j - Bledna wartosc');
+	
+	bResult	:= GVL_Variable.fbClientComm4.ConfirmReceipt (sText := 'Test1');
+	AssertTrue	(Condition := bResult, 														Message := 'T04k - nie powierdzone choc mozna');
+
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 	Message := 'T04l - bledna dlugosc kolejki');
+	GVL.fbCommunicator.StackSupport ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 	Message := 'T04m - bledna dlugosc kolejki');
+	Assertfalse (Condition := GVL.fbCommunicator.arrStack [1].stMessage.bValue, 			Message := 'T04n - Bledna wartosc');	
+//Nadawanie do kilku odbiorców
+//Nadanie komunikatu
+	bResult	:= GVL_Variable.fbClientComm2.Send_BOOL (sText := 'Test2');
+	AssertTrue (Condition := bResult, 														Message := 'T05a - Blad nadania');
+	AssertEquals_STRING (Expected := 'Test2', Actual := GVL.fbCommunicator.arrStack [1].stMessage.sText, 	Message := 'T05b - Bladna nazwa komunikatu');
+	AssertTrue (Condition := GVL.fbCommunicator.arrStack [1].stMessage.bValue,				Message := 'T05c - baledna wartosc w kolejce');
+	
+//Obsluga kolejki
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 	Message := 'T05d - bledna dlugosc kolejki');
+	GVL.fbCommunicator.StackSupport ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 	Message := 'T05e - bledna dlugosc kolejki');
+	AssertTrue (Condition := GVL.fbCommunicator.arrData [2].stMessage.bValue,				Message := 'T05f - Bledna wartosc');
+	
+//Odebranie  przez pierwszego klienta
+	AssertEquals_INT (Expected := 3, Actual := GVL.fbCommunicator.arrData [2].iNumberOfConfirmations,	Message := 'T05g - bledna ilosc odbiorcow krzorzy maja potwierdzic');
+	bResult	:= GVL_Variable.fbClientComm1.Receive_BOOL (sText := 'Test2', bValue => bWartosc);
+	AssertTrue (Condition := bResult, 																	Message := 'T05h - Blad odbierania');
+	AssertTrue (Condition := bWartosc,																	Message := 'T05i - bledna zmienna odebrana');
+
+//Obsluga kolejki
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 				Message := 'T05j - bledna dlugosc kolejki');
+	GVL.fbCommunicator.StackSupport ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 				Message := 'T05k - bledna dlugosc kolejki');
+	AssertTrue (Condition := GVL.fbCommunicator.arrData [2].stMessage.bValue, 							Message := 'T05l - Bledna wartosc');
+	
+//potwierdzenie  przez pierwszego klienta
+	AssertEquals_INT (Expected := 3, Actual := GVL.fbCommunicator.arrData [2].iNumberOfConfirmations,	Message := 'T05m - bledna ilosc odbiorcow krzorzy maja potwierdzic');
+	bResult	:= GVL_Variable.fbClientComm1.ConfirmReceipt (sText := 'Test2');
+	AssertTrue (Condition := bResult, 																	Message := 'T05n - Blad potwierdzenia');
+	
+//Obsluga kolejki
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 				Message := 'T05o - bledna dlugosc kolejki');
+	GVL.fbCommunicator.StackSupport ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 				Message := 'T05p - bledna dlugosc kolejki');
+	AssertTrue (Condition := GVL.fbCommunicator.arrData [2].stMessage.bValue, 							Message := 'T05r - Bledna wartosc');
+
+(*	*)
+//odebranie przez kolejnego odbiorce
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbCommunicator.arrData [2].iNumberOfConfirmations,	Message := 'T05s - bledna ilosc odbiorcow krzorzy maja potwierdzic');
+	bResult	:= GVL_Variable.fbClientComm5.Receive_BOOL (sText := 'Test2', bValue => bWartosc);
+	AssertTrue (Condition := bResult, 																	Message := 'T05t - Blad odbierania');
+	AssertTrue (Condition := bWartosc,																	Message := 'T05u - bledna zmienna odebrana');
+
+//Obsluga kolejki
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 				Message := 'T05w - bledna dlugosc kolejki');
+	GVL.fbCommunicator.StackSupport ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 				Message := 'T05x - bledna dlugosc kolejki');
+	AssertTrue (Condition := GVL.fbCommunicator.arrData [2].stMessage.bValue, 							Message := 'T05y - Bledna wartosc');
+
+//odebranie i potwierdszenie przez ostatniego odbiorce
+	AssertEquals_INT (Expected := 2, Actual := GVL.fbCommunicator.arrData [2].iNumberOfConfirmations,	Message := 'T05z - bledna ilosc odbiorcow krzorzy maja potwierdzic');
+	bResult	:= GVL_Variable.fbClientComm6.Receive_BOOL (sText := 'Test2', bValue => bWartosc);
+	AssertTrue (Condition := bResult, 																	Message := 'T06a - Blad odbierania');
+	AssertTrue (Condition := bWartosc,																	Message := 'T06b - bledna zmienna odebrana');
+
+	bResult	:= GVL_Variable.fbClientComm6.ConfirmReceipt (sText := 'Test2');
+	AssertTrue (Condition := bResult, 																	Message := 'T06c - Blad potwierdzania');
+
+//Obsluga kolejki
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 				Message := 'T06d - bledna dlugosc kolejki');
+	GVL.fbCommunicator.StackSupport ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 				Message := 'T06e - bledna dlugosc kolejki');
+	AssertTrue (Condition := GVL.fbCommunicator.arrData [2].stMessage.bValue, 							Message := 'T06f - Bledna wartosc');
+
+//potwierdzenie przez ostatniego
+	bResult	:= GVL_Variable.fbClientComm5.ConfirmReceipt (sText := 'Test2');
+	AssertTrue (Condition := bResult, 																	Message := 'T06g - Blad potwierdzania');
+
+//Obsluga kolejki
+	AssertEquals_INT (Expected := 1, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 				Message := 'T06h - bledna dlugosc kolejki');
+	GVL.fbCommunicator.StackSupport ();
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.iNumberOfitemsInStack, 				Message := 'T06i - bledna dlugosc kolejki');
+	AssertFalse (Condition := GVL.fbCommunicator.arrData [2].stMessage.bValue, 							Message := 'T06j - Bledna wartosc');
+
+	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.arrData [2].iNumberOfConfirmations,	Message := 'T06k - bledna ilosc odbiorcow do potwierdzenia');
+	
+	TcUnit.TEST_FINISHED ();
 END_IF]]></ST>
       </Implementation>
     </Method>

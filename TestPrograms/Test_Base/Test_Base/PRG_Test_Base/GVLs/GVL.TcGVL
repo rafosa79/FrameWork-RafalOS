@@ -14,9 +14,12 @@ VAR_GLOBAL
 	
 	fbImpuls				: FB_BaseImpulse;
 	
+	fbCommunicator			: FB_Communicator;
+	
 	stCommonData			: ST_BaseCommonData;
 	
 	stTopElementData		: ST_TopElement_HMI_Link;
+	
 	
 END_VAR]]></Declaration>
   </GVL>
