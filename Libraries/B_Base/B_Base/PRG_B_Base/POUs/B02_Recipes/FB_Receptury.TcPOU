@@ -12,118 +12,92 @@ VAR
 	iNumberToChoose				: INT;
 END_VAR
 VAR PERSISTENT
-	arrTemplates				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ST_Receptura;
-	arrRecipes					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_RECIPES] OF ST_Receptura;		
-	uiIloscSzablonow			: UINT;			//ilość dodanych szablonów
-	uiIloscReceptur				: UINT;			//ilość dodanych receptur
-	uiWybrana					: UINT;			//numer wybranej receptruy		
-	stWybrana					: ST_Receptura;												
+	arrTemplates				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ST_Recipes;
+	arrRecipes					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_RECIPES] OF ST_Recipes;		
+	uiNumberOfTemplates			: UINT;			//ilość dodanych szablonów
+	uiNumberOfRecipes			: UINT;			//ilość dodanych receptur
+	uiChosen					: UINT;			//numer wybranej receptruy		
+	stChosen					: ST_Recipes;												
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="dodajSkladnikDoSzablonu" Id="{0f0ee292-ddb9-015d-0fb4-0a56214e5144}">
-      <Declaration><![CDATA[METHOD PUBLIC dodajSkladnikDoSzablonu : BOOL
+    <Method Name="AddIngredientToRecipe" Id="{0f0ee292-ddb9-015d-0fb4-0a56214e5144}">
+      <Declaration><![CDATA[METHOD PUBLIC AddIngredientToRecipe : BOOL
 VAR_INPUT
-	uiNumer		: UINT;
-	stSkladnik	: ST_BaseDescriptor;
+	uiNumber		: UINT;
+	stIngredient	: ST_BaseDescriptor;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.arrTemplates [uiNumer].uiIlosc + 1 <= GVL_BaseConstans.MAX_NUMBER_Of_INGREDIENTS) THEN
-	THIS^.arrTemplates [uiNumer].uiIlosc			:= THIS^.arrTemplates [uiNumer].uiIlosc + 1;
-	THIS^.arrTemplates [uiNumer].arrSkladnik [THIS^.arrTemplates [uiNumer].uiIlosc]	:= stSkladnik;
+        <ST><![CDATA[IF (THIS^.arrTemplates [uiNumber].uiNumber + 1 <= GVL_BaseConstans.MAX_NUMBER_Of_INGREDIENTS) THEN
+	THIS^.arrTemplates [uiNumber].uiNumber			:= THIS^.arrTemplates [uiNumber].uiNumber + 1;
+	THIS^.arrTemplates [uiNumber].arrIngredient [THIS^.arrTemplates [uiNumber].uiNumber]	:= stIngredient;
 //	THIS^.arrSzablony [uiNumer].arrSkladnik [THIS^.arrSzablony [uiNumer].uiIlosc].PowiarzJezyk (fbLokalizacja := THIS^.itfJezyk);
-	DodajSkladnikDoSzablonu						:= TRUE;
+	AddIngredientToRecipe						:= TRUE;
 END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="usunRecepture" Id="{53b2bec5-5d7d-0d47-2b2d-3884e18298a9}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
-	
-*)
-METHOD PUBLIC usunRecepture : BOOL
-VAR_INPUT
-	uiNumer				: uint;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF (uiNumer > 0 AND uiNumer <= THIS^.uiIloscReceptur) THEN
-
-	MEMMOVE (
-		destAddr						:= ADR (THIS^.arrRecipes [uiNumer]),
-		srcAddr							:= ADR (THIS^.arrRecipes [uiNumer + 1]),
-		n								:= SIZEOF (THIS^.arrRecipes [1]) * (GVL_BaseConstans.MAX_NUMBER_OF_RECIPES - (uiNumer))
-	);
-	THIS^.uiIloscReceptur				:= THIS^.uiIloscReceptur - 1;
-	
-	usunRecepture			:= TRUE;
-END_IF
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="utworzReceptureZReceptury" Id="{651128f8-f372-064a-0b31-eab503693b6e}">
+    <Method Name="AddRecipeFromRecipe" Id="{651128f8-f372-064a-0b31-eab503693b6e}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Kopiuje składniki z wybranej receptury i tworzy nową recepture
 *)
-METHOD PUBLIC utworzReceptureZReceptury : BOOL
+METHOD PUBLIC AddRecipeFromRecipe : BOOL
 VAR_INPUT
-	uiNumerReceptury			: UINT;
-	stNazwa						: ST_BaseLabel;
+	uiNumberRecipe				: UINT;
+	stTexts						: ST_BaseLabel;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.uiIloscReceptur + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_RECIPES) THEN
-	THIS^.uiIloscReceptur					:= THIS^.uiIloscReceptur + 1;
-	THIS^.arrRecipes [THIS^.uiIloscReceptur]	:= THIS^.arrRecipes [uiNumerReceptury];
-	THIS^.arrRecipes [THIS^.uiIloscReceptur].stNazwa	:= stNazwa;
+        <ST><![CDATA[IF (THIS^.uiNumberOfRecipes + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_RECIPES) THEN
+	THIS^.uiNumberOfRecipes					:= THIS^.uiNumberOfRecipes + 1;
+	THIS^.arrRecipes [THIS^.uiNumberOfRecipes]	:= THIS^.arrRecipes [uiNumberRecipe];
+	THIS^.arrRecipes [THIS^.uiNumberOfRecipes].stTexts	:= stTexts;
 //	THIS^.arrReceptury [THIS^.uiIloscReceptur].fbNazwa.PowiarzJezyk (fbLokalizacja := THIS^.itfJezyk);	
-	utworzReceptureZReceptury				:= TRUE;
+	AddRecipeFromRecipe				:= TRUE;
 END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="utworzReceptureZSzablonu" Id="{f52b2116-f623-0030-2d81-4397661a0136}">
+    <Method Name="AddRecipeFromTemplate" Id="{f52b2116-f623-0030-2d81-4397661a0136}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Kopiuje składniki z wybranego szablonu i tworzy nową recepture
 *)
-METHOD PUBLIC utworzReceptureZSzablonu : BOOL
+METHOD PUBLIC AddRecipeFromTemplate : BOOL
 VAR_INPUT
-	uiNumerSzablonu				: UINT;
-	stNazwa						: ST_BaseLabel;
+	uiNumberTemplates			: UINT;
+	stTexts						: ST_BaseLabel;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.uiIloscReceptur + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_RECIPES) THEN
-	THIS^.uiIloscReceptur					:= THIS^.uiIloscReceptur + 1;
-	THIS^.arrRecipes [THIS^.uiIloscReceptur]	:= THIS^.arrTemplates [uiNumerSzablonu];
-	THIS^.arrRecipes [THIS^.uiIloscReceptur].stNazwa	:= stNazwa;
+        <ST><![CDATA[IF (THIS^.uiNumberOfRecipes + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_RECIPES) THEN
+	THIS^.uiNumberOfRecipes					:= THIS^.uiNumberOfRecipes + 1;
+	THIS^.arrRecipes [THIS^.uiNumberOfRecipes]	:= THIS^.arrTemplates [uiNumberTemplates];
+	THIS^.arrRecipes [THIS^.uiNumberOfRecipes].stTexts	:= stTexts;
 //	THIS^.arrReceptury [THIS^.uiIloscReceptur].fbNazwa.PowiarzJezyk (fbLokalizacja := THIS^.itfJezyk);
-	utworzReceptureZSzablonu				:= TRUE;
+	AddRecipeFromTemplate				:= TRUE;
 END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="utworzSzablon" Id="{07b2ff28-6360-0746-3fd3-88d58ad87d2f}">
-      <Declaration><![CDATA[METHOD PUBLIC utworzSzablon : BOOL
+    <Method Name="AddTemplates" Id="{07b2ff28-6360-0746-3fd3-88d58ad87d2f}">
+      <Declaration><![CDATA[METHOD PUBLIC AddTemplates : BOOL
 VAR_INPUT
-	stNazwa			: ST_BaseLabel;
+	stTexts			: ST_BaseLabel;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.uiIloscSzablonow + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES) THEN
-	THIS^.uiIloscSzablonow									:= THIS^.uiIloscSzablonow + 1;
-	THIS^.arrTemplates [1].stNazwa							:=  stNazwa;
-	THIS^.arrTemplates [THIS^.uiIloscSzablonow].uiSzablon	:= THIS^.uiIloscSzablonow;
-	utworzSzablon											:= TRUE;
+        <ST><![CDATA[IF (THIS^.uiNumberOfTemplates + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES) THEN
+	THIS^.uiNumberOfTemplates									:= THIS^.uiNumberOfTemplates + 1;
+	THIS^.arrTemplates [1].stTexts								:=  stTexts;
+	THIS^.arrTemplates [THIS^.uiNumberOfTemplates].uiTemplate	:= THIS^.uiNumberOfTemplates;
+	AddTemplates												:= TRUE;
 END_IF
 
 
@@ -131,21 +105,47 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Wybierz" Id="{d3d8f3be-0ff3-0bae-204e-3c67cd270da4}">
+    <Method Name="Choose" Id="{d3d8f3be-0ff3-0bae-204e-3c67cd270da4}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Przypisuje do referencji wybraną rtecepture
 *)
-METHOD PUBLIC Wybierz : BOOL
+METHOD PUBLIC Choose : BOOL
 VAR_INPUT
-	uiNumer				: UINT;
+	uiNumber				: UINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[//THIS^.refstWybrana				REF= THIS^.arrReceptury [uiNumer];
-THIS^.stWybrana					:= THIS^.arrRecipes [uiNumer];
-THIS^.uiWybrana					:= uiNumer;
+THIS^.stChosen					:= THIS^.arrRecipes [uiNumber];
+THIS^.uiChosen					:= uiNumber;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DeleteRecipe" Id="{53b2bec5-5d7d-0d47-2b2d-3884e18298a9}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC DeleteRecipe : BOOL
+VAR_INPUT
+	uiNumber				: uint;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (uiNumber > 0 AND uiNumber <= THIS^.uiNumberOfRecipes) THEN
+
+	MEMMOVE (
+		destAddr						:= ADR (THIS^.arrRecipes [uiNumber]),
+		srcAddr							:= ADR (THIS^.arrRecipes [uiNumber + 1]),
+		n								:= SIZEOF (THIS^.arrRecipes [1]) * (GVL_BaseConstans.MAX_NUMBER_OF_RECIPES - (uiNumber))
+	);
+	THIS^.uiNumberOfRecipes				:= THIS^.uiNumberOfRecipes - 1;
+	
+	DeleteRecipe			:= TRUE;
+END_IF
 ]]></ST>
       </Implementation>
     </Method>
@@ -165,8 +165,8 @@ END_VAR
 	fillByte			:= 0,
 	n					:= SIZEOF (THIS^.arrRecipes)
 );
-THIS^.uiIloscReceptur 	:= 0;
-THIS^.uiWybrana			:= 0;
+THIS^.uiNumberOfRecipes 	:= 0;
+THIS^.uiChosen			:= 0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -186,7 +186,7 @@ END_VAR
 	fillByte			:= 0,
 	n					:= SIZEOF (THIS^.arrTemplates)
 );
-THIS^.uiIloscSzablonow 	:= 0;
+THIS^.uiNumberOfTemplates 	:= 0;
 
 //THIS^.PowiazJezyk (fbLokalizacja := THIS^.itfJezyk);
 ]]></ST>
@@ -203,7 +203,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.uiWybrana := 0;
+        <ST><![CDATA[THIS^.uiChosen := 0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -218,7 +218,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.uiWybrana			:= 0;
+        <ST><![CDATA[THIS^.uiChosen			:= 0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -236,11 +236,11 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (uiNumerRecepturyCel > 0 AND uiNumerRecepturyCel <= THIS^.uiIloscReceptur AND
-	uiNumerRecepturyZrodlo > 0 AND uiNumerRecepturyZrodlo <= THIS^.uiIloscReceptur AND
+        <ST><![CDATA[IF (uiNumerRecepturyCel > 0 AND uiNumerRecepturyCel <= THIS^.uiNumberOfRecipes AND
+	uiNumerRecepturyZrodlo > 0 AND uiNumerRecepturyZrodlo <= THIS^.uiNumberOfRecipes AND
 	uiNumerRecepturyCel <> uiNumerRecepturyZrodlo) THEN
 	THIS^.arrRecipes [uiNumerRecepturyZrodlo]	:= THIS^.arrTemplates [uiNumerRecepturyZrodlo];
-	THIS^.arrRecipes [uiNumerRecepturyCel].stNazwa	:= stNazwa;
+	THIS^.arrRecipes [uiNumerRecepturyCel].stTexts	:= stNazwa;
 	zastapReceptrureReceptyraZReceptury 				:= TRUE;
 END_IF
 ]]></ST>
@@ -260,10 +260,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (uiNumerRecepturyCel > 0 AND uiNumerRecepturyCel <= THIS^.uiIloscReceptur AND
-	uiNumerRecepturyZrodlo > 0 AND uiNumerRecepturyZrodlo <= THIS^.uiIloscSzablonow) THEN
+        <ST><![CDATA[IF (uiNumerRecepturyCel > 0 AND uiNumerRecepturyCel <= THIS^.uiNumberOfRecipes AND
+	uiNumerRecepturyZrodlo > 0 AND uiNumerRecepturyZrodlo <= THIS^.uiNumberOfTemplates) THEN
 	THIS^.arrRecipes [uiNumerRecepturyZrodlo]	:= THIS^.arrTemplates [uiNumerRecepturyZrodlo];
-	THIS^.arrRecipes [uiNumerRecepturyCel].stNazwa	:= stNazwa;
+	THIS^.arrRecipes [uiNumerRecepturyCel].stTexts	:= stNazwa;
 	zastapReceptureRecepturaZSzablonu 			:= TRUE;
 END_IF
 
@@ -277,7 +277,7 @@ END_IF
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Zwraca referencje do  receptury
 *)
-METHOD PUBLIC ZwrocADR : POINTER TO ST_Receptura
+METHOD PUBLIC ZwrocADR : POINTER TO ST_Recipes
 VAR_INPUT
 	uiNumer					: UINT;
 END_VAR
@@ -298,7 +298,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ZwrocCzyWybrana			:= THIS^.uiWybrana <> 0;
+        <ST><![CDATA[ZwrocCzyWybrana			:= THIS^.uiChosen <> 0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -308,7 +308,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[zwrocIloscReceptur			:= THIS^.uiIloscReceptur;
+        <ST><![CDATA[zwrocIloscReceptur			:= THIS^.uiNumberOfRecipes;
 ]]></ST>
       </Implementation>
     </Method>
@@ -324,7 +324,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[zwrocIloscSkladnikowReceptury 		:= THIS^.arrRecipes [uiNumer].uiIlosc;
+        <ST><![CDATA[zwrocIloscSkladnikowReceptury 		:= THIS^.arrRecipes [uiNumer].uiNumber;
 ]]></ST>
       </Implementation>
     </Method>
@@ -335,7 +335,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[zwrocIloscSkladnikowSzablonu 		:= THIS^.arrTemplates [uiNumer].uiIlosc;
+        <ST><![CDATA[zwrocIloscSkladnikowSzablonu 		:= THIS^.arrTemplates [uiNumer].uiNumber;
 ]]></ST>
       </Implementation>
     </Method>
@@ -345,7 +345,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[zwrocIloscSzablonow		:= THIS^.uiIloscSzablonow;
+        <ST><![CDATA[zwrocIloscSzablonow		:= THIS^.uiNumberOfTemplates;
 ]]></ST>
       </Implementation>
     </Method>
@@ -377,7 +377,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[zwrocNumerWybranejReceptury			:= THIS^.uiWybrana;
+        <ST><![CDATA[zwrocNumerWybranejReceptury			:= THIS^.uiChosen;
 ]]></ST>
       </Implementation>
     </Method>
@@ -387,7 +387,7 @@ END_VAR
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Zwraca referencje do  receptury
 *)
-METHOD PUBLIC ZwrocReferencjeDoReceptury : REFERENCE TO ST_Receptura
+METHOD PUBLIC ZwrocReferencjeDoReceptury : REFERENCE TO ST_Recipes
 VAR_INPUT
 	uiNumer					: UINT;
 END_VAR
@@ -406,12 +406,12 @@ ZwrocReferencjeDoReceptury			REF= THIS^.arrRecipes [uiNumer];
 	Rafał Osajda		24.03.2025		TC 4024.66
 	Zwraca reference do wybranej receptury
 *)
-METHOD PUBLIC zwrocReferencjeWybranej : REFERENCE TO ST_Receptura
+METHOD PUBLIC zwrocReferencjeWybranej : REFERENCE TO ST_Recipes
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[zwrocReferencjeWybranej			REF= THIS^.stWybrana;
+        <ST><![CDATA[zwrocReferencjeWybranej			REF= THIS^.stChosen;
 ]]></ST>
       </Implementation>
     </Method>
@@ -428,7 +428,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[zwrocSkladnikReceptury			:= THIS^.arrRecipes [uiNumerReceptury].arrSkladnik [uiNumerSkladnika];
+        <ST><![CDATA[zwrocSkladnikReceptury			:= THIS^.arrRecipes [uiNumerReceptury].arrIngredient [uiNumerSkladnika];
 ]]></ST>
       </Implementation>
     </Method>
@@ -445,7 +445,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[zwrocSkladnikSzablonu			:= THIS^.arrRecipes [uiNumerSzablonu].arrSkladnik [uiNumerSkladnika];
+        <ST><![CDATA[zwrocSkladnikSzablonu			:= THIS^.arrRecipes [uiNumerSzablonu].arrIngredient [uiNumerSkladnika];
 ]]></ST>
       </Implementation>
     </Method>
@@ -455,14 +455,14 @@ END_VAR
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Zwraca referencje do  receptury
 *)
-METHOD PUBLIC ZwrocWybrana : REFERENCE TO ST_Receptura
+METHOD PUBLIC ZwrocWybrana : REFERENCE TO ST_Recipes
 
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[//IF (__ISVALIDREF (THIS^.refstWybrana )) THEN
 //	Zwroc 		:= THIS^.refstWybrana;
 //END_IF
-ZwrocWybrana			REF= THIS^.ZwrocReferencjeDoReceptury (uiNumer := THIS^.uiWybrana);
+ZwrocWybrana			REF= THIS^.ZwrocReferencjeDoReceptury (uiNumer := THIS^.uiChosen);
 
 
 ]]></ST>

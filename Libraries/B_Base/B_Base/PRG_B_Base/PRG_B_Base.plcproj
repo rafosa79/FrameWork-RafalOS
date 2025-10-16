@@ -146,10 +146,10 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B02_Recipes\DUTs\ST_Receptura.TcDUT">
+    <Compile Include="POUs\B02_Recipes\DUTs\ST_Recipes.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B02_Recipes\DUTs\ST_WierszListyRecepturDlaHMI.TcDUT">
+    <Compile Include="POUs\B02_Recipes\DUTs\ST_RecipeListRow.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\B02_Recipes\FB_Receptury.TcPOU">
