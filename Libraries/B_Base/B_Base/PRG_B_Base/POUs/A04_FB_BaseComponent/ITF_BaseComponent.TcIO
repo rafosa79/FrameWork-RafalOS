@@ -3,6 +3,50 @@
   <Itf Name="ITF_BaseComponent" Id="{bfd259ad-b5a7-0c3e-25af-f416d786cc1f}">
     <Declaration><![CDATA[INTERFACE ITF_BaseComponent EXTENDS ITF_BaseLoggerElement
 ]]></Declaration>
+    <Method Name="ExecuteEveryCycle_Error" Id="{9687ff7f-0d6e-0d51-23a3-336377b58d2c}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
+*)
+METHOD PUBLIC ExecuteEveryCycle_Error
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Operation" Id="{84e8e489-e3ad-03cb-399e-9ce5e19542d8}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Wywolanie co cykl operacji 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Operation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Status" Id="{a817f84c-463c-04f3-0e77-c3fd90132b64}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Aktualizacja flag 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Status
+VAR_INST
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Test" Id="{9b8a596a-c333-0a36-2211-eb0d1ec8eb39}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Testowanie czy nei pojawil sie jakis rozkaz i uruchomienie odpowiednich operacji
+*)
+METHOD PUBLIC ExecuteEveryCycle_Test
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="FirstCycle" Id="{5bb3c28d-6dff-0c9d-3483-ca1fcada3e23}">
       <Declaration><![CDATA[METHOD PUBLIC FirstCycle : BOOL
 VAR_INPUT

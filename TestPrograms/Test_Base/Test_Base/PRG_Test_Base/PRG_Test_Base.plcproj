@@ -96,6 +96,30 @@
     <Compile Include="POUs\A5_ControlElement\ST_ControlElement_HMI_Link.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A5_ControlElement_1\FB_ControlElement_1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_ControlElement_1\FB_ControlElement_HMI_1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_ControlElement_1\ITF_ControlElement_1.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_ControlElement_1\ITF_ControlElement_HMI_1.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_ControlElement_1\ITF_ControlElement_HMI_Connector_1.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_ControlElement_1\ITF_ControlElement_HMI_Init_1.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_ControlElement_1\ST_ControlElement_HMI_1.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A5_ControlElement_1\ST_ControlElement_HMI_Link_1.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A6_GroupElement\FB_GroupElement.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -158,6 +182,7 @@
     <Folder Include="POUs\A0_BaseFB\Time" />
     <Folder Include="POUs\A4_Component" />
     <Folder Include="POUs\A5_ControlElement" />
+    <Folder Include="POUs\A5_ControlElement_1" />
     <Folder Include="POUs\A6_GroupElement" />
     <Folder Include="POUs\A7_TopElement" />
     <Folder Include="POUs\A0_BaseFB" />

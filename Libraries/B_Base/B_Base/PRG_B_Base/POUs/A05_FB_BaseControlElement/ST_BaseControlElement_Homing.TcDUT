@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseControlElement_Homing" Id="{e14af5fb-2b04-0472-3dbe-debdd0bcf998}">
+    <Declaration><![CDATA[TYPE ST_BaseControlElement_Homing :
+STRUCT
+	cmdExecute				: FB_BaseCommand;
+	bIsNeeded				: BOOL := TRUE;		//pamieta czy juz element został wybazowany na początku true po bazowaniu zostaje ustawione na false
+	bWithoutHoming			: BOOL;				//ustawienie czy ma być bazowanie czy nie
+	iElementHomingStep		: INT;				//krok dla elementów złożonych biblioteki
+	iChildHomingStep		: int;				//krok dla metody bazowania wykorzystywany w potomkach FB
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

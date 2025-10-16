@@ -4,7 +4,7 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_TopElement EXTENDS FB_BaseGroupElement IMPLEMENTS ITF_TopElement, ITF_TopElement_HMI_Init
 VAR
 	itfControlElement1				: ITF_ControlElement;
-	itfControlElement2				: ITF_ControlElement;
+	itfControlElement2				: ITF_ControlElement_1;
 	itfGroupElement1				: ITF_GroupElement;
 	itfComponent1					: ITF_Component;
 	itfComponent2					: ITF_Component;
@@ -66,7 +66,7 @@ VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 	itfControlElement1				: ITF_ControlElement;
-	itfControlElement2				: ITF_ControlElement;
+	itfControlElement2				: ITF_ControlElement_1;
 	itfGroupElement1				: ITF_GroupElement;
 	itfComponent1					: ITF_Component;
 	itfComponent2					: ITF_Component;
