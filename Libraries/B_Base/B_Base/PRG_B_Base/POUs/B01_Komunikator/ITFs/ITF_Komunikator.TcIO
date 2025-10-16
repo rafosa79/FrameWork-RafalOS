@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Komunikator" Id="{95c8f21f-348b-0804-2e77-1d9f40277cd9}">
+    <Declaration><![CDATA[INTERFACE ITF_Komunikator 
+]]></Declaration>
+    <Method Name="Nadaj_BOOL" Id="{298a0d8a-859a-0345-1b64-39c0a67da553}">
+      <Declaration><![CDATA[METHOD Nadaj_BOOL : BOOL
+VAR_INPUT
+	sNazwa		: STRING;
+	itfNadawca	: ITF_KomunikatorNadawca;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Nadaj_REAL" Id="{90c1e12c-5b0c-0772-240d-9c9ad6717b88}">
+      <Declaration><![CDATA[METHOD Nadaj_REAL : BOOL
+VAR_INPUT
+	sNazwa		: STRING;
+	rWartosc	: REAL;
+	itfNadawca	: ITF_KomunikatorNadawca;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Odbierz_BOOL" Id="{a0058ab3-e86c-098a-3c4b-918232b6a1f3}">
+      <Declaration><![CDATA[METHOD PUBLIC Odbierz_BOOL : BOOL
+VAR_INPUT
+	sNazwa		: STRING;
+	itfOdbiorca	: ITF_KomunikatorOdbiorca;
+END_VAR
+VAR_OUTPUT
+	bWartosc	: BOOL;	
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Odbierz_REAL" Id="{339c47e3-4928-01fb-3c24-d222d1673025}">
+      <Declaration><![CDATA[METHOD PUBLIC Odbierz_REAL : BOOL
+VAR_INPUT
+	sNazwa		: STRING;
+	itfOdbiorca	: ITF_KomunikatorOdbiorca;
+END_VAR
+VAR_OUTPUT
+	rWartosc	: REAL;	
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Potwierdz" Id="{6ac813ee-f7bb-0187-2694-7b161d81b711}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.07.2025		TC 4024.66
+	Wysyła potwierdzenie że odebrał dane
+*)
+METHOD PUBLIC Potwierdz : BOOL
+VAR_INPUT
+	sNazwa				: STRING;
+	itfOdbiorca	: ITF_KomunikatorOdbiorca;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

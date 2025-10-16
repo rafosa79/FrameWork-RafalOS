@@ -32,9 +32,9 @@ VAR_GLOBAL CONSTANT
 	MAX_NESTING_LEVEL						: UINT	:= 5;	//ilość zagnieżdzonych elementów liczone z topelement
 
 	(*	Komunikator		*)
-//	MAX_ILOSC_KLIENTOW						: INT := 20;
-//	MAX_ILOSC_KOMUNIKATOW					: INT := 200;
-//	MAX_ILOSC_KOMUNIKATOW_NA_STOSIE			: INT := 200;
+	MAX_NUMBER_OF_CLIENTS					: INT := 20;
+	MAX_NUMBER_OF_MASSAGES					: INT := 200;
+	MAX_NUMBER_OF_MASSAGES_ON_STACK			: INT := 200;
 	
 END_VAR]]></Declaration>
   </GVL>

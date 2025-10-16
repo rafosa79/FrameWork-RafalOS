@@ -24,6 +24,8 @@ VAR
 	fbBaseExecutiveElement	: FB_BaseControlElement;
 	fbBaseComplexElement	: FB_BaseGroupElement;
 	fbBaseMainComponent		: FB_BaseTopElement;
+//B
+	fbKomunikator		: FB_Komunikator;
 END_VAR
 ]]></Declaration>
     <Implementation>

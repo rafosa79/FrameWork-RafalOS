@@ -146,6 +146,27 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\B01_Komunikator\FB_Komunikator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B01_Komunikator\ITFs\ITF_Komunikator.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B01_Komunikator\ITFs\ITF_KomunikatorNadawca.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B01_Komunikator\ITFs\ITF_KomunikatorOdbiorca.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B01_Komunikator\ST_KomunikatorDane.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B01_Komunikator\ST_KomunikatorKolejka.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B01_Komunikator\ST_KomunikatorKomunikat.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A00_Basic\FB_BaseLabel.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -270,6 +291,8 @@
     <Folder Include="GVLs" />
     <Folder Include="DUTs Events" />
     <Folder Include="POUs Compilation" />
+    <Folder Include="POUs\B01_Komunikator" />
+    <Folder Include="POUs\B01_Komunikator\ITFs" />
     <Folder Include="POUs\A04_FB_BaseComponent" />
     <Folder Include="POUs\A02_FB_BaseLogger" />
     <Folder Include="POUs\A03_FB_BaseLoggerElement" />

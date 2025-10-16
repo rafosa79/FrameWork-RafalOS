@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Komunikator" Id="{1b33e1cc-6ea2-087e-1241-9e727acff4fb}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.07.2025		TC 4024.66
+	Głowny fb do kumunikacji pomiędzy fb frameworka
+*)
+FUNCTION_BLOCK FB_Komunikator IMPLEMENTS ITF_Komunikator
+VAR
+	arrListaFlag			: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_MASSAGES] OF ST_KomunikatorDane;
+	iIloscFlag				: INT;
+	arrKolejka				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_MASSAGES_ON_STACK] OF ST_KomunikatorKolejka;
+	iWielkoscKolejki		: INT;		//ilość elementów w kolejce
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="CzyNadawcaUprawniony" Id="{f5007911-c0a0-0e0e-092b-165e92d9bb54}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.07.2025		TC 4024.66
+	Sprawdza czy ten kto nadaje komunikat jest do tego uprawniony
+*)
+METHOD PRIVATE CzyNadawcaUprawniony : BOOL
+VAR_INPUT
+	iIndex		: INT;
+	itfNadawca	: ITF_KomunikatorNadawca;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.arrListaFlag [iIndex].itfNadawca = itfNadawca) THEN
+	CzyNadawcaUprawniony			:= TRUE;
+ELSE
+	CzyNadawcaUprawniony			:= FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CzyOdbiorcaUpawniony" Id="{e94f808a-e5d5-0cb5-0e0f-6c857b4bd799}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.07.2025		TC 4024.66
+	Sprawdza czy ten kto nadaje komunikat jest do tego uprawniony
+*)
+METHOD PRIVATE CzyOdbiorcaUpawniony : BOOL
+VAR_INPUT
+	iIndex		: INT;
+	itfOdbiorca	: ITF_KomunikatorOdbiorca;
+END_VAR
+VAR
+	iI			: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO THIS^.arrListaFlag [iIndex].iIloscOdbiorcow DO
+	IF (THIS^.arrListaFlag [iIndex].arritfOdbiorca [iI] = itfOdbiorca) THEN
+		CzyOdbiorcaUpawniony			:= TRUE;
+		RETURN;
+	END_IF
+END_FOR
+CzyOdbiorcaUpawniony			:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DodajKomunikat" Id="{8318a4ce-e51e-018c-1ad9-9fe355e32429}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.07.2025		TC 4024.66
+	Dodaje komunikat który będzie wysyłany w systemie. Np. Gotowy wartość TRUE
+*)
+METHOD PUBLIC DodajKomunikat : INT
+VAR_INPUT
+	sNazwa				: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.iIloscFlag + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_MASSAGES) THEN
+	THIS^.iIloscFlag		:= THIS^.iIloscFlag + 1;
+	THIS^.arrListaFlag [THIS^.iIloscFlag].stKomunikat.sNazwa		:= sNazwa;
+	DodajKomunikat			:= THIS^.iIloscFlag;
+ELSE
+	DodajKomunikat			:= 0;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DodajNadawceDoKomunikatu" Id="{e88c45e9-b147-0fbf-0f67-61cf57b8ef93}">
+      <Declaration><![CDATA[METHOD PUBLIC DodajNadawceDoKomunikatu : BOOL
+VAR_INPUT
+	iNrKomunikatu		: INT;
+	itfNadawca			: ITF_KomunikatorNadawca;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrListaFlag [iNrKomunikatu].itfNadawca	:= itfNadawca;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DodajOdbiorceDoKomunikatu" Id="{67118a66-7b3d-04ca-142a-7c5a2550daba}">
+      <Declaration><![CDATA[METHOD PUBLIC DodajOdbiorceDoKomunikatu : BOOL
+VAR_INPUT
+	iNrKomunikatu				: INT;
+	itfOdbiorca					: ITF_KomunikatorOdbiorca;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.arrListaFlag [iNrKomunikatu].iIloscOdbiorcow + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_CLIENTS) THEN
+	THIS^.arrListaFlag [iNrKomunikatu].iIloscOdbiorcow			:= THIS^.arrListaFlag [iNrKomunikatu].iIloscOdbiorcow + 1;
+	THIS^.arrListaFlag [iNrKomunikatu].arritfOdbiorca [THIS^.arrListaFlag [iNrKomunikatu].iIloscOdbiorcow]	:= itfOdbiorca;
+	DodajOdbiorceDoKomunikatu									:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Nadaj_BOOL" Id="{f7a4e4cc-4855-064a-383b-9fb358675d4a}">
+      <Declaration><![CDATA[METHOD Nadaj_BOOL : BOOL
+VAR_INPUT
+	sNazwa		: STRING;
+	itfNadawca	: ITF_KomunikatorNadawca;
+END_VAR
+VAR
+	iIndex: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.TestCzyNazwaFlagiIstnieje (sNazwa := sNazwa, iIndex => iIndex)) THEN
+	IF (THIS^.CzyNadawcaUprawniony (iIndex := iIndex, itfNadawca := itfNadawca)) THEN
+		THIS^.iWielkoscKolejki	:= THIS^.iWielkoscKolejki + 1;
+		THIS^.arrKolejka [THIS^.iWielkoscKolejki].stKomunikat.sNazwa		:= sNazwa;
+		THIS^.arrKolejka [THIS^.iWielkoscKolejki].stKomunikat.bWartosc		:= TRUE;
+		THIS^.arrKolejka [THIS^.iWielkoscKolejki].bWysylanie				:= TRUE;
+		Nadaj_BOOL				:= TRUE;
+		RETURN;
+	END_IF
+END_IF
+Nadaj_BOOL				:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Nadaj_REAL" Id="{eb8afa73-7af4-0b03-2118-dceb062b6fd4}">
+      <Declaration><![CDATA[METHOD Nadaj_REAL : BOOL
+VAR_INPUT
+	sNazwa		: STRING;
+	rWartosc	: REAL;
+	itfNadawca	: ITF_KomunikatorNadawca;
+END_VAR
+
+VAR
+	iIndex: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.TestCzyNazwaFlagiIstnieje (sNazwa := sNazwa, iIndex => iIndex)) THEN
+	IF (THIS^.CzyNadawcaUprawniony (iIndex := iIndex, itfNadawca := itfNadawca)) THEN
+		THIS^.iWielkoscKolejki	:= THIS^.iWielkoscKolejki + 1;
+		THIS^.arrKolejka [THIS^.iWielkoscKolejki].stKomunikat.sNazwa		:= sNazwa;
+		THIS^.arrKolejka [THIS^.iWielkoscKolejki].stKomunikat.rWartosc		:= rWartosc;
+		THIS^.arrKolejka [THIS^.iWielkoscKolejki].bWysylanie				:= TRUE;
+		Nadaj_REAL				:= TRUE;
+		RETURN;
+	END_IF
+END_IF
+Nadaj_REAL				:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ObslugaKolejki" Id="{7ea162a9-0708-0e88-375c-ab06d8e44216}">
+      <Declaration><![CDATA[METHOD PUBLIC ObslugaKolejki
+VAR
+	iI			: INT;
+	iJ			: INT;
+	iOdbiorca	: INT;
+	btmpTest	: bool;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (iWielkoscKolejki > 0) THEN
+	FOR iI := 1 TO iWielkoscKolejki DO
+		IF (THIS^.TestCzyNazwaFlagiIstnieje (sNazwa := THIS^.arrKolejka [iI].stKomunikat.sNazwa, iIndex => iJ)) THEN
+			// Nadawanie wiadomosci ustaw odpowiednia wartosc
+			IF (THIS^.arrKolejka [iI].bWysylanie) THEN
+				THIS^.arrListaFlag [iJ].stKomunikat.bWartosc		:= THIS^.arrKolejka [iI].stKomunikat.bWartosc;
+				THIS^.arrListaFlag [iJ].stKomunikat.rWartosc		:= THIS^.arrKolejka [iI].stKomunikat.rWartosc;
+				THIS^.arrListaFlag [iJ].stKomunikat.bDoOdebrania	:= TRUE;
+				THIS^.arrListaFlag [iJ].iIloscDoPotwierdzenia		:= THIS^.arrListaFlag [iJ].iIloscOdbiorcow;
+			// potwierdzenie odebrania wiadomości wyczyść wiadomość 
+			ELSIF (THIS^.arrKolejka [iI].bPotwierdzenie) THEN
+				IF (THIS^.arrListaFlag [iJ].iIloscOdbiorcow = 1) THEN
+					THIS^.arrListaFlag [iJ].iIloscDoPotwierdzenia	:= THIS^.arrListaFlag [iJ].iIloscDoPotwierdzenia - 1;
+					btmpTest		:= TRUE;
+				ELSE
+					btmpTest		:= TRUE;
+					FOR iOdbiorca := 1 TO THIS^.arrListaFlag [iJ].iIloscOdbiorcow DO
+						IF (THIS^.arrKolejka [iI].itfOdbiorca = THIS^.arrListaFlag [iJ].arritfOdbiorca [iOdbiorca]) THEN
+							THIS^.arrListaFlag [iJ].arrPotwierdzenie [iOdbiorca]	:= TRUE;
+							THIS^.arrListaFlag [iJ].iIloscDoPotwierdzenia			:= THIS^.arrListaFlag [iJ].iIloscDoPotwierdzenia - 1;
+						END_IF
+						btmpTest	:= btmpTest AND THIS^.arrListaFlag [iJ].arrPotwierdzenie [iOdbiorca];
+					END_FOR
+				END_IF
+				IF (btmpTest) THEN
+					THIS^.arrListaFlag [iJ].stKomunikat.bDoOdebrania	:= FALSE;
+					THIS^.arrListaFlag [iJ].stKomunikat.bWartosc		:= FALSE;
+					THIS^.arrListaFlag [iJ].stKomunikat.rWartosc		:= 0;
+				END_IF
+			END_IF
+			EXIT;
+		END_IF
+	END_FOR
+	//wyczyszczenie kolejki
+	Tc2_System.MEMSET (
+		destAddr			:= ADR (THIS^.arrKolejka),
+		fillByte			:= 0,
+		n					:= SIZEOF (THIS^.arrKolejka)
+	);
+	THIS^.iWielkoscKolejki	:= 0;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Odbierz_BOOL" Id="{7aef4152-a5e6-0135-0aeb-909ceb511126}">
+      <Declaration><![CDATA[METHOD PUBLIC Odbierz_BOOL : BOOL
+VAR_INPUT
+	sNazwa		: STRING;
+	itfOdbiorca	: ITF_KomunikatorOdbiorca;
+END_VAR
+VAR_OUTPUT
+	bWartosc	: BOOL;	
+END_VAR
+VAR
+	iIndex: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.TestCzyNazwaFlagiIstnieje (sNazwa := sNazwa, iIndex => iIndex)) THEN
+	IF (THIS^.CzyOdbiorcaUpawniony (iIndex := iIndex, itfOdbiorca := itfOdbiorca)) THEN
+		bWartosc				:= THIS^.arrListaFlag [iIndex].stKomunikat.bWartosc;
+		Odbierz_BOOL			:= TRUE;
+		RETURN;
+	END_IF
+END_IF
+Odbierz_BOOL			:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Odbierz_REAL" Id="{a84b4166-5348-0cee-06f3-35a72c5e990e}">
+      <Declaration><![CDATA[METHOD PUBLIC Odbierz_REAL : BOOL
+VAR_INPUT
+	sNazwa		: STRING;
+	itfOdbiorca	: ITF_KomunikatorOdbiorca;
+END_VAR
+VAR_OUTPUT
+	rWartosc	: REAL;	
+END_VAR
+VAR
+	iIndex: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.TestCzyNazwaFlagiIstnieje (sNazwa := sNazwa, iIndex => iIndex)) THEN
+	IF (THIS^.CzyOdbiorcaUpawniony (iIndex := iIndex, itfOdbiorca := itfOdbiorca)) THEN
+		rWartosc				:= THIS^.arrListaFlag [iIndex].stKomunikat.rWartosc;
+		Odbierz_REAL			:= TRUE;
+		RETURN;
+	END_IF
+END_IF
+Odbierz_REAL			:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Potwierdz" Id="{2c5ae29b-50da-0da6-0045-cd8f7de03a41}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.07.2025		TC 4024.66
+	Wysyła potwierdzenie że odebrał dane
+*)
+METHOD PUBLIC Potwierdz : BOOL
+VAR_INPUT
+	sNazwa				: STRING;
+	itfOdbiorca			: ITF_KomunikatorOdbiorca;
+END_VAR
+VAR
+	iIndex				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.TestCzyNazwaFlagiIstnieje (sNazwa := sNazwa, iIndex => iIndex)) THEN
+	IF (THIS^.CzyOdbiorcaUpawniony (iIndex := iIndex, itfOdbiorca := itfOdbiorca)) THEN
+		THIS^.iWielkoscKolejki		:= THIS^.iWielkoscKolejki + 1;
+		THIS^.arrKolejka [THIS^.iWielkoscKolejki].stKomunikat.sNazwa	:= sNazwa;
+		THIS^.arrKolejka [THIS^.iWielkoscKolejki].bPotwierdzenie		:= TRUE;
+		THIS^.arrKolejka [THIS^.iWielkoscKolejki].itfOdbiorca			:= itfOdbiorca;
+		Potwierdz					:= TRUE;
+		RETURN;
+	END_IF
+END_IF
+Potwierdz					:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestCzyNazwaFlagiIstnieje" Id="{a96b9b1f-cdf2-052c-22ae-bb31e5798abb}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.07.2025		TC 4024.66
+	
+*)
+METHOD PRIVATE TestCzyNazwaFlagiIstnieje : BOOL
+VAR_INPUT
+	sNazwa			: STRING;
+END_VAR
+VAR_OUTPUT
+	iIndex			: INT;
+END_VAR
+VAR
+	iI				: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO THIS^.iIloscFlag DO
+	IF (sNazwa = THIS^.arrListaFlag [iI].stKomunikat.sNazwa) THEN
+		iIndex							:= iI;
+		TestCzyNazwaFlagiIstnieje		:= TRUE;
+		RETURN;
+	END_IF
+END_FOR
+TestCzyNazwaFlagiIstnieje				:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
