@@ -14,6 +14,8 @@ VAR
 	itfSS1					: ITF_BaseFlagGet;
 	itfSTO					: ITF_BaseFlagGet;
 	stPower					: ST_BaseControlElement_Power;
+(*	Bazowanie	*)
+	stHoming				: ST_BaseControlElement_Homing;
 (*	Flagi główne elementów	*)
 	bPosition0				: BOOL := TRUE;	//jak nie potrzebna to zostawić na true w przeciwnym przypadku przypisać odpowiednią logikę
 	bDoNothing				: BOOL := TRUE;	//jak nie potrzebna to zostawić na true w przeciwnym przypadku przypisać odpowiednią logikę
@@ -23,8 +25,10 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Bazowanie" Id="{b37a828b-2043-04f0-01f3-c3e8d6ea6273}" />
     <Folder Name="Events" Id="{1dd56da8-fa40-0d20-065c-a56138eede25}" />
     <Folder Name="ID" Id="{4718b15a-f934-0f59-1b79-1caa8a3a3eb5}" />
+    <Folder Name="Reset" Id="{24cc0c48-ecb6-057d-16ae-5d473fe279a3}" />
     <Folder Name="WiazanieZmiennych" Id="{b467be5a-6d2a-0ee1-246f-4160ba6824ae}" />
     <Folder Name="Zasilanie" Id="{c277cffb-ced9-0402-3821-c75c33def767}" />
     <Method Name="AddComponent" Id="{b669ca95-b30c-0759-193e-b3e939cb13c5}">
@@ -141,7 +145,12 @@ IF (THIS^.stPower.cmdTurnOn.OperationExecute ()) THEN
 END_IF
 IF (THIS^.stPower.cmdTurnOff.OperationExecute ()) THEN
 	THIS^.stPower.cmdTurnOff.Operation (bIN	:= THIS^.PowerOffCycle ());
-END_IF]]></ST>
+END_IF
+(*	Bazowanie	*)
+IF (THIS^.stHoming.cmdExecute.OperationExecute ()) THEN
+	THIS^.stHoming.cmdExecute.Operation (bIN	:= THIS^.HomingCycleInternal ());
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="ExecuteEveryCycle_Status" Id="{ec9006a7-246a-0b2b-0a91-f4d80259e847}">
@@ -196,7 +205,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[THIS^.stHoming.cmdExecute.Abort ();
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="ExecuteEveryCycle_TestWithPower" Id="{8cfe3306-9675-090f-2cce-fa81e160e685}">
@@ -205,7 +215,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[THIS^.stHoming.cmdExecute.Test ();]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{7b78c27a-7119-0af8-2842-5faf4638ec35}">
@@ -263,6 +273,131 @@ METHOD PUBLIC GetPosition0 : BOOL
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetPosition0				:= THIS^.bPosition0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingCycle" Id="{52f3f79e-960c-0de7-1d3a-68eab36989b0}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.05.2025		TC 4024.66
+	Metoda bazowania kontrektnego elementu 
+*)
+METHOD PROTECTED HomingCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[HomingCycle					:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingCycleInternal" Id="{ffc44757-f6c2-07ad-003f-c33ae386e867}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.05.2025		TC 4024.66
+	Metoda główna bazowania wywołuje metode przeciążaną Bazowanie_Cykl dziecka
+*)
+METHOD PRIVATE HomingCycleInternal : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE THIS^.stHoming.cmdExecute.GetStep () OF
+0	:
+	IF (THIS^.stHoming.bWithoutHoming) THEN	//bazowanie wyłączone true
+		THIS^.stHoming.bIsNeeded		:= TRUE;	//ustaw że juz jest wybazowane
+		THIS^.stHoming.cmdExecute.SetStepAsFinal ();
+	ELSE
+		THIS^.stHoming.iElementHomingStep	:= 0;
+		THIS^.stHoming.cmdExecute.SetStepINC10 ();
+	END_IF
+	THIS^.stHoming.bIsNeeded			:= TRUE;
+	HomingCycleInternal				:= TRUE;
+10	:
+	IF (NOT THIS^.HomingCycle ()) THEN
+		THIS^.stHoming.cmdExecute.SetStepAsFinal ();
+	END_IF
+	HomingCycleInternal				:= TRUE;
+GVL_BaseConstans.FINISH_STEP	:
+	THIS^.stHoming.bIsNeeded			:= FALSE;	//ustaw że juz jest wybazowane
+	HomingCycleInternal				:= FALSE;
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingGetBusy" Id="{33408a0d-042a-0f59-1e29-7ce625bb2198}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.05.2025		TC 4024.66
+	Bazowanie w toku
+*)
+METHOD PUBLIC HomingGetBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[HomingGetBusy		:= THIS^.stHoming.cmdExecute.GetBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingGetDone" Id="{07412dca-23e8-0c5a-0f20-99e739e31e10}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Flaga że w tej sesji pracy maszyny element został już wybazowany
+*)
+METHOD PUBLIC HomingGetDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[HomingGetDone	:= THIS^.stHoming.cmdExecute.GetDone ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingGetIsNeeded" Id="{d7ff01aa-0731-0a8c-12a1-791517d15581}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		11.04.2025		TC 4024.66
+	Zwraca czy bazowanie jest potrzebne
+*)
+METHOD PUBLIC HomingGetIsNeeded : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[HomingGetIsNeeded			:= THIS^.stHoming.bIsNeeded;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingSetWithoutHoming" Id="{5a5855af-d47a-0a6a-07f4-575e5afc713b}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		11.04.2025		TC 4024.66
+	Ustawia czy element jest ma być bazowany czy nie
+*)
+METHOD PUBLIC HomingSetWithoutHoming : BOOL
+VAR_INPUT
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stHoming.bWithoutHoming			:= bIN;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingStart" Id="{31be6a6b-ec8a-0bec-3837-eb9aa93b3ee3}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.05.2025		TC 4024.66
+	Uruchomienie metody bazowania
+*)
+METHOD PUBLIC HomingStart
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stHoming.cmdExecute.Execute ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -470,6 +605,23 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[PowerTurnOnInProgress		:= THIS^.stPower.cmdTurnOn.GetBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetOperation" Id="{54ea1f37-360a-095c-2e4f-63fea602cb2f}" FolderPath="Reset\">
+      <Declaration><![CDATA[METHOD PROTECTED ResetOperation : BOOL
+VAR
+	bResult				: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult					:= SUPER^.ResetOperation ();
+
+THIS^.stHoming.bIsNeeded	:= TRUE;
+THIS^.stHoming.cmdExecute.Abort ();
+THIS^.stHoming.iChildHomingStep	:= 0;
+THIS^.stHoming.iElementHomingStep	:= 0;
+
+ResetOperation			:= FALSE OR bResult;
 ]]></ST>
       </Implementation>
     </Method>

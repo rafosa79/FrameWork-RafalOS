@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_ControlElement_HMI_1" Id="{10465269-4e28-42f0-8931-59df3dea5263}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ControlElement_HMI_1 EXTENDS FB_BaseControlElement_HMI IMPLEMENTS ITF_ControlElement_HMI_1
+VAR
+	itfControlElementConnector			: ITF_ControlElement_HMI_Connector_1;
+	refstControlElementData				: REFERENCE TO ST_ControlElement_HMI_1;
+	
+	itfComponent1						: ITF_Component_HMI;
+	itfComponent2						: ITF_Component_HMI;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_ControlElement_HMI" Id="{762cdba4-5ecf-4215-b443-903626f8b64b}" />
+    <Method Name="FB_init" Id="{84244241-ae76-4d20-988e-70a316cc7174}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfBaseLoggerConnector				: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
+	itfControlElementConnector			: ITF_ControlElement_HMI_Init;
+	itfComponent1						: ITF_Component_HMI;
+	itfComponent2						: ITF_Component_HMI;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Przypisanie do elementu który własnie stworzyliśmy
+THIS^.itfControlElementConnector		:= itfControlElementConnector;
+//Przypisanie do elementów z biblioteki
+THIS^.itfBaseLoggerElementConnector		:= itfControlElementConnector;
+THIS^.itfBaseComponentConnector			:= itfControlElementConnector;
+THIS^.itfBaseControlElementConnector	:= itfControlElementConnector;
+//
+THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
+//
+THIS^.itfComponent1						:= itfComponent1;
+THIS^.AddComponent (itfComponentHMI		:= itfComponent1);
+THIS^.itfComponent2						:= itfComponent2;
+this^.AddComponent (itfComponentHMI		:= itfComponent2);
+
+IF (THIS^.itfControlElementConnector <> 0 AND
+	THIS^.itfBaseLoggerElementConnector <> 0 AND
+	THIS^.itfBaseComponentConnector	<> 0 AND
+	THIS^.itfBaseControlElementConnector <> 0 AND
+	THIS^.itfBaseLoggerConnector <> 0) THEN
+	THIS^.bIsInit						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkControlElementData" Id="{24c407d4-b5c5-47af-a02d-1f7d9228664e}" FolderPath="ITF_ControlElement_HMI\">
+      <Declaration><![CDATA[METHOD LinkControlElementData : BOOL
+VAR_INPUT
+	stData				: reference to ST_ControlElement_HMI_Link;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstControlElementData			REF= stData.stControlElement;	//ta zmienna powstaje w elemencie 
+
+THIS^.refstBaseLoggerElementDataHMI		REF= stData.stBaseLoggerElement;	//zmienne z biblioteki ale dopiero tu je moge przypisać 
+THIS^.refstBaseComponentDataHMI			REF= stData.stBaseComponent;
+THIS^.refstBaseControlElementDataHMI	REF= stData.stBaseControlElement;
+
+THIS^.itfComponent1.LinkComponentData (stData := stData.stComponent1);	//przekazanie danych do elementu podrzędnego np do czujnika
+THIS^.itfComponent2.LinkComponentData (stData := stData.stComponent2);
+
+THIS^.CreateLinkToEventsMemory ();	//wywołanie metody linkującą poamięc zgłoszęń
+
+IF (__ISVALIDREF (THIS^.refstControlElementData) AND this^.IsLinkedReferences ()) THEN
+	THIS^.bIsValidData		:= TRUE;
+	LinkControlElementData	:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
