@@ -6,7 +6,8 @@ STRUCT
 	cmdExecute				: FB_BaseCommand;
 	bIsNeeded				: BOOL := TRUE;		//pamieta czy juz element został wybazowany na początku true po bazowaniu zostaje ustawione na false
 	bWithoutHoming			: BOOL;				//ustawienie czy ma być bazowanie czy nie
-	iElementHomingStep		: INT;
+	iElementHomingStep		: INT;				//krok dla elementów złożonych biblioteki
+	iChildHomingStep		: int;				//krok dla metody bazowania wykorzystywany w potomkach FB
 END_STRUCT
 END_TYPE
 ]]></Declaration>

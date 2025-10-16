@@ -25,6 +25,17 @@ METHOD PUBLIC GetPosition0 : BOOL
 
 ]]></Declaration>
     </Method>
+    <Method Name="HomingGetDone" Id="{fde5b151-5c08-07ea-2de6-6340c0692556}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Flaga że w tej sesji pracy maszyny element został już wybazowany
+*)
+METHOD PUBLIC HomingGetDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="HomingGetIsNeeded" Id="{af92a4dc-5ebd-0ea2-0b2f-d3ed007008d4}" FolderPath="Bazowanie\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.

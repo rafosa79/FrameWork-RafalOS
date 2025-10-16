@@ -18,6 +18,7 @@ END_VAR
     <Folder Name="Bazowanie" Id="{ac03e261-94f6-0d08-2b29-69a0f6f80414}" />
     <Folder Name="Events" Id="{20f6f417-5dd7-052c-022d-8978faa14be3}" />
     <Folder Name="ID" Id="{9d43db93-a825-0ef2-1289-7c7210b94e63}" />
+    <Folder Name="Reset" Id="{f175fff7-b28d-0fc9-2a54-b324df7e3bfb}" />
     <Folder Name="WiazanieZmiennych" Id="{2b50b030-a9ec-06ce-1ddf-f0356b93fad0}" />
     <Folder Name="Zasilanie" Id="{27dafdd4-57cf-0313-207b-208322f99c30}" />
     <Method Name="AddControlElement" Id="{175b37ba-638b-0727-26cf-573800512486}">
@@ -206,14 +207,39 @@ END_VAR
 	THIS^.stHoming.iElementHomingStep	:= THIS^.stHoming.iElementHomingStep + 10;
 	HomingCycle							:= TRUE;
 10	:
-	IF (THIS^.HomingGetIsNeeded ()) THEN
+	THIS^.stHoming.iElementHomingStep	:= THIS^.stHoming.iElementHomingStep + 10;
+	HomingCycle							:= TRUE;
+20	:
+	IF (THIS^.HomingGetDone ()) THEN
 		THIS^.stHoming.iElementHomingStep 	:= GVL_BaseConstans.FINISH_STEP;
 	END_IF	
 	HomingCycle							:= TRUE;
 GVL_BaseConstans.FINISH_STEP :
-	THIS^.stHoming.bIsNeeded			:= FALSE;
 	HomingCycle							:= FALSE;
 END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingGetDone" Id="{f022fc44-c924-0052-0029-05a35ee9823e}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Flaga że w tej sesji pracy maszyny element został już wybazowany
+*)
+METHOD PUBLIC HomingGetDone : BOOL
+VAR
+	iI				: INT;
+	btmpHomingDone	: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[btmpHomingDone		:= TRUE;
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	btmpHomingDone	:= btmpHomingDone AND THIS^.arrControlElement [iI].HomingGetDone ();
+	IF (NOT btmpHomingDone) THEN
+		EXIT;
+	END_IF
+END_FOR
+HomingGetDone		:= btmpHomingDone;
 ]]></ST>
       </Implementation>
     </Method>
@@ -408,6 +434,19 @@ END_VAR]]></Declaration>
 		PowerOnCycle			:= TRUE;
 	END_IF	
 END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetOperation" Id="{b6491d3e-1705-00b0-1aa1-54f9fbb764a3}" FolderPath="Reset\">
+      <Declaration><![CDATA[METHOD PROTECTED ResetOperation : BOOL
+VAR
+	bResult				: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult					:= SUPER^.ResetOperation ();
+
+
+ResetOperation			:= FALSE OR bResult;
 ]]></ST>
       </Implementation>
     </Method>

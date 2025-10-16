@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_ControlElement_1" Id="{29ca0770-d6b8-4f13-873a-f2e4706c26db}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ControlElement_1 EXTENDS FB_BaseControlElement IMPLEMENTS ITF_ControlElement_1, ITF_ControlElement_HMI_Init
+VAR
+	itfComponent1				: ITF_Component;
+	itfComponent2				: ITF_Component;
+	
+	bHomingFinished				: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Bazowanie" Id="{713fdeaa-0ea9-4ba4-9b52-f1f9c8e41684}" />
+    <Folder Name="Events" Id="{7ee63d15-ed94-4016-9ce5-e68e2b66f5c8}" />
+    <Method Name="EventsDefinition" Id="{724f0a9d-952c-4e68-9415-dc3827aadf54}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+VAR
+	fbName					: FB_BaseLabel;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.EventsDefinition ();
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie Wykonawczego 1 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie Wykonawczego 1 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie Wykonawczego 1 DE");
+THIS^.AddEvent (
+	bIgnoreRepetitions		:= TRUE,
+	eEventCategory			:= E_BaseEvents_Category.ALARM,
+	bConfirm				:= FALSE,
+	stDescription			:= fbName.GetTexts ()
+);
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie Wykonawczego 2 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie Wykonawczego 2 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie Wykonawczego 2 DE");
+THIS^.AddEvent (
+	bIgnoreRepetitions		:= TRUE,
+	eEventCategory			:= E_BaseEvents_Category.ALARM,
+	bConfirm				:= FALSE,
+	stDescription			:= fbName.GetTexts ()
+);
+
+fbName.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zgloszneie Wykonawczego 3 PL");
+fbName.SetText (eLocation := E_BaseLocation.en, wsDescription := "Zgloszneie Wykonawczego 3 EN");
+fbName.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zgloszneie Wykonawczego 3 DE");
+THIS^.AddEvent (
+	bIgnoreRepetitions		:= TRUE,
+	eEventCategory			:= E_BaseEvents_Category.ALARM,
+	bConfirm				:= FALSE,
+	stDescription			:= fbName.GetTexts ()
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{3fa9450b-a485-475c-b98c-4fd1fd187d9a}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfComponent1				: ITF_Component;
+	itfComponent2				: ITF_Component;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfComponent1					:= itfComponent1;
+THIS^.AddComponent (itfComponent	:= itfComponent1);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 1 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu 1 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu 1 de");
+THIS^.itfComponent1.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfComponent2					:= itfComponent2;
+THIS^.AddComponent (itfComponent	:= itfComponent2);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 2 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu 2 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu 2 de");
+THIS^.itfComponent2.SetName (stName	:= THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingCycle" Id="{22de373a-0fd5-4d63-be43-842a455baca9}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.05.2025		TC 4024.66
+	Metoda bazowania kontrektnego elementu 
+*)
+METHOD PROTECTED HomingCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE THIS^.stHoming.iChildHomingStep OF
+0	:
+	IF (THIS^.bHomingFinished) THEN
+		THIS^.bHomingFinished		:= FALSE;
+		THIS^.stHoming.iChildHomingStep	:= 10;
+	END_IF
+	HomingCycle					:= TRUE;
+10	:
+	this^.stHoming.iChildHomingStep	:= 0;
+	HomingCycle					:= FALSE;
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

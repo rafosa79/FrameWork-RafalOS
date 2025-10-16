@@ -28,6 +28,7 @@ END_VAR
     <Folder Name="Bazowanie" Id="{b37a828b-2043-04f0-01f3-c3e8d6ea6273}" />
     <Folder Name="Events" Id="{1dd56da8-fa40-0d20-065c-a56138eede25}" />
     <Folder Name="ID" Id="{4718b15a-f934-0f59-1b79-1caa8a3a3eb5}" />
+    <Folder Name="Reset" Id="{24cc0c48-ecb6-057d-16ae-5d473fe279a3}" />
     <Folder Name="WiazanieZmiennych" Id="{b467be5a-6d2a-0ee1-246f-4160ba6824ae}" />
     <Folder Name="Zasilanie" Id="{c277cffb-ced9-0402-3821-c75c33def767}" />
     <Method Name="AddComponent" Id="{b669ca95-b30c-0759-193e-b3e939cb13c5}">
@@ -604,6 +605,23 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[PowerTurnOnInProgress		:= THIS^.stPower.cmdTurnOn.GetBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetOperation" Id="{54ea1f37-360a-095c-2e4f-63fea602cb2f}" FolderPath="Reset\">
+      <Declaration><![CDATA[METHOD PROTECTED ResetOperation : BOOL
+VAR
+	bResult				: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult					:= SUPER^.ResetOperation ();
+
+THIS^.stHoming.bIsNeeded	:= TRUE;
+THIS^.stHoming.cmdExecute.Abort ();
+THIS^.stHoming.iChildHomingStep	:= 0;
+THIS^.stHoming.iElementHomingStep	:= 0;
+
+ResetOperation			:= FALSE OR bResult;
 ]]></ST>
       </Implementation>
     </Method>

@@ -22,7 +22,9 @@ T11_TestGenerateListEvent ();
 T12_TestPower ();
 T13_TestPowerForTopElement ();
 
-
+//T14_TestHomingControlElementWithouutHomingMethod ();
+//T15_TestHomingControlElementWithHomingMetod ();
+//T16_TestingTopElementHoming ();
 
 T99_Test ();]]></ST>
     </Implementation>
@@ -707,6 +709,227 @@ END_VAR]]></Declaration>
 	230	:
 		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.GetBusy (), 	Message := 'T230 - 03 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T230 - 04 - bledny status');
+		iStep		:= 1000;
+	1000	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T14_TestHomingControlElementWithouutHomingMethod" Id="{b01b582c-8278-4359-bdda-8c9399156c97}">
+      <Declaration><![CDATA[METHOD PRIVATE T14_TestHomingControlElementWithouutHomingMethod
+VAR_INST
+	iStep			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T14_TestHomingControlElementWithouutHomingMethod')) THEN
+
+	GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Test ();
+	GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Operation ();
+	GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Status ();
+	GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Error ();
+
+	CASE iStep OF
+	0	:	
+		GVL_Variable.fbPB1_Wyk1.PowerTurnOn ();
+		iStep		:= iStep + 10;
+	10	:
+		IF (GVL_Variable.fbPB1_Wyk1.PowerGetStatus ()) THEN
+			iStep	:= iStep + 10;
+		END_IF
+	20	:
+		GVL_Variable.fbPB1_Wyk1.HomingStart ();
+		iStep		:= iStep + 10;
+	30	:
+		//start cyklu
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetBusy (), 		Message := 'S30 - T01 - Blad trwa');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetDone (), 	Message := 'S30 - T02 - Blad gotowe');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetIsNeeded (), 	Message := 'S30 - T02 - Blad potrzebne');
+		iStep		:= iStep + 10;
+	40	:	
+		//trwa\
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetBusy (), 		Message := 'S40 - T01 -Blad trwa');     
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetDone (),		Message := 'S40 - T02 -Blad gotowe');   
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetIsNeeded (), 	Message := 'S40 - T02 -Blad potrzebne');
+		iStep		:= iStep + 10;
+	50	:
+		//trwa\
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetBusy (), 		Message := 'S50 - T01 - Blad trwa');     
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetDone (),		Message := 'S50 - T02 - Blad gotowe');   
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetIsNeeded (), 	Message := 'S50 - T02 - Blad potrzebne');
+		iStep		:= iStep + 10;
+	60	:
+		//koniec cyklu
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetBusy (),		Message := 'S60 - T01 - Blad trwa');     
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetDone (), 	Message := 'S60 - T02 - Blad gotowe');   
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetIsNeeded (), Message := 'S60 - T02 - Blad potrzebne');
+		iStep		:= iStep + 10;
+	70	:
+		//last cycle
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetBusy (),		Message := 'S70 - T01 - Blad trwa');     
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetDone (), 		Message := 'S70 - T02 - Blad gotowe');   
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetIsNeeded (), Message := 'S70 - T02 - Blad potrzebne');
+	
+		iStep		:= 1000;
+	1000	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T15_TestHomingControlElementWithHomingMetod" Id="{daaa998d-fbc0-430b-9769-4ff1fd0da065}">
+      <Declaration><![CDATA[METHOD PRIVATE T15_TestHomingControlElementWithHomingMetod
+VAR_INST
+	iStep			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T15_TestHomingControlElementWithHomingMetod')) THEN
+
+	GVL_Variable.fbPB1_Wyk2.ExecuteEveryCycle_Test ();
+	GVL_Variable.fbPB1_Wyk2.ExecuteEveryCycle_Operation ();
+	GVL_Variable.fbPB1_Wyk2.ExecuteEveryCycle_Status ();
+	GVL_Variable.fbPB1_Wyk2.ExecuteEveryCycle_Error ();
+
+	CASE iStep OF
+	0	:	
+		GVL_Variable.fbPB1_Wyk2.PowerTurnOn ();
+		iStep		:= iStep + 10;
+	10	:
+		IF (GVL_Variable.fbPB1_Wyk2.PowerGetStatus ()) THEN
+			iStep	:= iStep + 10;
+		END_IF
+	20	:
+		GVL_Variable.fbPB1_Wyk2.HomingStart ();
+		iStep		:= iStep + 10;
+	30	:
+		//start cyklu
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetBusy (), 		Message := 'S30 - T01 - Blad trwa');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetDone (), 	Message := 'S30 - T02 - Blad gotowe');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetIsNeeded (), 	Message := 'S30 - T02 - Blad potrzebne');
+		iStep		:= iStep + 10;
+	40	:	
+		//trwa\
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetBusy (), 		Message := 'S40 - T01 -Blad trwa');     
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetDone (),		Message := 'S40 - T02 -Blad gotowe');   
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetIsNeeded (), 	Message := 'S40 - T02 -Blad potrzebne');
+		iStep		:= iStep + 10;
+	50	:
+		//trwa\
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetBusy (), 		Message := 'S50 - T01 - Blad trwa');     
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetDone (),		Message := 'S50 - T02 - Blad gotowe');   
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetIsNeeded (), 	Message := 'S50 - T02 - Blad potrzebne');
+		iStep		:= iStep + 10;
+	60	: 
+		WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_Wyk2.bHomingFinished), Value := TRUE);
+		iStep		:= iStep + 10;
+	70	:	
+		//trwa\
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetBusy (), 		Message := 'S70 - T01 -Blad trwa');     
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetDone (),		Message := 'S70 - T02 -Blad gotowe');   
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetIsNeeded (), 	Message := 'S70 - T02 -Blad potrzebne');
+		iStep		:= iStep + 10;
+	80	:
+		//trwa\
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetBusy (), 		Message := 'S80 - T01 - Blad trwa');     
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetDone (),		Message := 'S80 - T02 - Blad gotowe');   
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetIsNeeded (), 	Message := 'S80 - T02 - Blad potrzebne');
+		iStep		:= iStep + 10;
+		
+		
+		
+	90	:
+		//koniec cyklu
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetBusy (),		Message := 'S90 - T01 - Blad trwa');     
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetDone (), 	Message := 'S90 - T02 - Blad gotowe');   
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetIsNeeded (), Message := 'S90 - T02 - Blad potrzebne');
+		iStep		:= iStep + 10;
+	100	:
+		//last cycle
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetBusy (),		Message := 'S100 - T01 - Blad trwa');     
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetDone (), 		Message := 'S100 - T02 - Blad gotowe');   
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetIsNeeded (), Message := 'S100 - T02 - Blad potrzebne');
+	
+		iStep		:= 1000;
+	1000	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T16_TestingTopElementHoming" Id="{4d5089e0-bd42-48d5-b99d-b6a91be342e9}">
+      <Declaration><![CDATA[METHOD PRIVATE T16_TestingTopElementHoming
+VAR_INST
+	iStep	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T16_TestingTopElementHoming')) THEN
+
+	GVL_Variable.fbPB1.ExecuteEveryCycle_Test ();
+	GVL_Variable.fbPB1.ExecuteEveryCycle_Operation ();
+	GVL_Variable.fbPB1.ExecuteEveryCycle_Status ();
+	GVL_Variable.fbPB1.ExecuteEveryCycle_Error ();
+
+	CASE iStep OF
+	0	:
+		GVL_Variable.fbPB1.PowerTurnOn ();
+		iStep		:= iStep + 10;
+	10	:
+		IF (GVL_Variable.fbPB1.PowerGetStatus ()) THEN
+			iStep	:= iStep + 10;
+		END_IF
+	20	:
+		GVL_Variable.fbPB1.HomingStart ();
+		iStep		:= iStep + 10;
+	30	:
+		AssertTrue (Condition := GVL_Variable.fbPB1.HomingGetBusy (), 			Message := 'S30 - T01');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetBusy (),		Message := 'S30 - T02');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetBusy (),		Message := 'S30 - T03');
+		AssertFalse (Condition := GVL_Variable.fbPB1_ZL1.HomingGetBusy (), 		Message := 'S30 - T04');
+		AssertFalse (Condition := GVL_Variable.fbPB1_ZL1_Wyk1.HomingGetBusy (),	Message := 'S30 - T05');
+		AssertFalse (Condition := GVL_Variable.fbPB1_ZL1_Wyk2.HomingGetBusy (),	Message := 'S30 - T06');
+
+		AssertFalse (Condition := GVL_Variable.fbPB1.HomingGetDone (), 			Message := 'S30 - T07');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetDone (),		Message := 'S30 - T08');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetDone (),		Message := 'S30 - T09');
+		AssertFalse (Condition := GVL_Variable.fbPB1_ZL1.HomingGetDone (), 		Message := 'S30 - T10');
+		AssertFalse (Condition := GVL_Variable.fbPB1_ZL1_Wyk1.HomingGetDone (),	Message := 'S30 - T11');
+		AssertFalse (Condition := GVL_Variable.fbPB1_ZL1_Wyk2.HomingGetDone (),	Message := 'S30 - T12');
+		iStep		:= iStep + 10;
+	40	:
+		AssertTrue (Condition := GVL_Variable.fbPB1.HomingGetBusy (), 			Message := 'S40 - T01');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetBusy (),		Message := 'S40 - T02');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetBusy (),		Message := 'S40 - T03');
+		AssertTrue (Condition := GVL_Variable.fbPB1_ZL1.HomingGetBusy (), 		Message := 'S40 - T04');
+		AssertTrue (Condition := GVL_Variable.fbPB1_ZL1_Wyk1.HomingGetBusy (),	Message := 'S40 - T05');
+		AssertTrue (Condition := GVL_Variable.fbPB1_ZL1_Wyk2.HomingGetBusy (),	Message := 'S40 - T06');
+
+		AssertFalse (Condition := GVL_Variable.fbPB1.HomingGetDone (), 			Message := 'S40 - T07');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetDone (),		Message := 'S40 - T08');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetDone (),		Message := 'S40 - T09');
+		AssertFalse (Condition := GVL_Variable.fbPB1_ZL1.HomingGetDone (), 		Message := 'S40 - T10');
+		AssertFalse (Condition := GVL_Variable.fbPB1_ZL1_Wyk1.HomingGetDone (),	Message := 'S40 - T11');
+		AssertFalse (Condition := GVL_Variable.fbPB1_ZL1_Wyk2.HomingGetDone (),	Message := 'S40 - T12');
+		iStep		:= iStep + 10;
+	50	:
+		AssertTrue (Condition := GVL_Variable.fbPB1.HomingGetBusy (), 			Message := 'S50 - T01');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetBusy (),		Message := 'S50 - T02');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetBusy (),		Message := 'S50 - T03');
+		AssertTrue (Condition := GVL_Variable.fbPB1_ZL1.HomingGetBusy (), 		Message := 'S50 - T04');
+		AssertTrue (Condition := GVL_Variable.fbPB1_ZL1_Wyk1.HomingGetBusy (),	Message := 'S50 - T05');
+		AssertTrue (Condition := GVL_Variable.fbPB1_ZL1_Wyk2.HomingGetBusy (),	Message := 'S50 - T06');
+
+		AssertFalse (Condition := GVL_Variable.fbPB1.HomingGetDone (), 			Message := 'S50 - T07');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.HomingGetDone (),		Message := 'S50 - T08');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk2.HomingGetDone (),		Message := 'S50 - T09');
+		AssertFalse (Condition := GVL_Variable.fbPB1_ZL1.HomingGetDone (), 		Message := 'S50 - T10');
+		AssertFalse (Condition := GVL_Variable.fbPB1_ZL1_Wyk1.HomingGetDone (),	Message := 'S50 - T11');
+		AssertFalse (Condition := GVL_Variable.fbPB1_ZL1_Wyk2.HomingGetDone (),	Message := 'S50 - T12');
+		iStep		:= iStep + 10;
+		
+		
 		iStep		:= 1000;
 	1000	:
 		TcUnit.TEST_FINISHED ();
