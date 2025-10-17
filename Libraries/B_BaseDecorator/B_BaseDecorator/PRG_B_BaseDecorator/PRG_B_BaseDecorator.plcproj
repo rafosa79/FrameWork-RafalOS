@@ -6,7 +6,7 @@
     <ProjectGuid>{9c85a20a-49c3-457f-9903-454fcf7c838d}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
-    <WriteProductVersion>true</WriteProductVersion>
+    <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>PRG_B_BaseDecorator</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
@@ -16,6 +16,71 @@
     <Implicit_KindOfTask>{7e8184e0-9ab8-4959-bd5e-433379caa7bc}</Implicit_KindOfTask>
     <Implicit_Jitter_Distribution>{b5b6a4d3-229f-4b26-8df7-a3977aa9e0c0}</Implicit_Jitter_Distribution>
     <LibraryReferences>{d7f03807-7554-46b4-ae42-bfe2e8d483bc}</LibraryReferences>
+    <Company>RafalOS</Company>
+    <Released>false</Released>
+    <Title>B_BaseDecorate</Title>
+    <ProjectVersion>0.0.0.1</ProjectVersion>
+    <LibraryCategories>
+      <LibraryCategory xmlns="">
+        <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
+        <Version>1.0.0.0</Version>
+        <DefaultName>RafalOS</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
+        </ParentCategory>
+        <DefaultName>Biblioteki i ich elementy</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{b9904a12-953a-4ef3-ac35-10e52398b2c1}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        </ParentCategory>
+        <DefaultName>Biblioteki</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{d7993a17-e2cc-40b8-abc3-8f6a6054b793}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        </ParentCategory>
+        <DefaultName>Biblioteki HMI</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{965bfd45-94a6-4019-b3e4-d0869ce533c6}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        </ParentCategory>
+        <DefaultName>Dekoratory do elementow z bibliotek</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{501eed1d-c165-4994-a262-657bb34e1119}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        </ParentCategory>
+        <DefaultName>Biblioteki PLCHMI</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{4b941d07-e34c-48f7-83cf-ea402c5a73e5}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
+        </ParentCategory>
+        <DefaultName>Smarownica</DefaultName>
+      </LibraryCategory>
+    </LibraryCategories>
+    <SelectedLibraryCategories>
+      <Id xmlns="">{965bfd45-94a6-4019-b3e4-d0869ce533c6}</Id>
+    </SelectedLibraryCategories>
+    <DefaultNamespace>B_BaseDecorate</DefaultNamespace>
+    <Author>Rafał Osajda</Author>
+    <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PlcTask.TcTTO">
@@ -34,6 +99,24 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A04_FB_BaseComponentDecorator\ITF_BaseComponentDecoratorParent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A05_FB_BaseControlElementDecorator\FB_BaseControlElementDecoratorParent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A05_FB_BaseControlElementDecorator\ITF_BaseControlElementDecoratorParent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06_FB_BaseGroupElementDecorator\FB_BaseGroupElementDecoratorParent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06_FB_BaseGroupElementDecorator\ITF_BaseGroupElementDecoratorParent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07_FB_BaseTopElementDecorator\FB_BaseTopElementDecoratorParent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07_FB_BaseTopElementDecorator\ITF_BaseTopElementDecoratorParent.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

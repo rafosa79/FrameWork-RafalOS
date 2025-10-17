@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_BaseLoggerElementDecoratorParent" Id="{c1fb6ba5-3320-4d7c-99c5-b24c7b8f4062}">
     <Declaration><![CDATA[INTERFACE ITF_BaseLoggerElementDecoratorParent EXTENDS ITF_BaseLoggerElement
 ]]></Declaration>

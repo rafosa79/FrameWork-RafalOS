@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseGroupElementDecoratorParent" Id="{a829f283-48ff-04f8-26c1-bceded6302ed}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseGroupElementDecoratorParent EXTENDS ITF_BaseGroupElement
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseTopElementDecoratorParent" Id="{5a77b686-f616-01f0-264a-0d7b9a187e8d}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseTopElementDecoratorParent EXTENDS ITF_BaseTopElement
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

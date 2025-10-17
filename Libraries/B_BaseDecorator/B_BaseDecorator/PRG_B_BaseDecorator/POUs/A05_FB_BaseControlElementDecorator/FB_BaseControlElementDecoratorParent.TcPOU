@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseControlElementDecoratorParent" Id="{b64f736c-95b6-0d2c-320a-88514714764e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseControlElementDecoratorParent EXTENDS FB_BaseComponentDecoratorParent IMPLEMENTS ITF_BaseControlElementDecoratorParent
+VAR
+	itfControlElement				: ITF_BaseControlElement;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Bazowanie" Id="{84903104-6082-0efd-25eb-e2d7ce2bdbb4}" />
+    <Folder Name="Events" Id="{e9410f8a-e1db-054a-071b-fa572a90b062}" />
+    <Folder Name="ID" Id="{3efac1bf-e61b-0cd5-1379-2d160bc022c2}" />
+    <Folder Name="ITF_BaseComponent" Id="{e3476eae-0a1c-0790-23c5-ce328249c0e8}" />
+    <Folder Name="WiazanieZmiennych" Id="{d20cf12a-777b-0392-2614-f810b8f18269}" />
+    <Folder Name="Zasilanie" Id="{bedfc0d7-cf63-0e9f-2dfb-f19d9a8e3473}" />
+    <Method Name="EventsDefinition" Id="{972653cd-4023-08db-3afd-b91a624a9939}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[EventsDefinition		:= THIS^.itfControlElement.EventsDefinition ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Error" Id="{8eff9b7d-e6fc-04c1-3237-b231eff657ad}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
+*)
+METHOD PUBLIC ExecuteEveryCycle_Error
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement.ExecuteEveryCycle_Error ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Operation" Id="{0cf5555d-de63-0b69-2a2c-942019b00c0d}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Wywolanie co cykl operacji 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Operation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement.ExecuteEveryCycle_Operation ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Status" Id="{6910ee4c-2b65-0b52-2c89-7941228765d3}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Aktualizacja flag 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Status
+VAR_INST
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement.ExecuteEveryCycle_Status ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Test" Id="{2f3b68c8-b242-0efe-2331-5d106f648809}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Testowanie czy nei pojawil sie jakis rozkaz i uruchomienie odpowiednich operacji
+*)
+METHOD PUBLIC ExecuteEveryCycle_Test
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement.ExecuteEveryCycle_Test ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{69b9e0f4-87ec-069f-2ff7-9a4663046ec5}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	fbToDecorate		: ITF_DecoratedElement;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement	:= fbToDecorate.GetITFControlElement ();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FirstCycle" Id="{ac94cb0a-9636-0840-1b4b-ac78ca2533be}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.10.2025		TC 4024.66
+	
+*)
+METHOD PUBLIC FirstCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FirstCycle				:= THIS^.itfControlElement.FirstCycle ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetCode" Id="{f8f9b47f-89a0-07f7-24d9-bd7a4f5a1618}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetCode : STRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetCode			:= THIS^.itfControlElement.GetCode ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetDoNothing" Id="{1375d626-888a-0f24-3cdc-5efde640af58}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest czymś zajety
+*)
+METHOD PUBLIC GetDoNothing : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetDoNothing		:= THIS^.itfControlElement.GetDoNothing ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetID" Id="{8c7845f7-9cc5-006a-2d5a-2fd88072a75a}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetID : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetID		:= THIS^.itfControlElement.GetID ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIdentyfier" Id="{7076fce0-10f0-0357-35c1-ba97b1f217b0}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetIdentyfier : ST_BaseElementIdentifier
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIdentyfier		:= THIS^.itfControlElement.GetIdentyfier ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetName" Id="{ec0ffe5c-f3a5-0070-17df-684ed4b488d4}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetName		:= THIS^.itfControlElement.GetName ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetPosition0" Id="{a869147d-025c-0666-1100-ba9c5290550a}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest w pozycji 0 - referencyjnej
+*)
+METHOD PUBLIC GetPosition0 : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetPosition0	:= THIS^.itfControlElement.GetPosition0 ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetType" Id="{6568029f-ec0b-0918-374d-2e0c3d4cf795}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetType : E_BaseElementType
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetType		:= THIS^.itfControlElement.GetType ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingGetDone" Id="{114dd3ff-8c12-0211-179c-cacff92783c2}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Flaga że w tej sesji pracy maszyny element został już wybazowany
+*)
+METHOD PUBLIC HomingGetDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[HomingGetDone	:= THIS^.itfControlElement.HomingGetDone ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingGetIsNeeded" Id="{433ac672-8ea7-0b59-3155-7a62393eae40}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		11.04.2025		TC 4024.66
+	Zwraca czy bazowanie jest potrzebne
+*)
+METHOD PUBLIC HomingGetIsNeeded : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[HomingGetIsNeeded	:= THIS^.itfControlElement.HomingGetIsNeeded ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingStart" Id="{a1094c07-d4bf-0a22-2255-bf1f37ebe64b}" FolderPath="Bazowanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.05.2025		TC 4024.66
+	Uruchomienie metody bazowania
+*)
+METHOD PUBLIC HomingStart
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement.HomingStart ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsValidCommonData" Id="{bf8382e8-3362-0a48-255b-3e609fe8b4eb}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[METHOD PUBLIC IsValidCommonData : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsValidCommonData			:= THIS^.itfControlElement.IsValidCommonData ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="JoinTheLogger" Id="{d99d488d-7f0f-078f-2ead-b83833883cf8}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		07.10.2025		TC 4024.66
+	Dodpisywanie się do listy logera
+*)
+METHOD PUBLIC JoinTheLogger : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[JoinTheLogger	:= THIS^.itfControlElement.JoinTheLogger ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkCommonData" Id="{3fe98781-29a8-0f0b-337b-84ae9e5d55d3}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
+VAR_INPUT
+	stCommonData				: REFERENCE TO ST_BaseCommonData;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[LinkCommonData			:= THIS^.itfControlElement.LinkCommonData (stCommonData := stCommonData);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkSS1" Id="{37a117fb-2f65-01f5-01bd-fd35ee4beb7f}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkSS1 : BOOL
+VAR_INPUT
+	fbSS1			: ITF_BaseFlagGet;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[LinkSS1		:= THIS^.itfControlElement.LinkSS1 (fbSS1 := fbSS1);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkSTO" Id="{43a829bd-758b-04cd-33a4-fa62ffad0f15}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkSTO : BOOL
+VAR_INPUT
+	fbSTO			: ITF_BaseFlagGet;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[LinkSTO		:= THIS^.itfControlElement.LinkSTO (fbSTO := fbSTO);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerGetStatus" Id="{daf71b09-388d-0bf4-33ec-50043c4b8824}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Zwraca status zasilania	
+*)
+METHOD PUBLIC PowerGetStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[PowerGetStatus		:= THIS^.itfControlElement.PowerGetStatus ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerTurnOff" Id="{2f104ee1-676c-0c60-2492-e17661579837}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Wyłączenie zasilania
+*)
+METHOD PUBLIC PowerTurnOff : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[PowerTurnOff		:= THIS^.itfControlElement.PowerTurnOff ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PowerTurnOn" Id="{48118c29-49fd-0d1f-1940-0850d6e694ee}" FolderPath="Zasilanie\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Uruchomienie zasialania
+*)
+METHOD PUBLIC PowerTurnOn
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement.PowerTurnOn ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{30c5b9ba-0aff-06a4-1542-82edd849d6a4}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Reset	:= THIS^.itfControlElement.Reset ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetGetBusy" Id="{811cee6a-8edc-009c-310d-557d8d150a98}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[METHOD PUBLIC ResetGetBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ResetGetBusy		:= THIS^.itfControlElement.ResetGetBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetGetStatus" Id="{aca68a90-9aca-0775-1235-8f81b0e64507}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[METHOD PUBLIC ResetGetStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ResetGetStatus			:= THIS^.itfControlElement.ResetGetStatus ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCode" Id="{947f1944-e673-0f09-0862-7cc193629ac4}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetCode
+VAR_INPUT
+	sCode							: STRING;
+	sAdd							: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement.SetCode (sCode := sCode, sAdd := sAdd);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEventsIDs" Id="{962a51ed-714c-0571-33ae-4aa218f98eb4}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.10.2025		TC 4024.66
+	nadawanie unikalnych ID dla zdarzeń
+*)
+METHOD PUBLIC SetEventsIDs : UINT
+VAR_INPUT
+	uiNewID		: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetEventsIDs		:= THIS^.itfControlElement.SetEventsIDs (uiNewID := uiNewID);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetID" Id="{91d1b19e-a580-0afe-31b4-3ad2033d7039}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetID : UINT
+VAR_INPUT
+	uiID					: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetID		:= THIS^.itfControlElement.SetID (uiID := uiID);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetName" Id="{5a675704-2349-0e90-0793-792c7658a6b0}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetName
+VAR_INPUT
+	stName				: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement.SetName (stName := stName);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetType" Id="{0007d834-0427-0710-222e-6380b78ff489}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetType
+VAR_INPUT
+	eType					: E_BaseElementType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement.SetType (eType := eType);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

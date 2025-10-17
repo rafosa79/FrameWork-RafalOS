@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_BaseLoggerElementDecoratorParent" Id="{50e5d6fc-104d-4b44-8f8a-cca25a2c79ad}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseLoggerElementDecoratorParent IMPLEMENTS ITF_BaseLoggerElementDecoratorParent
 VAR
@@ -53,7 +53,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetID		:= THIS^.GetID ();
+        <ST><![CDATA[GetID		:= THIS^.itfLoggerElement.GetID ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -95,7 +95,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.SetCode (sCode := sCode, sAdd := sAdd);
+        <ST><![CDATA[THIS^.itfLoggerElement.SetCode (sCode := sCode, sAdd := sAdd);
 ]]></ST>
       </Implementation>
     </Method>
@@ -144,7 +144,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.SetType (eType := eType);
+        <ST><![CDATA[THIS^.itfLoggerElement.SetType (eType := eType);
 ]]></ST>
       </Implementation>
     </Method>
