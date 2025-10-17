@@ -20,9 +20,10 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_BaseComponent" Id="{b16f93e1-934e-0805-383f-d97d810c646e}" />
+    <Folder Name="ITF_DecoratedElement" Id="{41521ef6-d598-047e-2c22-8e73616ee08c}" />
     <Folder Name="Parameter" Id="{51f1d98c-bdeb-0f9b-3843-7bd8ef234ec3}" />
-    <Folder Name="Reset" Id="{4e599467-5d15-0090-0780-0c3384086e14}" />
-    <Method Name="ExecuteEveryCycle_Error" Id="{d0f95f17-dd99-064c-15eb-b6a90cafd74d}">
+    <Method Name="ExecuteEveryCycle_Error" Id="{d0f95f17-dd99-064c-15eb-b6a90cafd74d}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		27.03.2025		TC 4024.66
@@ -36,7 +37,7 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ExecuteEveryCycle_Operation" Id="{513159e8-2790-0493-315a-cd955c8d31c5}">
+    <Method Name="ExecuteEveryCycle_Operation" Id="{513159e8-2790-0493-315a-cd955c8d31c5}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		27.03.2025		TC 4024.66
@@ -60,7 +61,7 @@ IF (THIS^.cmdParametersRestoreToDefault.OperationExecute ()) THEN
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ExecuteEveryCycle_Status" Id="{4211d7fe-e3a3-005a-3d2b-874c421b8ff4}">
+    <Method Name="ExecuteEveryCycle_Status" Id="{4211d7fe-e3a3-005a-3d2b-874c421b8ff4}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		27.03.2025		TC 4024.66
@@ -74,7 +75,7 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ExecuteEveryCycle_Test" Id="{4131c775-8fd3-0b9a-02c8-9e9a0a682b52}">
+    <Method Name="ExecuteEveryCycle_Test" Id="{4131c775-8fd3-0b9a-02c8-9e9a0a682b52}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		27.03.2025		TC 4024.66
@@ -103,7 +104,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FirstCycle" Id="{59d66408-2df1-04a5-240d-93e8399a3b7e}">
+    <Method Name="FirstCycle" Id="{59d66408-2df1-04a5-240d-93e8399a3b7e}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		03.10.2025		TC 4024.66
@@ -118,7 +119,47 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="JoinTheLogger" Id="{c36b1ddd-e3f3-0707-2e1b-24a85c94c962}">
+    <Method Name="GetITFComponent" Id="{33e10c5b-120b-0f78-06cf-170e49fa6c9a}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFComponent : ITF_BaseComponent
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFComponent		:= THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetITFControlElement" Id="{9af90360-abec-083a-18a8-2f7d8868516c}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFControlElement : ITF_BaseControlElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFControlElement	:= null;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetITFGroupElement" Id="{aa64e9b4-f847-0695-3ed1-9b7a5b38ab92}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFGroupElement : ITF_BaseGroupElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFGroupElement	:= null;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetITFTopElement" Id="{20a46a89-89ab-043b-0602-3d56a5db1953}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFTopElement : ITF_BaseTopElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFTopElement		:= null;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="JoinTheLogger" Id="{c36b1ddd-e3f3-0707-2e1b-24a85c94c962}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		07.10.2025		TC 4024.66
@@ -456,7 +497,7 @@ METHOD PUBLIC ParameterSetToDefault : BOOL
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Reset" Id="{c0bf4177-e97f-089b-34b4-b48fadeb74cc}" FolderPath="Reset\">
+    <Method Name="Reset" Id="{c0bf4177-e97f-089b-34b4-b48fadeb74cc}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL
 VAR_INPUT
 END_VAR
@@ -466,7 +507,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ResetGetBusy" Id="{3b84d943-6444-09e4-127e-9583cbeebff0}" FolderPath="Reset\">
+    <Method Name="ResetGetBusy" Id="{3b84d943-6444-09e4-127e-9583cbeebff0}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[METHOD PUBLIC ResetGetBusy : BOOL
 VAR_INPUT
 END_VAR
@@ -476,7 +517,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ResetGetStatus" Id="{d861273e-29d7-0151-12ed-78079fcd5e28}" FolderPath="Reset\">
+    <Method Name="ResetGetStatus" Id="{d861273e-29d7-0151-12ed-78079fcd5e28}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[METHOD PUBLIC ResetGetStatus : BOOL
 VAR_INPUT
 END_VAR
@@ -486,7 +527,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ResetOperation" Id="{2d760c90-c43b-0af4-3d18-a1d7b05cea9c}" FolderPath="Reset\">
+    <Method Name="ResetOperation" Id="{2d760c90-c43b-0af4-3d18-a1d7b05cea9c}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[METHOD PROTECTED ResetOperation : BOOL
 VAR_INPUT
 END_VAR

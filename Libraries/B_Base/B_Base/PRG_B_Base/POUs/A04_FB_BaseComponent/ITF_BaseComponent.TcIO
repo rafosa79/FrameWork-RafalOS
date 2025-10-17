@@ -77,5 +77,23 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="Reset" Id="{77eb7b91-893b-0d84-16a4-ac22c2bb7b56}">
+      <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ResetGetBusy" Id="{889fd0ad-7a78-0e51-0d48-1f63919c6997}">
+      <Declaration><![CDATA[METHOD PUBLIC ResetGetBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ResetGetStatus" Id="{494afb3a-3397-0df4-0cc3-a3d06f85b5a6}">
+      <Declaration><![CDATA[METHOD PUBLIC ResetGetStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

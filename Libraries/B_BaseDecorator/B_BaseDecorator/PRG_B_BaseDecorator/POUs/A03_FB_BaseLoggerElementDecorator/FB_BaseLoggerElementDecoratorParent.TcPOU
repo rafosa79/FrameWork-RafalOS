@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_BaseLoggerElementDecoratorParent" Id="{50e5d6fc-104d-4b44-8f8a-cca25a2c79ad}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseLoggerElementDecoratorParent IMPLEMENTS ITF_BaseLoggerElementDecoratorParent
+VAR
+	itfLoggerElement					: ITF_BaseLoggerElement;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Events" Id="{eb9e98c3-e9e7-4cc9-8f59-bda311616889}" />
+    <Folder Name="ID" Id="{9bc605ef-e9a8-4ca1-bc7f-dba9900e2bec}" />
+    <Method Name="EventsDefinition" Id="{ef9685f6-1abb-43a0-abc9-f3727e7f9f61}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[EventsDefinition		:= THIS^.itfLoggerElement.EventsDefinition ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{4e09a9fd-d946-4ab6-895c-bcd53dbd95e4}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	fbToDecorate		: ITF_DecoratedElement;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfLoggerElement	:= fbToDecorate.GetITFLoggerElement ();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetCode" Id="{fb45a373-b3ec-477c-84f3-29c6ccc31846}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetCode : STRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetCode			:= THIS^.itfLoggerElement.GetCode ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetID" Id="{7145e0bd-f46a-4a46-805b-00dcaa8be6aa}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetID : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetID		:= THIS^.GetID ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIdentyfier" Id="{ee5e55a7-e14a-4b70-9ae5-5db9318f2ede}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetIdentyfier : ST_BaseElementIdentifier
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIdentyfier		:= THIS^.itfLoggerElement.GetIdentyfier ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetName" Id="{f7a38e19-aa17-4e41-a705-70b64f655ce3}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetName		:= THIS^.itfLoggerElement.GetName ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetType" Id="{b3b491fe-5ca2-4dd8-92fa-7e2348d7e7e1}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC GetType : E_BaseElementType
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetType		:= THIS^.itfLoggerElement.GetType ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCode" Id="{00b173e2-25bf-461c-8944-d24b4a8730d6}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetCode
+VAR_INPUT
+	sCode							: STRING;
+	sAdd							: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetCode (sCode := sCode, sAdd := sAdd);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEventsIDs" Id="{0dbdd410-7c26-4fe7-ada9-c4c6cde254d1}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.10.2025		TC 4024.66
+	nadawanie unikalnych ID dla zdarzeń
+*)
+METHOD PUBLIC SetEventsIDs : UINT
+VAR_INPUT
+	uiNewID		: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetEventsIDs		:= THIS^.itfLoggerElement.SetEventsIDs (uiNewID := uiNewID);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetID" Id="{d8abe519-9f2c-4cd9-b8c6-1023f5103b38}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetID : UINT
+VAR_INPUT
+	uiID					: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetID		:= THIS^.itfLoggerElement.SetID (uiID := uiID);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetName" Id="{59e013c8-0291-4059-a089-38561fa9d835}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetName
+VAR_INPUT
+	stName				: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfLoggerElement.SetName (stName := stName);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetType" Id="{990033cc-3aca-4d9d-83c5-feb482c0e6e8}" FolderPath="ID\">
+      <Declaration><![CDATA[METHOD PUBLIC SetType
+VAR_INPUT
+	eType					: E_BaseElementType;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetType (eType := eType);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_DecoratedElement" Id="{17b681f5-6339-0a20-1bd6-bd66b94f5b75}">
+    <Declaration><![CDATA[INTERFACE ITF_DecoratedElement
+]]></Declaration>
+    <Method Name="GetITFComponent" Id="{c53245ec-a3fe-0b92-1d54-aaa648218467}">
+      <Declaration><![CDATA[METHOD GetITFComponent : ITF_BaseComponent
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetITFControlElement" Id="{efe30a40-ee68-07ad-337e-fe5e70716713}">
+      <Declaration><![CDATA[METHOD GetITFControlElement : ITF_BaseControlElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetITFGroupElement" Id="{e2aa689a-4d53-0bb5-09fb-3ba664fc24d4}">
+      <Declaration><![CDATA[METHOD GetITFGroupElement : ITF_BaseGroupElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetITFLoggerElement" Id="{d571b1c6-2707-0aa0-0e2e-790906e42253}">
+      <Declaration><![CDATA[METHOD GetITFLoggerElement : ITF_BaseLoggerElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetITFTopElement" Id="{768187ab-f78b-0f4e-38d9-af7e063d39d4}">
+      <Declaration><![CDATA[METHOD GetITFTopElement : ITF_BaseTopElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

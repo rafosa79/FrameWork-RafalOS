@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="PRG_Compilation" Id="{824d9806-ef98-4594-8f89-7dfa640c0d27}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_Compilation
+VAR
+	fbLoggerElement				: FB_BaseLoggerElement;
+	fbLoggerElementDecorator	: FB_BaseLoggerElementDecoratorParent (fbToDecorate := fbLoggerElement);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

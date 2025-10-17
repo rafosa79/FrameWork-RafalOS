@@ -13,6 +13,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_DecoratedElement" Id="{882a84e3-bde0-0fb8-0f20-5da4c990e3e6}" />
     <Method Name="ExecuteEveryCycle_Error" Id="{7d7b831e-4b28-0c6d-1881-11fac660b25a}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -82,6 +83,16 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.stIdentifier.eType			:= E_BaseElementType.eTop;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetITFTopElement" Id="{24aceef8-2bfb-0d09-172c-478ecab1a9d8}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFTopElement : ITF_BaseTopElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFTopElement		:= THIS^;
 ]]></ST>
       </Implementation>
     </Method>

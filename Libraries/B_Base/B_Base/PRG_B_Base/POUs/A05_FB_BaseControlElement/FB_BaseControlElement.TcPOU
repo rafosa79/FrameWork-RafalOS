@@ -28,6 +28,7 @@ END_VAR
     <Folder Name="Bazowanie" Id="{b37a828b-2043-04f0-01f3-c3e8d6ea6273}" />
     <Folder Name="Events" Id="{1dd56da8-fa40-0d20-065c-a56138eede25}" />
     <Folder Name="ID" Id="{4718b15a-f934-0f59-1b79-1caa8a3a3eb5}" />
+    <Folder Name="ITF_DecoratedElement" Id="{8b9f0679-be65-07db-3642-fa8761f4d30d}" />
     <Folder Name="Reset" Id="{24cc0c48-ecb6-057d-16ae-5d473fe279a3}" />
     <Folder Name="WiazanieZmiennych" Id="{b467be5a-6d2a-0ee1-246f-4160ba6824ae}" />
     <Folder Name="Zasilanie" Id="{c277cffb-ced9-0402-3821-c75c33def767}" />
@@ -259,6 +260,36 @@ METHOD PUBLIC GetDoNothing : BOOL
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetDoNothing				:= THIS^.bDoNothing;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetITFControlElement" Id="{fddecf06-8fdb-0ada-3a84-637827f5eb8a}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFControlElement : ITF_BaseControlElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFControlElement	:= THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetITFGroupElement" Id="{f5cdbdc1-92b3-09ca-3d33-c99c0526bc5b}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFGroupElement : ITF_BaseGroupElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFGroupElement	:= null;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetITFTopElement" Id="{c992b315-ae26-0fe0-1c32-9136b48d7ed5}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFTopElement : ITF_BaseTopElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFTopElement		:= null;
 ]]></ST>
       </Implementation>
     </Method>

@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.42</ProjectVersion>
+    <ProjectVersion>0.0.0.44</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -138,6 +138,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GVLs\GVL_BaseConstans.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\ITF_DecoratedElement.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
@@ -299,6 +302,7 @@
     <Folder Include="FUNs" />
     <Folder Include="GVLs" />
     <Folder Include="DUTs Events" />
+    <Folder Include="ITFs" />
     <Folder Include="POUs Compilation" />
     <Folder Include="POUs\B02_Recipes" />
     <Folder Include="POUs\B02_Recipes\DUTs" />

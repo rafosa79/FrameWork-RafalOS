@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_BaseComponentDecoratorParent" Id="{d301a0ba-63d7-4941-8c82-98d9202ac34c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseComponentDecoratorParent EXTENDS FB_BaseLoggerElementDecoratorParent IMPLEMENTS ITF_BaseComponentDecoratorParent
+VAR
+	itfComponent				: ITF_BaseComponent;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_BaseComponent" Id="{c1425345-0a97-4881-9b46-35bd773e4177}" />
+    <Method Name="ExecuteEveryCycle_Error" Id="{a0d49fb3-4440-46c8-b692-5a69fa9df254}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
+*)
+METHOD PUBLIC ExecuteEveryCycle_Error
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfComponent.ExecuteEveryCycle_Error ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Operation" Id="{211c994c-be49-4417-9223-2155aabf14dc}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Wywolanie co cykl operacji 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Operation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.ExecuteEveryCycle_Operation ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Status" Id="{323c175a-7a7a-40de-9e52-6b8cb429aaed}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Aktualizacja flag 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Status
+VAR_INST
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.ExecuteEveryCycle_Status ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Test" Id="{311c07d1-160a-4b1e-a1b1-725afc5a0e4b}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Testowanie czy nei pojawil sie jakis rozkaz i uruchomienie odpowiednich operacji
+*)
+METHOD PUBLIC ExecuteEveryCycle_Test
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.ExecuteEveryCycle_Test ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FirstCycle" Id="{29fba4ac-b428-4421-8774-7f28cfa81e67}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.10.2025		TC 4024.66
+	
+*)
+METHOD PUBLIC FirstCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FirstCycle				:= THIS^.FirstCycle ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="JoinTheLogger" Id="{b346dd79-7a2a-4783-8d62-c868aaa6ec7b}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		07.10.2025		TC 4024.66
+	Dodpisywanie się do listy logera
+*)
+METHOD PUBLIC JoinTheLogger : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[JoinTheLogger	:= THIS^.itfComponent.JoinTheLogger ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{b09281d3-70a6-481f-97cd-584f5bd951d5}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Reset	:= THIS^.itfComponent.Reset ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetGetBusy" Id="{4ba919e7-fd9d-4960-b107-79433ddc9ae9}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[METHOD PUBLIC ResetGetBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ResetGetBusy		:= THIS^.itfComponent.ResetGetBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetGetStatus" Id="{a84ce79a-b00e-41d5-b194-94c769ff7b31}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[METHOD PUBLIC ResetGetStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ResetGetStatus			:= THIS^.itfComponent.ResetGetStatus ();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

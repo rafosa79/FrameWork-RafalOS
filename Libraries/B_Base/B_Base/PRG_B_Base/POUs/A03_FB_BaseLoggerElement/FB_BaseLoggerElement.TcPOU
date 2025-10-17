@@ -6,7 +6,7 @@
 	Rafał Osajda		19.09.2025		TC 4024.66
 	Element bazowy umożliwiający potomkom wysyłaś zgłoszenia do logera
 *)
-FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector, ITF_BaseLogger_Item
+FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector, ITF_BaseLogger_Item, ITF_DecoratedElement
 VAR
 	stIdentifier					: ST_BaseElementIdentifier;	//Identyfikacja elementu
 	stEvents						: ST_BaseEvents;			//dane elementu dotyczące zdarzeń
@@ -19,6 +19,7 @@ END_VAR
     <Folder Name="ID" Id="{9f4accde-c200-0e3a-3280-17fd6d107d51}" />
     <Folder Name="ITF_BaseLogger_Item" Id="{dbd5ee07-415c-0f41-0935-285bdd005cb3}" />
     <Folder Name="ITF_BaseLoggerElement_HMI_Connector" Id="{abdbf241-16b7-0948-3bea-83a764b01a75}" />
+    <Folder Name="ITF_DecoratedElement" Id="{45d6060b-650b-0bb6-051b-501dae1ea836}" />
     <Method Name="AddEvent" Id="{634f9b8e-85a8-02a3-013c-6c409e6a5e93}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -336,6 +337,56 @@ FOR iI := 1 TO TO_INT (THIS^.stEvents.uiNumberOfAdded) DO
 END_FOR
 
 GetInformationToDisplayEvent	:= sttmpResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetITFComponent" Id="{ed1c3a81-8a43-0645-0674-1dcef06d429a}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFComponent : ITF_BaseComponent
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFComponent		:= null;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetITFControlElement" Id="{107bdd42-87c6-06c8-1df0-5680098dc649}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFControlElement : ITF_BaseControlElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFControlElement	:= null;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetITFGroupElement" Id="{798cf0d4-f7a9-0a71-3bdb-3d9ad79b57e9}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFGroupElement : ITF_BaseGroupElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFGroupElement	:= null;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetITFLoggerElement" Id="{74136df6-a544-0dc4-05d9-adcc56ed1e83}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFLoggerElement : ITF_BaseLoggerElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFLoggerElement		:= THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetITFTopElement" Id="{2a8aa481-5ab5-06d4-230d-f16ce994492f}" FolderPath="ITF_DecoratedElement\">
+      <Declaration><![CDATA[METHOD GetITFTopElement : ITF_BaseTopElement
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetITFTopElement		:= null;
 ]]></ST>
       </Implementation>
     </Method>
