@@ -152,7 +152,7 @@
     <Compile Include="POUs\B02_Recipes\DUTs\ST_RecipeListRow.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B02_Recipes\FB_Receptury.TcPOU">
+    <Compile Include="POUs\B02_Recipes\FB_Recipe.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\B01_Komunikator\FB_Communicator.TcPOU">

@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_Receptury" Id="{03e2ca9f-77ac-071f-2df8-6ca780aace72}" SpecialFunc="None">
+  <POU Name="FB_Recipe" Id="{03e2ca9f-77ac-071f-2df8-6ca780aace72}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		28.02.2025		TC 4026.13		wer. 0.0.0.1
 	Obsługa receptur
 *)
-FUNCTION_BLOCK FB_Receptury EXTENDS FB_Base
+FUNCTION_BLOCK FB_Recipe EXTENDS FB_Base
 VAR
 	bChoose						: BOOL;
 	iNumberToChoose				: INT;
@@ -23,8 +23,8 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="AddIngredientToRecipe" Id="{0f0ee292-ddb9-015d-0fb4-0a56214e5144}">
-      <Declaration><![CDATA[METHOD PUBLIC AddIngredientToRecipe : BOOL
+    <Method Name="AddIngredientToTemplate" Id="{0f0ee292-ddb9-015d-0fb4-0a56214e5144}">
+      <Declaration><![CDATA[METHOD PUBLIC AddIngredientToTemplate : BOOL
 VAR_INPUT
 	uiNumber		: UINT;
 	stIngredient	: ST_BaseDescriptor;
@@ -35,7 +35,7 @@ END_VAR
 	THIS^.arrTemplates [uiNumber].uiNumber			:= THIS^.arrTemplates [uiNumber].uiNumber + 1;
 	THIS^.arrTemplates [uiNumber].arrIngredient [THIS^.arrTemplates [uiNumber].uiNumber]	:= stIngredient;
 //	THIS^.arrSzablony [uiNumer].arrSkladnik [THIS^.arrSzablony [uiNumer].uiIlosc].PowiarzJezyk (fbLokalizacja := THIS^.itfJezyk);
-	AddIngredientToRecipe						:= TRUE;
+	AddIngredientToTemplate						:= TRUE;
 END_IF
 ]]></ST>
       </Implementation>

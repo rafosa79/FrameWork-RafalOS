@@ -16,6 +16,8 @@ VAR_GLOBAL
 	
 	fbCommunicator			: FB_Communicator;
 	
+	fbRecipe				: FB_Recipe;
+	
 	stCommonData			: ST_BaseCommonData;
 	
 	stTopElementData		: ST_TopElement_HMI_Link;
