@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Recipe" Id="{03e2ca9f-77ac-071f-2df8-6ca780aace72}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		28.02.2025		TC 4026.13		wer. 0.0.0.1
+	Obsługa receptur
+*)
+FUNCTION_BLOCK FB_Recipe EXTENDS FB_Base
+VAR
+	bChoose						: BOOL;
+	iNumberToChoose				: INT;
+END_VAR
+VAR PERSISTENT
+	arrTemplates				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ST_Recipes;
+	arrRecipes					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_RECIPES] OF ST_Recipes;		
+	uiNumberOfTemplates			: UINT;			//ilość dodanych szablonów
+	uiNumberOfRecipes			: UINT;			//ilość dodanych receptur
+	uiChosen					: UINT;			//numer wybranej receptruy		
+	stChosen					: ST_Recipes;												
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddIngredientToTemplate" Id="{0f0ee292-ddb9-015d-0fb4-0a56214e5144}">
+      <Declaration><![CDATA[METHOD PUBLIC AddIngredientToTemplate : BOOL
+VAR_INPUT
+	uiNumber		: UINT;
+	stIngredient	: ST_BaseDescriptor;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.arrTemplates [uiNumber].uiNumber + 1 <= GVL_BaseConstans.MAX_NUMBER_Of_INGREDIENTS) THEN
+	THIS^.arrTemplates [uiNumber].uiNumber			:= THIS^.arrTemplates [uiNumber].uiNumber + 1;
+	THIS^.arrTemplates [uiNumber].arrIngredient [THIS^.arrTemplates [uiNumber].uiNumber]	:= stIngredient;
+//	THIS^.arrSzablony [uiNumer].arrSkladnik [THIS^.arrSzablony [uiNumer].uiIlosc].PowiarzJezyk (fbLokalizacja := THIS^.itfJezyk);
+	AddIngredientToTemplate						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddRecipeFromRecipe" Id="{651128f8-f372-064a-0b31-eab503693b6e}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Kopiuje składniki z wybranej receptury i tworzy nową recepture
+*)
+METHOD PUBLIC AddRecipeFromRecipe : BOOL
+VAR_INPUT
+	uiNumberRecipe				: UINT;
+	stTexts						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.uiNumberOfRecipes + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_RECIPES) THEN
+	THIS^.uiNumberOfRecipes					:= THIS^.uiNumberOfRecipes + 1;
+	THIS^.arrRecipes [THIS^.uiNumberOfRecipes]	:= THIS^.arrRecipes [uiNumberRecipe];
+	THIS^.arrRecipes [THIS^.uiNumberOfRecipes].stTexts	:= stTexts;
+//	THIS^.arrReceptury [THIS^.uiIloscReceptur].fbNazwa.PowiarzJezyk (fbLokalizacja := THIS^.itfJezyk);	
+	AddRecipeFromRecipe				:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddRecipeFromTemplate" Id="{f52b2116-f623-0030-2d81-4397661a0136}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Kopiuje składniki z wybranego szablonu i tworzy nową recepture
+*)
+METHOD PUBLIC AddRecipeFromTemplate : BOOL
+VAR_INPUT
+	uiNumberTemplates			: UINT;
+	stTexts						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.uiNumberOfRecipes + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_RECIPES) THEN
+	THIS^.uiNumberOfRecipes					:= THIS^.uiNumberOfRecipes + 1;
+	THIS^.arrRecipes [THIS^.uiNumberOfRecipes]	:= THIS^.arrTemplates [uiNumberTemplates];
+	THIS^.arrRecipes [THIS^.uiNumberOfRecipes].stTexts	:= stTexts;
+//	THIS^.arrReceptury [THIS^.uiIloscReceptur].fbNazwa.PowiarzJezyk (fbLokalizacja := THIS^.itfJezyk);
+	AddRecipeFromTemplate				:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddTemplates" Id="{07b2ff28-6360-0746-3fd3-88d58ad87d2f}">
+      <Declaration><![CDATA[METHOD PUBLIC AddTemplates : BOOL
+VAR_INPUT
+	stTexts			: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.uiNumberOfTemplates + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES) THEN
+	THIS^.uiNumberOfTemplates									:= THIS^.uiNumberOfTemplates + 1;
+	THIS^.arrTemplates [1].stTexts								:=  stTexts;
+	THIS^.arrTemplates [THIS^.uiNumberOfTemplates].uiTemplate	:= THIS^.uiNumberOfTemplates;
+	AddTemplates												:= TRUE;
+END_IF
+
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Choose" Id="{d3d8f3be-0ff3-0bae-204e-3c67cd270da4}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Przypisuje do referencji wybraną rtecepture
+*)
+METHOD PUBLIC Choose : BOOL
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//THIS^.refstWybrana				REF= THIS^.arrReceptury [uiNumer];
+THIS^.stChosen					:= THIS^.arrRecipes [uiNumber];
+THIS^.uiChosen					:= uiNumber;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DeleteRecipe" Id="{53b2bec5-5d7d-0d47-2b2d-3884e18298a9}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC DeleteRecipe : BOOL
+VAR_INPUT
+	uiNumber				: uint;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (uiNumber > 0 AND uiNumber <= THIS^.uiNumberOfRecipes) THEN
+
+	MEMMOVE (
+		destAddr						:= ADR (THIS^.arrRecipes [uiNumber]),
+		srcAddr							:= ADR (THIS^.arrRecipes [uiNumber + 1]),
+		n								:= SIZEOF (THIS^.arrRecipes [1]) * (GVL_BaseConstans.MAX_NUMBER_OF_RECIPES - (uiNumber))
+	);
+	THIS^.uiNumberOfRecipes				:= THIS^.uiNumberOfRecipes - 1;
+	
+	DeleteRecipe			:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DeleteRecipes" Id="{172f62a0-9798-0cab-305e-feffa8cbdf70}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	usunięcie wszystkich receptur
+*)
+METHOD PUBLIC DeleteRecipes : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MEMSET (
+	destAddr			:= ADR (THIS^.arrRecipes),
+	fillByte			:= 0,
+	n					:= SIZEOF (THIS^.arrRecipes)
+);
+THIS^.uiNumberOfRecipes 	:= 0;
+THIS^.uiChosen			:= 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DeleteTemplates" Id="{4b596d00-c06a-060f-25fd-144da0dc5122}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	usunięcie wszystkich szablonów
+*)
+METHOD PUBLIC DeleteTemplates : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MEMSET (
+	destAddr			:= ADR (THIS^.arrTemplates),
+	fillByte			:= 0,
+	n					:= SIZEOF (THIS^.arrTemplates)
+);
+THIS^.uiNumberOfTemplates 	:= 0;
+
+//THIS^.PowiazJezyk (fbLokalizacja := THIS^.itfJezyk);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetAdressOfRecipe" Id="{13f1299c-1beb-03d3-2037-731660ef600e}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca referencje do  receptury
+*)
+METHOD PUBLIC GetAdressOfRecipe : POINTER TO ST_Recipes
+VAR_INPUT
+	uiNumber					: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//IF (__ISVALIDREF (THIS^.refstWybrana )) THEN
+//	Zwroc 		:= THIS^.refstWybrana;
+//END_IF
+GetAdressOfRecipe			:= ADR (THIS^.arrRecipes [uiNumber]);
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetChoosen" Id="{0b6c1e02-8b31-0759-12bf-4304e5db0302}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca referencje do  receptury
+*)
+METHOD PUBLIC GetChoosen : REFERENCE TO ST_Recipes
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//IF (__ISVALIDREF (THIS^.refstWybrana )) THEN
+//	Zwroc 		:= THIS^.refstWybrana;
+//END_IF
+GetChoosen			REF= THIS^.GetReferenceToRecipe (uiNumer := THIS^.uiChosen);
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIngredientFromRecipe" Id="{fa0b3268-f087-02b5-2150-6927c92d965d}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC GetIngredientFromRecipe : ST_BaseDescriptor
+VAR_INPUT
+	uiNumberOfRecipe			: UINT;
+	uiNumberOfIngredient		: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIngredientFromRecipe			:= THIS^.arrRecipes [uiNumberOfRecipe].arrIngredient [uiNumberOfIngredient];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIngredientFromTemplate" Id="{dec3be3a-9832-066c-12f1-a481c32b69fa}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC GetIngredientFromTemplate : ST_BaseDescriptor
+VAR_INPUT
+	uiNumberOfTemplate			: UINT;
+	uiNumberOfIngredient		: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIngredientFromTemplate			:= THIS^.arrRecipes [uiNumberOfTemplate].arrIngredient [uiNumberOfIngredient];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIsChoosen" Id="{4ec16f50-7578-088d-0803-c8d637862b3e}">
+      <Declaration><![CDATA[METHOD PUBLIC GetIsChoosen : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIsChoosen			:= THIS^.uiChosen <> 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNamesOfRecipe" Id="{2fc48bb8-42d0-065d-3520-1bf8b3127417}">
+      <Declaration><![CDATA[METHOD GetNamesOfRecipe : ST_BaseLabel
+VAR_INPUT
+	uiNumber			: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNamesOfRecipe			:= THIS^.arrRecipes [uiNumber].stTexts;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNamesOfTemplate" Id="{670a7656-2f3a-079c-06a7-6a04bc38f501}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNamesOfTemplate : ST_BaseLabel
+VAR_INPUT
+	uiNumber			: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNamesOfTemplate			:= THIS^.arrTemplates [uiNumber].stTexts;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberIngredientOfRecipe" Id="{39c1e455-f5b9-089b-3e06-95352ee4e1fd}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC GetNumberIngredientOfRecipe : UINT
+VAR_INPUT
+	uiNumer				: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberIngredientOfRecipe 		:= THIS^.arrRecipes [uiNumer].uiNumber;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberIngredientOFTemplate" Id="{4e5e8392-2115-0d5d-255d-ca4de612e41b}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberIngredientOFTemplate : UINT
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberIngredientOFTemplate 		:= THIS^.arrTemplates [uiNumber].uiNumber;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfChoosen" Id="{d8bb23fb-2a14-0aef-20d1-d68158a22e59}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfChoosen : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfChoosen			:= THIS^.uiChosen;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfRecipe" Id="{bcfa9786-efb5-05d1-2c01-fcd720602155}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfRecipe : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfRecipe			:= THIS^.uiNumberOfRecipes;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfTemplate" Id="{536dce0f-5568-0985-160a-ca6053841bd4}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfTemplate : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfTemplate		:= THIS^.uiNumberOfTemplates;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetReferencesToChoosen" Id="{e9149c79-504e-0c5c-3057-2590aa04a45e}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Zwraca reference do wybranej receptury
+*)
+METHOD PUBLIC GetReferencesToChoosen : REFERENCE TO ST_Recipes
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetReferencesToChoosen			REF= THIS^.stChosen;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetReferenceToRecipe" Id="{e42b8556-fc97-0ff9-194c-62f7ba6208f4}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca referencje do  receptury
+*)
+METHOD PUBLIC GetReferenceToRecipe : REFERENCE TO ST_Recipes
+VAR_INPUT
+	uiNumer					: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//IF (__ISVALIDREF (THIS^.refstWybrana )) THEN
+//	Zwroc 		:= THIS^.refstWybrana;
+//END_IF
+GetReferenceToRecipe			REF= THIS^.arrRecipes [uiNumer];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReplaceRecipeWithAnotherRecipe" Id="{9d38f019-e018-0442-09b3-55a9a1042ed0}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zastępuje wybraną recepture przez istenijącą receputre
+*)
+METHOD PROTECTED ReplaceRecipeWithAnotherRecipe : BOOL
+VAR_INPUT
+	uiNumerRecepturyCel			: UINT;
+	uiNumerRecepturyZrodlo		: UINT;	
+	stNazwa						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (uiNumerRecepturyCel > 0 AND uiNumerRecepturyCel <= THIS^.uiNumberOfRecipes AND
+	uiNumerRecepturyZrodlo > 0 AND uiNumerRecepturyZrodlo <= THIS^.uiNumberOfRecipes AND
+	uiNumerRecepturyCel <> uiNumerRecepturyZrodlo) THEN
+	THIS^.arrRecipes [uiNumerRecepturyZrodlo]	:= THIS^.arrTemplates [uiNumerRecepturyZrodlo];
+	THIS^.arrRecipes [uiNumerRecepturyCel].stTexts	:= stNazwa;
+	ReplaceRecipeWithAnotherRecipe 				:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ReplaceRecipeWithTemplateRecipe" Id="{0b1e8d6f-ca25-0422-2111-a33a00a4d2b5}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zastępuje wybraną recepture przez istenijącą receputre z szablonu
+*)
+METHOD PUBLIC ReplaceRecipeWithTemplateRecipe : BOOL
+VAR_INPUT
+	uiNumerRecepturyCel			: UINT;
+	uiNumerRecepturyZrodlo		: UINT;
+	stNazwa						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (uiNumerRecepturyCel > 0 AND uiNumerRecepturyCel <= THIS^.uiNumberOfRecipes AND
+	uiNumerRecepturyZrodlo > 0 AND uiNumerRecepturyZrodlo <= THIS^.uiNumberOfTemplates) THEN
+	THIS^.arrRecipes [uiNumerRecepturyZrodlo]	:= THIS^.arrTemplates [uiNumerRecepturyZrodlo];
+	THIS^.arrRecipes [uiNumerRecepturyCel].stTexts	:= stNazwa;
+	ReplaceRecipeWithTemplateRecipe 			:= TRUE;
+END_IF
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WyczyscWybrana" Id="{160f797c-8196-0238-2a45-b769a3eb5c43}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.06.2025		TC 4024.66
+	usuwa referencje do wybranej
+*)
+METHOD PUBLIC WyczyscWybrana
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.uiChosen := 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WyzerujUstawionaRecepture" Id="{51a84241-eda0-0452-15de-03118734a297}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		16.09.2025		TC 4024.66
+	Ustawia numer wybranej receptury na 0 
+*)
+METHOD PUBLIC WyzerujUstawionaRecepture : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.uiChosen			:= 0;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

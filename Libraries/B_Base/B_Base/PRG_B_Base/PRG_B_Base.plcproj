@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.41</ProjectVersion>
+    <ProjectVersion>0.0.0.42</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -144,6 +144,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B02_Recipes\DUTs\ST_Recipes.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B02_Recipes\DUTs\ST_RecipeListRow.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B02_Recipes\FB_Recipe.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\B01_Komunikator\FB_Communicator.TcPOU">
@@ -291,6 +300,8 @@
     <Folder Include="GVLs" />
     <Folder Include="DUTs Events" />
     <Folder Include="POUs Compilation" />
+    <Folder Include="POUs\B02_Recipes" />
+    <Folder Include="POUs\B02_Recipes\DUTs" />
     <Folder Include="POUs\B01_Komunikator" />
     <Folder Include="POUs\B01_Komunikator\ITFs" />
     <Folder Include="POUs\A04_FB_BaseComponent" />

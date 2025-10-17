@@ -18,9 +18,9 @@ VAR_GLOBAL CONSTANT
 	MAX_EVENTS_TO_SHOW						: INT := 100;	//ilośc elementów które będą wyświetlane
 
 	(*	Receptury	*)
-//	MAX_ILOSC_SKLADNIKOW					: UINT := 400;// Parametry.MAX_ILOSC_SKLADNIKOW;
-//	MAX_ILOSC_SZABLONOW						: UINT := 5;// Parametry.MAX_ILOSC_SZABLONOW;
-//	MAX_ILOSC_RECEPTUR						: UINT := 10;// Parametry.MAX_ILOSC_RECEPTUR;
+	MAX_NUMBER_Of_INGREDIENTS				: UINT := 400;// Parametry.MAX_ILOSC_SKLADNIKOW;
+	MAX_NUMBER_OF_TEMPLATES					: UINT := 5;// Parametry.MAX_ILOSC_SZABLONOW;
+	MAX_NUMBER_OF_RECIPES					: UINT := 10;// Parametry.MAX_ILOSC_RECEPTUR;
 
 	(*	Parametry	*)
 	MAX_NUMBER_OF_PARAMETERS				: INT := 100;

@@ -26,6 +26,7 @@ VAR
 	fbBaseMainComponent		: FB_BaseTopElement;
 //B
 	fbKomunikator		: FB_Communicator;
+	fbReceptury			: FB_Recipe;	
 END_VAR
 ]]></Declaration>
     <Implementation>

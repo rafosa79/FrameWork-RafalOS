@@ -27,7 +27,10 @@ T13_TestPowerForTopElement ();
 //T16_TestingTopElementHoming ();
 
 T20_TestCommunicator ();
-
+T21_TestCreateTepmplate ();
+T22_TestAddRecipeFromTemplate ();
+T23_TestDeleteRecipe ();
+T24_TestCopyRecipeToNewRecipe ();
 
 //T99_Test ();]]></ST>
     </Implementation>
@@ -1122,6 +1125,251 @@ END_VAR
 	
 	TcUnit.TEST_FINISHED ();
 END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T21_TestCreateTepmplate" Id="{43632f29-8c6b-468e-9b82-1d89110fa1e2}">
+      <Declaration><![CDATA[METHOD PROTECTED T21_TestCreateTepmplate
+VAR
+	bResult: BOOL;
+	sttmpSkladnik: ST_BaseDescriptor;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T21_TestCreateTepmplate')) THEN
+
+//Wyczyszczeni danych i test czyszczenia
+	GVL.fbRecipe.DeleteRecipes ();
+	GVL.fbRecipe.DeleteTemplates ();
+	AssertEquals_UINT (Expected := 0, Actual := GVL.fbRecipe.GetNumberOfTemplate (), 			Message := 'T01 - bledna ilosc szablonow');
+	AssertEquals_UINT (Expected := 0, Actual := GVL.fbRecipe.GetNumberOfRecipe (), 				Message := 'T02 - bledna ilosc receptur');
+	AssertEquals_UINT (Expected := 0, Actual := GVL.fbRecipe.GetNumberOfChoosen (),	 			Message := 'T03 - bledny numer wybranej');
+//	utworzenie szablonu z podaną nazwą
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Nazwa szablonu PL");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.en, wsDescription := "Nazwa szablonu EN");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.de, wsDescription := "Nazwa szablonu DE");
+	bResult	:= GVL.fbRecipe.AddTemplates (stTexts	:= GVL.fbRecipe.GetTexts ());
+	AssertTrue (Condition := bResult,															Message := 'T04 - Blad utworzenia szablonu');
+	AssertEquals_UINT (Expected := 1, Actual := GVL.fbRecipe.GetNumberOfTemplate (),			Message := 'T05 - Blad ilosci dodanych szablonow');
+//dodawanie sładników
+	GVL.fbRecipe.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.pl, wsDescription := "Nazwa skladnika 1 PL");
+	GVL.fbRecipe.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.en, wsDescription := "Nazwa skladnika 1 EN");
+	GVL.fbRecipe.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.de, wsDescription := "Nazwa skladnika 1 DE");
+	GVL.fbRecipe.SetMaxIn (stIN := sttmpSkladnik, rMax := 10000);
+	GVL.fbRecipe.SetMinIn (stIN := sttmpSkladnik, rMin := 1);
+	GVL.fbRecipe.SetValueIn (stIN := sttmpSkladnik, rValue := 1111);
+	GVL.fbRecipe.SetDefaultValueIn (stIN := sttmpSkladnik, rDefaultValue := 1111);
+	GVL.fbRecipe.SetUnitIn (stIN := sttmpSkladnik, sUnit := 'mm');
+	bResult	:= GVL.fbRecipe.AddIngredientToTemplate (uiNumber := 1, stIngredient := sttmpSkladnik);
+//test dodania
+	AssertTrue (Condition := bResult, 																											Message := 'Test 06 - Blad utworzenia szablonu');
+	AssertEquals_UINT (Expected := 1, Actual := GVL.fbRecipe.GetNumberIngredientOFTemplate (uiNumber := 1),										Message := 'Test 06a - Blad ilosci dodanych skladnikow');
+	AssertEquals_WSTRING (Expected := "Nazwa skladnika 1 PL", Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [1].stTexts.arrText [1],	Message := 'Test 06b - bledna etykieta');
+	AssertEquals_REAL (Expected := 1111, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [1].rValue,										Message := 'Test 06c - bledna wartosc', Delta := 0);
+	AssertEquals_REAL (Expected := 1111, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [1].rDefaultValue,								Message := 'Test 06d - bledna wartosc domyslna', Delta := 0);
+	AssertEquals_REAL (Expected := 1, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [1].rMin,		 									Message := 'Test 06e - bledna wartosc min', Delta := 0);
+	AssertEquals_REAL (Expected := 10000, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [1].rMAX,		 								Message := 'Test 06f - bledna wartosc max', Delta := 0);
+	AssertEquals_WSTRING (Expected := "mm", Actual := TO_WSTRING (GVL.fbRecipe.arrTemplates [1].arrIngredient [1].sUnit),		 				Message := 'Test 06g - bledna jednostka');
+
+	GVL.fbRecipe.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.pl, wsDescription := "Nazwa skladnika 2 PL");
+	GVL.fbRecipe.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.en, wsDescription := "Nazwa skladnika 2 EN");
+	GVL.fbRecipe.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.de, wsDescription := "Nazwa skladnika 2 DE");
+	GVL.fbRecipe.SetMaxIn (stIN := sttmpSkladnik, rMax := 10000);
+	GVL.fbRecipe.SetMinIn (stIN := sttmpSkladnik, rMin := 1);
+	GVL.fbRecipe.SetValueIn (stIN := sttmpSkladnik, rValue := 1112);
+	GVL.fbRecipe.SetDefaultValueIn (stIN := sttmpSkladnik, rDefaultValue := 1112);
+	GVL.fbRecipe.SetUnitIn (stIN := sttmpSkladnik, sUnit := 'mm/s');
+	bResult	:= GVL.fbRecipe.AddIngredientToTemplate (uiNumber := 1, stIngredient := sttmpSkladnik);
+	
+	AssertTrue (Condition := bResult, 																											Message := 'Test 07 - Blad utworzenia szablonu');
+	AssertEquals_UINT (Expected := 2, Actual := GVL.fbRecipe.GetNumberIngredientOFTemplate (uiNumber := 1),										Message := 'Test 07a - Blad ilosci dodanych skladnikow');
+	AssertEquals_WSTRING (Expected := "Nazwa skladnika 2 PL", Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [2].stTexts.arrText [1],	Message := 'Test 07b - bledna etykieta');
+	AssertEquals_REAL (Expected := 1112, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [2].rValue,										Message := 'Test 07c - bledna wartosc', Delta := 0);
+	AssertEquals_REAL (Expected := 1112, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [2].rDefaultValue,								Message := 'Test 07d - bledna wartosc domyslna', Delta := 0);
+	AssertEquals_REAL (Expected := 1, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [2].rMin,		 									Message := 'Test 07e - bledna wartosc min', Delta := 0);
+	AssertEquals_REAL (Expected := 10000, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [2].rMAX,		 								Message := 'Test 07f - bledna wartosc max', Delta := 0);
+	AssertEquals_WSTRING (Expected := "mm/s", Actual := TO_WSTRING (GVL.fbRecipe.arrTemplates [1].arrIngredient [2].sUnit),		 			Message := 'Test 07g - bledna jednostka');
+
+	GVL.fbRecipe.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.pl, wsDescription := "Nazwa skladnika 3 PL");
+	GVL.fbRecipe.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.en, wsDescription := "Nazwa skladnika 3 EN");
+	GVL.fbRecipe.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.de, wsDescription := "Nazwa skladnika 3 DE");
+	GVL.fbRecipe.SetMaxIn (stIN := sttmpSkladnik, rMax := 10000);
+	GVL.fbRecipe.SetMinIn (stIN := sttmpSkladnik, rMin := 1);
+	GVL.fbRecipe.SetValueIn (stIN := sttmpSkladnik, rValue := 1113);
+	GVL.fbRecipe.SetDefaultValueIn (stIN := sttmpSkladnik, rDefaultValue := 1113);
+	GVL.fbRecipe.SetUnitIn (stIN := sttmpSkladnik, sUnit := 'ms');
+	bResult	:= GVL.fbRecipe.AddIngredientToTemplate (uiNumber := 1, stIngredient := sttmpSkladnik);
+	
+	AssertTrue (Condition := bResult, 																											Message := 'Test 08 - Blad utworzenia szablonu');
+	AssertEquals_UINT (Expected := 3, Actual := GVL.fbRecipe.GetNumberIngredientOFTemplate (uiNumber := 1),										Message := 'Test 08a - Blad ilosci dodanych skladnikow');
+	AssertEquals_WSTRING (Expected := "Nazwa skladnika 3 PL", Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [3].stTexts.arrText [1],	Message := 'Test 08b - bledna etykieta');
+	AssertEquals_REAL (Expected := 1113, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [3].rValue,										Message := 'Test 08c - bledna wartosc', Delta := 0);
+	AssertEquals_REAL (Expected := 1113, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [3].rDefaultValue,								Message := 'Test 08d - bledna wartosc domyslna', Delta := 0);
+	AssertEquals_REAL (Expected := 1, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [3].rMin,		 									Message := 'Test 08e - bledna wartosc min', Delta := 0);
+	AssertEquals_REAL (Expected := 10000, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [3].rMAX,		 								Message := 'Test 08f - bledna wartosc max', Delta := 0);
+	AssertEquals_WSTRING (Expected := "ms", Actual := TO_WSTRING (GVL.fbRecipe.arrTemplates [1].arrIngredient [3].sUnit),		 				Message := 'Test 08g - bledna jednostka');
+
+//Kolejny szablon
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Nazwa szablonu 2 PL");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.en, wsDescription := "Nazwa szablonu 2 EN");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.de, wsDescription := "Nazwa szablonu 2 DE");
+	bResult	:= GVL.fbRecipe.AddTemplates (stTexts	:= GVL.fbRecipe.GetTexts ());
+	AssertTrue (Condition := bResult, 															Message := 'T09 - Blad utworzenia szablonu');
+	AssertEquals_UINT (Expected := 2, Actual := GVL.fbRecipe.GetNumberOfTemplate (),			Message := 'T10 - Blad ilosci dodanych szablonow');
+//skladnik
+	GVL.fbRecipe.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.pl, wsDescription := "Nazwa skladnika 1 PL");
+	GVL.fbRecipe.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.en, wsDescription := "Nazwa skladnika 1 EN");
+	GVL.fbRecipe.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.de, wsDescription := "Nazwa skladnika 1 DE");
+	GVL.fbRecipe.SetMaxIn (stIN := sttmpSkladnik, rMax := 10000);
+	GVL.fbRecipe.SetMinIn (stIN := sttmpSkladnik, rMin := 1);
+	GVL.fbRecipe.SetValueIn (stIN := sttmpSkladnik, rValue := 1111);
+	GVL.fbRecipe.SetDefaultValueIn (stIN := sttmpSkladnik, rDefaultValue := 1111);
+	GVL.fbRecipe.SetUnitIn (stIN := sttmpSkladnik, sUnit := 'mm');
+	bResult	:= GVL.fbRecipe.AddIngredientToTemplate (uiNumber := 2, stIngredient := sttmpSkladnik);
+
+	AssertTrue (Condition := bResult, 																											Message := 'Test 11 - Blad utworzenia szablonu');
+	AssertEquals_UINT (Expected := 1, Actual := GVL.fbRecipe.GetNumberIngredientOFTemplate (uiNumber := 2),										Message := 'Test 11a - Blad ilosci dodanych skladnikow');
+	AssertEquals_WSTRING (Expected := "Nazwa skladnika 1 PL", Actual := GVL.fbRecipe.arrTemplates [2].arrIngredient [1].stTexts.arrText [1],	Message := 'Test 11b - bledna etykieta');
+	AssertEquals_REAL (Expected := 1111, Actual := GVL.fbRecipe.arrTemplates [2].arrIngredient [1].rValue,										Message := 'Test 11c - bledna wartosc', Delta := 0);
+	AssertEquals_REAL (Expected := 1111, Actual := GVL.fbRecipe.arrTemplates [2].arrIngredient [1].rDefaultValue,								Message := 'Test 11d - bledna wartosc domyslna', Delta := 0);
+	AssertEquals_REAL (Expected := 1, Actual := GVL.fbRecipe.arrTemplates [2].arrIngredient [1].rMin,		 									Message := 'Test 11e - bledna wartosc min', Delta := 0);
+	AssertEquals_REAL (Expected := 10000, Actual := GVL.fbRecipe.arrTemplates [2].arrIngredient [1].rMAX,		 								Message := 'Test 11f - bledna wartosc max', Delta := 0);
+	AssertEquals_WSTRING (Expected := "mm", Actual := TO_WSTRING (GVL.fbRecipe.arrTemplates [2].arrIngredient [1].sUnit),		 				Message := 'Test 11g - bledna jednostka');
+	
+
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T22_TestAddRecipeFromTemplate" Id="{afb896e7-e806-0238-2b43-0ac4622a2205}">
+      <Declaration><![CDATA[METHOD PROTECTED T22_TestAddRecipeFromTemplate
+VAR
+	bResult: BOOL;
+	sttmpLabel: ST_BaseLabel;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T22_TestAddRecipeFromTemplate')) THEN
+	MEMSET (
+		destAddr		:= ADR (GVL.fbRecipe.arrRecipes),
+		fillByte		:= 0,
+		n				:= SIZEOF (GVL.fbRecipe.arrRecipes)
+	);
+	WRITE_PROTECTED_UINT (ADR(GVL.fbRecipe.uiNumberOfRecipes), 0);
+
+	
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Nazwa receptury PL");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.en, wsDescription := "Nazwa receptury EN");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.de, wsDescription := "Nazwa receptury DE");
+	
+
+	bResult		:= GVL.fbRecipe.AddRecipeFromTemplate (uiNumberTemplates := 1, stTexts := GVL.fbRecipe.GetTexts ());	
+
+	AssertTrue (Condition := bResult, Message := 'Test 01 - Blad utworzenia receptury');
+	AssertEquals_UINT (Expected := 1, Actual := GVL.fbRecipe.GetNumberOfRecipe (), Message := 'Test 02 - Blad ilosci dodanych receptur');
+	
+	sttmpLabel 			:= GVL.fbRecipe.GetNamesOfRecipe (uiNumber := 1);
+	AssertEquals_WSTRING (Expected := "Nazwa receptury PL", Actual := sttmpLabel.arrText [E_BaseLocation.pl], Message := 'Test 03 - bledna nazwa receptury');
+
+	AssertEquals_UINT (Expected := 3, Actual := GVL.fbRecipe.GetNumberIngredientOfRecipe (uiNumer := 1), Message := 'Test 04 - Blad ilosci dodanych skladnikow');
+	AssertEquals_WSTRING (Expected := "Nazwa skladnika 1 PL", Actual := GVL.fbRecipe.arrRecipes [1].arrIngredient [1].stTexts.arrText [1],	Message := 'Test 05 - bledna etykieta');
+	AssertEquals_REAL (Expected := 1111, Actual := GVL.fbRecipe.arrRecipes [1].arrIngredient [1].rValue, 						Message := 'Test 06 - bledna wartosc', Delta := 0);
+	AssertEquals_REAL (Expected := 1111, Actual := GVL.fbRecipe.arrRecipes [1].arrIngredient [1].rDefaultValue, 				Message := 'Test 07 - bledna wartosc domyslna', Delta := 0);
+	AssertEquals_REAL (Expected := 1, Actual := GVL.fbRecipe.arrRecipes [1].arrIngredient [1].rMin, 							Message := 'Test 08 - bledna wartosc min', Delta := 0);
+	AssertEquals_REAL (Expected := 10000, Actual := GVL.fbRecipe.arrRecipes [1].arrIngredient [1].rMax, 						Message := 'Test 09 - bledna wartosc max', Delta := 0);
+	AssertEquals_WSTRING (Expected := "mm", Actual := TO_WSTRING (GVL.fbRecipe.arrRecipes [1].arrIngredient [1].sUnit), 		Message := 'Test 10 - bledna jednostka');
+
+	TcUnit.TEST_FINISHED ();
+
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T23_TestDeleteRecipe" Id="{37f06922-98d5-001e-037c-ec8ccebec05f}">
+      <Declaration><![CDATA[METHOD PUBLIC T23_TestDeleteRecipe
+VAR
+	bresult			: BOOL;
+	sttmpLabel: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T23_TestDeleteRecipe')) THEN
+	bresult	:= GVL.fbRecipe.DeleteRecipe (uiNumber	:= 1);
+	AssertTrue (Condition := bresult, Message := 'Test 01 - Bladna wynik usuwania receptury');
+	AssertEquals_UINT (Expected := 0, Actual := GVL.fbRecipe.GetNumberOfRecipe (), Message := 'Test 02 - bledna ilosc receptur');
+
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Nazwa receptury 1 PL");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.en, wsDescription := "Nazwa receptury 1 EN");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.de, wsDescription := "Nazwa receptury 1 DE");
+	bresult := GVL.fbRecipe.AddRecipeFromTemplate (uiNumberTemplates := 1, stTexts := GVL.fbRecipe.GetTexts ());
+	AssertTrue (Condition := bresult, Message := 'Test 03a - Blad dodania receptury');
+	AssertEquals_UINT (Expected := 1, Actual := GVL.fbRecipe.GetNumberOfRecipe (), Message := 'Test 20a - bledna ilosc receptur');
+	
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Nazwa receptury 2 PL");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.en, wsDescription := "Nazwa receptury 2 EN");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.de, wsDescription := "Nazwa receptury 2 DE");
+	bresult := GVL.fbRecipe.AddRecipeFromTemplate (uiNumberTemplates := 1, stTexts := GVL.fbRecipe.GetTexts ());
+	AssertTrue (Condition := bresult, Message := 'Test 03b - Blad dodania receptury');
+	AssertEquals_UINT (Expected := 2, Actual := GVL.fbRecipe.GetNumberOfRecipe (), Message := 'Test 20b - bledna ilosc receptur');
+
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Nazwa receptury 3 PL");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.en, wsDescription := "Nazwa receptury 3 EN");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.de, wsDescription := "Nazwa receptury 3 DE");
+	bresult := GVL.fbRecipe.AddRecipeFromTemplate (uiNumberTemplates := 1, stTexts := GVL.fbRecipe.GetTexts ());
+	AssertTrue (Condition := bresult, Message := 'Test 03c - Blad dodania receptury');
+	AssertEquals_UINT (Expected := 3, Actual := GVL.fbRecipe.GetNumberOfRecipe (), Message := 'Test 20c - bledna ilosc receptur');
+
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Nazwa receptury 4 PL");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.en, wsDescription := "Nazwa receptury 4 EN");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.de, wsDescription := "Nazwa receptury 4 DE");
+	bresult := GVL.fbRecipe.AddRecipeFromTemplate (uiNumberTemplates := 1, stTexts := GVL.fbRecipe.GetTexts ());
+	AssertTrue (Condition := bresult, Message := 'Test 03d - Blad dodania receptury');
+	AssertEquals_UINT (Expected := 4, Actual := GVL.fbRecipe.GetNumberOfRecipe (), Message := 'Test 20d - bledna ilosc receptur');
+
+	bresult	:= GVL.fbRecipe.DeleteRecipe (uiNumber	:= 2);
+	AssertTrue (Condition := bresult, Message := 'Test 07 - Bladna wynik usuwania receptury');
+	AssertEquals_UINT (Expected := 3, Actual := GVL.fbRecipe.GetNumberOfRecipe (), Message := 'Test 08 - bledna ilosc receptur');
+
+	sttmpLabel 			:= GVL.fbRecipe.GetNamesOfRecipe (uiNumber := 2);
+	AssertEquals_WSTRING (Expected := "Nazwa receptury 3 PL", Actual := sttmpLabel.arrText [E_BaseLocation.pl], Message := 'Test 09a - bledna nazwa receptury');
+	sttmpLabel 			:= GVL.fbRecipe.GetNamesOfRecipe (uiNumber := 3);
+	AssertEquals_WSTRING (Expected := "Nazwa receptury 4 PL", Actual := sttmpLabel.arrText [E_BaseLocation.pl], Message := 'Test 09b - bledna nazwa receptury');
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T24_TestCopyRecipeToNewRecipe" Id="{079cf1c4-fdc2-0deb-0ade-52eec5b0c230}">
+      <Declaration><![CDATA[METHOD PROTECTED T24_TestCopyRecipeToNewRecipe
+VAR
+	bresult		: BOOL;
+	sttmpLabel: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T24_TestCopyRecipeToNewRecipe')) THEN
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Nazwa receptury klon PL");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "Nazwa receptury klon EN");
+	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "Nazwa receptury klon DE");
+	
+
+	bresult		:= GVL.fbRecipe.AddRecipeFromRecipe (uiNumberRecipe := 1, stTexts := GVL.fbRecipe.GetTexts ());	
+
+	AssertTrue (Condition := bresult, Message := 'Test 01 - Blad utworzenia receptury');
+	AssertEquals_UINT (Expected := 4, Actual := GVL.fbRecipe.GetNumberOfRecipe (), Message := 'Test 02 - Blad ilosci dodanych receptur');
+	sttmpLabel 			:= GVL.fbRecipe.GetNamesOfRecipe (uiNumber := 4);
+	AssertEquals_WSTRING (Expected := "Nazwa receptury klon PL", Actual := sttmpLabel.arrText [E_BaseLocation.pl], Message := 'Test 03 - bledna nazwa receptury');
+
+	AssertEquals_UINT (Expected := 3, Actual := GVL.fbRecipe.GetNumberIngredientOfRecipe (uiNumer := 1), Message := 'Test 04 - Blad ilosci dodanych skladnikow');
+	AssertEquals_WSTRING (Expected := "Nazwa skladnika 1 PL", Actual := GVL.fbRecipe.arrRecipes [4].arrIngredient [1].stTexts.arrText [1], 	Message := 'Test 05 - bledna etykieta');
+	AssertEquals_REAL (Expected := 1111, Actual := GVL.fbRecipe.arrRecipes [4].arrIngredient [1].rValue, 							Message := 'Test 06 - bledna wartosc', Delta := 0);
+	AssertEquals_REAL (Expected := 1111, Actual := GVL.fbRecipe.arrRecipes [4].arrIngredient [1].rDefaultValue, 					Message := 'Test 07 - bledna wartosc domyslna', Delta := 0);
+	AssertEquals_REAL (Expected := 1, Actual := GVL.fbRecipe.arrRecipes [4].arrIngredient [1].rMIN, 								Message := 'Test 08 - bledna wartosc min', Delta := 0);
+	AssertEquals_REAL (Expected := 10000, Actual := GVL.fbRecipe.arrRecipes [4].arrIngredient [1].rMAX, 							Message := 'Test 09 - bledna wartosc max', Delta := 0);
+	AssertEquals_WSTRING (Expected := "mm", Actual := TO_WSTRING (GVL.fbRecipe.arrRecipes [4].arrIngredient [1].sUnit),			Message := 'Test 10 - bledna jednostka');
+
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="T99_Test" Id="{3bffd01d-c8de-4919-b8d1-c032dde1e9c1}">
