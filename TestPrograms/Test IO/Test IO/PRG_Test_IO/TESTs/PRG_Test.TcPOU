@@ -5,6 +5,8 @@
 VAR
 	fbSensorTest			: FB_SensorTest;
 	fbElectrovalveTest		: FB_ElectroValveTest;
+	fbButtontest			: FB_ButtonTest;
+	fbLapmBlinkingTest		: FB_LampBlinkingTest;
 END_VAR
 ]]></Declaration>
     <Implementation>

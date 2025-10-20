@@ -14,13 +14,18 @@ VAR_GLOBAL
 	senNO				: FB_Sensor_NO;
 	sen2NO				: FB_Sensor_NO_2InRow;
 //TEST Elektrozawor
-	ev3on2_NC					: FB_Electrovalve_3on2_NC;
-	ev3on2_NO					: FB_Electrovalve_3on2_NO;
-	ev5on2_1C					: FB_Electrovalve_5on2_1Coil;
-	ev5on2_2C					: FB_Electrovalve_5on2_2Coil;
-	ev5on3_2C_ven				: FB_Electrovalve_5on3_2Coil_Vented;
-	ev5on3_2C_inf				: FB_Electrovalve_5on3_2Coil_Infected;
-	
+	ev3on2_NC			: FB_Electrovalve_3on2_NC;
+	ev3on2_NO			: FB_Electrovalve_3on2_NO;
+	ev5on2_1C			: FB_Electrovalve_5on2_1Coil;
+	ev5on2_2C			: FB_Electrovalve_5on2_2Coil;
+	ev5on3_2C_ven		: FB_Electrovalve_5on3_2Coil_Vented;
+	ev5on3_2C_inf		: FB_Electrovalve_5on3_2Coil_Infected;
+//
+	fbLampBlinking		: FB_LampBlinking;
+//
+	fbButton_NC				: FB_Button_NC;
+	fbButton_NO				: FB_Button_NO;
+
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
