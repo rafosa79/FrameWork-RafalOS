@@ -12,7 +12,7 @@
 *)
 INTERFACE ITF_Electrovalve EXTENDS ITF_BaseComponent
 ]]></Declaration>
-    <Method Name="Steruj" Id="{a89ec723-a285-0865-0b98-2d2aa4fd37ba}">
+    <Method Name="Contol" Id="{a89ec723-a285-0865-0b98-2d2aa4fd37ba}">
       <Declaration><![CDATA[(*
 	RJM Maszyny sp. z o.o.
 	autor 	: Rafał Osajda
@@ -22,9 +22,9 @@ INTERFACE ITF_Electrovalve EXTENDS ITF_BaseComponent
 
 	Ustawienie odpowiednich wyjść
 *)
-METHOD Steruj : BOOL
+METHOD Contol : BOOL
 VAR_INPUT
-	eAkcja									: E_ElectrovalveAction;
+	eAction									: E_ElectrovalveAction;
 END_VAR
 ]]></Declaration>
     </Method>

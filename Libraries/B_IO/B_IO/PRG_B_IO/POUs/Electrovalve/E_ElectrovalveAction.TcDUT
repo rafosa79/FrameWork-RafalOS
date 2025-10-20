@@ -5,16 +5,16 @@
 {attribute 'strict'}
 TYPE E_ElectrovalveAction :
 (
-	e_EL_Wyj4_Wylacz 	:= 1,
-	e_EL_Wyj4_Wlacz		:= 2,
-	e_EL_Wyj2_Wylacz 	:= 3,
-	e_EL_Wyj2_Wlacz		:= 4,
-	e_EL_DoPoczatku		:= 5,
-	e_EL_DoKonca		:= 6,
-	e_EL_Zatrzymaj		:= 7,
-	e_EL_Reset			:= 8,
-	e_El_Wlacz			:= 9,
-	e_El_Wylacz			:= 10
+	e_EV_Out4_Deactive 	:= 1,
+	e_EV_OUT4_Active	:= 2,
+	e_EV_Out2_Deactive 	:= 3,
+	e_EV_Out2_Active	:= 4,
+	e_EV_ToStart		:= 5,
+	e_EV_ToEnd			:= 6,
+	e_EV_Stop			:= 7,
+	e_EV_Reset			:= 8,
+	e_EV_Active			:= 9,
+	e_EV_Deactive		:= 10
 );
 END_TYPE
 ]]></Declaration>

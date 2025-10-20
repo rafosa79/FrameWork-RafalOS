@@ -122,22 +122,22 @@
     <Compile Include="POUs\Electrovalve\FB_Electrovalve.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Elektrozawor_3Na2_NC.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_Electrovalve_3on2_NC.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Elektrozawor_3Na2_NO.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_Electrovalve_3on2_NO.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Elektrozawor_5na2_1Cewka.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_Electrovalve_5on2_1Coil.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Elektrozawor_5na2_2Cewki.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_Electrovalve_5on2_2Coil.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Elektrozawor_5na3_2Cewki_Odp.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_Electrovalve_5on3_2Coil_Vented.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Elektrozawor_5na3_2Cewki_Zap.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_Electrovalve_5on3_2Coil_Infected.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Electrovalve\ITF_Electrovalve.TcIO">

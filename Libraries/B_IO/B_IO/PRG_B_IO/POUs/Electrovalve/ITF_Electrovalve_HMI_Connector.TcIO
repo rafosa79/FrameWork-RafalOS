@@ -3,32 +3,26 @@
   <Itf Name="ITF_Electrovalve_HMI_Connector" Id="{d4a986f2-1106-4bb3-b7ec-204a8112af04}">
     <Declaration><![CDATA[INTERFACE ITF_Electrovalve_HMI_Connector EXTENDS ITF_BaseComponent_HMI_Connector
 ]]></Declaration>
-    <Method Name="StanCewkiA" Id="{11b33871-a6df-4b90-baea-ec7b047b3044}">
-      <Declaration><![CDATA[METHOD StanCewkiA : BOOL
+    <Method Name="GetElectrovalveType" Id="{6e27c53d-ec2e-4987-af63-a8db74574041}">
+      <Declaration><![CDATA[METHOD PUBLIC GetElectrovalveType : E_ElectrovalveType
 VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="StanCewkiB" Id="{f4705d69-b065-4cba-b1f2-d89d38866ff5}">
-      <Declaration><![CDATA[METHOD StanCewkiB : BOOL
+    <Method Name="GetElectrovalveTypeToString" Id="{8a63f63e-e75e-4d5c-83ff-12a7545b7d20}">
+      <Declaration><![CDATA[METHOD PUBLIC GetElectrovalveTypeToString : STRING
+]]></Declaration>
+    </Method>
+    <Method Name="GetIsActiveCoilA" Id="{11b33871-a6df-4b90-baea-ec7b047b3044}">
+      <Declaration><![CDATA[METHOD GetIsActiveCoilA : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="ZwrocNazwe" Id="{6b01f298-e40c-4b2f-b497-964be2bc8d32}">
-      <Declaration><![CDATA[METHOD ZwrocNazwe : WSTRING
+    <Method Name="GetIsActiveCoilB" Id="{f4705d69-b065-4cba-b1f2-d89d38866ff5}">
+      <Declaration><![CDATA[METHOD GetIsActiveCoilB : BOOL
 VAR_INPUT
 END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="ZwrocRodzaj" Id="{6e27c53d-ec2e-4987-af63-a8db74574041}">
-      <Declaration><![CDATA[METHOD PUBLIC ZwrocRodzaj : E_ElectrovalveType
-VAR_INPUT
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="ZwrocRodzaj_ToString" Id="{8a63f63e-e75e-4d5c-83ff-12a7545b7d20}">
-      <Declaration><![CDATA[METHOD PUBLIC ZwrocRodzaj_ToString : STRING
 ]]></Declaration>
     </Method>
   </Itf>

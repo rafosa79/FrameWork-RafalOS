@@ -10,38 +10,18 @@
 
 	Obsługa elektrozaworu do sterowania siłownikiem pneumatycznym. FB bazowy dla pozostałych rodzajów elektrozaworów
 *)
-FUNCTION_BLOCK ABSTRACT FB_Electrovalve EXTENDS B_Baza.FB_Komponent IMPLEMENTS  ITF_Electrovalve, ITF_Electrovalve_HMI_Init
+FUNCTION_BLOCK ABSTRACT FB_Electrovalve EXTENDS FB_BaseComponent IMPLEMENTS  ITF_Electrovalve, ITF_Electrovalve_HMI_Init
 VAR
-	bCewkaA							AT %Q*	: BOOL;
-	bCewkaB							AT %Q*	: BOOL;
-	eRodzaj									: E_ElectrovalveType;
+	bCoilA							AT %Q*	: BOOL;
+	bCoilB							AT %Q*	: BOOL;
+	eType									: E_ElectrovalveType;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="ITF_HMI_Elektrozawor" Id="{a1d6ab22-3179-4649-9c0b-995a03a33f53}" />
-    <Method Name="StanCewkiA" Id="{15a459f2-566d-4208-ab88-8334c1bb7aa4}" FolderPath="ITF_HMI_Elektrozawor\">
-      <Declaration><![CDATA[METHOD StanCewkiA : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[StanCewkiA			:= THIS^.bCewkaA;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="StanCewkiB" Id="{7203c2d0-cd87-4264-b035-36bda2e9f593}" FolderPath="ITF_HMI_Elektrozawor\">
-      <Declaration><![CDATA[METHOD StanCewkiB : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[StanCewkiB			:= THIS^.bCewkaB;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Steruj" Id="{05101fa4-1b68-0522-344f-bfe6ed566f1a}">
+    <Folder Name="ITF_Electrovalve_HMI_Connector" Id="{a1d6ab22-3179-4649-9c0b-995a03a33f53}" />
+    <Method Name="Contol" Id="{05101fa4-1b68-0522-344f-bfe6ed566f1a}">
       <Declaration><![CDATA[(*
 	RJM Maszyny sp. z o.o.
 	autor 	: Rafał Osajda
@@ -51,33 +31,53 @@ END_VAR
 
 	Ustawienie odpowiednich wyjść
 *)
-METHOD Steruj : BOOL
+METHOD Contol : BOOL
 VAR_INPUT
-	eAkcja	: E_ElectrovalveAction;
+	eAction	: E_ElectrovalveAction;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ZwrocRodzaj" Id="{014a69c7-7219-4234-8c0c-36b58219e3c9}" FolderPath="ITF_HMI_Elektrozawor\">
-      <Declaration><![CDATA[METHOD PUBLIC ZwrocRodzaj : E_ElectrovalveType
+    <Method Name="GetElectrovalveType" Id="{014a69c7-7219-4234-8c0c-36b58219e3c9}" FolderPath="ITF_Electrovalve_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetElectrovalveType : E_ElectrovalveType
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ZwrocRodzaj			:= THIS^.eRodzaj;
+        <ST><![CDATA[GetElectrovalveType			:= THIS^.eType;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ZwrocRodzaj_ToString" Id="{debc1117-cfe7-4a5c-b55c-0e8daa5df6ba}" FolderPath="ITF_HMI_Elektrozawor\">
-      <Declaration><![CDATA[METHOD PUBLIC ZwrocRodzaj_ToString : STRING
+    <Method Name="GetElectrovalveTypeToString" Id="{debc1117-cfe7-4a5c-b55c-0e8daa5df6ba}" FolderPath="ITF_Electrovalve_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetElectrovalveTypeToString : STRING
 VAR CONSTANT
-	arrRodzaj		: ARRAY [0..5] OF STRING := ['NC_3na2', 'NO_3na2', 'C1_5na2', 'C2_5na2', 'C2_5na3O', 'C2_5na3Z'];
+	arrType		: ARRAY [0..5] OF STRING := ['NC_3na2', 'NO_3na2', 'C1_5na2', 'C2_5na2', 'C2_5na3O', 'C2_5na3Z'];
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ZwrocRodzaj_ToString			:= arrRodzaj [TO_INT (THIS^.eRodzaj)];
+        <ST><![CDATA[GetElectrovalveTypeToString			:= arrType [TO_INT (THIS^.eType)];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIsActiveCoilA" Id="{15a459f2-566d-4208-ab88-8334c1bb7aa4}" FolderPath="ITF_Electrovalve_HMI_Connector\">
+      <Declaration><![CDATA[METHOD GetIsActiveCoilA : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIsActiveCoilA			:= THIS^.bCoilA;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIsActiveCoilB" Id="{7203c2d0-cd87-4264-b035-36bda2e9f593}" FolderPath="ITF_Electrovalve_HMI_Connector\">
+      <Declaration><![CDATA[METHOD GetIsActiveCoilB : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIsActiveCoilB			:= THIS^.bCoilB;
 ]]></ST>
       </Implementation>
     </Method>
