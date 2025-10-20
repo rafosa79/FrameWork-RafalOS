@@ -5,7 +5,7 @@
     <CycleTime>10000</CycleTime>
     <Priority>20</Priority>
     <PouCall>
-      <Name>MAIN</Name>
+      <Name>PRG_Compilation</Name>
     </PouCall>
     <TaskFBGuid>{b0cef291-1eb6-42be-bc95-00ca6a2e2c7d}</TaskFBGuid>
     <Fb_init>{27a22e5c-a774-479f-8cfd-1b32e12cad32}</Fb_init>
