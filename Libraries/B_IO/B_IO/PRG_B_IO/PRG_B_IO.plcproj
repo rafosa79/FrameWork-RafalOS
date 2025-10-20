@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_IO</Title>
-    <ProjectVersion>0.0.0.4</ProjectVersion>
+    <ProjectVersion>0.0.0.5</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -149,16 +149,16 @@
     <Compile Include="POUs\Electrovalve\ITF_Electrovalve_HMI_Connector.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\LampkaRozszerzona\FB_LampkaRozszerzona.TcPOU">
+    <Compile Include="POUs\LampkaRozszerzona\FB_LampBlinking.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\LampkaRozszerzona\ITF_LampkaRozszerzona.TcIO">
+    <Compile Include="POUs\LampkaRozszerzona\ITF_LampBlinking.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lampka\FB_Lampka.TcPOU">
+    <Compile Include="POUs\Lampka\FB_Lamp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lampka\ITF_Lampka.TcIO">
+    <Compile Include="POUs\Lampka\ITF_Lamp.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Przyciski\FB_Button.TcPOU">

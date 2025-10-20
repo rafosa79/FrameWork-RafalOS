@@ -12,8 +12,8 @@ VAR
 	fbELekrozawor5na2_2C		: FB_Electrovalve_5on2_2Coil;
 	fbELekrozawor5na2_2C_Odp	: FB_Electrovalve_5on3_2Coil_Vented;
 	fbELekrozawor5na2_2C_Zap	: FB_Electrovalve_5on3_2Coil_Infected;
-	fbLampka					: FB_Lampka;
-	fbLampkaRozszerzona			: FB_LampkaRozszerzona;
+	fbLampka					: FB_Lamp;
+	fbLampkaRozszerzona			: FB_LampBlinking;
 	fbPrzyciskNC				: FB_Button_NC;
 	fbPrzyciskNO				: FB_Button_NO;
 END_VAR

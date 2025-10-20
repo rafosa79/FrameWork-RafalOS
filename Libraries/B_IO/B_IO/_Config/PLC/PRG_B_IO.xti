@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66" ClassName="CNestedPlcProjDef">
 	<Project GUID="{0974D43B-0429-48E5-B91E-D2BBA45BC713}" Name="PRG_B_IO" PrjFilePath="..\..\PRG_B_IO\PRG_B_IO.plcproj" TmcFilePath="..\..\PRG_B_IO\PRG_B_IO.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_B_IO\PRG_B_IO.tmc" TmcHash="{EA596395-B778-7254-01F4-73979144703E}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_B_IO\PRG_B_IO.tmc" TmcHash="{908E8073-534C-DD0D-E6F8-4AFE58ACDF71}">
 			<Name>PRG_B_IO Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -85,6 +85,16 @@
 				</Var>
 				<Var>
 					<Name>PRG_Compilation.fbELekrozawor5na2_2C_Zap.bCoilB</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Compilation.fbLampka.bOut</Name>
+					<Comment><![CDATA[ Lampka]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Compilation.fbLampkaRozszerzona.bOut</Name>
+					<Comment><![CDATA[ Lampka]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>
