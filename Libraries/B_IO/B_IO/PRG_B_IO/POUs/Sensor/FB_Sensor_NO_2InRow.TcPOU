@@ -10,7 +10,7 @@
 *)
 FUNCTION_BLOCK FB_Sensor_NO_2InRow EXTENDS FB_Sensor_NO
 VAR
-	bStyk2							AT %I*	: BOOL;		//fizyczne wejście z czujnika
+	bContact2							AT %I*	: BOOL;		//fizyczne wejście z czujnika
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
@@ -36,7 +36,7 @@ END_VAR
 METHOD IsActive : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IsActive				:=  THIS^.bContact AND THIS^.bStyk2;
+        <ST><![CDATA[IsActive				:=  THIS^.bContact AND THIS^.bContact2;
 ]]></ST>
       </Implementation>
     </Method>

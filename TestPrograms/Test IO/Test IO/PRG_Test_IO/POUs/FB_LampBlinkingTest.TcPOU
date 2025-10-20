@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LampBlinkingTest" Id="{f8af7ef6-a976-0bb5-017d-c9f286126f5d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LampBlinkingTest EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+//T99_test ();
+]]></ST>
+    </Implementation>
+    <Method Name="T99_test" Id="{79133df2-cb74-013d-3ece-f01bb4f0655b}">
+      <Declaration><![CDATA[METHOD PRIVATE T99_test
+VAR_INST
+	bJest		: BOOL;
+	bKoniec		: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T99_Test')) THEN
+	IF (NOT bJest) THEN
+		bJest					:= TRUE;
+		GVL_Variable.fbLampBlinking.SetTimeOn (rIN := 100);
+		GVL_Variable.fbLampBlinking.SetTimeOff (rIN := 500);
+	END_IF
+	GVL_Variable.fbLampBlinking.ExecuteEveryCycle_Test ();
+	GVL_Variable.fbLampBlinking.ExecuteEveryCycle_Operation ();
+	GVL_Variable.fbLampBlinking.ExecuteEveryCycle_Status ();
+	GVL_Variable.fbLampBlinking.ExecuteEveryCycle_Error ();
+	IF (bKoniec) THEN
+		bJest					:= FALSE;
+		TcUnit.TEST_FINISHED ();
+	END_IF
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

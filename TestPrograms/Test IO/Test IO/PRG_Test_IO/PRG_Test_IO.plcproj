@@ -22,7 +22,23 @@
     <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GVLs\GVL_Variable.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_ButtonTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_ElectroValveTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_LampBlinkingTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_SensorTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TESTs\PRG_Test.TcPOU">
@@ -37,6 +53,13 @@
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="B_IO">
+      <DefaultResolution>B_IO, * (RafalOS)</DefaultResolution>
+      <Namespace>B_IO</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_DataExchange">
+      <DefaultResolution>Tc2_DataExchange, * (Beckhoff Automation GmbH)</DefaultResolution>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
@@ -51,7 +74,13 @@
     </PlaceholderReference>
     <PlaceholderReference Include="TcUnit">
       <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
+      <Namespace>TcUnit</Namespace>
     </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PRG_Test_IO.tmc">
+      <SubType>Content</SubType>
+    </None>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

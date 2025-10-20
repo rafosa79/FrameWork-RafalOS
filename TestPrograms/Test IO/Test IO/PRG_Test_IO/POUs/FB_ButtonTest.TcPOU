@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ButtonTest" Id="{c70ca908-7d30-06b5-321c-6595fb010de6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ButtonTest EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[T01_Przycisk_NC ();
+T02_Przycisk_NO ();
+T03_PrzyciskNC_Impuls ();
+T04_PrzyciskNO_Impuls ();]]></ST>
+    </Implementation>
+    <Method Name="T01_Przycisk_NC" Id="{3417bbff-e0e1-4676-b9fe-761d368040fd}">
+      <Declaration><![CDATA[METHOD PROTECTED T01_Przycisk_NC
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_Przycisk_NC')) THEN 
+	//Przycisk nie jest nacisniety
+	WRITE_PROTECTED_BOOL (ADR (GVL_Variable.fbButton_NC.bcontact), TRUE);
+	//odczyt
+	AssertEquals_BOOL (Actual := GVL_Variable.fbButton_NC.IsPressed (), Expected := FALSE, Message := '1 - Bledny odczyt styku');
+	//Przycisk jest nacisniety
+	WRITE_PROTECTED_BOOL (ADR (GVL_Variable.fbButton_NC.bContact), FALSE);
+	//odczyt
+	AssertEquals_BOOL (Actual := GVL_Variable.fbButton_NC.IsPressed (), Expected := TRUE, Message := '2 - Bledny odczyt styku');
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T02_Przycisk_NO" Id="{0d5fb7dd-3acc-452a-a77e-3db4fd9bce5f}">
+      <Declaration><![CDATA[METHOD PROTECTED T02_Przycisk_NO
+VAR
+	bCzyNaciskniety: BOOL;
+	bCzySwieci: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_Przycisk_NO')) THEN 
+	//Przycisk nie jest nacisniety
+	WRITE_PROTECTED_BOOL (ADR (GVL_Variable.fbButton_NO.bContact), FALSE);
+	//odczyt
+	AssertEquals_BOOL (Actual := GVL_Variable.fbButton_NO.IsPressed (), Expected := FALSE, Message := '1 - Bledny odczyt styku');
+	//Przycisk jest nacisniety
+	WRITE_PROTECTED_BOOL (ADR (GVL_Variable.fbButton_NO.bContact), TRUE);
+	//odczyt
+	AssertEquals_BOOL (Actual := GVL_Variable.fbButton_NO.IsPressed (), Expected := TRUE, Message := '2 - Bledny odczyt styku');
+
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T03_PrzyciskNC_Impuls" Id="{bfbc67c3-e50f-44a5-94b9-a26a0acc3510}">
+      <Declaration><![CDATA[METHOD PROTECTED T03_PrzyciskNC_Impuls
+VAR_INST
+	iKrok: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T03_PrzyciskNC_Impuls')) THEN
+	CASE iKrok OF
+		0	: 
+			WRITE_PROTECTED_BOOL (Ptr := ADR(GVL_Variable.fbButton_NC.bContact), Value := FALSE);
+			iKrok		:= 10;
+		10	:
+			AssertTrue (Condition := GVL_Variable.fbButton_NC.GetRisingEdgePressed (), Message := '10 - Bledny odczyt styku');
+			iKrok		:= 20;
+		20	:
+			AssertFalse (Condition := GVL_Variable.fbButton_NC.GetRisingEdgePressed (), Message := '20 - Bledny odczyt styku');
+			iKrok		:= 30;
+		30	:
+			WRITE_PROTECTED_BOOL (Ptr := ADR(GVL_Variable.fbButton_NC.bContact), Value := TRUE);
+			iKrok		:= 40;
+		40	:
+			AssertFalse (Condition := GVL_Variable.fbButton_NC.GetRisingEdgePressed (), Message := '40 - Bledny odczyt styku');
+			iKrok		:= 500;
+		500	:
+			TcUnit.TEST_FINISHED ();
+	END_CASE	
+END_IF
+	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T04_PrzyciskNO_Impuls" Id="{8451255c-c8d8-4e3f-8898-6b1ce83d4769}">
+      <Declaration><![CDATA[METHOD PROTECTED T04_PrzyciskNO_Impuls
+VAR_INST
+	iKrok: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T04_PrzyciskNO_Impuls')) THEN
+	CASE iKrok OF
+		0	: 
+			WRITE_PROTECTED_BOOL (Ptr := ADR(GVL_Variable.fbButton_NO.bContact), Value := TRUE);
+			iKrok		:= 10;
+		10	:
+			AssertTrue (Condition := GVL_Variable.fbButton_NO.GetRisingEdgePressed (), Message := '10 - Bledny odczyt styku');
+			iKrok		:= 20;
+		20	:
+			AssertFalse (Condition := GVL_Variable.fbButton_NO.GetRisingEdgePressed (), Message := '20 - Bledny odczyt styku');
+			iKrok		:= 30;
+		30	:
+			WRITE_PROTECTED_BOOL (Ptr := ADR(GVL_Variable.fbButton_NO.bContact), Value := FALSE);
+			iKrok 		:= 35;
+		35	:
+			AssertFalse (Condition := GVL_Variable.fbButton_NO.GetRisingEdgePressed (), Message := '35 - Bledny odczyt styku');
+			iKrok		:= 40;
+		40	:
+			WRITE_PROTECTED_BOOL (Ptr := ADR(GVL_Variable.fbButton_NO.bContact), Value := TRUE);
+			AssertTrue (Condition := GVL_Variable.fbButton_NO.IsPressed (), Message := '40a - Bledny odczyt styku');
+			iKrok 		:= ikrok + 10;
+		50	:
+			AssertTrue (Condition := GVL_Variable.fbButton_NO.GetRisingEdgePressed (), Message := '50a - Bledny odczyt styku');
+			iKrok 		:= ikrok + 10;
+		60	:
+			AssertFalse (Condition := GVL_Variable.fbButton_NO.GetRisingEdgePressed (), Message := '60b - Bledny odczyt styku');
+			iKrok 		:= ikrok + 10;
+		70	:
+			WRITE_PROTECTED_BOOL (Ptr := ADR(GVL_Variable.fbButton_NO.bContact), Value := FALSE);
+			iKrok 		:= ikrok + 10;
+		80	:
+			AssertFalse (Condition := GVL_Variable.fbButton_NO.GetRisingEdgePressed (), Message := '80c - Bledny odczyt styku');
+			iKrok		:= 500;
+		500	:
+			TcUnit.TEST_FINISHED ();
+	END_CASE
+	
+END_IF
+	]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
