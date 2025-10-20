@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Electrovalve" Id="{cdf88877-d343-0c26-0038-9096705b0cc6}">
+    <Declaration><![CDATA[(*
+	RJM Maszyny sp. z o.o.
+	autor 	: Rafał Osajda
+	data	: 21.02.2024
+	TC		: 3.1 4024.54
+	wersja	: 0.0.1.0	: pełna obsługa
+
+	Obsługa elektrozaworu do sterowania siłownikiem pneumatycznym
+*)
+INTERFACE ITF_Electrovalve EXTENDS ITF_BaseComponent
+]]></Declaration>
+    <Method Name="Steruj" Id="{a89ec723-a285-0865-0b98-2d2aa4fd37ba}">
+      <Declaration><![CDATA[(*
+	RJM Maszyny sp. z o.o.
+	autor 	: Rafał Osajda
+	data	: 21.02.2024
+	TC		: 3.1 4024.54
+	wersja	: 0.0.1.0	: pełna obsługa
+
+	Ustawienie odpowiednich wyjść
+*)
+METHOD Steruj : BOOL
+VAR_INPUT
+	eAkcja									: E_ElectrovalveAction;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

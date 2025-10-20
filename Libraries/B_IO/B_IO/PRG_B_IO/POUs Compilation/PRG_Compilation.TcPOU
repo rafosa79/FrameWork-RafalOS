@@ -3,6 +3,21 @@
   <POU Name="PRG_Compilation" Id="{e3d1aff8-90e2-4b06-bf62-3f7b8a8c4d92}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
+	fbCzujnikNC					: FB_Sensor_NC;
+	fbCzujnikNO					: FB_Sensor_NO;
+	fbCzujnik2xNO				: FB_Sensor_NO_2InRow;
+//	fbELekrozawor3na2_NC		: FB_Elektrozawor_3Na2_NC;
+//	fbELekrozawor3na2_NO		: FB_Elektrozawor_3Na2_NO;
+//	fbELekrozawor5na2_1C		: FB_Elektrozawor_5na2_1Cewka;
+//	fbELekrozawor5na2_2C		: FB_Elektrozawor_5na2_2Cewki;
+//	fbELekrozawor5na2_2C_Odp	: FB_Elektrozawor_5na3_2Cewki_Odp;
+//	fbELekrozawor5na2_2C_Zap	: FB_Elektrozawor_5na3_2Cewki_Zap;
+//	fbLampka					: FB_Lampka;
+//	fbLampkaRozszerzona			: FB_LampkaRozszerzona;
+//	fbPrzyciskNC				: FB_Przycisk_NC;
+//	fbPrzyciskNO				: FB_Przycisk_NO;
+//	fbPrzyciskNC_RT				: FB_Przycisk_NC_RTRIG;
+//	fbPrzyciskNO_RT				: FB_Przycisk_NO_RTRIG;	
 END_VAR
 ]]></Declaration>
     <Implementation>

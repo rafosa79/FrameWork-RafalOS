@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Sensor" Id="{b8976a09-76d2-42f1-b965-e778286c6c94}">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		22.01.2025		TC 4026.13		wer. 0.0.0.1
+	B_Baza dla czujników binarnych 	
+*)
+INTERFACE ITF_Sensor EXTENDS ITF_BaseComponent
+]]></Declaration>
+    <Method Name="GetIsActive" Id="{ddb24e15-3ec4-4882-89dc-a61bbd27327b}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca aktualny stan czujnika
+*)
+METHOD GetIsActive : BOOL
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

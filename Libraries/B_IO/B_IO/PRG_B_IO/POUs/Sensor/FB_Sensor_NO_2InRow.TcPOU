@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Sensor_NO_2InRow" Id="{a7a59c89-f7c9-08e0-22a7-4cb625efc7c3}" SpecialFunc="None">
+    <Declaration><![CDATA[(*
+	EVERDE sp. z o.o.
+	Rafał Osajda
+	18.09.2024
+	TC3 4026.10
+	Obsługa czujników cyforwych NO połączonych szerogowo
+*)
+FUNCTION_BLOCK FB_Sensor_NO_2InRow EXTENDS FB_Sensor_NO
+VAR
+	bStyk2							AT %I*	: BOOL;		//fizyczne wejście z czujnika
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{fce9ebb7-3540-4edb-b3df-99df28614f3e}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.eType		:= E_SensorType.NOx2;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIsActive" Id="{2a3f43d7-2784-486e-a422-2d5e48ddef4e}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca aktualny stan czujnika
+*)
+METHOD GetIsActive : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIsActive				:=  THIS^.bContact AND THIS^.bStyk2;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

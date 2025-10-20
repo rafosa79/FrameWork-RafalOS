@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Elektrozawor_3Na2_NC" Id="{e1fe4a24-7ba7-0005-0692-39233080fb8f}" SpecialFunc="None">
+    <Declaration><![CDATA[(*
+	RJM Maszyny sp. z o.o.
+	autor 	: Rafał Osajda
+	data	: 02.02.2024
+	TC		: 3.1 4024.54
+	wersja	: 0.0.1.0	: pełna obsługa
+
+	Obsługa elektrozaworu NC
+*)
+FUNCTION_BLOCK FB_Elektrozawor_3Na2_NC EXTENDS FB_Electrovalve
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{79c83901-52d6-46ac-9b2f-535d6aff250b}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.eRodzaj			:= E_ElectrovalveType.NC_3na2;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Steruj" Id="{9f30d02f-6ea1-07c1-2a7a-8305c2395ece}">
+      <Declaration><![CDATA[(*
+	RJM Maszyny sp. z o.o.
+	autor 	: Rafał Osajda
+	data	: 21.02.2024
+	TC		: 3.1 4024.54
+	wersja	: 0.0.1.0	: pełna obsługa
+
+	Ustawienie odpowiednich wyjść
+*)METHOD Steruj : BOOL
+VAR_INPUT
+	eAkcja	: E_ElectrovalveAction;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE eAkcja OF
+	E_ElectrovalveAction.e_EL_Wyj4_Wylacz	:
+		bCewkaA								:= FALSE;
+	E_ElectrovalveAction.e_EL_Wyj4_Wlacz	:
+		bCewkaA								:= TRUE;
+	E_ElectrovalveAction.e_EL_Reset			:
+		bCewkaA								:= FALSE;
+
+END_CASE
+bCewkaB										:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

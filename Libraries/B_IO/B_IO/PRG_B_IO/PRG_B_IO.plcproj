@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_IO</Title>
-    <ProjectVersion>0.0.0.1</ProjectVersion>
+    <ProjectVersion>0.0.0.2</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -89,15 +89,113 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Electrovalve\E_ElectrovalveAction.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Electrovalve\E_ElectrovalveType.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Sensor\E_SensorType.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Sensor\FB_Sensor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Sensor\FB_Sensor_NC.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Sensor\FB_Sensor_NO.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Sensor\FB_Sensor_NO_2InRow.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Sensor\ITF_Sensor.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Sensor\ITF_Sensor_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Sensor\ITF_Sensor_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Electrovalve\FB_Electrovalve.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Electrovalve\FB_Elektrozawor_3Na2_NC.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Electrovalve\FB_Elektrozawor_3Na2_NO.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Electrovalve\FB_Elektrozawor_5na2_1Cewka.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Electrovalve\FB_Elektrozawor_5na2_2Cewki.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Electrovalve\FB_Elektrozawor_5na3_2Cewki_Odp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Electrovalve\FB_Elektrozawor_5na3_2Cewki_Zap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Electrovalve\ITF_Electrovalve.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Electrovalve\ITF_Electrovalve_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Electrovalve\ITF_Electrovalve_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LampkaRozszerzona\FB_LampkaRozszerzona.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LampkaRozszerzona\ITF_LampkaRozszerzona.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lampka\FB_Lampka.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lampka\ITF_Lampka.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Przyciski\FB_Przycisk.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Przyciski\FB_Przycisk_NC.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Przyciski\FB_Przycisk_NC_RTRIG.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Przyciski\FB_Przycisk_NO.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Przyciski\FB_Przycisk_NO_RTRIG.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Przyciski\ITF_Przycisk.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
+    <Folder Include="POUs\Sensor" />
+    <Folder Include="POUs\Electrovalve" />
+    <Folder Include="POUs\Lampka" />
+    <Folder Include="POUs\LampkaRozszerzona" />
+    <Folder Include="POUs\Przyciski" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="B_Base">
+      <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
@@ -110,6 +208,11 @@
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PRG_B_IO.tmc">
+      <SubType>Content</SubType>
+    </None>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

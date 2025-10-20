@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Przycisk_NO" Id="{0e410748-e05b-4389-a200-1cf462bf3225}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	Obsługa przycisku ze stykiem NO
+*)
+FUNCTION_BLOCK FB_Przycisk_NO EXTENDS FB_Przycisk
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Stan" Id="{1358d650-2308-426e-9f87-411d41e27557}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca stan przycisku
+*)
+METHOD Stan : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Stan			:= THIS^.bStyk;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

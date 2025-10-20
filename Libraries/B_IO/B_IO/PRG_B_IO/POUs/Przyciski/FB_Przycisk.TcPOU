@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Przycisk" Id="{85c8c0af-9b54-4c45-a5dc-25d08c07092f}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	Obsługa przycisków 
+*)
+FUNCTION_BLOCK ABSTRACT FB_Przycisk EXTENDS B_Baza.FB_Komponent IMPLEMENTS ITF_Przycisk
+VAR
+	bStyk							AT %I*	: BOOL;		// Styk przycisku 
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Stan" Id="{c057585d-3d71-4e42-ba48-ae55c4f30095}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca stan przycisku
+*)
+METHOD Stan : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

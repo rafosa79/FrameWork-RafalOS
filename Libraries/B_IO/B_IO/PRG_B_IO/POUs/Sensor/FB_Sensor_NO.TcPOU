@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Sensor_NO" Id="{d281df51-e315-49a9-980a-1299b2b38a3b}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		22.01.2025		TC 4026.13		wer. 0.0.0.1
+	B_Baza dla czujników binarnych styk normalnie otwarty 	
+*)
+FUNCTION_BLOCK FB_Sensor_NO EXTENDS FB_Sensor
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{0496fef0-cca2-4946-8251-855aeebfd5b6}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.eType		:= E_SensorType.NO;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIsActive" Id="{bf735fd6-b08e-4c2e-aa89-552ead062440}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca aktualny stan czujnika
+*)
+METHOD GetIsActive : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIsActive			:= THIS^.bContact;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

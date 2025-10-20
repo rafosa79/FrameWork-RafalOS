@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_LampkaRozszerzona" Id="{b346aff3-11a7-4e95-9a5f-8590744f7726}">
+    <Declaration><![CDATA[INTERFACE ITF_LampkaRozszerzona EXTENDS ITF_Lampka
+]]></Declaration>
+    <Method Name="Migaj" Id="{52e3cd8b-9ee1-42d3-a3f3-6fe3fba220db}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	Sterowanie działem ipulsatora 
+*)
+METHOD PUBLIC Migaj
+VAR_INPUT
+	bIN				: bool;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Reset" Id="{66e09d73-8a8b-49c9-9c41-ddf9ea4cbcad}">
+      <Declaration><![CDATA[METHOD PUBLIC Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ustawCzasZapalony" Id="{50089649-efe2-4348-b189-1cc5697eb534}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC ustawCzasZapalony
+VAR_INPUT
+	tIN						: TIME;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ustawCzasZgaszony" Id="{e596e4f5-346c-4e1f-af2e-57839263d139}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	Ustawia czas zgaszonej lampki
+*)
+METHOD PUBLIC ustawCzasZgaszony
+VAR_INPUT
+	tIN					: TIME;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Wlacz2" Id="{bdf7651f-be99-465b-bedd-05ccfb9550e3}">
+      <Declaration><![CDATA[METHOD PUBLIC Wlacz2
+VAR_INPUT
+	bSwiec		: BOOL;
+	bMigaj		: BOOL;
+	tWlaczony	: TIME;
+	tWylaczony	: TIME;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
