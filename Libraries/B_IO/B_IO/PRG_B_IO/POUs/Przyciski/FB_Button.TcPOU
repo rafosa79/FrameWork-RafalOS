@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Button" Id="{85c8c0af-9b54-4c45-a5dc-25d08c07092f}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	Obsługa przycisków 
+*)
+FUNCTION_BLOCK ABSTRACT FB_Button EXTENDS FB_BaseComponent IMPLEMENTS ITF_Button
+VAR
+	bContact							AT %I*	: BOOL;		// Styk przycisku 
+	bContactPrev								: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="GetRisingEdgePressed" Id="{660354d3-961d-0c50-2f7c-6ceb634fdf0d}">
+      <Declaration><![CDATA[METHOD PUBLIC GetRisingEdgePressed : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsPressed" Id="{c057585d-3d71-4e42-ba48-ae55c4f30095}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca stan przycisku
+*)
+METHOD IsPressed : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Lamp" Id="{30c1ff06-6578-49b3-9061-1ee463c72ccc}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		22.01.2025		TC 4026.13		wer. 0.0.0.1
+	Sterowanie lampką
+*)
+FUNCTION_BLOCK FB_Lamp EXTENDS FB_BaseComponent IMPLEMENTS ITF_Lamp
+VAR
+	bOut							AT %Q*	: BOOL;		// Lampka
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ ]]></ST>
+    </Implementation>
+    <Method Name="Control" Id="{844f4e13-0894-473a-87fc-66d05adf3dd4}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Sterowanie swieceniem lampki - włącz/wyłącz
+*)
+METHOD Control
+VAR_INPUT
+	bIN	: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (bIN) THEN
+	THIS^.SetOn ();
+ELSE
+	THIS^.SetOff ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsActive" Id="{d932e6d0-a12f-4bd1-9eb7-c6f588f2fc10}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca czy lampka wlaczona
+*)
+METHOD IsActive : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsActive					:= THIS^.bOut;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetOff" Id="{a3ef5c87-3683-438c-8b1e-bffac6b99dbd}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Wylacza lampke
+*)
+METHOD SetOff
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bOut				:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetOn" Id="{5d58c598-4dc3-4264-8e5b-5d3cc338857a}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Wlacza lampke
+*)
+METHOD SetOn
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bOut				:= TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

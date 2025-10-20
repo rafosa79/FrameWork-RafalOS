@@ -32,6 +32,20 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Reset" Id="{ac78b17f-0440-04ef-0cbc-48fffce79607}">
+      <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bExecute			:= FALSE;
+THIS^.bFlashing			:= FALSE;
+THIS^.bExit				:= FALSE;
+
+Reset					:= TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetExecuteOff" Id="{7c2fc002-cb2b-0715-3606-95093d82e313}">
       <Declaration><![CDATA[METHOD PUBLIC SetExecuteOff
 VAR_INPUT
