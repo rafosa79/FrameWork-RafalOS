@@ -3,12 +3,28 @@
   <POU Name="PRG_Test" Id="{1d1ad101-c2d4-0277-1bb3-7445680eebd7}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Test
 VAR
+	fbSensorTest			: FB_SensorTest;
+	fbElectrovalveTest		: FB_ElectroValveTest;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 	TcUnit.RUN_IN_SEQUENCE ();
-]]></ST>
+
+
+GVL_Variable.fbSaveDataByADS (
+	bWrite		:= GVL_Variable.bSave,
+	sNetId		:= ,
+	nPort		:= ,
+	sVarName	:= GVL_Variable.sData,
+	nSrcAddr	:= ADR (GVL_Variable.bValueToSave),
+	nLen		:= SIZEOF (GVL_Variable.bValueToSave),
+	tTimeout	:= ,
+	eComMode	:= ,
+	bBusy		=> GVL_Variable.bSaved,
+	bError		=> ,
+	nErrorId	=>
+);]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

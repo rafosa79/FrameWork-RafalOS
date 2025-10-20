@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SensorTest" Id="{807b86ee-27e9-4f66-8fd0-2f741e30e4fb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK INTERNAL FB_SensorTest EXTENDS TcUnit.FB_TestSuite
+VAR
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+T01_TestCzujnikNC ();
+T02_TestCzujnikNO ();
+T03_TestCzujnikNO_Szereg ();]]></ST>
+    </Implementation>
+    <Method Name="T01_TestCzujnikNC" Id="{87a26c25-b7e9-4c8c-aa2b-e5e1fa2ef631}">
+      <Declaration><![CDATA[METHOD PROTECTED T01_TestCzujnikNC
+VAR_INST
+	iStep			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestCzujnikNC')) THEN
+	CASE iStep OF
+	0	:
+		GVL_Variable.bValueToSave	:= TRUE;
+		GVL_Variable.sData			:= 'GVL_Variable.senNC.bContact';
+		GVL_Variable.bSave			:= TRUE;
+		iStep						:= iStep + 10;
+	10	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave		:= FALSE;
+			AssertFalse (Condition := GVL_Variable.senNC.IsActive (), Message := 'K10 - T01 bledny stan');
+			iStep					:= iStep + 10;
+		END_IF
+	20	:
+		GVL_Variable.bValueToSave	:= FALSE;
+		GVL_Variable.sData			:= 'GVL_Variable.senNC.bContact';
+		GVL_Variable.bSave				:= TRUE;
+		iStep			:= iStep + 10;
+	30	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave			:= FALSE;
+			AssertTrue (Condition := GVL_Variable.senNC.IsActive (), Message := 'K20 - T01 bledny stan');
+			iStep		:= iStep + 10;
+		END_IF
+	40	:
+		GVL_Variable.bValueToSave	:= TRUE;
+		GVL_Variable.sData			:= 'GVL_Variable.senNC.bContact';
+		GVL_Variable.bSave				:= TRUE;
+		iStep			:= iStep + 10;
+	50	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave			:= FALSE;
+			AssertFalse (Condition := GVL_Variable.senNC.IsActive (), Message := 'K30 - T01 bledny stan');
+			iStep		:= iStep + 10;
+		END_IF
+	60	:
+		iStep			:= 0;
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T02_TestCzujnikNO" Id="{b5c44672-a7c6-4157-bc17-cde99cf2bb83}">
+      <Declaration><![CDATA[METHOD PROTECTED T02_TestCzujnikNO
+VAR_INST
+	iStep			: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestCzujnikNO')) THEN
+	CASE iStep OF
+	0	:
+		GVL_Variable.bValueToSave	:= FALSE;
+		GVL_Variable.sData			:= 'GVL_Variable.senNO.bContact';
+		GVL_Variable.bSave			:= TRUE;
+		iStep						:= iStep + 10;
+	10	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave		:= FALSE;
+(*	*)		AssertFalse (Condition := GVL_Variable.senNO.IsActive (), Message := 'K10 - T01 bledny stan');
+			iStep					:= iStep + 10;
+		END_IF
+	20	:
+		GVL_Variable.bValueToSave	:= TRUE;
+		GVL_Variable.sData			:= 'GVL_Variable.senNO.bContact';
+		GVL_Variable.bSave			:= TRUE;
+		iStep						:= iStep + 10;
+	30	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave		:= FALSE;
+(*	*)		AssertTrue (Condition := GVL_Variable.senNO.IsActive (), Message := 'K20 - T01 bledny stan');
+			iStep					:= iStep + 10;
+		END_IF
+	40	:
+		GVL_Variable.bValueToSave	:= FALSE;
+		GVL_Variable.sData			:= 'GVL_Variable.senNO.bContact';
+		GVL_Variable.bSave			:= TRUE;
+		iStep						:= iStep + 10;
+	50	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave		:= FALSE;
+(*	*)		AssertFalse (Condition := GVL_Variable.senNO.IsActive (), Message := 'K30 - T01 bledny stan');
+			iStep					:= iStep + 10;
+		END_IF
+	60	:
+		iStep						:= 0;
+		TcUnit.TEST_FINISHED ();
+	END_CASE	
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T03_TestCzujnikNO_Szereg" Id="{94bce78b-5045-4997-a8ad-87a5d9fddc37}">
+      <Declaration><![CDATA[METHOD PROTECTED T03_TestCzujnikNO_Szereg
+VAR_INST
+	iStep			: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T03_TestCzujnikNO_Szereg')) THEN
+	CASE iStep OF
+	0	:
+		GVL_Variable.bValueToSave	:= FALSE;
+		GVL_Variable.sData			:= 'GVL_Variable.sen2NO.bContact';
+		GVL_Variable.bSave			:= TRUE;
+		iStep						:= iStep + 10;
+	10	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave		:= FALSE;
+			iStep					:= iStep + 10;
+		END_IF
+	20	:
+		GVL_Variable.bValueToSave	:= FALSE;
+		GVL_Variable.sData			:= 'GVL_Variable.sen2NO.bContact2';
+		GVL_Variable.bSave			:= TRUE;
+		iStep						:= iStep + 10;
+	30	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave		:= FALSE;
+(*	*)		AssertFalse (Condition := GVL_Variable.sen2NO.IsActive (), Message := 'K30 - T01 bledny stan');
+			iStep					:= iStep + 10;
+		END_IF
+	40	:
+		GVL_Variable.bValueToSave	:= TRUE;
+		GVL_Variable.sData			:= 'GVL_Variable.sen2NO.bContact';
+		GVL_Variable.bSave			:= TRUE;
+		iStep						:= iStep + 10;
+	50	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave		:= FALSE;
+(*	*)		AssertFalse (Condition := GVL_Variable.sen2NO.IsActive (), Message := 'K50 - T01 bledny stan');
+			iStep					:= iStep + 10;
+		END_IF
+	60	:
+		GVL_Variable.bValueToSave	:= TRUE;
+		GVL_Variable.sData			:= 'GVL_Variable.sen2NO.bContact2';
+		GVL_Variable.bSave			:= TRUE;
+		iStep						:= iStep + 10;
+	70	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave		:= FALSE;
+(*	*)		AssertTrue (Condition := GVL_Variable.sen2NO.IsActive (), Message := 'K70 - T01 bledny stan');
+			iStep					:= iStep + 10;
+		END_IF
+	80	:
+		GVL_Variable.bValueToSave	:= FALSE;
+		GVL_Variable.sData			:= 'GVL_Variable.sen2NO.bContact2';
+		GVL_Variable.bSave			:= TRUE;
+		iStep						:= iStep + 10;
+	90	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave		:= FALSE;
+(*	*)		AssertFalse (Condition := GVL_Variable.sen2NO.IsActive (), Message := 'K90 - T01 bledny stan');
+			iStep					:= iStep + 10;
+		END_IF
+	100	:
+		GVL_Variable.bValueToSave	:= FALSE;
+		GVL_Variable.sData			:= 'GVL_Variable.sen2NO.bContact';
+		GVL_Variable.bSave			:= TRUE;
+		iStep						:= iStep + 10;
+	110	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave		:= FALSE;
+(*	*)		AssertFalse (Condition := GVL_Variable.sen2NO.IsActive (), Message := 'K110 - T01 bledny stan');
+			iStep					:= 0;
+			TcUnit.TEST_FINISHED ();
+		END_IF
+	END_CASE	
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

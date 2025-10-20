@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ElectroValveTest" Id="{f524f8df-08c0-061d-00ff-57d4a953e4aa}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ElectroValveTest EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[T01_El3Na2_NC ();
+T02_El3Na2_NO ();
+T03_El5Na2_1C ();
+T04_El5Na2_2C ();
+T05_El5Na3_2C_odp ();
+T06_El5Na3_2C_zap ();
+]]></ST>
+    </Implementation>
+    <Method Name="T01_El3Na2_NC" Id="{09cac3a2-b642-0858-03f4-471795da8121}">
+      <Declaration><![CDATA[METHOD PROTECTED T01_El3Na2_NC
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_El3Na2_NC')) THEN
+	GVL_Variable.ev3on2_NC.Contol (eAction 	:= E_ElectrovalveAction.e_EV_OUT4_Active);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev3on2_NC.bCoilA,
+		Message								:= 'Test 1 - blad przelaczania'
+	);
+	GVL_Variable.ev3on2_NC.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Out4_Deactive);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev3on2_NC.bCoilA,
+		Message								:= 'Test 2 - blad przelaczania'
+	);
+	GVL_Variable.ev3on2_NC.Contol (eAction 	:= E_ElectrovalveAction.e_EV_OUT4_Active);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev3on2_NC.bCoilA,
+		Message								:= 'Test 3 - blad przelaczania'
+	);
+	GVL_Variable.ev3on2_NC.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Reset);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev3on2_NC.bCoilA,
+		Message								:= 'Test 4 - blad przelaczania'
+	);
+	
+
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T02_El3Na2_NO" Id="{7e428ee4-8c20-03d0-0748-fc4bb7147bfa}">
+      <Declaration><![CDATA[METHOD PROTECTED T02_El3Na2_NO
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_El3Na2_NO')) THEN
+	GVL_Variable.ev3on2_NC.Contol (eAction 	:= E_ElectrovalveAction.e_EV_OUT4_Active);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev3on2_NC.bCoilA,
+		Message								:= 'Test 1 - blad przelaczania'
+	);
+	GVL_Variable.ev3on2_NC.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Out4_Deactive);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev3on2_NC.bCoilA,
+		Message								:= 'Test 2 - blad przelaczania'
+	);
+	GVL_Variable.ev3on2_NC.Contol (eAction 	:= E_ElectrovalveAction.e_EV_OUT4_Active);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev3on2_NC.bCoilA,
+		Message								:= 'Test 3 - blad przelaczania'
+	);
+	GVL_Variable.ev3on2_NC.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Reset);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev3on2_NC.bCoilA,
+		Message								:= 'Test 4 - blad przelaczania'
+	);
+	
+
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T03_El5Na2_1C" Id="{ad7e5fa9-4e62-0790-3bbd-5c0c8a7e6517}">
+      <Declaration><![CDATA[METHOD PROTECTED T03_El5Na2_1C
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T03_El5Na2_1C')) THEN
+	GVL_Variable.ev5on2_1C.Contol (eAction 	:= E_ElectrovalveAction.e_EV_OUT4_Active);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on2_1C.bCoilA,
+		Message								:= 'Test 1 - blad przelaczania'
+	);
+	
+	GVL_Variable.ev5on2_1C.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Out4_Deactive);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on2_1C.bCoilA,
+		Message								:= 'Test 2 - blad przelaczania'
+	);
+	
+	GVL_Variable.ev5on2_1C.Contol (eAction 	:= E_ElectrovalveAction.e_EV_ToStart);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on2_1C.bCoilA,
+		Message								:= 'Test 1 - blad przelaczania'
+	);
+
+	GVL_Variable.ev5on2_1C.Contol (eAction 	:= E_ElectrovalveAction.e_EV_ToEnd);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on2_1C.bCoilA,
+		Message								:= 'Test 2 - blad przelaczania'
+	);
+	
+
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T04_El5Na2_2C" Id="{e181b3df-73c1-08bb-3cfa-56808c203f09}">
+      <Declaration><![CDATA[METHOD PROTECTED T04_El5Na2_2C
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T04_El5Na2_2C')) THEN
+	GVL_Variable.ev5on2_2C.Contol (eAction 	:= E_ElectrovalveAction.e_EV_OUT4_Active);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on2_2C.bCoilA,
+		Message								:= 'Test 1A - Blad przelaczania'
+	);
+	Assertfalse (
+		Condition							:= GVL_Variable.ev5on2_2C.bCoilB,
+		Message								:= 'Test 1B - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on2_2C.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Out2_Active);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on2_2C.bCoilA,
+		Message								:= 'Test 2A - Blad przelaczania'
+	);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on2_2C.bCoilB,
+		Message								:= 'Test 2B - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on2_2C.Contol (eAction 	:= E_ElectrovalveAction.e_EV_ToEnd);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on2_2C.bCoilA,
+		Message								:= 'Test 3A - Blad przelaczania'
+	);
+	Assertfalse (
+		Condition							:= GVL_Variable.ev5on2_2C.bCoilB,
+		Message								:= 'Test 3B - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on2_2C.Contol (eAction 	:= E_ElectrovalveAction.e_EV_ToStart);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on2_2C.bCoilA,
+		Message								:= 'Test 4A - Blad przelaczania'
+	);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on2_2C.bCoilB,
+		Message								:= 'Test 4B - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on2_2C.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Reset);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on2_2C.bCoilA,
+		Message								:= 'Test 5A - Blad przelaczania'
+	);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on2_2C.bCoilB,
+		Message								:= 'Test 5B - Blad przelaczania'
+	);
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T05_El5Na3_2C_odp" Id="{d379aa22-4739-0f62-1934-fde75e60c520}">
+      <Declaration><![CDATA[METHOD PROTECTED T05_El5Na3_2C_odp
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T05_El5Na3_2C_odp')) THEN
+	GVL_Variable.ev5on3_2C_ven.Contol (eAction 	:= E_ElectrovalveAction.e_EV_OUT4_Active);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on3_2C_ven.bCoilA,
+		Message								:= 'Test 1A - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on3_2C_ven.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Out2_Active);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on3_2C_ven.bCoilB,
+		Message								:= 'Test 2B - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on3_2C_ven.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Reset);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on3_2C_ven.bCoilA,
+		Message								:= 'Test 3A - Blad przelaczania'
+	);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on3_2C_ven.bCoilB,
+		Message								:= 'Test 3B - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on3_2C_ven.Contol (eAction 	:= E_ElectrovalveAction.e_EV_ToStart);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on3_2C_ven.bCoilA,
+		Message								:= 'Test 4A - Blad przelaczania'
+	);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on3_2C_ven.bCoilB,
+		Message								:= 'Test 4B - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on3_2C_ven.Contol (eAction 	:= E_ElectrovalveAction.e_EV_ToEnd);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on3_2C_ven.bCoilA,
+		Message								:= 'Test 5A - Blad przelaczania'
+	);
+	Assertfalse (
+		Condition							:= GVL_Variable.ev5on3_2C_ven.bCoilB,
+		Message								:= 'Test 5B - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on3_2C_ven.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Stop);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on3_2C_ven.bCoilA,
+		Message								:= 'Test 6A - Blad przelaczania'
+	);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on3_2C_ven.bCoilB,
+		Message								:= 'Test 6B - Blad przelaczania'
+	);
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T06_El5Na3_2C_zap" Id="{cd94aaf8-dc02-037b-3f4b-33228e64b27b}">
+      <Declaration><![CDATA[METHOD PROTECTED T06_El5Na3_2C_zap
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T06_El5Na3_2C_zap')) THEN
+	GVL_Variable.ev5on3_2C_inf.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Out4_Deactive);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on3_2C_inf.bCoilA,
+		Message								:= 'Test 1A - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on3_2C_inf.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Out2_Deactive);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on3_2C_inf.bCoilB,
+		Message								:= 'Test 2B - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on3_2C_inf.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Reset);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on3_2C_inf.bCoilA,
+		Message								:= 'Test 3A - Blad przelaczania'
+	);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on3_2C_inf.bCoilB,
+		Message								:= 'Test 3B - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on3_2C_inf.Contol (eAction 	:= E_ElectrovalveAction.e_EV_ToStart);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on3_2C_inf.bCoilA,
+		Message								:= 'Test 4A - Blad przelaczania'
+	);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on3_2C_inf.bCoilB,
+		Message								:= 'Test 4B - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on3_2C_inf.Contol (eAction 	:= E_ElectrovalveAction.e_EV_ToEnd);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on3_2C_inf.bCoilA,
+		Message								:= 'Test 5A - Blad przelaczania'
+	);
+	AssertTrue (
+		Condition							:= GVL_Variable.ev5on3_2C_inf.bCoilB,
+		Message								:= 'Test 5B - Blad przelaczania'
+	);
+//
+	GVL_Variable.ev5on3_2C_inf.Contol (eAction 	:= E_ElectrovalveAction.e_EV_Stop);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on3_2C_inf.bCoilA,
+		Message								:= 'Test 6A - Blad przelaczania'
+	);
+	AssertFalse (
+		Condition							:= GVL_Variable.ev5on3_2C_inf.bCoilB,
+		Message								:= 'Test 6B - Blad przelaczania'
+	);
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
