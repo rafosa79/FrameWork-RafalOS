@@ -27,16 +27,16 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetIsActive" Id="{2a3f43d7-2784-486e-a422-2d5e48ddef4e}">
+    <Method Name="IsActive" Id="{2a3f43d7-2784-486e-a422-2d5e48ddef4e}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
 	Zwraca aktualny stan czujnika
 *)
-METHOD GetIsActive : BOOL
+METHOD IsActive : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetIsActive				:=  THIS^.bContact AND THIS^.bStyk2;
+        <ST><![CDATA[IsActive				:=  THIS^.bContact AND THIS^.bStyk2;
 ]]></ST>
       </Implementation>
     </Method>

@@ -61,23 +61,23 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetIsActiveCoilA" Id="{15a459f2-566d-4208-ab88-8334c1bb7aa4}" FolderPath="ITF_Electrovalve_HMI_Connector\">
-      <Declaration><![CDATA[METHOD GetIsActiveCoilA : BOOL
+    <Method Name="IsActiveCoilA" Id="{15a459f2-566d-4208-ab88-8334c1bb7aa4}" FolderPath="ITF_Electrovalve_HMI_Connector\">
+      <Declaration><![CDATA[METHOD IsActiveCoilA : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetIsActiveCoilA			:= THIS^.bCoilA;
+        <ST><![CDATA[IsActiveCoilA			:= THIS^.bCoilA;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetIsActiveCoilB" Id="{7203c2d0-cd87-4264-b035-36bda2e9f593}" FolderPath="ITF_Electrovalve_HMI_Connector\">
-      <Declaration><![CDATA[METHOD GetIsActiveCoilB : BOOL
+    <Method Name="IsActiveCoilB" Id="{7203c2d0-cd87-4264-b035-36bda2e9f593}" FolderPath="ITF_Electrovalve_HMI_Connector\">
+      <Declaration><![CDATA[METHOD IsActiveCoilB : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetIsActiveCoilB			:= THIS^.bCoilB;
+        <ST><![CDATA[IsActiveCoilB			:= THIS^.bCoilB;
 ]]></ST>
       </Implementation>
     </Method>

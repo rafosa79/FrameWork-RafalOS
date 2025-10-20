@@ -13,14 +13,14 @@ END_VAR
       <Declaration><![CDATA[METHOD PUBLIC GetElectrovalveTypeToString : STRING
 ]]></Declaration>
     </Method>
-    <Method Name="GetIsActiveCoilA" Id="{11b33871-a6df-4b90-baea-ec7b047b3044}">
-      <Declaration><![CDATA[METHOD GetIsActiveCoilA : BOOL
+    <Method Name="IsActiveCoilA" Id="{11b33871-a6df-4b90-baea-ec7b047b3044}">
+      <Declaration><![CDATA[METHOD IsActiveCoilA : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="GetIsActiveCoilB" Id="{f4705d69-b065-4cba-b1f2-d89d38866ff5}">
-      <Declaration><![CDATA[METHOD GetIsActiveCoilB : BOOL
+    <Method Name="IsActiveCoilB" Id="{f4705d69-b065-4cba-b1f2-d89d38866ff5}">
+      <Declaration><![CDATA[METHOD IsActiveCoilB : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>

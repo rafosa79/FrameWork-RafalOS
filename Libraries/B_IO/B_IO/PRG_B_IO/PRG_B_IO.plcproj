@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_IO</Title>
-    <ProjectVersion>0.0.0.2</ProjectVersion>
+    <ProjectVersion>0.0.0.4</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -161,22 +161,16 @@
     <Compile Include="POUs\Lampka\ITF_Lampka.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Przyciski\FB_Przycisk.TcPOU">
+    <Compile Include="POUs\Przyciski\FB_Button.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Przyciski\FB_Przycisk_NC.TcPOU">
+    <Compile Include="POUs\Przyciski\FB_Button_NC.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Przyciski\FB_Przycisk_NC_RTRIG.TcPOU">
+    <Compile Include="POUs\Przyciski\FB_Button_NO.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Przyciski\FB_Przycisk_NO.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Przyciski\FB_Przycisk_NO_RTRIG.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Przyciski\ITF_Przycisk.TcIO">
+    <Compile Include="POUs\Przyciski\ITF_Button.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -15,18 +15,6 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="GetIsActive" Id="{db6dccc1-2a7a-463e-864e-da1a3729b042}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
-	Zwraca aktualny stan czujnika
-*)
-METHOD GetIsActive : BOOL
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="GetSensorType" Id="{f374bc07-fad7-40f2-bc55-235455285601}">
       <Declaration><![CDATA[METHOD PUBLIC GetSensorType : E_SensorType
 VAR_INPUT
@@ -48,6 +36,18 @@ END_VAR
 
 
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsActive" Id="{db6dccc1-2a7a-463e-864e-da1a3729b042}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca aktualny stan czujnika
+*)
+METHOD IsActive : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
   </POU>

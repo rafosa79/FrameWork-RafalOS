@@ -8,13 +8,13 @@
 *)
 INTERFACE ITF_Sensor EXTENDS ITF_BaseComponent
 ]]></Declaration>
-    <Method Name="GetIsActive" Id="{ddb24e15-3ec4-4882-89dc-a61bbd27327b}">
+    <Method Name="IsActive" Id="{ddb24e15-3ec4-4882-89dc-a61bbd27327b}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
 	Zwraca aktualny stan czujnika
 *)
-METHOD GetIsActive : BOOL
+METHOD IsActive : BOOL
 ]]></Declaration>
     </Method>
   </Itf>
