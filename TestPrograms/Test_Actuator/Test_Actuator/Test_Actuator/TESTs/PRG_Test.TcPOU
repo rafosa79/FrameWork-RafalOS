@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_Test" Id="{f3067e18-a8df-4ccb-9920-df5f52e60274}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_Test
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+	TcUnit.RUN_IN_SEQUENCE ();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
