@@ -8,18 +8,18 @@
 *)
 FUNCTION_BLOCK FB_Actuator EXTENDS FB_BaseControlElement IMPLEMENTS ITF_Actuator, ITF_Actuator_HMI_Init
 VAR
-	itfczPoczatek				: B_IO.ITF_Czujnik;
-	itfczKoniec					: B_IO.ITF_Czujnik;
-	itfelSteruj					: B_IO.ITF_Elektrozawor;
+	itfsenStart					: ITF_Sensor;
+	itfsenEnd					: ITF_Sensor;
+	itfevControl				: ITF_Electrovalve;
 	
-	fbPrzesunDoPoczatku			: B_Baza.FB_Polecenie;
-	bPrzesunieteDoPoczatku		: BOOL;
-	fbPrzesunDoKonca			: B_Baza.FB_Polecenie;
-	bPrzesunieteDoKonca			: BOOL;
+	cmdMoveToStart				: FB_BaseCommand;
+	bMoverToStart				: BOOL;
+	cmdMoveToEnd				: FB_BaseCommand;
+	bMovedToEnd					: BOOL;
 	
-	tonCzasPrzesuwaniaDoPoczatku: Tc2_Standard.TON;
-	tonCzasPrzesuwaniaDoKonca	: Tc2_Standard.TON;
-	tOstatniRuch				: TIME;
+	tonMoveToStart				: Tc2_Standard.TON;
+	tonMoveToEnd				: Tc2_Standard.TON;
+	tLastMove					: TIME;
 	
 END_VAR
   ]]></Declaration>
@@ -27,25 +27,216 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="ITF_HMI_Silownik_Lacznik" Id="{2d92f09f-10b3-4206-9551-cb73fbc42f65}" />
-    <Method Name="BazowanieCykl" Id="{6283cc90-057b-46c5-925e-4605b70c2956}">
-      <Declaration><![CDATA[METHOD PROTECTED BazowanieCykl : BOOL
+    <Method Name="EventsDefinition" Id="{8eec4842-b47f-41d1-bb1f-041dd2faa1fd}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		04.04.2025		TC 4024.66
+	Metodaw wywoływana w pierwszym cyklu programu dodająca do tablicy zgłoszeń definicje zgłoszeń
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.EventsDefinition ();
+//offset 2
+(*	1 + offset - Zbyt długi czas przesuwania do początku	*)
+	THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zbyt długi czas przesuwania do początku");
+	THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Too long to move to the beginning");
+	THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zu lang, um zum Anfang zu gelangen");
+	THIS^.AddEvent (
+		bIgnoreRepetitions		:= FALSE,
+		eEventCategory			:= E_BaseEvents_Category.Message,
+		bConfirm				:= FALSE,
+		stDescription			:= THIS^.GetTexts ()
+	);
+(*	2 + offset - Zbyt długi czas przesuwania do końca	*)
+	THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zbyt długi czas przesuwania do końca");
+	THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "It takes too long to move to the end");
+	THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zu lang, um zum Ende zu gelangen");
+	THIS^.AddEvent (
+		bIgnoreRepetitions		:= FALSE,
+		eEventCategory			:= E_BaseEvents_Category.Message,
+		bConfirm				:= FALSE,
+		stDescription			:= THIS^.GetTexts ()
+	);
+(*	3 + offset - Utrata pozycji początkowej	*)
+	THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Utrata pozycji początkowej");
+	THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Losing the starting position");
+	THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Verlust der Ausgangsposition");
+	THIS^.AddEvent (
+		bIgnoreRepetitions		:= FALSE,
+		eEventCategory			:= E_BaseEvents_Category.Message,
+		bConfirm				:= FALSE,
+		stDescription			:= THIS^.GetTexts ()
+	);
+(*	4 + offset - Utrata pozycji końcowej		*)
+	THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Utrata pozycji końcowej");
+	THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Losing final position");
+	THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Verlust der Endposition");
+	THIS^.AddEvent (
+		bIgnoreRepetitions		:= FALSE,
+		eEventCategory			:= E_BaseEvents_Category.Message,
+		bConfirm				:= FALSE,
+		stDescription			:= THIS^.GetTexts ()
+	);
+(*	5 + offset - Zamieniona pozycja czujników	*)
+	THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zamieniona pozycja czujników");
+	THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Sensor position swapped");
+	THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Sensorposition vertauscht");
+	THIS^.AddEvent (
+		bIgnoreRepetitions		:= FALSE,
+		eEventCategory			:= E_BaseEvents_Category.Error,
+		bConfirm				:= TRUE,
+		stDescription			:= THIS^.GetTexts ()
+	);
+(*	6 + offset - Blad zadziałania dwóch czujników	*)
+	THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Błąd zadziałania dwóch czujników");
+	THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Two sensor activation error");
+	THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Aktivierungsfehler bei zwei Sensoren");
+	THIS^.AddEvent (
+		bIgnoreRepetitions		:= FALSE,
+		eEventCategory			:= E_BaseEvents_Category.Error,
+		bConfirm				:= TRUE,
+		stDescription			:= THIS^.GetTexts ()
+	);
+	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Error" Id="{3974f683-e00f-4859-b647-dfa0d257e33c}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
+*)
+METHOD PUBLIC ExecuteEveryCycle_Error
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CASE THIS^.stBazowanie.iKrokBazowaniaElementu OF
-0	:
-	THIS^.MoveToStart ();
-	THIS^.stBazowanie.iKrokBazowaniaElementu		:= THIS^.stBazowanie.iKrokBazowaniaElementu + 10;
-	BazowanieCykl									:= TRUE;
-10	:
-	IF (THIS^.IsStart ()) THEN
-		THIS^.stBazowanie.iKrokBazowaniaElementu	:= B_Baza.STALE.OSTATNI_KROK;
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Error ();
+//1 - 2 to zgłoszenia rodzica
+
+(*	Alarm zbyt długi czas przesuwania	*)
+	IF (THIS^.tonMoveToStart.Q AND NOT THIS^.itfsenStart.IsActive ()) THEN
+		THIS^.EventSetActive (iNumber := 3);
 	END_IF
-	BazowanieCykl									:= TRUE;
-B_Baza.STALE.OSTATNI_KROK	:
-	BazowanieCykl									:= FALSE;
-END_CASE
+	IF (THIS^.EventIsActive (iNumber := 3) AND THIS^.itfsenStart.IsActive ()) THEN
+		THIS^.EventSetInactive (iNumber := 3);
+	END_IF
+	
+	IF (THIS^.tonMoveToEnd.Q AND NOT THIS^.itfsenEnd.IsActive ()) THEN
+		THIS^.EventSetActive (iNumber := 4);
+	END_IF
+	IF (THIS^.EventIsActive (iNumber := 4) AND THIS^.itfsenEnd.IsActive ()) THEN
+		THIS^.EventSetInactive (iNumber := 4);
+	END_IF
+(*	Alarmy utraty pozycji	*)
+	IF (THIS^.bMoverToStart AND NOT THIS^.itfsenStart.IsActive () AND THIS^.MovingToEndStatus ()) THEN
+		THIS^.EventSetActive (iNumber := 5);
+	END_IF
+	IF (THIS^.EventIsActive (iNumber := 5) AND THIS^.bMoverToStart AND THIS^.itfsenStart.IsActive ()) THEN
+		THIS^.EventSetInactive (iNumber := 5);
+	END_IF
+	IF (THIS^.bMovedToEnd AND NOT THIS^.itfsenEnd.IsActive () AND THIS^.MovingToStartStatus ()) THEN
+		THIS^.EventSetActive (iNumber := 6);
+	END_IF
+	IF (THIS^.EventIsActive (iNumber := 6) AND THIS^.bMovedToEnd AND THIS^.itfsenEnd.IsActive ()) THEN
+		THIS^.EventSetInactive (iNumber := 6);
+	END_IF
+(*	Blad zamiany czujnikow	*)
+	IF ((THIS^.cmdMoveToStart.GetBusy () AND THIS^.itfsenEnd.IsActive ()) OR
+		(THIS^.cmdMoveToEnd.GetBusy () AND THIS^.itfsenStart.IsActive ())) THEN
+		THIS^.EventSetActive (iNumber := 7);
+	END_IF
+	//wylaczenie bledu tylko z HMI
+//	IF (THIS^.ZgloszenieZwrocStan (iNumer := 7) AND NOT THIS^.fbPrzesunDoPoczatku.zwrocTrwa () AND NOT THIS^.fbPrzesunDoKonca.zwrocTrwa ()) THEN
+//		THIS^.ZgloszenieWylaczStan (iNumer := 7);
+//	END_IF
+(*	Błed zadziałania dwóch czujników	*)
+	IF (THIS^.itfsenStart.IsActive () AND THIS^.itfsenEnd.IsActive ()) THEN
+		THIS^.EventSetActive (iNumber := 8);
+	END_IF
+	//wylaczenie bledu tylko z HMI
+//	IF (THIS^.ZgloszenieZwrocStan (iNumer := 8) AND NOT THIS^.itfczPoczatek.IsActive () AND NOT THIS^.itfczKoniec.IsActive ()) THEN
+//		THIS^.ZgloszenieWylaczStan (iNumer := 8);
+//	END_IF
+	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Operation" Id="{d33b1024-6809-4879-a98c-616b1355e899}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Wywolanie co cykl operacji 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Operation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Operation ();
+
+THIS^.tonMoveToStart ();
+THIS^.tonMoveToEnd ();
+
+
+IF (THIS^.cmdMoveToStart.OperationExecute ()) THEN
+	THIS^.cmdMoveToStart.Operation (bIN	:= THIS^.MoveToStartCycle ());
+END_IF
+IF (THIS^.cmdMoveToEnd.OperationExecute ()) THEN
+	THIS^.cmdMoveToEnd.Operation (bIN	:= THIS^.MoveToEndCycle ());
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Status" Id="{9d5d2b34-b9b1-491e-9c50-507051bcf3a2}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Aktualizacja flag 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Status
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Status ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_TestWithoutPower" Id="{554601b7-96a5-4884-860b-3f6e68512077}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.05.2025		TC 4024.66
+	Wyłączenie polecenia ze względu na brak włacznonego zasilania
+*)
+METHOD PROTECTED ExecuteEveryCycle_TestWithoutPower
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_TestWithoutPower ();
+
+THIS^.cmdMoveToStart.Abort ();
+THIS^.cmdMoveToEnd.Abort ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_TestWithPower" Id="{c3348a7c-344c-4c4e-8fc2-48211375c9f7}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.05.2025		TC 4024.66
+	test polecenia gdy jest potrzebne zasilanie do jego realizacji
+*)
+METHOD PROTECTED ExecuteEveryCycle_TestWithPower
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_TestWithPower ();
+
+THIS^.cmdMoveToStart.Test ();
+THIS^.cmdMoveToEnd.Test ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -54,35 +245,60 @@ END_CASE
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	czPoczatek					: B_IO.ITF_Czujnik;
-	czKoniec					: B_IO.ITF_Czujnik;
-	elSteruj					: B_IO.ITF_Elektrozawor;
+	senStart					: ITF_Sensor;
+	senEnd						: ITF_Sensor;
+	evControl					: ITF_Electrovalve;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.itfczPoczatek				:= czPoczatek;
-THIS^.itfczKoniec				:= czKoniec;
-THIS^.itfelSteruj				:= elSteruj;
+        <ST><![CDATA[THIS^.itfsenStart				:= senStart;
+THIS^.itfsenEnd					:= senEnd;
+THIS^.itfevControl				:= evControl;
 
-THIS^.PrzypiszTekst (eJezyk	:= B_Baza.E_Jezyki.pl, wsTekst := "Pozycja 0");
-THIS^.PrzypiszTekst (eJezyk	:= B_Baza.E_Jezyki.en, wsTekst := "Position 0");
-THIS^.PrzypiszTekst (eJezyk	:= B_Baza.E_Jezyki.de, wsTekst := "Position 0");
-THIS^.itfczPoczatek.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
-THIS^.DodajKomponent (itfK		:= czPoczatek);
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Pozycja 0");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Position 0");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Position 0");
+THIS^.itfsenStart.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent := senStart);
 
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Pozycja max");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Position max");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Position max");
+THIS^.itfsenEnd.SetName (stName	:= THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent := senEnd);
 
-THIS^.PrzypiszTekst (eJezyk	:= B_Baza.E_Jezyki.pl, wsTekst := "Pozycja max");
-THIS^.PrzypiszTekst (eJezyk	:= B_Baza.E_Jezyki.en, wsTekst := "Position max");
-THIS^.PrzypiszTekst (eJezyk	:= B_Baza.E_Jezyki.de, wsTekst := "Position max");
-THIS^.itfczKoniec.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
-THIS^.DodajKomponent (itfK		:= czKoniec);
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Elektrozawor");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Electrovalve");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Magnetventil");
+THIS^.itfevControl.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent := evControl);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetDoNothing" Id="{17e090c7-9584-42b7-894f-22c2a955048d}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest czymś zajety
+*)
+METHOD PUBLIC GetDoNothing : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetDoNothing				:= NOT THIS^.cmdMoveToEnd.GetBusy () AND NOT THIS^.cmdMoveToStart.GetBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetPosition0" Id="{bdd391f2-3fc7-4a0f-85be-0c7cf8a9e56e}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest w pozycji 0 - referencyjnej
+*)
+METHOD PUBLIC GetPosition0 : BOOL
 
-
-THIS^.PrzypiszTekst (eJezyk	:= B_Baza.E_Jezyki.pl, wsTekst := "Elektrozawor");
-THIS^.PrzypiszTekst (eJezyk	:= B_Baza.E_Jezyki.en, wsTekst := "Electrovalve");
-THIS^.PrzypiszTekst (eJezyk	:= B_Baza.E_Jezyki.de, wsTekst := "Magnetventil");
-THIS^.itfelSteruj.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
-THIS^.DodajKomponent (itfK		:= elSteruj);
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetPosition0				:= THIS^.IsStart ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -92,7 +308,29 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetTimeLastMove			:= THIS^.tOstatniRuch;
+        <ST><![CDATA[GetTimeLastMove			:= THIS^.tLastMove;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HomingCycle" Id="{6283cc90-057b-46c5-925e-4605b70c2956}">
+      <Declaration><![CDATA[METHOD PROTECTED HomingCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE THIS^.stHoming.iChildHomingStep OF
+0	:
+	THIS^.MoveToStart ();
+	THIS^.stHoming.iChildHomingStep	:= THIS^.stHoming.iChildHomingStep + 10;
+	HomingCycle						:= TRUE;
+10	:
+	IF (THIS^.IsStart ()) THEN
+		THIS^.stHoming.iChildHomingStep	:= GVL_BaseConstans.FINISH_STEP;
+		HomingCycle					:= FALSE;
+	ELSE
+		HomingCycle						:= TRUE;
+	END_IF
+END_CASE
 ]]></ST>
       </Implementation>
     </Method>
@@ -102,7 +340,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IsEnd			:= THIS^.itfczKoniec.CzyZadzialany ();
+        <ST><![CDATA[IsEnd			:= THIS^.itfsenEnd.IsActive ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -112,7 +350,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IsStart			:= THIS^.itfczPoczatek.CzyZadzialany ();
+        <ST><![CDATA[IsStart			:= THIS^.itfsenStart.IsActive ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -127,7 +365,38 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.fbPrzesunDoKonca.Wykonaj (bIn := TRUE);
+        <ST><![CDATA[THIS^.cmdMoveToEnd.Execute ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveToEndCycle" Id="{c04dfd10-0098-4fa7-a182-a547f10a8070}">
+      <Declaration><![CDATA[METHOD PROTECTED MoveToEndCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE THIS^.cmdMoveToEnd.GetStep () OF
+	0	:
+		THIS^.itfevControl.Contol (eAction	:= E_ElectrovalveAction.e_EV_ToEnd);
+		THIS^.tonMoveToEnd.PT		:= REAL_TO_TIME (THIS^.GetValueFrom (stIN := THIS^.stParameters.arrRow [2]));
+		THIS^.tonMoveToEnd.IN		:= TRUE;
+		THIS^.tonMoveToStart.IN		:= FALSE;
+		THIS^.bMoverToStart			:= FALSE;
+		THIS^.bMovedToEnd			:= FALSE;
+		THIS^.cmdMoveToStart.Reset ();
+		THIS^.cmdMoveToEnd.SetStepINC10 ();
+		MoveToEndCycle				:= TRUE;
+	10	:
+		IF (THIS^.itfsenEnd.IsActive ()) THEN
+			THIS^.cmdMoveToEnd.SetStepAsFinal ();
+			THIS^.tonMoveToEnd.IN	:= FALSE;
+			THIS^.bMovedToEnd		:= TRUE;
+			MoveToEndCycle			:= FALSE;
+		ELSE
+			THIS^.tLastMove			:= THIS^.tonMoveToEnd.ET;
+			MoveToEndCycle			:= TRUE;
+		END_IF
+END_CASE
 ]]></ST>
       </Implementation>
     </Method>
@@ -142,7 +411,38 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.fbPrzesunDoPoczatku.Wykonaj (bIn := TRUE);
+        <ST><![CDATA[THIS^.cmdMoveToStart.Execute ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveToStartCycle" Id="{13894ff3-6a7d-42ed-97ee-d79fa86c27a3}">
+      <Declaration><![CDATA[METHOD PROTECTED MoveToStartCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE THIS^.cmdMoveToStart.GetStep () OF
+	0	:
+		THIS^.itfevControl.Contol (eAction	:= E_ElectrovalveAction.e_EV_ToStart);
+		THIS^.tonMoveToStart.PT		:= REAL_TO_TIME (THIS^.GetValueFrom (stIN := THIS^.stParameters.arrRow [1]));
+		THIS^.tonMoveToStart.IN		:= TRUE;
+		THIS^.tonMoveToEnd.IN		:= FALSE;
+		THIS^.cmdMoveToEnd.Reset ();
+		THIS^.bMovedToEnd			:= FALSE;
+		THIS^.bMoverToStart			:= FALSE;
+		MoveToStartCycle			:= TRUE;
+		THIS^.cmdMoveToStart.SetStepINC10 ();
+	10	:
+		IF (THIS^.itfsenStart.IsActive ())THEN
+			THIS^.cmdMoveToStart.SetStepAsFinal ();
+			THIS^.tonMoveToStart.IN	:= FALSE;
+			THIS^.bMoverToStart		:= TRUE;
+			MoveToStartCycle		:= FALSE;
+		ELSE
+			THIS^.tLastMove			:= THIS^.tonMoveToStart.ET;
+			MoveToStartCycle		:= TRUE;
+		END_IF
+END_CASE
 ]]></ST>
       </Implementation>
     </Method>
@@ -152,7 +452,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[MovingToEndBusy			:= THIS^.fbPrzesunDoKonca.zwrocTrwa ();
+        <ST><![CDATA[MovingToEndBusy			:= THIS^.cmdMoveToEnd.GetBusy ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -162,7 +462,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[MovingToEndFirstCycyle			:= THIS^.fbPrzesunDoKonca.PierwszyCykl ();
+        <ST><![CDATA[MovingToEndFirstCycyle			:= THIS^.cmdMoveToEnd.GetFirstCycle ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -172,7 +472,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[MovingToEndStatus			:= THIS^.fbPrzesunDoKonca.zwrocStatus ();
+        <ST><![CDATA[MovingToEndStatus			:= THIS^.cmdMoveToEnd.GetStatus ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -182,7 +482,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[MovingToStartBusy		:= THIS^.fbPrzesunDoPoczatku.zwrocTrwa ();
+        <ST><![CDATA[MovingToStartBusy		:= THIS^.cmdMoveToStart.GetBusy ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -192,7 +492,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[MovingToStartFirstCycle		:= THIS^.fbPrzesunDoPoczatku.PierwszyCykl ();
+        <ST><![CDATA[MovingToStartFirstCycle		:= THIS^.cmdMoveToStart.GetFirstCycle ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -202,360 +502,63 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[MovingToStartStatus		:= THIS^.fbPrzesunDoPoczatku.zwrocStatus ();
+        <ST><![CDATA[MovingToStartStatus		:= THIS^.cmdMoveToStart.GetStatus ();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="NicNieRobi" Id="{17e090c7-9584-42b7-894f-22c2a955048d}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		30.04.2025		TC 4024.66
-	Zwraca czy element jest czymś zajety
-*)
-METHOD PUBLIC NicNieRobi : BOOL
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[NicNieRobi				:= NOT THIS^.fbPrzesunDoKonca.zwrocTrwa () AND NOT THIS^.fbPrzesunDoPoczatku.zwrocTrwa ();
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="ParametrPrzypiszTablice" Id="{e9f9271b-7a16-4333-b85c-26009692ef2b}">
+    <Method Name="ParameterCreateTable" Id="{e9f9271b-7a16-4333-b85c-26009692ef2b}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		31.03.2025		TC 4024.66
 	Metoda wymazująca dotychczasowe dane z tablicy parametrów i przypisująca je od nowa
 *)
-METHOD PUBLIC ParametrPrzypiszTablice : BOOL
+METHOD PROTECTED ParameterCreateTable : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.ParametrPrzypiszTablice ();
+        <ST><![CDATA[SUPER^.ParameterCreateTable ();
 //1
-THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.pl, 	wsTekst := "Czas przesuwania do początku");
-THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.en, 	wsTekst := "Czas przesuwania do początku");
-THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.de, 	wsTekst := "Czas przesuwania do początku");
-THIS^.ustawJednostka (s6IN		:= 'ms');
-THIS^.ustawMAX (rIN			:= 10000);
-THIS^.ustawMIN (rIN			:= 1);
-THIS^.ustawWartosc (rIN		:= 100);
-THIS^.ustawWartoscDomyslna (rIN	:= 100);
-THIS^.ParametrDodaj (stParametr	:= THIS^.Zwroc ());
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Czas przesuwania do początku");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Czas przesuwania do początku");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Czas przesuwania do początku");
+THIS^.SetUnit (sUnit		:= 'ms');
+THIS^.SetMax (rMax			:= 10000);
+THIS^.SetMin (rMin			:= 1);
+THIS^.SetValue (rValue		:= 100);
+THIS^.SetDefaultValue (rDefaultValue := 100);
+THIS^.ParameterAdd (stParameter	:= THIS^.GetDescriptor ());
 //2
-THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.pl, 	wsTekst := "Czas przesuwania do końca");
-THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.en, 	wsTekst := "Czas przesuwania do końca");
-THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.de, 	wsTekst := "Czas przesuwania do końca");
-THIS^.ustawJednostka (s6IN	:= 'ms');
-THIS^.ustawMAX (rIN			:= 10000);
-THIS^.ustawMIN (rIN			:= 1);
-THIS^.ustawWartosc (rIN		:= 100);
-THIS^.ustawWartoscDomyslna (rIN	:= 100);
-THIS^.ParametrDodaj (stParametr	:= THIS^.Zwroc ());
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Czas przesuwania do końca");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Czas przesuwania do końca");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Czas przesuwania do końca");
+THIS^.SetUnit (sUnit		:= 'ms');
+THIS^.SetMax (rMax			:= 10000);
+THIS^.SetMin (rMin			:= 1);
+THIS^.SetValue (rValue		:= 100);
+THIS^.SetDefaultValue (rDefaultValue	:= 100);
+THIS^.ParameterAdd (stParameter	:= THIS^.GetDescriptor ());
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Pozycja0" Id="{bdd391f2-3fc7-4a0f-85be-0c7cf8a9e56e}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		30.04.2025		TC 4024.66
-	Zwraca czy element jest w pozycji 0 - referencyjnej
-*)
-METHOD PUBLIC Pozycja0 : BOOL
-
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[Pozycja0				:= THIS^.IsStart ();
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="PrzesuwanieDoKoncaCykl" Id="{c04dfd10-0098-4fa7-a182-a547f10a8070}">
-      <Declaration><![CDATA[METHOD PROTECTED PrzesuwanieDoKoncaCykl : BOOL
+    <Method Name="ResetOperation" Id="{e025ce67-99eb-475b-b908-18ab6cb65a18}">
+      <Declaration><![CDATA[METHOD PROTECTED ResetOperation : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CASE THIS^.fbPrzesunDoKonca.zwrocKrok () OF
-	0	:
-		THIS^.itfelSteruj.Steruj (eAkcja			:= B_IO.E_ElektrozaworAkcja.e_EL_DoKonca);
-		THIS^.tonCzasPrzesuwaniaDoKonca.PT			:= REAL_TO_TIME (THIS^.zwrocWartoscW (refstDeskryptor := THIS^.stParametry.arrWiersz [2]));
-		THIS^.tonCzasPrzesuwaniaDoKonca.IN			:= TRUE;
-		THIS^.tonCzasPrzesuwaniaDoPoczatku.IN		:= FALSE;
-		THIS^.bPrzesunieteDoPoczatku				:= FALSE;
-		THIS^.bPrzesunieteDoKonca					:= FALSE;
-		THIS^.fbPrzesunDoPoczatku.Resetuj ();
-		THIS^.fbPrzesunDoKonca.ustawKrok_INC_10 ();
-	10	:
-		IF (THIS^.itfczKoniec.CzyZadzialany ()) THEN
-			THIS^.fbPrzesunDoKonca.ustawKrokKoncowy ();
-			THIS^.tonCzasPrzesuwaniaDoKonca.IN		:= FALSE;
-			THIS^.bPrzesunieteDoKonca				:= TRUE;
-		ELSE
-			THIS^.tOstatniRuch						:= THIS^.tonCzasPrzesuwaniaDoKonca.ET;
-		END_IF
-END_CASE
-PrzesuwanieDoKoncaCykl								:= THIS^.fbPrzesunDoKonca.TestOstatniegoKroku ();
+        <ST><![CDATA[super^.ResetOperation ();
+
+THIS^.cmdMoveToStart.Reset ();
+THIS^.cmdMoveToEnd.Reset ();
+THIS^.bMovedToEnd			:= FALSE;
+THIS^.bMoverToStart			:= FALSE;
+THIS^.tonMoveToStart.IN		:= FALSE;
+THIS^.tonMoveToEnd.IN		:= FALSE;
+
+THIS^.itfevControl.Contol (eAction	:= E_ElectrovalveAction.e_EV_Reset);
+
+
+ResetOperation			:= SUPER^.ResetOperation ();
 ]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="PrzesuwanieDoPoczatkuCykl" Id="{13894ff3-6a7d-42ed-97ee-d79fa86c27a3}">
-      <Declaration><![CDATA[METHOD PROTECTED PrzesuwanieDoPoczatkuCykl : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[CASE THIS^.fbPrzesunDoPoczatku.zwrocKrok () OF
-	0	:
-		THIS^.itfelSteruj.Steruj (eAkcja				:= B_IO.E_ElektrozaworAkcja.e_EL_DoPoczatku);
-		THIS^.tonCzasPrzesuwaniaDoPoczatku.PT			:= REAL_TO_TIME (THIS^.zwrocWartoscW (refstDeskryptor := THIS^.stParametry.arrWiersz [1]));
-		THIS^.tonCzasPrzesuwaniaDoPoczatku.IN			:= TRUE;
-		THIS^.tonCzasPrzesuwaniaDoKonca.IN				:= FALSE;
-		THIS^.fbPrzesunDoKonca.Resetuj ();
-		THIS^.bPrzesunieteDoKonca						:= FALSE;
-		THIS^.bPrzesunieteDoPoczatku					:= FALSE;
-		THIS^.fbPrzesunDoPoczatku.ustawKrok_INC_10 ();
-	10	:
-		IF (THIS^.itfczPoczatek.CzyZadzialany ())THEN
-			THIS^.fbPrzesunDoPoczatku.ustawKrokKoncowy ();
-			THIS^.tonCzasPrzesuwaniaDoPoczatku.IN		:= FALSE;
-			THIS^.bPrzesunieteDoPoczatku				:= TRUE;
-		ELSE
-			THIS^.tOstatniRuch							:= THIS^.tonCzasPrzesuwaniaDoPoczatku.ET;
-		END_IF
-END_CASE
-PrzesuwanieDoPoczatkuCykl								:= THIS^.fbPrzesunDoPoczatku.TestOstatniegoKroku ();
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Resetowanie" Id="{e025ce67-99eb-475b-b908-18ab6cb65a18}">
-      <Declaration><![CDATA[METHOD PUBLIC Resetowanie : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.fbPrzesunDoPoczatku.Resetuj ();
-THIS^.fbPrzesunDoKonca.Resetuj ();
-THIS^.bPrzesunieteDoKonca				:= FALSE;
-THIS^.bPrzesunieteDoPoczatku			:= FALSE;
-THIS^.tonCzasPrzesuwaniaDoPoczatku.IN	:= FALSE;
-THIS^.tonCzasPrzesuwaniaDoKonca.IN		:= FALSE;
-
-THIS^.itfelSteruj.Steruj (eAkcja		:= B_IO.E_ElektrozaworAkcja.e_EL_Reset);
-
-
-Resetowanie			:= SUPER^.Resetowanie ();
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="WykonywaneCoCykl_ObslugaBledow" Id="{3974f683-e00f-4859-b647-dfa0d257e33c}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		27.03.2025		TC 4024.66
-	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
-*)
-METHOD PUBLIC WykonywaneCoCykl_ObslugaBledow
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[SUPER^.WykonywaneCoCykl_ObslugaBledow ();
-//1 - 2 to zgłoszenia rodzica
-
-(*	Alarm zbyt długi czas przesuwania	*)
-	IF (THIS^.tonCzasPrzesuwaniaDoPoczatku.Q AND NOT THIS^.itfczPoczatek.CzyZadzialany ()) THEN
-		THIS^.ZgloszenieWlaczStan (iNumer := 3);
-	END_IF
-	IF (THIS^.ZgloszenieZwrocStan (iNumer := 3) AND THIS^.itfczPoczatek.CzyZadzialany ()) THEN
-		THIS^.ZgloszenieWylaczStan (iNumer := 3);
-	END_IF
-	
-	IF (THIS^.tonCzasPrzesuwaniaDoKonca.Q AND NOT THIS^.itfczKoniec.CzyZadzialany ()) THEN
-		THIS^.ZgloszenieWlaczStan (iNumer := 4);
-	END_IF
-	IF (THIS^.ZgloszenieZwrocStan (iNumer := 4) AND THIS^.itfczKoniec.CzyZadzialany ()) THEN
-		THIS^.ZgloszenieWylaczStan (iNumer := 4);
-	END_IF
-(*	Alarmy utraty pozycji	*)
-	IF (THIS^.bPrzesunieteDoPoczatku AND NOT THIS^.itfczPoczatek.CzyZadzialany () AND THIS^.MovingToEndStatus ()) THEN
-		THIS^.ZgloszenieWlaczStan (iNumer := 5);
-	END_IF
-	IF (THIS^.ZgloszenieZwrocStan (iNumer := 5) AND THIS^.bPrzesunieteDoPoczatku AND THIS^.itfczPoczatek.CzyZadzialany ()) THEN
-		THIS^.ZgloszenieWylaczStan (iNumer := 5);
-	END_IF
-	IF (THIS^.bPrzesunieteDoKonca AND NOT THIS^.itfczKoniec.CzyZadzialany () AND THIS^.MovingToStartStatus ()) THEN
-		THIS^.ZgloszenieWlaczStan (iNumer := 6);
-	END_IF
-	IF (THIS^.ZgloszenieZwrocStan (iNumer := 6) AND THIS^.bPrzesunieteDoKonca AND THIS^.itfczKoniec.CzyZadzialany ()) THEN
-		THIS^.ZgloszenieWylaczStan (iNumer := 6);
-	END_IF
-(*	Blad zamiany czujnikow	*)
-	IF ((THIS^.fbPrzesunDoPoczatku.zwrocTrwa () AND THIS^.itfczKoniec.CzyZadzialany ()) OR
-		(THIS^.fbPrzesunDoKonca.zwrocTrwa () AND THIS^.itfczPoczatek.CzyZadzialany ())) THEN
-		THIS^.ZgloszenieWlaczStan (iNumer := 7);
-	END_IF
-	//wylaczenie bledu tylko z HMI
-//	IF (THIS^.ZgloszenieZwrocStan (iNumer := 7) AND NOT THIS^.fbPrzesunDoPoczatku.zwrocTrwa () AND NOT THIS^.fbPrzesunDoKonca.zwrocTrwa ()) THEN
-//		THIS^.ZgloszenieWylaczStan (iNumer := 7);
-//	END_IF
-(*	Błed zadziałania dwóch czujników	*)
-	IF (THIS^.itfczPoczatek.CzyZadzialany () AND THIS^.itfczKoniec.CzyZadzialany ()) THEN
-		THIS^.ZgloszenieWlaczStan (iNumer := 8);
-	END_IF
-	//wylaczenie bledu tylko z HMI
-//	IF (THIS^.ZgloszenieZwrocStan (iNumer := 8) AND NOT THIS^.itfczPoczatek.CzyZadzialany () AND NOT THIS^.itfczKoniec.CzyZadzialany ()) THEN
-//		THIS^.ZgloszenieWylaczStan (iNumer := 8);
-//	END_IF
-	]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="WykonywaneCoCykl_Operacje" Id="{d33b1024-6809-4879-a98c-616b1355e899}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		27.03.2025		TC 4024.66
-	Wywolanie co cykl operacji 
-*)
-METHOD PUBLIC WykonywaneCoCykl_Operacje
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[SUPER^.WykonywaneCoCykl_Operacje ();
-
-THIS^.tonCzasPrzesuwaniaDoPoczatku ();
-THIS^.tonCzasPrzesuwaniaDoKonca ();
-
-
-IF (THIS^.fbPrzesunDoPoczatku.OperacjeWykonaj ()) THEN
-	THIS^.fbPrzesunDoPoczatku.Operacje (bIN		:= THIS^.PrzesuwanieDoPoczatkuCykl ());
-END_IF
-IF (THIS^.fbPrzesunDoKonca.OperacjeWykonaj ()) THEN
-	THIS^.fbPrzesunDoKonca.Operacje	(bIN		:= THIS^.PrzesuwanieDoKoncaCykl ());
-END_IF
-
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="WykonywaneCoCykl_Rozkaz_BrakZasilania" Id="{554601b7-96a5-4884-860b-3f6e68512077}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		09.05.2025		TC 4024.66
-	Wyłączenie polecenia ze względu na brak włacznonego zasilania
-*)
-METHOD PROTECTED WykonywaneCoCykl_Rozkaz_BrakZasilania
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[SUPER^.WykonywaneCoCykl_Rozkaz_BrakZasilania ();
-
-THIS^.fbPrzesunDoPoczatku.Wykonaj (bIN 	:= FALSE);
-THIS^.fbPrzesunDoKonca.Wykonaj (bIN 	:= FALSE);
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="WykonywaneCoCykl_Rozkaz_Zasilanie" Id="{c3348a7c-344c-4c4e-8fc2-48211375c9f7}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		09.05.2025		TC 4024.66
-	test polecenia gdy jest potrzebne zasilanie do jego realizacji
-*)
-METHOD PROTECTED WykonywaneCoCykl_Rozkaz_Zasilanie
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[SUPER^.WykonywaneCoCykl_Rozkaz_Zasilanie ();
-
-THIS^.fbPrzesunDoPoczatku.Test ();
-THIS^.fbPrzesunDoKonca.Test ();
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="WykonywaneCoCykl_Status" Id="{9d5d2b34-b9b1-491e-9c50-507051bcf3a2}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		27.03.2025		TC 4024.66
-	Aktualizacja flag 
-*)
-METHOD PUBLIC WykonywaneCoCykl_Status
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[SUPER^.WykonywaneCoCykl_Status ();
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="ZgloszeniaDefinicja" Id="{8eec4842-b47f-41d1-bb1f-041dd2faa1fd}">
-      <Declaration><![CDATA[//{attribute 'call_after_init'}
-(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		04.04.2025		TC 4024.66
-	Metodaw wywoływana w pierwszym cyklu programu dodająca do tablicy zgłoszeń definicje zgłoszeń
-*)
-METHOD PUBLIC ZgloszeniaDefinicja
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[SUPER^.ZgloszeniaDefinicja ();
-//offset 2
-(*	1 + offset - Zbyt długi czas przesuwania do początku	*)
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.pl,	wsTekst := "Zbyt długi czas przesuwania do początku");
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.en,	wsTekst := "Too long to move to the beginning");
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.de,	wsTekst := "Zu lang, um zum Anfang zu gelangen");
-	THIS^.ZgloszenieDodaj (
-		bIgnorujPowtorzenia		:= FALSE,
-		eRodzajZdarzenia		:= B_Baza.E_Zgloszenia_Rodzaj.WIADOMOSC,
-		bWymagaZatwierdzenia	:= FALSE,
-		stOpis					:= THIS^.ZwrocEtykiete ()
-	);
-(*	2 + offset - Zbyt długi czas przesuwania do końca	*)
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.pl,	wsTekst := "Zbyt długi czas przesuwania do końca");
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.en,	wsTekst := "It takes too long to move to the end");
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.de,	wsTekst := "Zu lang, um zum Ende zu gelangen");
-	THIS^.ZgloszenieDodaj (
-		bIgnorujPowtorzenia		:= FALSE,
-		eRodzajZdarzenia		:= B_Baza.E_Zgloszenia_Rodzaj.WIADOMOSC,
-		bWymagaZatwierdzenia	:= FALSE,
-		stOpis					:= THIS^.ZwrocEtykiete ()
-	);
-(*	3 + offset - Utrata pozycji początkowej	*)
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.pl,	wsTekst := "Utrata pozycji początkowej");
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.en,	wsTekst := "Losing the starting position");
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.de,	wsTekst := "Verlust der Ausgangsposition");
-	THIS^.ZgloszenieDodaj (
-		bIgnorujPowtorzenia		:= FALSE,
-		eRodzajZdarzenia		:= B_Baza.E_Zgloszenia_Rodzaj.WIADOMOSC,
-		bWymagaZatwierdzenia	:= FALSE,
-		stOpis					:= THIS^.ZwrocEtykiete ()
-	);
-(*	4 + offset - Utrata pozycji końcowej		*)
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.pl,	wsTekst := "Utrata pozycji końcowej");
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.en,	wsTekst := "Losing final position");
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.de,	wsTekst := "Verlust der Endposition");
-	THIS^.ZgloszenieDodaj (
-		bIgnorujPowtorzenia		:= FALSE,
-		eRodzajZdarzenia		:= B_Baza.E_Zgloszenia_Rodzaj.WIADOMOSC,
-		bWymagaZatwierdzenia	:= FALSE,
-		stOpis					:= THIS^.ZwrocEtykiete ()
-	);
-(*	5 + offset - Zamieniona pozycja czujników	*)
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.pl,	wsTekst := "Zamieniona pozycja czujników");
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.en,	wsTekst := "Sensor position swapped");
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.de,	wsTekst := "Sensorposition vertauscht");
-	THIS^.ZgloszenieDodaj (
-		bIgnorujPowtorzenia		:= FALSE,
-		eRodzajZdarzenia		:= B_Baza.E_Zgloszenia_Rodzaj.BLAD,
-		bWymagaZatwierdzenia	:= TRUE,
-		stOpis					:= THIS^.ZwrocEtykiete ()
-	);
-(*	6 + offset - Blad zadziałania dwóch czujników	*)
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.pl,	wsTekst := "Błąd zadziałania dwóch czujników");
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.en,	wsTekst := "Two sensor activation error");
-	THIS^.PrzypiszTekst (eJezyk := B_Baza.E_Jezyki.de,	wsTekst := "Aktivierungsfehler bei zwei Sensoren");
-	THIS^.ZgloszenieDodaj (
-		bIgnorujPowtorzenia		:= FALSE,
-		eRodzajZdarzenia		:= B_Baza.E_Zgloszenia_Rodzaj.BLAD,
-		bWymagaZatwierdzenia	:= TRUE,
-		stOpis					:= THIS^.ZwrocEtykiete ()
-	);
-	]]></ST>
       </Implementation>
     </Method>
   </POU>

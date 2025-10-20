@@ -8,9 +8,9 @@ VAR
     evActuator				: FB_Electrovalve_5on2_1Coil;
 
 	fbActuator				: FB_Actuator (
-								czPoczatek	:= senStart,
-	                            czKoniec	:= senEnd,
-	                            elSteruj	:= evActuator
+								senStart	:= senStart,
+	                            senEnd		:= senEnd,
+	                            evControl	:= evActuator
 							);	
 END_VAR
 ]]></Declaration>
