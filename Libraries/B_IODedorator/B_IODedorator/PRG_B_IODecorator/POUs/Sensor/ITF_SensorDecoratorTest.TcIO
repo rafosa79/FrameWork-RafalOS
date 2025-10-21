@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SensorDecoratorTest" Id="{a0f2d16b-b657-44ae-a8cc-b4101f3dfa25}">
+    <Declaration><![CDATA[INTERFACE ITF_SensorDecoratorTest EXTENDS ITF_Sensor
+]]></Declaration>
+    <Method Name="SetContract" Id="{8f48095d-bf4c-4e86-8462-502e949f6b96}">
+      <Declaration><![CDATA[METHOD SetContract
+VAR_INPUT
+	bIN: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

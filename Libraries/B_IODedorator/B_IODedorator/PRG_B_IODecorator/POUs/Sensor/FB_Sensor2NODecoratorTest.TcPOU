@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Sensor2NODecoratorTest" Id="{b6fc94cc-8edf-4c59-ba2e-b635d54a6a05}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Sensor2NODecoratorTest EXTENDS FB_SensorDecoratorTestParent IMPLEMENTS ITF_Sensor2NODecoratorTest
+VAR
+	bContact2Test			: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="IsActive" Id="{dc3a6181-5590-49f7-ba67-843aca16ce19}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca aktualny stan czujnika
+*)
+METHOD IsActive : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsActive			:= THIS^.bContactTest AND THIS^.bContact2Test;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetContract2" Id="{84549dab-3535-4e89-a4be-6b43738e7357}">
+      <Declaration><![CDATA[METHOD SetContract2
+VAR_INPUT
+	bIN: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bContact2Test		:= bIN;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

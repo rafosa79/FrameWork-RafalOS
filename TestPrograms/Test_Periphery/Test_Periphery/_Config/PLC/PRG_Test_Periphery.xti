@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66" ClassName="CNestedPlcProjDef">
 	<Project GUID="{19048094-A2A0-43B8-A578-C26E5B7E78D9}" Name="PRG_Test_Periphery" PrjFilePath="..\..\PRG_Test_Periphery\PRG_Test_Periphery.plcproj" TmcFilePath="..\..\PRG_Test_Periphery\PRG_Test_Periphery.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_Test_IO\PRG_Test_IO.tmc" TmcHash="{33CEA285-BE10-1582-BE63-AA550F9A5241}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_Test_Periphery\PRG_Test_Periphery.tmc" TmcHash="{2B6F1741-C406-5B3C-CD08-6E91B4146273}">
 			<Name>PRG_Test_Periphery Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -34,6 +34,16 @@
 				<Var>
 					<Name>GVL_Variable.fbButton_NO.bContact</Name>
 					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Actuator.senActuatorStart.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Actuator.senActuatorEnd.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>
@@ -90,6 +100,14 @@
 				<Var>
 					<Name>GVL_Variable.fbLampBlinking.bOut</Name>
 					<Comment><![CDATA[ Lampka]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Actuator.evActuator.bCoilA</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Actuator.evActuator.bCoilB</Name>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>

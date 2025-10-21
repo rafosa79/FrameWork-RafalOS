@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_Compilation" Id="{e94fb305-5268-4bb3-b1bb-37a93414a749}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_Compilation
+VAR
+	senActuator1Start			: FB_Sensor_NO;
+	senActuator1End				: FB_Sensor_NO;
+	evActuator1Control			: FB_Electrovalve_5on3_2Coil_Vented;
+	fbActuator1					: FB_Actuator (
+									senStart		:= senActuator1Start,
+									senEnd			:= senActuator1End,
+									evControl		:= evActuator1Control
+								);
+								
+	senActuator1StartDecoratorTest	: FB_SensorNODecoratorTest (fbToDecorate := senActuator1Start);
+	senActuator1EndDecoratorTest	: FB_SensorNODecoratorTest (fbToDecorate := senActuator1End);
+	
+	fbActuator1DecoratorTest	: FB_ActuatorDecoratorTest (
+									fbToDecorate 	:= fbActuator1,
+									actActuator		:= fbActuator1,
+									senStart		:= senActuator1StartDecoratorTest,
+									senEnd		:= senActuator1EndDecoratorTest
+								);
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

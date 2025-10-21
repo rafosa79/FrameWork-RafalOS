@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66" ClassName="CNestedPlcProjDef">
+	<Project GUID="{2FD3BAC0-9A96-49BD-BE88-815034DA1FBC}" Name="PRG_B_IODecorator" PrjFilePath="..\..\PRG_B_IODecorator\PRG_B_IODecorator.plcproj" TmcFilePath="..\..\PRG_B_IODecorator\PRG_B_IODecorator.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{77E64C70-0742-1098-5F15-9B300CA79F3D}">
+			<Name>PRG_B_IODecorator Instance</Name>
+			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+			<Vars VarGrpType="1">
+				<Name>PlcTask Inputs</Name>
+				<Var>
+					<Name>PRG_Compilation.senNO.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Compilation.senNC.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Compilation.sen2NO.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>PRG_Compilation.sen2NO.bContact2</Name>
+					<Comment><![CDATA[fizyczne wejście z czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+			</Vars>
+			<Contexts>
+				<Context>
+					<Id>0</Id>
+					<Name>PlcTask</Name>
+					<ManualConfig>
+						<OTCID>#x02010030</OTCID>
+					</ManualConfig>
+					<Priority>20</Priority>
+					<CycleTime>10000000</CycleTime>
+				</Context>
+			</Contexts>
+			<TaskPouOids>
+				<TaskPouOid Prio="20" OTCID="#x08502001"/>
+			</TaskPouOids>
+		</Instance>
+	</Project>
+</TcSmItem>

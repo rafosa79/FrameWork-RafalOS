@@ -3,59 +3,103 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{19048094-a2a0-43b8-a578-c26e5b7e78d9}</ProjectGuid>
+    <ProjectGuid>{811eb7cf-aa08-4064-bbc8-1d31df30f43b}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>PRG_Test_Periphery</Name>
+    <Name>PRG_B_ActuatorDecorator</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
-    <Application>{1d3998eb-bb09-4102-93ae-ba554c09e0fb}</Application>
-    <TypeSystem>{726df060-40d6-4306-a95e-ace4ba86f16c}</TypeSystem>
-    <Implicit_Task_Info>{8e2b2cb4-301d-4fc2-9b94-77887c04c807}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{de5e94ff-8e44-431b-a9a3-10aefa2111c7}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{8762f0c8-e6ca-42c1-8e31-19196474631b}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{9507e6c3-25af-4a9e-a5d6-bbafe5aa8da5}</LibraryReferences>
+    <Application>{4174b081-829d-44fb-ba36-57b0dc1bd44f}</Application>
+    <TypeSystem>{d8eb96c3-4ca6-4edb-a8b3-7b34c83ff610}</TypeSystem>
+    <Implicit_Task_Info>{5d823425-745e-43f0-9dad-bd1135a3eba4}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{656b23cd-6db2-4cf8-ac2e-ed6eb462f790}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{cee64e57-fd1a-4a31-8d57-b27bae34526c}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{92f79cfe-ee6c-4f79-9280-92fa3362ec9b}</LibraryReferences>
     <Company>RafalOS</Company>
     <Released>false</Released>
-    <Title />
+    <Title>B_ActuatorDecorator</Title>
+    <ProjectVersion>0.0.0.2</ProjectVersion>
+    <LibraryCategories>
+      <LibraryCategory xmlns="">
+        <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
+        <Version>1.0.0.0</Version>
+        <DefaultName>RafalOS</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
+        </ParentCategory>
+        <DefaultName>Biblioteki i ich elementy</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{b9904a12-953a-4ef3-ac35-10e52398b2c1}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        </ParentCategory>
+        <DefaultName>Biblioteki</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{d7993a17-e2cc-40b8-abc3-8f6a6054b793}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        </ParentCategory>
+        <DefaultName>Biblioteki HMI</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{965bfd45-94a6-4019-b3e4-d0869ce533c6}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        </ParentCategory>
+        <DefaultName>Dekoratory do elementow z bibliotek</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{501eed1d-c165-4994-a262-657bb34e1119}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
+        </ParentCategory>
+        <DefaultName>Biblioteki PLCHMI</DefaultName>
+      </LibraryCategory>
+      <LibraryCategory xmlns="">
+        <Id>{4b941d07-e34c-48f7-83cf-ea402c5a73e5}</Id>
+        <Version>1.0.0.0</Version>
+        <ParentCategory>
+          <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
+        </ParentCategory>
+        <DefaultName>Smarownica</DefaultName>
+      </LibraryCategory>
+    </LibraryCategories>
+    <SelectedLibraryCategories>
+      <Id xmlns="">{965bfd45-94a6-4019-b3e4-d0869ce533c6}</Id>
+    </SelectedLibraryCategories>
+    <DefaultNamespace>B_ActuatorDecorator</DefaultNamespace>
+    <Author>Rafał Osajda</Author>
     <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GVLs\GVL_Actuator.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
-    <Compile Include="GVLs\GVL_Variable.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_ActuatorTest.TcPOU">
+    <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_ButtonTest.TcPOU">
+    <Compile Include="POUs\FB_ActuatorDecoratorTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_ElectroValveTest.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_LampBlinkingTest.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_SensorTest.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TESTs\PRG_Test.TcPOU">
+    <Compile Include="POUs\ITF_ActuatorDecoratorTest.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
-    <Folder Include="TESTs" />
+    <Folder Include="POUs Compilation" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -66,14 +110,18 @@
     </PlaceholderReference>
     <PlaceholderReference Include="B_Base">
       <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
+      <Namespace>B_Base</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_BaseDecorate">
+      <DefaultResolution>B_BaseDecorate, * (RafalOS)</DefaultResolution>
+      <Namespace>B_BaseDecorate</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="B_IO">
       <DefaultResolution>B_IO, * (RafalOS)</DefaultResolution>
-      <Namespace>B_IO</Namespace>
     </PlaceholderReference>
-    <PlaceholderReference Include="Tc2_DataExchange">
-      <DefaultResolution>Tc2_DataExchange, * (Beckhoff Automation GmbH)</DefaultResolution>
-      <Namespace>Tc2_DataExchange</Namespace>
+    <PlaceholderReference Include="B_IODecorator">
+      <DefaultResolution>B_IODecorator, * (RafalOS)</DefaultResolution>
+      <Namespace>B_IODecorator</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -87,13 +135,9 @@
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
-    <PlaceholderReference Include="TcUnit">
-      <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
-      <Namespace>TcUnit</Namespace>
-    </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="PRG_Test_Periphery.tmc">
+    <None Include="PRG_B_ActuatorDecorator.tmc">
       <SubType>Content</SubType>
     </None>
   </ItemGroup>

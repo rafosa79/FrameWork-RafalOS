@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_Compilation" Id="{fee939fc-f789-4718-9ef1-7cf0d54cde09}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_Compilation
+VAR
+	senNO				: FB_Sensor_NO;
+	senNO_DecoratorTest	: FB_SensorNODecoratorTest (fbToDecorate := senNO);
+	senNC				: FB_Sensor_NC;
+	senNC_DecoratorTest	: FB_SensorNCDecoratorTest (fbToDecorate := senNC);
+	sen2NO				: FB_Sensor_NO_2InRow;
+	sen2NO_DecoratorTest: FB_Sensor2NODecoratorTest (fbToDecorate := sen2NO);
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
