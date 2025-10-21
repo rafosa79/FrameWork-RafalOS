@@ -6,6 +6,12 @@ VAR
 	itfactActuator		: ITF_Actuator;
 	itfsenStart			: ITF_SensorDecoratorTest;
 	itfsenEnd			: ITF_SensorDecoratorTest;
+
+	itfczStart			: ITF_SensorDecoratorTest;		//przypisanie czujnika z pozycji startowej w czasie przesuwania w testach
+	itfczStop			: ITF_SensorDecoratorTest;		//przypisanie czujnika z pozycji końcowej w czasie przesuwania w testach
+
+	iStepTestCycle		: INT := 0;
+
 	
 END_VAR
 ]]></Declaration>

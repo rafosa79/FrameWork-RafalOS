@@ -77,6 +77,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="ParameterGetValue" Id="{9424063b-795d-0b64-3fc5-8cce9ff5d1eb}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		26.03.2025		TC 4024.66
+	Zwraca wartość
+*)
+METHOD PUBLIC ParameterGetValue : REAL
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="Reset" Id="{77eb7b91-893b-0d84-16a4-ac22c2bb7b56}">
       <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL
 VAR_INPUT

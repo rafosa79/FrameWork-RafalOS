@@ -21,6 +21,20 @@ VAR
 									senStart		:= senActuator1StartDecoratorTest,
 									senEnd		:= senActuator1EndDecoratorTest
 								);
+
+	fbActuator1DecoratorTestWithoutTime	: FB_ActuatorDecoratorTestWithoutTime (
+									fbToDecorate 	:= fbActuator1,
+									actActuator		:= fbActuator1,
+									senStart		:= senActuator1StartDecoratorTest,
+									senEnd		:= senActuator1EndDecoratorTest
+								);
+
+	fbActuator1DecoratorTestWithTime	: FB_ActuatorDecoratorTestWithTime (
+									fbToDecorate 	:= fbActuator1,
+									actActuator		:= fbActuator1,
+									senStart		:= senActuator1StartDecoratorTest,
+									senEnd		:= senActuator1EndDecoratorTest
+								);
 	
 END_VAR
 ]]></Declaration>

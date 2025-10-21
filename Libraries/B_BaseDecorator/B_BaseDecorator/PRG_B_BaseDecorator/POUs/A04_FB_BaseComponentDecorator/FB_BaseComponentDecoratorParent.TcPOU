@@ -12,6 +12,7 @@ END_VAR
     <Folder Name="Events" Id="{61b99237-deab-0b88-18c6-995315277a8b}" />
     <Folder Name="ID" Id="{189b323c-796a-0c74-0827-41ec3a476afb}" />
     <Folder Name="ITF_BaseComponent" Id="{c1425345-0a97-4881-9b46-35bd773e4177}" />
+    <Folder Name="Parametry" Id="{9294b127-4c7a-00ff-2f0d-80c6b640f3bc}" />
     <Method Name="EventsDefinition" Id="{12afe6f5-826a-0214-3669-0714e3eb7eb6}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -196,6 +197,22 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[LinkCommonData			:= THIS^.itfComponent.LinkCommonData (stCommonData := stCommonData);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ParameterGetValue" Id="{503f6ab1-3218-004c-06d7-c2e8d2bce609}" FolderPath="Parametry\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		26.03.2025		TC 4024.66
+	Zwraca wartość
+*)
+METHOD PUBLIC ParameterGetValue : REAL
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ParameterGetValue			:= THIS^.itfComponent.ParameterGetValue (uiNumber := uiNumber);
 ]]></ST>
       </Implementation>
     </Method>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ActuatorDecoratorTestWithoutTime" Id="{d6f6e8b8-31a0-0da4-0040-d419cd3616d4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ActuatorDecoratorTestWithoutTime EXTENDS FB_ActuatorDecoratorTest
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ExecuteEveryCycle_Operation" Id="{a0022e83-1441-0473-29eb-3c64758fe0e7}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Wywolanie co cykl operacji 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Operation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//testować czy jest cykl przesuwania do gdzieś i po czasie uruchamiać lub wyłączać czujniki 
+THIS^.itfactActuator.ExecuteEveryCycle_Operation ();
+
+IF (THIS^.itfactActuator.MovingToStartFirstCycle ()) THEN
+	THIS^.itfczStart		:= THIS^.itfsenEnd;
+	THIS^.itfczStop			:= THIS^.itfsenStart;
+	THIS^.iStepTestCycle	:= 10;
+END_IF
+
+IF (THIS^.itfactActuator.MovingToEndFirstCycyle ()) THEN
+	THIS^.itfczStart		:= THIS^.itfsenStart;
+	THIS^.itfczStop			:= THIS^.itfsenEnd;
+	THIS^.iStepTestCycle	:= 10;
+END_IF
+
+CASE THIS^.iStepTestCycle OF
+10	: THIS^.iStepTestCycle	:= THIS^.iStepTestCycle + 10;	//pierwszy cykl
+20	: THIS^.iStepTestCycle	:= THIS^.iStepTestCycle + 10;
+30	: 
+	THIS^.itfczStart.SetContract (bIN := FALSE); 
+	THIS^.iStepTestCycle	:= THIS^.iStepTestCycle + 10;
+40	: 
+	THIS^.itfczStop.SetContract (bIN := TRUE);
+	THIS^.iStepTestCycle	:= 0;
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
