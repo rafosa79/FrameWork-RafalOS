@@ -15,15 +15,16 @@ VAR_GLOBAL
 	senActuator1Start		: FB_Sensor_NO;
 	senActuator1End			: FB_Sensor_NO;
 	evActuator1				: FB_Electrovalve_5on2_1Coil;
+
+	senActuator1Start_TestCecorator		: FB_Sensor_NO_TestDecorator (fbToDecorate := senActuator1Start);
+	senActuator1End_TestDecorator		: FB_Sensor_NO_TestDecorator (fbToDecorate := senActuator1End);
 	
 	actActuator1			: FB_Actuator (
-								senStart	:= senActuator1Start,
-								senEnd		:= senActuator1End,
+								senStart	:= senActuator1Start_TestCecorator,
+								senEnd		:= senActuator1End_TestDecorator,
 								evControl	:= evActuator1
 							);
 	
-	senActuator1Start_TestCecorator		: FB_Sensor_NO_TestDecorator (fbToDecorate := senActuator1Start);
-	senActuator1End_TestDecorator		: FB_Sensor_NO_TestDecorator (fbToDecorate := senActuator1End);
 	actActuator1_TestWithoutTimeDecorator	: FB_Actuator_TestWithoutTimeDecorator (
 											fbToDecorate	:= actActuator1,
 											actActuator		:= actActuator1,
