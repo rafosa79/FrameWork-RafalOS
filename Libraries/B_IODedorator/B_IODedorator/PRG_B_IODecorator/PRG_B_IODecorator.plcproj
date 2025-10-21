@@ -77,7 +77,7 @@
     <Released>false</Released>
     <Company>RafalOS</Company>
     <Title>B_IODecorator</Title>
-    <ProjectVersion>0.0.0.1</ProjectVersion>
+    <ProjectVersion>0.0.0.3</ProjectVersion>
     <DefaultNamespace>B_IODecorator</DefaultNamespace>
     <Author>Rafał Osajda</Author>
     <CombineIds>true</CombineIds>
@@ -89,22 +89,22 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\FB_SensorDecoratorTestParent.TcPOU">
+    <Compile Include="POUs\Sensor\FB_Sensor_TestParentDecorator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\FB_SensorNODecoratorTest.TcPOU">
+    <Compile Include="POUs\Sensor\FB_Sensor_NO_TestDecorator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\FB_SensorNCDecoratorTest.TcPOU">
+    <Compile Include="POUs\Sensor\FB_Sensor_NC_TestDecorator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\FB_Sensor2NODecoratorTest.TcPOU">
+    <Compile Include="POUs\Sensor\FB_Sensor_NO_2InRow_TestDecorator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\ITF_SensorDecoratorTest.TcIO">
+    <Compile Include="POUs\Sensor\ITF_Sensor_TestDecorator.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\ITF_Sensor2NODecoratorTest.TcIO">
+    <Compile Include="POUs\Sensor\ITF_Sensor_NO_2InRow_TestDecorator.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

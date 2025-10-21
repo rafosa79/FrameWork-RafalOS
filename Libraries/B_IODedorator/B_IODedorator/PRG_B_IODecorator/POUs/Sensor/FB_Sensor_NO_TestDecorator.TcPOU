@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_SensorNODecoratorTest" Id="{2db5dc4b-91ae-401b-8c31-39e5d116893b}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_SensorNODecoratorTest EXTENDS FB_SensorDecoratorTestParent 
+  <POU Name="FB_Sensor_NO_TestDecorator" Id="{2db5dc4b-91ae-401b-8c31-39e5d116893b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Sensor_NO_TestDecorator EXTENDS FB_Sensor_TestParentDecorator 
 VAR
 	
 END_VAR

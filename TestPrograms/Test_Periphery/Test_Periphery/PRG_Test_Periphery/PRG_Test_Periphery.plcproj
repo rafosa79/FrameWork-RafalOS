@@ -26,6 +26,10 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="GVLs\GVL_Decorators.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\GVL_Variable.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -43,6 +47,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_LampBlinkingTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_SensorDecoratorTestTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_SensorTest.TcPOU">
@@ -66,10 +73,14 @@
     </PlaceholderReference>
     <PlaceholderReference Include="B_Base">
       <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
+      <Namespace>B_Base</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="B_IO">
       <DefaultResolution>B_IO, * (RafalOS)</DefaultResolution>
       <Namespace>B_IO</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_IODecorator">
+      <DefaultResolution>B_IODecorator, * (RafalOS)</DefaultResolution>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_DataExchange">
       <DefaultResolution>Tc2_DataExchange, * (Beckhoff Automation GmbH)</DefaultResolution>

@@ -4,11 +4,11 @@
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
 	senNO				: FB_Sensor_NO;
-	senNO_DecoratorTest	: FB_SensorNODecoratorTest (fbToDecorate := senNO);
+	senNO_DecoratorTest	: FB_Sensor_NO_TestDecorator (fbToDecorate := senNO);
 	senNC				: FB_Sensor_NC;
-	senNC_DecoratorTest	: FB_SensorNCDecoratorTest (fbToDecorate := senNC);
+	senNC_DecoratorTest	: FB_Sensor_NC_TestDecorator (fbToDecorate := senNC);
 	sen2NO				: FB_Sensor_NO_2InRow;
-	sen2NO_DecoratorTest: FB_Sensor2NODecoratorTest (fbToDecorate := sen2NO);
+	sen2NO_DecoratorTest: FB_Sensor_NO_2InRow_TestDecorator (fbToDecorate := sen2NO);
 	
 END_VAR
 ]]></Declaration>

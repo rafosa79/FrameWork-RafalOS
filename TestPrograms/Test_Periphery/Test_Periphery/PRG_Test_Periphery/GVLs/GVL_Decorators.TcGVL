@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="GVL_Decorators" Id="{93801117-c7f4-0fb3-1aa6-e6d5619250c7}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	senNO				: FB_Sensor_NO;
+	senNC				: FB_Sensor_NC;
+	senNO_2inRow		: FB_Sensor_NO_2InRow;
+	
+	senNO_TestDecorator			: FB_Sensor_NO_TestDecorator (fbToDecorate := senNO);
+	senNC_TestDecorator			: FB_Sensor_NC_TestDecorator (fbToDecorate := senNC);
+	senNO_2inRow_TestDecorator	: FB_Sensor_NO_2InRow_TestDecorator (fbToDecorate := senNO_2inRow);
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

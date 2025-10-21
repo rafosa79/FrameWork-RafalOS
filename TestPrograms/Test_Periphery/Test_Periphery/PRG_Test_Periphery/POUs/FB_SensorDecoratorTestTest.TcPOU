@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SensorDecoratorTestTest" Id="{8ecf9e6d-2740-0014-03d8-90ddbec84024}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SensorDecoratorTestTest EXTENDS TcUnit.FB_TestSuite
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+T01_TestCzujnikNC ();
+T02_TestCzujnikNO ();
+T03_TestCzujnikNO_Szereg ();
+]]></ST>
+    </Implementation>
+    <Method Name="T01_TestCzujnikNC" Id="{11cf3c6d-d702-016c-1c6b-e96219a43484}">
+      <Declaration><![CDATA[METHOD PROTECTED T01_TestCzujnikNC
+VAR_INST
+	iKrok		: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestCzujnikNC')) THEN
+	GVL_Decorators.senNC_TestDecorator.SetContact (bIN := TRUE);
+	AssertFalse (Condition := GVL_Decorators.senNC_TestDecorator.IsActive (), Message := 'T11 - bledny stan');
+	GVL_Decorators.senNC_TestDecorator.SetContact (bIN := FALSE);
+	AssertTrue (Condition := GVL_Decorators.senNC_TestDecorator.IsActive (), Message := 'T12 - bledny stan');
+	GVL_Decorators.senNC_TestDecorator.SetContact (bIN := TRUE);
+	AssertFalse (Condition := GVL_Decorators.senNC_TestDecorator.IsActive (), Message := 'T13 - bledny stan');
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T02_TestCzujnikNO" Id="{3dcf2724-61e1-03c3-119d-60feeac8d8d6}">
+      <Declaration><![CDATA[METHOD PROTECTED T02_TestCzujnikNO
+VAR_INST
+	iKrok		: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestCzujnikNO')) THEN
+	GVL_Decorators.senNO_TestDecorator.SetContact (bIN := FALSE);
+	AssertFalse (Condition := GVL_Decorators.senNo_TestDecorator.IsActive (), Message := 'T11 - bledny stan');
+	GVL_Decorators.senNO_TestDecorator.SetContact (bIN := TRUE);
+	AssertTrue (Condition := GVL_Decorators.senNO_TestDecorator.IsActive (), Message := 'T12 - bledny stan');
+	GVL_Decorators.senNO_TestDecorator.SetContact (bIN := FALSE);
+	AssertFalse (Condition := GVL_Decorators.senNO_TestDecorator.IsActive (), Message := 'T13 - bledny stan');
+
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T03_TestCzujnikNO_Szereg" Id="{2cb17f9f-4b1d-0990-1e6b-4a9e5d6059c3}">
+      <Declaration><![CDATA[METHOD PROTECTED T03_TestCzujnikNO_Szereg
+VAR_INST
+	ikrok			: int;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T03_TestCzujnikNO_Szereg')) THEN
+	GVL_Decorators.senNO_2inRow_TestDecorator.SetContact (bIN := FALSE);
+	GVL_Decorators.senNO_2inRow_TestDecorator.SetContact2 (bIN := FALSE);
+	AssertFalse (Condition := GVL_Decorators.senNO_2inRow_TestDecorator.IsActive (), Message := 'T11 - bledny stan');
+	
+	GVL_Decorators.senNO_2inRow_TestDecorator.SetContact (bIN := TRUE);
+	AssertFalse (Condition := GVL_Decorators.senNO_2inRow_TestDecorator.IsActive (), Message := 'T12 - bledny stan');
+
+	GVL_Decorators.senNO_2inRow_TestDecorator.SetContact2 (bIN := TRUE);
+	AssertTrue (Condition := GVL_Decorators.senNO_2inRow_TestDecorator.IsActive (), Message := 'T13 - bledny stan');
+
+	GVL_Decorators.senNO_2inRow_TestDecorator.SetContact (bIN := FALSE);
+	AssertFalse (Condition := GVL_Decorators.senNO_2inRow_TestDecorator.IsActive (), Message := 'T14 - bledny stan');
+
+	GVL_Decorators.senNO_2inRow_TestDecorator.SetContact2 (bIN := FALSE);
+	AssertFalse (Condition := GVL_Decorators.senNO_2inRow_TestDecorator.IsActive (), Message := 'T15 - bledny stan');
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

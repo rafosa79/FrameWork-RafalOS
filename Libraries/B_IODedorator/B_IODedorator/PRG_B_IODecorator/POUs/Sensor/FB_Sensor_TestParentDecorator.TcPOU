@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_SensorDecoratorTestParent" Id="{67645e76-427e-4501-bf87-8b0f905c7add}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_SensorDecoratorTestParent EXTENDS FB_BaseComponentDecoratorParent IMPLEMENTS ITF_SensorDecoratorTest
+  <POU Name="FB_Sensor_TestParentDecorator" Id="{67645e76-427e-4501-bf87-8b0f905c7add}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_Sensor_TestParentDecorator EXTENDS FB_BaseComponentDecoratorParent IMPLEMENTS ITF_Sensor_TestDecorator
 VAR
 	bContactTest			: BOOL;
 END_VAR
@@ -21,8 +21,8 @@ METHOD IsActive : BOOL
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetContract" Id="{2400656c-d1fa-4d75-9e59-2914639345c5}">
-      <Declaration><![CDATA[METHOD SetContract
+    <Method Name="SetContact" Id="{2400656c-d1fa-4d75-9e59-2914639345c5}">
+      <Declaration><![CDATA[METHOD PUBLIC SetContact
 VAR_INPUT
 	bIN: BOOL;
 END_VAR
