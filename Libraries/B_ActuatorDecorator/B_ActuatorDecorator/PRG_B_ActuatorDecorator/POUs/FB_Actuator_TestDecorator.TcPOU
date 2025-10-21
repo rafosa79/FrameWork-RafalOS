@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_ActuatorDecoratorTest" Id="{afef5ecf-7924-00e5-278c-76059101fe57}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_ActuatorDecoratorTest EXTENDS FB_BaseControlElementDecoratorParent IMPLEMENTS ITF_ActuatorDecoratorTest
+  <POU Name="FB_Actuator_TestDecorator" Id="{afef5ecf-7924-00e5-278c-76059101fe57}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Actuator_TestDecorator EXTENDS FB_BaseControlElementDecoratorParent IMPLEMENTS ITF_ActuatorDecoratorTest
 VAR
 	itfactActuator		: ITF_Actuator;
-	itfsenStart			: ITF_SensorDecoratorTest;
-	itfsenEnd			: ITF_SensorDecoratorTest;
+	itfsenStart			: ITF_Sensor_TestDecorator;
+	itfsenEnd			: ITF_Sensor_TestDecorator;
 
-	itfczStart			: ITF_SensorDecoratorTest;		//przypisanie czujnika z pozycji startowej w czasie przesuwania w testach
-	itfczStop			: ITF_SensorDecoratorTest;		//przypisanie czujnika z pozycji końcowej w czasie przesuwania w testach
+	itfczStart			: ITF_Sensor_TestDecorator;		//przypisanie czujnika z pozycji startowej w czasie przesuwania w testach
+	itfczStop			: ITF_Sensor_TestDecorator;		//przypisanie czujnika z pozycji końcowej w czasie przesuwania w testach
 
 	iStepTestCycle		: INT := 0;
 
@@ -25,8 +25,8 @@ VAR_INPUT
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 	fbToDecorate		: ITF_DecoratedElement;
 	actActuator			: ITF_Actuator;
-	senStart			: ITF_SensorDecoratorTest;
-	senEnd				: ITF_SensorDecoratorTest;
+	senStart			: ITF_Sensor_TestDecorator;
+	senEnd				: ITF_Sensor_TestDecorator;
 	
 END_VAR
 ]]></Declaration>

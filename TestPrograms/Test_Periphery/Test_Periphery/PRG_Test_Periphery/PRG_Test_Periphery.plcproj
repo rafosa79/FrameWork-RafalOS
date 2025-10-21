@@ -49,10 +49,16 @@
     <Compile Include="POUs\FB_LampBlinkingTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_SensorDecoratorTestTest.TcPOU">
+    <Compile Include="POUs\FB_Sensor_DecoratorTestTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_SensorTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_Actuator_TestDecoratorWithoutTimeTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_Actuator_TestDecoratorWithTimeTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TESTs\PRG_Test.TcPOU">
@@ -71,6 +77,9 @@
       <DefaultResolution>B_Actuator, * (RafalOS)</DefaultResolution>
       <Namespace>B_Actuator</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="B_ActuatorDecorator">
+      <DefaultResolution>B_ActuatorDecorator, * (RafalOS)</DefaultResolution>
+    </PlaceholderReference>
     <PlaceholderReference Include="B_Base">
       <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
       <Namespace>B_Base</Namespace>
@@ -81,6 +90,7 @@
     </PlaceholderReference>
     <PlaceholderReference Include="B_IODecorator">
       <DefaultResolution>B_IODecorator, * (RafalOS)</DefaultResolution>
+      <Namespace>B_IODecorator</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_DataExchange">
       <DefaultResolution>Tc2_DataExchange, * (Beckhoff Automation GmbH)</DefaultResolution>

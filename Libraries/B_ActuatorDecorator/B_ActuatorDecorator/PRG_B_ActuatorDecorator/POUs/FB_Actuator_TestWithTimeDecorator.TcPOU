@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_ActuatorDecoratorTestWithTime" Id="{59321a58-243b-038f-1e70-e3c2c6450fab}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_ActuatorDecoratorTestWithTime EXTENDS FB_ActuatorDecoratorTest
+  <POU Name="FB_Actuator_TestWithTimeDecorator" Id="{59321a58-243b-038f-1e70-e3c2c6450fab}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Actuator_TestWithTimeDecorator EXTENDS FB_Actuator_TestDecorator
 VAR
 	tonSensorTurnOffTime	: Tc2_Standard.TON;
 	tonSensorTurnOnTime		: Tc2_Standard.TON;
@@ -48,13 +48,13 @@ END_IF
 CASE THIS^.iStepTestCycle OF
 10	: IF (THIS^.tonSensorTurnOffTime.Q) THEN
 		THIS^.tonSensorTurnOffTime.IN	:= FALSE;
-		THIS^.itfczStart.SetContract (bIN := FALSE);
+		THIS^.itfczStart.SetContact (bIN := FALSE);
 		THIS^.tonSensorTurnOnTime.IN	:= TRUE;
 		iStepTestCycle		:= THIS^.iStepTestCycle + 10;
 	END_IF
 20	: IF (THIS^.tonSensorTurnOnTime.Q) THEN
 		THIS^.tonSensorTurnOnTime.IN	:= FALSE;
-		THIS^.itfczStop.SetContract (bIN := TRUE);
+		THIS^.itfczStop.SetContact (bIN := TRUE);
 		THIS^.iStepTestCycle	:= 0;
 	END_IF
 END_CASE

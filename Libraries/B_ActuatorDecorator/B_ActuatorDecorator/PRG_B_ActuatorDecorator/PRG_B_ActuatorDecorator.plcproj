@@ -19,7 +19,7 @@
     <Company>RafalOS</Company>
     <Released>false</Released>
     <Title>B_ActuatorDecorator</Title>
-    <ProjectVersion>0.0.0.3</ProjectVersion>
+    <ProjectVersion>0.0.0.4</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -89,13 +89,13 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_ActuatorDecoratorTest.TcPOU">
+    <Compile Include="POUs\FB_Actuator_TestDecorator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_ActuatorDecoratorTestWithoutTime.TcPOU">
+    <Compile Include="POUs\FB_Actuator_TestWithoutTimeDecorator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_ActuatorDecoratorTestWithTime.TcPOU">
+    <Compile Include="POUs\FB_Actuator_TestWithTimeDecorator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\ITF_ActuatorDecoratorTest.TcIO">

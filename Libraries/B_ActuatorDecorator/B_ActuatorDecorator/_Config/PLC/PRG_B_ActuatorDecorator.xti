@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66" ClassName="CNestedPlcProjDef">
 	<Project GUID="{811EB7CF-AA08-4064-BBC8-1D31DF30F43B}" Name="PRG_B_ActuatorDecorator" PrjFilePath="..\..\PRG_B_ActuatorDecorator\PRG_B_ActuatorDecorator.plcproj" TmcFilePath="..\..\PRG_B_ActuatorDecorator\PRG_B_ActuatorDecorator.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{17EA779C-0E68-FBB7-8632-8E0D9EC5AB2F}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{C27B2F38-AB29-4E3A-90AA-EE760732F0E4}">
 			<Name>PRG_B_ActuatorDecorator Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">

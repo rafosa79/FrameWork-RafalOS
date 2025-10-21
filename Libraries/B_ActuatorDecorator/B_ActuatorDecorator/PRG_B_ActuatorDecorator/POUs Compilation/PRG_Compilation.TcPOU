@@ -12,28 +12,28 @@ VAR
 									evControl		:= evActuator1Control
 								);
 								
-	senActuator1StartDecoratorTest	: FB_SensorNODecoratorTest (fbToDecorate := senActuator1Start);
-	senActuator1EndDecoratorTest	: FB_SensorNODecoratorTest (fbToDecorate := senActuator1End);
+	senActuator1StartDecoratorTest	: FB_Sensor_NO_TestDecorator (fbToDecorate := senActuator1Start);
+	senActuator1EndDecoratorTest	: FB_Sensor_NO_TestDecorator (fbToDecorate := senActuator1End);
 	
-	fbActuator1DecoratorTest	: FB_ActuatorDecoratorTest (
+	fbActuator1DecoratorTest	: FB_Actuator_TestDecorator (
 									fbToDecorate 	:= fbActuator1,
 									actActuator		:= fbActuator1,
 									senStart		:= senActuator1StartDecoratorTest,
-									senEnd		:= senActuator1EndDecoratorTest
+									senEnd			:= senActuator1EndDecoratorTest
 								);
 
-	fbActuator1DecoratorTestWithoutTime	: FB_ActuatorDecoratorTestWithoutTime (
+	fbActuator1DecoratorTestWithoutTime	: FB_Actuator_TestWithoutTimeDecorator (
 									fbToDecorate 	:= fbActuator1,
 									actActuator		:= fbActuator1,
 									senStart		:= senActuator1StartDecoratorTest,
-									senEnd		:= senActuator1EndDecoratorTest
+									senEnd			:= senActuator1EndDecoratorTest
 								);
 
-	fbActuator1DecoratorTestWithTime	: FB_ActuatorDecoratorTestWithTime (
+	fbActuator1DecoratorTestWithTime	: FB_Actuator_TestWithTimeDecorator (
 									fbToDecorate 	:= fbActuator1,
 									actActuator		:= fbActuator1,
 									senStart		:= senActuator1StartDecoratorTest,
-									senEnd		:= senActuator1EndDecoratorTest
+									senEnd			:= senActuator1EndDecoratorTest
 								);
 	
 END_VAR

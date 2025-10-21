@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Actuator_TestDecoratorWithoutTimeTest" Id="{5de9fc74-515f-0b8a-1cdf-a5b2a89451da}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK INTERNAL FB_Actuator_TestDecoratorWithoutTimeTest EXTENDS TcUnit.FB_TestSuite
+VAR
+	uiIlosc					: UINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[T00_LinkData ();
+GVL_Decorators.actActuator1_TestWithoutTimeDecorator.ExecuteEveryCycle_Test ();
+GVL_Decorators.actActuator1_TestWithoutTimeDecorator.ExecuteEveryCycle_Operation ();
+GVL_Decorators.actActuator1_TestWithoutTimeDecorator.ExecuteEveryCycle_Status ();
+GVL_Decorators.actActuator1_TestWithoutTimeDecorator.ExecuteEveryCycle_Error ();
+
+T01_TestPracySilownikowWtrybieTestowymDoPoczatku ();
+T02_TestPracySilownikowWtrybieTestowymDoKonca ();
+]]></ST>
+    </Implementation>
+    <Method Name="T00_LinkData" Id="{7252cd7b-0862-0db2-2751-6b82c502d93e}">
+      <Declaration><![CDATA[METHOD PRIVATE T00_LinkData
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T00_LinkData')) THEN
+	GVL_Decorators.stCommonData.itfLocaciotn	:= GVL_Decorators.fbLocaciotn;
+	GVL_Decorators.stCommonData.itfLogger		:= GVL_Decorators.fbLogger;
+	GVL_Decorators.stCommonData.itfTime			:= GVL_Decorators.fbTime;
+	GVL_Decorators.actActuator1_TestWithoutTimeDecorator.LinkCommonData (stCommonData := GVL_Decorators.stCommonData);
+	GVL_Decorators.actActuator1_TestWithoutTimeDecorator.LinkSS1 (fbSS1 := GVL_Decorators.flSS1);
+	GVL_Decorators.actActuator1_TestWithoutTimeDecorator.LinkSTO (fbSTO := GVL_Decorators.flSTO);
+
+	GVL_Decorators.flSS1.SetFlag (bState	:= TRUE);
+	GVL_Decorators.flSTO.SetFlag (bState	:= TRUE);
+
+//	uiIlosc	:= GVL_Decorators.fbLogger.
+
+	uiIlosc	:= 1;//fbLoger.ZgloszenieUstawID (uiID 		:= 1);
+	GVL_Decorators.actActuator1_TestWithoutTimeDecorator.SetEventsIDs (uiNewID	:= uiIlosc);
+//	fbSilownik_DekoratorTestBezCzasow.ZgloszenieUstawID (uiID	:= uiIlosc);
+	
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T01_TestPracySilownikowWtrybieTestowymDoPoczatku" Id="{da114454-2da9-0ce2-2775-3e28e3db1d00}">
+      <Declaration><![CDATA[METHOD PROTECTED T01_TestPracySilownikowWtrybieTestowymDoPoczatku
+VAR_INST
+	iStep			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestPracySilownikowWtrybieTestowymDoPoczatku')) THEN
+	CASE iStep OF
+	0	:
+		GVL_Decorators.actActuator1_TestWithoutTimeDecorator.PowerTurnOn ();
+		iStep		:= iStep + 10;
+	10	:
+		IF (GVL_Decorators.actActuator1_TestWithoutTimeDecorator.PowerGetStatus ()) THEN
+			GVL_Decorators.senActuator1End_TestDecorator.SetContact (bIN := TRUE);
+			GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MoveToStart ();
+			iStep	:= iStep + 10;
+		END_IF
+	20	:
+		iStep		:= iStep + 10;
+	30	:
+		AssertFalse (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToStartStatus (),	Message 	:= 'K30 T01 - czy juz dojechal');
+		AssertTrue (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToStartBusy (),	Message 	:= 'K30 T02 - nie wlaczono przesuwania');
+		AssertFalse (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsStart (),				Message		:= 'K30 T03 - bledny stan czujnika startu');
+		AssertTrue (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsEnd (),				Message		:= 'K30 T04 - bledny stan czujnika stopu');
+		iStep		:= iStep + 20;
+	40	:
+		iStep		:= iStep + 10;
+	50	:
+		AssertFalse (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToStartStatus (),	Message 	:= 'K40 T01 - czy juz dojechal');
+		AssertTrue (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToStartBusy (),	Message 	:= 'K40 T02 - nie wlaczono przesuwania');
+		AssertFalse (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsStart (),				Message		:= 'K40 T03 - bledny stan czujnika startu');
+		AssertFalse (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsEnd (),				Message		:= 'K40 T04 - bledny stan czujnika stopu');
+		iStep		:= iStep + 10;
+	60	:
+		AssertFalse (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToStartStatus (),	Message 	:= 'K60 T01 - czy juz dojechal');
+		AssertTrue (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToStartBusy (),	Message 	:= 'K60 T02 - nie wlaczono przesuwania');
+		AssertTrue (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsStart (),				Message		:= 'K60 T03 - bledny stan czujnika startu');
+		AssertFalse (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsEnd (),				Message		:= 'K60 T04 - bledny stan czujnika stopu');
+		iStep		:= iStep + 10;
+	70	:
+		iStep		:= iStep + 10;
+	80	:
+		AssertTrue (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToStartStatus (),	Message 	:= 'K80 T01 - czy juz dojechal');
+		AssertFalse (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToStartBusy (),	Message 	:= 'K80 T02 - nie wlaczono przesuwania');
+		AssertTrue (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsStart (),				Message		:= 'K80 T03 - bledny stan czujnika startu');
+		AssertFalse (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsEnd (),				Message		:= 'K80 T04 - bledny stan czujnika stopu');
+		iStep		:= iStep + 10;
+	90	:
+		iStep	:= GVL_BaseConstans.FINISH_STEP;
+	GVL_BaseConstans.FINISH_STEP	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T02_TestPracySilownikowWtrybieTestowymDoKonca" Id="{dc2af6aa-8794-073a-29b8-e204c6b0f53e}">
+      <Declaration><![CDATA[METHOD PROTECTED T02_TestPracySilownikowWtrybieTestowymDoKonca
+VAR_INST
+	iStep			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestPracySilownikowWtrybieTestowymDoKonca')) THEN
+	CASE iStep OF
+	0	:
+		GVL_Decorators.actActuator1_TestWithoutTimeDecorator.PowerTurnOn ();
+		iStep		:= iStep + 10;
+	10	:
+		IF (GVL_Decorators.actActuator1_TestWithoutTimeDecorator.PowerGetStatus ()) THEN
+			GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MoveToEnd ();
+			iStep	:= iStep + 10;
+		END_IF
+	20	:
+		iStep		:= iStep + 10;
+	30	:
+		AssertFalse (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToEndStatus (),	Message 	:= 'K30 T01 - czy juz dojechal');
+		AssertTrue (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToEndBusy (),		Message 	:= 'K30 T02 - nie wlaczono przesuwania');
+		AssertTrue (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsStart (),				Message		:= 'K30 T03 - bledny stan czujnika startu');
+		AssertFalse (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsEnd (),				Message		:= 'K30 T04 - bledny stan czujnika stopu');
+		iStep		:= iStep + 20;
+	40	:
+		iStep		:= iStep + 10;
+	50	:
+		AssertFalse (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToEndStatus (),	Message 	:= 'K40 T01 - czy juz dojechal');
+		AssertTrue (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToEndBusy (),		Message 	:= 'K40 T02 - nie wlaczono przesuwania');
+		AssertFalse (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsStart (),				Message		:= 'K40 T03 - bledny stan czujnika startu');
+		AssertFalse (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsEnd (),				Message		:= 'K40 T04 - bledny stan czujnika stopu');
+		iStep		:= iStep + 10;
+	60	:
+		AssertFalse (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToEndStatus (),	Message 	:= 'K60 T01 - czy juz dojechal');
+		AssertTrue (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToEndBusy (),		Message 	:= 'K60 T02 - nie wlaczono przesuwania');
+		AssertFalse (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsStart (),				Message		:= 'K60 T03 - bledny stan czujnika startu');
+		AssertTrue (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsEnd (),				Message		:= 'K60 T04 - bledny stan czujnika stopu');
+		iStep		:= iStep + 10;
+	70	:
+		iStep		:= iStep + 10;
+	80	:
+		AssertTrue (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToEndStatus (),	Message 	:= 'K80 T01 - czy juz dojechal');
+		AssertFalse (Condition	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.MovingToEndBusy (),		Message 	:= 'K80 T02 - nie wlaczono przesuwania');
+		AssertFalse (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsStart (),				Message		:= 'K80 T03 - bledny stan czujnika startu');
+		AssertTrue (Condition 	:= GVL_Decorators.actActuator1_TestWithoutTimeDecorator.IsEnd (),				Message		:= 'K80 T04 - bledny stan czujnika stopu');
+		iStep		:= iStep + 10;
+	90	:
+		iStep	:= GVL_BaseConstans.FINISH_STEP;
+	GVL_BaseConstans.FINISH_STEP	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

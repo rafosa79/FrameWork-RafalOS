@@ -10,7 +10,10 @@ VAR
 	
 	fbActuatortest			: FB_ActuatorTest;
 	
-	fbSensortestDecoratorTest	: FB_SensorDecoratorTestTest;
+	fbSensortestDecoratorTest	: FB_Sensor_DecoratorTestTest;
+	
+	fbActuator_TestDecoratorWithoutTimeTest	: FB_Actuator_TestDecoratorWithoutTimeTest;
+	fbActuator_TestDecoratorWithTimeTest	: FB_Actuator_TestDecoratorWithTimeTest;
 	
 END_VAR
 ]]></Declaration>
