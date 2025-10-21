@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66" ClassName="CNestedPlcProjDef">
 	<Project GUID="{19048094-A2A0-43B8-A578-C26E5B7E78D9}" Name="PRG_Test_Periphery" PrjFilePath="..\..\PRG_Test_Periphery\PRG_Test_Periphery.plcproj" TmcFilePath="..\..\PRG_Test_Periphery\PRG_Test_Periphery.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_Test_Periphery\PRG_Test_Periphery.tmc" TmcHash="{33DF3E25-7AA1-CC59-29CC-E19F7F812EDB}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_Test_Periphery\PRG_Test_Periphery.tmc" TmcHash="{8FD67853-843F-A69F-F466-88CD5C142E42}">
 			<Name>PRG_Test_Periphery Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">

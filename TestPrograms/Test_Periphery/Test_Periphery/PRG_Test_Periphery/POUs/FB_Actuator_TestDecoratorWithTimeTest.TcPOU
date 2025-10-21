@@ -20,6 +20,7 @@ GVL_Decorators.actActuator1_TestWithTimeDecorator.ExecuteEveryCycle_Error ();
 T01_TestPracySilownikowWtrybieTestowymDoPoczatku ();
 T02_TestPracySilownikowWtrybieTestowymDoKonca ();
 
+T03_TestSilownikaZdekoratoremAutomat ();
 ]]></ST>
     </Implementation>
     <Method Name="T00_LinkData" Id="{bf8d4223-9657-0913-3980-97ebd9cf5696}">
