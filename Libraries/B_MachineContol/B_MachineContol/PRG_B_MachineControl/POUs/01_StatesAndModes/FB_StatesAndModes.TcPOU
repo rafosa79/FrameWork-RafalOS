@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_StatesAndModes" Id="{6f344e3b-9128-4c83-8a29-98893305b6bf}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_StatesAndModes
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

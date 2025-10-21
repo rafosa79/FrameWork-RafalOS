@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Task Name="PlcTask" Id="{658085de-c2a4-0250-0362-af7e391e1688}">
+    <!--CycleTime in micro seconds.-->
+    <CycleTime>10000</CycleTime>
+    <Priority>20</Priority>
+    <PouCall>
+      <Name>PRG_Compilation</Name>
+    </PouCall>
+    <TaskFBGuid>{c8bd73b4-5b7c-4008-9e59-8fbff3dbe88c}</TaskFBGuid>
+    <Fb_init>{bd7f1ac2-7a55-4625-9927-f401dd08e174}</Fb_init>
+    <Fb_exit>{6b523ba5-8ebc-4c31-a072-7bf8d6389d5c}</Fb_exit>
+    <CycleUpdate>{697d60b5-2e04-42e4-92db-6cf4d499e688}</CycleUpdate>
+    <PostCycleUpdate>{cced293f-5114-4b9e-bcb0-66091067cd05}</PostCycleUpdate>
+  </Task>
+</TcPlcObject>
