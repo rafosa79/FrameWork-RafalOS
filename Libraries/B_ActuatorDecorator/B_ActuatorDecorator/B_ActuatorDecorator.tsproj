@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66">
-	<Project ProjectGUID="{8E88363E-0753-4757-BB91-4478D7530875}" Target64Bit="true" ShowHideConfigurations="#x3c7">
+	<Project ProjectGUID="{C2DAA785-34AC-4564-8DEA-75F7E054B79C}" Target64Bit="true" ShowHideConfigurations="#x3c7">
 		<System>
 			<Tasks>
 				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
@@ -9,7 +9,7 @@
 			</Tasks>
 		</System>
 		<Plc>
-			<Project File="PRG_B_Actuator.xti"/>
+			<Project File="PRG_B_ActuatorDecorator.xti"/>
 		</Plc>
 	</Project>
 </TcSmProject>

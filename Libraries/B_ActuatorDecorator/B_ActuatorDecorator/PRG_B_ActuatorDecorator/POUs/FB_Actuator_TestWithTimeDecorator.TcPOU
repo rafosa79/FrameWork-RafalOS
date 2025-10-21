@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Actuator_TestWithTimeDecorator" Id="{59321a58-243b-038f-1e70-e3c2c6450fab}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Actuator_TestWithTimeDecorator EXTENDS FB_Actuator_TestDecorator
+VAR
+	tonSensorTurnOffTime	: Tc2_Standard.TON;
+	tonSensorTurnOnTime		: Tc2_Standard.TON;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ExecuteEveryCycle_Operation" Id="{e2d8af66-95c3-0506-05fa-fa44664c5d6a}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Wywolanie co cykl operacji 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Operation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//testować czy jest cykl przesuwania do gdzieś i po czasie uruchamiać lub wyłączać czujniki 
+THIS^.itfactActuator.ExecuteEveryCycle_Operation();
+THIS^.tonSensorTurnOffTime ();
+THIS^.tonSensorTurnOnTime ();
+
+IF (THIS^.itfactActuator.MovingToStartFirstCycle ()) THEN
+	THIS^.itfczStart			:= THIS^.itfsenEnd;
+	THIS^.itfczStop				:= THIS^.itfsenStart;
+	THIS^.tonSensorTurnOffTime.PT	:= REAL_TO_TIME (THIS^.itfactActuator.ParameterGetValue (1) * 0.1);
+	THIS^.tonSensorTurnOffTime.IN	:= TRUE;
+	THIS^.tonSensorTurnOnTime.PT	:= REAL_TO_TIME (THIS^.itfactActuator.ParameterGetValue (1) * 0.7);
+	THIS^.iStepTestCycle		:= 10;
+END_IF
+
+IF (THIS^.itfactActuator.MovingToEndFirstCycyle ()) THEN
+	THIS^.itfczStart			:= THIS^.itfsenStart;
+	THIS^.itfczStop				:= THIS^.itfsenEnd;
+	THIS^.tonSensorTurnOffTime.PT	:= REAL_TO_TIME (THIS^.itfactActuator.ParameterGetValue (2) * 0.1);
+	THIS^.tonSensorTurnOffTime.IN	:= TRUE;
+	THIS^.tonSensorTurnOnTime.PT	:= REAL_TO_TIME (THIS^.itfactActuator.ParameterGetValue (2) * 0.7);
+	THIS^.iStepTestCycle		:= 10;
+END_IF
+
+CASE THIS^.iStepTestCycle OF
+10	: IF (THIS^.tonSensorTurnOffTime.Q) THEN
+		THIS^.tonSensorTurnOffTime.IN	:= FALSE;
+		THIS^.itfczStart.SetContact (bIN := FALSE);
+		THIS^.tonSensorTurnOnTime.IN	:= TRUE;
+		iStepTestCycle		:= THIS^.iStepTestCycle + 10;
+	END_IF
+20	: IF (THIS^.tonSensorTurnOnTime.Q) THEN
+		THIS^.tonSensorTurnOnTime.IN	:= FALSE;
+		THIS^.itfczStop.SetContact (bIN := TRUE);
+		THIS^.iStepTestCycle	:= 0;
+	END_IF
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

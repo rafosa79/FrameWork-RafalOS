@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ActuatorTest" Id="{06abd878-1126-01fc-3b89-96a69a3e7a0f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ActuatorTest EXTENDS TcUnit.FB_TestSuite
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+GVL_Actuator.actActuator.ExecuteEveryCycle_Test ();
+GVL_Actuator.actActuator.ExecuteEveryCycle_Operation ();
+GVL_Actuator.actActuator.ExecuteEveryCycle_Status ();
+GVL_Actuator.actActuator.ExecuteEveryCycle_Error ();
+
+T01_Parameter ();
+T02_TestMove ();]]></ST>
+    </Implementation>
+    <Method Name="T01_Parameter" Id="{fdc0eb6d-3d77-0f42-074b-a05a2584b14d}">
+      <Declaration><![CDATA[METHOD PROTECTED T01_Parameter
+VAR_INPUT
+END_VAR
+
+VAR
+	uiWynik: UINT;
+	rWynik: REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_Parameter')) THEN
+	GVL_Actuator.stCommonData.itfLocaciotn	:= GVL_Actuator.fbLocaciotn;
+	GVL_Actuator.stCommonData.itfLogger		:= GVL_Actuator.fbLogger;
+	GVL_Actuator.stCommonData.itfTime		:= GVL_Actuator.fbTime;
+	GVL_Actuator.actActuator.LinkCommonData (stCommonData := GVL_Actuator.stCommonData);
+	GVL_Actuator.actActuator.LinkSS1 (fbSS1	:= GVL_Actuator.flSS1);
+	GVL_Actuator.actActuator.LinkSTO (fbSTO	:= GVL_Actuator.flSTO);
+	
+	GVL_Actuator.flSS1.SetFlag (bState := TRUE);
+	GVL_Actuator.flSTO.SetFlag (bState := TRUE);
+
+	GVL_Actuator.actActuator.ParametersCreate ();
+	
+	uiWynik		:= GVL_Actuator.actActuator.ParameterGetNumberOfAdded ();
+	AssertEquals_UINT (Expected := 2, Actual := uiWynik, Message := 'T01 - Bledna ilosc parametrow');
+	rWynik		:= GVL_Actuator.actActuator.ParameterGetValue (uiNumber := 1);
+	AssertEquals_REAL (Expected := 100, Actual := rWynik, Delta := 0, Message := 'T02 - bladna wartosc');
+	rWynik		:= GVL_Actuator.actActuator.ParameterGetValue (uiNumber := 2);
+	AssertEquals_REAL (Expected := 100, Actual := rWynik, Delta := 0, Message := 'T03 - bladna wartosc');
+
+	GVL_Actuator.actActuator.ParameterCorrectValue (uiNumber := 1, rValue := 1000);
+	GVL_Actuator.actActuator.ParameterCorrectValue (uiNumber := 2, rValue := 1000);
+	rWynik		:= GVL_Actuator.actActuator.ParameterGetValue (uiNumber := 1);
+	AssertEquals_REAL (Expected := 1000, Actual := rWynik, Delta := 0, Message := 'T04 - bladna wartosc');
+	rWynik		:= GVL_Actuator.actActuator.ParameterGetValue (uiNumber := 2);
+	AssertEquals_REAL (Expected := 1000, Actual := rWynik, Delta := 0, Message := 'T05 - bladna wartosc');
+
+	GVL_Actuator.actActuator.ParameterCorrectValue (uiNumber := 1, rValue := 100);
+	GVL_Actuator.actActuator.ParameterCorrectValue (uiNumber := 2, rValue := 100);
+	
+	
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T02_TestMove" Id="{52816995-a659-02e5-1b99-31c209363abb}">
+      <Declaration><![CDATA[METHOD PRIVATE T02_TestMove
+VAR_INST
+	iStep			: int;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestMove')) THEN
+	CASE iStep OF
+	0	:
+		GVL_Actuator.actActuator.PowerTurnOn ();
+		iStep		:= iStep + 10;
+	10	:
+		IF (GVL_Actuator.actActuator.PowerTurnOnDone ()) THEN
+			iStep	:= iStep + 10;
+		END_IF
+	20	:
+		GVL_Actuator.actActuator.MoveToStart ();
+		iStep		:= iStep + 10;
+	30	:
+		AssertTrue (Condition := GVL_Actuator.actActuator.MovingToStartBusy (), Message := 'S30 - T01 - nie uruchomione przesuwanie');
+		AssertFalse (Condition :=GVL_Actuator.actActuator.MovingToStartStatus (), Message := 'S30 - T02 - Bledny status');
+		iStep		:= iStep + 10;
+	40	:
+		GVL_Variable.bValueToSave	:= TRUE;
+		GVL_Variable.sData			:= 'GVL_Actuator.senActuatorStart.bContact';
+		GVL_Variable.bSave			:= TRUE;
+		iStep		:= iStep + 10;
+	50	:
+		IF (NOT GVL_Variable.bSaved) THEN
+			GVL_Variable.bSave		:= FALSE;
+			iStep	:= iStep + 10;
+		END_IF
+	60	:
+		AssertFalse (Condition := GVL_Actuator.actActuator.MovingToStartBusy (), Message := 'S60 - T01 - nie zakonczone przesuwanie');
+		AssertTrue (Condition := GVL_Actuator.actActuator.MovingToStartStatus (), Message := 'S60 - T02 - Bledny status');
+		AssertTrue (Condition := GVL_Actuator.senActuatorStart.IsActive (), Message := 'S60 - T03 - Bledny stan czujnika');
+	
+		iStep		:= 1000;
+	1000	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

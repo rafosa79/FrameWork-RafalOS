@@ -17,5 +17,9 @@ Bazowanie - teroretycznie działa trzeba dorobić testy i metody i fb testujące
   
 Pomiedzy elemetami 
 
-Dekoratory?
+Dekoratory? - rodzice zrobieni teraz dzieci 
     
+
+Siłownik przetłumaczony zrobić testy 
+Następnie zrobić dekorator dla czujników i elektrozaworów i siłownika i spróbować jak to działa
+potem można przejść do SPM a następnie do MózgHMNI  

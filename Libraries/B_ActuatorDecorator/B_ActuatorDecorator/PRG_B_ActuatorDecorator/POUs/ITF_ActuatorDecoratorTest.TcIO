@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_ActuatorDecoratorTest" Id="{0ef77d46-a915-0e2d-3bd0-147aa75b6a35}">
+    <Declaration><![CDATA[INTERFACE ITF_ActuatorDecoratorTest EXTENDS ITF_Actuator
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Sensor_NO_2InRow_TestDecorator" Id="{af78f01e-09ca-42ab-8153-e581f82e560c}">
+    <Declaration><![CDATA[INTERFACE ITF_Sensor_NO_2InRow_TestDecorator EXTENDS ITF_Sensor_TestDecorator
+]]></Declaration>
+    <Method Name="SetContact2" Id="{4cf85473-9fa1-43f7-af3e-def32ecc3796}">
+      <Declaration><![CDATA[METHOD PUBLIC SetContact2
+VAR_INPUT
+	bIN: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

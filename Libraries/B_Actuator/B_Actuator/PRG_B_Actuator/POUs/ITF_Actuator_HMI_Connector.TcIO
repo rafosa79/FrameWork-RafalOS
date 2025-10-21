@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Actuator_HMI_Connector" Id="{4e5d249e-46e7-4d89-9fee-0ce19c6739dc}">
+    <Declaration><![CDATA[INTERFACE ITF_Actuator_HMI_Connector EXTENDS ITF_BaseControlElement_HMI_Connector
+]]></Declaration>
+    <Method Name="GetTimeLastMove" Id="{b6db5e0e-a9ec-458d-af33-d4b5180b6cf9}">
+      <Declaration><![CDATA[METHOD GetTimeLastMove : TIME
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsEnd" Id="{ce93a036-1d75-4818-845b-9009db264e5f}">
+      <Declaration><![CDATA[METHOD IsEnd : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStart" Id="{5ea35caf-5189-4114-9423-26d426b8687c}">
+      <Declaration><![CDATA[METHOD PUBLIC IsStart : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="MoveToEnd" Id="{3006b99f-44e9-40f1-95c8-49a478cbb81b}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Uruchomienie cyklu przesuwania do początku
+*)
+METHOD PUBLIC MoveToEnd
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="MoveToStart" Id="{908e00cc-d40c-427f-8007-88045ebc36fe}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Uruchomienie cyklu przesuwania do początku
+*)
+METHOD PUBLIC MoveToStart
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="MovingToEndBusy" Id="{5789098d-8fe2-4fa2-8dec-61be9c2c754c}">
+      <Declaration><![CDATA[METHOD PUBLIC MovingToEndBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="MovingToEndStatus" Id="{589ca5f2-a27e-4f30-be6e-32c194b1c5af}">
+      <Declaration><![CDATA[METHOD PUBLIC MovingToEndStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="MovingToStartBusy" Id="{fd3fd96c-73d8-40d1-ad72-f7545efc22d5}">
+      <Declaration><![CDATA[METHOD PUBLIC MovingToStartBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="MovingToStartStatus" Id="{4709a4ce-2684-41d9-b396-bdce4d01f751}">
+      <Declaration><![CDATA[METHOD PUBLIC MovingToStartStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

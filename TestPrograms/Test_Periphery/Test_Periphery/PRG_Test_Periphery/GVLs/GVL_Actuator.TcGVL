@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="GVL_Actuator" Id="{de03e9cf-d348-004f-0d42-3318cfff7fa9}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	flSS1						: FB_BaseFlag;
+	flSTO						: FB_BaseFlag;
+	fbLogger					: FB_BaseLogger;
+	fbTime						: FB_BaseTime;
+	fbLocaciotn					: FB_BaseLocation;	
+	stCommonData				: ST_BaseCommonData;
+
+	senActuatorStart			: FB_Sensor_NO;
+	senActuatorEnd				: FB_Sensor_NO;
+	evActuator					: FB_Electrovalve_5on3_2Coil_Vented;
+	
+	actActuator					: FB_Actuator (
+									senStart	:= senActuatorStart,
+	                                senEnd		:= senActuatorEnd,
+	                                evControl	:= evActuator
+								);
+								
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -3,6 +3,7 @@
   <Itf Name="ITF_BaseComponent" Id="{bfd259ad-b5a7-0c3e-25af-f416d786cc1f}">
     <Declaration><![CDATA[INTERFACE ITF_BaseComponent EXTENDS ITF_BaseLoggerElement
 ]]></Declaration>
+    <Folder Name="Parameter" Id="{162355fc-3282-0c2e-2d48-030ede6ecd3a}" />
     <Method Name="ExecuteEveryCycle_Error" Id="{9687ff7f-0d6e-0d51-23a3-336377b58d2c}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -75,6 +76,164 @@ END_VAR
 VAR_INPUT
 	stCommonData				: REFERENCE TO ST_BaseCommonData;
 END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterAdd" Id="{cb2832e6-b124-0d0c-38c6-780ac9f7fc1b}" FolderPath="Parameter\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		26.03.2025		TC 4024.66
+	Dodawanie parametru do elementu wykonawczego - metode wywołać przy pierwszym uruchomieniu programu by wgrać parametry do pamięci
+	później używać tylko edycji lub przywracania wartości domyślnych
+*)
+METHOD PUBLIC ParameterAdd : BOOL
+VAR_INPUT
+	stParameter			: ST_BaseDescriptor;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterCorrectDefaultValue" Id="{4bbe970d-6672-018d-1d17-344ff0ac718a}" FolderPath="Parameter\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		26.03.2025		TC 4024.66
+	Modyfikuje wartość domyślną w istniejącym parametrze - true jak się zmiana udała
+*)
+METHOD PUBLIC ParameterCorrectDefaultValue : BOOL
+VAR_INPUT
+	uiNumber			: UINT;
+	rValue				: REAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterCorrectName" Id="{6ec96585-99ee-0c3d-1ca5-f52d44d2781a}" FolderPath="Parameter\">
+      <Declaration><![CDATA[METHOD PUBLIC ParameterCorrectName : BOOL
+VAR_INPUT
+	eLocation					: E_BaseLocation;
+	uiNumberOfParameter			: UINT;
+	wsDescription				: WSTRING;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterCorrectValue" Id="{5c025912-789a-0744-1c53-d16d2837f884}" FolderPath="Parameter\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		26.03.2025		TC 4024.66
+	Modyfikuje wartość w istniejącym parametrze - true jak się zmiana udała
+*)
+METHOD PUBLIC ParameterCorrectValue : BOOL
+VAR_INPUT
+	uiNumber			: UINT;
+	rValue				: REAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterGet" Id="{21d37c06-febc-07f0-1a30-ea03aba0338c}" FolderPath="Parameter\">
+      <Declaration><![CDATA[METHOD PUBLIC ParameterGet : ST_BaseDescriptor
+VAR_INPUT
+	uiNumer				: UINT;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="ParameterGetDefaultValue" Id="{4f87981f-6989-0e65-1fcf-fb3647acf1ca}" FolderPath="Parameter\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		26.03.2025		TC 4024.66
+	Zwraca wartosc domyslna
+*)
+METHOD PUBLIC ParameterGetDefaultValue : REAL
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterGetMax" Id="{4b75e398-c9ba-09cb-0312-dd60c23d0d65}" FolderPath="Parameter\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		26.03.2025		TC 4024.66
+	Zwraca wartość MAX
+*)
+METHOD PUBLIC ParameterGetMax : REAL
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterGetMin" Id="{6889c42b-5d50-0a09-0e6b-5ce55ebd8346}" FolderPath="Parameter\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		26.03.2025		TC 4024.66
+	Zwraca wartość MIN
+*)
+METHOD PUBLIC ParameterGetMin : REAL
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterGetNumberOfAdded" Id="{54c667d7-5f5e-0690-1dc5-6970b5099c23}" FolderPath="Parameter\">
+      <Declaration><![CDATA[METHOD PUBLIC ParameterGetNumberOfAdded : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterGetUnit" Id="{a76199e2-2fb6-08b3-12ae-6d01fe05455e}" FolderPath="Parameter\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		26.03.2025		TC 4024.66
+	Zwraca jednostke
+*)
+METHOD PUBLIC ParameterGetUnit : STRING(6)
+VAR_INPUT
+	uiNumber				: uINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterGetValue" Id="{9424063b-795d-0b64-3fc5-8cce9ff5d1eb}" FolderPath="Parameter\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		26.03.2025		TC 4024.66
+	Zwraca wartość
+*)
+METHOD PUBLIC ParameterGetValue : REAL
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterModify" Id="{8f713bac-a4fa-07d4-0764-9b59380d937d}" FolderPath="Parameter\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		26.03.2025		TC 4024.66
+	Modyfikacja istniejącego parametra jako przypisanie nowego deskryptora
+*)
+METHOD PUBLIC ParameterModify : BOOL
+VAR_INPUT
+	uiNumber			: UINT;
+	stParameter			: ST_BaseDescriptor;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterRestoreDefaultValue" Id="{030f6759-bd3d-00b9-02b0-bd91925d754f}" FolderPath="Parameter\">
+      <Declaration><![CDATA[METHOD PUBLIC ParameterRestoreDefaultValue : BOOL
+VAR_INPUT
+	uiNumber		: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ParametersCreate" Id="{f87dac04-0e60-0cf9-3fcb-2ab850eac29d}" FolderPath="Parameter\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		04.05.2025		TC 4024.66
+	Skasowanie i utworzenie tablicy parametrów od nowa 
+*)
+METHOD PUBLIC ParametersCreate : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="ParameterSetToDefault" Id="{76330915-de2f-01b9-34f0-39db59d2b98e}" FolderPath="Parameter\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		04.05.2025		TC 4024.66
+	Przywrocenie parametrow - in na false to tylko ten element true razem z podelementami
+*)
+METHOD PUBLIC ParameterSetToDefault : BOOL
 ]]></Declaration>
     </Method>
     <Method Name="Reset" Id="{77eb7b91-893b-0d84-16a4-ac22c2bb7b56}">

@@ -8,7 +8,7 @@
 *)
 FUNCTION_BLOCK FB_BaseDescriptor IMPLEMENTS ITF_BaseDescriptor
 VAR
-	stDeskryptor					: ST_BaseDescriptor;
+	stDescriptor					: ST_BaseDescriptor;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -20,7 +20,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetDefaultValue			:= THIS^.stDeskryptor.rDefaultValue;
+        <ST><![CDATA[GetDefaultValue			:= THIS^.stDescriptor.rDefaultValue;
 ]]></ST>
       </Implementation>
     </Method>
@@ -35,13 +35,22 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetDescriptor" Id="{655083d0-f571-0cef-3358-6590c9822db9}">
+      <Declaration><![CDATA[METHOD PUBLIC GetDescriptor : ST_BaseDescriptor
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetDescriptor		:= this^.stDescriptor;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetMax" Id="{8c76e190-abee-0b2f-27c2-dfbab096def1}">
       <Declaration><![CDATA[METHOD PUBLIC GetMax : REAL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetMax					:= THIS^.stDeskryptor.rMax;
+        <ST><![CDATA[GetMax					:= THIS^.stDescriptor.rMax;
 ]]></ST>
       </Implementation>
     </Method>
@@ -62,7 +71,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetMin				:= THIS^.stDeskryptor.rMin;
+        <ST><![CDATA[GetMin				:= THIS^.stDescriptor.rMin;
 ]]></ST>
       </Implementation>
     </Method>
@@ -83,7 +92,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetTexts				:=THIS^.stDeskryptor.stTexts;
+        <ST><![CDATA[GetTexts				:=THIS^.stDescriptor.stTexts;
 ]]></ST>
       </Implementation>
     </Method>
@@ -104,7 +113,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetUnit			:= THIS^.stDeskryptor.sUnit;
+        <ST><![CDATA[GetUnit			:= THIS^.stDescriptor.sUnit;
 ]]></ST>
       </Implementation>
     </Method>
@@ -125,7 +134,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetValue			:= this^.stDeskryptor.rValue;]]></ST>
+        <ST><![CDATA[GetValue			:= this^.stDescriptor.rValue;]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetValueFrom" Id="{5c626a0d-81f1-07da-12a6-85eff4b1e6ea}">
@@ -145,7 +154,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stDeskryptor.rDefaultValue		:= rDefaultValue;
+        <ST><![CDATA[THIS^.stDescriptor.rDefaultValue		:= rDefaultValue;
 ]]></ST>
       </Implementation>
     </Method>
@@ -168,7 +177,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stDeskryptor.rMax		:= rMax;
+        <ST><![CDATA[THIS^.stDescriptor.rMax		:= rMax;
 ]]></ST>
       </Implementation>
     </Method>
@@ -191,7 +200,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stDeskryptor.rMin		:= rMin;
+        <ST><![CDATA[THIS^.stDescriptor.rMin		:= rMin;
 ]]></ST>
       </Implementation>
     </Method>
@@ -215,7 +224,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stDeskryptor.stTexts.arrText [eLocation]	:= wsDescription;
+        <ST><![CDATA[THIS^.stDescriptor.stTexts.arrText [eLocation]	:= wsDescription;
 ]]></ST>
       </Implementation>
     </Method>
@@ -239,7 +248,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stDeskryptor.stTexts			:= stTexts;
+        <ST><![CDATA[THIS^.stDescriptor.stTexts			:= stTexts;
 ]]></ST>
       </Implementation>
     </Method>
@@ -262,7 +271,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stDeskryptor.sUnit		:= sUnit;
+        <ST><![CDATA[THIS^.stDescriptor.sUnit		:= sUnit;
 ]]></ST>
       </Implementation>
     </Method>
@@ -285,7 +294,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stDeskryptor.rValue		:= rValue;
+        <ST><![CDATA[THIS^.stDescriptor.rValue		:= rValue;
 ]]></ST>
       </Implementation>
     </Method>

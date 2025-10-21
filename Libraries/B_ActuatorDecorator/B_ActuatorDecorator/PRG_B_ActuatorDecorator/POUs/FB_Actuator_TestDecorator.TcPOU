@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Actuator_TestDecorator" Id="{afef5ecf-7924-00e5-278c-76059101fe57}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Actuator_TestDecorator EXTENDS FB_BaseControlElementDecoratorParent IMPLEMENTS ITF_ActuatorDecoratorTest
+VAR
+	itfactActuator		: ITF_Actuator;
+	itfsenStart			: ITF_Sensor_TestDecorator;
+	itfsenEnd			: ITF_Sensor_TestDecorator;
+
+	itfczStart			: ITF_Sensor_TestDecorator;		//przypisanie czujnika z pozycji startowej w czasie przesuwania w testach
+	itfczStop			: ITF_Sensor_TestDecorator;		//przypisanie czujnika z pozycji końcowej w czasie przesuwania w testach
+
+	iStepTestCycle		: INT := 0;
+
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{33b0cda0-2287-032f-0727-14b915c1f328}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	fbToDecorate		: ITF_DecoratedElement;
+	actActuator			: ITF_Actuator;
+	senStart			: ITF_Sensor_TestDecorator;
+	senEnd				: ITF_Sensor_TestDecorator;
+	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfactActuator	:= actActuator;
+THIS^.itfsenStart		:= senStart;
+THIS^.itfsenEnd			:= senEnd;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsEnd" Id="{cec0f738-fc1c-0e8d-1394-63230a70e165}">
+      <Declaration><![CDATA[METHOD IsEnd : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsEnd		:= THIS^.itfactActuator.IsEnd ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsStart" Id="{64260bb7-d289-0965-2999-708e3e909685}">
+      <Declaration><![CDATA[METHOD PUBLIC IsStart : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStart		:= THIS^.itfactActuator.IsStart ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveToEnd" Id="{642c8f48-fa3a-40fd-905f-d5deb33e924b}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Uruchomienie cyklu przesuwania do początku
+*)
+METHOD PUBLIC MoveToEnd
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfactActuator.MoveToEnd ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveToStart" Id="{69e4a550-995f-4b44-9a57-c902d1d329c4}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Uruchomienie cyklu przesuwania do początku
+*)
+METHOD PUBLIC MoveToStart
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfactActuator.MoveToStart ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MovingToEndBusy" Id="{ffa00487-3f69-4a75-99ea-b6dceb87f958}">
+      <Declaration><![CDATA[METHOD PUBLIC MovingToEndBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MovingToEndBusy		:= THIS^.itfactActuator.MovingToEndBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MovingToEndFirstCycyle" Id="{195fd51a-1f9e-439d-b6ca-7878a6503b07}">
+      <Declaration><![CDATA[METHOD PUBLIC MovingToEndFirstCycyle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MovingToEndFirstCycyle		:= THIS^.itfactActuator.MovingToEndFirstCycyle ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MovingToEndStatus" Id="{82a57ba5-2422-4866-9fea-4c4e9d99d757}">
+      <Declaration><![CDATA[METHOD PUBLIC MovingToEndStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MovingToEndStatus		:= THIS^.itfactActuator.MovingToEndStatus ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MovingToStartBusy" Id="{19be314e-4c12-483e-9b8e-79d1d96c05a5}">
+      <Declaration><![CDATA[METHOD PUBLIC MovingToStartBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MovingToStartBusy		:= THIS^.itfactActuator.MovingToStartBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MovingToStartFirstCycle" Id="{4327d628-239f-403d-b9c9-39318b88bdae}">
+      <Declaration><![CDATA[METHOD PUBLIC MovingToStartFirstCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MovingToStartFirstCycle 	:= THIS^.itfactActuator.MovingToStartFirstCycle ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MovingToStartStatus" Id="{48cfa4d0-18f2-437c-a350-fa507fff15ea}">
+      <Declaration><![CDATA[METHOD PUBLIC MovingToStartStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MovingToStartStatus		:= THIS^.itfactActuator.MovingToStartStatus ();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Actuator_TestDecoratorWithTimeTest" Id="{2ba82627-0cab-047b-02ff-cabe03b7ca03}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK INTERNAL FB_Actuator_TestDecoratorWithTimeTest EXTENDS TcUnit.FB_TestSuite
+VAR
+	uiIlosc					: UINT;	
+	tonPrzesuwania			: Tc2_Standard.TON;
+	bJest					: BOOL;
+	bKoniec					: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[T00_LinkData ();
+GVL_Decorators.actActuator1_TestWithTimeDecorator.ExecuteEveryCycle_Test ();
+GVL_Decorators.actActuator1_TestWithTimeDecorator.ExecuteEveryCycle_Operation ();
+GVL_Decorators.actActuator1_TestWithTimeDecorator.ExecuteEveryCycle_Status ();
+GVL_Decorators.actActuator1_TestWithTimeDecorator.ExecuteEveryCycle_Error ();
+
+
+T01_TestPracySilownikowWtrybieTestowymDoPoczatku ();
+T02_TestPracySilownikowWtrybieTestowymDoKonca ();
+
+T03_TestSilownikaZdekoratoremAutomat ();
+]]></ST>
+    </Implementation>
+    <Method Name="T00_LinkData" Id="{bf8d4223-9657-0913-3980-97ebd9cf5696}">
+      <Declaration><![CDATA[METHOD PRIVATE T00_LinkData
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T00_LinkData')) THEN
+	GVL_Decorators.stCommonData.itfLocaciotn	:= GVL_Decorators.fbLocaciotn;
+	GVL_Decorators.stCommonData.itfLogger		:= GVL_Decorators.fbLogger;
+	GVL_Decorators.stCommonData.itfTime			:= GVL_Decorators.fbTime;
+	GVL_Decorators.actActuator1_TestWithTimeDecorator.LinkCommonData (stCommonData := GVL_Decorators.stCommonData);
+	GVL_Decorators.actActuator1_TestWithTimeDecorator.LinkSS1 (fbSS1 := GVL_Decorators.flSS1);
+	GVL_Decorators.actActuator1_TestWithTimeDecorator.LinkSTO (fbSTO := GVL_Decorators.flSTO);
+
+	GVL_Decorators.flSS1.SetFlag (bState	:= TRUE);
+	GVL_Decorators.flSTO.SetFlag (bState	:= TRUE);
+	
+	GVL_Decorators.actActuator1_TestWithTimeDecorator.ParametersCreate ();
+
+//	uiIlosc	:= GVL_Decorators.fbLogger.
+
+	uiIlosc	:= 1;//fbLoger.ZgloszenieUstawID (uiID 		:= 1);
+	GVL_Decorators.actActuator1_TestWithTimeDecorator.SetEventsIDs (uiNewID	:= uiIlosc);
+//	fbSilownik_DekoratorTestBezCzasow.ZgloszenieUstawID (uiID	:= uiIlosc);
+	
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T01_TestPracySilownikowWtrybieTestowymDoPoczatku" Id="{ac0cff6d-83c6-01fb-3fa5-38436e0fe9e5}">
+      <Declaration><![CDATA[METHOD PROTECTED T01_TestPracySilownikowWtrybieTestowymDoPoczatku
+VAR_INST
+	iStep			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestPracySilownikowWtrybieTestowymDoPoczatku')) THEN
+	tonPrzesuwania ();
+	CASE iStep OF
+	0	:
+		GVL_Decorators.actActuator1_TestWithTimeDecorator.PowerTurnOn ();
+		iStep	:= 5;
+	5	:
+		IF (GVL_Decorators.actActuator1_TestWithTimeDecorator.PowerGetStatus ()) THEN
+			GVL_Decorators.actActuator1_TestWithTimeDecorator.MoveToStart ();
+			tonPrzesuwania.PT			:= REAL_TO_TIME (GVL_Decorators.actActuator1_TestWithTimeDecorator.ParameterGetValue (uiNumber := 1)*0.25);
+			tonPrzesuwania.IN			:= TRUE;
+			iStep						:= iStep + 5;
+		END_IF
+	10	:
+		IF (tonPrzesuwania.Q) THEN
+			tonPrzesuwania.IN		:= FALSE;
+			AssertFalse (Condition	:= GVL_Decorators.actActuator1_TestWithTimeDecorator.MovingToStartStatus (),Message 	:= 'K10 T01 - czy juz dojechal');
+			AssertTrue (Condition	:= GVL_Decorators.actActuator1_TestWithTimeDecorator.MovingToStartBusy (), 	Message 	:= 'K10 T02 - nie wlaczono przesuwania');
+			iStep					:= iStep + 10;
+		END_IF
+	20	:
+		tonPrzesuwania.PT			:= REAL_TO_TIME (GVL_Decorators.actActuator1_TestWithTimeDecorator.ParameterGetValue (uiNumber := 1)*0.75);
+		tonPrzesuwania.IN			:= TRUE;
+		iStep						:= iStep + 10;
+	30	:
+		IF (tonPrzesuwania.Q) THEN
+			tonPrzesuwania.IN		:= FALSE;
+			AssertTrue (Condition	:= GVL_Decorators.actActuator1_TestWithTimeDecorator.MovingToStartStatus (),Message 	:= 'K30 T01 - czy juz dojechal');
+			AssertFalse (Condition	:= GVL_Decorators.actActuator1_TestWithTimeDecorator.MovingToStartBusy (), 	Message 	:= 'K30 T02 - nie wlaczono przesuwania');
+			iStep					:= iStep + 10;
+		END_IF
+	40	:
+		iStep	:= GVL_BaseConstans.FINISH_STEP;
+	GVL_BaseConstans.FINISH_STEP	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T02_TestPracySilownikowWtrybieTestowymDoKonca" Id="{6b34042c-867a-03a1-2e2f-1a2541131e24}">
+      <Declaration><![CDATA[METHOD PROTECTED T02_TestPracySilownikowWtrybieTestowymDoKonca
+VAR_INST
+	iStep			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestPracySilownikowWtrybieTestowymDoKonca')) THEN
+	tonPrzesuwania ();
+	CASE iStep OF
+	0	:
+		GVL_Decorators.actActuator1_TestWithTimeDecorator.PowerTurnOn ();
+		iStep		:= 5;
+	5	:
+		IF (GVL_Decorators.actActuator1_TestWithTimeDecorator.PowerGetStatus ()) THEN
+			GVL_Decorators.actActuator1_TestWithTimeDecorator.MoveToEnd ();
+			tonPrzesuwania.PT			:= REAL_TO_TIME (GVL_Decorators.actActuator1_TestWithTimeDecorator.ParameterGetValue(uiNumber := 2)*0.25);
+			tonPrzesuwania.IN			:= TRUE;
+			iStep						:= iStep + 5;
+		END_IF
+	10	:
+		IF (tonPrzesuwania.Q) THEN
+			tonPrzesuwania.IN		:= FALSE;
+			AssertFalse (Condition	:= GVL_Decorators.actActuator1_TestWithTimeDecorator.MovingToEndStatus (),	Message 	:= 'K10 T01 - czy juz dojechal');
+			AssertTrue (Condition	:= GVL_Decorators.actActuator1_TestWithTimeDecorator.MovingToEndBusy (), 	Message 	:= 'K10 T02 - nie wlaczono przesuwania');
+			iStep					:= iStep + 10;
+		END_IF
+	20	:
+		tonPrzesuwania.PT			:= REAL_TO_TIME (GVL_Decorators.actActuator1_TestWithTimeDecorator.ParameterGetValue (uiNumber := 2)*0.75);
+		tonPrzesuwania.IN			:= TRUE;
+		iStep						:= iStep + 10;
+	30	:
+		IF (tonPrzesuwania.Q) THEN
+			tonPrzesuwania.IN		:= FALSE;
+			AssertTrue (Condition	:= GVL_Decorators.actActuator1_TestWithTimeDecorator.MovingToEndStatus (),	Message 	:= 'K30 T01 - czy juz dojechal');
+			AssertFalse (Condition	:= GVL_Decorators.actActuator1_TestWithTimeDecorator.MovingToEndBusy (), 	Message 	:= 'K30 T02 - nie wlaczono przesuwania');
+			iStep					:= iStep + 10;
+		END_IF
+	40	:
+		iStep	:= GVL_BaseConstans.FINISH_STEP;
+	GVL_BaseConstans.FINISH_STEP	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T03_TestSilownikaZdekoratoremAutomat" Id="{e8622e01-7783-01ed-3cc2-cf35bd197fcf}">
+      <Declaration><![CDATA[METHOD PROTECTED T03_TestSilownikaZdekoratoremAutomat
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T03_TestSilownikaZdekoratoremAutomat')) THEN
+	bJest			:= TRUE;
+	IF (bKoniec) THEN
+		bJest		:= FALSE;
+		TcUnit.TEST_FINISHED ();
+	END_IF
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,8 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="PRG_Compilation" Id="{05cff98e-8a96-4413-a5f5-2161097f366b}" SpecialFunc="None">
+  <POU Name="PRG_Compilation" Id="{d24d79c3-2ef5-49a9-88ed-c4ba78e1268d}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
+	senStart				: FB_Sensor_NO;
+    senEnd					: FB_Sensor_NO;
+    evActuator				: FB_Electrovalve_5on2_1Coil;
+
+	fbActuator				: FB_Actuator (
+								senStart	:= senStart,
+	                            senEnd		:= senEnd,
+	                            evControl	:= evActuator
+							);	
 END_VAR
 ]]></Declaration>
     <Implementation>

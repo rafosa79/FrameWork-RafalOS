@@ -260,8 +260,8 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (uiNumber > 0 AND uiNumber <= THIS^.stParameters.uiNumber) THEN
-	IF (rValue >= THIS^.GetMaxFrom (stIN := THIS^.stParameters.arrRow [uiNumber]) AND
-		rValue <= THIS^.GetMinFrom (stIN := THIS^.stParameters.arrRow [uiNumber]) ) THEN
+	IF (rValue <= THIS^.GetMaxFrom (stIN := THIS^.stParameters.arrRow [uiNumber]) AND
+		rValue >= THIS^.GetMinFrom (stIN := THIS^.stParameters.arrRow [uiNumber]) ) THEN
 		THIS^.SetValueIn (
 			stIN		:= THIS^.stParameters.arrRow [uiNumber],
 			rValue		:= rValue
