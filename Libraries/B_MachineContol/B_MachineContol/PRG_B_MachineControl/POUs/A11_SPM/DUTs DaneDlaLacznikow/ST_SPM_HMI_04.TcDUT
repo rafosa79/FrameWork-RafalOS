@@ -4,8 +4,8 @@
     <Declaration><![CDATA[TYPE ST_SPM_HMI_04 :
 STRUCT
 	bDaneUtworzone			: BOOL;
-	refarrTryby				: REFERENCE TO ARRAY [0..STALE.ILOSC_TRYBOW_PRACY] OF ITF_SITP_Element;
-	refArrPoleceniaTrybu	: REFERENCE TO ARRAY [0..STALE.ILOSC_POLECEN_ZMIANY_TRYBU] OF ITF_SITP_PolecenieZmianyTrybu;
+	refarrTryby				: REFERENCE TO ARRAY [0..GVL_MachineControlConstans.COUNT_OPERATION_MODES] OF ITF_SITP_Element;
+	refArrPoleceniaTrybu	: REFERENCE TO ARRAY [0..GVL_MachineControlConstans.COUNT_MODE_COMMANDS] OF ITF_SITP_PolecenieZmianyTrybu;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

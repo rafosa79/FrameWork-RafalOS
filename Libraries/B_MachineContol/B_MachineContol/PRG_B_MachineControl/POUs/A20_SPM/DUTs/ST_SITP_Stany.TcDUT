@@ -7,8 +7,8 @@ STRUCT
     fbAborting      						: FB_Stan_Aborting;
     fbAborted       						: FB_Stan_Aborted;
     fbClearing      						: FB_Stan_Clearing;
-    fbStopping      						: FB_Stan_Stopping;
-    fbStopped       						: FB_Stan_Stopped;
+    flSTOpping      						: FB_Stan_Stopping;
+    flSTOpped       						: FB_Stan_Stopped;
     fbResetting     						: FB_Stan_Resetting;
     fbIdle          						: FB_Stan_Idle;
 	fbStarting      						: FB_Stan_Starting;

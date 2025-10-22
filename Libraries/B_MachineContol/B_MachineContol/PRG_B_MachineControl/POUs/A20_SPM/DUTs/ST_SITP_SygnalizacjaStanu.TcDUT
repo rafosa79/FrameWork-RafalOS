@@ -7,8 +7,8 @@ STRUCT
 	fbAborting      						: FB_SITP_SygnalizacjaStanu_Aborting;
 	fbAborted       						: FB_SITP_SygnalizacjaStanu_Aborted;
 	fbClearing      						: FB_SITP_SygnalizacjaStanu_Clearing;
-	fbStopping      						: FB_SITP_SygnalizacjaStanu_Stopping;
-	fbStopped       						: FB_SITP_SygnalizacjaStanu_Stopped;
+	flSTOpping      						: FB_SITP_SygnalizacjaStanu_Stopping;
+	flSTOpped       						: FB_SITP_SygnalizacjaStanu_Stopped;
 	fbResetting     						: FB_SITP_SygnalizacjaStanu_Resetting;
 	fbIdle          						: FB_SITP_SygnalizacjaStanu_Idle;
 	fbStarting      						: FB_SITP_SygnalizacjaStanu_Starting;

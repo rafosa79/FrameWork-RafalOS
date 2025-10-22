@@ -137,18 +137,18 @@ VAR
 	bResetZReki				: BOOL;	
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.refstsafety.fbSS1.set (bIN		:= THIS^.refstSafety.stStanyGrupy1.bSS1);	//przepisanie z wyjścia programu safety na flagi dla programu plc 
-THIS^.refstsafety.fbSTO.set (bIN		:= THIS^.refstSafety.stStanyGrupy1.bSTO);
-THIS^.refstsafety.fbGrzybCh1a.set (bIN	:= THIS^.refstSafety.stStanyGrupy1.bStyk1A);
-THIS^.refstsafety.fbGrzybCh1b.set (bIN	:= THIS^.refstSafety.stStanyGrupy1.bStyk1B);
+        <ST><![CDATA[THIS^.refstsafety.flSS1.set (bIN		:= THIS^.refstSafety.stStanyGrupy1.bSS1);	//przepisanie z wyjścia programu safety na flagi dla programu plc 
+THIS^.refstsafety.flSTO.set (bIN		:= THIS^.refstSafety.stStanyGrupy1.bSTO);
+THIS^.refstsafety.flGrzybCh1a.set (bIN	:= THIS^.refstSafety.stStanyGrupy1.bStyk1A);
+THIS^.refstsafety.flGrzybCh1b.set (bIN	:= THIS^.refstSafety.stStanyGrupy1.bStyk1B);
 
-rtPozwolenieSS1 (CLK		:= THIS^.refstSafety.stStanyGrupy1.bSS1);
-ftPozwolenieSS1 (CLK		:= THIS^.refstSafety.stStanyGrupy1.bSS1);
-THIS^.refstSafety.stStanyGrupy1.bL1_EDM		:= bEDM;
+rtPozwolenieSS1 (CLK		:= THIS^.refstSafety.stGroupStates1.bSS1);
+ftPozwolenieSS1 (CLK		:= THIS^.refstSafety.stGroupStates1.bSS1);
+THIS^.refstSafety.stGroupStates1.bL1_EDM		:= bEDM;
 
-bBladGrupySafety			:= THIS^.refstSafety.stStanyGrupy1.bComError OR
-								THIS^.refstSafety.stStanyGrupy1.bFbError OR
-								THIS^.refstSafety.stStanyGrupy1.bOthError;
+bBladGrupySafety			:= THIS^.refstSafety.stGroupStates1.bComError OR
+								THIS^.refstSafety.stGroupStates1.bFbError OR
+								THIS^.refstSafety.stGroupStates1.bOthError;
 tonOpoznienie (PT 			:= T#500MS);
 
 CASE iKrok OF
@@ -157,9 +157,9 @@ CASE iKrok OF
 			iKrok							:= iKrok + 10;
 		END_IF
 	10	:	// Reset bledu grupy - jesli jest
-		THIS^.refstSafety.bErrAck				:= THIS^.refstSafety.stStanyGrupy1.bComError OR
-												THIS^.refstSafety.stStanyGrupy1.bFbError OR
-												THIS^.refstSafety.stStanyGrupy1.bOthError;
+		THIS^.refstSafety.bErrAck				:= THIS^.refstSafety.stGroupStates1.bComError OR
+												THIS^.refstSafety.stGroupStates1.bFbError OR
+												THIS^.refstSafety.stGroupStates1.bOthError;
 		bWymusOpoznienie						S= THIS^.refstSafety.bErrAck;
 		IF (NOT THIS^.refstSafety.bErrAck) THEN
 			IF (bWymusOpoznienie) THEN
@@ -176,10 +176,10 @@ CASE iKrok OF
 			iKrok							:= iKrok + 10;
 		END_IF
 	30	: // Reset blokow SAFETY - grupa 1
-		THIS^.refstSafety.stStanyGrupy1.bFB_Reset	:= TRUE;
+		THIS^.refstSafety.stGroupStates1.bFB_Reset	:= TRUE;
 		iKrok								:= iKrok + 10;
 	40	:// Reset blokow SAFETY
-		THIS^.refstSafety.stStanyGrupy1.bFB_Reset	:= FALSE;
+		THIS^.refstSafety.stGroupStates1.bFB_Reset	:= FALSE;
 		iKrok								:= 0;
 END_CASE
 

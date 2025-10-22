@@ -125,8 +125,8 @@ END_VAR
 	THIS^.arrPB [THIS^.iIloscPB].PowiazCzas (fbCzas				:= THIS^.itfCzas);
 	THIS^.arrPB [THIS^.iIloscPB].PowiazJezyk (fbLokalizacja 	:= THIS^.fbLokalizacja);
 	THIS^.arrPB [THIS^.iIloscPB].PowiazLoger (fbLoger 			:= THIS^.fbLoger);
-	THIS^.arrPB [THIS^.iIloscPB].PowiazSS1 (fbSS1 				:= THIS^.refstSafety.fbSS1);
-	THIS^.arrPB [THIS^.iIloscPB].PowiazSTO (fbSTO	 			:= THIS^.refstSafety.fbSTO);
+	THIS^.arrPB [THIS^.iIloscPB].PowiazSS1 (flSS1 				:= THIS^.refstSafety.flSS1);
+	THIS^.arrPB [THIS^.iIloscPB].PowiazSTO (flSTO	 			:= THIS^.refstSafety.flSTO);
 	THIS^.arrPB [THIS^.iIloscPB].PowiazSITP (fbSITP 			:= THIS^);
 	THIS^.arrPB [THIS^.iIloscPB].PowiazKomunikator (itfKomunikator	:= THIS^.fbKomunikator);
 	
@@ -208,77 +208,77 @@ VAR
 	
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.brak]			:= GVL_IO.fbprUndefined;
+        <ST><![CDATA[THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.brak]			:= GVL_MachineControlIO.fbprUndefined;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprUndefined);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany stanu na : Undefined", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.brak].ustawNazwe (stEtykieta := THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Abort]		:= GVL_IO.fbprAbort;
+THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Abort]		:= GVL_MachineControlIO.fbprAbort;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprAbort);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany stanu na : Abort", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Abort].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Clear]		:= GVL_IO.fbprClear;
+THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Clear]		:= GVL_MachineControlIO.fbprClear;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprClear);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany stanu na : Clear", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Clear].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Reset]		:= GVL_IO.fbprReset;
+THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Reset]		:= GVL_MachineControlIO.fbprReset;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprReset);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany stanu na : Reset", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Reset].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Start]		:= GVL_IO.fbprStart;
+THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Start]		:= GVL_MachineControlIO.fbprStart;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprStart);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany stanu na : Start", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Start].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Stop]			:= GVL_IO.fbprStop;
+THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Stop]			:= GVL_MachineControlIO.fbprStop;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprStop);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany stanu na : Stop", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Stop].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Hold]			:= GVL_IO.fbprHold;
+THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Hold]			:= GVL_MachineControlIO.fbprHold;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprHold);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany stanu na : Hold", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Hold].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Unhold]		:= GVL_IO.fbprUnhold;
+THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Unhold]		:= GVL_MachineControlIO.fbprUnhold;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprUnhold);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany stanu na : UnHold", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Unhold].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Suspend]		:= GVL_IO.fbprSuspend;
+THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Suspend]		:= GVL_MachineControlIO.fbprSuspend;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprSuspend);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany stanu na : Suspend", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Suspend].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Unsuspend]	:= GVL_IO.fbprUnsuspend;
+THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Unsuspend]	:= GVL_MachineControlIO.fbprUnsuspend;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprUnsuspend);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany stanu na : UnSuspend", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Unsuspend].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Complete]		:= GVL_IO.fbprComplete;
+THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Complete]		:= GVL_MachineControlIO.fbprComplete;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprComplete);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany stanu na : Complete", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
@@ -287,42 +287,42 @@ THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyStanu.Complete].usta
 
 //TRYBY
 
-THIS^.stSITP.arrPoleceniaZmianyTrybu [E_SITP_PolecenieZmianyTrybu.brak]			:= GVL_IO.fbprNiedozwolony;
+THIS^.stSITP.arrPoleceniaZmianyTrybu [E_SITP_PolecenieZmianyTrybu.brak]			:= GVL_MachineControlIO.fbprNiedozwolony;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprUndefined);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany trybu na : Undefined", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyTrybu.brak].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyTrybu [E_SITP_PolecenieZmianyTrybu.Produkcja]	:= GVL_IO.fbprProdukcja;
+THIS^.stSITP.arrPoleceniaZmianyTrybu [E_SITP_PolecenieZmianyTrybu.Produkcja]	:= GVL_MachineControlIO.fbprProdukcja;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprProdukcja);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany trybu na : Produkcja", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyTrybu.Produkcja].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyTrybu [E_SITP_PolecenieZmianyTrybu.Konserwacja]	:= GVL_IO.fbprKonserwacja;
+THIS^.stSITP.arrPoleceniaZmianyTrybu [E_SITP_PolecenieZmianyTrybu.Konserwacja]	:= GVL_MachineControlIO.fbprKonserwacja;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprKonserwacja);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany trybu na : Konserwacja", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyTrybu.Konserwacja].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyTrybu [E_SITP_PolecenieZmianyTrybu.Reczny]		:= GVL_IO.fbprReczny;
+THIS^.stSITP.arrPoleceniaZmianyTrybu [E_SITP_PolecenieZmianyTrybu.Reczny]		:= GVL_MachineControlIO.fbprReczny;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprReczny);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany trybu na : Ręczny", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyTrybu.Reczny].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyTrybu [E_SITP_PolecenieZmianyTrybu.Mycie]		:= GVL_IO.fbprMycie;
+THIS^.stSITP.arrPoleceniaZmianyTrybu [E_SITP_PolecenieZmianyTrybu.Mycie]		:= GVL_MachineControlIO.fbprMycie;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprMycie);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany trybu na : Mycie", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
 THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyTrybu.Mycie].ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrPoleceniaZmianyTrybu [E_SITP_PolecenieZmianyTrybu.Diagnostyka]	:= GVL_IO.fbprDiagnostyka;
+THIS^.stSITP.arrPoleceniaZmianyTrybu [E_SITP_PolecenieZmianyTrybu.Diagnostyka]	:= GVL_MachineControlIO.fbprDiagnostyka;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbprDiagnostyka);
 THIS^.PrzypiszTekst (wsTekst	:= "Polecenie zmiany trybu na : Użytkownika1", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
@@ -361,112 +361,112 @@ THIS^.stSITP.arrPoleceniaZmianyStanu [E_SITP_PolecenieZmianyTrybu.Uzytkownika5].
 
 	(* 	Wieża sygnalizacyjna	*)
 	
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.WiezaCzerwona]	:= GVL_IO.fbLWiezaCzerwona;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.WiezaCzerwona]	:= GVL_MachineControlIO.fbLWiezaCzerwona;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbLWiezaCzerwona);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - wieża - czerwona", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fbLWiezaCzerwona.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fbLWiezaCzerwona.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.WiezaZolta]	:= GVL_IO.fbLWiezaZolta;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.WiezaZolta]	:= GVL_MachineControlIO.fbLWiezaZolta;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbLWiezaZolta);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - wieża - żółta", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fbLWiezaZolta.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fbLWiezaZolta.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.WiezaZielona]	:= GVL_IO.fbLWiezaZielona;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.WiezaZielona]	:= GVL_MachineControlIO.fbLWiezaZielona;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbLWiezaZielona);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - wieża - zielona", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fbLWiezaZielona.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fbLWiezaZielona.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.WiezaBiala]	:= GVL_IO.fbLWiezaBiala;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.WiezaBiala]	:= GVL_MachineControlIO.fbLWiezaBiala;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbLWiezaBiala);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - wieża - biała", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fbLWiezaBiala.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fbLWiezaBiala.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.WiezaNiebieska]	:= GVL_IO.fbLWiezaNiebieska;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.WiezaNiebieska]	:= GVL_MachineControlIO.fbLWiezaNiebieska;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fbLWiezaNiebieska);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - wieża - niebieska", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fbLWiezaNiebieska.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fbLWiezaNiebieska.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
 	(*	Lampki przycisków	*)
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskReset]	:= GVL_IO.fblprzReset;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskReset]	:= GVL_MachineControlIO.fblprzReset;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fblprzReset);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - przycisk - Reset", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fblprzReset.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fblprzReset.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskStart]	:= GVL_IO.fblprzStart;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskStart]	:= GVL_MachineControlIO.fblprzStart;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fblprzStart);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - przycisk - Start", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fblprzStart.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fblprzStart.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskStop]	:= GVL_IO.fblprzStop;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskStop]	:= GVL_MachineControlIO.fblprzStop;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fblprzStop);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - przycisk - Stop", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fblprzStop.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fblprzStop.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskHold]	:= GVL_IO.fblprzHold;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskHold]	:= GVL_MachineControlIO.fblprzHold;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fblprzHold);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - przycisk - Hold", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fblprzHold.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fblprzHold.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskUnhold]	:= GVL_IO.fblprzUnhold;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskUnhold]	:= GVL_MachineControlIO.fblprzUnhold;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fblprzUnhold);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - przycisk - UnHold", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fblprzUnhold.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fblprzUnhold.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskSuspend]	:= GVL_IO.fblprzSuspend;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskSuspend]	:= GVL_MachineControlIO.fblprzSuspend;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fblprzSuspend);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - przycisk - Suspend", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fblprzSuspend.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fblprzSuspend.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskUnsuspend]	:= GVL_IO.fblprzUnsuspend;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskUnsuspend]	:= GVL_MachineControlIO.fblprzUnsuspend;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fblprzUnsuspend);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - przycisk - UnSuspend", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fblprzUnsuspend.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fblprzUnsuspend.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskAbort]	:= GVL_IO.fblprzAbort;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskAbort]	:= GVL_MachineControlIO.fblprzAbort;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fblprzAbort);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - przycisk - Abort", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fblprzAbort.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fblprzAbort.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskClear]	:= GVL_IO.fblprzClear;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskClear]	:= GVL_MachineControlIO.fblprzClear;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fblprzClear);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - przycisk - Clear", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fblprzClear.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fblprzClear.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 
-THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskComplete]	:= GVL_IO.fblprzComplete;
+THIS^.stSITP.arrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskComplete]	:= GVL_MachineControlIO.fblprzComplete;
 THIS^.DodajKomponent (itfK			:= GVL_IO.fblprzComplete);
 THIS^.PrzypiszTekst (wsTekst	:= "Lampoa sygnalizacyjna - przycisk - Complete", eJezyk := E_Jezyki.pl);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.en);
 THIS^.PrzypiszTekst (wsTekst	:= "", eJezyk := E_Jezyki.de);
-GVL_IO.fblprzComplete.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
+GVL_MachineControlIO.fblprzComplete.ustawNazwe (stEtykieta	:= THIS^.ZwrocEtykiete ());
 ]]></ST>
       </Implementation>
     </Method>
@@ -481,13 +481,13 @@ VAR
 	iI					: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[FOR iI := 0 TO STALE.ILOSC_TRYBOW_PRACY DO
+        <ST><![CDATA[FOR iI := 0 TO GVL_MachineControlConstans.COUNT_OPERATION_MODES DO
 	THIS^.stSITP.stStany [iI].fbUndefined.PowiazDane (stDaneSITP		:= THIS^.stSITPDaneElementu);
 	THIS^.stSITP.stStany [iI].fbAborting.PowiazDane (stDaneSITP			:= THIS^.stSITPDaneElementu);
 	THIS^.stSITP.stStany [iI].fbAborted.PowiazDane (stDaneSITP			:= THIS^.stSITPDaneElementu);
 	THIS^.stSITP.stStany [iI].fbClearing.PowiazDane (stDaneSITP			:= THIS^.stSITPDaneElementu);	
-	THIS^.stSITP.stStany [iI].fbStopping.PowiazDane (stDaneSITP			:= THIS^.stSITPDaneElementu);
-	THIS^.stSITP.stStany [iI].fbStopped.PowiazDane (stDaneSITP			:= THIS^.stSITPDaneElementu);
+	THIS^.stSITP.stStany [iI].flSTOpping.PowiazDane (stDaneSITP			:= THIS^.stSITPDaneElementu);
+	THIS^.stSITP.stStany [iI].flSTOpped.PowiazDane (stDaneSITP			:= THIS^.stSITPDaneElementu);
 	THIS^.stSITP.stStany [iI].fbResetting.PowiazDane (stDaneSITP		:= THIS^.stSITPDaneElementu);
 	THIS^.stSITP.stStany [iI].fbIdle.PowiazDane (stDaneSITP				:= THIS^.stSITPDaneElementu);
 	THIS^.stSITP.stStany [iI].fbStarting.PowiazDane (stDaneSITP			:= THIS^.stSITPDaneElementu);
@@ -506,8 +506,8 @@ END_VAR]]></Declaration>
 	THIS^.stSITP.arrStanyWszystkichTrybow [iI][1] 						:= THIS^.stSITP.stStany [iI].fbAborting;
 	THIS^.stSITP.arrStanyWszystkichTrybow [iI][2] 						:= THIS^.stSITP.stStany [iI].fbAborted;
 	THIS^.stSITP.arrStanyWszystkichTrybow [iI][3] 						:= THIS^.stSITP.stStany [iI].fbClearing;
-	THIS^.stSITP.arrStanyWszystkichTrybow [iI][4] 						:= THIS^.stSITP.stStany [iI].fbStopping;
-	THIS^.stSITP.arrStanyWszystkichTrybow [iI][5] 						:= THIS^.stSITP.stStany [iI].fbStopped;
+	THIS^.stSITP.arrStanyWszystkichTrybow [iI][4] 						:= THIS^.stSITP.stStany [iI].flSTOpping;
+	THIS^.stSITP.arrStanyWszystkichTrybow [iI][5] 						:= THIS^.stSITP.stStany [iI].flSTOpped;
 	THIS^.stSITP.arrStanyWszystkichTrybow [iI][6] 						:= THIS^.stSITP.stStany [iI].fbResetting;
 	THIS^.stSITP.arrStanyWszystkichTrybow [iI][7] 						:= THIS^.stSITP.stStany [iI].fbIdle;
 	THIS^.stSITP.arrStanyWszystkichTrybow [iI][8] 						:= THIS^.stSITP.stStany [iI].fbStarting;
@@ -593,8 +593,8 @@ END_VAR
 THIS^.stSITP.stSygnalizacjaStanu.fbAborting.PowiazTablice (refarrLampki		:= THIS^.stSITP.arrLampki);
 THIS^.stSITP.stSygnalizacjaStanu.fbAborted.PowiazTablice (refarrLampki		:= THIS^.stSITP.arrLampki);
 THIS^.stSITP.stSygnalizacjaStanu.fbClearing.PowiazTablice (refarrLampki		:= THIS^.stSITP.arrLampki);
-THIS^.stSITP.stSygnalizacjaStanu.fbStopping.PowiazTablice (refarrLampki		:= THIS^.stSITP.arrLampki);
-THIS^.stSITP.stSygnalizacjaStanu.fbStopped.PowiazTablice (refarrLampki		:= THIS^.stSITP.arrLampki);
+THIS^.stSITP.stSygnalizacjaStanu.flSTOpping.PowiazTablice (refarrLampki		:= THIS^.stSITP.arrLampki);
+THIS^.stSITP.stSygnalizacjaStanu.flSTOpped.PowiazTablice (refarrLampki		:= THIS^.stSITP.arrLampki);
 THIS^.stSITP.stSygnalizacjaStanu.fbResetting.PowiazTablice (refarrLampki	:= THIS^.stSITP.arrLampki);
 THIS^.stSITP.stSygnalizacjaStanu.fbIdle.PowiazTablice (refarrLampki			:= THIS^.stSITP.arrLampki);
 THIS^.stSITP.stSygnalizacjaStanu.fbStarting.PowiazTablice (refarrLampki		:= THIS^.stSITP.arrLampki);
@@ -612,8 +612,8 @@ THIS^.stSITP.arrSygnalizacjaStanu [B_Baza.E_StanyPracy.Undefined]		:= THIS^.stSI
 THIS^.stSITP.arrSygnalizacjaStanu [B_Baza.E_StanyPracy.Aborting]		:= THIS^.stSITP.stSygnalizacjaStanu.fbAborting;
 THIS^.stSITP.arrSygnalizacjaStanu [B_Baza.E_StanyPracy.Aborted]		:= THIS^.stSITP.stSygnalizacjaStanu.fbAborted;
 THIS^.stSITP.arrSygnalizacjaStanu [B_Baza.E_StanyPracy.Clearing]		:= THIS^.stSITP.stSygnalizacjaStanu.fbClearing;
-THIS^.stSITP.arrSygnalizacjaStanu [B_Baza.E_StanyPracy.Stopping]		:= THIS^.stSITP.stSygnalizacjaStanu.fbStopping;
-THIS^.stSITP.arrSygnalizacjaStanu [B_Baza.E_StanyPracy.Stopped]		:= THIS^.stSITP.stSygnalizacjaStanu.fbStopped;
+THIS^.stSITP.arrSygnalizacjaStanu [B_Baza.E_StanyPracy.Stopping]		:= THIS^.stSITP.stSygnalizacjaStanu.flSTOpping;
+THIS^.stSITP.arrSygnalizacjaStanu [B_Baza.E_StanyPracy.Stopped]		:= THIS^.stSITP.stSygnalizacjaStanu.flSTOpped;
 THIS^.stSITP.arrSygnalizacjaStanu [B_Baza.E_StanyPracy.Resetting]		:= THIS^.stSITP.stSygnalizacjaStanu.fbResetting;
 THIS^.stSITP.arrSygnalizacjaStanu [B_Baza.E_StanyPracy.Idle]			:= THIS^.stSITP.stSygnalizacjaStanu.fbIdle;
 THIS^.stSITP.arrSygnalizacjaStanu [B_Baza.E_StanyPracy.Starting]		:= THIS^.stSITP.stSygnalizacjaStanu.fbStarting;
@@ -790,7 +790,7 @@ VAR
 	iI				: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[	FOR iI := 0 TO STALE.ILOSC_STANOW_PRACY DO
+        <ST><![CDATA[	FOR iI := 0 TO GVL_MachineControlConstans.COUNT_MACHINE_STATES DO
 		THIS^.stSITP.arrStanyWlaczoneWTrybie [eTryb][iI]			:= THIS^.stSITP.arrStanyWszystkichTrybow [eTryb][iI].zwrocWlaczony ();
 	END_FOR]]></ST>
       </Implementation>
@@ -804,7 +804,7 @@ VAR
 	iI: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[FOR iI := 0 TO STALE.ILOSC_TRYBOW_PRACY DO
+        <ST><![CDATA[FOR iI := 0 TO GVL_MachineControlConstans.COUNT_OPERATION_MODES DO
 	THIS^.stSITP.arrTrybyWlaczone [iI]		:= THIS^.stSITP.arrTryby [iI].zwrocWlaczony ();
 END_FOR
 ]]></ST>
@@ -961,10 +961,10 @@ END_VAR
       <Implementation>
         <ST><![CDATA[THIS^.refstSafety											REF= stSafety;
 
-THIS^.stSITPDaneElementu.itfGrzybCh1						:= THIS^.refstSafety.fbGrzybCh1a;
-THIS^.stSITPDaneElementu.itfGrzybCh2						:= THIS^.refstSafety.fbGrzybCh1b;
-THIS^.stSITPDaneElementu.itfSS1								:= THIS^.refstSafety.fbSS1;
-THIS^.stSITPDaneElementu.itfSTO								:= THIS^.refstSafety.fbSTO;
+THIS^.stSITPDaneElementu.itfGrzybCh1						:= THIS^.refstSafety.flGrzybCh1a;
+THIS^.stSITPDaneElementu.itfGrzybCh2						:= THIS^.refstSafety.flGrzybCh1b;
+THIS^.stSITPDaneElementu.itfSS1								:= THIS^.refstSafety.flSS1;
+THIS^.stSITPDaneElementu.itfSTO								:= THIS^.refstSafety.flSTO;
 ]]></ST>
       </Implementation>
     </Method>
@@ -992,13 +992,13 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[SUPER^.PowiazJezyk (fbLokalizacja	:= fbLokalizacja);
 
-FOR iI := 0 TO STALE.ILOSC_TRYBOW_PRACY DO
+FOR iI := 0 TO GVL_MachineControlConstans.COUNT_OPERATION_MODES DO
 	THIS^.stSITP.stStany [iI].fbUndefined.PowiazJezyk (fbLokalizacja	:= THIS^.fbLokalizacja);
 	THIS^.stSITP.stStany [iI].fbAborting.PowiazJezyk (fbLokalizacja		:= THIS^.fbLokalizacja);
 	THIS^.stSITP.stStany [iI].fbAborted.PowiazJezyk (fbLokalizacja		:= THIS^.fbLokalizacja);
 	THIS^.stSITP.stStany [iI].fbClearing.PowiazJezyk (fbLokalizacja		:= THIS^.fbLokalizacja);	
-	THIS^.stSITP.stStany [iI].fbStopping.PowiazJezyk (fbLokalizacja		:= THIS^.fbLokalizacja);
-	THIS^.stSITP.stStany [iI].fbStopped.PowiazJezyk (fbLokalizacja		:= THIS^.fbLokalizacja);
+	THIS^.stSITP.stStany [iI].flSTOpping.PowiazJezyk (fbLokalizacja		:= THIS^.fbLokalizacja);
+	THIS^.stSITP.stStany [iI].flSTOpped.PowiazJezyk (fbLokalizacja		:= THIS^.fbLokalizacja);
 	THIS^.stSITP.stStany [iI].fbResetting.PowiazJezyk (fbLokalizacja	:= THIS^.fbLokalizacja);
 	THIS^.stSITP.stStany [iI].fbIdle.PowiazJezyk (fbLokalizacja			:= THIS^.fbLokalizacja);
 	THIS^.stSITP.stStany [iI].fbStarting.PowiazJezyk (fbLokalizacja		:= THIS^.fbLokalizacja);
@@ -1036,7 +1036,7 @@ VAR
 	iI: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[FOR iI := 0 TO STALE.ILOSC_POLECEN_ZMIANY_STANU DO
+        <ST><![CDATA[FOR iI := 0 TO GVL_MachineControlConstans.COUNT_STATE_COMMANDS DO
 	IF (THIS^.stSITP.arrPoleceniaZmianyStanu [iI].zwrocStanRozkazu ()) THEN
 		THIS^.stSITPDaneElementu.ePolecenieZmianyStanu	:= THIS^.stSITP.arrPoleceniaZmianyStanu[iI].zwrocRodzajPolecenia();
 		TestCzyAktynePolecenieZmianyStanu		:= TRUE;
@@ -1055,7 +1055,7 @@ VAR
 	iI: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[FOR iI := 0 TO STALE.ILOSC_POLECEN_ZMIANY_TRYBU DO
+        <ST><![CDATA[FOR iI := 0 TO GVL_MachineControlConstans.COUNT_MODE_COMMANDS DO
 	IF (THIS^.stSITP.arrPoleceniaZmianyTrybu [iI].zwrocStanRozkazu ()) THEN
 		THIS^.stSITPDaneElementu.ePolecenieZmianyTrybu	:= THIS^.stSITP.arrPoleceniaZmianyTrybu[iI].zwrocRodzajPolecenia();
 		TestCzyAktynePolecenieZmianyTrybu		:= TRUE;

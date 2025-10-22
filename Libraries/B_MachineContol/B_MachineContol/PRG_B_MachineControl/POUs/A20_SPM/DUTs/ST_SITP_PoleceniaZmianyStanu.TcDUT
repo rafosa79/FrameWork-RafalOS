@@ -8,7 +8,7 @@ STRUCT
 	fbClear			: ITF_SITP_PolecenieZmianyStanu;
 	fbReset			: ITF_SITP_PolecenieZmianyStanu;
 	fbStart			: ITF_SITP_PolecenieZmianyStanu;
-	fbStop			: ITF_SITP_PolecenieZmianyStanu;
+	flSTOp			: ITF_SITP_PolecenieZmianyStanu;
 	fbHold			: ITF_SITP_PolecenieZmianyStanu;
 	fbUnhold		: ITF_SITP_PolecenieZmianyStanu;
 	fbSuspend		: ITF_SITP_PolecenieZmianyStanu;

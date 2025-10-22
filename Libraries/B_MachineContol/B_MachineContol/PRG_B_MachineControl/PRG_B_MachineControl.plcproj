@@ -86,13 +86,13 @@
     <Compile Include="DUTs\ST_Safety.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\ST_SafetyStanyGrup.TcDUT">
+    <Compile Include="DUTs\ST_SafetyGroupStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GVLs\GVL_IO.TcGVL">
+    <Compile Include="GVLs\GVL_MachineControlIO.TcGVL">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GVLs\STALE.TcGVL">
+    <Compile Include="GVLs\GVL_MachineControlConstans.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>

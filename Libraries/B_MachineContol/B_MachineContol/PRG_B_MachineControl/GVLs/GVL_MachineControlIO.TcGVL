@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <GVL Name="GVL_IO" Id="{e6049030-6eb2-05ee-3e39-cd6ec4906926}">
+  <GVL Name="GVL_MachineControlIO" Id="{e6049030-6eb2-05ee-3e39-cd6ec4906926}">
     <Declaration><![CDATA[{attribute 'global_init_slot' := '40400'}
 {attribute 'qualified_only'}
 VAR_GLOBAL

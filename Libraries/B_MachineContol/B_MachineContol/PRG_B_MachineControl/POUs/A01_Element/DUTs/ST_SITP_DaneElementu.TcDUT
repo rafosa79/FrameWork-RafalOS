@@ -14,9 +14,9 @@ STRUCT
 	eNowyStan						: B_Baza.E_StanyPracy;
 	eNowyTryb						: B_Baza.E_TrybyPracy;
 	
-	arrStanyWlaczoneWTrybie						: ARRAY [0..STALE.ILOSC_STANOW_PRACY] OF BOOL;
-	arrMozliwoscPrzejsciaPamiedzyTrybamiWStanie	: ARRAY [0..STALE.ILOSC_TRYBOW_PRACY] OF BOOL;	//informacja dla aktualnego stanu do jakich trybów można przejść
-	refarrTrybyWlaczone							: REFERENCE TO ARRAY [0..STALE.ILOSC_TRYBOW_PRACY] OF BOOL;
+	arrStanyWlaczoneWTrybie						: ARRAY [0..GVL_MachineControlConstans.COUNT_MACHINE_STATES] OF BOOL;
+	arrMozliwoscPrzejsciaPamiedzyTrybamiWStanie	: ARRAY [0..GVL_MachineControlConstans.COUNT_OPERATION_MODES] OF BOOL;	//informacja dla aktualnego stanu do jakich trybów można przejść
+	refarrTrybyWlaczone							: REFERENCE TO ARRAY [0..GVL_MachineControlConstans.COUNT_OPERATION_MODES] OF BOOL;
 	
 	iNumerBledu						: INT;	//informacja dla SITP żeby wystawił numer informacji o nieudanej zmianie stanu lub trybu
 	bAktywnyBlad					: BOOL;

@@ -4,10 +4,10 @@
     <Declaration><![CDATA[TYPE ST_SPM_HMI_06 :
 STRUCT
 	bDaneUtworzone			: BOOL;
-	refarrStany				: REFERENCE TO ARRAY [0..STALE.ILOSC_STANOW_PRACY] OF ITF_SITP_Element;
-	refarrTryby				: REFERENCE TO ARRAY [0..STALE.ILOSC_TRYBOW_PRACY] OF ITF_SITP_Element;
-	refArrPoleceniaStany	: REFERENCE TO ARRAY [0..STALE.ILOSC_POLECEN_ZMIANY_STANU] OF ITF_SITP_PolecenieZmianyStanu;
-	refArrPoleceniatrybu	: REFERENCE TO ARRAY [0..STALE.ILOSC_POLECEN_ZMIANY_TRYBU] OF ITF_SITP_PolecenieZmianyTrybu;
+	refarrStany				: REFERENCE TO ARRAY [0..GVL_MachineControlConstans.COUNT_MACHINE_STATES] OF ITF_SITP_Element;
+	refarrTryby				: REFERENCE TO ARRAY [0..GVL_MachineControlConstans.COUNT_OPERATION_MODES] OF ITF_SITP_Element;
+	refArrPoleceniaStany	: REFERENCE TO ARRAY [0..GVL_MachineControlConstans.COUNT_STATE_COMMANDS] OF ITF_SITP_PolecenieZmianyStanu;
+	refArrPoleceniatrybu	: REFERENCE TO ARRAY [0..GVL_MachineControlConstans.COUNT_MODE_COMMANDS] OF ITF_SITP_PolecenieZmianyTrybu;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

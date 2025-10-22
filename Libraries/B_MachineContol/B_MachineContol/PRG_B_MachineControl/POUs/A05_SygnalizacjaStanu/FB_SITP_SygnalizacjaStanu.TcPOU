@@ -3,7 +3,7 @@
   <POU Name="FB_SITP_SygnalizacjaStanu" Id="{cbc3efe0-f491-0759-1bd6-b19e42623d30}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_SITP_SygnalizacjaStanu IMPLEMENTS ITF_SITP_SygnalizacjaStanu
 VAR
-	refarrLampki				: REFERENCE TO ARRAY [1..STALE.ILOSC_LAMPEK_SYGNALIZACYJNYCH] OF B_IO.ITF_LampkaRozszerzona;
+	refarrLampki				: REFERENCE TO ARRAY [1..GVL_MachineControlConstans.COUNT_SIGNAL_LAMPS] OF B_IO.ITF_LampkaRozszerzona;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -12,7 +12,7 @@ END_VAR
     <Method Name="PowiazTablice" Id="{d114f5b5-e3b6-008d-2491-c02d11ce7efa}">
       <Declaration><![CDATA[METHOD PUBLIC PowiazTablice
 VAR_INPUT
-	refarrLampki				: REFERENCE TO ARRAY [1..STALE.ILOSC_LAMPEK_SYGNALIZACYJNYCH] OF B_IO.ITF_LampkaRozszerzona;
+	refarrLampki				: REFERENCE TO ARRAY [1..GVL_MachineControlConstans.COUNT_SIGNAL_LAMPS] OF B_IO.ITF_LampkaRozszerzona;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -51,7 +51,7 @@ VAR
 	iI: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[FOR iI := 1 TO STALE.ILOSC_LAMPEK_SYGNALIZACYJNYCH DO
+        <ST><![CDATA[FOR iI := 1 TO GVL_MachineControlConstans.COUNT_SIGNAL_LAMPS DO
 	THIS^.refarrLampki [iI].Wylacz ();
 END_FOR
 ]]></ST>

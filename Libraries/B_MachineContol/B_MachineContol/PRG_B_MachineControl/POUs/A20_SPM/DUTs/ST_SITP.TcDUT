@@ -17,29 +17,29 @@ STRUCT
 	bTrybZmiana									: BOOL;	
 	bBylaZmianaTrybu							: bool;	//informacja dla HMI, flaga powyżej może być pominiąta gdyż odświerzanie HMI jest żadziej niż cykl PLC
 (*	Stany i tryby 	*)
-	stStany										: ARRAY [0..STALE.ILOSC_TRYBOW_PRACY] OF ST_SITP_Stany;
+	stStany										: ARRAY [0..GVL_MachineControlConstans.COUNT_OPERATION_MODES] OF ST_SITP_Stany;
 	stTryby										: ST_SITP_Tryby;
 (*	Zgrupowane stany i tryby by można je sprawdzać w pętli	*)
-	arrStanyWszystkichTrybow					: ARRAY [0..STALE.ILOSC_TRYBOW_PRACY] OF ARRAY [0..STALE.ILOSC_STANOW_PRACY] OF ITF_SITP_Element;
-	refarrStany									: REFERENCE TO ARRAY [0..STALE.ILOSC_STANOW_PRACY] OF ITF_SITP_Element;	//stany dla aktualnego trybu pracy przypisywane przy zmianie trybu
-	arrTryby									: ARRAY [0..STALE.ILOSC_TRYBOW_PRACY] OF ITF_SITP_Element;
+	arrStanyWszystkichTrybow					: ARRAY [0..GVL_MachineControlConstans.COUNT_OPERATION_MODES] OF ARRAY [0..GVL_MachineControlConstans.COUNT_MACHINE_STATES] OF ITF_SITP_Element;
+	refarrStany									: REFERENCE TO ARRAY [0..GVL_MachineControlConstans.COUNT_MACHINE_STATES] OF ITF_SITP_Element;	//stany dla aktualnego trybu pracy przypisywane przy zmianie trybu
+	arrTryby									: ARRAY [0..GVL_MachineControlConstans.COUNT_OPERATION_MODES] OF ITF_SITP_Element;
 (*	Polecenia zmiany stanu i trybu	*)
 (*	zgrupowane polecenia zmiany by można je bylo sprawdzać w pętli	*)
-	arrPoleceniaZmianyStanu						: ARRAY [0..STALE.ILOSC_POLECEN_ZMIANY_STANU] OF ITF_SITP_PolecenieZmianyStanu;
-	arrPoleceniaZmianyTrybu						: ARRAY [0..STALE.ILOSC_POLECEN_ZMIANY_TRYBU] OF ITF_SITP_PolecenieZmianyTrybu;
+	arrPoleceniaZmianyStanu						: ARRAY [0..GVL_MachineControlConstans.COUNT_STATE_COMMANDS] OF ITF_SITP_PolecenieZmianyStanu;
+	arrPoleceniaZmianyTrybu						: ARRAY [0..GVL_MachineControlConstans.COUNT_MODE_COMMANDS] OF ITF_SITP_PolecenieZmianyTrybu;
 (*	Wynik zakońćzenia operacji w stanie aktywnym	*)
 	arrWynikZakonczeniaOperacji					: ARRAY  [1..B_Baza.STALE.MAX_ILOSC_PB] OF BOOL;
 	bWyjdzZestanuAktywnego						: BOOL;
 (*	Konfiguracja			*)
 	bZredukowanaLiczbaPrzyciskow				: BOOL;
-	arrStanyWlaczoneWTrybie						: ARRAY [0..STALE.ILOSC_TRYBOW_PRACY] OF ARRAY [0..STALE.ILOSC_STANOW_PRACY] OF BOOL;
-	arrMozliwoscPrzejsciaPamiedzyTrybamiWStanie	: ARRAY [0..STALE.ILOSC_STANOW_PRACY] OF ARRAY [0..STALE.ILOSC_TRYBOW_PRACY] OF BOOL;	//informacja dla aktualnego stanu do jakich trybów można przejść
-	arrTrybyWlaczone							: ARRAY [0..STALE.ILOSC_TRYBOW_PRACY] OF BOOL;
+	arrStanyWlaczoneWTrybie						: ARRAY [0..GVL_MachineControlConstans.COUNT_OPERATION_MODES] OF ARRAY [0..GVL_MachineControlConstans.COUNT_MACHINE_STATES] OF BOOL;
+	arrMozliwoscPrzejsciaPamiedzyTrybamiWStanie	: ARRAY [0..GVL_MachineControlConstans.COUNT_MACHINE_STATES] OF ARRAY [0..GVL_MachineControlConstans.COUNT_OPERATION_MODES] OF BOOL;	//informacja dla aktualnego stanu do jakich trybów można przejść
+	arrTrybyWlaczone							: ARRAY [0..GVL_MachineControlConstans.COUNT_OPERATION_MODES] OF BOOL;
 	
 (*	Sygnalizacja			*)
-	arrLampki									: ARRAY [1..STALE.ILOSC_LAMPEK_SYGNALIZACYJNYCH] OF B_IO.ITF_LampkaRozszerzona;
+	arrLampki									: ARRAY [1..GVL_MachineControlConstans.COUNT_SIGNAL_LAMPS] OF B_IO.ITF_LampkaRozszerzona;
 	stSygnalizacjaStanu							: ST_SITP_SygnalizacjaStanu;
-	arrSygnalizacjaStanu						: ARRAY [0..STALE.ILOSC_STANOW_PRACY] OF ITF_SITP_SygnalizacjaStanu;
+	arrSygnalizacjaStanu						: ARRAY [0..GVL_MachineControlConstans.COUNT_MACHINE_STATES] OF ITF_SITP_SygnalizacjaStanu;
 	
 	
 	
