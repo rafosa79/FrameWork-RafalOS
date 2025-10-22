@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_SafetyStanyGrup" Id="{c392d182-d14b-057c-3a05-6dbae37e21dd}">
+    <Declaration><![CDATA[TYPE ST_SafetyStanyGrup :
+STRUCT
+	bInRun			AT%I*	: BOOL;		// grupa działa
+	bFbError		AT%I*	: BOOL;		// bład w którymś z FB
+	bComError		AT%I*	: BOOL;		// błąd sprzętu
+	bOthError		AT%I*	: BOOL;		// inny błąd
+
+	bSS1			AT%I*	: BOOL;		// TRUE - Zgoda na prace jak przechodzi w false zatrzymać napędy
+	bSTO			AT%I*	: BOOL;		// TRUE - podawanie zasilania jak przechodzi w false zasilanie odcinane
+//	bSS1DlaPRG				: BOOL;		// TRUE - Zgoda na prace jak przechodzi w false zatrzymać napędy
+//	bSTODlaPRG				: BOOL;		// TRUE - podawanie zasilania jak przechodzi w false zasilanie odcinane
+
+	bFB_Reset		AT%Q*	: BOOL;
+	bL1_EDM			AT%Q*	: BOOL;	
+//styki grzyba
+	bStyk1A			AT%I*	: BOOL;
+	bStyk1B			AT%I*	: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

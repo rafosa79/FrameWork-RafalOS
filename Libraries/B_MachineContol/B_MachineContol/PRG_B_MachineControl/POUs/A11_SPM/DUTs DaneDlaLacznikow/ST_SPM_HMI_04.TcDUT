@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_SPM_HMI_04" Id="{74343da3-220d-0ee2-0053-531c3dd2b6a4}">
+    <Declaration><![CDATA[TYPE ST_SPM_HMI_04 :
+STRUCT
+	bDaneUtworzone			: BOOL;
+	refarrTryby				: REFERENCE TO ARRAY [0..STALE.ILOSC_TRYBOW_PRACY] OF ITF_SITP_Element;
+	refArrPoleceniaTrybu	: REFERENCE TO ARRAY [0..STALE.ILOSC_POLECEN_ZMIANY_TRYBU] OF ITF_SITP_PolecenieZmianyTrybu;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

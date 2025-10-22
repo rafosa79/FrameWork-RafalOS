@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_SITP_Tryby" Id="{10eddcd7-250a-0376-15ef-3275be7f8b9f}">
+    <Declaration><![CDATA[TYPE ST_SITP_Tryby :
+STRUCT
+	 fbNiedozwolony							: FB_Tryb_Uniwersalny;
+     fbProdukcja							: FB_Tryb_Uniwersalny;
+     fbKonserwacja							: FB_Tryb_Uniwersalny;
+     fbReczny								: FB_Tryb_Uniwersalny;
+     fbMycie								: FB_Tryb_Uniwersalny;
+     fbDiagnostyka							: FB_Tryb_Uniwersalny;
+     fbUzytkownika2							: FB_Tryb_Uniwersalny;
+     fbUzytkownika3							: FB_Tryb_Uniwersalny;
+     fbUzytkownika4							: FB_Tryb_Uniwersalny;
+     fbUzytkownika5							: FB_Tryb_Uniwersalny;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

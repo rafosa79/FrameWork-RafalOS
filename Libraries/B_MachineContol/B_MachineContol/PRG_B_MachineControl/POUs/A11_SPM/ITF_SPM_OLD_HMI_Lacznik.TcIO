@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SPM_OLD_HMI_Lacznik" Id="{ec29541c-c7c5-0ab3-38f5-a290566b7b98}">
+    <Declaration><![CDATA[INTERFACE ITF_SPM_OLD_HMI_Lacznik EXTENDS B_Baza.ITF_Komponent_HMI_Lacznik, ITF_SPM_HMI_Pusty_Lacznik, 
+	ITF_SPM_HMI_00_01_Lacznik, ITF_SPM_HMI_00_02_Lacznik, ITF_SPM_HMI_00_03_Lacznik, ITF_SPM_HMI_00_04_Lacznik, ITF_SPM_HMI_00_05_Lacznik, 
+	ITF_SPM_HMI_01_Lacznik, ITF_SPM_HMI_02_Lacznik, ITF_SPM_HMI_03_Lacznik, ITF_SPM_HMI_04_Lacznik, 
+	ITF_SPM_HMI_05_Lacznik, ITF_SPM_HMI_06_Lacznik, ITF_SPM_HMI_07_Lacznik
+]]></Declaration>
+    <Folder Name="ITF_SITP" Id="{14761c90-ddee-0d72-1bdf-a5ce95e7d3e3}" />
+    <Method Name="TrwaZmianaStanu" Id="{52730aab-679e-0b16-321b-bef97f184bd9}" FolderPath="ITF_SITP\">
+      <Declaration><![CDATA[METHOD PUBLIC TrwaZmianaStanu : BOOL
+VAR_INPUT
+
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="TrwaZmianaTrybu" Id="{c99c89f9-0987-0402-3dbf-41831ce406e8}" FolderPath="ITF_SITP\">
+      <Declaration><![CDATA[METHOD PUBLIC TrwaZmianaTrybu : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="UstawBrakUstawionejReceptury" Id="{fa0da3a1-875c-0fbf-3666-b0f176906f33}">
+      <Declaration><![CDATA[METHOD UstawBrakUstawionejReceptury : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ZwrocCzyWybranaReceptura" Id="{7e4139f0-408c-02fb-1120-550015281477}">
+      <Declaration><![CDATA[METHOD ZwrocCzyWybranaReceptura : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ZwrocNazweStanu" Id="{57eac003-cd84-01f7-3e5e-b11e9dd61e51}">
+      <Declaration><![CDATA[METHOD ZwrocNazweStanu : WSTRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ZwrocNazweTrybu" Id="{d2f70d3f-47a1-06cf-3ead-7518c228fa02}">
+      <Declaration><![CDATA[METHOD ZwrocNazweTrybu : WSTRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="zwrocStan" Id="{d4aae6b8-52a8-0df4-0733-599eb86b2791}" FolderPath="ITF_SITP\">
+      <Declaration><![CDATA[METHOD PUBLIC zwrocStan : B_Baza.E_StanyPracy
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="zwrocTryb" Id="{d336d8f6-ab9a-0fe1-2312-70552f3b8742}" FolderPath="ITF_SITP\">
+      <Declaration><![CDATA[METHOD PUBLIC zwrocTryb : B_Baza.E_TrybyPracy
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

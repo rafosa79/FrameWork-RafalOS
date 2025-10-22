@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_Receptury" Id="{1dde066a-328d-0d74-0d46-38462bdb391f}">
+    <Declaration><![CDATA[TYPE ST_Receptury :
+STRUCT
+	fbReceptury						: B_Baza.FB_Receptury;
+	bUtworzSzablony					: BOOL;
+	uiNumerWybranej					: UINT;	//numer receptury wybranej z listy receptur
+	bWybierz						: BOOL;	//polecenie wybrania receptury
+	bWybrana						: BOOL;	//informacja że receptura jest wybrana
+	
+	arritfTworzenieReceptury		: ARRAY [1..B_Baza.STALE.MAX_ILOSC_SZABLONOW] OF ITF_UtworzSzablonReceptury;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SITP_SygnalizacjaStanu" Id="{28157edf-bae8-0074-14af-9a14265d1cd0}">
+    <Declaration><![CDATA[INTERFACE ITF_SITP_SygnalizacjaStanu
+]]></Declaration>
+    <Method Name="UstawPrace" Id="{8ff6b63b-e482-0529-1ec1-76072f654114}">
+      <Declaration><![CDATA[METHOD PUBLIC UstawPrace
+VAR_INPUT
+//	eLampka				: E_SITP_LampkiWiezy;
+//	bSwiec				: BOOL;
+//	bMigaj				: BOOL;
+//	tZapalony			: TIME;
+//	tZgaszony			: TIME;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Wylacz" Id="{a1474003-7992-0f4a-08ef-b615d16dd93f}">
+      <Declaration><![CDATA[METHOD PUBLIC Wylacz
+VAR_INPUT
+	eLampka				: E_SITP_LampkiSygnalizacyjne;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="WylaczWszystkie" Id="{5d45505f-09f5-04fa-3968-208578ec48fc}">
+      <Declaration><![CDATA[METHOD PUBLIC WylaczWszystkie
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ZwrocStan" Id="{09755088-3d6f-0239-231b-86c699008fc8}">
+      <Declaration><![CDATA[METHOD PUBLIC ZwrocStan : BOOL
+VAR_INPUT
+	eLampka			 : E_SITP_LampkiSygnalizacyjne;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

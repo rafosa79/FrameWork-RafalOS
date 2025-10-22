@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SPM_HMI_Lacznik" Id="{8a699414-7eaf-4b79-8e49-986bb1b2576e}">
+    <Declaration><![CDATA[INTERFACE ITF_SPM_HMI_Lacznik EXTENDS B_Baza.ITF_PodzespolBazowy_HMI_Lacznik
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

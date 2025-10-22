@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SPM_HMI_04_Lacznik" Id="{17e3aea0-4cb8-0b8e-1baf-70aa0d9a9d22}">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		08.08.2025		TC 4024.66
+	Interfejs do wyciągania z SPM przez HMI danych do wyświetlania - dla ramki zmiana trybu
+*)
+INTERFACE ITF_SPM_HMI_04_Lacznik EXTENDS  B_Baza.ITF_ZrodloIdentyfikacji
+]]></Declaration>
+    <Method Name="PolaczZTablicamiZmianaTrybu" Id="{de7cd170-f8df-0b26-0124-705ed73e491f}">
+      <Declaration><![CDATA[METHOD PolaczZTablicamiZmianaTrybu : ST_SPM_HMI_04
+
+]]></Declaration>
+    </Method>
+    <Method Name="ZwrocZmianaTrybu" Id="{c46eef9b-2703-0e2f-1c5b-eb098c3b66d0}">
+      <Declaration><![CDATA[METHOD ZwrocZmianaTrybu : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

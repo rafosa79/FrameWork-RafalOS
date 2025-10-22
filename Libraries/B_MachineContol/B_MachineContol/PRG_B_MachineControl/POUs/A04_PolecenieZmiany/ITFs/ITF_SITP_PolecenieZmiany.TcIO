@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SITP_PolecenieZmiany" Id="{da507f13-6c05-0033-0731-1192d7003616}">
+    <Declaration><![CDATA[INTERFACE ITF_SITP_PolecenieZmiany EXTENDS B_IO.ITF_Przycisk
+]]></Declaration>
+    <Method Name="ustawStanRozkazu" Id="{33101d92-9fd2-0855-21c2-fc1a961fc792}">
+      <Declaration><![CDATA[METHOD PUBLIC ustawStanRozkazu
+VAR_INPUT
+	bIN				: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="zwrocStanRozkazu" Id="{2ffb1fb4-3ebf-0bf2-06b4-d64cedd67bd1}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.02.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca stan czy rozkaz jest aktywny jeden impuls 
+*)
+METHOD PUBLIC zwrocStanRozkazu : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

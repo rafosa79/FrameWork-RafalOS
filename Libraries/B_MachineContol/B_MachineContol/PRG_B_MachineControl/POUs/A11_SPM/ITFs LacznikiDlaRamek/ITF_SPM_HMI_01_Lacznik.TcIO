@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SPM_HMI_01_Lacznik" Id="{7236670e-c3d9-0b52-0ebe-aa58e65b9370}">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		08.08.2025		TC 4024.66
+	Interfejs do wyciągania z SPM przez HMI danych do wyświetlania - dla ramki receptur
+*)
+INTERFACE ITF_SPM_HMI_01_Lacznik EXTENDS  B_Baza.ITF_ZrodloIdentyfikacji
+]]></Declaration>
+    <Method Name="PolaczZTablicaReferencji" Id="{06f144d9-7627-0f33-33df-03c35f509847}">
+      <Declaration><![CDATA[METHOD PolaczZTablicaReferencji : ST_SPM_HMI_01
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

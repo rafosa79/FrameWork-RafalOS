@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SITP_SygnalizacjaStanu_Held" Id="{dfb51621-d93e-015e-3ce9-66d2d2e9571d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SITP_SygnalizacjaStanu_Held EXTENDS FB_SITP_SygnalizacjaStanu
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="UstawPrace" Id="{d429663a-9de2-05e4-399c-98f9434e5392}">
+      <Declaration><![CDATA[METHOD PUBLIC UstawPrace
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.WiezaCzerwona].Wlacz2		(bSwiec := FALSE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*			Czerwona		*)
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.WiezaZolta].Wlacz2			(bSwiec := FALSE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*			Zółta			*)
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.WiezaZielona].Wlacz2		(bSwiec := TRUE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*			Zielona			*)
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.WiezaBiala].Wlacz2			(bSwiec := FALSE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*			Niebieska		*)
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.WiezaNiebieska].Wlacz2		(bSwiec := TRUE, 	bMigaj := FALSE,	 tWlaczony := T#300MS,	 tWylaczony := T#300MS);(*			Biała			*)
+
+
+
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskStart].Wlacz2		(bSwiec := FALSE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*	Lampka przycisku Start    	*)
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskStop].Wlacz2		(bSwiec := FALSE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*	Lampka przycisku Stop     	*)
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskHold].Wlacz2		(bSwiec := FALSE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*	Lampka przycisku Hold     	*)
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskUnhold].Wlacz2		(bSwiec := FALSE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*	Lampka przycisku Unhold   	*)
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskSuspend].Wlacz2		(bSwiec := FALSE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*	Lampka przycisku Suspend  	*)
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskUnsuspend].Wlacz2	(bSwiec := FALSE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*	Lampka przycisku Unsuspend	*)
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskAbort].Wlacz2		(bSwiec := FALSE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*	Lampka przycisku Abort    	*)
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskClear].Wlacz2		(bSwiec := FALSE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*	Lampka przycisku Clear    	*)
+THIS^.refarrLampki [E_SITP_LampkiSygnalizacyjne.PrzyciskComplete].Wlacz2	(bSwiec := FALSE, 	bMigaj := FALSE,	 tWlaczony := T#0MS,	 tWylaczony := T#0MS);(*	Lampka przycisku Complete	*)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

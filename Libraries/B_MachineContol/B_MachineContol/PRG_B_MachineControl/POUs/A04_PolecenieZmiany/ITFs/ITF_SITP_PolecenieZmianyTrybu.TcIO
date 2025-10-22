@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SITP_PolecenieZmianyTrybu" Id="{e6d365c8-3885-057a-158d-3555cf440771}">
+    <Declaration><![CDATA[INTERFACE ITF_SITP_PolecenieZmianyTrybu EXTENDS ITF_SITP_PolecenieZmiany
+]]></Declaration>
+    <Method Name="zwrocRodzajPolecenia" Id="{832458fa-c954-0034-032b-ceefb46e3b2b}">
+      <Declaration><![CDATA[METHOD PUBLIC zwrocRodzajPolecenia : E_SITP_PolecenieZmianyTrybu
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Stan_Aborted" Id="{637b9b25-d485-0580-0214-13d391ddede7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Stan_Aborted EXTENDS FB_SITP_Element
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{87bac3e9-00b8-0579-24f6-4f8dfadc7155}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.PrzypiszTekstDo (refstEtykieta := THIS^.stNazwa, eJezyk := B_Baza.E_Jezyki.pl, wsTekst	:= "Przerwany");
+THIS^.PrzypiszTekstDo (refstEtykieta := THIS^.stNazwa, eJezyk := B_Baza.E_Jezyki.en, wsTekst	:= "Aborted");
+THIS^.PrzypiszTekstDo (refstEtykieta := THIS^.stNazwa, eJezyk := B_Baza.E_Jezyki.de, wsTekst	:= "Abgebrochen");
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WywolajAkcjePBDlaStanu" Id="{2a01e3ce-168a-091c-075f-8164acc729d5}">
+      <Declaration><![CDATA[METHOD PUBLIC WywolajAkcjePBDlaStanu : BOOL
+VAR_INPUT
+	iNumerPB				: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[WywolajAkcjePBDlaStanu			:= THIS^.refstDaneSITP.refarrPB [iNumerPB].SP_Aborted ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ZwrocCzyMoznaWyjscZeStanu" Id="{e3de4480-cba9-0174-361b-80cb2eb02350}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		18.06.2025		TC 4024.66
+	Zwraca true jak wyjście ze stanu jest możliwe
+*)
+METHOD PUBLIC ZwrocCzyMoznaWyjscZeStanu : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//warunki wyjść dla każdego ze stanów osobnym FB
+IF (THIS^.refstDaneSITP.ePolecenieZmianyStanu = E_SITP_PolecenieZmianyStanu.Clear) THEN 
+	IF (THIS^.refstDaneSITP.itfGrzybCh1.get () AND THIS^.refstDaneSITP.itfGrzybCh2.get ()) THEN
+		IF (THIS^.refstDaneSITP.arrStanyWlaczoneWTrybie [B_Baza.E_StanyPracy.Clearing]) THEN
+			ZwrocCzyMoznaWyjscZeStanu					:= THIS^.ZgodaNaZmianeStanu (B_Baza.E_StanyPracy.Clearing);
+		ELSE
+			ZwrocCzyMoznaWyjscZeStanu					:= THIS^.BrakZgodyNaZmieneStanu (2);	//Stan do którego chcemy przejść jest wylaczony
+		END_IF
+	ELSE
+		ZwrocCzyMoznaWyjscZeStanu					:= THIS^.BrakZgodyNaZmieneStanu (4);	//przynajmniej jeden styk grzyba jest rozwarty
+	END_IF
+ELSE
+	ZwrocCzyMoznaWyjscZeStanu						:= THIS^.BrakZgodyNaZmieneStanu (1);	//Bledny rozkaz dla zmiany stanu
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

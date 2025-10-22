@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SITP_PolecenieZmianyStanu" Id="{c97805f6-3a1c-047c-2b7e-487a33840685}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.02.2025		TC 4026.13		wer. 0.0.0.1
+	FB odpowiedzialny za zmianę stanu
+*)
+FUNCTION_BLOCK FB_SITP_PolecenieZmianyStanu EXTENDS FB_SITP_PolecenieZmiany IMPLEMENTS ITF_SITP_PolecenieZmianyStanu
+VAR
+	ePolecenie			: E_SITP_PolecenieZmianyStanu;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{5246825e-70be-0872-2e37-57d9aaa53656}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	ePolecenie			: E_SITP_PolecenieZmianyStanu;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.ePolecenie		:= ePolecenie;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocRodzajPolecenia" Id="{c765a0e5-0beb-0f42-2760-ce32baf4fcba}">
+      <Declaration><![CDATA[METHOD PUBLIC zwrocRodzajPolecenia : E_SITP_PolecenieZmianyStanu
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[zwrocRodzajPolecenia		:= THIS^.ePolecenie;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
