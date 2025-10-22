@@ -3,6 +3,57 @@
   <POU Name="PRG_Compilation" Id="{5db94455-dadb-0232-2011-e8c0ba8c59a8}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
+//A01_Element
+	fbSITPElement			: FB_SITP_Element;
+//A02_EkementStany
+	fbStanAborted			: FB_Stan_Aborted;
+	fbStanAborting			: FB_Stan_Aborting;
+	fbStanClearing			: FB_Stan_Clearing;
+	fbStanComplete			: FB_Stan_Complete;
+	fbStanCompleting		: FB_Stan_Completing;
+	fbStanExecute			: FB_Stan_Execute;
+	fbStanHeld				: FB_Stan_Held;
+	fbStanHolding			: FB_Stan_Holding;
+	fbStanIdle				: FB_Stan_Idle;
+	fbStanResseting			: FB_Stan_Resetting;
+	fbStanStarting			: FB_Stan_Starting;
+	fbStanStopped			: FB_Stan_Stopped;
+	fbStanStopping			: FB_Stan_Stopping;
+	fbStanSuspended			: FB_Stan_Suspended;
+	fbStanSuspending		: FB_Stan_Suspending;
+	fbStanUndefined			: FB_Stan_Undefined;
+	fbStanUnholding			: FB_Stan_Unholding;
+	fbStanUnSuspending		: FB_Stan_Unsuspending;
+//A03_ElementTryby
+	fbTryb					: FB_Tryb_Uniwersalny;
+//04_PolecenieZmiany
+	fbPolecenieZmianyStanu			: FB_SITP_PolecenieZmianyStanu (ePolecenie := E_SITP_PolecenieZmianyStanu.Abort);
+	fbPolecenieZmianyTrybu			: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.Produkcja);
+//05_SygnalizacjaStanu
+	fbSygnalziacjaStanu				: FB_SITP_SygnalizacjaStanu;
+//A06_SygnalizacjaStanuStany
+	fbSygnalizacjaStanu_Aborted			: FB_SITP_SygnalizacjaStanu_Aborted;
+	fbSygnalizacjaStanu_Aborting		: FB_SITP_SygnalizacjaStanu_Aborting;
+	fbSygnalizacjaStanu_Clearing		: FB_SITP_SygnalizacjaStanu_Clearing;
+	fbSygnalizacjaStanu_Complete		: FB_SITP_SygnalizacjaStanu_Complete;
+	fbSygnalizacjaStanu_Completing		: FB_SITP_SygnalizacjaStanu_Completing;
+	fbSygnalizacjaStanu_Execute			: FB_SITP_SygnalizacjaStanu_Execute;
+	fbSygnalizacjaStanu_Held			: FB_SITP_SygnalizacjaStanu_Held;
+	fbSygnalizacjaStanu_Holding			: FB_SITP_SygnalizacjaStanu_Holding;
+	fbSygnalizacjaStanu_Idle			: FB_SITP_SygnalizacjaStanu_Idle;
+	fbSygnalizacjaStanu_Resseting		: FB_SITP_SygnalizacjaStanu_Resetting;
+	fbSygnalizacjaStanu_Starting		: FB_SITP_SygnalizacjaStanu_Starting;
+	fbSygnalizacjaStanu_Stopped			: FB_SITP_SygnalizacjaStanu_Stopped;
+	fbSygnalizacjaStanu_Stopping		: FB_SITP_SygnalizacjaStanu_Stopping;
+	fbSygnalizacjaStanu_Suspended		: FB_SITP_SygnalizacjaStanu_Suspended;
+	fbSygnalizacjaStanu_Suspending		: FB_SITP_SygnalizacjaStanu_Suspending;
+	fbSygnalizacjaStanu_Undefined		: FB_SITP_SygnalizacjaStanu_Undefined;
+	fbSygnalizacjaStanu_Unholding		: FB_SITP_SygnalizacjaStanu_Unholding;
+	fbSygnalizacjaStanu_UnSuspending	: FB_SITP_SygnalizacjaStanu_Unsuspending;	
+//A10_SITP
+	stSafety						: ST_Safety;
+//SPM
+	fbSPM							: FB_SPM;
 
 	
 END_VAR

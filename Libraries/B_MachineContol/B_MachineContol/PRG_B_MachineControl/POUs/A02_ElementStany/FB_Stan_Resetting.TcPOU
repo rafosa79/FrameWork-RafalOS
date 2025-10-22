@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Stan_Resetting" Id="{ddb1fa74-b2a0-0556-080a-2eab73d9a910}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Stan_Resetting EXTENDS FB_SITP_Element
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{788ab9dc-b4ba-03ec-2a3e-bd40c6ff7321}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.PrzypiszTekstDo (refstEtykieta := THIS^.stNazwa, eJezyk := B_Baza.E_Jezyki.pl, wsTekst	:= "Bazowanie");   
+THIS^.PrzypiszTekstDo (refstEtykieta := THIS^.stNazwa, eJezyk := B_Baza.E_Jezyki.de, wsTekst	:= "Zurücksetzen");
+THIS^.PrzypiszTekstDo (refstEtykieta := THIS^.stNazwa, eJezyk := B_Baza.E_Jezyki.en, wsTekst	:= "Resetting");   
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WywolajAkcjePBDlaStanu" Id="{a1db2a10-4e84-0304-3821-9150f8f40de2}">
+      <Declaration><![CDATA[METHOD PUBLIC WywolajAkcjePBDlaStanu : BOOL
+VAR_INPUT
+	iNumerPB				: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[WywolajAkcjePBDlaStanu			:= THIS^.refstDaneSITP.refarrPB [iNumerPB].SP_Resetting ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ZwrocCzyMoznaWyjscZeStanu" Id="{59635437-5986-0601-013e-28f052695591}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		18.06.2025		TC 4024.66
+	Zwraca true jak wyjście ze stanu jest możliwe
+*)
+METHOD PUBLIC ZwrocCzyMoznaWyjscZeStanu : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//warunki wyjść dla każdego ze stanów osobnym FB
+IF (THIS^.refstDaneSITP.ePolecenieZmianyStanu = E_SITP_PolecenieZmianyStanu.Abort) THEN
+	IF (THIS^.refstDaneSITP.arrStanyWlaczoneWTrybie [B_Baza.E_StanyPracy.Aborting]) THEN
+		ZwrocCzyMoznaWyjscZeStanu					:= THIS^.ZgodaNaZmianeStanu (B_Baza.E_StanyPracy.Aborting);
+	ELSE
+		ZwrocCzyMoznaWyjscZeStanu					:= THIS^.BrakZgodyNaZmieneStanu (2);	//Stan do którego chcemy przejść jest wylaczony
+	END_IF
+ELSIF (THIS^.refstDaneSITP.ePolecenieZmianyStanu = E_SITP_PolecenieZmianyStanu.Stop) THEN
+	IF (THIS^.refstDaneSITP.arrStanyWlaczoneWTrybie [B_Baza.E_StanyPracy.Stopping]) THEN
+		ZwrocCzyMoznaWyjscZeStanu					:= THIS^.ZgodaNaZmianeStanu (B_Baza.E_StanyPracy.Stopping);
+	ELSE
+		ZwrocCzyMoznaWyjscZeStanu					:= THIS^.BrakZgodyNaZmieneStanu (2);	//Stan do którego chcemy przejść jest wylaczony
+	END_IF
+ELSIF (THIS^.refstDaneSITP.ePolecenieZmianyStanu <> E_SITP_PolecenieZmianyStanu.Abort AND
+		THIS^.refstDaneSITP.ePolecenieZmianyStanu <> E_SITP_PolecenieZmianyStanu.Stop AND 
+		THIS^.refstDaneSITP.ePolecenieZmianyStanu <> E_SITP_PolecenieZmianyStanu.brak) THEN
+	ZwrocCzyMoznaWyjscZeStanu						:= THIS^.BrakZgodyNaZmieneStanu (1);	//Bledny rozkaz dla zmiany stanu
+ELSIF (THIS^.refstDaneSITP.refbWyjdzZestanuAktywnego) THEN
+	IF (THIS^.refstDaneSITP.arrStanyWlaczoneWTrybie [B_Baza.E_StanyPracy.Idle]) THEN
+		ZwrocCzyMoznaWyjscZeStanu					:= THIS^.ZgodaNaZmianeStanu (B_Baza.E_StanyPracy.Idle);
+	ELSE
+		ZwrocCzyMoznaWyjscZeStanu					:= THIS^.BrakZgodyNaZmieneStanu (2);	//Stan do którego chcemy przejść jest wylaczony
+	END_IF
+ELSE
+	ZwrocCzyMoznaWyjscZeStanu						:= THIS^.BrakZgodyNaZmieneStanu (3);	//Brak polecenia wyjsciua z stanu aktywnego - ing
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

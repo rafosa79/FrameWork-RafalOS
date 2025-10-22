@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SITP_PolecenieZmiany" Id="{34c1d14e-3d4a-0813-03cc-bc1b1d3eda85}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.02.2025		TC 4026.13		wer. 0.0.0.1
+	FB odpowiedzialny za zmianę stanu
+*)
+FUNCTION_BLOCK FB_SITP_PolecenieZmiany EXTENDS B_IO.FB_Przycisk_NO IMPLEMENTS ITF_SITP_PolecenieZmiany
+VAR
+	bZmien				: BOOL;
+	rtZmien				: Tc2_Standard.R_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ustawStanRozkazu" Id="{32f1ce21-a858-0199-286f-0c32242e6d06}">
+      <Declaration><![CDATA[METHOD PUBLIC ustawStanRozkazu
+VAR_INPUT
+	bIN				: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bZmien		:= bIN;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="zwrocStanRozkazu" Id="{a676e52e-a908-0743-0b44-49880eb8bd6f}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.02.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca stan czy rozkaz jest aktywny jeden impuls 
+*)
+METHOD PUBLIC zwrocStanRozkazu : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.rtZmien (CLK			:= bZmien OR THIS^.Stan ());
+THIS^.bZmien				:= FALSE;
+zwrocStanRozkazu			:= THIS^.rtZmien.Q;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

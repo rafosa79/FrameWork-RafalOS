@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_Safety" Id="{dde6d281-9250-0465-1848-1e8838070a42}">
+    <Declaration><![CDATA[TYPE ST_Safety :
+STRUCT
+(*	Dane dla programu i podlementów *)	
+	fbSS1					: B_Baza.FB_Flaga;
+	fbSTO					: B_Baza.FB_Flaga;
+	fbGrzybCh1a				: B_Baza.FB_Flaga;
+	fbGrzybCh1b				: B_Baza.FB_Flaga;
+(*		*)
+	bRozkazUzbrojenia		: BOOL;
+	// Zmienne bezpieczeństwa globalne
+	bRunStop		AT%Q*	: BOOL := TRUE;
+	bErrAck			AT%Q*	: BOOL;
+	// Zmienne dla grupy 1 - grzyb
+	stStanyGrupy1			: ST_SafetyStanyGrup;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

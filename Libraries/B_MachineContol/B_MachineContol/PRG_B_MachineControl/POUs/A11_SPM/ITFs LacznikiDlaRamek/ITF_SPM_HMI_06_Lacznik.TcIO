@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SPM_HMI_06_Lacznik" Id="{6068beeb-45b2-0755-2abf-3cde045a8e5e}">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		08.08.2025		TC 4024.66
+	Interfejs do wyciągania z SPM przez HMI danych do wyświetlania - dla ramki diagram
+*)
+INTERFACE ITF_SPM_HMI_06_Lacznik EXTENDS  B_Baza.ITF_ZrodloIdentyfikacji
+]]></Declaration>
+    <Method Name="PolaczZTablicami" Id="{2c48ac26-8711-0dfd-20a3-792a91f1bba3}">
+      <Declaration><![CDATA[METHOD PolaczZTablicami : ST_SPM_HMI_06
+]]></Declaration>
+    </Method>
+    <Method Name="ZwrocCalkowityCzasPracy" Id="{bdb79df1-1f54-0349-38e9-63fecc632553}">
+      <Declaration><![CDATA[METHOD ZwrocCalkowityCzasPracy : STRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ZwrocZmianaTrybu" Id="{afa3477d-e7b2-0820-27bc-77c362c261a3}">
+      <Declaration><![CDATA[METHOD ZwrocZmianaTrybu : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

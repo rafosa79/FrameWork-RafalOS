@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SPM_HMI_00_03_Lacznik" Id="{e523d0cf-2e73-070e-3881-27bba9168bfd}">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		08.08.2025		TC 4024.66
+	Interfejs do wyciągania z SPM przez HMI danych do wyświetlania - dla reamki głównej tryb pracy reczny
+*)
+INTERFACE ITF_SPM_HMI_00_03_Lacznik EXTENDS  B_Baza.ITF_ZrodloIdentyfikacji
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

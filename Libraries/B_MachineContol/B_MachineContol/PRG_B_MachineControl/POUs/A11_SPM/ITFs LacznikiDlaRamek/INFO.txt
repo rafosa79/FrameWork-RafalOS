@@ -1,0 +1,3 @@
+tutaj znajdują się itnerfejsy łączące z HMI w celu uzyskiwania informacji odnośnie ramki.
+Interfejs jest przekazywany do FB pośredniego w B_SPM_HMI
+jak dojdzie nowa pozycja w menu głównym lub trzeba będzie robić osobne ramki dla trybu w ramach jednej ramki tak jak to się ma z ekranem głównym utworzyć nowe ITF

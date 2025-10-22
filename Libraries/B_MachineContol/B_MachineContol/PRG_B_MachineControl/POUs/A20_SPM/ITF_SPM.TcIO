@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SPM" Id="{f1411ff6-1a67-4fc6-b1c4-cadb1dad2136}">
+    <Declaration><![CDATA[INTERFACE ITF_SPM
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

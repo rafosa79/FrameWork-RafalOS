@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_SITP_LapmkiSygnalizacjyne" Id="{1ceea5ae-e5b7-078c-00c1-6f719dc1581b}">
+    <Declaration><![CDATA[TYPE ST_SITP_LapmkiSygnalizacjyne :
+STRUCT
+//Lampki wieży sygnalizacyjnej
+	itfLWiezaCzerwona		: B_IO.ITF_LampkaRozszerzona;
+	itfLWiezaZolta			: B_IO.ITF_LampkaRozszerzona;
+	itfLWiezaZielona		: B_IO.ITF_LampkaRozszerzona;
+	itfLWiezaBiala			: B_IO.ITF_LampkaRozszerzona;
+	itfLWiezaNiebieska		: B_IO.ITF_LampkaRozszerzona;
+	
+//lampki przycisków polecenia zmiany stanu
+	itflprzReset    		: B_IO.ITF_LampkaRozszerzona;
+    itflprzStart    		: B_IO.ITF_LampkaRozszerzona;
+    itflprzStop     		: B_IO.ITF_LampkaRozszerzona;
+    itflprzHold     		: B_IO.ITF_LampkaRozszerzona;
+    itflprzUnhold   		: B_IO.ITF_LampkaRozszerzona;
+    itflprzSuspend  		: B_IO.ITF_LampkaRozszerzona;
+    itflprzUnsuspend		: B_IO.ITF_LampkaRozszerzona;
+    itflprzAbort    		: B_IO.ITF_LampkaRozszerzona;
+    itflprzClear    		: B_IO.ITF_LampkaRozszerzona;
+    itflprzComplete			: B_IO.ITF_LampkaRozszerzona;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
