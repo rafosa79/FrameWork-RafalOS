@@ -83,287 +83,16 @@
     <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DUTs\ST_Safety.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\ST_SafetyStanyGrup.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GVLs\GVL_IO.TcGVL">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GVLs\STALE.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\98_StatesAndModes\FB_StatesAndModes.TcPOU">
+    <Compile Include="POUs\A98_StatesAndModes\FB_StatesAndModes.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\99_MachineControl\FB_MachineControl.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A01_Element\DUTs\E_SITP_PolecenieZmianyStanu.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A01_Element\DUTs\E_SITP_PolecenieZmianyTrybu.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A01_Element\DUTs\ST_SITP_DaneElementu.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A01_Element\FB_SITP_Element.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A01_Element\ITFs\ITF_SITP_Element.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Aborted.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Aborting.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Clearing.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Complete.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Completing.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Execute.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Held.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Holding.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Idle.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Resetting.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Starting.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Stopped.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Stopping.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Suspended.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Suspending.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Undefined.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Unholding.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A02_ElementStany\FB_Stan_Unsuspending.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A03_ElementTryby\FB_Tryb_Uniwersalny.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A04_PolecenieZmiany\FB_SITP_PolecenieZmiany.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A04_PolecenieZmiany\FB_SITP_PolecenieZmianyStanu.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A04_PolecenieZmiany\FB_SITP_PolecenieZmianyTrybu.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A04_PolecenieZmiany\ITFs\ITF_SITP_PolecenieZmiany.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A04_PolecenieZmiany\ITFs\ITF_SITP_PolecenieZmianyStanu.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A04_PolecenieZmiany\ITFs\ITF_SITP_PolecenieZmianyTrybu.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A05_SygnalizacjaStanu\DUTs\E_SITP_LampkiSygnalizacyjne.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A05_SygnalizacjaStanu\FB_SITP_SygnalizacjaStanu.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A05_SygnalizacjaStanu\ITFs\ITF_SITP_SygnalizacjaStanu.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Aborted.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Aborting.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Clearing.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Complete.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Completing.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Execute.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Held.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Holding.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Idle.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Resetting.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Starting.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Stopped.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Stopping.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Suspended.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Suspending.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_Undefined.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_UnHolding.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A06_SygnalizacjaStanuStany\FB_SITP_SygnalizacjaStanu_UnSuspending.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A10_SITP\FB_SITP.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\DUTs DaneDlaLacznikow\ST_SPM_HMI_01.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\DUTs DaneDlaLacznikow\ST_SPM_HMI_03_Alarmy_DaneElementuOZadanymIDZgloszenia.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\DUTs DaneDlaLacznikow\ST_SPM_HMI_04.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\DUTs DaneDlaLacznikow\ST_SPM_HMI_06.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\DUTs\ST_Receptury.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\FB_SPM_OLD.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_00_01_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_00_02_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_00_03_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_00_04_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_00_05_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_01_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_02_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_03_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_04_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_05_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_06_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_07_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\ITF_SPM_HMI_Pusty_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITFs\ITF_UtworzSzablonReceptury.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITF_SPM_OLD.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITF_SPM_OLD_HMI_Init.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A11_SPM\ITF_SPM_OLD_HMI_Lacznik.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A20_SPM\DUTs\ST_SITP.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A20_SPM\DUTs\ST_SITP_LapmkiSygnalizacjyne.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A20_SPM\DUTs\ST_SITP_PoleceniaZmianyStanu.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A20_SPM\DUTs\ST_SITP_PoleceniaZmianyTrybu.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A20_SPM\DUTs\ST_SITP_Stany.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A20_SPM\DUTs\ST_SITP_SygnalizacjaStanu.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A20_SPM\DUTs\ST_SITP_Tryby.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A20_SPM\FB_SPM.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A20_SPM\ITF_SPM.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A20_SPM\ITF_SPM_HMI_Init.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\A20_SPM\ITF_SPM_HMI_Lacznik.TcIO">
+    <Compile Include="POUs\A99_MachineControl\FB_MachineControl.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -371,31 +100,19 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
-    <Folder Include="POUs\98_StatesAndModes" />
-    <Folder Include="POUs\99_MachineControl" />
-    <Folder Include="POUs\A01_Element" />
-    <Folder Include="POUs\A01_Element\DUTs" />
-    <Folder Include="POUs\A01_Element\ITFs" />
-    <Folder Include="POUs\A02_ElementStany" />
-    <Folder Include="POUs\A03_ElementTryby" />
-    <Folder Include="POUs\A04_PolecenieZmiany" />
-    <Folder Include="POUs\A04_PolecenieZmiany\ITFs" />
-    <Folder Include="POUs\A05_SygnalizacjaStanu" />
-    <Folder Include="POUs\A05_SygnalizacjaStanu\DUTs" />
-    <Folder Include="POUs\A05_SygnalizacjaStanu\ITFs" />
-    <Folder Include="POUs\A06_SygnalizacjaStanuStany" />
-    <Folder Include="POUs\A10_SITP" />
-    <Folder Include="POUs\A11_SPM" />
-    <Folder Include="POUs\A11_SPM\DUTs" />
-    <Folder Include="POUs\A11_SPM\DUTs DaneDlaLacznikow" />
-    <Folder Include="POUs\A11_SPM\ITFs" />
-    <Folder Include="POUs\A11_SPM\ITFs LacznikiDlaRamek" />
-    <Folder Include="POUs\A20_SPM" />
-    <Folder Include="POUs\A20_SPM\DUTs" />
+    <Folder Include="POUs\A98_StatesAndModes" />
+    <Folder Include="POUs\A99_MachineControl" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="B_Base">
+      <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
+      <Namespace>B_Base</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_IO">
+      <DefaultResolution>B_IO, * (RafalOS)</DefaultResolution>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
@@ -408,11 +125,6 @@
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="POUs\A11_SPM\ITFs LacznikiDlaRamek\INFO.txt">
-      <SubType>Content</SubType>
-    </Content>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
