@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_Recipe" Id="{03e2ca9f-77ac-071f-2df8-6ca780aace72}" SpecialFunc="None">
+  <POU Name="FB_BaseRecipe" Id="{03e2ca9f-77ac-071f-2df8-6ca780aace72}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		28.02.2025		TC 4026.13		wer. 0.0.0.1
 	Obsługa receptur
 *)
-FUNCTION_BLOCK FB_Recipe EXTENDS FB_Base
+FUNCTION_BLOCK FB_BaseRecipe EXTENDS FB_Base
 VAR
 	bChoose						: BOOL;
 	iNumberToChoose				: INT;
 END_VAR
 VAR PERSISTENT
-	arrTemplates				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ST_Recipes;
-	arrRecipes					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_RECIPES] OF ST_Recipes;		
+	arrTemplates				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ST_BaseRecipe;
+	arrRecipes					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_RECIPES] OF ST_BaseRecipe;		
 	uiNumberOfTemplates			: UINT;			//ilość dodanych szablonów
 	uiNumberOfRecipes			: UINT;			//ilość dodanych receptur
 	uiChosen					: UINT;			//numer wybranej receptruy		
-	stChosen					: ST_Recipes;												
+	stChosen					: ST_BaseRecipe;												
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -198,7 +198,7 @@ THIS^.uiNumberOfTemplates 	:= 0;
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Zwraca referencje do  receptury
 *)
-METHOD PUBLIC GetAdressOfRecipe : POINTER TO ST_Recipes
+METHOD PUBLIC GetAdressOfRecipe : POINTER TO ST_BaseRecipe
 VAR_INPUT
 	uiNumber					: UINT;
 END_VAR
@@ -219,7 +219,7 @@ GetAdressOfRecipe			:= ADR (THIS^.arrRecipes [uiNumber]);
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Zwraca referencje do  receptury
 *)
-METHOD PUBLIC GetChoosen : REFERENCE TO ST_Recipes
+METHOD PUBLIC GetChoosen : REFERENCE TO ST_BaseRecipe
 
 ]]></Declaration>
       <Implementation>
@@ -361,7 +361,7 @@ END_VAR
 	Rafał Osajda		24.03.2025		TC 4024.66
 	Zwraca reference do wybranej receptury
 *)
-METHOD PUBLIC GetReferencesToChoosen : REFERENCE TO ST_Recipes
+METHOD PUBLIC GetReferencesToChoosen : REFERENCE TO ST_BaseRecipe
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -376,7 +376,7 @@ END_VAR
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Zwraca referencje do  receptury
 *)
-METHOD PUBLIC GetReferenceToRecipe : REFERENCE TO ST_Recipes
+METHOD PUBLIC GetReferenceToRecipe : REFERENCE TO ST_BaseRecipe
 VAR_INPUT
 	uiNumer					: UINT;
 END_VAR

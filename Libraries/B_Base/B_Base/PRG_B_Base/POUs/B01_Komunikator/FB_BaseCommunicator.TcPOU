@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_Communicator" Id="{1b33e1cc-6ea2-087e-1241-9e727acff4fb}" SpecialFunc="None">
+  <POU Name="FB_BaseCommunicator" Id="{1b33e1cc-6ea2-087e-1241-9e727acff4fb}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		30.07.2025		TC 4024.66
 	Głowny fb do kumunikacji pomiędzy fb frameworka
 *)
-FUNCTION_BLOCK FB_Communicator IMPLEMENTS ITF_Communicator
+FUNCTION_BLOCK FB_BaseCommunicator IMPLEMENTS ITF_BaseCommunicator
 VAR
-	arrData					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_MASSAGES] OF ST_CommunicatorData;
+	arrData					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_MASSAGES] OF ST_BaseCommunicatorData;
 	iNumberOfData			: INT;
-	arrStack				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_MASSAGES_ON_STACK] OF ST_CommunicatorStack;
+	arrStack				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_MASSAGES_ON_STACK] OF ST_BaseCommunicatorStack;
 	iNumberOfitemsInStack	: INT;		//ilość elementów w kolejce
 END_VAR
 ]]></Declaration>
@@ -43,7 +43,7 @@ END_IF
       <Declaration><![CDATA[METHOD PUBLIC AddRecipientToMessage : BOOL
 VAR_INPUT
 	iMessageNumber				: INT;
-	itfRecipient				: ITF_MessengerRecipient;
+	itfRecipient				: ITF_BaseMessengerRecipient;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -59,7 +59,7 @@ END_IF
       <Declaration><![CDATA[METHOD PUBLIC AddSenderToMessage : BOOL
 VAR_INPUT
 	iMessageNumber		: INT;
-	itfSender			: ITF_MessengerSender;
+	itfSender			: ITF_BaseMessengerSender;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -104,7 +104,7 @@ GetIsMeesageExist				:= FALSE;
 METHOD PRIVATE GetIsRecipientAuthorized : BOOL
 VAR_INPUT
 	iIndex		: INT;
-	itfRecipient	: ITF_MessengerRecipient;
+	itfRecipient	: ITF_BaseMessengerRecipient;
 END_VAR
 VAR
 	iI			: INT;
@@ -129,7 +129,7 @@ GetIsRecipientAuthorized			:= FALSE;
 METHOD PRIVATE GetIsSenderAuthorized : BOOL
 VAR_INPUT
 	iIndex		: INT;
-	itfSender	: ITF_MessengerSender;
+	itfSender	: ITF_BaseMessengerSender;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -145,7 +145,7 @@ END_IF
       <Declaration><![CDATA[METHOD PUBLIC ReceiveData_BOOL : BOOL
 VAR_INPUT
 	sText		: STRING;
-	itfRecipient	: ITF_MessengerRecipient;
+	itfRecipient	: ITF_BaseMessengerRecipient;
 END_VAR
 VAR_OUTPUT
 	bValue	: BOOL;	
@@ -169,7 +169,7 @@ ReceiveData_BOOL			:= FALSE;
       <Declaration><![CDATA[METHOD PUBLIC ReceiveData_REAL : BOOL
 VAR_INPUT
 	sText		: STRING;
-	itfRecipient	: ITF_MessengerRecipient;
+	itfRecipient	: ITF_BaseMessengerRecipient;
 END_VAR
 VAR_OUTPUT
 	rValue	: REAL;	
@@ -198,7 +198,7 @@ ReceiveData_REAL			:= FALSE;
 METHOD PUBLIC ReceiveDataConfirm : BOOL
 VAR_INPUT
 	sText				: STRING;
-	itfRecipient			: ITF_MessengerRecipient;
+	itfRecipient			: ITF_BaseMessengerRecipient;
 END_VAR
 VAR
 	iIndex				: INT;
@@ -222,7 +222,7 @@ ReceiveDataConfirm					:= FALSE;
       <Declaration><![CDATA[METHOD SendData_BOOL : BOOL
 VAR_INPUT
 	sText		: STRING;
-	itfSender	: ITF_MessengerSender;
+	itfSender	: ITF_BaseMessengerSender;
 END_VAR
 VAR
 	iIndex: INT;
@@ -248,7 +248,7 @@ SendData_BOOL				:= FALSE;
 VAR_INPUT
 	sText		: STRING;
 	rValue		: REAL;
-	itfSender	: ITF_MessengerSender;
+	itfSender	: ITF_BaseMessengerSender;
 END_VAR
 
 VAR

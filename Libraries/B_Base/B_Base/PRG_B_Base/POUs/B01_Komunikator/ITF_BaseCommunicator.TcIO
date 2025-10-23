@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <Itf Name="ITF_Communicator" Id="{95c8f21f-348b-0804-2e77-1d9f40277cd9}">
-    <Declaration><![CDATA[INTERFACE ITF_Communicator
+  <Itf Name="ITF_BaseCommunicator" Id="{95c8f21f-348b-0804-2e77-1d9f40277cd9}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseCommunicator
 ]]></Declaration>
     <Method Name="ReceiveData_BOOL" Id="{a0058ab3-e86c-098a-3c4b-918232b6a1f3}">
       <Declaration><![CDATA[METHOD PUBLIC ReceiveData_BOOL : BOOL
 VAR_INPUT
 	sText			: STRING;
-	itfRecipient	: ITF_MessengerRecipient;
+	itfRecipient	: ITF_BaseMessengerRecipient;
 END_VAR
 VAR_OUTPUT
 	bValue			: BOOL;	
@@ -18,7 +18,7 @@ END_VAR
       <Declaration><![CDATA[METHOD PUBLIC ReceiveData_REAL : BOOL
 VAR_INPUT
 	sText			: STRING;
-	itfRecipient	: ITF_MessengerRecipient;
+	itfRecipient	: ITF_BaseMessengerRecipient;
 END_VAR
 VAR_OUTPUT
 	rValue			: REAL;	
@@ -34,7 +34,7 @@ END_VAR
 METHOD PUBLIC ReceiveDataConfirm : BOOL
 VAR_INPUT
 	sText				: STRING;
-	itfRecipient		: ITF_MessengerRecipient;
+	itfRecipient		: ITF_BaseMessengerRecipient;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -42,7 +42,7 @@ END_VAR
       <Declaration><![CDATA[METHOD SendData_BOOL : BOOL
 VAR_INPUT
 	sText		: STRING;
-	itfSender	: ITF_MessengerSender;
+	itfSender	: ITF_BaseMessengerSender;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -51,7 +51,7 @@ END_VAR
 VAR_INPUT
 	sText		: STRING;
 	rValue		: REAL;
-	itfSender	: ITF_MessengerSender;
+	itfSender	: ITF_BaseMessengerSender;
 END_VAR
 ]]></Declaration>
     </Method>

@@ -6,11 +6,11 @@
 	Rafał Osajda		19.09.2025		TC 4024.66
 	FB Bazowy dla wszystkich elementów złożonych
 *)
-FUNCTION_BLOCK FB_BaseGroupElement EXTENDS FB_BaseControlElement IMPLEMENTS ITF_BaseGroupElement, ITF_BaseGroupElement_HMI_Connector, ITF_MessengerRecipient, ITF_MessengerSender
+FUNCTION_BLOCK FB_BaseGroupElement EXTENDS FB_BaseControlElement IMPLEMENTS ITF_BaseGroupElement, ITF_BaseGroupElement_HMI_Connector, ITF_BaseMessengerRecipient, ITF_BaseMessengerSender
 VAR
 	arrControlElement			: ARRAY [1..GVL_BaseConstans.MAX_ITEM_PER_ELEMENT] OF ITF_BaseControlElement;
 	uiNumberOfControlElement	: UINT;
-	itfCommunicator				: ITF_Communicator;
+	itfCommunicator				: ITF_BaseCommunicator;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -367,7 +367,7 @@ LinkCommonData					:= bResult;
     <Method Name="LinkCommunicator" Id="{9a87eb73-fc46-0627-0754-c3115bdb72cb}" FolderPath="WiazanieZmiennych\">
       <Declaration><![CDATA[METHOD PUBLIC LinkCommunicator : BOOL
 VAR_INPUT
-	fbCommunicator				: ITF_Communicator;
+	fbCommunicator				: ITF_BaseCommunicator;
 END_VAR
 ]]></Declaration>
       <Implementation>
