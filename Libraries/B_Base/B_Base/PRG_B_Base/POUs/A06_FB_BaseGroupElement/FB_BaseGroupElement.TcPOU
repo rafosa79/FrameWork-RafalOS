@@ -155,29 +155,6 @@ FirstCycle			:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetDoNothing" Id="{f182bed7-6e94-09dd-3b80-e6560a2640bc}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		30.04.2025		TC 4024.66
-	Zwraca czy element jest czymś zajety
-*)
-METHOD PUBLIC GetDoNothing : BOOL
-VAR
-	iI				: INT;
-	btmpDoNothing	: BOOL;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
-	btmpDoNothing		:= btmpDoNothing AND THIS^.arrControlElement [iI].GetDoNothing ();
-	IF (NOT btmpDoNothing) THEN
-		EXIT;
-	END_IF
-END_FOR
-THIS^.bDoNothing		:= btmpDoNothing;
-GetDoNothing			:= btmpDoNothing;
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="GetITFGroupElement" Id="{d5980707-73de-0a3f-2ced-ebfc86d9bd9f}" FolderPath="ITF_DecoratedElement\">
       <Declaration><![CDATA[METHOD GetITFGroupElement : ITF_BaseGroupElement
 VAR_INPUT
@@ -195,29 +172,6 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetITFTopElement		:= null;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetPosition0" Id="{71e3e5d7-b708-0c78-3ca1-830cdfe03509}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		30.04.2025		TC 4024.66
-	Zwraca czy element jest w pozycji 0 - referencyjnej
-*)
-METHOD PUBLIC GetPosition0 : BOOL
-VAR
-	iI					: INT;
-	btmpPosition0		: BOOL;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
-	btmpPosition0		:= btmpPosition0 AND THIS^.arrControlElement [iI].GetPosition0 ();
-	IF (NOT btmpPosition0) THEN
-		EXIT;
-	END_IF
-END_FOR
-THIS^.bPosition0		:= btmpPosition0;
-GetPosition0			:= btmpPosition0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -296,6 +250,52 @@ END_VAR]]></Declaration>
 	END_IF
 END_FOR
 HomingGetIsNeeded		:= btmpHomingIsNeeded;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsDoNothing" Id="{f182bed7-6e94-09dd-3b80-e6560a2640bc}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest czymś zajety
+*)
+METHOD PUBLIC IsDoNothing : BOOL
+VAR
+	iI				: INT;
+	btmpDoNothing	: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	btmpDoNothing		:= btmpDoNothing AND THIS^.arrControlElement [iI].IsDoNothing ();
+	IF (NOT btmpDoNothing) THEN
+		EXIT;
+	END_IF
+END_FOR
+THIS^.bDoNothing		:= btmpDoNothing;
+IsDoNothing			:= btmpDoNothing;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsPosition0" Id="{71e3e5d7-b708-0c78-3ca1-830cdfe03509}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest w pozycji 0 - referencyjnej
+*)
+METHOD PUBLIC IsPosition0 : BOOL
+VAR
+	iI					: INT;
+	btmpPosition0		: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	btmpPosition0		:= btmpPosition0 AND THIS^.arrControlElement [iI].IsPosition0 ();
+	IF (NOT btmpPosition0) THEN
+		EXIT;
+	END_IF
+END_FOR
+THIS^.bPosition0		:= btmpPosition0;
+IsPosition0			:= btmpPosition0;
 ]]></ST>
       </Implementation>
     </Method>

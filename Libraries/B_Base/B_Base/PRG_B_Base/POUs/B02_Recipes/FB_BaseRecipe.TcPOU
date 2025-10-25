@@ -6,7 +6,7 @@
 	Rafał Osajda		28.02.2025		TC 4026.13		wer. 0.0.0.1
 	Obsługa receptur
 *)
-FUNCTION_BLOCK FB_BaseRecipe EXTENDS FB_Base
+FUNCTION_BLOCK FB_BaseRecipe EXTENDS FB_Base IMPLEMENTS ITF_BaseCreatingTemplateMethod
 VAR
 	bChoose						: BOOL;		//receptura wybrana
 	iNumberToChoose				: INT;		//numer wybranej
@@ -115,13 +115,13 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddTemplates" Id="{07b2ff28-6360-0746-3fd3-88d58ad87d2f}">
+    <Method Name="AddTemplate" Id="{07b2ff28-6360-0746-3fd3-88d58ad87d2f}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		25.10.2025		TC 4024.66
 	Dodawanie szablonu - metoda wykorzystywana w zewnętrznym FB tworzenia receptur
 *)
-METHOD PUBLIC AddTemplates : BOOL
+METHOD PUBLIC AddTemplate : BOOL
 VAR_INPUT
 	stTexts			: ST_BaseLabel;
 END_VAR
@@ -131,7 +131,7 @@ END_VAR
 	THIS^.uiNumberOfTemplates									:= THIS^.uiNumberOfTemplates + 1;
 	THIS^.arrTemplates [1].stTexts								:=  stTexts;
 	THIS^.arrTemplates [THIS^.uiNumberOfTemplates].uiTemplate	:= THIS^.uiNumberOfTemplates;
-	AddTemplates												:= TRUE;
+	AddTemplate												:= TRUE;
 END_IF
 
 
@@ -176,7 +176,7 @@ END_VAR]]></Declaration>
 THIS^.DeleteTemplates ();
 
 FOR iI := 1 TO TO_INT (THIS^.uiNumberOfCreatingRecipe) DO
-	THIS^.arritfCreatingRecipe [iI].CreateTamplateOfRecipe (stTemplate := THIS^.arrTemplates [iI]);
+	THIS^.arritfCreatingRecipe [iI].CreateTamplateOfRecipe (itfRecipe := THIS^);
 END_FOR
 ]]></ST>
       </Implementation>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_BaseMachineMode" Id="{8d3ec730-b003-40b2-8d42-8cb455bceb5e}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_BaseMachineMode :
+(
+    Undefined			:= 0,
+    Production			:= 1,
+    Maintenance			:= 2,
+    Manual				:= 3,
+    Washing				:= 4,
+    Diagnostics			:= 5
+//    Uzytkownika1		:= 6,
+//    Uzytkownika2		:= 7,
+//    Uzytkownika3		:= 8,
+//    Uzytkownika4		:= 9	
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -948,10 +948,10 @@ END_IF]]></ST>
 VAR
 	bResult		: BOOL;
 	bWartosc	: BOOL;
-	itfSender		: ITF_MessengerSender;
-	itfRecipient	: ITF_MessengerRecipient;
-	itftmpSender	: ITF_MessengerSender;
-	itftmpRecipient	: ITF_MessengerRecipient;
+	itfSender		: ITF_BaseMessengerSender;
+	itfRecipient	: ITF_BaseMessengerRecipient;
+	itftmpSender	: ITF_BaseMessengerSender;
+	itftmpRecipient	: ITF_BaseMessengerRecipient;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -1135,7 +1135,42 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T21_TestCreateTepmplate')) THEN
+	//Dodanie zewnętreznego FB do twoerzenia szbalonów
+	GVL.fbRecipe.AddITFToCreateTemplate (fbToCtreateTemplate := GVL.fbCreatingTemplate1);
+	GVL.fbRecipe.AddITFToCreateTemplate (fbToCtreateTemplate := GVL.fbCreatingTemplate2);
+	//wywołanie medody tworzacej szablony
+	GVL.fbRecipe.CreateTemplates ();
+	
+	AssertEquals_UINT (Expected := 2, Actual := GVL.fbRecipe.GetNumberOfTemplate (), 'T01 - bledna ilosc szablonow');
+	AssertEquals_UINT (Expected := 3, Actual := GVL.fbRecipe.GetNumberIngredientOFTemplate (uiNumber := 1), Message := 'T02 - bledna ilosc skladnikow');
+	AssertEquals_UINT (Expected := 1, Actual := GVL.fbRecipe.GetNumberIngredientOFTemplate (uiNumber := 2), Message := 'T03 - bledna ilosc skladnikow');
+	
+	AssertEquals_WSTRING (Expected := "Nazwa skladnika 1 PL", Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [1].stTexts.arrText [1],	Message := 'Test 06b - bledna etykieta');
+	AssertEquals_REAL (Expected := 1111, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [1].rValue,										Message := 'Test 06c - bledna wartosc', Delta := 0);
+	AssertEquals_REAL (Expected := 1111, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [1].rDefaultValue,								Message := 'Test 06d - bledna wartosc domyslna', Delta := 0);
+	AssertEquals_REAL (Expected := 1, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [1].rMin,		 									Message := 'Test 06e - bledna wartosc min', Delta := 0);
+	AssertEquals_REAL (Expected := 10000, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [1].rMAX,		 								Message := 'Test 06f - bledna wartosc max', Delta := 0);
+	AssertEquals_WSTRING (Expected := "mm", Actual := TO_WSTRING (GVL.fbRecipe.arrTemplates [1].arrIngredient [1].sUnit),		 				Message := 'Test 06g - bledna jednostka');
+	
+	AssertEquals_WSTRING (Expected := "Nazwa skladnika 2 PL", Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [2].stTexts.arrText [1],	Message := 'Test 07b - bledna etykieta');
+	AssertEquals_REAL (Expected := 1112, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [2].rValue,										Message := 'Test 07c - bledna wartosc', Delta := 0);
+	AssertEquals_REAL (Expected := 1112, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [2].rDefaultValue,								Message := 'Test 07d - bledna wartosc domyslna', Delta := 0);
+	AssertEquals_REAL (Expected := 1, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [2].rMin,		 									Message := 'Test 07e - bledna wartosc min', Delta := 0);
+	AssertEquals_REAL (Expected := 10000, Actual := GVL.fbRecipe.arrTemplates [1].arrIngredient [2].rMAX,		 								Message := 'Test 07f - bledna wartosc max', Delta := 0);
+	AssertEquals_WSTRING (Expected := "mm/s", Actual := TO_WSTRING (GVL.fbRecipe.arrTemplates [1].arrIngredient [2].sUnit),		 			Message := 'Test 07g - bledna jednostka');
+	
+//1 składnik 2 szablonu	
+	AssertEquals_WSTRING (Expected := "Nazwa skladnika 1 PL", Actual := GVL.fbRecipe.arrTemplates [2].arrIngredient [1].stTexts.arrText [1],	Message := 'Test 11b - bledna etykieta');
+	AssertEquals_REAL (Expected := 1111, Actual := GVL.fbRecipe.arrTemplates [2].arrIngredient [1].rValue,										Message := 'Test 11c - bledna wartosc', Delta := 0);
+	AssertEquals_REAL (Expected := 1111, Actual := GVL.fbRecipe.arrTemplates [2].arrIngredient [1].rDefaultValue,								Message := 'Test 11d - bledna wartosc domyslna', Delta := 0);
+	AssertEquals_REAL (Expected := 1, Actual := GVL.fbRecipe.arrTemplates [2].arrIngredient [1].rMin,		 									Message := 'Test 11e - bledna wartosc min', Delta := 0);
+	AssertEquals_REAL (Expected := 10000, Actual := GVL.fbRecipe.arrTemplates [2].arrIngredient [1].rMAX,		 								Message := 'Test 11f - bledna wartosc max', Delta := 0);
+	AssertEquals_WSTRING (Expected := "mm", Actual := TO_WSTRING (GVL.fbRecipe.arrTemplates [2].arrIngredient [1].sUnit),		 				Message := 'Test 11g - bledna jednostka');
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
 
+(*
 //Wyczyszczeni danych i test czyszczenia
 	GVL.fbRecipe.DeleteRecipes ();
 	GVL.fbRecipe.DeleteTemplates ();
@@ -1233,11 +1268,7 @@ END_VAR]]></Declaration>
 	AssertEquals_REAL (Expected := 1, Actual := GVL.fbRecipe.arrTemplates [2].arrIngredient [1].rMin,		 									Message := 'Test 11e - bledna wartosc min', Delta := 0);
 	AssertEquals_REAL (Expected := 10000, Actual := GVL.fbRecipe.arrTemplates [2].arrIngredient [1].rMAX,		 								Message := 'Test 11f - bledna wartosc max', Delta := 0);
 	AssertEquals_WSTRING (Expected := "mm", Actual := TO_WSTRING (GVL.fbRecipe.arrTemplates [2].arrIngredient [1].sUnit),		 				Message := 'Test 11g - bledna jednostka');
-	
-
-	TcUnit.TEST_FINISHED ();
-END_IF
-]]></ST>
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T22_TestAddRecipeFromTemplate" Id="{afb896e7-e806-0238-2b43-0ac4622a2205}">
