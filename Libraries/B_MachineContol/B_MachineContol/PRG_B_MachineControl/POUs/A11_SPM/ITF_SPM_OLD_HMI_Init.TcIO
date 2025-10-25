@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1">
-  <Itf Name="ITF_SPM_OLD_HMI_Init" Id="{9a2e5680-ab26-0a5b-12b8-3d93cda48364}">
-    <Declaration><![CDATA[INTERFACE ITF_SPM_OLD_HMI_Init EXTENDS B_Baza.ITF_Komponent, ITF_SPM_OLD_HMI_Lacznik]]></Declaration>
-  </Itf>
-</TcPlcObject>

@@ -8,16 +8,16 @@
 *)
 FUNCTION_BLOCK FB_BaseRecipe EXTENDS FB_Base
 VAR
-	bChoose						: BOOL;
-	iNumberToChoose				: INT;
+	bChoose						: BOOL;		//receptura wybrana
+	iNumberToChoose				: INT;		//numer wybranej
 END_VAR
 VAR PERSISTENT
-	arrTemplates				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ST_BaseRecipe;
-	arrRecipes					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_RECIPES] OF ST_BaseRecipe;		
+	arrTemplates				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ST_BaseRecipe;	//szablony
+	arrRecipes					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_RECIPES] OF ST_BaseRecipe;	//receptury
 	uiNumberOfTemplates			: UINT;			//ilość dodanych szablonów
 	uiNumberOfRecipes			: UINT;			//ilość dodanych receptur
 	uiChosen					: UINT;			//numer wybranej receptruy		
-	stChosen					: ST_BaseRecipe;												
+	stChosen					: ST_BaseRecipe;	//kopia wybranej recepury kopiowana w momencie wyboru, zmiany w recepturze bazowej nie jest przepisywana automatycznia
 END_VAR
 ]]></Declaration>
     <Implementation>
