@@ -10,6 +10,8 @@ FUNCTION_BLOCK FB_BaseRecipe EXTENDS FB_Base
 VAR
 	bChoose						: BOOL;		//receptura wybrana
 	iNumberToChoose				: INT;		//numer wybranej
+	arritfCreatingRecipe		: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ITF_BaseCreateTemplateOfRecipe;
+	uiNumberOfCreatingRecipe	: UINT;		//ilosc fb dla tworzenia receptur
 END_VAR
 VAR PERSISTENT
 	arrTemplates				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ST_BaseRecipe;	//szablony
@@ -24,7 +26,12 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Method Name="AddIngredientToTemplate" Id="{0f0ee292-ddb9-015d-0fb4-0a56214e5144}">
-      <Declaration><![CDATA[METHOD PUBLIC AddIngredientToTemplate : BOOL
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Dodawanie składnika do szablonu
+*)
+METHOD PUBLIC AddIngredientToTemplate : BOOL
 VAR_INPUT
 	uiNumber		: UINT;
 	stIngredient	: ST_BaseDescriptor;
@@ -36,6 +43,28 @@ END_VAR
 	THIS^.arrTemplates [uiNumber].arrIngredient [THIS^.arrTemplates [uiNumber].uiNumber]	:= stIngredient;
 //	THIS^.arrSzablony [uiNumer].arrSkladnik [THIS^.arrSzablony [uiNumer].uiIlosc].PowiarzJezyk (fbLokalizacja := THIS^.itfJezyk);
 	AddIngredientToTemplate						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddITFToCreateTemplate" Id="{fc3ad54c-4bea-0239-2698-b594715f0dc6}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Dodanie itferfejsu FB dla tworzenia szablonów receptur z programu maszyny
+*)
+METHOD PUBLIC AddITFToCreateTemplate : BOOL
+VAR_INPUT
+	fbToCtreateTemplate		: ITF_BaseCreateTemplateOfRecipe;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.uiNumberOfCreatingRecipe + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES) THEN
+	THIS^.uiNumberOfCreatingRecipe	:= THIS^.uiNumberOfCreatingRecipe + 1;
+	THIS^.arritfCreatingRecipe [THIS^.uiNumberOfCreatingRecipe]	:= fbToCtreateTemplate;
+	AddITFToCreateTemplate		:= TRUE;
+ELSE
+	AddITFToCreateTemplate		:= FALSE;
 END_IF
 ]]></ST>
       </Implementation>
@@ -87,7 +116,12 @@ END_IF
       </Implementation>
     </Method>
     <Method Name="AddTemplates" Id="{07b2ff28-6360-0746-3fd3-88d58ad87d2f}">
-      <Declaration><![CDATA[METHOD PUBLIC AddTemplates : BOOL
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Dodawanie szablonu - metoda wykorzystywana w zewnętrznym FB tworzenia receptur
+*)
+METHOD PUBLIC AddTemplates : BOOL
 VAR_INPUT
 	stTexts			: ST_BaseLabel;
 END_VAR
@@ -120,6 +154,30 @@ END_VAR
         <ST><![CDATA[//THIS^.refstWybrana				REF= THIS^.arrReceptury [uiNumer];
 THIS^.stChosen					:= THIS^.arrRecipes [uiNumber];
 THIS^.uiChosen					:= uiNumber;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CreateTemplates" Id="{567bc23d-3d67-029c-03c4-22699719c412}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Utworzenie nowych szablonów receptur na podstawie dodanych fb zewnętrznych - wywołanie metody powoduje
+	skosowanie dotychczasowych szablonów i receptur
+*)
+METHOD PUBLIC CreateTemplates : BOOL
+VAR_INPUT
+END_VAR
+
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.DeleteRecipes ();
+THIS^.DeleteTemplates ();
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfCreatingRecipe) DO
+	THIS^.arritfCreatingRecipe [iI].CreateTamplateOfRecipe (stTemplate := THIS^.arrTemplates [iI]);
+END_FOR
 ]]></ST>
       </Implementation>
     </Method>

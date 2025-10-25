@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseCreateTemplateOfRecipe" Id="{1059cad2-38ec-00a8-2713-f97371bed026}">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Dodawanie meteody dla tworzenia szablownow 
+*)
+INTERFACE ITF_BaseCreateTemplateOfRecipe
+]]></Declaration>
+    <Method Name="CreateTamplateOfRecipe" Id="{fd74e661-f169-00b7-3578-efcb85f3e4d0}">
+      <Declaration><![CDATA[METHOD CreateTamplateOfRecipe : BOOL
+VAR_INPUT
+	stTemplate				: REFERENCE TO ST_BaseRecipe;	//referencja do miejsca gdzie zostanie zapisany szablon
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
