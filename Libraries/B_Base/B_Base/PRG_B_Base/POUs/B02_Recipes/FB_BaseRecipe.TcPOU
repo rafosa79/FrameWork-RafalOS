@@ -10,6 +10,7 @@ FUNCTION_BLOCK FB_BaseRecipe EXTENDS FB_Base
 VAR
 	bChoose						: BOOL;		//receptura wybrana
 	iNumberToChoose				: INT;		//numer wybranej
+	arritcreatingRecipe			: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ITF_CreateTemplateOfRecipe;
 END_VAR
 VAR PERSISTENT
 	arrTemplates				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ST_BaseRecipe;	//szablony

@@ -290,6 +290,9 @@
     <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseTopElement_HMI_Connector.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\B02_Recipes\ITF_CreateTemplateOfRecipe.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\B02_Recipes\ST_BaseRecipeListRow.TcDUT">
       <SubType>Code</SubType>
     </Compile>
