@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseSAM" Id="{e06ea4d8-10a4-07fe-0bda-c5cd43560d4e}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseSAM
+]]></Declaration>
+    <Method Name="GetMode" Id="{17ad96f9-f8c6-06b4-06e2-cdfe42403acb}">
+      <Declaration><![CDATA[METHOD PUBLIC GetMode : E_BaseMachineMode
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetState" Id="{d5368088-86fd-0411-1ca9-12bdae93bf00}">
+      <Declaration><![CDATA[METHOD PUBLIC GetState : E_BaseMachineState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsModeChangeBusy" Id="{0dd216ea-27b5-01b9-033f-72faa5a0d597}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Czy trwa zmianay trybu
+*)
+METHOD PUBLIC IsModeChangeBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStateChangeBusy" Id="{2bd79ff5-9782-015d-0a64-00caef1a80f6}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Czy trwa zmiana stanu
+*)
+METHOD PUBLIC IsStateChangeBusy : BOOL
+VAR_INPUT
+
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

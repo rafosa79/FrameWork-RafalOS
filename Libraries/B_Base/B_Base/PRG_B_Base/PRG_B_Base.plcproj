@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.50</ProjectVersion>
+    <ProjectVersion>0.0.0.51</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -119,6 +119,12 @@
     <Compile Include="DUTs\E_BaseLocation.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\E_BaseMachineState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\E_BaseMachineMode.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\ST_BaseCommonData.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -147,6 +153,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseSAM.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\B01_Komunikator\ITF_BaseCommunicator.TcIO">
