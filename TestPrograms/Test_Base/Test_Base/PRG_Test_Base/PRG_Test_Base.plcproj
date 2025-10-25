@@ -171,6 +171,12 @@
     <Compile Include="POUs\A8_CommunicatorTest\FB_CommunicatorClient.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_CreateTepletate1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CreateTepletate2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB_ItemTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>

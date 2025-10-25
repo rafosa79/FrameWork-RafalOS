@@ -14,9 +14,11 @@ VAR_GLOBAL
 	
 	fbImpuls				: FB_BaseImpulse;
 	
-	fbCommunicator			: FB_Communicator;
+	fbCommunicator			: FB_BaseCommunicator;
 	
-	fbRecipe				: FB_Recipe;
+	fbRecipe				: FB_BaseRecipe;
+	fbCreatingTemplate1		: FB_CreateTepletate1;
+	fbCreatingTemplate2		: FB_CreateTepletate2;
 	
 	stCommonData			: ST_BaseCommonData;
 	

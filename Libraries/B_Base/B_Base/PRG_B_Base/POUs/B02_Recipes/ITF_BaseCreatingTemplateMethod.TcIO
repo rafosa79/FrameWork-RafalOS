@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseCreatingTemplateMethod" Id="{34818d90-5fc5-01c8-1c0b-50569864d718}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseCreatingTemplateMethod
+]]></Declaration>
+    <Method Name="AddIngredientToTemplate" Id="{af282e57-b6d3-0401-322d-4addeb9ad257}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Dodawanie składnika do szablonu
+*)
+METHOD PUBLIC AddIngredientToTemplate : BOOL
+VAR_INPUT
+	uiNumber		: UINT;
+	stIngredient	: ST_BaseDescriptor;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddTemplate" Id="{41920455-485a-0c8e-38a5-67100c3fcad4}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Dodawanie szablonu - metoda wykorzystywana w zewnętrznym FB tworzenia receptur
+*)
+METHOD PUBLIC AddTemplate : BOOL
+VAR_INPUT
+	stTexts			: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberIngredientOFTemplate" Id="{945f6773-5d6e-0c0f-13f8-d0eafb748118}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberIngredientOFTemplate : UINT
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfTemplate" Id="{5353d19c-67c9-05d5-0a59-b42cef85d7e1}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfTemplate : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
