@@ -89,10 +89,10 @@
     <Compile Include="DUTs\ST_SafetyGroupStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GVLs\GVL_MachineControlIO.TcGVL">
+    <Compile Include="GVLs\GVL_MCIO.TcGVL">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GVLs\GVL_MachineControlConstans.TcGVL">
+    <Compile Include="GVLs\GVL_MCConstans.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
@@ -102,11 +102,15 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\01_MachineControl\FB_MachineControl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
+    <Folder Include="POUs\01_MachineControl" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -130,6 +134,11 @@
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PRG_B_MachineControl.tmc">
+      <SubType>Content</SubType>
+    </None>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

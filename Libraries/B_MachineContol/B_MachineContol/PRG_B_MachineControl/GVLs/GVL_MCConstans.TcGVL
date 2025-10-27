@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <GVL Name="GVL_MachineControlConstans" Id="{22392bc0-4d68-00a6-32ce-649fe76af340}">
+  <GVL Name="GVL_MCConstans" Id="{22392bc0-4d68-00a6-32ce-649fe76af340}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL CONSTANT
 	
