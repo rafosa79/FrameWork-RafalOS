@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.48</ProjectVersion>
+    <ProjectVersion>0.0.0.51</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -119,6 +119,12 @@
     <Compile Include="DUTs\E_BaseLocation.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\E_BaseMachineState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\E_BaseMachineMode.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\ST_BaseCommonData.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -149,34 +155,31 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B02_Recipes\DUTs\ST_Recipes.TcDUT">
+    <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseSAM.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B02_Recipes\DUTs\ST_RecipeListRow.TcDUT">
+    <Compile Include="POUs\B01_Komunikator\ITF_BaseCommunicator.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B02_Recipes\FB_Recipe.TcPOU">
+    <Compile Include="POUs\B01_Komunikator\ITF_BaseMessengerRecipient.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\FB_Communicator.TcPOU">
+    <Compile Include="POUs\B01_Komunikator\ITF_BaseMessengerSender.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\ITFs\ITF_Communicator.TcIO">
+    <Compile Include="POUs\B02_Recipes\FB_BaseRecipe.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\ITFs\ITF_MessengerSender.TcIO">
+    <Compile Include="POUs\B01_Komunikator\FB_BaseCommunicator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\ITFs\ITF_MessengerRecipient.TcIO">
+    <Compile Include="POUs\B01_Komunikator\ST_BaseCommunicatorData.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\ST_CommunicatorData.TcDUT">
+    <Compile Include="POUs\B01_Komunikator\ST_BaseCommunicatorStack.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B01_Komunikator\ST_CommunicatorStack.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\B01_Komunikator\ST_CommunicatorMassege.TcDUT">
+    <Compile Include="POUs\B01_Komunikator\ST_BaseCommunicatorMassege.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A00_Basic\FB_BaseLabel.TcPOU">
@@ -296,6 +299,18 @@
     <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseTopElement_HMI_Connector.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\B02_Recipes\ITF_BaseCreateTemplateOfRecipe.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B02_Recipes\ITF_BaseCreatingTemplateMethod.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B02_Recipes\ST_BaseRecipeListRow.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B02_Recipes\ST_BaseRecipe.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
@@ -305,9 +320,7 @@
     <Folder Include="ITFs" />
     <Folder Include="POUs Compilation" />
     <Folder Include="POUs\B02_Recipes" />
-    <Folder Include="POUs\B02_Recipes\DUTs" />
     <Folder Include="POUs\B01_Komunikator" />
-    <Folder Include="POUs\B01_Komunikator\ITFs" />
     <Folder Include="POUs\A04_FB_BaseComponent" />
     <Folder Include="POUs\A02_FB_BaseLogger" />
     <Folder Include="POUs\A03_FB_BaseLoggerElement" />

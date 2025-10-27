@@ -250,19 +250,6 @@ FirstCycle			:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetDoNothing" Id="{374d26a0-ec77-0904-0e68-6d5f8f41e3a2}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		30.04.2025		TC 4024.66
-	Zwraca czy element jest czymś zajety
-*)
-METHOD PUBLIC GetDoNothing : BOOL
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[GetDoNothing				:= THIS^.bDoNothing;
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="GetITFControlElement" Id="{fddecf06-8fdb-0ada-3a84-637827f5eb8a}" FolderPath="ITF_DecoratedElement\">
       <Declaration><![CDATA[METHOD GetITFControlElement : ITF_BaseControlElement
 VAR_INPUT
@@ -290,20 +277,6 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetITFTopElement		:= null;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetPosition0" Id="{b8caa6d7-84b6-0f11-0778-092adf43c4c2}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		30.04.2025		TC 4024.66
-	Zwraca czy element jest w pozycji 0 - referencyjnej
-*)
-METHOD PUBLIC GetPosition0 : BOOL
-
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[GetPosition0				:= THIS^.bPosition0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -429,6 +402,33 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.stHoming.cmdExecute.Execute ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsDoNothing" Id="{374d26a0-ec77-0904-0e68-6d5f8f41e3a2}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest czymś zajety
+*)
+METHOD PUBLIC IsDoNothing : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsDoNothing				:= THIS^.bDoNothing;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsPosition0" Id="{b8caa6d7-84b6-0f11-0778-092adf43c4c2}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.04.2025		TC 4024.66
+	Zwraca czy element jest w pozycji 0 - referencyjnej
+*)
+METHOD PUBLIC IsPosition0 : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsPosition0				:= THIS^.bPosition0;
 ]]></ST>
       </Implementation>
     </Method>

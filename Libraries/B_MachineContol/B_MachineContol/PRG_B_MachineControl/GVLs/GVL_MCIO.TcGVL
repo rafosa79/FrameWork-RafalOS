@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="GVL_MCIO" Id="{e6049030-6eb2-05ee-3e39-cd6ec4906926}">
+    <Declaration><![CDATA[{attribute 'global_init_slot' := '40400'}
+{attribute 'qualified_only'}
+VAR_GLOBAL
+(*	
+//Przyciski zmaiany stanu	
+	fbprUndefined			: FB_SITP_PolecenieZmianyStanu (ePolecenie := E_SITP_PolecenieZmianyStanu.brak);
+	fbprAbort				: FB_SITP_PolecenieZmianyStanu (ePolecenie := E_SITP_PolecenieZmianyStanu.Abort);
+   	fbprClear				: FB_SITP_PolecenieZmianyStanu (ePolecenie := E_SITP_PolecenieZmianyStanu.Clear);
+    fbprReset				: FB_SITP_PolecenieZmianyStanu (ePolecenie := E_SITP_PolecenieZmianyStanu.Reset);
+    fbprStart				: FB_SITP_PolecenieZmianyStanu (ePolecenie := E_SITP_PolecenieZmianyStanu.Start);
+    fbprStop				: FB_SITP_PolecenieZmianyStanu (ePolecenie := E_SITP_PolecenieZmianyStanu.Stop);
+    fbprHold				: FB_SITP_PolecenieZmianyStanu (ePolecenie := E_SITP_PolecenieZmianyStanu.Hold);
+    fbprUnhold				: FB_SITP_PolecenieZmianyStanu (ePolecenie := E_SITP_PolecenieZmianyStanu.Unhold);
+    fbprSuspend				: FB_SITP_PolecenieZmianyStanu (ePolecenie := E_SITP_PolecenieZmianyStanu.Suspend);
+    fbprUnsuspend			: FB_SITP_PolecenieZmianyStanu (ePolecenie := E_SITP_PolecenieZmianyStanu.Unsuspend);
+    fbprComplete			: FB_SITP_PolecenieZmianyStanu (ePolecenie := E_SITP_PolecenieZmianyStanu.Complete);
+//przyciski zmiany trybu
+	fbprNiedozwolony		: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.brak);     
+	fbprProdukcja			: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.Produkcja);   
+    fbprKonserwacja			: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.Konserwacja); 
+    fbprReczny				: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.Reczny);      
+    fbprMycie				: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.Mycie);       
+    fbprDiagnostyka			: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.Diagnostyka);
+//    fbprUzytkownika2		: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.Uzytkownika2);
+//    fbprUzytkownika3		: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.Uzytkownika3);
+//    fbprUzytkownika4		: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.Uzytkownika4);
+//    fbprUzytkownika5		: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.Uzytkownika5);
+	
+//Lampki wieży sygnalizacyjnej
+	fbLWiezaCzerwona		: B_IO.FB_LampkaRozszerzona;
+	fbLWiezaZolta			: B_IO.FB_LampkaRozszerzona;
+	fbLWiezaZielona			: B_IO.FB_LampkaRozszerzona;
+	fbLWiezaBiala			: B_IO.FB_LampkaRozszerzona;
+	fbLWiezaNiebieska		: B_IO.FB_LampkaRozszerzona;
+	
+//lampki przycisków polecenia zmiany stanu
+	fblprzReset    			: B_IO.FB_LampkaRozszerzona;
+    fblprzStart    			: B_IO.FB_LampkaRozszerzona;
+    fblprzStop     			: B_IO.FB_LampkaRozszerzona;
+    fblprzHold     			: B_IO.FB_LampkaRozszerzona;
+    fblprzUnhold   			: B_IO.FB_LampkaRozszerzona;
+    fblprzSuspend  			: B_IO.FB_LampkaRozszerzona;
+    fblprzUnsuspend			: B_IO.FB_LampkaRozszerzona;
+    fblprzAbort    			: B_IO.FB_LampkaRozszerzona;
+    fblprzClear    			: B_IO.FB_LampkaRozszerzona;
+    fblprzComplete			: B_IO.FB_LampkaRozszerzona;
+*)	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

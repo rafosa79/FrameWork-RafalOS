@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseCommunicatorStack" Id="{f3df0a22-2d82-062c-18b5-7c2b5a82b67e}">
+    <Declaration><![CDATA[TYPE ST_BaseCommunicatorStack :
+STRUCT
+	stMessage					: ST_BaseCommunicatorMassege;
+	bSent						: BOOL;		//wysłane
+	bConfirmation				: BOOL;		//potwierdzenie
+	itfSender					: ITF_BaseMessengerSender;
+	itfRecipient				: ITF_BaseMessengerRecipient;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="GVL_MCConstans" Id="{22392bc0-4d68-00a6-32ce-649fe76af340}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+	
+	COUNT_MACHINE_STATES		: INT := 17;	//liczba stanów pracy - max
+	COUNT_OPERATION_MODES		: INT := 9;		//liczba trybów pracy - max
+	COUNT_STATE_COMMANDS		: INT := 10;	//ilosc polecen zmiany stanu pracy - stany oczekujące np aborted stopped idle itp
+	COUNT_MODE_COMMANDS			: INT := 5;		//ilosc polecen zmiany tryby = ilosc trybów pracy
+	COUNT_SIGNAL_LAMPS			: INT := 15;
+	
+//MENU
+	MAX_NUMBER_OF_MENU_BUTTONS	: INT := 20;	//max liczba przycisków menu 
+END_VAR
+
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseCommunicatorData" Id="{0658a430-f7e5-0cb0-25bf-a6b6e5b94e0d}">
+    <Declaration><![CDATA[TYPE ST_BaseCommunicatorData :
+STRUCT
+	stMessage					: ST_BaseCommunicatorMassege;
+	itfSender					: ITF_BaseMessengerSender;
+	arritfRecipient				: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_CLIENTS] OF ITF_BaseMessengerRecipient;
+	arrConfirmations			: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_CLIENTS] OF BOOL;		//potwierdzenia
+	iNumberOfConfirmations		: INT;	//ilosc odbiorcow ktorzy musza potwierdzic
+	iNumberOfRecipient			: INT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

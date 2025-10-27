@@ -4,17 +4,17 @@
     <Declaration><![CDATA[TYPE ST_Safety :
 STRUCT
 (*	Dane dla programu i podlementów *)	
-	fbSS1					: B_Baza.FB_Flaga;
-	fbSTO					: B_Baza.FB_Flaga;
-	fbGrzybCh1a				: B_Baza.FB_Flaga;
-	fbGrzybCh1b				: B_Baza.FB_Flaga;
+	flSS1					: FB_BaseFlag;
+	flSTO					: FB_BaseFlag;
+	flGrzybCh1a				: FB_BaseFlag;
+	flGrzybCh1b				: FB_BaseFlag;
 (*		*)
-	bRozkazUzbrojenia		: BOOL;
+	bArmCommand				: BOOL; 	//rozkaz uzbrojenia systemu safety
 	// Zmienne bezpieczeństwa globalne
 	bRunStop		AT%Q*	: BOOL := TRUE;
 	bErrAck			AT%Q*	: BOOL;
 	// Zmienne dla grupy 1 - grzyb
-	stStanyGrupy1			: ST_SafetyStanyGrup;
+	stGroupStates1			: ST_SafetyGroupStates;
 
 END_STRUCT
 END_TYPE

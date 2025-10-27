@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="PRG_Compilation" Id="{5db94455-dadb-0232-2011-e8c0ba8c59a8}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM PRG_Compilation
+  <POU Name="FB_MachineControl" Id="{0eac6af2-3ab5-0548-0b1d-467819e04dee}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MachineControl EXTENDS FB_BaseTopElement
 VAR
-	fbMachineControl			: FB_MachineControl;
+
 END_VAR
 ]]></Declaration>
     <Implementation>
