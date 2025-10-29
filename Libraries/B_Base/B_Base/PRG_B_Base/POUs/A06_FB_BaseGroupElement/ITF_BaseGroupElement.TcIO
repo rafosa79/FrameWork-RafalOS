@@ -3,5 +3,12 @@
   <Itf Name="ITF_BaseGroupElement" Id="{d28f4434-f18e-0ace-07d5-b8e3255289a2}">
     <Declaration><![CDATA[INTERFACE ITF_BaseGroupElement EXTENDS ITF_BaseControlElement
 ]]></Declaration>
+    <Method Name="LinkCommunicator" Id="{e18f2481-ec84-0634-14da-01be97c8fcff}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkCommunicator : BOOL
+VAR_INPUT
+	fbCommunicator				: ITF_BaseCommunicator;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>
