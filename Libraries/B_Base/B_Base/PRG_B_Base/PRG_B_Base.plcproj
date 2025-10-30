@@ -155,6 +155,9 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A01_Base\ITF_Base.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseSAM.TcIO">
       <SubType>Code</SubType>
     </Compile>

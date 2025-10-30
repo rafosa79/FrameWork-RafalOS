@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_DefaultConfiguration" Id="{b3dd6042-604c-4c61-931b-83a2a51b25e3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_DefaultConfiguration EXTENDS FB_Base IMPLEMENTS ITF_Configuration
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddTopElementToLogger" Id="{36be91d2-ad26-0a71-30b5-b0c6ca0ce3ae}">
+      <Declaration><![CDATA[METHOD PUBLIC AddTopElementToLogger : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddTopElementToMachineControl" Id="{5d7430ec-14d9-0c38-3500-a1ae21ec7008}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		29.10.2025		TC 4024.66
+	Dodawanie TopElementu do systemu
+*)
+METHOD PUBLIC AddTopElementToMachineControl : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "System");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "System");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "System");
+GVL_SystemVariable.fbMachineControl.SetName (stName := THIS^.GetTexts ());
+itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_SystemVariable.fbMachineControl);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
