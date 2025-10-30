@@ -33,7 +33,6 @@ END_VAR
 //	GVL_SystemVariable.fbLogger.AddItem (itfItem	:= GVL_SystemVariable.fbMachineControl);
 ELSE
 	GVL_SystemVariable.fbLogger ();
-
 	GVL_SystemVariable.fbMachineControl ();
 END_IF]]></ST>
     </Implementation>

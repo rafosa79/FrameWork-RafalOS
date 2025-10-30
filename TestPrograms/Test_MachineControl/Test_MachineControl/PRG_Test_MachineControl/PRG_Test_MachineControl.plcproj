@@ -22,6 +22,10 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="GVLs\GVL_TopElement2.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\GVL_Variable.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -53,6 +57,42 @@
     <Compile Include="POUs\POUs TopElement1\ITF_TopElement1.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\POUs TopElement2\FB_ControlElement3.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\FB_ControlElement5.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\FB_ControlElement4.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\FB_ControlElement6.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\FB_GroupElement1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\FB_TopElement2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\ITF_ControlElement3.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\ITF_ControlElement5.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\ITF_ControlElement4.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\ITF_ControlElement6.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\ITF_GroupElement1.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\ITF_TopElement2.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="TESTs\PRG_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -61,6 +101,7 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs\POUs TopElement1" />
+    <Folder Include="POUs\POUs TopElement2" />
     <Folder Include="TESTs" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />

@@ -31,7 +31,8 @@ END_VAR
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_SystemVariable.fbMachineControl.bInitDone), Value := FALSE);
 	WRITE_PROTECTED_INT (Ptr := ADR (GVL_SystemVariable.fbMachineControl.iNumberOfAddedTopElement), value := -1);
 	WRITE_PROTECTED_INT (Ptr := ADR (GVL_SystemVariable.fbMachineControl.uiNumberOfAllAddedElements), value := 0);
-
+	WRITE_PROTECTED_INT (Ptr := ADR (GVL_SystemVariable.fbLogger.iNumberOfItem), Value := 0);
+	
 	(* Dodanie nowej konfiguracji 	*)
 	GVL_SystemVariable.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_Variable.fbMyNewConfiguration);
 

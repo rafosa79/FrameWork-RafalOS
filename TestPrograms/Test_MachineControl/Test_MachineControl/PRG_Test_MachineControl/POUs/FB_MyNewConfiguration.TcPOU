@@ -13,7 +13,9 @@ END_VAR
       <Declaration><![CDATA[METHOD AddTopElementToLogger : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GVL_TopElement1.fbTopElement1.JoinTheLogger ();]]></ST>
+        <ST><![CDATA[GVL_TopElement1.fbTopElement1.JoinTheLogger ();
+GVL_TopElement2.fbTopElement2.JoinTheLogger ();
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddTopElementToMachineControl" Id="{14c2a0df-b97e-48ab-8674-34192113ffc6}">
@@ -33,7 +35,12 @@ THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "TopElement 1 en
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "TopElement 1 de");
 GVL_TopElement1.fbTopElement1.SetName (stName := THIS^.GetTexts ());
 itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_TopElement1.fbTopElement1);
-]]></ST>
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "TopElement 2 pl");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "TopElement 2 en");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "TopElement 2 de");
+GVL_TopElement1.fbTopElement1.SetName (stName := THIS^.GetTexts ());
+itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_TopElement2.fbTopElement2);]]></ST>
       </Implementation>
     </Method>
   </POU>
