@@ -19,6 +19,8 @@ END_VAR
     <Folder Name="Bazowanie" Id="{ac03e261-94f6-0d08-2b29-69a0f6f80414}" />
     <Folder Name="Events" Id="{20f6f417-5dd7-052c-022d-8978faa14be3}" />
     <Folder Name="ID" Id="{9d43db93-a825-0ef2-1289-7c7210b94e63}" />
+    <Folder Name="ITF_BaseComponent" Id="{21d91ff8-321c-0a3c-3e32-f71a83cd7a28}" />
+    <Folder Name="ITF_BaseControlElement" Id="{7a13d05e-a071-0aa3-2f07-a3977bd5f5b3}" />
     <Folder Name="ITF_DecoratedElement" Id="{a1479acc-3f0a-0c64-3109-7e2e716b7d21}" />
     <Folder Name="Komunikator" Id="{437b8f14-4a81-003f-095e-33d967fc7cb0}" />
     <Folder Name="Reset" Id="{f175fff7-b28d-0fc9-2a54-b324df7e3bfb}" />
@@ -52,7 +54,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ExecuteEveryCycle_Error" Id="{27999fb5-d889-03ba-3e6e-c89cb8983a76}">
+    <Method Name="ExecuteEveryCycle_Error" Id="{27999fb5-d889-03ba-3e6e-c89cb8983a76}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		27.03.2025		TC 4024.66
@@ -70,7 +72,7 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
 END_FOR]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ExecuteEveryCycle_Operation" Id="{9b6c22a1-ff3d-0cb3-36d0-b2883b8e1ec9}">
+    <Method Name="ExecuteEveryCycle_Operation" Id="{9b6c22a1-ff3d-0cb3-36d0-b2883b8e1ec9}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		27.03.2025		TC 4024.66
@@ -88,7 +90,7 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
 END_FOR]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ExecuteEveryCycle_Status" Id="{697110ad-2da0-0583-304b-85b1ad08e3bb}">
+    <Method Name="ExecuteEveryCycle_Status" Id="{697110ad-2da0-0583-304b-85b1ad08e3bb}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		27.03.2025		TC 4024.66
@@ -106,7 +108,7 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
 END_FOR]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ExecuteEveryCycle_Test" Id="{879f7bc3-0f18-0b43-0dc5-691b7892df40}">
+    <Method Name="ExecuteEveryCycle_Test" Id="{879f7bc3-0f18-0b43-0dc5-691b7892df40}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		27.03.2025		TC 4024.66
@@ -136,7 +138,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FirstCycle" Id="{fede4491-2815-0c5d-25f3-a52cafaf5311}">
+    <Method Name="FirstCycle" Id="{fede4491-2815-0c5d-25f3-a52cafaf5311}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[METHOD PUBLIC FirstCycle : BOOL
 VAR_INPUT
 END_VAR
@@ -253,7 +255,7 @@ HomingGetIsNeeded		:= btmpHomingIsNeeded;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsDoNothing" Id="{f182bed7-6e94-09dd-3b80-e6560a2640bc}">
+    <Method Name="IsDoNothing" Id="{f182bed7-6e94-09dd-3b80-e6560a2640bc}" FolderPath="ITF_BaseControlElement\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		30.04.2025		TC 4024.66
@@ -276,7 +278,7 @@ IsDoNothing			:= btmpDoNothing;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsPosition0" Id="{71e3e5d7-b708-0c78-3ca1-830cdfe03509}">
+    <Method Name="IsPosition0" Id="{71e3e5d7-b708-0c78-3ca1-830cdfe03509}" FolderPath="ITF_BaseControlElement\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		30.04.2025		TC 4024.66
@@ -319,7 +321,7 @@ IsValidCommonData			:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="JoinTheLogger" Id="{63b62d03-fe40-084c-0b22-a3d0bbf0b2bf}">
+    <Method Name="JoinTheLogger" Id="{63b62d03-fe40-084c-0b22-a3d0bbf0b2bf}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		07.10.2025		TC 4024.66

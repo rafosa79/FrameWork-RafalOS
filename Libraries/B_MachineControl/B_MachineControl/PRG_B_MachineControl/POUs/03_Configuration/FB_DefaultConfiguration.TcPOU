@@ -15,7 +15,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[GVL_SystemVariable.fbMachineControl.JoinTheLogger ();
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddTopElementToMachineControl" Id="{5d7430ec-14d9-0c38-3500-a1ae21ec7008}">

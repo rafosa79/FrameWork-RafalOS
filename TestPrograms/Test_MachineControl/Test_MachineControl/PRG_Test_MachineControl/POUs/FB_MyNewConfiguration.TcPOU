@@ -13,7 +13,7 @@ END_VAR
       <Declaration><![CDATA[METHOD AddTopElementToLogger : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[GVL_TopElement1.fbTopElement1.JoinTheLogger ();]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddTopElementToMachineControl" Id="{14c2a0df-b97e-48ab-8674-34192113ffc6}">
