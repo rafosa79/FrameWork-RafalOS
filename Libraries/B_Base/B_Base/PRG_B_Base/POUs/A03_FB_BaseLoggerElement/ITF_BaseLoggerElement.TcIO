@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_BaseLoggerElement" Id="{040130d5-be8c-0d8f-3758-2f1440aef3cb}">
-    <Declaration><![CDATA[INTERFACE ITF_BaseLoggerElement
+    <Declaration><![CDATA[INTERFACE ITF_BaseLoggerElement EXTENDS ITF_Base
 ]]></Declaration>
     <Folder Name="ID" Id="{ebebc54b-7071-0c25-1f06-3769663c0ef5}" />
     <Method Name="EventsDefinition" Id="{9fbb4552-8362-0324-08b0-1fb2884dba78}">

@@ -277,7 +277,7 @@ END_VAR
         <ST><![CDATA[	(*	Zdefiniowanie zdarzeń dla elementu	*)
 THIS^.EventsDefinition ();
 (* sprawdzenie czy jest podłaczony loger	*)
-THIS^.stEvents.bLoggerDataCompleted	:= THIS^.refstCommonData.itfLogger <> 0;
+//THIS^.stEvents.bLoggerDataCompleted	:= THIS^.refstCommonData.itfLogger <> 0;
 
 FirstCycle					:= TRUE;
 ]]></ST>
@@ -434,11 +434,15 @@ VAR_INPUT
 END_VAR
 VAR
 	uiI			: UINT;
+	uitmpValue	: UINT;
+	uitmpValue2	: UINT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (THIS^.stEvents.uiNumberOfAdded > 0) THEN
 	FOR uiI := 1 TO THIS^.stEvents.uiNumberOfAdded DO
-		THIS^.stEvents.arrDefinitions [uiI].uiIDEvent	:= uiNewID + uiI - 1;
+		uitmpValue	:= SEL (uiNewID = 0, uiNewID, 1);
+		uitmpValue2	:= uitmpValue + uiI;// - 1;
+		THIS^.stEvents.arrDefinitions [uiI].uiIDEvent	:= uitmpValue2;
 	END_FOR
 	SetEventsIDs				:= uiNewID + THIS^.stEvents.uiNumberOfAdded;
 ELSE

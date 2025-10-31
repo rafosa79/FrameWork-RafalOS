@@ -16,9 +16,82 @@
     <Implicit_KindOfTask>{797350c0-1f4f-4e78-83b8-9f80f2a7a419}</Implicit_KindOfTask>
     <Implicit_Jitter_Distribution>{233bedd2-25ac-46d0-8e09-69a957e225af}</Implicit_Jitter_Distribution>
     <LibraryReferences>{4c372729-da6a-4b8a-a435-4d7f7ea99303}</LibraryReferences>
+    <Released>false</Released>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GVLs\GVL_TopElement1.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_TopElement2.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_Variable.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_MachineControlTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_MyNewConfiguration.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement1\FB_ControlElement1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement1\FB_ControlElement2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement1\FB_TopElement1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement1\ITF_ControlElement1.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement1\ITF_ControlElement2.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement1\ITF_TopElement1.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\FB_ControlElement3.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\FB_ControlElement5.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\FB_ControlElement4.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\FB_ControlElement6.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\FB_GroupElement1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\FB_TopElement2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\ITF_ControlElement3.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\ITF_ControlElement5.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\ITF_ControlElement4.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\ITF_ControlElement6.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\ITF_GroupElement1.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POUs TopElement2\ITF_TopElement2.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TESTs\PRG_Test.TcPOU">
@@ -28,11 +101,24 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\POUs TopElement1" />
+    <Folder Include="POUs\POUs TopElement2" />
     <Folder Include="TESTs" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="B_Base">
+      <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
+      <Namespace>B_Base</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_IO">
+      <DefaultResolution>B_IO, * (RafalOS)</DefaultResolution>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_MachineControl">
+      <DefaultResolution>B_MachineControl, * (RafalOS)</DefaultResolution>
+      <Namespace>B_MachineControl</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
@@ -47,6 +133,7 @@
     </PlaceholderReference>
     <PlaceholderReference Include="TcUnit">
       <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
+      <Namespace>TcUnit</Namespace>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
@@ -57,8 +144,8 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-  <Data>
-    <o xml:space="preserve" t="OptionKey">
+        <Data>
+          <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
@@ -85,13 +172,13 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-  </Data>
-  <TypeList>
-    <Type n="Hashtable">System.Collections.Hashtable</Type>
-    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-    <Type n="String">System.String</Type>
-  </TypeList>
-</XmlArchive>
+        </Data>
+        <TypeList>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+          <Type n="String">System.String</Type>
+        </TypeList>
+      </XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_SystemControlMachineInit" Id="{6e1492bc-4f02-0ee9-0a49-e2590478923c}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Program maszyny
+*)
+PROGRAM PRG_SystemControlMachineInit
+VAR
+	bFirstCycle		: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (NOT bFirstCycle) THEN
+	bFirstCycle										:= TRUE;
+	(*	Podpięcie zmiennych głównych do struktury	*)	
+	GVL_SystemVariable.stCommonData.itfTime			:= GVL_SystemVariable.fbTime;
+	GVL_SystemVariable.stCommonData.itfLocaciotn	:= GVL_SystemVariable.fbLocation;
+	GVL_SystemVariable.stCommonData.itfLogger		:= GVL_SystemVariable.fbLogger;
+	(*	Linkowanie zmiennych z modułami	*)
+	GVL_SystemVariable.fbLogger.LinkCommonData (stCommonData 				:= GVL_SystemVariable.stCommonData);
+	GVL_SystemVariable.fbMachineControl.LinkCommonData (stCommonData		:= GVL_SystemVariable.stCommonData);
+	(*	Podpięcie zmiennych Safety		*)
+	GVL_SystemVariable.fbMachineControl.LinkSS1 (fbSS1	:= GVL_MCSafety.flSS1);
+	GVL_SystemVariable.fbMachineControl.LinkSTO (fbSTO	:= GVL_MCSafety.flSTO);
+	(*	Podpięcie podstawowej konfiguracji	*)
+	GVL_SystemVariable.fbMachineControl.AddModulConfigure (fbMachineConfigure	:= GVL_SystemVariable.fbMachineConfigure);
+	GVL_SystemVariable.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_SystemVariable.fbDefaultMachineConfiguration);
+
+	
+	(*	Podpięcie sysstemu do logera	 *)
+//	GVL_SystemVariable.fbLogger.AddItem (itfItem	:= GVL_SystemVariable.fbMachineControl);
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

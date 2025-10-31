@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MachineControlConfigure" Id="{407b3a6e-6e4f-4b87-8313-a53f9cca235d}">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		29.10.2025		TC 4024.66
+	Metody do konfiguracji MAchine control wywoływane z MachineConfigure z pomocą przekazanego ITF
+*)
+INTERFACE ITF_MachineControlConfigure EXTENDS ITF_Base
+]]></Declaration>
+    <Method Name="AddTopElementFromConfiguration" Id="{c458ce8f-1021-07a3-1b12-05adfb9f74f9}">
+      <Declaration><![CDATA[METHOD AddTopElementFromConfiguration : BOOL
+VAR_INPUT
+	fbTopElement		: ITF_BaseTopElement;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

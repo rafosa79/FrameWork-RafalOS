@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_MachineControl" Id="{03d9ff00-a300-4d9d-a349-75e3318a4c90}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MachineControl EXTENDS FB_BaseTopElement IMPLEMENTS ITF_MachineControlConfigure
+VAR
+	(*	Inicjalizacja		*)
+	bInitializeCycle			: BOOL;
+	bInitDone					: BOOL;
+	(*	Konfiguracja		*)
+	itfMachineConfigure			: ITF_MachineConfigure;		//moduł konfiguracji
+	(*	TopElementu systemu	*)
+	arrTopElements					: ARRAY [0..GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT] OF ITF_BaseTopElement;
+	iNumberOfAddedTopElement		: INT := -1;//przy dodawaniu element 0 to system 
+	uiNumberOfAllAddedElements		: UINT;		//liczba elementow które są na maszynie 
+	(*	Master komunikatora dla top elementów maszyny	*)
+	fbMasterCommunicator			: FB_BaseCommunicator;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (NOT THIS^.bInitializeCycle) THEN
+	THIS^.bInitializeCycle		:= TRUE;
+	THIS^.bInitDone				:= THIS^.InitializeCycle ();
+ELSIF (THIS^.bInitDone) THEN
+	THIS^.ExecuteCycle ();
+END_IF
+]]></ST>
+    </Implementation>
+    <Folder Name="ITF_MachineControlConfigure" Id="{973d3ff0-85f0-4bae-9395-cc62a4917833}" />
+    <Folder Name="WiazanieModulow" Id="{3d8e3574-09c0-0f20-0429-cf1b0f8aec79}" />
+    <Method Name="AddModulConfigure" Id="{e05e86ab-e65a-0460-123e-9f866e36dccc}" FolderPath="WiazanieModulow\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		29.10.2025		TC 4024.66
+	Dodawanie intefejsu konfiguracji
+*)
+METHOD PUBLIC AddModulConfigure : BOOL
+VAR_INPUT
+	fbMachineConfigure			: ITF_MachineConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMachineConfigure		:= fbMachineConfigure;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddTopElementFromConfiguration" Id="{100f011a-3941-0f6f-14c0-c4dea046c178}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		29.10.2025		TC 4024.66
+	Metoda dodawania top elementu wywoływana z konfiguracji
+*)
+METHOD AddTopElementFromConfiguration : BOOL
+VAR_INPUT
+	fbTopElement		: ITF_BaseTopElement;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.iNumberOfAddedTopElement + 1 <= TO_INT (GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT)) THEN
+	THIS^.iNumberOfAddedTopElement							:= THIS^.iNumberOfAddedTopElement + 1;
+	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement]	:= fbTopElement;
+	
+	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkCommonData (stCommonData	:= THIS^.refstCommonData);
+	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkSS1 (fbSS1	:= THIS^.itfSS1);
+	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkSTO (fbSTO	:= THIS^.itfSTO);
+	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkCommunicator (fbCommunicator	:= THIS^.fbMasterCommunicator);
+	(*	Podpięcie systemu sterowania stanami i trybami	*)
+//	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkSAM (fbSAM	:= THIS^. tu będzie interfijs do SITP);
+	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].FirstCycle ();
+	THIS^.uiNumberOfAllAddedElements 						:= THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].SetID (uiID := THIS^.uiNumberOfAllAddedElements + 1);
+	THIS^.refstCommonData.itfLogger.SetNumerOfReportsIntheSystem (
+			uiValue := THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].SetEventsIDs (
+				uiNewID := THIS^.refstCommonData.itfLogger.GetNumerOfReportsIntheSystem ()
+			)
+	);
+	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].SetCode (sCode := '0.0.0.0.0', sAdd := TO_STRING (THIS^.iNumberOfAddedTopElement));
+	
+	AddTopElementFromConfiguration							:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteCycle" Id="{7066db40-c8ea-4d9b-9b50-7a0d826fe39e}">
+      <Declaration><![CDATA[METHOD PRIVATE ExecuteCycle
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InitializeCycle" Id="{f127c58d-f380-4c5b-91fc-37aed1ddc70f}">
+      <Declaration><![CDATA[METHOD PRIVATE InitializeCycle : BOOL
+VAR
+	bResult					: BOOL;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult				:= TRUE;
+
+bResult				:= bResult AND THIS^.itfMachineConfigure.Configure (fbMachineControl := THIS^);
+
+//FOR iI := 0 TO THIS^.iNumberOfAddedTopElement DO
+//	bResult				:= bResult AND THIS^.arrTopElements [iI].FirstCycle ();
+//END_FOR
+
+
+
+InitializeCycle		:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

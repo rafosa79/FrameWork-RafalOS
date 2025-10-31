@@ -6,7 +6,7 @@
 	Rafał Osajda		22.09.2025		TC 4024.66
 	Bazowy FB dla wszystkich elementów systemu, zawiera główne metody dla łaczenia danych
 *)
-FUNCTION_BLOCK FB_Base EXTENDS FB_BaseDescriptor
+FUNCTION_BLOCK FB_Base EXTENDS FB_BaseDescriptor IMPLEMENTS ITF_Base
 VAR
 	refstCommonData			: REFERENCE TO ST_BaseCommonData;
 	bIsValidCommonData		: BOOL;
@@ -15,6 +15,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_Base" Id="{70941d1c-8d1a-053f-19c8-e7a482018a2c}" />
     <Folder Name="WiazanieZmiennych" Id="{b787f832-98eb-08e4-13a1-b117586dc5c5}" />
     <Method Name="IsValidCommonData" Id="{6ff98029-6e25-03f9-2c55-fb673de1e900}" FolderPath="WiazanieZmiennych\">
       <Declaration><![CDATA[METHOD PUBLIC IsValidCommonData : BOOL
@@ -42,6 +43,16 @@ ELSE
 	LinkCommonData					:= FALSE;
 END_IF
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetName" Id="{6d98f7a8-bb06-0c2e-3eac-99fedb404fab}" FolderPath="ITF_Base\">
+      <Declaration><![CDATA[METHOD PUBLIC SetName
+VAR_INPUT
+	stName				: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
   </POU>

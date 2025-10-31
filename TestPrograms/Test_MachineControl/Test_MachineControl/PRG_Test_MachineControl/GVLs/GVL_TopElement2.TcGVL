@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL_TopElement2" Id="{1053a4cb-11cc-4830-9d98-9e6bb9a5f389}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	senControlElement3Start		: FB_IOSensor_NO;
+	senControlElement3End		: FB_IOSensor_NO;
+	fbControlElement3			: FB_ControlElement3 (
+									itfsenStart	:= senControlElement3Start,
+	                                itfsenEnd	:= senControlElement3End
+								);
+	senControlElement4Start		: FB_IOSensor_NO;
+	senControlElement4End		: FB_IOSensor_NO;
+	senControlElement4Position1	: FB_IOSensor_NO;
+	senControlElement4Position2	: FB_IOSensor_NO;
+	fbControlElement4			:  FB_ControlElement4 (
+									itfsenStart		:= senControlElement4Start,
+	                                itfsenEnd		:= senControlElement4End,
+	                                itfsenPosition1	:= senControlElement4Position1,
+								    itfsenPosition2	:= senControlElement4Position2
+								);
+
+	senGroupElement1Position1	: FB_IOSensor_NO;
+	senGroupElement1Position2	: FB_IOSensor_NO;
+	fbGroupElement1				: FB_GroupElement1 (
+									itfControlElement3	:= fbControlElement3,
+								    itfControlElement4	:= fbControlElement4,
+								    itfsenPosition1		:= senGroupElement1Position1,
+								    itfsenPosition2		:= senGroupElement1Position2
+								);
+
+	senControlElement5Start		: FB_IOSensor_NO;
+	senControlElement5End		: FB_IOSensor_NO;
+	fbControlElement5			: FB_ControlElement5 (
+									itfsenStart	:= senControlElement5Start,
+	                                itfsenEnd	:= senControlElement5End
+								);
+	senControlElement6Start		: FB_IOSensor_NO;
+	senControlElement6End		: FB_IOSensor_NO;
+	senControlElement6Position1	: FB_IOSensor_NO;
+	senControlElement6Position2	: FB_IOSensor_NO;
+	fbControlElement6			:  FB_ControlElement6 (
+									itfsenStart		:= senControlElement6Start,
+	                                itfsenEnd		:= senControlElement6End,
+	                                itfsenPosition1	:= senControlElement6Position1,
+								    itfsenPosition2	:= senControlElement6Position2
+								);
+								
+								
+	senTopElement1Position1		: FB_IOSensor_NO;
+	senTopElement1Position2		: FB_IOSensor_NO;
+	fbTopElement2				: FB_TopElement2 (
+									itfGroupElement1		:= fbGroupElement1,
+									itfControlElement5		:= fbControlElement5,
+								    itfControlElement6		:= fbControlElement6,
+		                           	itfsenElementPosition1	:= senTopElement1Position1,
+                                    itfsenElementPosition2	:= senTopElement1Position2
+								);
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_MachineControlTest" Id="{5b881a74-9d5c-46c4-a8bf-b8b08c44b3e1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MachineControlTest EXTENDS TcUnit.FB_TestSuite
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+T01_TestPierwszegoPrzejscia ();]]></ST>
+    </Implementation>
+    <Method Name="T01_TestPierwszegoPrzejscia" Id="{0d0c69ca-949f-4ad6-872b-dc43bf3a60dd}">
+      <Declaration><![CDATA[METHOD PROTECTED T01_TestPierwszegoPrzejscia
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestPierwszegoPrzejscia')) THEN
+	PRG_SystemControlMachineInit ();	//<- do prawdziwego programu
+	AssertEquals_INT (Expected := 0, Actual := GVL_SystemVariable.fbMachineConfigure.iNubmerOfAddedConfigure, Message := 'T01_01 - blad ilosci konfiguracji');
+
+	GVL_SystemVariable.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_Variable.fbMyNewConfiguration); 		//<- do prawdziwego programu
+	AssertEquals_INT (Expected := 1, Actual := GVL_SystemVariable.fbMachineConfigure.iNubmerOfAddedConfigure, Message := 'T01_02 - blad ilosci konfiguracji');
+
+	PRG_SystemControlMachineWork ();		//<- do prawdziwego programu
+	AssertTrue (Condition := GVL_SystemVariable.fbMachineControl.bInitializeCycle, Message := 'T02_01 - blad pierwszego przejscia');
+	AssertTrue (Condition := GVL_SystemVariable.fbMachineControl.bInitDone, Message := 'T02_02 - blad inicjalizacji');
+	AssertEquals_UINT (Expected := 20, Actual := GVL_SystemVariable.fbLogger.uiNumerOfReportsIntheSystem, Message := 'T02_03 - Bledna ilosc zgloszen');
+	AssertEquals_UINT (Expected := 34, Actual := GVL_SystemVariable.fbMachineControl.uiNumberOfAllAddedElements, Message := 'T02_04 - bledna ilosc elementow');
+	
+	
+	
+	TcUnit.TEST_FINISHED ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
