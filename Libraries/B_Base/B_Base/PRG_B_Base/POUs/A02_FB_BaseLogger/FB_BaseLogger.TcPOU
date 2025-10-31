@@ -291,6 +291,16 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetNumerOfReportsIntheSystem" Id="{81bf15d1-04f9-091c-005c-aef678acf854}" FolderPath="ITF_BaseLogger\">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumerOfReportsIntheSystem : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumerOfReportsIntheSystem	:= THIS^.uiNumerOfReportsIntheSystem;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetReferenceToStmemory" Id="{f211c4f1-fdf6-0f0d-3b07-7dcc3e732694}" FolderPath="ITF_BaseLogger_HMI_Connector\">
       <Declaration><![CDATA[METHOD GetReferenceToStmemory : REFERENCE TO ST_BaseEvents_Memory
 VAR_INPUT
@@ -474,6 +484,17 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.bChangeInMemory			:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetNumerOfReportsIntheSystem" Id="{759aeacd-6176-0d63-2b21-25a83a6e9e65}" FolderPath="ITF_BaseLogger\">
+      <Declaration><![CDATA[METHOD PUBLIC SetNumerOfReportsIntheSystem
+VAR_INPUT
+	uiValue		: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.uiNumerOfReportsIntheSystem	:= uiValue;
 ]]></ST>
       </Implementation>
     </Method>

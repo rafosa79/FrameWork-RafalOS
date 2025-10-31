@@ -10,10 +10,23 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetNumerOfReportsIntheSystem" Id="{9aacd584-e7e1-09b4-05c5-c971f6539be5}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumerOfReportsIntheSystem : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="ReportEvent" Id="{bf8e154d-88a6-07c9-1886-c0d273a4c7f4}">
       <Declaration><![CDATA[METHOD PUBLIC ReportEvent : BOOL
 VAR_INPUT
 	stEvent					: ST_BaseEvents_RowInQueue;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetNumerOfReportsIntheSystem" Id="{660e0beb-bd67-0d21-3c2e-25250f190eba}">
+      <Declaration><![CDATA[METHOD PUBLIC SetNumerOfReportsIntheSystem
+VAR_INPUT
+	uiValue		: UINT;
 END_VAR
 ]]></Declaration>
     </Method>

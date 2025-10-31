@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="PRG_SystemControlMachine" Id="{6e1492bc-4f02-0ee9-0a49-e2590478923c}" SpecialFunc="None">
+  <POU Name="PRG_SystemControlMachineInit" Id="{6e1492bc-4f02-0ee9-0a49-e2590478923c}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
 	Rafał Osajda		25.10.2025		TC 4024.66
 	Program maszyny
 *)
-PROGRAM PRG_SystemControlMachine
+PROGRAM PRG_SystemControlMachineInit
 VAR
 	bFirstCycle		: BOOL;
 END_VAR
@@ -31,9 +31,6 @@ END_VAR
 	
 	(*	Podpięcie sysstemu do logera	 *)
 //	GVL_SystemVariable.fbLogger.AddItem (itfItem	:= GVL_SystemVariable.fbMachineControl);
-ELSE
-	GVL_SystemVariable.fbLogger ();
-	GVL_SystemVariable.fbMachineControl ();
 END_IF]]></ST>
     </Implementation>
   </POU>

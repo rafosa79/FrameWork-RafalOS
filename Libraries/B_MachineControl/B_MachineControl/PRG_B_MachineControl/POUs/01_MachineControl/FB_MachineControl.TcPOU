@@ -59,20 +59,25 @@ END_VAR
         <ST><![CDATA[IF (THIS^.iNumberOfAddedTopElement + 1 <= TO_INT (GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT)) THEN
 	THIS^.iNumberOfAddedTopElement							:= THIS^.iNumberOfAddedTopElement + 1;
 	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement]	:= fbTopElement;
-
+	
 	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkCommonData (stCommonData	:= THIS^.refstCommonData);
 	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkSS1 (fbSS1	:= THIS^.itfSS1);
 	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkSTO (fbSTO	:= THIS^.itfSTO);
 	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkCommunicator (fbCommunicator	:= THIS^.fbMasterCommunicator);
 	(*	Podpięcie systemu sterowania stanami i trybami	*)
 //	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkSAM (fbSAM	:= THIS^. tu będzie interfijs do SITP);
-
+	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].FirstCycle ();
 	THIS^.uiNumberOfAllAddedElements 						:= THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].SetID (uiID := THIS^.uiNumberOfAllAddedElements + 1);
-//	THIS^.fbLoger.UstawIloscZgloszenWSystemie (uiIlosc			:= THIS^.arrPB [THIS^.iIloscPB].ZgloszenieUstawID (uiID := THIS^.fbLoger.ZwrocIloscZgloszenWSystemie ()));
+	THIS^.refstCommonData.itfLogger.SetNumerOfReportsIntheSystem (
+			uiValue := THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].SetEventsIDs (
+				uiNewID := THIS^.refstCommonData.itfLogger.GetNumerOfReportsIntheSystem ()
+			)
+	);
 	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].SetCode (sCode := '0.0.0.0.0', sAdd := TO_STRING (THIS^.iNumberOfAddedTopElement));
 	
 	AddTopElementFromConfiguration							:= TRUE;
-END_IF]]></ST>
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="ExecuteCycle" Id="{7066db40-c8ea-4d9b-9b50-7a0d826fe39e}">
@@ -88,11 +93,18 @@ END_VAR
       <Declaration><![CDATA[METHOD PRIVATE InitializeCycle : BOOL
 VAR
 	bResult					: BOOL;
+	iI: INT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[bResult				:= TRUE;
 
 bResult				:= bResult AND THIS^.itfMachineConfigure.Configure (fbMachineControl := THIS^);
+
+//FOR iI := 0 TO THIS^.iNumberOfAddedTopElement DO
+//	bResult				:= bResult AND THIS^.arrTopElements [iI].FirstCycle ();
+//END_FOR
+
+
 
 InitializeCycle		:= bResult;
 ]]></ST>

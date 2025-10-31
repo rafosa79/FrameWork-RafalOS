@@ -17,33 +17,18 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestPierwszegoPrzejscia')) THEN
-	(* pierwszy cykl w programie biblioteki	*)
-	PRG_SystemControlMachine ();
+	PRG_SystemControlMachineInit ();	//<- do prawdziwego programu
 	AssertEquals_INT (Expected := 0, Actual := GVL_SystemVariable.fbMachineConfigure.iNubmerOfAddedConfigure, Message := 'T01_01 - blad ilosci konfiguracji');
-	
-	(*	pierwszy cykl w fb_machinecontrol		*)
-	PRG_SystemControlMachine ();
+
+	GVL_SystemVariable.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_Variable.fbMyNewConfiguration); 		//<- do prawdziwego programu
+	AssertEquals_INT (Expected := 1, Actual := GVL_SystemVariable.fbMachineConfigure.iNubmerOfAddedConfigure, Message := 'T01_02 - blad ilosci konfiguracji');
+
+	PRG_SystemControlMachineWork ();		//<- do prawdziwego programu
 	AssertTrue (Condition := GVL_SystemVariable.fbMachineControl.bInitializeCycle, Message := 'T02_01 - blad pierwszego przejscia');
 	AssertTrue (Condition := GVL_SystemVariable.fbMachineControl.bInitDone, Message := 'T02_02 - blad inicjalizacji');
-
-	(*	Wyczyszczenie zmiennych po poprendich testach	*)
-	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_SystemVariable.fbMachineControl.bInitializeCycle), Value := FALSE);
-	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_SystemVariable.fbMachineControl.bInitDone), Value := FALSE);
-	WRITE_PROTECTED_INT (Ptr := ADR (GVL_SystemVariable.fbMachineControl.iNumberOfAddedTopElement), value := -1);
-	WRITE_PROTECTED_INT (Ptr := ADR (GVL_SystemVariable.fbMachineControl.uiNumberOfAllAddedElements), value := 0);
-	WRITE_PROTECTED_INT (Ptr := ADR (GVL_SystemVariable.fbLogger.iNumberOfItem), Value := 0);
+	AssertEquals_UINT (Expected := 20, Actual := GVL_SystemVariable.fbLogger.uiNumerOfReportsIntheSystem, Message := 'T02_03 - Bledna ilosc zgloszen');
+	AssertEquals_UINT (Expected := 34, Actual := GVL_SystemVariable.fbMachineControl.uiNumberOfAllAddedElements, Message := 'T02_04 - bledna ilosc elementow');
 	
-	(* Dodanie nowej konfiguracji 	*)
-	GVL_SystemVariable.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_Variable.fbMyNewConfiguration);
-
-	(* pierwszy cykl w programie biblioteki	*)
-	PRG_SystemControlMachine ();
-	AssertEquals_INT (Expected := 1, Actual := GVL_SystemVariable.fbMachineConfigure.iNubmerOfAddedConfigure, Message := 'T03_01 - blad ilosci konfiguracji');
-
-	(*	pierwszy cykl w fb_machinecontrol		*)
-	PRG_SystemControlMachine ();
-	AssertTrue (Condition := GVL_SystemVariable.fbMachineControl.bInitializeCycle, Message := 'T04_01 - blad pierwszego przejscia');
-	AssertTrue (Condition := GVL_SystemVariable.fbMachineControl.bInitDone, Message := 'T04_02 - blad inicjalizacji');
 	
 	
 	TcUnit.TEST_FINISHED ();
