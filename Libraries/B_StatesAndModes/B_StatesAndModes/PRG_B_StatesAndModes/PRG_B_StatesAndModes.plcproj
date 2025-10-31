@@ -3,23 +3,23 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0595cac4-c7ad-45ed-81f2-c4fbfc94df8b}</ProjectGuid>
+    <ProjectGuid>{ddfd8a73-fc20-4c2d-a3b5-652a796c1106}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>PRG_B_MachineControl</Name>
+    <Name>PRG_B_StatesAndModes</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
-    <Application>{d068d493-97b4-4d3c-90dc-d6281d9ce98d}</Application>
-    <TypeSystem>{2fead4aa-976b-4a41-a8f6-60fcd5bfe3a0}</TypeSystem>
-    <Implicit_Task_Info>{8ed2b462-225a-4261-9a9a-9126ee29c960}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{5440d4d3-9480-487d-8b8e-e60f3bd7713c}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{b092e8cd-9ec4-4631-84ce-b9f03651902e}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{905159e1-dc11-4ab4-b97d-1b27593f3ce8}</LibraryReferences>
+    <Application>{bee73c99-0938-459e-a95f-b935de5a9cc2}</Application>
+    <TypeSystem>{ebaca914-4cbb-47be-844d-30d3f9b5819e}</TypeSystem>
+    <Implicit_Task_Info>{f68db7ac-2676-4ffe-bae0-6790ec65a5be}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{e3ab3a4c-e709-4905-a7d8-61cbe7a3108f}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{60a039eb-5cf6-4d3c-89ff-78bdccdd89ca}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{2dced956-ac35-4868-bd69-0ca0019a3078}</LibraryReferences>
     <Company>RafalOS</Company>
     <Released>false</Released>
-    <Title>B_MachineControl</Title>
-    <ProjectVersion>0.0.0.10</ProjectVersion>
+    <Title>B_StatesAndModes</Title>
+    <ProjectVersion>0.0.0.1</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -78,47 +78,21 @@
     <SelectedLibraryCategories>
       <Id xmlns="">{b9904a12-953a-4ef3-ac35-10e52398b2c1}</Id>
     </SelectedLibraryCategories>
-    <DefaultNamespace>B_MachineControl</DefaultNamespace>
+    <DefaultNamespace>B_StatesAndModes</DefaultNamespace>
     <Author>Rafał Osajda</Author>
     <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GVLs\GVL_MCSafety.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
-    <Compile Include="GVLs\GVL_SystemVariable.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_MachineControl\FB_MachineControl.TcPOU">
+    <Compile Include="POUs\FB_SaMController.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_MachineControl\ITF_MachineControlConfigure.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\02_MachineConfigure\FB_MachineConfigure.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\02_MachineConfigure\ITF_MachineConfigure.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\03_Configuration\FB_DefaultConfiguration.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\03_Configuration\ITF_Configuration.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\PRG_SystemControlMachineInit.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\PRG_SystemControlMachineWork.TcPOU">
+    <Compile Include="POUs\ITF_SaMController.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -126,9 +100,6 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
-    <Folder Include="POUs\01_MachineControl" />
-    <Folder Include="POUs\02_MachineConfigure" />
-    <Folder Include="POUs\03_Configuration" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -136,9 +107,6 @@
     <PlaceholderReference Include="B_Base">
       <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
       <Namespace>B_Base</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="B_StatesAndModes">
-      <DefaultResolution>B_StatesAndModes, * (RafalOS)</DefaultResolution>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -152,11 +120,6 @@
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="PRG_B_MachineControl.tmc">
-      <SubType>Content</SubType>
-    </None>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

@@ -27,10 +27,9 @@ END_VAR
 	(*	Podpięcie podstawowej konfiguracji	*)
 	GVL_SystemVariable.fbMachineControl.AddModulConfigure (fbMachineConfigure	:= GVL_SystemVariable.fbMachineConfigure);
 	GVL_SystemVariable.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_SystemVariable.fbDefaultMachineConfiguration);
-
+	(*	Podpięcie zarządzania stanami i trybami pracy	*)
+	GVL_SystemVariable.fbMachineControl.AddModulSaM (fbSaMController	:= GVL_SystemVariable.fbSaMController);
 	
-	(*	Podpięcie sysstemu do logera	 *)
-//	GVL_SystemVariable.fbLogger.AddItem (itfItem	:= GVL_SystemVariable.fbMachineControl);
 END_IF]]></ST>
     </Implementation>
   </POU>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SaMController" Id="{4563e61a-16f1-0b7e-1e7a-1e3cce62ebf6}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.10.2025		TC 4024.66
+	Główny FB do zarządzania stanami i trybami pracy
+*)
+FUNCTION_BLOCK FB_SaMController EXTENDS FB_Base IMPLEMENTS ITF_SaMController
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

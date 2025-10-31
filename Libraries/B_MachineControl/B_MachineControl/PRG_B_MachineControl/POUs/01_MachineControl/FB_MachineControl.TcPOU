@@ -14,7 +14,8 @@ VAR
 	uiNumberOfAllAddedElements		: UINT;		//liczba elementow które są na maszynie 
 	(*	Master komunikatora dla top elementów maszyny	*)
 	fbMasterCommunicator			: FB_BaseCommunicator;
-	
+	(*	Zarządzenia stanami i trybami pracy	*)
+	itfSaMController				: ITF_SaMController;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -41,6 +42,17 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.itfMachineConfigure		:= fbMachineConfigure;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddModulSaM" Id="{fdfb6f32-ad29-05b9-1f5f-f81a0f2962ac}" FolderPath="WiazanieModulow\">
+      <Declaration><![CDATA[METHOD PUBLIC AddModulSaM : BOOL
+VAR_INPUT
+	fbSaMController			: ITF_SaMController;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfSaMController		:= fbSaMController;
 ]]></ST>
       </Implementation>
     </Method>
@@ -86,7 +98,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[
+	(*	Zarządzanie stanami i trybami pracy 	*)
+	]]></ST>
       </Implementation>
     </Method>
     <Method Name="InitializeCycle" Id="{f127c58d-f380-4c5b-91fc-37aed1ddc70f}">

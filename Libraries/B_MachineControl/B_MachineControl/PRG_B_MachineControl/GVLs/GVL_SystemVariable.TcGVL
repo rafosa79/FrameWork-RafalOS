@@ -12,6 +12,8 @@ VAR_GLOBAL
 	fbDefaultMachineConfiguration	: FB_DefaultConfiguration;
 	fbMachineConfigure				: FB_MachineConfigure;
 	
+	fbSaMController					: FB_SaMController;
+	
 	fbMachineControl				: FB_MachineControl;
 	
 END_VAR]]></Declaration>
