@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_RequestChanges" Id="{ded774fa-c338-0451-01c3-5253c5ecd714}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_RequestChanges EXTENDS FB_IOSensor_NO IMPLEMENTS ITF_RequestChanges
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Testing" Id="{953cfe74-553d-04f4-17d9-910892e7451d}">
+      <Declaration><![CDATA[METHOD Testing : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -3,6 +3,8 @@
   <POU Name="PRG_Compilation" Id="{f0171681-5c8e-4bf8-8cd1-9ccd7d95903b}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
+	fbSaMController		: FB_SaMController;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>

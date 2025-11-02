@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_RequestAndCommandChanges" Id="{eb1d98aa-ae9a-0817-35e9-b672297aafb3}">
+    <Declaration><![CDATA[TYPE ST_RequestAndCommandChanges :
+STRUCT
+	itfRequestChanges			: ITF_RequestChanges;		//prośba o zmianę - to testuje
+	itfCommandChanges			: ITF_CommandChange;		//polecenie zmiany - to wywołujemy żeby zmienić 
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

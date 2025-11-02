@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CommandChangeStart" Id="{3e97eb6b-0aae-0d44-3f5a-d06acc717999}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CommandChangeStart IMPLEMENTS ITF_CommandChange
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{61a00f7e-77a7-075e-3e41-e4b391a63760}">
+      <Declaration><![CDATA[METHOD Execute : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

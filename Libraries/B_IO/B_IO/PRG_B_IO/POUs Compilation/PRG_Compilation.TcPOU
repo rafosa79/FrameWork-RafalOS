@@ -3,19 +3,19 @@
   <POU Name="PRG_Compilation" Id="{e3d1aff8-90e2-4b06-bf62-3f7b8a8c4d92}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
-	fbCzujnikNC					: FB_Sensor_NC;
-	fbCzujnikNO					: FB_Sensor_NO;
-	fbCzujnik2xNO				: FB_Sensor_NO_2InRow;
-	fbELekrozawor3na2_NC		: FB_Electrovalve_3on2_NC;
-	fbELekrozawor3na2_NO		: FB_Electrovalve_3on2_NO;
-	fbELekrozawor5na2_1C		: FB_Electrovalve_5on2_1Coil;
-	fbELekrozawor5na2_2C		: FB_Electrovalve_5on2_2Coil;
-	fbELekrozawor5na2_2C_Odp	: FB_Electrovalve_5on3_2Coil_Vented;
-	fbELekrozawor5na2_2C_Zap	: FB_Electrovalve_5on3_2Coil_Infected;
-	fbLampka					: FB_Lamp;
-	fbLampkaRozszerzona			: FB_LampBlinking;
-	fbPrzyciskNC				: FB_Button_NC;
-	fbPrzyciskNO				: FB_Button_NO;
+	fbCzujnikNC					: FB_IOSensor_NC;
+	fbCzujnikNO					: FB_IOSensor_NO;
+	fbCzujnik2xNO				: FB_IOSensor_NO_2InRow;
+	fbELekrozawor3na2_NC		: FB_IOElectrovalve_3on2_NC;
+	fbELekrozawor3na2_NO		: FB_IOElectrovalve_3on2_NO;
+	fbELekrozawor5na2_1C		: FB_IOElectrovalve_5on2_1Coil;
+	fbELekrozawor5na2_2C		: FB_IOElectrovalve_5on2_2Coil;
+	fbELekrozawor5na2_2C_Odp	: FB_IOElectrovalve_5on3_2Coil_Vented;
+	fbELekrozawor5na2_2C_Zap	: FB_IOElectrovalve_5on3_2Coil_Infected;
+	fbLampka					: FB_IOLamp;
+	fbLampkaRozszerzona			: FB_IOLampBlinking;
+	fbPrzyciskNC				: FB_IOButton_NC;
+	fbPrzyciskNO				: FB_IOButton_NO;
 END_VAR
 ]]></Declaration>
     <Implementation>

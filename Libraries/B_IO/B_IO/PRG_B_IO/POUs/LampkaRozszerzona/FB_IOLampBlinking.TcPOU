@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_IOLampBlinking" Id="{dcff81a1-6dd7-4eaf-907a-2248d98a1fd0}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		16.07.2025		TC 4024.66
+	Lampka rozszerzona o moduł FB_Impuls co integruje w niej możlwiość mgania lub świecenie ciągłego
+*)
+FUNCTION_BLOCK FB_IOLampBlinking EXTENDS FB_IOLamp IMPLEMENTS ITF_IOLampBlinking
+VAR
+	fbImpulse				: FB_BaseImpulse;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Impuls" Id="{00302c85-f7fe-4010-b913-cb28ac209e80}" />
+    <Folder Name="Lampka" Id="{1ce39044-512f-4976-97b5-7f5d1cfcc4ca}" />
+    <Method Name="Control" Id="{89cae73f-2289-0458-1edf-fb704988ff0f}" FolderPath="Lampka\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Sterowanie swieceniem lampki - włącz/wyłącz
+*)
+METHOD Control
+VAR_INPUT
+	bIN	: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (bIN) THEN
+	THIS^.fbImpulse.SetExecuteOn ();
+ELSE
+	THIS^.fbImpulse.SetExecuteOff ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Operation" Id="{3122b5f5-fb1e-4355-b29b-0ca3046f4573}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Wywolanie co cykl operacji 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Operation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Operation ();
+
+THIS^.fbImpulse ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Status" Id="{22023be3-3f2d-479c-beea-467a1af9fb42}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Aktualizacja flag 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Status
+VAR_INST
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Status ();
+
+THIS^.bOut		:= THIS^.fbImpulse.GetExit ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBlink" Id="{7308fc6d-0df1-0fc9-3448-90bfe4f60c6d}" FolderPath="Impuls\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	Sterowanie działem ipulsatora 
+*)
+METHOD PUBLIC SetBlink
+VAR_INPUT
+	bIN				: bool;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.fbImpulse.SetFlashing (bIN	:= bIN);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetOff" Id="{74da1db2-cae1-4989-b15d-2e841810dcc3}" FolderPath="Lampka\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Wylacza lampke
+*)
+METHOD SetOff
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.fbImpulse.SetExecuteOff ();
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetOn" Id="{3cba340c-0e1a-4db9-b5dc-78c607c4f1e1}" FolderPath="Lampka\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Wlacza lampke - praca ciągła
+*)
+METHOD SetOn
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.fbImpulse.SetExecuteOn ();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetShine" Id="{d73aa7c8-66fb-44b9-abcb-6defbf850207}" FolderPath="Impuls\">
+      <Declaration><![CDATA[METHOD PUBLIC SetShine
+VAR_INPUT
+	bIN				: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (bIN) THEN
+	THIS^.fbImpulse.SetExecuteOn ();
+ELSE
+	THIS^.fbImpulse.SetExecuteOff ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetTimeOff" Id="{6e8b987e-d352-044d-0d8b-d018d73edb47}" FolderPath="Impuls\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	Ustawia czas zgaszonej lampki
+*)
+METHOD PUBLIC SetTimeOff
+VAR_INPUT
+	rIN					: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.fbImpulse.SetTimeOff (rIN	:= rIN);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetTimeOn" Id="{6984913b-06ff-0018-00ab-a77455e9d2b1}" FolderPath="Impuls\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC SetTimeOn
+VAR_INPUT
+	rIN						: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.fbImpulse.SetTimeOn (rIN	:= rIN);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetWork" Id="{394fd72e-1ef7-4d61-b407-9f1d7f9d1d0d}" FolderPath="Impuls\">
+      <Declaration><![CDATA[METHOD PUBLIC SetWork
+VAR_INPUT
+	bShine		: BOOL;
+	bBlink		: BOOL;
+	rTimeOn		: REAL;
+	rTimeOff	: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.fbImpulse.SetTimeOn (rIN := rTimeOn);
+THIS^.fbImpulse.SetTimeOff (rIN := rTimeOff);
+THIS^.SetShine (bIN	:= bShine);
+THIS^.SetBlink (bIN := bBlink);
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

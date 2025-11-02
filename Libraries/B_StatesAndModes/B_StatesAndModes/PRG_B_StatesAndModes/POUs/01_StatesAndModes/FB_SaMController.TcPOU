@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SaMController" Id="{4563e61a-16f1-0b7e-1e7a-1e3cce62ebf6}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		30.10.2025		TC 4024.66
+	Główny FB do zarządzania stanami i trybami pracy
+*)
+FUNCTION_BLOCK FB_SaMController EXTENDS FB_Base IMPLEMENTS ITF_SaMController
+VAR
+	cmdChangeAbort		   		: FB_CommandChangeAbort;
+	cmdChangeClear		   		: FB_CommandChangeClear;
+	cmdChangeReset		   		: FB_CommandChangeReset;
+	cmdChangeStart		   		: FB_CommandChangeStart;
+	cmdChangeStop		    	: FB_CommandChangeStop;
+	cmdChangeHold		    	: FB_CommandChangeHold;
+	cmdChangeUnhold		  		: FB_CommandChangeUnHold;
+	cmdChangeSuspend		 	: FB_CommandChangeSuspend;
+	cmdChangeUnSuspend	  		: FB_CommandChangeUnSuspend;
+	cmdChangeComplete		 	: FB_CommandChangeComplete;
+
+	cmdChangeProduction	 	  	: FB_CommandChange;
+	cmdChangeMaintenance		: FB_CommandChange;
+	cmdChangeManual		    	: FB_CommandChange;
+	cmdChangeWashing		   	: FB_CommandChange;
+	cmdChangeDiagnostics		: FB_CommandChange;
+
+	arrcmdStates				: ARRAY [1..10] OF ITF_CommandChange;
+	arrcmdModes					: ARRAY [1..10] OF ITF_CommandChange;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_SaMController" Id="{c8bddf21-ded7-0091-2800-8c3c9b4e262e}" />
+    <Method Name="Execute" Id="{608fbfab-efd0-0a43-132b-9ced413e3cf8}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD Execute : BOOL
+VAR_INPUT
+	iNumberOfCommand		: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{8f55a5c3-a0eb-0deb-011c-23bf5df2ad6a}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrcmdStates [1]		:= THIS^.cmdChangeAbort;
+THIS^.arrcmdStates [2]		:= THIS^.cmdChangeClear;
+THIS^.arrcmdStates [3]		:= THIS^.cmdChangeReset;
+THIS^.arrcmdStates [4]		:= THIS^.cmdChangeStart;
+THIS^.arrcmdStates [5]		:= THIS^.cmdChangeStop;
+THIS^.arrcmdStates [6]		:= THIS^.cmdChangeHold;
+THIS^.arrcmdStates [7]		:= THIS^.cmdChangeUnhold;
+THIS^.arrcmdStates [8]		:= THIS^.cmdChangeSuspend;
+THIS^.arrcmdStates [9]		:= THIS^.cmdChangeUnSuspend;
+THIS^.arrcmdStates [10]		:= THIS^.cmdChangeComplete;
+
+THIS^.arrcmdModes [1]		:= THIS^.cmdChangeProduction;
+THIS^.arrcmdModes [2]		:= THIS^.cmdChangeMaintenance;
+THIS^.arrcmdModes [3]		:= THIS^.cmdChangeManual;
+THIS^.arrcmdModes [4]		:= THIS^.cmdChangeWashing;
+THIS^.arrcmdModes [5]		:= THIS^.cmdChangeDiagnostics;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

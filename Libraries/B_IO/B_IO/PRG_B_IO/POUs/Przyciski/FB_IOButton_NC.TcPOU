@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_IOButton_NC" Id="{67ab5e68-7c00-41fd-bce3-35b5b14f6170}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	Obsługa przycisku ze stykiem NC
+*)
+FUNCTION_BLOCK FB_IOButton_NC EXTENDS FB_IOButton
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{bc349bf6-7b48-0928-3da6-6428e4f7ef16}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bContactPrev		:= TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetRisingEdgePressed" Id="{b870440c-9fe7-0516-34cf-751334598583}">
+      <Declaration><![CDATA[METHOD PUBLIC GetRisingEdgePressed : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.bContactPrev AND NOT THIS^.bContact) THEN
+	THIS^.bContactPrev		:= FALSE;
+	GetRisingEdgePressed	:= TRUE;
+ELSIF (NOT THIS^.bContactPrev AND THIS^.bContact) THEN
+	THIS^.bContactPrev		:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsPressed" Id="{10c67b5f-8f1a-4820-9165-12fe0c243f33}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.01.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca stan przycisku
+*)
+METHOD IsPressed : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsPressed			:= NOT THIS^.bContact;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

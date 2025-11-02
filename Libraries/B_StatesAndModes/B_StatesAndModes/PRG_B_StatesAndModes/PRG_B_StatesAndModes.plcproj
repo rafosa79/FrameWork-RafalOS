@@ -19,7 +19,7 @@
     <Company>RafalOS</Company>
     <Released>false</Released>
     <Title>B_StatesAndModes</Title>
-    <ProjectVersion>0.0.0.1</ProjectVersion>
+    <ProjectVersion>0.0.0.2</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -89,10 +89,61 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_SaMController.TcPOU">
+    <Compile Include="POUs\01_StatesAndModes\FB_SaMController.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\ITF_SaMController.TcIO">
+    <Compile Include="POUs\01_StatesAndModes\ITF_SaMController.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02_CommandChange\FB_CommandChange.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02_CommandChange\ITF_CommandChange.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_CommandChangeState\FB_CommandChangeAbort.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_CommandChangeState\FB_CommandChangeClear.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_CommandChangeState\FB_CommandChangeReset.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_CommandChangeState\FB_CommandChangeStart.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_CommandChangeState\FB_CommandChangeStop.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_CommandChangeState\FB_CommandChangeHold.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_CommandChangeState\FB_CommandChangeUnHold.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_CommandChangeState\FB_CommandChangeSuspend.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_CommandChangeState\FB_CommandChangeUnSuspend.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_CommandChangeState\FB_CommandChangeComplete.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_CommandChangeMode\FB_CommandChangeProduction.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_CommandChangeMode\FB_CommandChangeMaintenance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_CommandChangeMode\FB_CommandChangeManual.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_CommandChangeMode\FB_CommandChangeWashing.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_CommandChangeMode\FB_CommandChangeDiagnostics.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -100,6 +151,10 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
+    <Folder Include="POUs\01_StatesAndModes" />
+    <Folder Include="POUs\03_CommandChangeState" />
+    <Folder Include="POUs\04_CommandChangeMode" />
+    <Folder Include="POUs\02_CommandChange" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -120,6 +175,11 @@
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PRG_B_StatesAndModes.tmc">
+      <SubType>Content</SubType>
+    </None>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

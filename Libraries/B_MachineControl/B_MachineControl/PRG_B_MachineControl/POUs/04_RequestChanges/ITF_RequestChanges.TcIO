@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_RequestChanges" Id="{f1f18d3a-38da-0698-1651-a23ce385ae08}">
+    <Declaration><![CDATA[INTERFACE ITF_RequestChanges EXTENDS ITF_BaseComponent
+]]></Declaration>
+    <Method Name="Testing" Id="{76774f7f-0a54-00a4-06ca-51b2be049abf}">
+      <Declaration><![CDATA[METHOD Testing : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

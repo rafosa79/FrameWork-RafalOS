@@ -16,6 +16,9 @@ VAR
 	fbMasterCommunicator			: FB_BaseCommunicator;
 	(*	Zarządzenia stanami i trybami pracy	*)
 	itfSaMController				: ITF_SaMController;
+	(*	Stany i Tryby	*)
+	arrStates						: ARRAY [1..17] OF ST_RequestAndCommandChanges;	
+	arrModes						: array [1..10] of ST_RequestAndCommandChanges;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -25,6 +28,7 @@ END_VAR
 ELSIF (THIS^.bInitDone) THEN
 	THIS^.ExecuteCycle ();
 END_IF
+
 ]]></ST>
     </Implementation>
     <Folder Name="ITF_MachineControlConfigure" Id="{973d3ff0-85f0-4bae-9395-cc62a4917833}" />
@@ -54,6 +58,28 @@ END_VAR
       <Implementation>
         <ST><![CDATA[THIS^.itfSaMController		:= fbSaMController;
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddRequestModeChange" Id="{eee38abc-f39d-0ce2-0412-12f1dcddd8de}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC AddRequestModeChange : BOOL
+VAR_INPUT
+	iNumberOfRequest			: INT;
+	itfRequest					: ITF_RequestChanges;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddRequestStateChange" Id="{3a316008-6053-0642-3d72-eda4def5bdc4}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC AddRequestStateChange : BOOL
+VAR_INPUT
+	iNumberOfRequest			: INT;
+	itfRequest					: ITF_RequestChanges;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddTopElementFromConfiguration" Id="{100f011a-3941-0f6f-14c0-c4dea046c178}" FolderPath="ITF_MachineControlConfigure\">
@@ -96,11 +122,28 @@ END_IF
       <Declaration><![CDATA[METHOD PRIVATE ExecuteCycle
 VAR_INPUT
 END_VAR
-]]></Declaration>
+
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 	(*	Zarządzanie stanami i trybami pracy 	*)
-	]]></ST>
+
+	(*	Testowanie czy jest rządzanie zmiany trybu	*)
+FOR iI := 1 TO 10 DO 
+	IF (THIS^.arrModes [iI].itfRequestChanges <> 0 AND THIS^.arrModes [iI].itfRequestChanges.Testing ()) THEN
+		THIS^.itfSaMController.Execute (iNumberOfCommand := iI);
+	END_IF
+END_FOR	
+	
+	(*	Testowanie czy jest rządanie zmiany stany	*)
+FOR iI := 1 TO 10 DO 
+	IF (THIS^.arrStates [iI].itfRequestChanges <> 0 AND THIS^.arrStates [iI].itfRequestChanges.Testing ()) THEN
+		THIS^.itfSaMController.Execute (iNumberOfCommand := iI);
+	END_IF
+END_FOR
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="InitializeCycle" Id="{f127c58d-f380-4c5b-91fc-37aed1ddc70f}">

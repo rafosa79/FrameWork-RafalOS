@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SaMController" Id="{c7f4a38b-e5fc-0e2c-38d0-203cc4e95405}">
+    <Declaration><![CDATA[INTERFACE ITF_SaMController
+]]></Declaration>
+    <Method Name="Execute" Id="{63ca3afc-c287-0bdd-12ae-e0974b7b3d54}">
+      <Declaration><![CDATA[METHOD Execute : BOOL
+VAR_INPUT
+	iNumberOfCommand		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

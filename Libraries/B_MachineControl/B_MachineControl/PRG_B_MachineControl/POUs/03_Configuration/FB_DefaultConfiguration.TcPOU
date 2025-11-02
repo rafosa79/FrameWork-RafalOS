@@ -40,5 +40,40 @@ itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_SystemVari
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="StateAndModes" Id="{04eaf0df-aa66-0bed-030e-62a32cc97b08}">
+      <Declaration><![CDATA[METHOD StateAndModes : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.AddRequestStateChange (iNumberOfRequest := 1, 	itfRequest := GVL_RequeestChange.fbprClear);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := 2, 	itfRequest := GVL_RequeestChange.fbprReset);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := 3, 	itfRequest := GVL_RequeestChange.fbprStart);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := 4, 	itfRequest := GVL_RequeestChange.fbprStop);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := 5, 	itfRequest := GVL_RequeestChange.fbprSuspend);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := 6, 	itfRequest := GVL_RequeestChange.fbprUnsuspend);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := 7, 	itfRequest := GVL_RequeestChange.fbprHold);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := 8, 	itfRequest := GVL_RequeestChange.fbprUnhold);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := 9, 	itfRequest := GVL_RequeestChange.fbprComplete);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := 10,	itfRequest := GVL_RequeestChange.fbprAbort);
+
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := 1, 		itfRequest := GVL_RequeestChange.fbprProduction);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := 2, 		itfRequest := GVL_RequeestChange.fbprMaintenance);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := 3, 		itfRequest := GVL_RequeestChange.fbprManual);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := 4, 		itfRequest := GVL_RequeestChange.fbprWashing);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := 5, 		itfRequest := GVL_RequeestChange.fbprDiagnostics);
+
+
+
+
+
+
+
+
+
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

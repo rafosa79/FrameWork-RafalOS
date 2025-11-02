@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_IOSensor" Id="{38d74651-ddd4-440f-81aa-c82978b08fa3}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		22.01.2025		TC 4026.13		wer. 0.0.0.1
+	B_Baza dla czujników binarnych 	
+*)
+FUNCTION_BLOCK ABSTRACT FB_IOSensor EXTENDS FB_BaseComponent IMPLEMENTS ITF_IOSensor, ITF_IOSensor_HMI_Init
+VAR
+	bContact				AT %I*	: BOOL;		// Styk czujnika
+	eType							: E_IOSensorType;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="GetSensorType" Id="{f374bc07-fad7-40f2-bc55-235455285601}">
+      <Declaration><![CDATA[METHOD PUBLIC GetSensorType : E_IOSensorType
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetSensorType			:= THIS^.eType;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetSensorTypeToString" Id="{4ad723da-d327-4de9-9137-959624f49814}">
+      <Declaration><![CDATA[METHOD PUBLIC GetSensorTypeToString : STRING
+VAR CONSTANT
+	arrType		: ARRAY [0..2] OF STRING := ['NO', 'NC', 'NOx2'];
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetSensorTypeToString			:= arrType [TO_INT (THIS^.eType)];
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsActive" Id="{db6dccc1-2a7a-463e-864e-da1a3729b042}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca aktualny stan czujnika
+*)
+METHOD IsActive : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

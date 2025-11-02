@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_IOSensor_HMI_Init" Id="{8212cabf-ccfd-4b1d-ba43-7c8b4956e269}">
+    <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		21.08.2025		TC 4024.66
+	Interfejs łaczący na potrzeby przekazania do elementu
+*)
+INTERFACE ITF_IOSensor_HMI_Init EXTENDS ITF_BaseComponent, ITF_IOSensor_HMI_Connector
+]]></Declaration>
+  </Itf>
+</TcPlcObject>
