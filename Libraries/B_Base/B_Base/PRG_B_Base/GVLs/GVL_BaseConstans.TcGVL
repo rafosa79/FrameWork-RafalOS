@@ -27,7 +27,7 @@ VAR_GLOBAL CONSTANT
 
 	(*	Komponenty i Elementy	*)
 	MAX_NUMBER_OF_ALL_ITEM					: UINT := 200;	// liczba wszystkich komponentów we wszystkich podzespolach bazowych
-	MAX_ITEM_PER_ELEMENT					: UINT := 20;
+	MAX_ITEM_PER_ELEMENT					: UINT := 100;
 	MAX_NUMBER_OF_TOP_ELEMENT				: UINT := 10;
 	MAX_NESTING_LEVEL						: UINT	:= 5;	//ilość zagnieżdzonych elementów liczone z topelement
 

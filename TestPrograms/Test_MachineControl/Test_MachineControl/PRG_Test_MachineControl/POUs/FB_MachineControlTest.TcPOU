@@ -8,7 +8,9 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-T01_TestPierwszegoPrzejscia ();]]></ST>
+T01_TestPierwszegoPrzejscia ();
+T02_TestInicjalizacjiSaM ();
+]]></ST>
     </Implementation>
     <Method Name="T01_TestPierwszegoPrzejscia" Id="{0d0c69ca-949f-4ad6-872b-dc43bf3a60dd}">
       <Declaration><![CDATA[METHOD PROTECTED T01_TestPierwszegoPrzejscia
@@ -34,6 +36,25 @@ END_VAR
 	TcUnit.TEST_FINISHED ();
 END_IF
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T02_TestInicjalizacjiSaM" Id="{583b6d05-622b-46bb-a657-b3811ed8be9a}">
+      <Declaration><![CDATA[METHOD PROTECTED T02_TestInicjalizacjiSaM
+VAR
+	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestInicjalizacjiSaM')) THEN
+	GVL_Variable.stCommonData.itfTime			:= GVL_Variable.fbTime;
+	GVL_Variable.stCommonData.itfLocaciotn		:= GVL_Variable.fbLocation;
+	GVL_Variable.stCommonData.itfLogger			:= GVL_Variable.fbLogger;
+	GVL_Variable.fbMySaMController.LinkCommonData (stCommonData := GVL_Variable.stCommonData);
+	GVL_Variable.fbMySaMController.LinkSS1 (fbSS1	:= GVL_Variable.flSS1);
+	GVL_Variable.fbMySaMController.LinkSTO (fbSTO	:= GVL_Variable.flSTO);
+	
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
       </Implementation>
     </Method>
   </POU>

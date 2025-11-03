@@ -3,5 +3,46 @@
   <Itf Name="ITF_SaMControllerConfigure" Id="{f32d88f2-1b11-00d9-2831-0c0c8be3bf8f}">
     <Declaration><![CDATA[INTERFACE ITF_SaMControllerConfigure
 ]]></Declaration>
+    <Method Name="SetModeEnabled" Id="{baa76b24-0a3c-0df5-0a0e-0155b74b488c}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Wlacza lub wylacza tryb pracy
+*)
+METHOD PUBLIC SetModeEnabled
+VAR_INPUT
+	iMode				: INT;	//numer trybu
+	bValue				: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetModeTransitionEnabledInState" Id="{a38aaea8-c285-0367-3484-cc670589b0d5}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Ustawianie czy w danym stanie może nastąpić zmiana trybu
+*)
+METHOD PUBLIC SetModeTransitionEnabledInState
+VAR_INPUT
+	iMode			: INT;	//tryb
+	iState			: INT;	//stan
+	bValue			: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetStateEnabledInMode" Id="{ce1871dc-18a6-0d24-0c8e-1091180d456b}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Ustawia włączone stany w zadanym trybie
+*)
+METHOD PUBLIC SetStateEnabledInMode
+VAR_INPUT
+	iMode			: INT;	//tryb
+	iState			: INT;	//stan
+	bValue			: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

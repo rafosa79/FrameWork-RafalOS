@@ -47,22 +47,22 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[itfMachineControl.AddRequestStateChange (iNumberOfRequest := 1, 	itfRequest := GVL_RequeestChange.fbprClear);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := 2, 	itfRequest := GVL_RequeestChange.fbprReset);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := 3, 	itfRequest := GVL_RequeestChange.fbprStart);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := 4, 	itfRequest := GVL_RequeestChange.fbprStop);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := 5, 	itfRequest := GVL_RequeestChange.fbprSuspend);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := 6, 	itfRequest := GVL_RequeestChange.fbprUnsuspend);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := 7, 	itfRequest := GVL_RequeestChange.fbprHold);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := 8, 	itfRequest := GVL_RequeestChange.fbprUnhold);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := 9, 	itfRequest := GVL_RequeestChange.fbprComplete);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := 10,	itfRequest := GVL_RequeestChange.fbprAbort);
+        <ST><![CDATA[itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Clear,		itfRequest := GVL_RequeestChange.fbprClear);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Reset, 	itfRequest := GVL_RequeestChange.fbprReset);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Start, 	itfRequest := GVL_RequeestChange.fbprStart);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Stop, 		itfRequest := GVL_RequeestChange.fbprStop);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Suspend, 	itfRequest := GVL_RequeestChange.fbprSuspend);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Unsuspend, itfRequest := GVL_RequeestChange.fbprUnsuspend);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Hold, 		itfRequest := GVL_RequeestChange.fbprHold);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Unhold, 	itfRequest := GVL_RequeestChange.fbprUnhold);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Complete, 	itfRequest := GVL_RequeestChange.fbprComplete);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Abort,		itfRequest := GVL_RequeestChange.fbprAbort);
 
-itfMachineControl.AddRequestModeChange (iNumberOfRequest := 1, 		itfRequest := GVL_RequeestChange.fbprProduction);
-itfMachineControl.AddRequestModeChange (iNumberOfRequest := 2, 		itfRequest := GVL_RequeestChange.fbprMaintenance);
-itfMachineControl.AddRequestModeChange (iNumberOfRequest := 3, 		itfRequest := GVL_RequeestChange.fbprManual);
-itfMachineControl.AddRequestModeChange (iNumberOfRequest := 4, 		itfRequest := GVL_RequeestChange.fbprWashing);
-itfMachineControl.AddRequestModeChange (iNumberOfRequest := 5, 		itfRequest := GVL_RequeestChange.fbprDiagnostics);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Production, 	itfRequest := GVL_RequeestChange.fbprProduction);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Maintenance,	itfRequest := GVL_RequeestChange.fbprMaintenance);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Manual, 		itfRequest := GVL_RequeestChange.fbprManual);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Washing,		itfRequest := GVL_RequeestChange.fbprWashing);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Diagnostisc,	itfRequest := GVL_RequeestChange.fbprDiagnostics);
 
 
 

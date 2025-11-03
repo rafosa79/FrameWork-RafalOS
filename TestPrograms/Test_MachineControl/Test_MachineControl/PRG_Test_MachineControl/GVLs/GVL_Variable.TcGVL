@@ -5,6 +5,14 @@
 VAR_GLOBAL
 	fbMyNewConfiguration		: FB_MyNewConfiguration;
 	
+(* zmienne potrzebne do przetestowania samego SaMController	*)
+	fbTime						: FB_BaseTime;
+	fbLocation					: FB_BaseLocation;
+	fbLogger					: FB_BaseLogger;
+	stCommonData				: ST_BaseCommonData;
+	flSS1						: FB_BaseFlag;
+	flSTO						: FB_BaseFlag;
+	fbMySaMController			: FB_SaMController;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

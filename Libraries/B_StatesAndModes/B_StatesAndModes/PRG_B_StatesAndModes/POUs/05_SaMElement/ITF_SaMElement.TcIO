@@ -3,5 +3,40 @@
   <Itf Name="ITF_SaMElement" Id="{18e351e5-c377-09bd-199b-8ece74b821e4}">
     <Declaration><![CDATA[INTERFACE ITF_SaMElement EXTENDS ITF_BaseComponent
 ]]></Declaration>
+    <Method Name="IsEnabled" Id="{ba56d189-2af0-0454-102a-8d822d334396}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Zwraca czy element jest właczony w systemie
+*)
+METHOD PUBLIC IsEnabled : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetActive" Id="{8ae1fb1b-a80b-0a21-01d7-3a0d8be2ef76}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Ustawia czy dane element jest aktywny
+*)
+METHOD PUBLIC SetActive
+VAR_INPUT
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetEnabled" Id="{ba2fccb0-69d6-0227-3d03-d59fb2553566}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Ustawie czy element jest włączony w systemie
+*)
+METHOD PUBLIC SetEnabled
+VAR_INPUT
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

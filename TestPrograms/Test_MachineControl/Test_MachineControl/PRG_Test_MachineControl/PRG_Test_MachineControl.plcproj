@@ -114,10 +114,14 @@
     </PlaceholderReference>
     <PlaceholderReference Include="B_IO">
       <DefaultResolution>B_IO, * (RafalOS)</DefaultResolution>
+      <Namespace>B_IO</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="B_MachineControl">
       <DefaultResolution>B_MachineControl, * (RafalOS)</DefaultResolution>
       <Namespace>B_MachineControl</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_StatesAndModes">
+      <DefaultResolution>B_StatesAndModes, * (RafalOS)</DefaultResolution>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
