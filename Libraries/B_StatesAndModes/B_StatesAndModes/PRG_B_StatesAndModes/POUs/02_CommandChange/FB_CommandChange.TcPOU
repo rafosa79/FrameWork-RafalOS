@@ -3,19 +3,41 @@
   <POU Name="FB_CommandChange" Id="{2908caa6-01fe-00f1-181a-1acec604552c}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_CommandChange EXTENDS FB_BaseComponent IMPLEMENTS ITF_CommandChange
 VAR
-
+	itfSaMController				: ITF_SaMControllerCommandChange;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Method Name="Execute" Id="{3e1ea8aa-acdf-0fb7-0ce9-e01f53a6e468}">
-      <Declaration><![CDATA[METHOD Execute : BOOL
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Test czy można zmienić stan lub tryb i zwraca czy można i uruchamia zmianę
+*)
+METHOD Execute : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkSaMCotroller" Id="{a1ee9fff-ed2f-0895-2d8b-6d4b59c9eb07}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Podłączenie sterowania do SaMController
+*)
+METHOD PUBLIC LinkSaMCotroller : BOOL
+VAR_INPUT
+	itfSaMController		: ITF_SaMControllerCommandChange;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfSaMController		:= itfSaMController;
+]]></ST>
       </Implementation>
     </Method>
   </POU>

@@ -37,7 +37,36 @@ END_VAR
     </Implementation>
     <Folder Name="Initialization" Id="{36e42ff2-7480-0d56-1afc-450089a48df2}" />
     <Folder Name="ITF_SaMController" Id="{c8bddf21-ded7-0091-2800-8c3c9b4e262e}" />
+    <Folder Name="ITF_SaMControllerCommandChange" Id="{dea3c85f-ea23-061e-2958-91b06b29c270}" />
     <Folder Name="ITF_SaMControllerConfigure" Id="{b9d762b5-64ba-0e23-0da8-02679c5e095d}" />
+    <Method Name="ChangeStateBusy" Id="{1c9e453a-f9a0-06fc-3a11-4779d6fe6330}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD PUBLIC ChangeStateBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ChangeStateDone" Id="{d3c3d0f2-89d9-0ad1-3dc5-2f620dd0bec5}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD PUBLIC ChangeStateDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ChangeStateExecute" Id="{73008af1-7c58-0056-0c08-e655917d7cdd}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD PUBLIC ChangeStateExecute : BOOL
+VAR_INPUT
+	eNewState			: E_SaMStates;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Execute" Id="{608fbfab-efd0-0a43-132b-9ced413e3cf8}" FolderPath="ITF_SaMController\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -84,20 +113,26 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.arrcmdModes [E_SaMCommandChangeMode.Production]	:= THIS^.stCmdModes.cmdChangeProduction;
+        <ST><![CDATA[
+THIS^.arrcmdModes [E_SaMCommandChangeMode.Production]	:= THIS^.stCmdModes.cmdChangeProduction;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeProduction);
+THIS^.stCmdModes.cmdChangeProduction.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdModes [E_SaMCommandChangeMode.Maintenance]	:= THIS^.stCmdModes.cmdChangeMaintenance;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeMaintenance);
+THIS^.stCmdModes.cmdChangeMaintenance.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdModes [E_SaMCommandChangeMode.Manual]		:= THIS^.stCmdModes.cmdChangeManual;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeManual);
+THIS^.stCmdModes.cmdChangeManual.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdModes [E_SaMCommandChangeMode.Washing]		:= THIS^.stCmdModes.cmdChangeWashing;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeWashing);
+THIS^.stCmdModes.cmdChangeWashing.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdModes [E_SaMCommandChangeMode.Diagnostisc]	:= THIS^.stCmdModes.cmdChangeDiagnostics;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeDiagnostics);
+THIS^.stCmdModes.cmdChangeDiagnostics.LinkSaMCotroller (itfSaMController	:= THIS^);
 ]]></ST>
       </Implementation>
     </Method>
@@ -109,33 +144,43 @@ END_VAR
       <Implementation>
         <ST><![CDATA[THIS^.arrcmdStates [E_SaMCommandChangeState.Abort]	:= THIS^.stCmdStates.cmdChangeAbort;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeAbort);
+THIS^.stCmdStates.cmdChangeAbort.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Clear]	:= THIS^.stCmdStates.cmdChangeClear;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeClear);
+THIS^.stCmdStates.cmdChangeClear.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Reset]	:= THIS^.stCmdStates.cmdChangeReset;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeReset);
+THIS^.stCmdStates.cmdChangeReset.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Start]	:= THIS^.stCmdStates.cmdChangeStart;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeStart);
+THIS^.stCmdStates.cmdChangeStart.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Stop]	:= THIS^.stCmdStates.cmdChangeStop;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeStop);
+THIS^.stCmdStates.cmdChangeStop.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Hold]	:= THIS^.stCmdStates.cmdChangeHold;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeHold);
+THIS^.stCmdStates.cmdChangeHold.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Unhold]	:= THIS^.stCmdStates.cmdChangeUnhold;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeUnhold);
+THIS^.stCmdStates.cmdChangeUnhold.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Suspend]:= THIS^.stCmdStates.cmdChangeSuspend;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeSuspend);
+THIS^.stCmdStates.cmdChangeSuspend.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Unsuspend]	:= THIS^.stCmdStates.cmdChangeUnSuspend;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeUnSuspend);
+THIS^.stCmdStates.cmdChangeSuspend.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Complete]	:= THIS^.stCmdStates.cmdChangeComplete;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeComplete);
+THIS^.stCmdStates.cmdChangeComplete.LinkSaMCotroller (itfSaMController	:= THIS^);
 ]]></ST>
       </Implementation>
     </Method>
