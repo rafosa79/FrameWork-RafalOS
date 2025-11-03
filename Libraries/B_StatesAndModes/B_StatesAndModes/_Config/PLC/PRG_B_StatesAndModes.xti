@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66" ClassName="CNestedPlcProjDef">
 	<Project GUID="{DDFD8A73-FC20-4C2D-A3B5-652A796C1106}" Name="PRG_B_StatesAndModes" PrjFilePath="..\..\PRG_B_StatesAndModes\PRG_B_StatesAndModes.plcproj" TmcFilePath="..\..\PRG_B_StatesAndModes\PRG_B_StatesAndModes.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_B_StatesAndModes\PRG_B_StatesAndModes.tmc" TmcHash="{FB45EC91-892C-6E7F-C1E9-A219B3EDE0E7}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_B_StatesAndModes\PRG_B_StatesAndModes.tmc" TmcHash="{937CA87B-883A-23C6-8746-F6043D7A7968}">
 			<Name>PRG_B_StatesAndModes Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Contexts>
