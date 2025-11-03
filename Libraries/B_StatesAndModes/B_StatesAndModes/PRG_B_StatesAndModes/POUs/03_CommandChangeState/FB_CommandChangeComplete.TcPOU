@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_CommandChangeComplete" Id="{64939450-2f92-0c92-20b1-eaf3248da179}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_CommandChangeComplete IMPLEMENTS ITF_CommandChange
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CommandChangeComplete EXTENDS FB_CommandChange  IMPLEMENTS ITF_CommandChange
 VAR
 
 END_VAR

@@ -19,7 +19,7 @@
     <Company>RafalOS</Company>
     <Released>false</Released>
     <Title>B_StatesAndModes</Title>
-    <ProjectVersion>0.0.0.2</ProjectVersion>
+    <ProjectVersion>0.0.0.3</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -83,16 +83,50 @@
     <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GVLs\GVL_SaMConstans.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\01_StatesAndModes\E_SaMCommandChangeState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_StatesAndModes\E_SaMCommandChangeMode.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_StatesAndModes\E_SaMStates.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_StatesAndModes\E_SaMModes.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\01_StatesAndModes\FB_SaMController.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\01_StatesAndModes\ITF_SaMController.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_StatesAndModes\ITF_SaMControllerConfigure.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_StatesAndModes\ST_CommandChangeMode.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_StatesAndModes\ST_CommandChangeState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_StatesAndModes\ST_SaMControllerConfigure.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_StatesAndModes\ST_SaMElementModes.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_StatesAndModes\ST_SaMElementStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\02_CommandChange\FB_CommandChange.TcPOU">
@@ -146,6 +180,84 @@
     <Compile Include="POUs\04_CommandChangeMode\FB_CommandChangeDiagnostics.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\05_SaMElement\FB_SaMElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_SaMElement\ITF_SaMElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementAborting.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementAbort.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementUndefined.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementClearing.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementStopping.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementStopped.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementResseting.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementIdle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementStarting.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementExecute.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementSuspending.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementSuspended.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementUnSuspending.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementHolding.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementHeld.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementUnHolding.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementCompleting.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_SaMElementStates\FB_SaMElementComplete.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\07_SaMElementModes\FB_SaMElementProduction.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\07_SaMElementModes\FB_SaMElementMaintenance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\07_SaMElementModes\FB_SaMElementManual.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\07_SaMElementModes\FB_SaMElementNotAllowed.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\07_SaMElementModes\FB_SaMElementWashing.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\07_SaMElementModes\FB_SaMElementDiagnostics.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
@@ -155,6 +267,9 @@
     <Folder Include="POUs\03_CommandChangeState" />
     <Folder Include="POUs\04_CommandChangeMode" />
     <Folder Include="POUs\02_CommandChange" />
+    <Folder Include="POUs\05_SaMElement" />
+    <Folder Include="POUs\06_SaMElementStates" />
+    <Folder Include="POUs\07_SaMElementModes" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

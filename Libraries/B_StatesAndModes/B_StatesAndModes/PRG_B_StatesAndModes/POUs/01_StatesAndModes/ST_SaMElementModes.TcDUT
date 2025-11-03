@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_SaMElementModes" Id="{2d59ec36-1fc5-0744-26c1-8077eec3f922}">
+    <Declaration><![CDATA[TYPE ST_SaMElementModes :
+STRUCT
+	 fbUndefined							: FB_SaMElementNotAllowed;
+     fbProduction							: FB_SaMElementProduction;
+     fbMaintenance							: FB_SaMElementMaintenance;
+     fbManual								: FB_SaMElementManual;
+     fbWashing								: FB_SaMElementWashing;
+	 fbDiagnostics							: FB_SaMElementDiagnostics;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

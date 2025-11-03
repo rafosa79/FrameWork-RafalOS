@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_SaMModes" Id="{20ee8de7-d5fa-4c1b-8d8e-055edae2df41}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_SaMModes :
+(
+    NotAllowed				:= 0,
+    Production				:= 1,
+    Maintance				:= 2,
+    Manual					:= 3,
+    Washing					:= 4,
+    Diagnostics				:= 5
+//    Uzytkownika2			:= 6,
+//    Uzytkownika3			:= 7,
+//    Uzytkownika4			:= 8,
+//    Uzytkownika5			:= 9	
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

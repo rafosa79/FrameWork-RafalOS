@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_SaMElementStates" Id="{ebe79413-b115-072d-0498-9bb7ef506d7c}">
+    <Declaration><![CDATA[TYPE ST_SaMElementStates :
+STRUCT
+	fbUndefined     						: FB_SaMElementUndefined;
+    fbAborting      						: FB_SaMElementAborting;
+    fbAborted       						: FB_SaMElementAbort;
+    fbClearing      						: FB_SaMElementClearing;
+    fbStopping      						: FB_SaMElementStopping;
+    fbStopped       						: FB_SaMElementStopped;
+    fbResetting     						: FB_SaMElementResseting;
+    fbIdle          						: FB_SaMElementIdle;
+	fbStarting      						: FB_SaMElementStarting;
+    fbExecute       						: FB_SaMElementExecute;
+    fbSuspending    						: FB_SaMElementSuspending;
+    fbSuspended     						: FB_SaMElementSuspended;
+    fbUnsuspending  						: FB_SaMElementUnSuspending;
+    fbHolding       						: FB_SaMElementHolding;
+    fbHeld          						: FB_SaMElementHeld;
+    fbUnholding     						: FB_SaMElementUnHolding;
+    fbCompleting    						: FB_SaMElementCompleting;
+    fbComplete      						: FB_SaMElementComplete;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

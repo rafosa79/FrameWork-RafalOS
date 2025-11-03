@@ -6,36 +6,28 @@
 	Rafał Osajda		30.10.2025		TC 4024.66
 	Główny FB do zarządzania stanami i trybami pracy
 *)
-FUNCTION_BLOCK FB_SaMController EXTENDS FB_Base IMPLEMENTS ITF_SaMController
+FUNCTION_BLOCK FB_SaMController EXTENDS FB_BaseControlElement IMPLEMENTS ITF_SaMController, ITF_SaMControllerConfigure
 VAR
-	cmdChangeAbort		   		: FB_CommandChangeAbort;
-	cmdChangeClear		   		: FB_CommandChangeClear;
-	cmdChangeReset		   		: FB_CommandChangeReset;
-	cmdChangeStart		   		: FB_CommandChangeStart;
-	cmdChangeStop		    	: FB_CommandChangeStop;
-	cmdChangeHold		    	: FB_CommandChangeHold;
-	cmdChangeUnhold		  		: FB_CommandChangeUnHold;
-	cmdChangeSuspend		 	: FB_CommandChangeSuspend;
-	cmdChangeUnSuspend	  		: FB_CommandChangeUnSuspend;
-	cmdChangeComplete		 	: FB_CommandChangeComplete;
-
-	cmdChangeProduction	 	  	: FB_CommandChange;
-	cmdChangeMaintenance		: FB_CommandChange;
-	cmdChangeManual		    	: FB_CommandChange;
-	cmdChangeWashing		   	: FB_CommandChange;
-	cmdChangeDiagnostics		: FB_CommandChange;
-
-	arrcmdStates				: ARRAY [1..10] OF ITF_CommandChange;
-	arrcmdModes					: ARRAY [1..10] OF ITF_CommandChange;
-	
+	stCmdStates					: ST_CommandChangeState;
+	stCmdModes					: ST_CommandChangeMode;
+	arrcmdStates				: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES] OF ITF_CommandChange;
+	arrcmdModes					: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_MODES] OF ITF_CommandChange;
+	stStates					: ST_SaMElementStates;
+	stModes						: ST_SaMElementModes;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Initialization" Id="{36e42ff2-7480-0d56-1afc-450089a48df2}" />
     <Folder Name="ITF_SaMController" Id="{c8bddf21-ded7-0091-2800-8c3c9b4e262e}" />
     <Method Name="Execute" Id="{608fbfab-efd0-0a43-132b-9ced413e3cf8}" FolderPath="ITF_SaMController\">
-      <Declaration><![CDATA[METHOD Execute : BOOL
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Obsługa zmiany stanów i trybów 
+*)
+METHOD Execute : BOOL
 VAR_INPUT
 	iNumberOfCommand		: INT;
 END_VAR
@@ -44,7 +36,7 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{8f55a5c3-a0eb-0deb-011c-23bf5df2ad6a}">
+    <Method Name="FB_init" Id="{8f55a5c3-a0eb-0deb-011c-23bf5df2ad6a}" FolderPath="Initialization\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -52,23 +44,160 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.arrcmdStates [1]		:= THIS^.cmdChangeAbort;
-THIS^.arrcmdStates [2]		:= THIS^.cmdChangeClear;
-THIS^.arrcmdStates [3]		:= THIS^.cmdChangeReset;
-THIS^.arrcmdStates [4]		:= THIS^.cmdChangeStart;
-THIS^.arrcmdStates [5]		:= THIS^.cmdChangeStop;
-THIS^.arrcmdStates [6]		:= THIS^.cmdChangeHold;
-THIS^.arrcmdStates [7]		:= THIS^.cmdChangeUnhold;
-THIS^.arrcmdStates [8]		:= THIS^.cmdChangeSuspend;
-THIS^.arrcmdStates [9]		:= THIS^.cmdChangeUnSuspend;
-THIS^.arrcmdStates [10]		:= THIS^.cmdChangeComplete;
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "SaM Controller");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "SaM Controller");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "SaM Controller");
+THIS^.SetName (stName := THIS^.GetTexts ());
 
-THIS^.arrcmdModes [1]		:= THIS^.cmdChangeProduction;
-THIS^.arrcmdModes [2]		:= THIS^.cmdChangeMaintenance;
-THIS^.arrcmdModes [3]		:= THIS^.cmdChangeManual;
-THIS^.arrcmdModes [4]		:= THIS^.cmdChangeWashing;
-THIS^.arrcmdModes [5]		:= THIS^.cmdChangeDiagnostics;
+Initialization_AddStates ();
+Initialization_AddModes ();
+
+Initialization_AddCommandChangeState ();
+Initialization_AddCommandChangeModes ();
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_AddCommandChangeModes" Id="{1109a5fd-0b62-0ed8-0a3b-0f57bddc8c59}" FolderPath="Initialization\">
+      <Declaration><![CDATA[METHOD PRIVATE Initialization_AddCommandChangeModes : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrcmdModes [E_SaMCommandChangeMode.Production]	:= THIS^.stCmdModes.cmdChangeProduction;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change mode - Production");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change mode - Production");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change mode - Production");
+THIS^.stCmdModes.cmdChangeProduction.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeProduction);
+
+THIS^.arrcmdModes [E_SaMCommandChangeMode.Maintenance]	:= THIS^.stCmdModes.cmdChangeMaintenance;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change mode - Maintenance");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change mode - Maintenance");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change mode - Maintenance");
+THIS^.stCmdModes.cmdChangeMaintenance.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeMaintenance);
+
+THIS^.arrcmdModes [E_SaMCommandChangeMode.Manual]		:= THIS^.stCmdModes.cmdChangeManual;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change mode - Manual");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change mode - Manual");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change mode - Manual");
+THIS^.stCmdModes.cmdChangeManual.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeManual);
+
+THIS^.arrcmdModes [E_SaMCommandChangeMode.Washing]		:= THIS^.stCmdModes.cmdChangeWashing;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change mode - Washing");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change mode - Washing");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change mode - Washing");
+THIS^.stCmdModes.cmdChangeWashing.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeWashing);
+
+THIS^.arrcmdModes [E_SaMCommandChangeMode.Diagnostisc]	:= THIS^.stCmdModes.cmdChangeDiagnostics;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change mode - Diagnostics");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change mode - Diagnostics");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change mode - Diagnostics");
+THIS^.stCmdModes.cmdChangeDiagnostics.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeDiagnostics);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_AddCommandChangeState" Id="{7530a13b-678f-0aa6-14bb-d0e2275487dd}" FolderPath="Initialization\">
+      <Declaration><![CDATA[METHOD PRIVATE Initialization_AddCommandChangeState : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrcmdStates [E_SaMCommandChangeState.Abort]	:= THIS^.stCmdStates.cmdChangeAbort;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change state - Abort");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change state - Abort");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change state - Abort");
+THIS^.stCmdStates.cmdChangeAbort.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeAbort);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Clear]	:= THIS^.stCmdStates.cmdChangeClear;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change state - Clear");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change state - Clear");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change state - Clear");
+THIS^.stCmdStates.cmdChangeClear.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeClear);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Reset]	:= THIS^.stCmdStates.cmdChangeReset;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change state - Reset");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change state - Reset");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change state - Reset");
+THIS^.stCmdStates.cmdChangeReset.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeReset);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Start]	:= THIS^.stCmdStates.cmdChangeStart;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change state - Start");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change state - Start");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change state - Start");
+THIS^.stCmdStates.cmdChangeStart.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeStart);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Stop]	:= THIS^.stCmdStates.cmdChangeStop;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change state - Stop");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change state - Stop");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change state - Stop");
+THIS^.stCmdStates.cmdChangeStop.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeStop);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Hold]	:= THIS^.stCmdStates.cmdChangeHold;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change state - Hold");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change state - Hold");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change state - Hold");
+THIS^.stCmdStates.cmdChangeHold.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeHold);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Unhold]	:= THIS^.stCmdStates.cmdChangeUnhold;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change state - UnHold");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change state - UnHold");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change state - UnHold");
+THIS^.stCmdStates.cmdChangeUnhold.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeUnhold);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Suspend]:= THIS^.stCmdStates.cmdChangeSuspend;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change state - Suspend");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change state - Suspend");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change state - Suspend");
+THIS^.stCmdStates.cmdChangeSuspend.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeSuspend);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Unsuspend]	:= THIS^.stCmdStates.cmdChangeUnSuspend;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change state - UnSuspend");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change state - UnSuspend");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change state - UnSuspend");
+THIS^.stCmdStates.cmdChangeUnSuspend.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeUnSuspend);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Complete]	:= THIS^.stCmdStates.cmdChangeComplete;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change state - Complete");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change state - Complete");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change state - Complete");
+THIS^.stCmdStates.cmdChangeComplete.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeComplete);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_AddModes" Id="{2b512a92-51af-0b34-2a0b-9e312b0ddf05}" FolderPath="Initialization\">
+      <Declaration><![CDATA[METHOD PRIVATE Initialization_AddModes : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.AddComponent (itfComponent	:= THIS^.stStates.fbAborting);
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_AddStates" Id="{c7a2785d-ca07-0767-289b-70b582ac2ba0}" FolderPath="Initialization\">
+      <Declaration><![CDATA[METHOD PRIVATE Initialization_AddStates : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
   </POU>
