@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_CommandChangeSuspend" Id="{48484d22-ae57-0719-2adb-4a264957724b}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_CommandChangeSuspend IMPLEMENTS ITF_CommandChange
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CommandChangeSuspend EXTENDS FB_CommandChange IMPLEMENTS ITF_CommandChange
 VAR
 
 END_VAR
@@ -16,6 +16,21 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{b5801e7d-e0c6-0514-120e-ac73f18d720c}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change state - Suspend");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change state - Suspend");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change state - Suspend");
+THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
       </Implementation>
     </Method>
   </POU>

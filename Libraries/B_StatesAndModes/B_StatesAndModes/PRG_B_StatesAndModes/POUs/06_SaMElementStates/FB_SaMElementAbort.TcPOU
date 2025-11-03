@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SaMElementAbort" Id="{6fa8edf3-f184-0e10-37fc-291d9b868d33}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SaMElementAbort EXTENDS FB_SaMElement
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{bc2e7125-3e5c-0ab4-33e2-6f88147eac86}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Przerwany");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Aborted");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Abgebrochen");
+THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

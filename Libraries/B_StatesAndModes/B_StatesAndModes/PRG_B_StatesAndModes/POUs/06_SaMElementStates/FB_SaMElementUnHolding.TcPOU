@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SaMElementUnHolding" Id="{f512916e-13a4-02a1-381c-98ad00edcef5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SaMElementUnHolding EXTENDS FB_SaMElement
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{08965c8d-5b1c-0b72-18e4-41432aa16e4e}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Wznawianie");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Unholding");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Unholding");
+THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

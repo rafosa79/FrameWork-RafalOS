@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_SaMCommandChangeMode" Id="{04698a8a-0c72-0d1f-0803-e59388d44daf}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_SaMCommandChangeMode :
+(
+	None							:= 0,
+	Production						:= 1,
+    Maintenance						:= 2,
+    Manual							:= 3,
+    Washing							:= 4,
+    Diagnostisc						:= 5
+//    Uzytkownika2					:= 6,
+//    Uzytkownika3					:= 7,
+//    Uzytkownika4					:= 8,
+//    Uzytkownika5					:= 9
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

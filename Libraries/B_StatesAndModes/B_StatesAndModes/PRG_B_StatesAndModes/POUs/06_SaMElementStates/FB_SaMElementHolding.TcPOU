@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SaMElementHolding" Id="{5dbc55bf-d793-0fb3-399d-491cc4b2743a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SaMElementHolding EXTENDS FB_SaMElement
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{d14c10d4-e703-0002-35a6-5f25e9ae0e7e}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Wstrzymywanie");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Holding");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Halten");
+THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

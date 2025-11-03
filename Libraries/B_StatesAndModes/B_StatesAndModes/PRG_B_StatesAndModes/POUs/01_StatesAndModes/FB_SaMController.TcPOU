@@ -6,36 +6,45 @@
 	Rafał Osajda		30.10.2025		TC 4024.66
 	Główny FB do zarządzania stanami i trybami pracy
 *)
-FUNCTION_BLOCK FB_SaMController EXTENDS FB_Base IMPLEMENTS ITF_SaMController
+FUNCTION_BLOCK FB_SaMController EXTENDS FB_BaseControlElement IMPLEMENTS ITF_SaMController
 VAR
-	cmdChangeAbort		   		: FB_CommandChangeAbort;
-	cmdChangeClear		   		: FB_CommandChangeClear;
-	cmdChangeReset		   		: FB_CommandChangeReset;
-	cmdChangeStart		   		: FB_CommandChangeStart;
-	cmdChangeStop		    	: FB_CommandChangeStop;
-	cmdChangeHold		    	: FB_CommandChangeHold;
-	cmdChangeUnhold		  		: FB_CommandChangeUnHold;
-	cmdChangeSuspend		 	: FB_CommandChangeSuspend;
-	cmdChangeUnSuspend	  		: FB_CommandChangeUnSuspend;
-	cmdChangeComplete		 	: FB_CommandChangeComplete;
+(*	Polecenia zmiany stany	*)	
+	stCmdStates					: ST_CommandChangeState;
+	arrcmdStates				: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES] OF ITF_CommandChange;
+(*	Polecenia zmiany trybu	*)
+	stCmdModes					: ST_CommandChangeMode;
+	arrcmdModes					: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_MODES] OF ITF_CommandChange;
+(*	Stany	*)
+	arrstStates					: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ST_SaMElementStates;
+(*	Tryby	*)
+	stModes						: ST_SaMElementModes;
+(*	Przypisane stany do trybów	*)
+	arrStatesInModes			: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ARRAY [0..GVL_SaMConstans.NUMBER_OF_STATES] OF ITF_SaMElement;
+	arrModes					: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ITF_SaMElement;
+(*	Referencja do tablicy stanów aktywnego trybu	*)
+	refarrStatesForActiveMode	: REFERENCE TO ARRAY [0..GVL_SaMConstans.NUMBER_OF_STATES] OF ITF_SaMElement;
+(*	Jakie trybu są aktywne	*)
+	arrModeEnable				: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF BOOL;
+(*	Jakie stany są aktywne w trybie	*)
+	arrStateEnableInMode		: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ARRAY [0..GVL_SaMConstans.NUMBER_OF_STATES] OF BOOL;
+(*	W jakich stanach można przejść do innego trybu	*)
+	arrModeTransitionEnableInState	: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ARRAY [0..GVL_SaMConstans.NUMBER_OF_STATES] OF BOOL;
 
-	cmdChangeProduction	 	  	: FB_CommandChange;
-	cmdChangeMaintenance		: FB_CommandChange;
-	cmdChangeManual		    	: FB_CommandChange;
-	cmdChangeWashing		   	: FB_CommandChange;
-	cmdChangeDiagnostics		: FB_CommandChange;
-
-	arrcmdStates				: ARRAY [1..10] OF ITF_CommandChange;
-	arrcmdModes					: ARRAY [1..10] OF ITF_CommandChange;
-	
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Initialization" Id="{36e42ff2-7480-0d56-1afc-450089a48df2}" />
     <Folder Name="ITF_SaMController" Id="{c8bddf21-ded7-0091-2800-8c3c9b4e262e}" />
+    <Folder Name="ITF_SaMControllerConfigure" Id="{b9d762b5-64ba-0e23-0da8-02679c5e095d}" />
     <Method Name="Execute" Id="{608fbfab-efd0-0a43-132b-9ced413e3cf8}" FolderPath="ITF_SaMController\">
-      <Declaration><![CDATA[METHOD Execute : BOOL
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Obsługa zmiany stanów i trybów 
+*)
+METHOD Execute : BOOL
 VAR_INPUT
 	iNumberOfCommand		: INT;
 END_VAR
@@ -44,7 +53,7 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{8f55a5c3-a0eb-0deb-011c-23bf5df2ad6a}">
+    <Method Name="FB_init" Id="{8f55a5c3-a0eb-0deb-011c-23bf5df2ad6a}" FolderPath="Initialization\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -52,22 +61,431 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.arrcmdStates [1]		:= THIS^.cmdChangeAbort;
-THIS^.arrcmdStates [2]		:= THIS^.cmdChangeClear;
-THIS^.arrcmdStates [3]		:= THIS^.cmdChangeReset;
-THIS^.arrcmdStates [4]		:= THIS^.cmdChangeStart;
-THIS^.arrcmdStates [5]		:= THIS^.cmdChangeStop;
-THIS^.arrcmdStates [6]		:= THIS^.cmdChangeHold;
-THIS^.arrcmdStates [7]		:= THIS^.cmdChangeUnhold;
-THIS^.arrcmdStates [8]		:= THIS^.cmdChangeSuspend;
-THIS^.arrcmdStates [9]		:= THIS^.cmdChangeUnSuspend;
-THIS^.arrcmdStates [10]		:= THIS^.cmdChangeComplete;
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "SaM Controller");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "SaM Controller");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "SaM Controller");
+THIS^.SetName (stName := THIS^.GetTexts ());
 
-THIS^.arrcmdModes [1]		:= THIS^.cmdChangeProduction;
-THIS^.arrcmdModes [2]		:= THIS^.cmdChangeMaintenance;
-THIS^.arrcmdModes [3]		:= THIS^.cmdChangeManual;
-THIS^.arrcmdModes [4]		:= THIS^.cmdChangeWashing;
-THIS^.arrcmdModes [5]		:= THIS^.cmdChangeDiagnostics;
+THIS^.Initialization_AddStates ();
+THIS^.Initialization_AddModes ();
+
+THIS^.Initialization_AddCommandChangeState ();
+THIS^.Initialization_AddCommandChangeModes ();
+
+THIS^.Initialization_ModeEnabled ();
+THIS^.Initialization_ModeTransitionEnabledInState ();
+THIS^.Initialization_StateEnabledInMode ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_AddCommandChangeModes" Id="{1109a5fd-0b62-0ed8-0a3b-0f57bddc8c59}" FolderPath="Initialization\">
+      <Declaration><![CDATA[METHOD PRIVATE Initialization_AddCommandChangeModes : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrcmdModes [E_SaMCommandChangeMode.Production]	:= THIS^.stCmdModes.cmdChangeProduction;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeProduction);
+
+THIS^.arrcmdModes [E_SaMCommandChangeMode.Maintenance]	:= THIS^.stCmdModes.cmdChangeMaintenance;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeMaintenance);
+
+THIS^.arrcmdModes [E_SaMCommandChangeMode.Manual]		:= THIS^.stCmdModes.cmdChangeManual;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeManual);
+
+THIS^.arrcmdModes [E_SaMCommandChangeMode.Washing]		:= THIS^.stCmdModes.cmdChangeWashing;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeWashing);
+
+THIS^.arrcmdModes [E_SaMCommandChangeMode.Diagnostisc]	:= THIS^.stCmdModes.cmdChangeDiagnostics;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeDiagnostics);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_AddCommandChangeState" Id="{7530a13b-678f-0aa6-14bb-d0e2275487dd}" FolderPath="Initialization\">
+      <Declaration><![CDATA[METHOD PRIVATE Initialization_AddCommandChangeState : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrcmdStates [E_SaMCommandChangeState.Abort]	:= THIS^.stCmdStates.cmdChangeAbort;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeAbort);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Clear]	:= THIS^.stCmdStates.cmdChangeClear;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeClear);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Reset]	:= THIS^.stCmdStates.cmdChangeReset;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeReset);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Start]	:= THIS^.stCmdStates.cmdChangeStart;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeStart);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Stop]	:= THIS^.stCmdStates.cmdChangeStop;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeStop);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Hold]	:= THIS^.stCmdStates.cmdChangeHold;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeHold);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Unhold]	:= THIS^.stCmdStates.cmdChangeUnhold;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeUnhold);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Suspend]:= THIS^.stCmdStates.cmdChangeSuspend;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeSuspend);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Unsuspend]	:= THIS^.stCmdStates.cmdChangeUnSuspend;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeUnSuspend);
+
+THIS^.arrcmdStates [E_SaMCommandChangeState.Complete]	:= THIS^.stCmdStates.cmdChangeComplete;
+THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeComplete);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_AddModes" Id="{2b512a92-51af-0b34-2a0b-9e312b0ddf05}" FolderPath="Initialization\">
+      <Declaration><![CDATA[METHOD PRIVATE Initialization_AddModes : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrModes [E_SaMModes.Production]	:= THIS^.stModes.fbProduction;
+THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbProduction);
+THIS^.arrModes [E_SaMModes.Maintance]	:= THIS^.stModes.fbMaintenance;
+THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbMaintenance);
+THIS^.arrModes [E_SaMModes.Manual]	:= THIS^.stModes.fbManual;
+THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbManual);
+THIS^.arrModes [E_SaMModes.Washing]	:= THIS^.stModes.fbWashing;
+THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbWashing);
+THIS^.arrModes [E_SaMModes.Diagnostics]	:= THIS^.stModes.fbDiagnostics;
+THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbDiagnostics);
+
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_AddStates" Id="{c7a2785d-ca07-0767-289b-70b582ac2ba0}" FolderPath="Initialization\">
+      <Declaration><![CDATA[METHOD PRIVATE Initialization_AddStates : BOOL
+VAR_INPUT
+END_VAR
+
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO GVL_SaMConstans.NUMBER_OF_MODES DO
+	THIS^.arrStatesInModes [iI][E_SaMStates.Undefined] 		:= THIS^.arrstStates [iI].fbUndefined;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Aborting] 		:= THIS^.arrstStates [iI].fbAborting;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Aborted] 		:= THIS^.arrstStates [iI].fbAborted;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Clearing] 		:= THIS^.arrstStates [iI].fbClearing;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Stopping] 		:= THIS^.arrstStates [iI].fbStopping;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Stopped] 		:= THIS^.arrstStates [iI].fbStopped;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Resetting] 		:= THIS^.arrstStates [iI].fbResetting;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Idle] 			:= THIS^.arrstStates [iI].fbIdle;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Starting] 		:= THIS^.arrstStates [iI].fbStarting;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Execute] 		:= THIS^.arrstStates [iI].fbExecute;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Suspending]	 	:= THIS^.arrstStates [iI].fbSuspending;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Suspended] 		:= THIS^.arrstStates [iI].fbSuspended;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Unsuspending]	:= THIS^.arrstStates [iI].fbUnsuspending;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Holding] 		:= THIS^.arrstStates [iI].fbHolding;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Held] 			:= THIS^.arrstStates [iI].fbHeld;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Unholding] 		:= THIS^.arrstStates [iI].fbUnholding;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Completing] 	:= THIS^.arrstStates [iI].fbCompleting;
+	THIS^.arrStatesInModes [iI][E_SaMStates.Complete] 		:= THIS^.arrstStates [iI].fbComplete;
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbUndefined);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbAborting);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbAborted);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbClearing);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbStopping);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbStopped);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbResetting);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbIdle);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbStarting);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbExecute);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbSuspending);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbSuspended);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbUnsuspending);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbHolding);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbHeld);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbUnholding);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbCompleting);
+	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbComplete);
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_CopeEnabledMode" Id="{9caf16aa-8e17-0188-0778-feb120a747c8}" FolderPath="Initialization\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Przepisuje ustawiony stan Enebled z elementu i zapisuje go do tablisy trybów
+*)
+METHOD PRIVATE Initialization_CopeEnabledMode
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 0 TO GVL_SaMConstans.NUMBER_OF_MODES DO
+	THIS^.arrModeEnable [iI]	:= THIS^.arrModes [iI].IsEnabled ();
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_CopeEnabledStateToMode" Id="{f300e133-09be-0c0f-171e-7b6b40f26bca}" FolderPath="Initialization\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Przepisuje ustawiony stan Enebled z elementu i zapisuje go do tablisy stanów w trybach
+*)
+METHOD PRIVATE Initialization_CopeEnabledStateToMode
+VAR_INPUT
+	eMode			: E_SaMModes;
+END_VAR
+
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 0 TO GVL_SaMConstans.NUMBER_OF_STATES DO
+	THIS^.arrStateEnableInMode [eMode][iI]	:= THIS^.arrStatesInModes [eMode][iI].IsEnabled ();
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_ModeEnabled" Id="{5912d4c5-b4cd-06a3-0564-9ba3892b0b5a}" FolderPath="Initialization\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Inicjalizacja jakie tryby są właczony
+*)
+METHOD PRIVATE Initialization_ModeEnabled
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.stModes.fbProduction.SetEnabled (bIN	:= TRUE);
+THIS^.stModes.fbMaintenance.SetEnabled (bIN	:= TRUE);
+THIS^.stModes.fbManual.SetEnabled (bIN	:= TRUE);
+THIS^.stModes.fbWashing.SetEnabled (bIN	:= TRUE);
+THIS^.stModes.fbDiagnostics.SetEnabled (bIN	:= TRUE);
+THIS^.Initialization_CopeEnabledMode ();
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_ModeTransitionEnabledInState" Id="{7a55a83f-7f67-0de6-2883-392467d43383}" FolderPath="Initialization\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Ustawienie w jakim stanie trybu mozemy zmieniać tryby
+*)
+METHOD PRIVATE Initialization_ModeTransitionEnabledInState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrModeTransitionEnableInState [E_SaMModes.NotAllowed][E_SaMStates.Undefined]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Production][E_SaMStates.Undefined]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Maintance][E_SaMStates.Undefined]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Manual][E_SaMStates.Undefined]			:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Washing][E_SaMStates.Undefined]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Diagnostics][E_SaMStates.Undefined]	:= TRUE;
+
+THIS^.arrModeTransitionEnableInState [E_SaMModes.NotAllowed][E_SaMStates.Aborted]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Production][E_SaMStates.Aborted]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Maintance][E_SaMStates.Aborted]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Manual][E_SaMStates.Aborted]			:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Washing][E_SaMStates.Aborted]			:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Diagnostics][E_SaMStates.Aborted]		:= TRUE;
+
+THIS^.arrModeTransitionEnableInState [E_SaMModes.NotAllowed][E_SaMStates.Stopped]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Production][E_SaMStates.Stopped]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Maintance][E_SaMStates.Stopped]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Manual][E_SaMStates.Stopped]			:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Washing][E_SaMStates.Stopped]			:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_SaMModes.Diagnostics][E_SaMStates.Stopped]		:= TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialization_StateEnabledInMode" Id="{dc2a4a2f-5f9b-0acc-12ed-511725c24baa}" FolderPath="Initialization\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Ustawienie jakie stany sa włączone w jakim stanie
+*)
+METHOD PRIVATE Initialization_StateEnabledInMode
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Undefined].SetEnabled (bIN		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Aborting].SetEnabled (bIN		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Aborted].SetEnabled (bIN			:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Clearing].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Stopping].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Stopped].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Resetting].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Idle].SetEnabled (bIN 			:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Starting].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Execute].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Suspending].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Suspended].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Unsuspending].SetEnabled (bIN	:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Holding].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Held].SetEnabled (bIN 			:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Unholding].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Completing].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Complete].SetEnabled (bIN 		:= FALSE);
+THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.NotAllowed);
+
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Undefined].SetEnabled (bIN		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Aborting].SetEnabled (bIN		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Aborted].SetEnabled (bIN			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Clearing].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Stopping].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Stopped].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Resetting].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Idle].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Starting].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Execute].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Suspending].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Suspended].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Unsuspending].SetEnabled (bIN	:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Holding].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Held].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Unholding].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Completing].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Complete].SetEnabled (bIN 		:= TRUE);
+THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Production);
+
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Undefined].SetEnabled (bIN		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Aborting].SetEnabled (bIN			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Aborted].SetEnabled (bIN			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Clearing].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Stopping].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Stopped].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Resetting].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Idle].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Starting].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Execute].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Suspending].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Suspended].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Unsuspending].SetEnabled (bIN		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Holding].SetEnabled (bIN 			:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Held].SetEnabled (bIN 			:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Unholding].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Completing].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Complete].SetEnabled (bIN 		:= FALSE);
+THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Maintance);
+
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Undefined].SetEnabled (bIN			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Aborting].SetEnabled (bIN			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Aborted].SetEnabled (bIN				:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Clearing].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Stopping].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Stopped].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Resetting].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Idle].SetEnabled (bIN 				:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Starting].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Execute].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Suspending].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Suspended].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Unsuspending].SetEnabled (bIN		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Holding].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Held].SetEnabled (bIN 				:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Unholding].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Completing].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Complete].SetEnabled (bIN 			:= TRUE);
+THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Manual);
+
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Undefined].SetEnabled (bIN			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Aborting].SetEnabled (bIN			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Aborted].SetEnabled (bIN			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Clearing].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Stopping].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Stopped].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Resetting].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Idle].SetEnabled (bIN 				:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Starting].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Execute].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Suspending].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Suspended].SetEnabled (bIN 			:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Unsuspending].SetEnabled (bIN		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Holding].SetEnabled (bIN 			:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Held].SetEnabled (bIN 				:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Unholding].SetEnabled (bIN 			:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Completing].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Complete].SetEnabled (bIN 			:= FALSE);
+THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Washing);
+
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Undefined].SetEnabled (bIN		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Aborting].SetEnabled (bIN		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Aborted].SetEnabled (bIN		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Clearing].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Stopping].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Stopped].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Resetting].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Idle].SetEnabled (bIN 			:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Starting].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Execute].SetEnabled (bIN 		:= TRUE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Suspending].SetEnabled (bIN 	:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Suspended].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Unsuspending].SetEnabled (bIN	:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Holding].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Held].SetEnabled (bIN 			:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Unholding].SetEnabled (bIN 		:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Completing].SetEnabled (bIN 	:= FALSE);
+THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Complete].SetEnabled (bIN 		:= FALSE);
+THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Diagnostics);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetModeEnabled" Id="{a6177f68-4488-047c-30fa-8a1ad845401a}" FolderPath="ITF_SaMControllerConfigure\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Wlacza lub wylacza tryb pracy
+*)
+METHOD PUBLIC SetModeEnabled
+VAR_INPUT
+	iMode				: INT;	//numer trybu
+	bValue				: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrModes [iMode].SetEnabled (bIN	:= bValue);
+THIS^.Initialization_CopeEnabledMode ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetModeTransitionEnabledInState" Id="{8e1ba6f0-a320-0b3b-2227-dfce826a53ad}" FolderPath="ITF_SaMControllerConfigure\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Ustawianie czy w danym stanie może nastąpić zmiana trybu
+*)
+METHOD PUBLIC SetModeTransitionEnabledInState 
+VAR_INPUT
+	iMode			: INT;	//tryb
+	iState			: INT;	//stan
+	bValue			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrModeTransitionEnableInState [iMode][iState]	:= bValue;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStateEnabledInMode" Id="{e6b6b323-bcad-0d41-3b46-111e4af3451a}" FolderPath="ITF_SaMControllerConfigure\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Ustawia włączone stany w zadanym trybie
+*)
+METHOD PUBLIC SetStateEnabledInMode
+VAR_INPUT
+	iMode			: INT;	//tryb
+	iState			: INT;	//stan
+	bValue			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrStateEnableInMode [iMode][iState] 	:= bValue;
 ]]></ST>
       </Implementation>
     </Method>

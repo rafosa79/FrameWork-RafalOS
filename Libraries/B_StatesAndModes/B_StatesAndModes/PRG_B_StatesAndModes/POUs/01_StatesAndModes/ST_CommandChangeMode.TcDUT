@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_CommandChangeMode" Id="{b75752ec-7f06-0c94-055d-596f76bcbf81}">
+    <Declaration><![CDATA[TYPE ST_CommandChangeMode :
+STRUCT
+	cmdChangeProduction	 	  	: FB_CommandChangeProduction;
+	cmdChangeMaintenance		: FB_CommandChangeMaintenance;
+	cmdChangeManual		    	: FB_CommandChangeManual;
+	cmdChangeWashing		   	: FB_CommandChangeWashing;
+	cmdChangeDiagnostics		: FB_CommandChangeDiagnostics;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
