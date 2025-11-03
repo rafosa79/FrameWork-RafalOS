@@ -3,11 +3,11 @@
   <DUT Name="ST_CommandChangeMode" Id="{b75752ec-7f06-0c94-055d-596f76bcbf81}">
     <Declaration><![CDATA[TYPE ST_CommandChangeMode :
 STRUCT
-	cmdChangeProduction	 	  	: FB_CommandChange;
-	cmdChangeMaintenance		: FB_CommandChange;
-	cmdChangeManual		    	: FB_CommandChange;
-	cmdChangeWashing		   	: FB_CommandChange;
-	cmdChangeDiagnostics		: FB_CommandChange;
+	cmdChangeProduction	 	  	: FB_CommandChangeProduction;
+	cmdChangeMaintenance		: FB_CommandChangeMaintenance;
+	cmdChangeManual		    	: FB_CommandChangeManual;
+	cmdChangeWashing		   	: FB_CommandChangeWashing;
+	cmdChangeDiagnostics		: FB_CommandChangeDiagnostics;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

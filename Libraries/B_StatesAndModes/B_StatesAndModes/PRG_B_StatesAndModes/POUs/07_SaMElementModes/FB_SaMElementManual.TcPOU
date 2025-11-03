@@ -8,5 +8,20 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="FB_init" Id="{b15ce8cd-29f9-0eec-3c14-382a89447901}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Ręczny");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Manual");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Handbuch");
+THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>
