@@ -9,13 +9,32 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Execute" Id="{988757a1-ed85-080d-12ed-2884e52bb97a}">
-      <Declaration><![CDATA[METHOD Execute : BOOL
+    <Method Name="Execute" Id="{ff40543e-f6c7-0440-0ff0-634f85cf471f}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Test czy można zmienić stan lub tryb i zwraca czy można i uruchamia zmianę
+*)
+METHOD PUBLIC Execute : BOOL
 VAR_INPUT
+	iNumberOfCommand	: INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[IF (THIS^.itfSaMController.IsModeEnebles (eMode := E_SaMModes.Diagnostics)) THEN
+	IF (THIS^.itfSaMController.IsPossibleExitActiveState ()) THEN
+		IF (THIS^.itfSaMController.IsPossibleExitState (eMode := E_SaMModes.Diagnostics)) THEN
+			THIS^.itfSaMController.ChangeModeTo (eNewMode := E_SaMModes.Diagnostics);
+		ELSE
+			THIS^.EventSetActive (iNumber := 3);	//brak możlwiosći wejście do trybu w tym stanie 
+		END_IF
+	ELSE
+		THIS^.EventSetActive (iNumber := 2);	//brak możliwości wyjścia w tym stanie z tego trybu
+	END_IF
+ELSE
+	THIS^.EventSetActive (iNumber := 1);	//tryb docelowy wylaczony
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{43ad3b51-3956-02ef-381f-d2b600fa14b2}">

@@ -9,13 +9,28 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Execute" Id="{2235ee29-6bbe-09be-08c7-371bd07dbcd5}">
-      <Declaration><![CDATA[METHOD Execute : BOOL
+    <Method Name="Execute" Id="{b1aa8aaa-8518-0852-0151-9ad82e74e41a}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Test czy można zmienić stan lub tryb i zwraca czy można i uruchamia zmianę
+*)
+METHOD PUBLIC Execute : BOOL
 VAR_INPUT
+	iNumberOfCommand	: INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[IF (THIS^.itfSaMController.GetState () = E_SaMStates.Stopped OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Complete) THEN		// sprawdzenie czy jesteśmy w dobrym stanie dla tego rozkazu
+	IF (THIS^.itfSaMController.IsStateInModeEnabled (eNewState := E_SaMStates.Resetting)) THEN	//test czy stan do którego chcemy przejśc jest właczony dla tego trybu
+		THIS^.itfSaMController.ChangeStateTo (eNewState := E_SaMStates.Resetting);
+	ELSE
+		THIS^.EventSetActive (iNumber := 5);	//stan docelowy jest wylaczony w tym trybie
+	END_IF
+ELSE
+	THIS^.EventSetActive (iNumber := 4);	//ten rozkaz nie obsluguje tego stanu
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{1bcce602-1e60-0f12-1637-682824ccb327}">

@@ -6,7 +6,7 @@
 	Rafał Osajda		30.10.2025		TC 4024.66
 	Główny FB do zarządzania stanami i trybami pracy
 *)
-FUNCTION_BLOCK FB_SaMController EXTENDS FB_BaseControlElement IMPLEMENTS ITF_SaMController
+FUNCTION_BLOCK FB_SaMController EXTENDS FB_BaseTopElement IMPLEMENTS ITF_SaMController
 VAR
 (*	Polecenia zmiany stany	*)	
 	stCmdStates					: ST_CommandChangeState;
@@ -29,15 +29,91 @@ VAR
 	arrStateEnableInMode		: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ARRAY [0..GVL_SaMConstans.NUMBER_OF_STATES] OF BOOL;
 (*	W jakich stanach można przejść do innego trybu	*)
 	arrModeTransitionEnableInState	: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ARRAY [0..GVL_SaMConstans.NUMBER_OF_STATES] OF BOOL;
-
+(*	Polecenia zmiany	*)
+	cmdChangeMode				: FB_BaseCommand;
+	cmdChangeState				: FB_BaseCommand;
+(*	Zmienne		*)
+	eState						: E_SaMStates;	//aktualny stan
+	eMode						: E_SaMModes;	//aktualny tryb
+	eNewState					: E_SaMStates;	//Nowy stan
+	ePrevState					: E_SaMStates;	//poprzedni stan
+	eNewMode					: E_SaMModes;	//nowy tryb
+	ePrevMode					: E_SaMModes;	//poprzedni tryb
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Initialization" Id="{36e42ff2-7480-0d56-1afc-450089a48df2}" />
+    <Folder Name="ITF_BaseComponent" Id="{a4eda1c2-347a-018f-2a19-55fde3b3c605}" />
     <Folder Name="ITF_SaMController" Id="{c8bddf21-ded7-0091-2800-8c3c9b4e262e}" />
+    <Folder Name="ITF_SaMControllerCommandChange" Id="{dea3c85f-ea23-061e-2958-91b06b29c270}" />
     <Folder Name="ITF_SaMControllerConfigure" Id="{b9d762b5-64ba-0e23-0da8-02679c5e095d}" />
+    <Method Name="ChangeModeCycle" Id="{414aeb19-c018-007c-1c3c-f514bbd0a2d0}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		04.11.2025		TC 4024.66
+	cykl zmiany trybu
+*)
+METHOD PRIVATE ChangeModeCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE THIS^.cmdChangeMode.GetStep () OF
+	0	:
+		THIS^.ePrevMode			:= THIS^.eMode;
+		THIS^.eMode				:= THIS^.eNewMode;
+		THIS^.refarrStatesForActiveMode	REF= THIS^.arrStatesInModes [THIS^.eMode];
+		THIS^.cmdChangeMode.SetStepAsFinal ();
+END_CASE
+THIS^.cmdChangeMode.TestingLastCycle ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ChangeModeTo" Id="{6b94e17f-b8f4-087f-0f6f-660d61de79ee}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD PUBLIC ChangeModeTo
+VAR_INPUT
+	eNewMode			: E_SaMModes;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.eNewMode			:= eNewMode;
+THIS^.cmdChangeMode.Execute ();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ChangeStateCycle" Id="{ba985810-e640-0078-3ef3-fe030dd2b4f0}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		04.11.2025		TC 4024.66
+	cykl zmiany stanu
+*)
+METHOD PRIVATE ChangeStateCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE THIS^.cmdChangeState.GetStep () OF
+	0	:
+		THIS^.ePrevState		:= THIS^.eState;
+		THIS^.eState			:= THIS^.eNewState;
+		THIS^.cmdChangeState.SetStepAsFinal ();
+END_CASE
+THIS^.cmdChangeState.TestingLastCycle ();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ChangeStateTo" Id="{628f54fb-c326-0184-1055-f36dc1e3eef6}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD PUBLIC ChangeStateTo
+VAR_INPUT
+	eNewState			: E_SaMStates;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.eNewState			:= eNewState;
+THIS^.cmdChangeState.Execute ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Execute" Id="{608fbfab-efd0-0a43-132b-9ced413e3cf8}" FolderPath="ITF_SaMController\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -47,10 +123,88 @@ END_VAR
 METHOD Execute : BOOL
 VAR_INPUT
 	iNumberOfCommand		: INT;
+	eChangeCategory			: E_SaMChangeCategory;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CASE eChangeCategory OF
+	E_SaMChangeCategory.eState	:
+		THIS^.arrcmdStates [iNumberOfCommand].Execute (iNumberOfCommand	:= iNumberOfCommand);
+	E_SaMChangeCategory.eMode	:
+		THIS^.arrcmdModes [iNumberOfCommand].Execute (iNumberOfCommand	:= iNumberOfCommand);
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Error" Id="{7d2915c0-b860-0ae5-1527-3f4383f1e352}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
+*)
+METHOD PUBLIC ExecuteEveryCycle_Error
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Error ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Operation" Id="{fce1133f-4269-083a-3196-447fd3d305da}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Wywolanie co cykl operacji 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Operation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Operation ();
+
+IF (THIS^.cmdChangeMode.OperationExecute ()) THEN
+	THIS^.cmdChangeMode.Operation (bIN := THIS^.ChangeModeCycle ());
+END_IF
+
+IF (THIS^.cmdChangeState.OperationExecute ()) THEN
+	THIS^.cmdChangeState.Operation (bIN := THIS^.ChangeStateCycle ());
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Status" Id="{efc19d29-865a-0cf3-3de7-0ea6cd45bbeb}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Aktualizacja flag 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Status
+VAR_INST
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Status ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Test" Id="{ece18da2-ea2a-0733-0204-177085361f4d}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Testowanie czy nei pojawil sie jakis rozkaz i uruchomienie odpowiednich operacji
+*)
+METHOD PUBLIC ExecuteEveryCycle_Test
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Test ();
+
+THIS^.cmdChangeMode.Test ();
+THIS^.cmdChangeState.Test ();
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{8f55a5c3-a0eb-0deb-011c-23bf5df2ad6a}" FolderPath="Initialization\">
@@ -72,9 +226,29 @@ THIS^.Initialization_AddModes ();
 THIS^.Initialization_AddCommandChangeState ();
 THIS^.Initialization_AddCommandChangeModes ();
 
-THIS^.Initialization_ModeEnabled ();
-THIS^.Initialization_ModeTransitionEnabledInState ();
 THIS^.Initialization_StateEnabledInMode ();
+THIS^.Initialization_ModeTransitionEnabledInState ();
+THIS^.Initialization_ModeEnabled ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetMode" Id="{df3fefc4-9266-079c-2077-340c16420786}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC GetMode : E_SaMModes
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetMode			:= THIS^.eMode;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetState" Id="{e651e76f-e8a9-016f-279f-b41f48a21ac0}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC GetState : E_SaMStates
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetState			:= THIS^.eState;
 ]]></ST>
       </Implementation>
     </Method>
@@ -84,20 +258,26 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.arrcmdModes [E_SaMCommandChangeMode.Production]	:= THIS^.stCmdModes.cmdChangeProduction;
+        <ST><![CDATA[
+THIS^.arrcmdModes [E_SaMCommandChangeMode.Production]	:= THIS^.stCmdModes.cmdChangeProduction;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeProduction);
+THIS^.stCmdModes.cmdChangeProduction.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdModes [E_SaMCommandChangeMode.Maintenance]	:= THIS^.stCmdModes.cmdChangeMaintenance;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeMaintenance);
+THIS^.stCmdModes.cmdChangeMaintenance.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdModes [E_SaMCommandChangeMode.Manual]		:= THIS^.stCmdModes.cmdChangeManual;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeManual);
+THIS^.stCmdModes.cmdChangeManual.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdModes [E_SaMCommandChangeMode.Washing]		:= THIS^.stCmdModes.cmdChangeWashing;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeWashing);
+THIS^.stCmdModes.cmdChangeWashing.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdModes [E_SaMCommandChangeMode.Diagnostisc]	:= THIS^.stCmdModes.cmdChangeDiagnostics;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdModes.cmdChangeDiagnostics);
+THIS^.stCmdModes.cmdChangeDiagnostics.LinkSaMCotroller (itfSaMController	:= THIS^);
 ]]></ST>
       </Implementation>
     </Method>
@@ -109,33 +289,43 @@ END_VAR
       <Implementation>
         <ST><![CDATA[THIS^.arrcmdStates [E_SaMCommandChangeState.Abort]	:= THIS^.stCmdStates.cmdChangeAbort;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeAbort);
+THIS^.stCmdStates.cmdChangeAbort.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Clear]	:= THIS^.stCmdStates.cmdChangeClear;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeClear);
+THIS^.stCmdStates.cmdChangeClear.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Reset]	:= THIS^.stCmdStates.cmdChangeReset;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeReset);
+THIS^.stCmdStates.cmdChangeReset.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Start]	:= THIS^.stCmdStates.cmdChangeStart;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeStart);
+THIS^.stCmdStates.cmdChangeStart.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Stop]	:= THIS^.stCmdStates.cmdChangeStop;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeStop);
+THIS^.stCmdStates.cmdChangeStop.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Hold]	:= THIS^.stCmdStates.cmdChangeHold;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeHold);
+THIS^.stCmdStates.cmdChangeHold.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Unhold]	:= THIS^.stCmdStates.cmdChangeUnhold;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeUnhold);
+THIS^.stCmdStates.cmdChangeUnhold.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Suspend]:= THIS^.stCmdStates.cmdChangeSuspend;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeSuspend);
+THIS^.stCmdStates.cmdChangeSuspend.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Unsuspend]	:= THIS^.stCmdStates.cmdChangeUnSuspend;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeUnSuspend);
+THIS^.stCmdStates.cmdChangeSuspend.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Complete]	:= THIS^.stCmdStates.cmdChangeComplete;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeComplete);
+THIS^.stCmdStates.cmdChangeComplete.LinkSaMCotroller (itfSaMController	:= THIS^);
 ]]></ST>
       </Implementation>
     </Method>
@@ -145,7 +335,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.arrModes [E_SaMModes.Production]	:= THIS^.stModes.fbProduction;
+        <ST><![CDATA[THIS^.arrModes [E_SaMModes.NotAllowed]	:= THIS^.stModes.fbUndefined;
+THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbUndefined);
+THIS^.arrModes [E_SaMModes.Production]	:= THIS^.stModes.fbProduction;
 THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbProduction);
 THIS^.arrModes [E_SaMModes.Maintance]	:= THIS^.stModes.fbMaintenance;
 THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbMaintenance);
@@ -170,7 +362,7 @@ VAR
 	iI: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[FOR iI := 1 TO GVL_SaMConstans.NUMBER_OF_MODES DO
+        <ST><![CDATA[FOR iI := 0 TO GVL_SaMConstans.NUMBER_OF_MODES DO
 	THIS^.arrStatesInModes [iI][E_SaMStates.Undefined] 		:= THIS^.arrstStates [iI].fbUndefined;
 	THIS^.arrStatesInModes [iI][E_SaMStates.Aborting] 		:= THIS^.arrstStates [iI].fbAborting;
 	THIS^.arrStatesInModes [iI][E_SaMStates.Aborted] 		:= THIS^.arrstStates [iI].fbAborted;
@@ -223,7 +415,9 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[FOR iI := 0 TO GVL_SaMConstans.NUMBER_OF_MODES DO
-	THIS^.arrModeEnable [iI]	:= THIS^.arrModes [iI].IsEnabled ();
+	IF (THIS^.arrModes [iI] <> 0) THEN
+		THIS^.arrModeEnable [iI]	:= THIS^.arrModes [iI].IsEnabled ();
+	END_IF
 END_FOR]]></ST>
       </Implementation>
     </Method>
@@ -243,8 +437,11 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[FOR iI := 0 TO GVL_SaMConstans.NUMBER_OF_STATES DO
-	THIS^.arrStateEnableInMode [eMode][iI]	:= THIS^.arrStatesInModes [eMode][iI].IsEnabled ();
-END_FOR]]></ST>
+	IF (THIS^.arrStatesInModes [eMode][iI] <> 0) THEN
+		THIS^.arrStateEnableInMode [eMode][iI]	:= THIS^.arrStatesInModes [eMode][iI].IsEnabled ();
+	END_IF
+END_FOR
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Initialization_ModeEnabled" Id="{5912d4c5-b4cd-06a3-0564-9ba3892b0b5a}" FolderPath="Initialization\">
@@ -258,7 +455,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.stModes.fbProduction.SetEnabled (bIN	:= TRUE);
+        <ST><![CDATA[THIS^.stModes.fbUndefined.SetEnabled (bIN	:= TRUE);
+THIS^.stModes.fbProduction.SetEnabled (bIN	:= TRUE);
 THIS^.stModes.fbMaintenance.SetEnabled (bIN	:= TRUE);
 THIS^.stModes.fbManual.SetEnabled (bIN	:= TRUE);
 THIS^.stModes.fbWashing.SetEnabled (bIN	:= TRUE);
@@ -313,125 +511,229 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Undefined].SetEnabled (bIN		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Aborting].SetEnabled (bIN		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Aborted].SetEnabled (bIN			:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Clearing].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Stopping].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Stopped].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Resetting].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Idle].SetEnabled (bIN 			:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Starting].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Execute].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Suspending].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Suspended].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Unsuspending].SetEnabled (bIN	:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Holding].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Held].SetEnabled (bIN 			:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Unholding].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Completing].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.NotAllowed][E_SaMStates.Complete].SetEnabled (bIN 		:= FALSE);
+        <ST><![CDATA[THIS^.arrstStates [E_SaMModes.NotAllowed].fbUndefined.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbAborting.SetEnabled (bIN		:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbAborted.SetEnabled (bIN			:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbClearing.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbStopping.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbStopped.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbResetting.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbIdle.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbStarting.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbExecute.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbSuspending.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbSuspended.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbUnsuspending.SetEnabled (bIN	:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbHolding.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbHeld.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbUnholding.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbCompleting.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.NotAllowed].fbComplete.SetEnabled (bIN 		:= FALSE);
 THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.NotAllowed);
 
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Undefined].SetEnabled (bIN		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Aborting].SetEnabled (bIN		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Aborted].SetEnabled (bIN			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Clearing].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Stopping].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Stopped].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Resetting].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Idle].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Starting].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Execute].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Suspending].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Suspended].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Unsuspending].SetEnabled (bIN	:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Holding].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Held].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Unholding].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Completing].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Production][E_SaMStates.Complete].SetEnabled (bIN 		:= TRUE);
+
+THIS^.arrstStates [E_SaMModes.Production].fbUndefined.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbAborting.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbAborted.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbClearing.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbStopping.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbStopped.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbResetting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbIdle.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbStarting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbExecute.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbSuspending.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbSuspended.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbUnsuspending.SetEnabled (bIN	:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbHolding.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbHeld.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbUnholding.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbCompleting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Production].fbComplete.SetEnabled (bIN 		:= TRUE);
 THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Production);
 
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Undefined].SetEnabled (bIN		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Aborting].SetEnabled (bIN			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Aborted].SetEnabled (bIN			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Clearing].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Stopping].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Stopped].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Resetting].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Idle].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Starting].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Execute].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Suspending].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Suspended].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Unsuspending].SetEnabled (bIN		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Holding].SetEnabled (bIN 			:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Held].SetEnabled (bIN 			:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Unholding].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Completing].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Maintance][E_SaMStates.Complete].SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbUndefined.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbAborting.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbAborted.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbClearing.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbStopping.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbStopped.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbResetting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbIdle.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbStarting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbExecute.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbSuspending.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbSuspended.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbUnsuspending.SetEnabled (bIN		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbHolding.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbHeld.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbUnholding.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbCompleting.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Maintance].fbComplete.SetEnabled (bIN 		:= FALSE);
 THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Maintance);
 
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Undefined].SetEnabled (bIN			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Aborting].SetEnabled (bIN			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Aborted].SetEnabled (bIN				:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Clearing].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Stopping].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Stopped].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Resetting].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Idle].SetEnabled (bIN 				:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Starting].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Execute].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Suspending].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Suspended].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Unsuspending].SetEnabled (bIN		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Holding].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Held].SetEnabled (bIN 				:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Unholding].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Completing].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Manual][E_SaMStates.Complete].SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbUndefined.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbAborting.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbAborted.SetEnabled (bIN				:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbClearing.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbStopping.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbStopped.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbResetting.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbIdle.SetEnabled (bIN 				:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbStarting.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbExecute.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbSuspending.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbSuspended.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbUnsuspending.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbHolding.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbHeld.SetEnabled (bIN 				:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbUnholding.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbCompleting.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Manual].fbComplete.SetEnabled (bIN 			:= TRUE);
 THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Manual);
 
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Undefined].SetEnabled (bIN			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Aborting].SetEnabled (bIN			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Aborted].SetEnabled (bIN			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Clearing].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Stopping].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Stopped].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Resetting].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Idle].SetEnabled (bIN 				:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Starting].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Execute].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Suspending].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Suspended].SetEnabled (bIN 			:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Unsuspending].SetEnabled (bIN		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Holding].SetEnabled (bIN 			:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Held].SetEnabled (bIN 				:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Unholding].SetEnabled (bIN 			:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Completing].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Washing][E_SaMStates.Complete].SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_SaMModes.Washing].fbUndefined.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Washing].fbAborting.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Washing].fbAborted.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Washing].fbClearing.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Washing].fbStopping.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Washing].fbStopped.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Washing].fbResetting.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Washing].fbIdle.SetEnabled (bIN 				:= TRUE);
+THIS^.arrstStates [E_SaMModes.Washing].fbStarting.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Washing].fbExecute.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Washing].fbSuspending.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Washing].fbSuspended.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_SaMModes.Washing].fbUnsuspending.SetEnabled (bIN		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Washing].fbHolding.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_SaMModes.Washing].fbHeld.SetEnabled (bIN 				:= FALSE);
+THIS^.arrstStates [E_SaMModes.Washing].fbUnholding.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_SaMModes.Washing].fbCompleting.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Washing].fbComplete.SetEnabled (bIN 			:= FALSE);
 THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Washing);
 
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Undefined].SetEnabled (bIN		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Aborting].SetEnabled (bIN		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Aborted].SetEnabled (bIN		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Clearing].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Stopping].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Stopped].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Resetting].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Idle].SetEnabled (bIN 			:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Starting].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Execute].SetEnabled (bIN 		:= TRUE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Suspending].SetEnabled (bIN 	:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Suspended].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Unsuspending].SetEnabled (bIN	:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Holding].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Held].SetEnabled (bIN 			:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Unholding].SetEnabled (bIN 		:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Completing].SetEnabled (bIN 	:= FALSE);
-THIS^.arrStatesInModes [E_SaMModes.Diagnostics][E_SaMStates.Complete].SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbUndefined.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbAborting.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbAborted.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbClearing.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbStopping.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbStopped.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbResetting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbIdle.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbStarting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbExecute.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbSuspending.SetEnabled (bIN 	:= FALSE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbSuspended.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbUnsuspending.SetEnabled (bIN	:= FALSE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbHolding.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbHeld.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbUnholding.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbCompleting.SetEnabled (bIN 	:= FALSE);
+THIS^.arrstStates [E_SaMModes.Diagnostics].fbComplete.SetEnabled (bIN 		:= FALSE);
 THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Diagnostics);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeModeBusy" Id="{27f468b3-8c6e-0b25-0376-19a7957fed46}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeModeBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeModeBusy		:= THIS^.cmdChangeMode.IsBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeModeDone" Id="{11624add-7cf7-064d-1293-942cd04c052f}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeModeDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeModeDone		:= THIS^.cmdChangeMode.IsDone ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeModeStatus" Id="{4a89fd0d-9401-0402-15d0-686614f26d33}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeModeStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeModeStatus		:= THIS^.cmdChangeMode.IsStatus ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeStateBusy" Id="{8332f72f-1927-0e74-2e69-63470ebd1419}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeStateBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeStateBusy		:= THIS^.cmdChangeState.IsBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeStateDone" Id="{1fa27fa4-f8fc-0233-01ff-b0111394a129}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeStateDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeStateDone		:= THIS^.cmdChangeState.IsDone ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeStateStatus" Id="{f33bda38-41ba-0223-10fa-20c9fb40adbf}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeStateStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeStateStatus		:= THIS^.cmdChangeState.IsStatus ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsModeEnebles" Id="{ba118139-1c1b-0f84-1e39-4e98f108464d}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD IsModeEnebles : BOOL
+VAR_INPUT
+	eMode			: E_SaMModes;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsModeEnebles		:= THIS^.arrModeEnable [eMode];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsPossibleExitActiveState" Id="{5a124e67-92fc-05a7-3c2a-49a85f4a9ae2}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD IsPossibleExitActiveState : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsPossibleExitActiveState	:= THIS^.IsPossibleExitState (eMode := THIS^.eMode);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsPossibleExitState" Id="{64bec622-8222-09ec-1977-c38277b5e18a}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD IsPossibleExitState : BOOL
+VAR_INPUT
+	eMode		: E_SaMModes;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsPossibleExitState		:= THIS^.arrModeTransitionEnableInState [eMode][THIS^.eState];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsStateInModeEnabled" Id="{0076f71f-25de-0166-149a-720af9605ad5}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD PUBLIC IsStateInModeEnabled : BOOL
+VAR_INPUT
+	eNewState			: E_SaMStates;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStateInModeEnabled		:= THIS^.arrStateEnableInMode [THIS^.eMode][eNewState];
 ]]></ST>
       </Implementation>
     </Method>

@@ -3,19 +3,107 @@
   <POU Name="FB_CommandChange" Id="{2908caa6-01fe-00f1-181a-1acec604552c}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_CommandChange EXTENDS FB_BaseComponent IMPLEMENTS ITF_CommandChange
 VAR
-
+	itfSaMController				: ITF_SaMControllerCommandChange;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Events" Id="{b0fd9ca9-de98-0582-3a6f-dee4e432df83}" />
+    <Method Name="EventsDefinition" Id="{78a05ebb-99d3-06cc-14c5-dd8ae9d402d9}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.EventsDefinition ();
+(*	1	*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie trybu - tryb docelowy jest wyłączony");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+(*	2	*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie trybu - brak możliwości wyjścia z trybu");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+(*	3	*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie trybu - brak możliwości wejścia do trybu");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+(*	4	*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie stanu - te polecenie nie obsługuje tego stanu");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+(*	5	*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie stanu - decelowy stan jest wyłączony");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Execute" Id="{3e1ea8aa-acdf-0fb7-0ce9-e01f53a6e468}">
-      <Declaration><![CDATA[METHOD Execute : BOOL
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Test czy można zmienić stan lub tryb i zwraca czy można i uruchamia zmianę
+*)
+METHOD PUBLIC Execute : BOOL
 VAR_INPUT
+	iNumberOfCommand	: INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkSaMCotroller" Id="{a1ee9fff-ed2f-0895-2d8b-6d4b59c9eb07}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Podłączenie sterowania do SaMController
+*)
+METHOD PUBLIC LinkSaMCotroller : BOOL
+VAR_INPUT
+	itfSaMController		: ITF_SaMControllerCommandChange;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfSaMController		:= itfSaMController;
+]]></ST>
       </Implementation>
     </Method>
   </POU>

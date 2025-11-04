@@ -9,13 +9,41 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Execute" Id="{23bfd944-a4bf-095e-1815-87c41ef5286f}">
-      <Declaration><![CDATA[METHOD Execute : BOOL
+    <Method Name="Execute" Id="{f687e002-1150-0d08-0c51-943c2add8d6e}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Test czy można zmienić stan lub tryb i zwraca czy można i uruchamia zmianę
+*)
+METHOD PUBLIC Execute : BOOL
 VAR_INPUT
+	iNumberOfCommand	: INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[IF (THIS^.itfSaMController.GetState () = E_SaMStates.Resetting OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Idle OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Starting OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Suspending OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Suspended OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Unsuspending OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Holding OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Held OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Unholding OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Completing OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Complete OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Stopped OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Stopping OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Clearing OR
+	THIS^.itfSaMController.GetState () = E_SaMStates.Undefined) THEN		// sprawdzenie czy jesteśmy w dobrym stanie dla tego rozkazu
+	IF (THIS^.itfSaMController.IsStateInModeEnabled (eNewState := E_SaMStates.Aborting)) THEN	//test czy stan do którego chcemy przejśc jest właczony dla tego trybu
+		THIS^.itfSaMController.ChangeStateTo (eNewState := E_SaMStates.Aborting);
+	ELSE
+		THIS^.EventSetActive (iNumber := 5);	//stan docelowy jest wylaczony w tym trybie
+	END_IF
+ELSE
+	THIS^.EventSetActive (iNumber := 4);	//ten rozkaz nie obsluguje tego stanu
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{cc9b24b8-7883-0274-0f42-2fb69035f999}">

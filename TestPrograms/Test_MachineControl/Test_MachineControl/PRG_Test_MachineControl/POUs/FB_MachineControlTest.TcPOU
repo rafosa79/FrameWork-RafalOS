@@ -3,14 +3,15 @@
   <POU Name="FB_MachineControlTest" Id="{5b881a74-9d5c-46c4-a8bf-b8b08c44b3e1}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MachineControlTest EXTENDS TcUnit.FB_TestSuite
 VAR
-
+	bKoniec			: BOOL;
+	iTest			: INT;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-T01_TestPierwszegoPrzejscia ();
-T02_TestInicjalizacjiSaM ();
-]]></ST>
+      <ST><![CDATA[T01_TestPierwszegoPrzejscia ();
+T02_WiazanieZmiennychDoTMPSaM ();
+T03_TestZmianyTrybow ();
+T04_TestZmianyStanow ();]]></ST>
     </Implementation>
     <Method Name="T01_TestPierwszegoPrzejscia" Id="{0d0c69ca-949f-4ad6-872b-dc43bf3a60dd}">
       <Declaration><![CDATA[METHOD PROTECTED T01_TestPierwszegoPrzejscia
@@ -19,6 +20,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestPierwszegoPrzejscia')) THEN
+	itest	:= 1;
 	PRG_SystemControlMachineInit ();	//<- do prawdziwego programu
 	AssertEquals_INT (Expected := 0, Actual := GVL_SystemVariable.fbMachineConfigure.iNubmerOfAddedConfigure, Message := 'T01_01 - blad ilosci konfiguracji');
 
@@ -38,14 +40,15 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="T02_TestInicjalizacjiSaM" Id="{583b6d05-622b-46bb-a657-b3811ed8be9a}">
-      <Declaration><![CDATA[METHOD PROTECTED T02_TestInicjalizacjiSaM
+    <Method Name="T02_WiazanieZmiennychDoTMPSaM" Id="{583b6d05-622b-46bb-a657-b3811ed8be9a}">
+      <Declaration><![CDATA[METHOD PROTECTED T02_WiazanieZmiennychDoTMPSaM
 VAR
 	
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestInicjalizacjiSaM')) THEN
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_WiazanieZmiennychDoTMPSaM')) THEN
+	itest	:= 2;
 	GVL_Variable.stCommonData.itfTime			:= GVL_Variable.fbTime;
 	GVL_Variable.stCommonData.itfLocaciotn		:= GVL_Variable.fbLocation;
 	GVL_Variable.stCommonData.itfLogger			:= GVL_Variable.fbLogger;
@@ -55,6 +58,359 @@ END_VAR
 	
 	TcUnit.TEST_FINISHED ();
 END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T03_TestZmianyTrybow" Id="{5469be13-1d91-44c4-b4de-b3d46662b355}">
+      <Declaration><![CDATA[METHOD PRIVATE T03_TestZmianyTrybow
+VAR_INST
+	iStep			: INT;
+	eNewMode		: E_SAMMODES;
+	eActualMode		: E_SaMModes;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T03_TestZmianyTrybow')) THEN
+	GVL_Variable.fbMySaMController.ExecuteEveryCycle_Test ();
+	GVL_Variable.fbMySaMController.ExecuteEveryCycle_Operation ();
+	GVL_Variable.fbMySaMController.ExecuteEveryCycle_Status ();
+	GVL_Variable.fbMySaMController.ExecuteEveryCycle_Error ();
+	CASE iStep OF
+	0	:
+		itest	:= 3;
+		eNewMode			:= E_SaMModes.Production;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
+		iStep	:= iStep + 10;
+	10	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S10 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S10 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S10 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	20	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S20 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (),	Message := 'S20 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S20 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	30	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S30 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S30 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), 	Message := 'S30 - T03 - Bledny stan status');
+		eActualMode				:= GVL_Variable.fbMySaMController.GetMode ();
+		AssertEquals (Expected := eNewMode, Actual := eActualMode, 						Message := 'S30 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	40	:
+		iStep	:= iStep + 10;
+	50	:
+		eNewMode			:= E_SaMModes.Maintance;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
+		iStep	:= iStep + 10;
+	60	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S60 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S60 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S60 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	70	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S70 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (),	Message := 'S70 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S70 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	80	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S80 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S80 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), 	Message := 'S80 - T03 - Bledny stan status');
+		eActualMode				:= GVL_Variable.fbMySaMController.GetMode ();
+		AssertEquals (Expected := eNewMode, Actual := eActualMode, 						Message := 'S80 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	90	:
+		iStep	:= iStep + 10;
+	100	:
+		eNewMode			:= E_SaMModes.Manual;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
+		iStep	:= iStep + 10;
+	110	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S110 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S110 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S110 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	120	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S120 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (),	Message := 'S120 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S120 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	130	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S130 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S130 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), 	Message := 'S130 - T03 - Bledny stan status');
+		eActualMode				:= GVL_Variable.fbMySaMController.GetMode ();
+		AssertEquals (Expected := eNewMode, Actual := eActualMode, 						Message := 'S130 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	140	:
+		iStep	:= iStep + 10;
+	150	:
+		eNewMode			:= E_SaMModes.Production;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
+		iStep	:= iStep + 10;
+	160	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S160 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S160 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S160 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	170	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S170 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (),	Message := 'S170 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S170 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	180	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S180 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S180 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), 	Message := 'S180 - T03 - Bledny stan status');
+		eActualMode				:= GVL_Variable.fbMySaMController.GetMode ();
+		AssertEquals (Expected := eNewMode, Actual := eActualMode, 						Message := 'S180 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	190	:	//jest w produkcji wyłączamy manual i próba wejścia 
+		GVL_Variable.fbMySaMController.SetModeEnabled (iMode := E_SaMModes.Manual, bValue := FALSE);
+		iStep	:= iStep + 10;
+	200	:
+		eNewMode			:= E_SaMModes.Manual;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
+		iStep	:= iStep + 10;
+	210	:	//pierwszy krok 
+		Assertfalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S210 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S210 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S210 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	220	:	//jest w produkcji włączamy manual i próba wejścia 
+		GVL_Variable.fbMySaMController.SetModeEnabled (iMode := E_SaMModes.Manual, bValue := TRUE);
+		iStep	:= iStep + 10;
+	230	:
+		eNewMode			:= E_SaMModes.Manual;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
+		iStep	:= iStep + 10;
+	240	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S240 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S240 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S240 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	250	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S250 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (),	Message := 'S250 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S250 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	260	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S260 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S260 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), 	Message := 'S260 - T03 - Bledny stan status');
+		eActualMode				:= GVL_Variable.fbMySaMController.GetMode ();
+		AssertEquals (Expected := eNewMode, Actual := eActualMode, 						Message := 'S260 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	270	:
+		eNewMode			:= E_SaMModes.Production;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
+		iStep	:= iStep + 10;
+	280	:	//pierwszy krok 
+		iStep	:= iStep + 10;
+	290	://krok zmiany stanu
+		iStep	:= iStep + 10;
+	300	:	//ostani krok 
+		eActualMode				:= GVL_Variable.fbMySaMController.GetMode ();
+		AssertEquals (Expected := eNewMode, Actual := eActualMode, 						Message := 'S300 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	310	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T04_TestZmianyStanow" Id="{fa0058d3-60d5-4f33-9b04-f97980ce1105}">
+      <Declaration><![CDATA[METHOD PRIVATE T04_TestZmianyStanow
+VAR_INST
+	iStep			: INT;
+	eNewState		: E_SaMStates;
+	eActualState	: E_SaMStates;
+
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T04_TestZmianyStanow')) THEN
+	GVL_Variable.fbMySaMController.ExecuteEveryCycle_Test ();
+	GVL_Variable.fbMySaMController.ExecuteEveryCycle_Operation ();
+	GVL_Variable.fbMySaMController.ExecuteEveryCycle_Status ();
+	GVL_Variable.fbMySaMController.ExecuteEveryCycle_Error ();
+	CASE iStep OF
+	0	:
+		itest	:= 4;
+(*	*)	eNewState			:= E_SaMStates.Aborting;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := E_SaMCommandChangeState.Abort, eChangeCategory := E_SaMChangeCategory.eState);
+		iStep	:= iStep + 10;
+	10	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S10 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S10 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S10 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	20	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S20 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (),		Message := 'S20 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S20 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	30	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S30 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S30 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S30 - T03 - Bledny stan status');
+		eActualState				:= GVL_Variable.fbMySaMController.GetState ();
+		AssertEquals (Expected := eNewState, Actual := eActualState, 						Message := 'S30 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	40	:
+		iStep	:= iStep + 10;
+	50	:	
+(*	*)	eNewState	:= E_SaMStates.Aborted;
+		GVL_Variable.fbMySaMController.ChangeStateTo (eNewState := eNewState);
+		iStep	:= iStep + 10;
+	60	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S60 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S60 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S60 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	70	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S70 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (),		Message := 'S70 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S70 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	80	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S80 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S80 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S80 - T03 - Bledny stan status');
+		eActualState				:= GVL_Variable.fbMySaMController.GetState ();
+		AssertEquals (Expected := eNewState, Actual := eActualState, 						Message := 'S80 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	90	:
+		iStep	:= iStep + 10;
+	100	:
+(*	*)	eNewState			:= E_SaMStates.Clearing;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := E_SaMCommandChangeState.Clear, eChangeCategory := E_SaMChangeCategory.eState);
+		iStep	:= iStep + 10;
+	110	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S110 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S110 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S110 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	120	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S120 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (),		Message := 'S120 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S120 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	130	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S130 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S130 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S130 - T03 - Bledny stan status');
+		eActualState				:= GVL_Variable.fbMySaMController.GetState ();
+		AssertEquals (Expected := eNewState, Actual := eActualState, 						Message := 'S130 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	140	:
+		iStep	:= iStep + 10;
+	150	:
+(*	*)	eNewState			:= E_SaMStates.Stopped;
+		GVL_Variable.fbMySaMController.ChangeStateTo (eNewState := eNewState);
+		iStep	:= iStep + 10;		
+	160	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S160 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S160 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S160 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	170	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S170 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (),		Message := 'S170 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S170 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	180	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S180 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S180 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S180 - T03 - Bledny stan status');
+		eActualState				:= GVL_Variable.fbMySaMController.GetState ();
+		AssertEquals (Expected := eNewState, Actual := eActualState, 						Message := 'S180 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	190	:	//przjescie do aborting
+(*	*)	eNewState			:= E_SaMStates.Aborting;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := E_SaMCommandChangeState.Abort, eChangeCategory := E_SaMChangeCategory.eState);
+		iStep	:= iStep + 10;
+	200	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S200 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S200 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S200 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	210	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S210 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (),		Message := 'S210 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S210 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	220	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S220 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S220 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S220 - T03 - Bledny stan status');
+		eActualState				:= GVL_Variable.fbMySaMController.GetState ();
+		AssertEquals (Expected := eNewState, Actual := eActualState, 						Message := 'S220 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	230	:
+		iStep	:= iStep + 10;
+	240	:	
+(*	*)	eNewState			:= E_SaMStates.Aborted;
+		GVL_Variable.fbMySaMController.ChangeStateTo (eNewState := eNewState);
+		iStep	:= iStep + 10;		
+	250	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S250 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S250 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S250 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	260	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S260 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (),		Message := 'S260 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S260 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	270	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S270 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S270 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S270 - T03 - Bledny stan status');
+		eActualState				:= GVL_Variable.fbMySaMController.GetState ();
+		AssertEquals (Expected := eNewState, Actual := eActualState, 						Message := 'S270 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	280	:
+		GVL_Variable.fbMySaMController.SetStateEnabledInMode (iMode := E_SaMModes.Production, iState := E_SaMStates.Clearing, bValue := FALSE);
+		iStep	:= iStep + 10;
+	290	:
+(*	*)	eNewState			:= E_SaMStates.Clearing;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := E_SaMCommandChangeState.Clear, eChangeCategory := E_SaMChangeCategory.eState);
+		iStep	:= iStep + 10;
+	300	:	//pierwszy krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S300 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S300 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S300 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	310	:
+		GVL_Variable.fbMySaMController.SetStateEnabledInMode (iMode := E_SaMModes.Production, iState := E_SaMStates.Clearing, bValue := TRUE);
+		iStep	:= iStep + 10;
+	320	:
+(*	*)	eNewState			:= E_SaMStates.Clearing;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := E_SaMCommandChangeState.Clear, eChangeCategory := E_SaMChangeCategory.eState);
+		iStep	:= iStep + 10;
+	330	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S330 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S330 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S330 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	340	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S340 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (),		Message := 'S340 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S340 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	350	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeStateBusy (), 		Message := 'S350 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateDone (), 		Message := 'S350 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S350 - T03 - Bledny stan status');
+		eActualState				:= GVL_Variable.fbMySaMController.GetState ();
+		AssertEquals (Expected := eNewState, Actual := eActualState, 						Message := 'S350 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	360	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+END_IF
+]]></ST>
       </Implementation>
     </Method>
   </POU>

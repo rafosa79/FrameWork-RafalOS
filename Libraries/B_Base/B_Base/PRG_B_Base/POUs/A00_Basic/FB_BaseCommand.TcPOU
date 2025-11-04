@@ -23,7 +23,12 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Method Name="Abort" Id="{654d236c-c6f7-0834-0dd9-3c34634e2ec1}">
-      <Declaration><![CDATA[METHOD PUBLIC Abort
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		04.11.2025		TC 4024.66
+	Przerwanie pracy polecenia i wyzerowanie zmiennych wystawienie zmiennej Abort
+*)
+METHOD PUBLIC Abort
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -41,73 +46,18 @@ THIS^.bAborted							:= TRUE;
       </Implementation>
     </Method>
     <Method Name="Execute" Id="{305fc6c1-129b-095b-3ee6-b758c4dff241}">
-      <Declaration><![CDATA[METHOD PUBLIC Execute
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		04.11.2025		TC 4024.66
+	Uruchomienie polecenia
+*)
+METHOD PUBLIC Execute
 VAR_INPUT
 	
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.bExecute			:= TRUE;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetAborted" Id="{fa7fde8b-48e0-019c-0513-892f3e9c8056}">
-      <Declaration><![CDATA[METHOD PUBLIC GetAborted : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[GetAborted			:= THIS^.bAborted;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetBusy" Id="{9fb27f90-4f10-08c2-1017-dd41e6f351c7}">
-      <Declaration><![CDATA[METHOD PUBLIC GetBusy : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[GetBusy			:= THIS^.bBusy;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetDone" Id="{0539a3ec-208d-070d-0cbf-389e3d77aee5}">
-      <Declaration><![CDATA[METHOD PUBLIC GetDone : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[GetDone		:= THIS^.bDone;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetFirstCycle" Id="{21c262c5-69b6-0f4d-3d26-e252ba31daa4}">
-      <Declaration><![CDATA[METHOD PUBLIC GetFirstCycle : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[GetFirstCycle				:= THIS^.bFirstCycle;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetLastCycle" Id="{9e7d887b-95a2-0fd4-2d72-97d77cd65a4f}">
-      <Declaration><![CDATA[METHOD PUBLIC GetLastCycle : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[GetLastCycle				:= THIS^.bLastCycle;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetStatus" Id="{6115b59a-da09-0c40-0662-66a8b03c42e1}">
-      <Declaration><![CDATA[METHOD PUBLIC GetStatus : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[GetStatus		:= THIS^.bStatus;
 ]]></ST>
       </Implementation>
     </Method>
@@ -118,6 +68,81 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetStep				:= THIS^.iExternalCommandMethodStep;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsAborted" Id="{fa7fde8b-48e0-019c-0513-892f3e9c8056}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		04.11.2025		TC 4024.66
+	Zwraca czy rozkaz został przerwany
+*)
+METHOD PUBLIC IsAborted : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsAborted			:= THIS^.bAborted;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsBusy" Id="{9fb27f90-4f10-08c2-1017-dd41e6f351c7}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		04.11.2025		TC 4024.66
+	Zwraca czy rozkaz jest w trakcie pracy
+*)
+METHOD PUBLIC IsBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsBusy			:= THIS^.bBusy;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsDone" Id="{0539a3ec-208d-070d-0cbf-389e3d77aee5}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		04.11.2025		TC 4024.66
+	Zwraca czy rozkas się wykonał
+*)
+METHOD PUBLIC IsDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsDone		:= THIS^.bDone;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsFirstCycle" Id="{21c262c5-69b6-0f4d-3d26-e252ba31daa4}">
+      <Declaration><![CDATA[METHOD PUBLIC IsFirstCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsFirstCycle				:= THIS^.bFirstCycle;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsLastCycle" Id="{9e7d887b-95a2-0fd4-2d72-97d77cd65a4f}">
+      <Declaration><![CDATA[METHOD PUBLIC IsLastCycle : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsLastCycle				:= THIS^.bLastCycle;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsStatus" Id="{6115b59a-da09-0c40-0662-66a8b03c42e1}">
+      <Declaration><![CDATA[METHOD PUBLIC IsStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStatus		:= THIS^.bStatus;
 ]]></ST>
       </Implementation>
     </Method>
