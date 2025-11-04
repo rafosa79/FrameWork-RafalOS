@@ -16,12 +16,15 @@ END_VAR
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Test czy można zmienić stan lub tryb i zwraca czy można i uruchamia zmianę
 *)
-METHOD Execute : BOOL
+METHOD PUBLIC Execute : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[IF (TRUE) THEN
+	THIS^.itfSaMController.ChangeStateTo (eNewState := E_SaMStates.Aborting);
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="LinkSaMCotroller" Id="{a1ee9fff-ed2f-0895-2d8b-6d4b59c9eb07}">

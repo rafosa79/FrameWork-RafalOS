@@ -3,22 +3,37 @@
   <Itf Name="ITF_SaMControllerCommandChange" Id="{4f3c20a9-bad8-0c25-32a4-4d92805aad72}">
     <Declaration><![CDATA[INTERFACE ITF_SaMControllerCommandChange
 ]]></Declaration>
-    <Method Name="ChangeStateBusy" Id="{bcebd3f8-de4d-0c8f-1c39-4aa70f756c8f}">
-      <Declaration><![CDATA[METHOD PUBLIC ChangeStateBusy : BOOL
+    <Method Name="ChangeModeTo" Id="{438f8f9d-6699-052d-3a6f-112ca53c6c0f}">
+      <Declaration><![CDATA[METHOD PUBLIC ChangeModeTo
 VAR_INPUT
+	eNewMode			: E_SaMModes;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="ChangeStateDone" Id="{5d2b48c0-ca69-0156-247c-adcdae5d65b3}">
-      <Declaration><![CDATA[METHOD PUBLIC ChangeStateDone : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="ChangeStateExecute" Id="{049dd90b-20e0-0046-1339-9d6e6a3dbad6}">
-      <Declaration><![CDATA[METHOD PUBLIC ChangeStateExecute : BOOL
+    <Method Name="ChangeStateTo" Id="{20e110f3-d687-003b-0708-468cc54e6e0f}">
+      <Declaration><![CDATA[METHOD PUBLIC ChangeStateTo
 VAR_INPUT
 	eNewState			: E_SaMStates;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsModeEnebles" Id="{6a423769-8c8d-07e3-138a-e7ec7acacb3e}">
+      <Declaration><![CDATA[METHOD IsModeEnebles : BOOL
+VAR_INPUT
+	eMode			: E_SaMModes;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsPossibleExitActiveState" Id="{653e7c6d-6acc-090e-2947-56adaa34f221}">
+      <Declaration><![CDATA[METHOD IsPossibleExitActiveState : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsPossibleExitState" Id="{41333180-94d8-0463-3725-199c7f48084c}">
+      <Declaration><![CDATA[METHOD IsPossibleExitState : BOOL
+VAR_INPUT
+	eMode		: E_SaMModes;
 END_VAR
 ]]></Declaration>
     </Method>

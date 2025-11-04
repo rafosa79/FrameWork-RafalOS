@@ -4,7 +4,7 @@
     <Declaration><![CDATA[INTERFACE ITF_CommandChange EXTENDS ITF_BaseComponent
 ]]></Declaration>
     <Method Name="Execute" Id="{60c49daa-906e-0e4f-1a24-8fb80f45e366}">
-      <Declaration><![CDATA[METHOD Execute : BOOL
+      <Declaration><![CDATA[METHOD PUBLIC Execute : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>

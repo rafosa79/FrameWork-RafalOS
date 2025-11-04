@@ -6,7 +6,7 @@
 	Rafał Osajda		30.10.2025		TC 4024.66
 	Główny FB do zarządzania stanami i trybami pracy
 *)
-FUNCTION_BLOCK FB_SaMController EXTENDS FB_BaseControlElement IMPLEMENTS ITF_SaMController
+FUNCTION_BLOCK FB_SaMController EXTENDS FB_BaseTopElement IMPLEMENTS ITF_SaMController
 VAR
 (*	Polecenia zmiany stany	*)	
 	stCmdStates					: ST_CommandChangeState;
@@ -29,42 +29,131 @@ VAR
 	arrStateEnableInMode		: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ARRAY [0..GVL_SaMConstans.NUMBER_OF_STATES] OF BOOL;
 (*	W jakich stanach można przejść do innego trybu	*)
 	arrModeTransitionEnableInState	: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ARRAY [0..GVL_SaMConstans.NUMBER_OF_STATES] OF BOOL;
-
+(*	Polecenia zmiany	*)
+	cmdChangeMode				: FB_BaseCommand;
+	cmdChangeState				: FB_BaseCommand;
+(*	Zmienne		*)
+	eState						: E_SaMStates;	//aktualny stan
+	eMode						: E_SaMModes;	//aktualny tryb
+	eNewState					: E_SaMStates;	//Nowy stan
+	ePrevState					: E_SaMStates;	//poprzedni stan
+	eNewMode					: E_SaMModes;	//nowy tryb
+	ePrevMode					: E_SaMModes;	//poprzedni tryb
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Events" Id="{b0fd9ca9-de98-0582-3a6f-dee4e432df83}" />
     <Folder Name="Initialization" Id="{36e42ff2-7480-0d56-1afc-450089a48df2}" />
+    <Folder Name="ITF_BaseComponent" Id="{a4eda1c2-347a-018f-2a19-55fde3b3c605}" />
     <Folder Name="ITF_SaMController" Id="{c8bddf21-ded7-0091-2800-8c3c9b4e262e}" />
     <Folder Name="ITF_SaMControllerCommandChange" Id="{dea3c85f-ea23-061e-2958-91b06b29c270}" />
     <Folder Name="ITF_SaMControllerConfigure" Id="{b9d762b5-64ba-0e23-0da8-02679c5e095d}" />
-    <Method Name="ChangeStateBusy" Id="{1c9e453a-f9a0-06fc-3a11-4779d6fe6330}" FolderPath="ITF_SaMControllerCommandChange\">
-      <Declaration><![CDATA[METHOD PUBLIC ChangeStateBusy : BOOL
+    <Method Name="ChangeModeCycle" Id="{414aeb19-c018-007c-1c3c-f514bbd0a2d0}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		04.11.2025		TC 4024.66
+	cykl zmiany trybu
+*)
+METHOD PRIVATE ChangeModeCycle : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CASE THIS^.cmdChangeMode.GetStep () OF
+	0	:
+		THIS^.ePrevMode			:= THIS^.eMode;
+		THIS^.eMode				:= THIS^.eNewMode;
+		THIS^.cmdChangeMode.SetStepAsFinal ();
+END_CASE
+THIS^.cmdChangeMode.TestingLastCycle ();
+]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ChangeStateDone" Id="{d3c3d0f2-89d9-0ad1-3dc5-2f620dd0bec5}" FolderPath="ITF_SaMControllerCommandChange\">
-      <Declaration><![CDATA[METHOD PUBLIC ChangeStateDone : BOOL
+    <Method Name="ChangeModeTo" Id="{6b94e17f-b8f4-087f-0f6f-660d61de79ee}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD PUBLIC ChangeModeTo
+VAR_INPUT
+	eNewMode			: E_SaMModes;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.eNewMode			:= eNewMode;
+THIS^.cmdChangeMode.Execute ();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ChangeStateCycle" Id="{ba985810-e640-0078-3ef3-fe030dd2b4f0}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		04.11.2025		TC 4024.66
+	cykl zmiany stanu
+*)
+METHOD PRIVATE ChangeStateCycle : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CASE THIS^.cmdChangeState.GetStep () OF
+	0	:
+		THIS^.ePrevState		:= THIS^.eState;
+		THIS^.eState			:= THIS^.eNewState;
+		THIS^.cmdChangeState.SetStepAsFinal ();
+END_CASE
+THIS^.cmdChangeState.TestingLastCycle ();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="ChangeStateExecute" Id="{73008af1-7c58-0056-0c08-e655917d7cdd}" FolderPath="ITF_SaMControllerCommandChange\">
-      <Declaration><![CDATA[METHOD PUBLIC ChangeStateExecute : BOOL
+    <Method Name="ChangeStateTo" Id="{628f54fb-c326-0184-1055-f36dc1e3eef6}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD PUBLIC ChangeStateTo
 VAR_INPUT
 	eNewState			: E_SaMStates;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[THIS^.eNewState			:= eNewState;
+THIS^.cmdChangeState.Execute ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EventsDefinition" Id="{78a05ebb-99d3-06cc-14c5-dd8ae9d402d9}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.EventsDefinition ();
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie trybu - Tryb docelowy wyłączony");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie trybu - brak możliwości wyjścia z trybu");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie trybu - brak możliwości wejścia do trybu");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Execute" Id="{608fbfab-efd0-0a43-132b-9ced413e3cf8}" FolderPath="ITF_SaMController\">
@@ -76,10 +165,88 @@ END_VAR
 METHOD Execute : BOOL
 VAR_INPUT
 	iNumberOfCommand		: INT;
+	eChangeCategory			: E_SaMChangeCategory;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CASE eChangeCategory OF
+	E_SaMChangeCategory.eState	:
+		THIS^.arrcmdStates [iNumberOfCommand].Execute ();
+	E_SaMChangeCategory.eMode	:
+		THIS^.arrcmdModes [iNumberOfCommand].Execute ();
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Error" Id="{7d2915c0-b860-0ae5-1527-3f4383f1e352}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
+*)
+METHOD PUBLIC ExecuteEveryCycle_Error
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Error ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Operation" Id="{fce1133f-4269-083a-3196-447fd3d305da}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Wywolanie co cykl operacji 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Operation
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Operation ();
+
+IF (THIS^.cmdChangeMode.OperationExecute ()) THEN
+	THIS^.cmdChangeMode.Operation (bIN := THIS^.ChangeModeCycle ());
+END_IF
+
+IF (THIS^.cmdChangeState.OperationExecute ()) THEN
+	THIS^.cmdChangeState.Operation (bIN := THIS^.ChangeStateCycle ());
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Status" Id="{efc19d29-865a-0cf3-3de7-0ea6cd45bbeb}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Aktualizacja flag 
+*)
+METHOD PUBLIC ExecuteEveryCycle_Status
+VAR_INST
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Status ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteEveryCycle_Test" Id="{ece18da2-ea2a-0733-0204-177085361f4d}" FolderPath="ITF_BaseComponent\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		27.03.2025		TC 4024.66
+	Testowanie czy nei pojawil sie jakis rozkaz i uruchomienie odpowiednich operacji
+*)
+METHOD PUBLIC ExecuteEveryCycle_Test
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ExecuteEveryCycle_Test ();
+
+THIS^.cmdChangeMode.Test ();
+THIS^.cmdChangeState.Test ();
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{8f55a5c3-a0eb-0deb-011c-23bf5df2ad6a}" FolderPath="Initialization\">
@@ -104,6 +271,26 @@ THIS^.Initialization_AddCommandChangeModes ();
 THIS^.Initialization_StateEnabledInMode ();
 THIS^.Initialization_ModeTransitionEnabledInState ();
 THIS^.Initialization_ModeEnabled ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetMode" Id="{df3fefc4-9266-079c-2077-340c16420786}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC GetMode : E_SaMModes
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetMode			:= THIS^.eMode;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetState" Id="{e651e76f-e8a9-016f-279f-b41f48a21ac0}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC GetState : E_SaMStates
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetState			:= THIS^.eState;
 ]]></ST>
       </Implementation>
     </Method>
@@ -486,6 +673,98 @@ THIS^.arrstStates [E_SaMModes.Diagnostics].fbUnholding.SetEnabled (bIN 		:= FALS
 THIS^.arrstStates [E_SaMModes.Diagnostics].fbCompleting.SetEnabled (bIN 	:= FALSE);
 THIS^.arrstStates [E_SaMModes.Diagnostics].fbComplete.SetEnabled (bIN 		:= FALSE);
 THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Diagnostics);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeModeBusy" Id="{27f468b3-8c6e-0b25-0376-19a7957fed46}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeModeBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeModeBusy		:= THIS^.cmdChangeMode.IsBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeModeDone" Id="{11624add-7cf7-064d-1293-942cd04c052f}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeModeDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeModeDone		:= THIS^.cmdChangeMode.IsDone ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeModeStatus" Id="{4a89fd0d-9401-0402-15d0-686614f26d33}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeModeStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeModeStatus		:= THIS^.cmdChangeMode.IsStatus ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeStateBusy" Id="{8332f72f-1927-0e74-2e69-63470ebd1419}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeStateBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeStateBusy		:= THIS^.cmdChangeState.IsBusy ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeStateDone" Id="{1fa27fa4-f8fc-0233-01ff-b0111394a129}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeStateDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeStateDone		:= THIS^.cmdChangeState.IsDone ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeStateStatus" Id="{f33bda38-41ba-0223-10fa-20c9fb40adbf}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeStateStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeStateStatus		:= THIS^.cmdChangeState.IsStatus ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsModeEnebles" Id="{ba118139-1c1b-0f84-1e39-4e98f108464d}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD IsModeEnebles : BOOL
+VAR_INPUT
+	eMode			: E_SaMModes;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsModeEnebles		:= THIS^.arrModeEnable [eMode];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsPossibleExitActiveState" Id="{5a124e67-92fc-05a7-3c2a-49a85f4a9ae2}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD IsPossibleExitActiveState : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsPossibleExitActiveState	:= THIS^.IsPossibleExitState (eMode := THIS^.eMode);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsPossibleExitState" Id="{64bec622-8222-09ec-1977-c38277b5e18a}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD IsPossibleExitState : BOOL
+VAR_INPUT
+	eMode		: E_SaMModes;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsPossibleExitState		:= THIS^.arrModeTransitionEnableInState [eMode][THIS^.eState];
 ]]></ST>
       </Implementation>
     </Method>

@@ -9,13 +9,21 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Execute" Id="{920852c8-3dbd-021e-3946-1725b793b3dc}">
-      <Declaration><![CDATA[METHOD Execute : BOOL
+    <Method Name="Execute" Id="{e270a742-df07-0314-14d2-7048e77ad1f5}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Test czy można zmienić stan lub tryb i zwraca czy można i uruchamia zmianę
+*)
+METHOD PUBLIC Execute : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[IF (TRUE) THEN
+	THIS^.itfSaMController.ChangeStateTo (eNewState := E_SaMStates.Clearing);
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{a7563e04-2507-0766-224d-d9198b48a6cb}">

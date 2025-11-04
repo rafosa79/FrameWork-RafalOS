@@ -513,7 +513,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ResetGetBusy		:= THIS^.cmdReset.GetBusy ();
+        <ST><![CDATA[ResetGetBusy		:= THIS^.cmdReset.IsBusy ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -523,7 +523,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ResetGetStatus			:= THIS^.cmdReset.GetStatus ();
+        <ST><![CDATA[ResetGetStatus			:= THIS^.cmdReset.IsStatus ();
 ]]></ST>
       </Implementation>
     </Method>

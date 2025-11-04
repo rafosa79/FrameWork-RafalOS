@@ -17,8 +17,8 @@ VAR
 	(*	Zarządzenia stanami i trybami pracy	*)
 	itfSaMController				: ITF_SaMController;
 	(*	Stany i Tryby	*)
-	arrStates						: ARRAY [1..17] OF ST_RequestAndCommandChanges;	
-	arrModes						: array [1..10] of ST_RequestAndCommandChanges;
+	arrStates						: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES] OF ST_RequestAndCommandChanges;	
+	arrModes						: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_MODES] OF ST_RequestAndCommandChanges;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -133,14 +133,14 @@ END_VAR]]></Declaration>
 	(*	Testowanie czy jest rządzanie zmiany trybu	*)
 FOR iI := 1 TO 10 DO 
 	IF (THIS^.arrModes [iI].itfRequestChanges <> 0 AND THIS^.arrModes [iI].itfRequestChanges.Testing ()) THEN
-		THIS^.itfSaMController.Execute (iNumberOfCommand := iI);
+		THIS^.itfSaMController.Execute (iNumberOfCommand := iI, eChangeCategory := E_SaMChangeCategory.eMode);
 	END_IF
 END_FOR	
 	
 	(*	Testowanie czy jest rządanie zmiany stany	*)
 FOR iI := 1 TO 10 DO 
 	IF (THIS^.arrStates [iI].itfRequestChanges <> 0 AND THIS^.arrStates [iI].itfRequestChanges.Testing ()) THEN
-		THIS^.itfSaMController.Execute (iNumberOfCommand := iI);
+		THIS^.itfSaMController.Execute (iNumberOfCommand := iI, eChangeCategory := E_SaMChangeCategory.eState);
 	END_IF
 END_FOR
 ]]></ST>

@@ -342,7 +342,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[HomingGetBusy		:= THIS^.stHoming.cmdExecute.GetBusy ();
+        <ST><![CDATA[HomingGetBusy		:= THIS^.stHoming.cmdExecute.IsBusy ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -357,7 +357,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[HomingGetDone	:= THIS^.stHoming.cmdExecute.GetDone ();
+        <ST><![CDATA[HomingGetDone	:= THIS^.stHoming.cmdExecute.IsDone ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -591,7 +591,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[PowerTurnOffDone		:= THIS^.stPower.cmdTurnOff.GetDone ();
+        <ST><![CDATA[PowerTurnOffDone		:= THIS^.stPower.cmdTurnOff.IsDone ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -601,7 +601,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[PowerTurnOffInProgress			:= THIS^.stPower.cmdTurnOff.GetBusy ();
+        <ST><![CDATA[PowerTurnOffInProgress			:= THIS^.stPower.cmdTurnOff.IsBusy ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -627,7 +627,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[PowerTurnOnDone		:= THIS^.stPower.cmdTurnOn.GetDone ();
+        <ST><![CDATA[PowerTurnOnDone		:= THIS^.stPower.cmdTurnOn.IsDone ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -637,7 +637,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[PowerTurnOnInProgress		:= THIS^.stPower.cmdTurnOn.GetBusy ();
+        <ST><![CDATA[PowerTurnOnInProgress		:= THIS^.stPower.cmdTurnOn.IsBusy ();
 ]]></ST>
       </Implementation>
     </Method>

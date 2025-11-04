@@ -141,10 +141,10 @@ METHOD SP_Aborting : BOOL
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (NOT THIS^.itfSAM.IsModeChangeBusy ()) THEN
-	IF (THIS^.stPower.bStatus AND NOT THIS^.stPower.cmdTurnOff.GetBusy ()) THEN
+	IF (THIS^.stPower.bStatus AND NOT THIS^.stPower.cmdTurnOff.IsBusy ()) THEN
 		THIS^.stPower.cmdTurnOff.Execute ();
 	END_IF
-	IF (NOT THIS^.stPower.bStatus AND THIS^.stPower.cmdTurnOff.GetDone ()) THEN
+	IF (NOT THIS^.stPower.bStatus AND THIS^.stPower.cmdTurnOff.IsDone ()) THEN
 		SP_Aborting								:= TRUE;
 		THIS^.Reset ();
 	ELSE
@@ -162,11 +162,11 @@ END_IF
 METHOD SP_Clearing : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (NOT THIS^.stPower.bStatus AND NOT THIS^.stPower.cmdTurnOn.GetBusy ()
+        <ST><![CDATA[IF (NOT THIS^.stPower.bStatus AND NOT THIS^.stPower.cmdTurnOn.IsBusy ()
 	AND THIS^.itfSS1.GetFlag () AND THIS^.itfSTO.GetFlag ()) THEN
 	THIS^.stPower.cmdTurnOn.Execute ();
 END_IF
-IF (THIS^.stPower.bStatus AND THIS^.stPower.cmdTurnOn.GetDone ()) THEN
+IF (THIS^.stPower.bStatus AND THIS^.stPower.cmdTurnOn.IsDone ()) THEN
 	SP_Clearing								:= TRUE;
 ELSE
 	SP_Clearing								:= FALSE;
@@ -332,7 +332,7 @@ METHOD SP_Resetting : BOOL
         <ST><![CDATA[IF (NOT THIS^.stHoming.bIsNeeded OR THIS^.itfSAM.GetMode () = E_BaseMachineMode.Maintenance) THEN
 	SP_Resetting				:= TRUE;
 ELSE
-	IF (NOT THIS^.stHoming.cmdExecute.GetBusy ()) THEN
+	IF (NOT THIS^.stHoming.cmdExecute.IsBusy ()) THEN
 		THIS^.stHoming.cmdExecute.Execute ();
 	END_IF
 	SP_Resetting				:= FALSE;

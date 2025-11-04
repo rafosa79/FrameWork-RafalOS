@@ -34,28 +34,28 @@ END_VAR
       <Implementation>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestPoleceniaProstego')) THEN
 	GVL.fbCommandEasy.Test ();
-	AssertTrue (Condition := GVL.fbCommandEasy.GetStatus (), 	Message := 'T01a - Bledny status');
-	AssertFalse (Condition := GVL.fbCommandEasy.GetBusy (),		Message := 'T01b - Bledny stan');
+	AssertTrue (Condition := GVL.fbCommandEasy.IsStatus (), 	Message := 'T01a - Bledny status');
+	AssertFalse (Condition := GVL.fbCommandEasy.IsBusy (),		Message := 'T01b - Bledny stan');
 	GVL.fbCommandEasy.Execute ();
 	GVL.fbCommandEasy.Test ();
-	AssertFalse (Condition := GVL.fbCommandEasy.GetStatus (), 	Message := 'T02a - Bledny status');
-	AssertTrue (Condition := GVL.fbCommandEasy.GetBusy (),		Message := 'T02b - Bledny stan');
+	AssertFalse (Condition := GVL.fbCommandEasy.IsStatus (), 	Message := 'T02a - Bledny status');
+	AssertTrue (Condition := GVL.fbCommandEasy.IsBusy (),		Message := 'T02b - Bledny stan');
 	
 	GVL.fbCommandEasy.OperationExecute ();
 	GVL.fbCommandEasy.Operation (bIN := MetodaDlaPolecenbiaProstego ());
 	
-	AssertTrue (Condition := GVL.fbCommandEasy.GetFirstCycle (),Message := 'T03a - Bledny stan pierwszego przejscia');
-	AssertTrue (Condition := GVL.fbCommandEasy.GetLastCycle (),	Message := 'T03b - Bledny stan ostatniego przejscia');
+	AssertTrue (Condition := GVL.fbCommandEasy.IsFirstCycle (),Message := 'T03a - Bledny stan pierwszego przejscia');
+	AssertTrue (Condition := GVL.fbCommandEasy.IsLastCycle (),	Message := 'T03b - Bledny stan ostatniego przejscia');
 	
 	GVL.fbCommandEasy.OperationExecute ();
 	
-	AssertFalse (Condition := GVL.fbCommandEasy.GetFirstCycle (),	Message := 'T04a - Bledny stan pierwszego przejscia');
-	AssertFalse (Condition := GVL.fbCommandEasy.GetLastCycle (),		Message := 'T04b - Bledny stan ostatniego przejscia');
+	AssertFalse (Condition := GVL.fbCommandEasy.IsFirstCycle (),	Message := 'T04a - Bledny stan pierwszego przejscia');
+	AssertFalse (Condition := GVL.fbCommandEasy.IsLastCycle (),		Message := 'T04b - Bledny stan ostatniego przejscia');
 
 	GVL.fbCommandEasy.OperationExecute ();
 	
-	AssertFalse (Condition := GVL.fbCommandEasy.GetLastCycle (),	Message := 'T05a - Bledny stan pierwszego przejscia');
-	AssertTrue (Condition := GVL.fbCommandEasy.GetStatus (),		Message := 'T05b - Bledny stan statusy');
+	AssertFalse (Condition := GVL.fbCommandEasy.IsLastCycle (),	Message := 'T05a - Bledny stan pierwszego przejscia');
+	AssertTrue (Condition := GVL.fbCommandEasy.IsStatus (),		Message := 'T05b - Bledny stan statusy');
 	
 	TcUnit.TEST_FINISHED ();
 END_IF
@@ -71,13 +71,13 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestPolecenia')) THEN
 	GVL.fbCommand.Test ();
-	AssertTrue (Condition := GVL.fbCommand.GetStatus (), 	Message := 'T01a - Bledny status');
-	AssertFalse (Condition := GVL.fbCommand.GetBusy (),		Message := 'T01b - Bledny stan');
+	AssertTrue (Condition := GVL.fbCommand.IsStatus (), 	Message := 'T01a - Bledny status');
+	AssertFalse (Condition := GVL.fbCommand.IsBusy (),		Message := 'T01b - Bledny stan');
 	
 	GVL.fbCommand.Execute ();
 	GVL.fbCommand.Test ();
-	AssertFalse (Condition := GVL.fbCommand.GetStatus (), 	Message := 'T02a - Bledny status');
-	AssertTrue (Condition := GVL.fbCommand.GetBusy (),		Message := 'T02b - Bledny stan');
+	AssertFalse (Condition := GVL.fbCommand.IsStatus (), 	Message := 'T02a - Bledny status');
+	AssertTrue (Condition := GVL.fbCommand.IsBusy (),		Message := 'T02b - Bledny stan');
 	
 	IF (GVL.fbCommand.OperationExecute ()) THEN;
 		bResult				:= TRUE;
@@ -85,8 +85,8 @@ END_VAR]]></Declaration>
 	ELSE
 		bResult				:= FALSE;
 	END_IF
-	AssertTrue (Condition := GVL.fbCommand.GetFirstCycle (),Message := 'T03a - Bledny stan pierwszego przejscia');
-	AssertFalse (Condition := GVL.fbCommand.GetLastCycle (),Message := 'T03b - Bledny stan ostatniego przejscia');
+	AssertTrue (Condition := GVL.fbCommand.IsFirstCycle (),Message := 'T03a - Bledny stan pierwszego przejscia');
+	AssertFalse (Condition := GVL.fbCommand.IsLastCycle (),Message := 'T03b - Bledny stan ostatniego przejscia');
 	AssertFalse (Condition := bResult, 						Message := 'T03c - Bledny wynik');
 	
 	IF (GVL.fbCommand.OperationExecute ()) THEN;
@@ -95,8 +95,8 @@ END_VAR]]></Declaration>
 	ELSE
 		bResult				:= FALSE;
 	END_IF
-	AssertFalse (Condition := GVL.fbCommand.GetFirstCycle (),	Message := 'T04a - Bledny stan pierwszego przejscia');
-	AssertFalse (Condition := GVL.fbCommand.GetLastCycle (),	Message := 'T04b - Bledny stan ostatniego przejscia');
+	AssertFalse (Condition := GVL.fbCommand.IsFirstCycle (),	Message := 'T04a - Bledny stan pierwszego przejscia');
+	AssertFalse (Condition := GVL.fbCommand.IsLastCycle (),	Message := 'T04b - Bledny stan ostatniego przejscia');
 	AssertTrue (Condition := bResult, 							Message := 'T04c - Bledny wynik');
 	
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL.fbCommand.bFinish), Value := TRUE);
@@ -106,8 +106,8 @@ END_VAR]]></Declaration>
 	ELSE
 		bResult				:= FALSE;
 	END_IF
-	AssertFalse (Condition := GVL.fbCommand.GetFirstCycle (),	Message := 'T05a - Bledny stan pierwszego przejscia');
-	Asserttrue (Condition := GVL.fbCommand.GetLastCycle (),		Message := 'T05b - Bledny stan ostatniego przejscia');
+	AssertFalse (Condition := GVL.fbCommand.IsFirstCycle (),	Message := 'T05a - Bledny stan pierwszego przejscia');
+	Asserttrue (Condition := GVL.fbCommand.IsLastCycle (),		Message := 'T05b - Bledny stan ostatniego przejscia');
 	AssertTrue (Condition := bResult, 							Message := 'T05c - Bledny wynik');
 	
 	IF (GVL.fbCommand.OperationExecute ()) THEN;
@@ -116,8 +116,8 @@ END_VAR]]></Declaration>
 	ELSE
 		bResult				:= FALSE;
 	END_IF
-	AssertFalse (Condition := GVL.fbCommand.GetFirstCycle (),	Message := 'T06a - Bledny stan pierwszego przejscia');
-	AssertFalse (Condition := GVL.fbCommand.GetLastCycle (),	Message := 'T06b - Bledny stan ostatniego przejscia');
+	AssertFalse (Condition := GVL.fbCommand.IsFirstCycle (),	Message := 'T06a - Bledny stan pierwszego przejscia');
+	AssertFalse (Condition := GVL.fbCommand.IsLastCycle (),	Message := 'T06b - Bledny stan ostatniego przejscia');
 	AssertFalse (Condition := bResult, 							Message := 'T06c - Bledny wynik');
 
 	

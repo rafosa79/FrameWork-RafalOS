@@ -22,3 +22,4 @@ napisać testy dla domyslnej
 stworzyć testowe topelementy w testach i dorobić  fb konfiguracji maszyny
 
 
+w rozkaz przełączania sprawdzać czy można dorobić testowanie tablic w zależności od tego co trzeba zrobić i sprawdzić potem  w sam controller przełączyć i ustawiać flagi 
