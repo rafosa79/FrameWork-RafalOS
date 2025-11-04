@@ -20,6 +20,7 @@ END_VAR
     <Folder Name="ITF_BaseLogger_Item" Id="{dbd5ee07-415c-0f41-0935-285bdd005cb3}" />
     <Folder Name="ITF_BaseLoggerElement_HMI_Connector" Id="{abdbf241-16b7-0948-3bea-83a764b01a75}" />
     <Folder Name="ITF_DecoratedElement" Id="{45d6060b-650b-0bb6-051b-501dae1ea836}" />
+    <Folder Name="WiazanieZmiennych" Id="{98197f04-d9d8-0737-3608-73b62ab39818}" />
     <Method Name="AddEvent" Id="{634f9b8e-85a8-02a3-013c-6c409e6a5e93}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -276,8 +277,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[	(*	Zdefiniowanie zdarzeń dla elementu	*)
 THIS^.EventsDefinition ();
-(* sprawdzenie czy jest podłaczony loger	*)
-//THIS^.stEvents.bLoggerDataCompleted	:= THIS^.refstCommonData.itfLogger <> 0;
+
 
 FirstCycle					:= TRUE;
 ]]></ST>
@@ -407,6 +407,24 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetType				:= THIS^.stIdentifier.eType;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkCommonData" Id="{8c354c70-5965-0201-173e-22462054c4c8}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
+VAR_INPUT
+	stCommonData				: REFERENCE TO ST_BaseCommonData;
+END_VAR
+VAR
+	bResult						: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult		:= SUPER^.LinkCommonData (stCommonData := stCommonData);
+
+(* sprawdzenie czy jest podłaczony loger	*)
+THIS^.stEvents.bLoggerDataCompleted	:= THIS^.refstCommonData.itfLogger <> 0;
+
+LinkCommonData		:= bResult AND THIS^.stEvents.bLoggerDataCompleted;
 ]]></ST>
       </Implementation>
     </Method>
