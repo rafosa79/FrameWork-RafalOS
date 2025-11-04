@@ -17,6 +17,12 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetState" Id="{2d9fe36b-32c7-049a-021e-6cda6bb4eaab}">
+      <Declaration><![CDATA[METHOD PUBLIC GetState : E_SaMStates
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="IsModeEnebles" Id="{6a423769-8c8d-07e3-138a-e7ec7acacb3e}">
       <Declaration><![CDATA[METHOD IsModeEnebles : BOOL
 VAR_INPUT
@@ -34,6 +40,13 @@ END_VAR
       <Declaration><![CDATA[METHOD IsPossibleExitState : BOOL
 VAR_INPUT
 	eMode		: E_SaMModes;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStateInModeEnabled" Id="{8b94b531-de78-0248-28cf-4d8a71b21e15}">
+      <Declaration><![CDATA[METHOD PUBLIC IsStateInModeEnabled : BOOL
+VAR_INPUT
+	eNewState			: E_SaMStates;
 END_VAR
 ]]></Declaration>
     </Method>

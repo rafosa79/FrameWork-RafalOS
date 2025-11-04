@@ -10,6 +10,70 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Events" Id="{b0fd9ca9-de98-0582-3a6f-dee4e432df83}" />
+    <Method Name="EventsDefinition" Id="{78a05ebb-99d3-06cc-14c5-dd8ae9d402d9}" FolderPath="Events\">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Definicja nowego zgłoszenia
+*)
+METHOD PUBLIC EventsDefinition : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.EventsDefinition ();
+(*	1	*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie trybu - tryb docelowy jest wyłączony");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+(*	2	*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie trybu - brak możliwości wyjścia z trybu");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+(*	3	*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie trybu - brak możliwości wejścia do trybu");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+(*	4	*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie stanu - te polecenie nie obsługuje tego stanu");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);
+(*	5	*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie stanu - decelowy stan jest wyłączony");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
+THIS^.AddEvent (
+	bIgnoreRepetitions			:= FALSE,
+	eEventCategory				:= E_BaseEvents_Category.Message,
+	bConfirm					:= FALSE,
+	stDescription				:= THIS^.GetTexts ()
+);]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Execute" Id="{3e1ea8aa-acdf-0fb7-0ce9-e01f53a6e468}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -18,12 +82,11 @@ END_VAR
 *)
 METHOD PUBLIC Execute : BOOL
 VAR_INPUT
+	iNumberOfCommand	: INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TRUE) THEN
-	THIS^.itfSaMController.ChangeStateTo (eNewState := E_SaMStates.Aborting);
-END_IF
+        <ST><![CDATA[
 ]]></ST>
       </Implementation>
     </Method>

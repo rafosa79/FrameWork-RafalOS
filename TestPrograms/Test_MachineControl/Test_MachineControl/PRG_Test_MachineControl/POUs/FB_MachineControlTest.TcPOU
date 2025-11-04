@@ -11,7 +11,7 @@ END_VAR
       <ST><![CDATA[T01_TestPierwszegoPrzejscia ();
 T02_WiazanieZmiennychDoTMPSaM ();
 T03_TestZmianyTrybow ();
-]]></ST>
+T04_TestPrzejsciaPrzezStany ();]]></ST>
     </Implementation>
     <Method Name="T01_TestPierwszegoPrzejscia" Id="{0d0c69ca-949f-4ad6-872b-dc43bf3a60dd}">
       <Declaration><![CDATA[METHOD PROTECTED T01_TestPierwszegoPrzejscia
@@ -165,12 +165,70 @@ END_VAR]]></Declaration>
 		eActualMode				:= GVL_Variable.fbMySaMController.GetMode ();
 		AssertEquals (Expected := eNewMode, Actual := eActualMode, 						Message := 'S180 - T04 - Bledny stan');
 		iStep	:= iStep + 10;
-	190	:
+	190	:	//jest w produkcji wyłączamy manual i próba wejścia 
+		GVL_Variable.fbMySaMController.SetModeEnabled (iMode := E_SaMModes.Manual, bValue := FALSE);
 		iStep	:= iStep + 10;
-
 	200	:
+		eNewMode			:= E_SaMModes.Manual;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
+		iStep	:= iStep + 10;
+	210	:	//pierwszy krok 
+		Assertfalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S210 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S210 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S210 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	220	:	//jest w produkcji włączamy manual i próba wejścia 
+		GVL_Variable.fbMySaMController.SetModeEnabled (iMode := E_SaMModes.Manual, bValue := TRUE);
+		iStep	:= iStep + 10;
+	230	:
+		eNewMode			:= E_SaMModes.Manual;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
+		iStep	:= iStep + 10;
+	240	:	//pierwszy krok 
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S240 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S240 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S240 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	250	://krok zmiany stanu
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S250 - T01 - Bledny stan busy');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (),	Message := 'S250 - T02 - Bledny stan done');
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S250 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	260	:	//ostani krok 
+		AssertFalse (Condition := GVL_Variable.fbMySaMController.IsChangeModeBusy (), 	Message := 'S260 - T01 - Bledny stan busy');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeDone (), 	Message := 'S260 - T02 - Bledny stan done');
+		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), 	Message := 'S260 - T03 - Bledny stan status');
+		eActualMode				:= GVL_Variable.fbMySaMController.GetMode ();
+		AssertEquals (Expected := eNewMode, Actual := eActualMode, 						Message := 'S260 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	270	:
+		eNewMode			:= E_SaMModes.Production;
+		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
+		iStep	:= iStep + 10;
+	280	:	//pierwszy krok 
+		iStep	:= iStep + 10;
+	290	://krok zmiany stanu
+		iStep	:= iStep + 10;
+	300	:	//ostani krok 
+		eActualMode				:= GVL_Variable.fbMySaMController.GetMode ();
+		AssertEquals (Expected := eNewMode, Actual := eActualMode, 						Message := 'S300 - T04 - Bledny stan');
+		iStep	:= iStep + 10;
+	310	:
 		TcUnit.TEST_FINISHED ();
 	END_CASE
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T04_TestPrzejsciaPrzezStany" Id="{fa0058d3-60d5-4f33-9b04-f97980ce1105}">
+      <Declaration><![CDATA[METHOD PRIVATE T04_TestPrzejsciaPrzezStany
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T04_TestPrzejsciaPrzezStany')) THEN
+	
+	TcUnit.TEST_FINISHED ();
 END_IF
 ]]></ST>
       </Implementation>

@@ -6,6 +6,7 @@
     <Method Name="Execute" Id="{60c49daa-906e-0e4f-1a24-8fb80f45e366}">
       <Declaration><![CDATA[METHOD PUBLIC Execute : BOOL
 VAR_INPUT
+	iNumberOfCommand	: INT;
 END_VAR
 ]]></Declaration>
     </Method>

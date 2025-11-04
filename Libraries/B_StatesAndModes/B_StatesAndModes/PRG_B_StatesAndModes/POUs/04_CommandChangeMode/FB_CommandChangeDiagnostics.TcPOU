@@ -17,11 +17,22 @@ END_VAR
 *)
 METHOD PUBLIC Execute : BOOL
 VAR_INPUT
+	iNumberOfCommand	: INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TRUE) THEN
-	THIS^.itfSaMController.ChangeModeTo (eNewMode := E_SaMModes.Diagnostics);
+        <ST><![CDATA[IF (THIS^.itfSaMController.IsModeEnebles (eMode := E_SaMModes.Diagnostics)) THEN
+	IF (THIS^.itfSaMController.IsPossibleExitActiveState ()) THEN
+		IF (THIS^.itfSaMController.IsPossibleExitState (eMode := E_SaMModes.Diagnostics)) THEN
+			THIS^.itfSaMController.ChangeModeTo (eNewMode := E_SaMModes.Diagnostics);
+		ELSE
+			THIS^.EventSetActive (iNumber := 3);	//brak możlwiosći wejście do trybu w tym stanie 
+		END_IF
+	ELSE
+		THIS^.EventSetActive (iNumber := 2);	//brak możliwości wyjścia w tym stanie z tego trybu
+	END_IF
+ELSE
+	THIS^.EventSetActive (iNumber := 1);	//tryb docelowy wylaczony
 END_IF
 ]]></ST>
       </Implementation>

@@ -44,7 +44,6 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Events" Id="{b0fd9ca9-de98-0582-3a6f-dee4e432df83}" />
     <Folder Name="Initialization" Id="{36e42ff2-7480-0d56-1afc-450089a48df2}" />
     <Folder Name="ITF_BaseComponent" Id="{a4eda1c2-347a-018f-2a19-55fde3b3c605}" />
     <Folder Name="ITF_SaMController" Id="{c8bddf21-ded7-0091-2800-8c3c9b4e262e}" />
@@ -65,6 +64,7 @@ END_VAR
 	0	:
 		THIS^.ePrevMode			:= THIS^.eMode;
 		THIS^.eMode				:= THIS^.eNewMode;
+		THIS^.refarrStatesForActiveMode	REF= THIS^.arrStatesInModes [THIS^.eMode];
 		THIS^.cmdChangeMode.SetStepAsFinal ();
 END_CASE
 THIS^.cmdChangeMode.TestingLastCycle ();
@@ -114,48 +114,6 @@ THIS^.cmdChangeState.Execute ();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="EventsDefinition" Id="{78a05ebb-99d3-06cc-14c5-dd8ae9d402d9}" FolderPath="Events\">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		24.03.2025		TC 4024.66
-	Definicja nowego zgłoszenia
-*)
-METHOD PUBLIC EventsDefinition : BOOL
-
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[SUPER^.EventsDefinition ();
-
-THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie trybu - Tryb docelowy wyłączony");
-THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
-THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
-THIS^.AddEvent (
-	bIgnoreRepetitions			:= FALSE,
-	eEventCategory				:= E_BaseEvents_Category.Message,
-	bConfirm					:= FALSE,
-	stDescription				:= THIS^.GetTexts ()
-);
-THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie trybu - brak możliwości wyjścia z trybu");
-THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
-THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
-THIS^.AddEvent (
-	bIgnoreRepetitions			:= FALSE,
-	eEventCategory				:= E_BaseEvents_Category.Message,
-	bConfirm					:= FALSE,
-	stDescription				:= THIS^.GetTexts ()
-);
-THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Błąd przełączanie trybu - brak możliwości wejścia do trybu");
-THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "");
-THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "");
-THIS^.AddEvent (
-	bIgnoreRepetitions			:= FALSE,
-	eEventCategory				:= E_BaseEvents_Category.Message,
-	bConfirm					:= FALSE,
-	stDescription				:= THIS^.GetTexts ()
-);
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="Execute" Id="{608fbfab-efd0-0a43-132b-9ced413e3cf8}" FolderPath="ITF_SaMController\">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -171,9 +129,9 @@ END_VAR
       <Implementation>
         <ST><![CDATA[CASE eChangeCategory OF
 	E_SaMChangeCategory.eState	:
-		THIS^.arrcmdStates [iNumberOfCommand].Execute ();
+		THIS^.arrcmdStates [iNumberOfCommand].Execute (iNumberOfCommand	:= iNumberOfCommand);
 	E_SaMChangeCategory.eMode	:
-		THIS^.arrcmdModes [iNumberOfCommand].Execute ();
+		THIS^.arrcmdModes [iNumberOfCommand].Execute (iNumberOfCommand	:= iNumberOfCommand);
 END_CASE
 ]]></ST>
       </Implementation>
@@ -765,6 +723,17 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IsPossibleExitState		:= THIS^.arrModeTransitionEnableInState [eMode][THIS^.eState];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsStateInModeEnabled" Id="{0076f71f-25de-0166-149a-720af9605ad5}" FolderPath="ITF_SaMControllerCommandChange\">
+      <Declaration><![CDATA[METHOD PUBLIC IsStateInModeEnabled : BOOL
+VAR_INPUT
+	eNewState			: E_SaMStates;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStateInModeEnabled		:= THIS^.arrStateEnableInMode [THIS^.eMode][eNewState];
 ]]></ST>
       </Implementation>
     </Method>

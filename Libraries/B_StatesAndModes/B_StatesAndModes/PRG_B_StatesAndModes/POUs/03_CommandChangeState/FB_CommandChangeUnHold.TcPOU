@@ -17,13 +17,19 @@ END_VAR
 *)
 METHOD PUBLIC Execute : BOOL
 VAR_INPUT
+	iNumberOfCommand	: INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TRUE) THEN
-	THIS^.itfSaMController.ChangeStateTo (eNewState := E_SaMStates.Unholding);
-END_IF
-]]></ST>
+        <ST><![CDATA[IF (THIS^.itfSaMController.GetState () = E_SaMStates.Held) THEN		// sprawdzenie czy jesteśmy w dobrym stanie dla tego rozkazu
+	IF (THIS^.itfSaMController.IsStateInModeEnabled (eNewState := E_SaMStates.Unholding)) THEN	//test czy stan do którego chcemy przejśc jest właczony dla tego trybu
+		THIS^.itfSaMController.ChangeStateTo (eNewState := E_SaMStates.Unholding);
+	ELSE
+		THIS^.EventSetActive (iNumber := 5);	//stan docelowy jest wylaczony w tym trybie
+	END_IF
+ELSE
+	THIS^.EventSetActive (iNumber := 4);	//ten rozkaz nie obsluguje tego stanu
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{d9be5a9a-d672-06ae-1396-1299af8de0a3}">
