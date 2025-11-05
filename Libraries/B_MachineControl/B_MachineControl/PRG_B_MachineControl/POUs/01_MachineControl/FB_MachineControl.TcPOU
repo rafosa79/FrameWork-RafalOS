@@ -9,15 +9,15 @@ VAR
 	(*	Konfiguracja		*)
 	itfMachineConfigure			: ITF_MachineConfigure;		//moduł konfiguracji
 	(*	TopElementu systemu	*)
-	arrTopElements					: ARRAY [0..GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT] OF ITF_BaseTopElement;
-	iNumberOfAddedTopElement		: INT := -1;//przy dodawaniu element 0 to system 
+	arrTopElements					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT] OF ITF_BaseTopElement;
+	uiNumberOfAddedTopElement		: UINT := 0;//przy dodawaniu element 0 to system 
 	uiNumberOfAllAddedElements		: UINT;		//liczba elementow które są na maszynie 
 	(*	Master komunikatora dla top elementów maszyny	*)
 	fbMasterCommunicator			: FB_BaseCommunicator;
 	(*	Zarządzenia stanami i trybami pracy	*)
 	itfSaMController				: ITF_SaMController;
 	(*	Stany i Tryby	*)
-	arrRequestChangeState			: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES] OF ITF_IOButton;	
+	arrRequestChangeState			: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES] OF ITF_IOButton;
 	arrRequestChangeMode			: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_MODES] OF ITF_IOButton;
 END_VAR
 ]]></Declaration>
@@ -96,24 +96,24 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.iNumberOfAddedTopElement + 1 <= TO_INT (GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT)) THEN
-	THIS^.iNumberOfAddedTopElement							:= THIS^.iNumberOfAddedTopElement + 1;
-	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement]	:= fbTopElement;
+        <ST><![CDATA[IF (THIS^.uiNumberOfAddedTopElement + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT) THEN
+	THIS^.uiNumberOfAddedTopElement							:= THIS^.uiNumberOfAddedTopElement + 1;
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement]	:= fbTopElement;
 	
-	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkCommonData (stCommonData	:= THIS^.refstCommonData);
-	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkSS1 (fbSS1	:= THIS^.itfSS1);
-	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkSTO (fbSTO	:= THIS^.itfSTO);
-	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkCommunicator (fbCommunicator	:= THIS^.fbMasterCommunicator);
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkCommonData (stCommonData	:= THIS^.refstCommonData);
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkSS1 (fbSS1	:= THIS^.itfSS1);
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkSTO (fbSTO	:= THIS^.itfSTO);
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkCommunicator (fbCommunicator	:= THIS^.fbMasterCommunicator);
 	(*	Podpięcie systemu sterowania stanami i trybami	*)
-	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkSAM (fbSAM	:= THIS^.itfSaMController);
-	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].FirstCycle ();
-	THIS^.uiNumberOfAllAddedElements 						:= THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].SetID (uiID := THIS^.uiNumberOfAllAddedElements + 1);
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkSAM (fbSAM	:= THIS^.itfSaMController);
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].FirstCycle ();
+	THIS^.uiNumberOfAllAddedElements 						:= THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].SetID (uiID := THIS^.uiNumberOfAllAddedElements + 1);
 	THIS^.refstCommonData.itfLogger.SetNumerOfReportsIntheSystem (
-			uiValue := THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].SetEventsIDs (
+			uiValue := THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].SetEventsIDs (
 				uiNewID := THIS^.refstCommonData.itfLogger.GetNumerOfReportsIntheSystem ()
 			)
 	);
-	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].SetCode (sCode := '0.0.0.0.0', sAdd := TO_STRING (THIS^.iNumberOfAddedTopElement));
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].SetCode (sCode := '0.0.0.0.0', sAdd := TO_STRING (THIS^.uiNumberOfAddedTopElement));
 	
 	AddTopElementFromConfiguration							:= TRUE;
 END_IF
@@ -133,7 +133,7 @@ THIS^.ExecuteCycle_SaM ();
 
 	(*	Wywołanie metod obsługiwanych co cykl dla każdego elementu	*)
 
-FOR iI := 0 TO THIS^.iNumberOfAddedTopElement DO
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
 	THIS^.arrTopElements [iI].ExecuteEveryCycle_Test ();
 	THIS^.arrTopElements [iI].ExecuteEveryCycle_Operation ();
 	THIS^.arrTopElements [iI].ExecuteEveryCycle_Status ();
@@ -153,7 +153,7 @@ END_VAR
 	(*	Zarządzanie stanami i trybami pracy 	*)
 
 	(*	Testowanie czy jest rządzanie zmiany trybu	*)
-FOR iI := 1 TO 10 DO 
+FOR iI := 1 TO GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_MODES DO 
 	IF (THIS^.arrRequestChangeMode [iI] <> 0) THEN
 		IF (THIS^.arrRequestChangeMode [iI].IsPressed ()) THEN
 			THIS^.itfSaMController.Execute (iNumberOfCommand := iI, eChangeCategory := E_SaMChangeCategory.eMode);
@@ -162,22 +162,23 @@ FOR iI := 1 TO 10 DO
 END_FOR	
 	
 	(*	Testowanie czy jest rządanie zmiany stany	*)
-FOR iI := 1 TO 10 DO 
+FOR iI := 1 TO GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES DO 
 	IF (THIS^.arrRequestChangeState [iI] <> 0) THEN
 		IF (THIS^.arrRequestChangeState [iI].IsPressed ()) THEN
 			THIS^.itfSaMController.Execute (iNumberOfCommand := iI, eChangeCategory := E_SaMChangeCategory.eState);
 		END_IF
 	END_IF
 END_FOR
-	
-
-IF (NOT THIS^.itfSaMController.IsChangeModeBusy () AND NOT THIS^.itfSaMController.IsChangeStateBusy ()) THEN
-	;
-END_IF
 
 	(*	Obsługa stanów aktywnych - ing	*)
-	
-	(*	Obsługa stanów biernych		*)]]></ST>
+IF (NOT THIS^.itfSaMController.IsChangeModeBusy () AND NOT THIS^.itfSaMController.IsChangeStateBusy ()) THEN
+	IF (THIS^.itfSaMController.GetState () <> E_BaseMachineState.Undefined) THEN
+		FOR iI := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
+			THIS^.itfSaMController.ExecuteTopElementOperationsForCurrentState (itfTopElement := THIS^.arrTopElements [iI]);
+		END_FOR
+	END_IF
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="InitializeCycle" Id="{f127c58d-f380-4c5b-91fc-37aed1ddc70f}">

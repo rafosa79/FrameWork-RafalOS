@@ -25,6 +25,16 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="InvokeStateForTopElement" Id="{6567004d-543a-0afb-18b9-4317e3330f74}">
+      <Declaration><![CDATA[METHOD PUBLIC InvokeStateForTopElement : BOOL
+VAR_INPUT
+	itfTopElement		: ITF_BaseSaMStateMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="IsActive" Id="{0737c9dc-d560-0e62-3c1f-3b7ef8ae10dc}">
       <Declaration><![CDATA[METHOD PUBLIC IsActive : BOOL
 VAR_INPUT

@@ -5,7 +5,7 @@
 STRUCT
 	fbUndefined     						: FB_SaMElementUndefined;
     fbAborting      						: FB_SaMElementAborting;
-    fbAborted       						: FB_SaMElementAbort;
+    fbAborted       						: FB_SaMElementAborted;
     fbClearing      						: FB_SaMElementClearing;
     fbStopping      						: FB_SaMElementStopping;
     fbStopped       						: FB_SaMElementStopped;

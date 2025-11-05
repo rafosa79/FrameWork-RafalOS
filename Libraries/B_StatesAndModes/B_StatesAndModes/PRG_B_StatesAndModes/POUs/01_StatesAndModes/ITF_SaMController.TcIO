@@ -11,6 +11,13 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="ExecuteTopElementOperationsForCurrentState" Id="{39fee9f5-3dd7-0b11-0632-2982610ba37f}">
+      <Declaration><![CDATA[METHOD ExecuteTopElementOperationsForCurrentState : BOOL
+VAR_INPUT
+	itfTopElement				: ITF_BaseSaMStateMethod;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="GetMode" Id="{1d69f223-181f-0972-3ad1-54d77ed4be14}">
       <Declaration><![CDATA[METHOD PUBLIC GetMode : E_BaseMachineMode
 VAR_INPUT

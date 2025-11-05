@@ -23,5 +23,16 @@ THIS^.SetName (stName := THIS^.GetTexts ());
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="InvokeStateForTopElement" Id="{acd4c272-a1bc-0c6c-3afb-6c54425fb879}">
+      <Declaration><![CDATA[METHOD PUBLIC InvokeStateForTopElement : BOOL
+VAR_INPUT
+	itfTopElement		: ITF_BaseSaMStateMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[InvokeStateForTopElement	:= itfTopElement.SP_Aborting ();
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

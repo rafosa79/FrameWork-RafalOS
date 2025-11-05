@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_SaMElementAbort" Id="{6fa8edf3-f184-0e10-37fc-291d9b868d33}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_SaMElementAbort EXTENDS FB_SaMElement
+  <POU Name="FB_SaMElementAborted" Id="{6fa8edf3-f184-0e10-37fc-291d9b868d33}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SaMElementAborted EXTENDS FB_SaMElement
 VAR
 END_VAR
 ]]></Declaration>
@@ -20,6 +20,17 @@ END_VAR
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Aborted");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Abgebrochen");
 THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InvokeStateForTopElement" Id="{284207bc-58fd-0f6d-012a-13315041e675}">
+      <Declaration><![CDATA[METHOD PUBLIC InvokeStateForTopElement : BOOL
+VAR_INPUT
+	itfTopElement		: ITF_BaseSaMStateMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[InvokeStateForTopElement	:= itfTopElement.SP_Aborted ();
 ]]></ST>
       </Implementation>
     </Method>

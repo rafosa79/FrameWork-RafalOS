@@ -31,8 +31,8 @@ END_VAR
 	PRG_SystemControlMachineWork ();		//<- do prawdziwego programu
 	AssertTrue (Condition := GVL_SystemVariable.fbMachineControl.bInitializeCycle, Message := 'T02_01 - blad pierwszego przejscia');
 	AssertTrue (Condition := GVL_SystemVariable.fbMachineControl.bInitDone, Message := 'T02_02 - blad inicjalizacji');
-	AssertEquals_UINT (Expected := 20, Actual := GVL_SystemVariable.fbLogger.uiNumerOfReportsIntheSystem, Message := 'T02_03 - Bledna ilosc zgloszen');
-	AssertEquals_UINT (Expected := 34, Actual := GVL_SystemVariable.fbMachineControl.uiNumberOfAllAddedElements, Message := 'T02_04 - bledna ilosc elementow');
+	AssertEquals_UINT (Expected := 97, Actual := GVL_SystemVariable.fbLogger.uiNumerOfReportsIntheSystem, Message := 'T02_03 - Bledna ilosc zgloszen');
+	AssertEquals_UINT (Expected := 164, Actual := GVL_SystemVariable.fbMachineControl.uiNumberOfAllAddedElements, Message := 'T02_04 - bledna ilosc elementow');
 	
 	
 	
@@ -65,8 +65,8 @@ END_IF]]></ST>
       <Declaration><![CDATA[METHOD PRIVATE T03_TestZmianyTrybow
 VAR_INST
 	iStep			: INT;
-	eNewMode		: E_SAMMODES;
-	eActualMode		: E_SaMModes;
+	eNewMode		: E_BaseMachineMode;
+	eActualMode		: E_BaseMachineMode;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T03_TestZmianyTrybow')) THEN
@@ -77,7 +77,7 @@ END_VAR]]></Declaration>
 	CASE iStep OF
 	0	:
 		itest	:= 3;
-		eNewMode			:= E_SaMModes.Production;
+		eNewMode			:= E_BaseMachineMode.Production;
 		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
 		iStep	:= iStep + 10;
 	10	:	//pierwszy krok 
@@ -100,7 +100,7 @@ END_VAR]]></Declaration>
 	40	:
 		iStep	:= iStep + 10;
 	50	:
-		eNewMode			:= E_SaMModes.Maintance;
+		eNewMode			:= E_BaseMachineMode.Maintenance;
 		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
 		iStep	:= iStep + 10;
 	60	:	//pierwszy krok 
@@ -123,7 +123,7 @@ END_VAR]]></Declaration>
 	90	:
 		iStep	:= iStep + 10;
 	100	:
-		eNewMode			:= E_SaMModes.Manual;
+		eNewMode			:= E_BaseMachineMode.Manual;
 		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
 		iStep	:= iStep + 10;
 	110	:	//pierwszy krok 
@@ -146,7 +146,7 @@ END_VAR]]></Declaration>
 	140	:
 		iStep	:= iStep + 10;
 	150	:
-		eNewMode			:= E_SaMModes.Production;
+		eNewMode			:= E_BaseMachineMode.Production;
 		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
 		iStep	:= iStep + 10;
 	160	:	//pierwszy krok 
@@ -167,10 +167,10 @@ END_VAR]]></Declaration>
 		AssertEquals (Expected := eNewMode, Actual := eActualMode, 						Message := 'S180 - T04 - Bledny stan');
 		iStep	:= iStep + 10;
 	190	:	//jest w produkcji wyłączamy manual i próba wejścia 
-		GVL_Variable.fbMySaMController.SetModeEnabled (iMode := E_SaMModes.Manual, bValue := FALSE);
+		GVL_Variable.fbMySaMController.SetModeEnabled (iMode := E_BaseMachineMode.Manual, bValue := FALSE);
 		iStep	:= iStep + 10;
 	200	:
-		eNewMode			:= E_SaMModes.Manual;
+		eNewMode			:= E_BaseMachineMode.Manual;
 		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
 		iStep	:= iStep + 10;
 	210	:	//pierwszy krok 
@@ -179,10 +179,10 @@ END_VAR]]></Declaration>
 		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeModeStatus (), Message := 'S210 - T03 - Bledny stan status');
 		iStep	:= iStep + 10;
 	220	:	//jest w produkcji włączamy manual i próba wejścia 
-		GVL_Variable.fbMySaMController.SetModeEnabled (iMode := E_SaMModes.Manual, bValue := TRUE);
+		GVL_Variable.fbMySaMController.SetModeEnabled (iMode := E_BaseMachineMode.Manual, bValue := TRUE);
 		iStep	:= iStep + 10;
 	230	:
-		eNewMode			:= E_SaMModes.Manual;
+		eNewMode			:= E_BaseMachineMode.Manual;
 		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
 		iStep	:= iStep + 10;
 	240	:	//pierwszy krok 
@@ -203,7 +203,7 @@ END_VAR]]></Declaration>
 		AssertEquals (Expected := eNewMode, Actual := eActualMode, 						Message := 'S260 - T04 - Bledny stan');
 		iStep	:= iStep + 10;
 	270	:
-		eNewMode			:= E_SaMModes.Production;
+		eNewMode			:= E_BaseMachineMode.Production;
 		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := eNewMode, eChangeCategory := E_SaMChangeCategory.eMode);
 		iStep	:= iStep + 10;
 	280	:	//pierwszy krok 
@@ -225,8 +225,8 @@ END_IF
       <Declaration><![CDATA[METHOD PRIVATE T04_TestZmianyStanow
 VAR_INST
 	iStep			: INT;
-	eNewState		: E_SaMStates;
-	eActualState	: E_SaMStates;
+	eNewState		: E_BaseMachineState;
+	eActualState	: E_BaseMachineState;
 
 END_VAR]]></Declaration>
       <Implementation>
@@ -238,7 +238,7 @@ END_VAR]]></Declaration>
 	CASE iStep OF
 	0	:
 		itest	:= 4;
-(*	*)	eNewState			:= E_SaMStates.Aborting;
+(*	*)	eNewState			:= E_BaseMachineState.Aborting;
 		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := E_SaMCommandChangeState.Abort, eChangeCategory := E_SaMChangeCategory.eState);
 		iStep	:= iStep + 10;
 	10	:	//pierwszy krok 
@@ -261,7 +261,7 @@ END_VAR]]></Declaration>
 	40	:
 		iStep	:= iStep + 10;
 	50	:	
-(*	*)	eNewState	:= E_SaMStates.Aborted;
+(*	*)	eNewState	:= E_BaseMachineState.Aborted;
 		GVL_Variable.fbMySaMController.ChangeStateTo (eNewState := eNewState);
 		iStep	:= iStep + 10;
 	60	:	//pierwszy krok 
@@ -284,7 +284,7 @@ END_VAR]]></Declaration>
 	90	:
 		iStep	:= iStep + 10;
 	100	:
-(*	*)	eNewState			:= E_SaMStates.Clearing;
+(*	*)	eNewState			:= E_BaseMachineState.Clearing;
 		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := E_SaMCommandChangeState.Clear, eChangeCategory := E_SaMChangeCategory.eState);
 		iStep	:= iStep + 10;
 	110	:	//pierwszy krok 
@@ -307,7 +307,7 @@ END_VAR]]></Declaration>
 	140	:
 		iStep	:= iStep + 10;
 	150	:
-(*	*)	eNewState			:= E_SaMStates.Stopped;
+(*	*)	eNewState			:= E_BaseMachineState.Stopped;
 		GVL_Variable.fbMySaMController.ChangeStateTo (eNewState := eNewState);
 		iStep	:= iStep + 10;		
 	160	:	//pierwszy krok 
@@ -328,7 +328,7 @@ END_VAR]]></Declaration>
 		AssertEquals (Expected := eNewState, Actual := eActualState, 						Message := 'S180 - T04 - Bledny stan');
 		iStep	:= iStep + 10;
 	190	:	//przjescie do aborting
-(*	*)	eNewState			:= E_SaMStates.Aborting;
+(*	*)	eNewState			:= E_BaseMachineState.Aborting;
 		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := E_SaMCommandChangeState.Abort, eChangeCategory := E_SaMChangeCategory.eState);
 		iStep	:= iStep + 10;
 	200	:	//pierwszy krok 
@@ -351,7 +351,7 @@ END_VAR]]></Declaration>
 	230	:
 		iStep	:= iStep + 10;
 	240	:	
-(*	*)	eNewState			:= E_SaMStates.Aborted;
+(*	*)	eNewState			:= E_BaseMachineState.Aborted;
 		GVL_Variable.fbMySaMController.ChangeStateTo (eNewState := eNewState);
 		iStep	:= iStep + 10;		
 	250	:	//pierwszy krok 
@@ -372,10 +372,10 @@ END_VAR]]></Declaration>
 		AssertEquals (Expected := eNewState, Actual := eActualState, 						Message := 'S270 - T04 - Bledny stan');
 		iStep	:= iStep + 10;
 	280	:
-		GVL_Variable.fbMySaMController.SetStateEnabledInMode (iMode := E_SaMModes.Production, iState := E_SaMStates.Clearing, bValue := FALSE);
+		GVL_Variable.fbMySaMController.SetStateEnabledInMode (iMode := E_BaseMachineMode.Production, iState := E_BaseMachineState.Clearing, bValue := FALSE);
 		iStep	:= iStep + 10;
 	290	:
-(*	*)	eNewState			:= E_SaMStates.Clearing;
+(*	*)	eNewState			:= E_BaseMachineState.Clearing;
 		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := E_SaMCommandChangeState.Clear, eChangeCategory := E_SaMChangeCategory.eState);
 		iStep	:= iStep + 10;
 	300	:	//pierwszy krok 
@@ -384,10 +384,10 @@ END_VAR]]></Declaration>
 		AssertTrue (Condition := GVL_Variable.fbMySaMController.IsChangeStateStatus (), 	Message := 'S300 - T03 - Bledny stan status');
 		iStep	:= iStep + 10;
 	310	:
-		GVL_Variable.fbMySaMController.SetStateEnabledInMode (iMode := E_SaMModes.Production, iState := E_SaMStates.Clearing, bValue := TRUE);
+		GVL_Variable.fbMySaMController.SetStateEnabledInMode (iMode := E_BaseMachineMode.Production, iState := E_BaseMachineState.Clearing, bValue := TRUE);
 		iStep	:= iStep + 10;
 	320	:
-(*	*)	eNewState			:= E_SaMStates.Clearing;
+(*	*)	eNewState			:= E_BaseMachineState.Clearing;
 		GVL_Variable.fbMySaMController.Execute (iNumberOfCommand := E_SaMCommandChangeState.Clear, eChangeCategory := E_SaMChangeCategory.eState);
 		iStep	:= iStep + 10;
 	330	:	//pierwszy krok 
@@ -422,6 +422,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T05_TestPrzelaczaniaStanowWMC')) THEN
 	iTest		:= 5;
+	PRG_SystemControlMachineWork ();
 	
 	IF (bKoniec) THEN
 		bKoniec		:= FALSE;

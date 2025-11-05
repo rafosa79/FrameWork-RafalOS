@@ -211,6 +211,17 @@ THIS^.cmdChangeState.Test ();
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="ExecuteTopElementOperationsForCurrentState" Id="{9f312f84-4c60-084c-1618-92d105754996}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD ExecuteTopElementOperationsForCurrentState : BOOL
+VAR_INPUT
+	itfTopElement				: ITF_BaseSaMStateMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ExecuteTopElementOperationsForCurrentState := THIS^.refarrStatesForActiveMode [THIS^.eState].InvokeStateForTopElement (itfTopElement := itfTopElement);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FB_init" Id="{8f55a5c3-a0eb-0deb-011c-23bf5df2ad6a}" FolderPath="Initialization\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT

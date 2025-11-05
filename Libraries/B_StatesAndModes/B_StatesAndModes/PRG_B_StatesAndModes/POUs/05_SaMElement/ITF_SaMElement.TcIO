@@ -3,6 +3,13 @@
   <Itf Name="ITF_SaMElement" Id="{18e351e5-c377-09bd-199b-8ece74b821e4}">
     <Declaration><![CDATA[INTERFACE ITF_SaMElement EXTENDS ITF_BaseComponent
 ]]></Declaration>
+    <Method Name="InvokeStateForTopElement" Id="{0f361f4f-cbec-0bac-0fc7-5725dafc2c84}">
+      <Declaration><![CDATA[METHOD PUBLIC InvokeStateForTopElement : BOOL
+VAR_INPUT
+	itfTopElement		: ITF_BaseSaMStateMethod;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="IsActive" Id="{c8d946d6-c2d5-0d48-0aaf-5a6a7c6a5209}">
       <Declaration><![CDATA[METHOD PUBLIC IsActive : BOOL
 VAR_INPUT
