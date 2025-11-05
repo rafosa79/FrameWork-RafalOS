@@ -105,7 +105,7 @@ END_VAR
 	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkSTO (fbSTO	:= THIS^.itfSTO);
 	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkCommunicator (fbCommunicator	:= THIS^.fbMasterCommunicator);
 	(*	Podpięcie systemu sterowania stanami i trybami	*)
-//	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkSAM (fbSAM	:= THIS^. tu będzie interfijs do SITP);
+	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].LinkSAM (fbSAM	:= THIS^.itfSaMController);
 	THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].FirstCycle ();
 	THIS^.uiNumberOfAllAddedElements 						:= THIS^.arrTopElements [THIS^.iNumberOfAddedTopElement].SetID (uiID := THIS^.uiNumberOfAllAddedElements + 1);
 	THIS^.refstCommonData.itfLogger.SetNumerOfReportsIntheSystem (
