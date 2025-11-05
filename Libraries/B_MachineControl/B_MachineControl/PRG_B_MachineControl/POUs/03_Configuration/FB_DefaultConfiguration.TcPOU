@@ -22,7 +22,7 @@ END_VAR
     </Method>
     <Method Name="AddTopElementToMachineControl" Id="{5d7430ec-14d9-0c38-3500-a1ae21ec7008}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		29.10.2025		TC 4024.66
 	Dodawanie TopElementu do systemu
 *)
@@ -37,6 +37,17 @@ THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "System");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "System");
 GVL_SystemVariable.fbMachineControl.SetName (stName := THIS^.GetTexts ());
 itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_SystemVariable.fbMachineControl);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStartMode" Id="{2d8e37f8-978f-0396-3184-f3024c4fb837}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStartMode : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.SetStartMode (eStartMode := E_BaseMachineMode.Production);
 ]]></ST>
       </Implementation>
     </Method>

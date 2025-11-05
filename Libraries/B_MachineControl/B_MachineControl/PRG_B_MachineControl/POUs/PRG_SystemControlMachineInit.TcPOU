@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="PRG_SystemControlMachineInit" Id="{6e1492bc-4f02-0ee9-0a49-e2590478923c}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		25.10.2025		TC 4024.66
 	Program maszyny
 *)

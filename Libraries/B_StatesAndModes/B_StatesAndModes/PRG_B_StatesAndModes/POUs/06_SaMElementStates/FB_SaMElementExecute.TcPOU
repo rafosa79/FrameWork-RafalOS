@@ -16,7 +16,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Wykonywany");
+        <ST><![CDATA[THIS^.bTypeActive		:= FALSE;
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Wykonywany");
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Ausführen");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Execute");
 THIS^.SetName (stName := THIS^.GetTexts ());

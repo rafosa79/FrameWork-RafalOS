@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="CreateElementCode" Id="{2eb6bf3a-c71b-47ca-a0d7-73b7b7514efe}" SpecialFunc="None">
-    <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		16.10.2024		TC 4026.11		wer. 0.0.0.1
 	Utworzenie kodu elementu 
 *)

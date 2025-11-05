@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_RequiredChange" Id="{375a2992-5fcd-0418-3ca1-78865de1c3ed}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		04.11.2025		TC 4024.66
+	Polecenie zmiany trybu lub stanu - rozszerzony przycisk o możliwość sterowania z HMI i na wyjściu daje mi impuls na jeden cykl
+*)
+FUNCTION_BLOCK FB_RequiredChange EXTENDS FB_IOButton_NO IMPLEMENTS ITF_RequiredChange
+VAR
+	bChange					: BOOL;
+	rtChange				: Tc2_Standard.R_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="SetRequiredChange" Id="{be57da94-040f-05ed-3177-bb405bd50f65}">
+      <Declaration><![CDATA[METHOD PUBLIC SetRequiredChange
+VAR_INPUT
+	bIn: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bChange		:= bIn;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Testing" Id="{382a510a-21f2-01de-1691-e3b0870c7366}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		04.11.2025		TC 4024.66
+	
+*)
+METHOD Testing : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.rtChange (CLK	:= THIS^.IsPressed () OR THIS^.bChange);
+THIS^.bChange	:= FALSE;
+Testing			:= THIS^.rtChange.Q;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_BaseCreateTemplateOfRecipe" Id="{1059cad2-38ec-00a8-2713-f97371bed026}">
     <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		25.10.2025		TC 4024.66
 	Dodawanie meteody dla tworzenia szablownow 
 *)

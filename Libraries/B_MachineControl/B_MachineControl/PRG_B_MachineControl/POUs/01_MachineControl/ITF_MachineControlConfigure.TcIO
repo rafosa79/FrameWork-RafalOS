@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_MachineControlConfigure" Id="{407b3a6e-6e4f-4b87-8313-a53f9cca235d}">
     <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		29.10.2025		TC 4024.66
 	Metody do konfiguracji MAchine control wywoływane z MachineConfigure z pomocą przekazanego ITF
 *)
@@ -12,7 +12,7 @@ INTERFACE ITF_MachineControlConfigure EXTENDS ITF_Base
       <Declaration><![CDATA[METHOD PUBLIC AddRequestModeChange : BOOL
 VAR_INPUT
 	iNumberOfRequest			: INT;
-	itfRequest					: ITF_IOButton;
+	itfRequest					: ITF_RequiredChange;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -20,7 +20,7 @@ END_VAR
       <Declaration><![CDATA[METHOD PUBLIC AddRequestStateChange : BOOL
 VAR_INPUT
 	iNumberOfRequest			: INT;
-	itfRequest					: ITF_IOButton;
+	itfRequest					: ITF_RequiredChange;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -28,6 +28,13 @@ END_VAR
       <Declaration><![CDATA[METHOD AddTopElementFromConfiguration : BOOL
 VAR_INPUT
 	fbTopElement		: ITF_BaseTopElement;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetStartMode" Id="{8d345749-18d6-038a-3e39-290be0c31c98}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStartMode
+VAR_INPUT
+	eStartMode				: E_BaseMachineMode;
 END_VAR
 ]]></Declaration>
     </Method>

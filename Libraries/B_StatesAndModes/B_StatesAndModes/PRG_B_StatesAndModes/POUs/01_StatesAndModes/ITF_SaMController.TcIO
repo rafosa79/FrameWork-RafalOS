@@ -18,6 +18,12 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="ExitActivState" Id="{cb9e97a3-d22a-0cd9-02f4-6cb8ea8c3bb2}">
+      <Declaration><![CDATA[METHOD PUBLIC ExitActivState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="GetMode" Id="{1d69f223-181f-0972-3ad1-54d77ed4be14}">
       <Declaration><![CDATA[METHOD PUBLIC GetMode : E_BaseMachineMode
 VAR_INPUT
@@ -62,6 +68,12 @@ END_VAR
     </Method>
     <Method Name="IsChangeStateStatus" Id="{65896b9c-a764-034c-3270-ababbefc1d46}">
       <Declaration><![CDATA[METHOD PUBLIC IsChangeStateStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStateTypeActive" Id="{e84694eb-2fa3-0f44-1c4e-04cf04acd99f}">
+      <Declaration><![CDATA[METHOD PUBLIC IsStateTypeActive : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>

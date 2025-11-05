@@ -24,7 +24,7 @@ END_VAR
     </Implementation>
     <Method Name="Abort" Id="{654d236c-c6f7-0834-0dd9-3c34634e2ec1}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		04.11.2025		TC 4024.66
 	Przerwanie pracy polecenia i wyzerowanie zmiennych wystawienie zmiennej Abort
 *)
@@ -47,7 +47,7 @@ THIS^.bAborted							:= TRUE;
     </Method>
     <Method Name="Execute" Id="{305fc6c1-129b-095b-3ee6-b758c4dff241}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		04.11.2025		TC 4024.66
 	Uruchomienie polecenia
 *)
@@ -73,7 +73,7 @@ END_VAR
     </Method>
     <Method Name="IsAborted" Id="{fa7fde8b-48e0-019c-0513-892f3e9c8056}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		04.11.2025		TC 4024.66
 	Zwraca czy rozkaz został przerwany
 *)
@@ -88,7 +88,7 @@ END_VAR
     </Method>
     <Method Name="IsBusy" Id="{9fb27f90-4f10-08c2-1017-dd41e6f351c7}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		04.11.2025		TC 4024.66
 	Zwraca czy rozkaz jest w trakcie pracy
 *)
@@ -103,7 +103,7 @@ END_VAR
     </Method>
     <Method Name="IsDone" Id="{0539a3ec-208d-070d-0cbf-389e3d77aee5}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		04.11.2025		TC 4024.66
 	Zwraca czy rozkas się wykonał
 *)
@@ -148,7 +148,7 @@ END_VAR
     </Method>
     <Method Name="Operation" Id="{c69ea91e-0e08-0dff-2e7a-e47c16840171}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.05.2025		TC 4024.66
 	Metoda wykonywana co cykl - jako wejście przyjmuje czy cykl polecenia się skończył czy nie - jak false czyli się skończył to ustawia flagę ostatniego cyklu
 *)
@@ -166,7 +166,7 @@ END_IF
     </Method>
     <Method Name="OperationExecute" Id="{366df8b3-cde0-0ec2-0a08-438fcb01af3a}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.05.2025		TC 4024.66
 	Metoda wykonywana co cykl sprawdza czy jest uruchomone polecenie 
 *)
@@ -271,7 +271,7 @@ END_VAR
     </Method>
     <Method Name="Test" Id="{81478e65-f057-0bd1-13be-f5d82ad84836}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.05.2025		TC 4024.66
 	Metoda wykonywana co cykl testująca czy ma się polecenie wykonać
 *)
@@ -312,7 +312,7 @@ END_IF
     </Method>
     <Method Name="TurnOff" Id="{1ae14523-f886-0e12-12d4-4ff0bd8aa1c1}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.05.2025		TC 4024.66
 	Metoda wylacza zgloszone uruchomienie
 *)

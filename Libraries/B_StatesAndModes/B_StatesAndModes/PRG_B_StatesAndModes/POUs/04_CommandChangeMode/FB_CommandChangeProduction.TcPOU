@@ -11,7 +11,7 @@ END_VAR
     </Implementation>
     <Method Name="Execute" Id="{f9bf9c92-5569-037f-0720-a0b511917bf5}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Test czy można zmienić stan lub tryb i zwraca czy można i uruchamia zmianę
 *)

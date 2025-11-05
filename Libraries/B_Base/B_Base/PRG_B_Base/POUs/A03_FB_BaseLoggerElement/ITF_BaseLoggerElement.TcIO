@@ -6,7 +6,7 @@
     <Folder Name="ID" Id="{ebebc54b-7071-0c25-1f06-3769663c0ef5}" />
     <Method Name="EventsDefinition" Id="{9fbb4552-8362-0324-08b0-1fb2884dba78}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		24.03.2025		TC 4024.66
 	Definicja nowego zgłoszenia
 *)
@@ -54,7 +54,7 @@ END_VAR
     </Method>
     <Method Name="SetEventsIDs" Id="{7d9014b4-e5ff-0f63-0ed0-28063bd071c8}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.10.2025		TC 4024.66
 	nadawanie unikalnych ID dla zdarzeń
 *)

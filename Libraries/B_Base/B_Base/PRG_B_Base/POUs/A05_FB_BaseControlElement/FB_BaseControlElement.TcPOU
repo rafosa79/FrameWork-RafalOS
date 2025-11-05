@@ -53,7 +53,7 @@ END_IF
     </Method>
     <Method Name="EventsDefinition" Id="{c334dad3-9bce-0917-045f-8a0401f150c4}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		24.03.2025		TC 4024.66
 	Definicja nowego zgłoszenia
 *)
@@ -86,7 +86,7 @@ THIS^.AddEvent (
     </Method>
     <Method Name="ExecuteEveryCycle_Error" Id="{c53db952-8dc4-0d2b-12ad-d90bb93fe6ad}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
 *)
@@ -104,7 +104,7 @@ END_FOR]]></ST>
     </Method>
     <Method Name="ExecuteEveryCycle_Operation" Id="{2b392690-7f99-033f-26aa-9690fa663a58}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Wywolanie co cykl operacji 
 *)
@@ -158,7 +158,7 @@ END_IF
     </Method>
     <Method Name="ExecuteEveryCycle_Status" Id="{ec9006a7-246a-0b2b-0a91-f4d80259e847}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Aktualizacja flag 
 *)
@@ -176,7 +176,7 @@ END_FOR]]></ST>
     </Method>
     <Method Name="ExecuteEveryCycle_Test" Id="{0e170bd0-8bb2-0c38-0c54-35b280a40246}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Testowanie czy nei pojawil sie jakis rozkaz i uruchomienie odpowiednich operacji
 *)
@@ -284,7 +284,7 @@ END_VAR
     </Method>
     <Method Name="HomingCycle" Id="{52f3f79e-960c-0de7-1d3a-68eab36989b0}" FolderPath="Bazowanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.05.2025		TC 4024.66
 	Metoda bazowania kontrektnego elementu 
 *)
@@ -299,7 +299,7 @@ END_VAR
     </Method>
     <Method Name="HomingCycleInternal" Id="{ffc44757-f6c2-07ad-003f-c33ae386e867}" FolderPath="Bazowanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.05.2025		TC 4024.66
 	Metoda główna bazowania wywołuje metode przeciążaną Bazowanie_Cykl dziecka
 *)
@@ -333,7 +333,7 @@ END_CASE
     </Method>
     <Method Name="HomingGetBusy" Id="{33408a0d-042a-0f59-1e29-7ce625bb2198}" FolderPath="Bazowanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.05.2025		TC 4024.66
 	Bazowanie w toku
 *)
@@ -348,7 +348,7 @@ END_VAR
     </Method>
     <Method Name="HomingGetDone" Id="{07412dca-23e8-0c5a-0f20-99e739e31e10}" FolderPath="Bazowanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		31.03.2025		TC 4024.66
 	Flaga że w tej sesji pracy maszyny element został już wybazowany
 *)
@@ -363,7 +363,7 @@ END_VAR
     </Method>
     <Method Name="HomingGetIsNeeded" Id="{d7ff01aa-0731-0a8c-12a1-791517d15581}" FolderPath="Bazowanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		11.04.2025		TC 4024.66
 	Zwraca czy bazowanie jest potrzebne
 *)
@@ -378,7 +378,7 @@ END_VAR
     </Method>
     <Method Name="HomingSetWithoutHoming" Id="{5a5855af-d47a-0a6a-07f4-575e5afc713b}" FolderPath="Bazowanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		11.04.2025		TC 4024.66
 	Ustawia czy element jest ma być bazowany czy nie
 *)
@@ -394,7 +394,7 @@ END_VAR
     </Method>
     <Method Name="HomingStart" Id="{31be6a6b-ec8a-0bec-3837-eb9aa93b3ee3}" FolderPath="Bazowanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.05.2025		TC 4024.66
 	Uruchomienie metody bazowania
 *)
@@ -409,7 +409,7 @@ END_VAR
     </Method>
     <Method Name="IsDoNothing" Id="{374d26a0-ec77-0904-0e68-6d5f8f41e3a2}" FolderPath="ITF_BaseControlElement\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		30.04.2025		TC 4024.66
 	Zwraca czy element jest czymś zajety
 *)
@@ -422,7 +422,7 @@ METHOD PUBLIC IsDoNothing : BOOL
     </Method>
     <Method Name="IsPosition0" Id="{b8caa6d7-84b6-0f11-0778-092adf43c4c2}" FolderPath="ITF_BaseControlElement\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		30.04.2025		TC 4024.66
 	Zwraca czy element jest w pozycji 0 - referencyjnej
 *)
@@ -456,7 +456,7 @@ IsValidCommonData			:= bResult;
     </Method>
     <Method Name="JoinTheLogger" Id="{6f6c3a2f-1ef9-0d75-3b9a-48c4bdd1460d}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		07.10.2025		TC 4024.66
 	Dodpisywanie się do listy logera
 *)
@@ -527,7 +527,7 @@ LinkSTO				:= THIS^.itfSTO <> 0;
     </Method>
     <Method Name="PowerGetStatus" Id="{f37f9c4a-7710-0cee-1290-80230f49bdb4}" FolderPath="Zasilanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		31.03.2025		TC 4024.66
 	Zwraca status zasilania	
 *)
@@ -542,7 +542,7 @@ END_VAR
     </Method>
     <Method Name="PowerOffCycle" Id="{53e0dca8-4e5c-03cd-15fe-b8eef14ae467}" FolderPath="Zasilanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		13.10.2025		TC 4024.66
 	Podstawowy cykl wyłączania zasilania. Dla Specyficznych urządzeń przeciążyć
 *)
@@ -557,7 +557,7 @@ PowerOffCycle				:= FALSE;
     </Method>
     <Method Name="PowerOnCycle" Id="{043b0c4d-ee30-0b8f-391b-0b2f137dacf9}" FolderPath="Zasilanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		13.10.2025		TC 4024.66
 	Podstawowy cykl włączania zasilania. Dla Specyficznych urządzeń przeciążyć
 *)
@@ -572,7 +572,7 @@ PowerOnCycle				:= FALSE;
     </Method>
     <Method Name="PowerTurnOff" Id="{6055b47c-5434-0f14-3d1a-3219a3d00404}" FolderPath="Zasilanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		31.03.2025		TC 4024.66
 	Wyłączenie zasilania
 *)
@@ -607,7 +607,7 @@ END_VAR
     </Method>
     <Method Name="PowerTurnOn" Id="{2d017560-e541-07e0-08da-c8019890af49}" FolderPath="Zasilanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		31.03.2025		TC 4024.66
 	Uruchomienie zasialania
 *)
@@ -682,7 +682,7 @@ END_FOR
     </Method>
     <Method Name="SetEventsIDs" Id="{dc108b4c-3b69-0baa-3256-55757a5a651a}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.10.2025		TC 4024.66
 	nadawanie unikalnych ID dla zdarzeń
 *)

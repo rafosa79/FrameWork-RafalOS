@@ -11,11 +11,18 @@ END_VAR
     </Method>
     <Method Name="AddTopElementToMachineControl" Id="{8b896f22-6be0-0e79-09a1-eb54c9dc66d6}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		29.10.2025		TC 4024.66
 	Dodawanie TopElementu do systemu
 *)
 METHOD PUBLIC AddTopElementToMachineControl : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MachineControlConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetStartMode" Id="{36444d97-b5e1-0e95-31fa-e113c6730599}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStartMode : BOOL
 VAR_INPUT
 	itfMachineControl			: ITF_MachineControlConfigure;
 END_VAR

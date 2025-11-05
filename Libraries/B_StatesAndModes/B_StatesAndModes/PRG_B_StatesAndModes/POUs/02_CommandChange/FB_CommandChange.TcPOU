@@ -13,7 +13,7 @@ END_VAR
     <Folder Name="Events" Id="{b0fd9ca9-de98-0582-3a6f-dee4e432df83}" />
     <Method Name="EventsDefinition" Id="{78a05ebb-99d3-06cc-14c5-dd8ae9d402d9}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		24.03.2025		TC 4024.66
 	Definicja nowego zgłoszenia
 *)
@@ -76,7 +76,7 @@ THIS^.AddEvent (
     </Method>
     <Method Name="Execute" Id="{3e1ea8aa-acdf-0fb7-0ce9-e01f53a6e468}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Test czy można zmienić stan lub tryb i zwraca czy można i uruchamia zmianę
 *)
@@ -92,7 +92,7 @@ END_VAR
     </Method>
     <Method Name="LinkSaMCotroller" Id="{a1ee9fff-ed2f-0895-2d8b-6d4b59c9eb07}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Podłączenie sterowania do SaMController
 *)

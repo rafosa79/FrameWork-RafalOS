@@ -17,7 +17,7 @@ END_VAR
     </Implementation>
     <Method Name="BaseDTToString" Id="{a75947e7-b658-04f6-3fab-065836a29d1c}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		01.09.2025		TC 4024.66
 	Konwetrtuje DT to string do postaci DD/MM/YYYY GG:MM:SS
 *)
@@ -59,7 +59,7 @@ BaseDTToString := CONCAT(
     </Method>
     <Method Name="BaseDTToString_" Id="{f2b6639f-e013-0cdc-2743-05f8bfebb2ea}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		01.09.2025		TC 4024.66
 	Konwetrtuje DT to string do postaci DD_MM_YYYY GG_MM_SS - wersja do nazywania plików logów
 *)
@@ -100,7 +100,7 @@ BaseDTToString_ := CONCAT(
     </Method>
     <Method Name="BaseLTimeToString" Id="{eed01935-abe6-0c28-2da0-bbab31ecee00}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		01.09.2025		TC 4024.66
 	Konwertuje czas LTIME do stringa z możliwością wyłączenia milisekund
 *)
@@ -155,7 +155,7 @@ BaseLTimeToString		:= sResult;
     </Method>
     <Method Name="BaseLTimeToString_WhatShow" Id="{09e557b4-5bc4-0374-0169-03f5b7933204}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		01.09.2025		TC 4024.66
 	Konwertuje czas LTIME do stringa z możliwością wybrnia co ma być pokazywane do postaci DDDd:GG:MM:SS:MS
 	dni nie rodziala na miesiące i lata 

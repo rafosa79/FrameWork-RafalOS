@@ -17,7 +17,7 @@ END_VAR
     </Method>
     <Method Name="IsChangeModeBusy" Id="{0dd216ea-27b5-01b9-033f-72faa5a0d597}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		25.10.2025		TC 4024.66
 	Czy trwa zmianay trybu
 *)
@@ -28,7 +28,7 @@ END_VAR
     </Method>
     <Method Name="IsChangeStateBusy" Id="{2bd79ff5-9782-015d-0a64-00caef1a80f6}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		25.10.2025		TC 4024.66
 	Czy trwa zmiana stanu
 *)

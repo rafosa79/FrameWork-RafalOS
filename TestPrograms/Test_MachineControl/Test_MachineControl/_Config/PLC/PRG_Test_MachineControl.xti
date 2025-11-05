@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66" ClassName="CNestedPlcProjDef">
 	<Project GUID="{3780EFA1-7263-41CB-978E-889998C8A1F9}" Name="PRG_Test_MachineControl" PrjFilePath="..\..\PRG_Test_MachineControl\PRG_Test_MachineControl.plcproj" TmcFilePath="..\..\PRG_Test_MachineControl\PRG_Test_MachineControl.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_Test_MachineControl\PRG_Test_MachineControl.tmc" TmcHash="{D27FA633-20F9-94C0-DC4F-C87FC2BCF611}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_Test_MachineControl\PRG_Test_MachineControl.tmc" TmcHash="{412CF536-F9BE-0A3C-3B16-BDED4C7CDDC5}">
 			<Name>PRG_Test_MachineControl Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">

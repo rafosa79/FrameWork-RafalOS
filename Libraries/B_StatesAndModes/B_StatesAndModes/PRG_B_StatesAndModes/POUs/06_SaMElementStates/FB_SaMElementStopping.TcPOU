@@ -16,10 +16,22 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zatrzymywanie");
+        <ST><![CDATA[THIS^.bTypeActive		:= TRUE;
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zatrzymywanie");
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Stopping");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Anhalten");
 THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNextState" Id="{866c43bb-3625-0cc6-11ec-fea8a9ca7632}">
+      <Declaration><![CDATA[METHOD public GetNextState : E_BaseMachineState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNextState		:= E_BaseMachineState.Stopped;
 ]]></ST>
       </Implementation>
     </Method>

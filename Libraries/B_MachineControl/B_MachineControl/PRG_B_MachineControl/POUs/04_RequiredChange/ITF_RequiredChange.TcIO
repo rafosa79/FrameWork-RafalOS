@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_RequiredChange" Id="{0bb9e62f-bd86-08dc-230b-c32c9f5d16b2}">
+    <Declaration><![CDATA[INTERFACE ITF_RequiredChange EXTENDS ITF_IOButton
+]]></Declaration>
+    <Method Name="SetRequiredChange" Id="{5622f058-de00-0ab9-37a6-b85c4b833687}">
+      <Declaration><![CDATA[METHOD PUBLIC SetRequiredChange
+VAR_INPUT
+	bIn: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Testing" Id="{727fa4b0-2551-05f9-3c28-0829bbfe35aa}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		04.11.2025		TC 4024.66
+	
+*)
+METHOD Testing : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

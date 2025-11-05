@@ -19,7 +19,7 @@
     <Company>RafalOS</Company>
     <Released>false</Released>
     <Title>B_MachineControl</Title>
-    <ProjectVersion>0.0.0.14</ProjectVersion>
+    <ProjectVersion>0.0.0.17</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -125,6 +125,12 @@
     <Compile Include="POUs\03_Configuration\ITF_Configuration.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\04_RequiredChange\FB_RequiredChange.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_RequiredChange\ITF_RequiredChange.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\PRG_SystemControlMachineInit.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -139,6 +145,7 @@
     <Folder Include="POUs\01_MachineControl" />
     <Folder Include="POUs\02_MachineConfigure" />
     <Folder Include="POUs\03_Configuration" />
+    <Folder Include="POUs\04_RequiredChange" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_SaMController" Id="{4563e61a-16f1-0b7e-1e7a-1e3cce62ebf6}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		30.10.2025		TC 4024.66
 	Główny FB do zarządzania stanami i trybami pracy
 *)
@@ -51,7 +51,7 @@ END_VAR
     <Folder Name="ITF_SaMControllerConfigure" Id="{b9d762b5-64ba-0e23-0da8-02679c5e095d}" />
     <Method Name="ChangeModeCycle" Id="{414aeb19-c018-007c-1c3c-f514bbd0a2d0}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		04.11.2025		TC 4024.66
 	cykl zmiany trybu
 *)
@@ -86,7 +86,7 @@ THIS^.cmdChangeMode.Execute ();]]></ST>
     </Method>
     <Method Name="ChangeStateCycle" Id="{ba985810-e640-0078-3ef3-fe030dd2b4f0}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		04.11.2025		TC 4024.66
 	cykl zmiany stanu
 *)
@@ -120,7 +120,7 @@ THIS^.cmdChangeState.Execute ();
     </Method>
     <Method Name="Execute" Id="{608fbfab-efd0-0a43-132b-9ced413e3cf8}" FolderPath="ITF_SaMController\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Obsługa zmiany stanów i trybów 
 *)
@@ -142,7 +142,7 @@ END_CASE
     </Method>
     <Method Name="ExecuteEveryCycle_Error" Id="{7d2915c0-b860-0ae5-1527-3f4383f1e352}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
 *)
@@ -157,7 +157,7 @@ END_VAR
     </Method>
     <Method Name="ExecuteEveryCycle_Operation" Id="{fce1133f-4269-083a-3196-447fd3d305da}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Wywolanie co cykl operacji 
 *)
@@ -180,7 +180,7 @@ END_IF
     </Method>
     <Method Name="ExecuteEveryCycle_Status" Id="{efc19d29-865a-0cf3-3de7-0ea6cd45bbeb}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Aktualizacja flag 
 *)
@@ -195,7 +195,7 @@ END_VAR
     </Method>
     <Method Name="ExecuteEveryCycle_Test" Id="{ece18da2-ea2a-0733-0204-177085361f4d}" FolderPath="ITF_BaseComponent\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Testowanie czy nei pojawil sie jakis rozkaz i uruchomienie odpowiednich operacji
 *)
@@ -219,6 +219,21 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[ExecuteTopElementOperationsForCurrentState := THIS^.refarrStatesForActiveMode [THIS^.eState].InvokeStateForTopElement (itfTopElement := itfTopElement);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExitActivState" Id="{ef664fb1-428d-0779-28b7-c91802d9823c}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		04.11.2025		TC 4024.66
+	Wywołanie odpowiednie metody tak by wyjśc z aktualnego stanu aktywnego 
+*)
+METHOD PUBLIC ExitActivState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.ChangeStateTo (eNewState := THIS^.refarrStatesForActiveMode [THIS^.eState].GetNextState ());
 ]]></ST>
       </Implementation>
     </Method>
@@ -420,7 +435,7 @@ END_FOR
     </Method>
     <Method Name="Initialization_CopeEnabledMode" Id="{9caf16aa-8e17-0188-0778-feb120a747c8}" FolderPath="Initialization\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Przepisuje ustawiony stan Enebled z elementu i zapisuje go do tablisy trybów
 *)
@@ -438,7 +453,7 @@ END_FOR]]></ST>
     </Method>
     <Method Name="Initialization_CopeEnabledStateToMode" Id="{f300e133-09be-0c0f-171e-7b6b40f26bca}" FolderPath="Initialization\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Przepisuje ustawiony stan Enebled z elementu i zapisuje go do tablisy stanów w trybach
 *)
@@ -461,7 +476,7 @@ END_FOR
     </Method>
     <Method Name="Initialization_ModeEnabled" Id="{5912d4c5-b4cd-06a3-0564-9ba3892b0b5a}" FolderPath="Initialization\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Inicjalizacja jakie tryby są właczony
 *)
@@ -483,7 +498,7 @@ THIS^.Initialization_CopeEnabledMode ();
     </Method>
     <Method Name="Initialization_ModeTransitionEnabledInState" Id="{7a55a83f-7f67-0de6-2883-392467d43383}" FolderPath="Initialization\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Ustawienie w jakim stanie trybu mozemy zmieniać tryby
 *)
@@ -517,7 +532,7 @@ THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Diagnostics][E_BaseMachi
     </Method>
     <Method Name="Initialization_StateEnabledInMode" Id="{dc2a4a2f-5f9b-0acc-12ed-511725c24baa}" FolderPath="Initialization\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Ustawienie jakie stany sa włączone w jakim stanie
 *)
@@ -752,9 +767,19 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="IsStateTypeActive" Id="{7bd25157-9596-071c-3b81-80cfb5064136}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IsStateTypeActive : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStateTypeActive		:= THIS^.refarrStatesForActiveMode [THIS^.eState].IsStateTypeActive ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetModeEnabled" Id="{a6177f68-4488-047c-30fa-8a1ad845401a}" FolderPath="ITF_SaMControllerConfigure\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Wlacza lub wylacza tryb pracy
 *)
@@ -772,7 +797,7 @@ THIS^.Initialization_CopeEnabledMode ();
     </Method>
     <Method Name="SetModeTransitionEnabledInState" Id="{8e1ba6f0-a320-0b3b-2227-dfce826a53ad}" FolderPath="ITF_SaMControllerConfigure\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Ustawianie czy w danym stanie może nastąpić zmiana trybu
 *)
@@ -790,7 +815,7 @@ END_VAR
     </Method>
     <Method Name="SetStateEnabledInMode" Id="{e6b6b323-bcad-0d41-3b46-111e4af3451a}" FolderPath="ITF_SaMControllerConfigure\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.11.2025		TC 4024.66
 	Ustawia włączone stany w zadanym trybie
 *)

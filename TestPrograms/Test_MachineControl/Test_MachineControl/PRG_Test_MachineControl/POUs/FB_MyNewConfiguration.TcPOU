@@ -43,6 +43,17 @@ GVL_TopElement1.fbTopElement1.SetName (stName := THIS^.GetTexts ());
 itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_TopElement2.fbTopElement2);]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SetStartMode" Id="{503f7887-fe7e-43b2-afe8-42df368491ab}">
+      <Declaration><![CDATA[{warning 'add method implementation '}
+METHOD SetStartMode : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="StateAndModes" Id="{eaff7a1f-24dd-4234-bac4-3b82e13d6de6}">
       <Declaration><![CDATA[METHOD StateAndModes : BOOL
 VAR_INPUT

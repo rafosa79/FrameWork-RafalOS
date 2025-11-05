@@ -46,6 +46,7 @@ FOR iI := 0 TO THIS^.iNubmerOfAddedConfigure DO
 		THIS^.arritfConfigure [iI].AddTopElementToMachineControl (itfMachineControl	:= fbMachineControl);
 		THIS^.arritfConfigure [iI].AddTopElementToLogger ();
 		THIS^.arritfConfigure [iI].StateAndModes (itfMachineControl := fbMachineControl);
+		THIS^.arritfConfigure [iI].SetStartMode (itfMachineControl := fbMachineControl);
 	END_IF
 END_FOR
 

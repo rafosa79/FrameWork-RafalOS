@@ -57,7 +57,7 @@ AddItem								:= THIS^.iNumberOfItem;
     </Method>
     <Method Name="BufferFIFOSupport" Id="{e129154d-ae16-0d4d-3b2a-e5726803dcad}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		09.06.2025		TC 4024.66
 	Przenisienie danych z kolejki do zgloszen pamiętanych
 *)
@@ -87,7 +87,7 @@ END_IF
     </Method>
     <Method Name="BufferFIFOSupportConfirm" Id="{f1844e3b-d002-0aae-0a0a-7787991dac5a}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		09.06.2025		TC 4024.66
 	znalezienie w pamiętach odpowiedniego wiersza i przepisanie danych 
 *)
@@ -116,7 +116,7 @@ END_FOR
     </Method>
     <Method Name="BufferFIFOSupportStart" Id="{19eeb431-8176-061d-17ea-c2f43dedc551}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		09.06.2025		TC 4024.66
 	Przenisienie pamietanych o jeden, zwiekszenie liczby pamietanych o jeden 
 	przekopiowanie z koeljki wiersz 1 
@@ -157,7 +157,7 @@ THIS^.IncreaseTheNumberOfReportsForItem (stRow := THIS^.stMemory.arrRow [1]);
     </Method>
     <Method Name="BufferFIFOSupportStop" Id="{4a2dc8bf-8638-0f38-0bfd-d5f6d09101e0}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		09.06.2025		TC 4024.66
 	Znalezienie w pamieci odpowiedniego wiersza i przypisanie odpowiednich danych stempel i zmiena flagi
 *)
@@ -245,7 +245,7 @@ THIS^.stNumberOfReports.arrActive [eEventsCategory]			:= THIS^.stNumberOfReports
     </Method>
     <Method Name="GetChangeInMemory" Id="{30e56975-ef12-0478-3171-fc9f16cc540a}" FolderPath="ITF_BaseLogger_HMI_Connector\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		02.10.2025		TC 4024.66
 	Zwraca czy nastąpiła jakaś zmiana w pamięci zgłoszeń - całej nie tylko dla jakiegoś elementu
 *)
@@ -370,7 +370,7 @@ THIS^.arrNumberOfReportsForItem [uiIDItem].arrActive [eEventsCategory]			:= THIS
     </Method>
     <Method Name="ReduceTheNumberOfActiveEvents" Id="{c19440a0-d10b-0381-218e-2a269605ff9b}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		12.06.2025		TC 4024.66
 	Zmniejsza ilosć aktywnych błędów
 *)
@@ -392,7 +392,7 @@ THIS^.stNumberOfReports.arrActive [eEventsCategory]			:= THIS^.stnumberOfReports
     </Method>
     <Method Name="ReduceTheNumberOfActiveEventsForItem" Id="{9c14cf0f-9c0e-0496-100f-95996887e44c}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		12.06.2025		TC 4024.66
 	Zmniejsza ilosć aktywnych błędów
 *)
@@ -415,7 +415,7 @@ THIS^.arrNumberOfReportsForItem [uiIDItem].arrActive [eEventsCategory]			:= THIS
     </Method>
     <Method Name="ReduceTheNumberOfConfirmations" Id="{d63962d3-9a36-0744-2bb5-feff8aca8d88}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		12.06.2025		TC 4024.66
 	Zminiejsza ilość potwierdzeń w aktywnych błedach
 *)
@@ -433,7 +433,7 @@ END_IF
     </Method>
     <Method Name="ReduceTheNumberOfConfirmationsForItem" Id="{798c1226-2037-0978-2a55-8378cbdbcdee}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		12.06.2025		TC 4024.66
 	Zminiejsza ilość potwierdzeń w aktywnych błedach
 *)
@@ -474,7 +474,7 @@ END_IF]]></ST>
     </Method>
     <Method Name="ResetChangeInMemory" Id="{79e32bb1-beaf-052c-2bb3-d0bd24838ba7}" FolderPath="ITF_BaseLogger_HMI_Connector\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		02.10.2025		TC 4024.66
 	
 *)
