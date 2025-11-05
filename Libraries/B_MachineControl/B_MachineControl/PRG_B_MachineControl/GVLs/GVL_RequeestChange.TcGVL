@@ -5,23 +5,23 @@
 VAR_GLOBAL
 //Przyciski zmaiany stanu	
 //	fbprUndefined			: FB_RequestChanges;
-	fbprAbort				: FB_RequestChanges;
-  	fbprClear				: FB_RequestChanges;
-   	fbprReset				: FB_RequestChanges;
-   	fbprStart				: FB_RequestChanges;
-   	fbprStop				: FB_RequestChanges;
-   	fbprHold				: FB_RequestChanges;
-   	fbprUnhold				: FB_RequestChanges;
-   	fbprSuspend				: FB_RequestChanges;
-   	fbprUnsuspend			: FB_RequestChanges;
-  	fbprComplete			: FB_RequestChanges;
+	fbprAbort				: FB_IOButton_NO;
+  	fbprClear				: FB_IOButton_NO;
+   	fbprReset				: FB_IOButton_NO;
+   	fbprStart				: FB_IOButton_NO;
+   	fbprStop				: FB_IOButton_NO;
+   	fbprHold				: FB_IOButton_NO;
+   	fbprUnhold				: FB_IOButton_NO;
+   	fbprSuspend				: FB_IOButton_NO;
+   	fbprUnsuspend			: FB_IOButton_NO;
+  	fbprComplete			: FB_IOButton_NO;
 //przyciski zmiany trybu
 //	fbprNiedozwolony		: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.brak);     
-	fbprProduction			: FB_RequestChanges;
-    fbprMaintenance			: FB_RequestChanges;
-    fbprManual				: FB_RequestChanges;
-    fbprWashing				: FB_RequestChanges;
-    fbprDiagnostics			: FB_RequestChanges;
+	fbprProduction			: FB_IOButton_NO;
+    fbprMaintenance			: FB_IOButton_NO;
+    fbprManual				: FB_IOButton_NO;
+    fbprWashing				: FB_IOButton_NO;
+    fbprDiagnostics			: FB_IOButton_NO;
 //    fbprUzytkownika2		: FB_RequestChanges;
 //   fbprUzytkownika3		: FB_RequestChanges;
 //    fbprUzytkownika4		: FB_RequestChanges;

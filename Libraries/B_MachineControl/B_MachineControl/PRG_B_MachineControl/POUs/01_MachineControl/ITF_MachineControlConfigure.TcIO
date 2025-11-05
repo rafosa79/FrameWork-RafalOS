@@ -12,7 +12,7 @@ INTERFACE ITF_MachineControlConfigure EXTENDS ITF_Base
       <Declaration><![CDATA[METHOD PUBLIC AddRequestModeChange : BOOL
 VAR_INPUT
 	iNumberOfRequest			: INT;
-	itfRequest					: ITF_RequestChanges;
+	itfRequest					: ITF_IOButton;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -20,7 +20,7 @@ END_VAR
       <Declaration><![CDATA[METHOD PUBLIC AddRequestStateChange : BOOL
 VAR_INPUT
 	iNumberOfRequest			: INT;
-	itfRequest					: ITF_RequestChanges;
+	itfRequest					: ITF_IOButton;
 END_VAR
 ]]></Declaration>
     </Method>

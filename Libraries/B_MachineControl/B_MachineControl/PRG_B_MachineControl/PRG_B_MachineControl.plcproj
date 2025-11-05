@@ -19,7 +19,7 @@
     <Company>RafalOS</Company>
     <Released>false</Released>
     <Title>B_MachineControl</Title>
-    <ProjectVersion>0.0.0.12</ProjectVersion>
+    <ProjectVersion>0.0.0.13</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -107,6 +107,12 @@
     <Compile Include="POUs\01_MachineControl\ITF_MachineControlConfigure.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\01_MachineControl\ST_RequestChangeMode.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MachineControl\ST_RequestChangeState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\02_MachineConfigure\FB_MachineConfigure.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -117,15 +123,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\03_Configuration\ITF_Configuration.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\04_RequestChanges\FB_RequestChanges.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\04_RequestChanges\ITF_RequestChanges.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\04_RequestChanges\ST_RequestAndCommandChanges.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\PRG_SystemControlMachineInit.TcPOU">
@@ -142,7 +139,6 @@
     <Folder Include="POUs\01_MachineControl" />
     <Folder Include="POUs\02_MachineConfigure" />
     <Folder Include="POUs\03_Configuration" />
-    <Folder Include="POUs\04_RequestChanges" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

@@ -8,12 +8,33 @@ VAR
 //	refstDaneSITP				: REFERENCE TO ST_SITP_DaneElementu;
 END_VAR
 VAR PERSISTENT
-	tWorkTime					: LTIME;				//czas pracy w danym stanie - trybie
+	ltWorkTime					: LTIME;				//czas pracy w danym stanie - trybie
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="IncrementTime" Id="{304bcff5-f12b-0ac9-38cb-f597f33e927e}">
+      <Declaration><![CDATA[METHOD PUBLIC IncrementTime
+VAR_INPUT
+	tInterval				: TIME := T#100MS;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.ltWorkTime			:= THIS^.ltWorkTime + TO_LTIME (tInterval);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsActive" Id="{0737c9dc-d560-0e62-3c1f-3b7ef8ae10dc}">
+      <Declaration><![CDATA[METHOD PUBLIC IsActive : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsActive			:= THIS^.bActive;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="IsEnabled" Id="{cda05f82-8147-0995-0f93-35b325b598b2}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -26,6 +47,16 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IsEnabled			:= THIS^.bIsEnabled;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetTime" Id="{99320a18-e3c5-086e-3eea-75bf7272336f}">
+      <Declaration><![CDATA[METHOD PUBLIC ResetTime
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.ltWorkTime		:= LTIME#0MS;
 ]]></ST>
       </Implementation>
     </Method>

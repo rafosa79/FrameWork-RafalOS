@@ -45,7 +45,7 @@ FOR iI := 0 TO THIS^.iNubmerOfAddedConfigure DO
 	IF (THIS^.arritfConfigure [iI] <> 0) THEN
 		THIS^.arritfConfigure [iI].AddTopElementToMachineControl (itfMachineControl	:= fbMachineControl);
 		THIS^.arritfConfigure [iI].AddTopElementToLogger ();
-		
+		THIS^.arritfConfigure [iI].StateAndModes (itfMachineControl := fbMachineControl);
 	END_IF
 END_FOR
 

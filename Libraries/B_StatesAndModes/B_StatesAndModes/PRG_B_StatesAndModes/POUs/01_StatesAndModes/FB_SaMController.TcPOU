@@ -62,8 +62,10 @@ END_VAR
       <Implementation>
         <ST><![CDATA[CASE THIS^.cmdChangeMode.GetStep () OF
 	0	:
+		THIS^.arrModes [THIS^.eMode].SetActive (bIN := FALSE);
 		THIS^.ePrevMode			:= THIS^.eMode;
 		THIS^.eMode				:= THIS^.eNewMode;
+		THIS^.arrModes [THIS^.eMode].SetActive (bIN := TRUE);
 		THIS^.refarrStatesForActiveMode	REF= THIS^.arrStatesInModes [THIS^.eMode];
 		THIS^.cmdChangeMode.SetStepAsFinal ();
 END_CASE
@@ -95,8 +97,10 @@ END_VAR
       <Implementation>
         <ST><![CDATA[CASE THIS^.cmdChangeState.GetStep () OF
 	0	:
+		THIS^.refarrStatesForActiveMode [THIS^.eState].SetActive (bIN := FALSE);
 		THIS^.ePrevState		:= THIS^.eState;
 		THIS^.eState			:= THIS^.eNewState;
+		THIS^.refarrStatesForActiveMode [THIS^.eState].SetActive (bIN := TRUE);
 		THIS^.cmdChangeState.SetStepAsFinal ();
 END_CASE
 THIS^.cmdChangeState.TestingLastCycle ();]]></ST>

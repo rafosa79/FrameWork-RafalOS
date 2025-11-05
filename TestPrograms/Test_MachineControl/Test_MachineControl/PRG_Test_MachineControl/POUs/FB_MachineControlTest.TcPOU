@@ -11,7 +11,8 @@ END_VAR
       <ST><![CDATA[T01_TestPierwszegoPrzejscia ();
 T02_WiazanieZmiennychDoTMPSaM ();
 T03_TestZmianyTrybow ();
-T04_TestZmianyStanow ();]]></ST>
+T04_TestZmianyStanow ();
+T05_TestPrzelaczaniaStanowWMC ();]]></ST>
     </Implementation>
     <Method Name="T01_TestPierwszegoPrzejscia" Id="{0d0c69ca-949f-4ad6-872b-dc43bf3a60dd}">
       <Declaration><![CDATA[METHOD PROTECTED T01_TestPierwszegoPrzejscia
@@ -409,6 +410,23 @@ END_VAR]]></Declaration>
 	360	:
 		TcUnit.TEST_FINISHED ();
 	END_CASE
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T05_TestPrzelaczaniaStanowWMC" Id="{9821d382-ec86-4316-96ab-b033bdf883b5}">
+      <Declaration><![CDATA[METHOD PRIVATE T05_TestPrzelaczaniaStanowWMC
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T05_TestPrzelaczaniaStanowWMC')) THEN
+	iTest		:= 5;
+	
+	IF (bKoniec) THEN
+		bKoniec		:= FALSE;
+		TcUnit.TEST_FINISHED ();
+	END_IF
 END_IF
 ]]></ST>
       </Implementation>

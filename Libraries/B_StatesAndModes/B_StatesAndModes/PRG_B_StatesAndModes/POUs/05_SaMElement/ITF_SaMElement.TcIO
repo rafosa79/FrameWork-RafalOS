@@ -3,6 +3,12 @@
   <Itf Name="ITF_SaMElement" Id="{18e351e5-c377-09bd-199b-8ece74b821e4}">
     <Declaration><![CDATA[INTERFACE ITF_SaMElement EXTENDS ITF_BaseComponent
 ]]></Declaration>
+    <Method Name="IsActive" Id="{c8d946d6-c2d5-0d48-0aaf-5a6a7c6a5209}">
+      <Declaration><![CDATA[METHOD PUBLIC IsActive : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="IsEnabled" Id="{ba56d189-2af0-0454-102a-8d822d334396}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.
@@ -10,6 +16,12 @@
 	Zwraca czy element jest właczony w systemie
 *)
 METHOD PUBLIC IsEnabled : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ResetTime" Id="{52be7068-663a-05b0-36be-1a659653294f}">
+      <Declaration><![CDATA[METHOD PUBLIC ResetTime
 VAR_INPUT
 END_VAR
 ]]></Declaration>
