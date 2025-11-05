@@ -56,7 +56,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.itfSaMController		:= fbSaMController;
-
+THIS^.AddControlElement (itfControlElement	:= fbSaMController);
 ]]></ST>
       </Implementation>
     </Method>
@@ -122,15 +122,24 @@ END_IF
     </Method>
     <Method Name="ExecuteCycle" Id="{7066db40-c8ea-4d9b-9b50-7a0d826fe39e}">
       <Declaration><![CDATA[METHOD PRIVATE ExecuteCycle
-]]></Declaration>
+
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[	(*	Zarządzanie Stanami i Trybami	*)
 
 THIS^.ExecuteCycle_SaM ();
 
-	(*		*)
+	(*	Wywołanie metod obsługiwanych co cykl dla każdego elementu	*)
 
-]]></ST>
+FOR iI := 0 TO THIS^.iNumberOfAddedTopElement DO
+	THIS^.arrTopElements [iI].ExecuteEveryCycle_Test ();
+	THIS^.arrTopElements [iI].ExecuteEveryCycle_Operation ();
+	THIS^.arrTopElements [iI].ExecuteEveryCycle_Status ();
+	THIS^.arrTopElements [iI].ExecuteEveryCycle_Error ();
+	
+END_FOR]]></ST>
       </Implementation>
     </Method>
     <Method Name="ExecuteCycle_SaM" Id="{111ca252-3465-079b-3f8c-a42b1dc9a298}">

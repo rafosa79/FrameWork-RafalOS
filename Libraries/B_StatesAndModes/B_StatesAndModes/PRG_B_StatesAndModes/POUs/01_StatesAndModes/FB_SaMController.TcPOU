@@ -33,12 +33,12 @@ VAR
 	cmdChangeMode				: FB_BaseCommand;
 	cmdChangeState				: FB_BaseCommand;
 (*	Zmienne		*)
-	eState						: E_SaMStates;	//aktualny stan
-	eMode						: E_SaMModes;	//aktualny tryb
-	eNewState					: E_SaMStates;	//Nowy stan
-	ePrevState					: E_SaMStates;	//poprzedni stan
-	eNewMode					: E_SaMModes;	//nowy tryb
-	ePrevMode					: E_SaMModes;	//poprzedni tryb
+	eState						: E_BaseMachineState;	//aktualny stan
+	eMode						: E_BaseMachineMode;	//aktualny tryb
+	eNewState					: E_BaseMachineState;	//Nowy stan
+	ePrevState					: E_BaseMachineState;	//poprzedni stan
+	eNewMode					: E_BaseMachineMode;	//nowy tryb
+	ePrevMode					: E_BaseMachineMode;	//poprzedni tryb
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -76,7 +76,7 @@ THIS^.cmdChangeMode.TestingLastCycle ();
     <Method Name="ChangeModeTo" Id="{6b94e17f-b8f4-087f-0f6f-660d61de79ee}" FolderPath="ITF_SaMControllerCommandChange\">
       <Declaration><![CDATA[METHOD PUBLIC ChangeModeTo
 VAR_INPUT
-	eNewMode			: E_SaMModes;
+	eNewMode			: E_BaseMachineMode;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -109,7 +109,7 @@ THIS^.cmdChangeState.TestingLastCycle ();]]></ST>
     <Method Name="ChangeStateTo" Id="{628f54fb-c326-0184-1055-f36dc1e3eef6}" FolderPath="ITF_SaMControllerCommandChange\">
       <Declaration><![CDATA[METHOD PUBLIC ChangeStateTo
 VAR_INPUT
-	eNewState			: E_SaMStates;
+	eNewState			: E_BaseMachineState;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -237,7 +237,7 @@ THIS^.Initialization_ModeEnabled ();
       </Implementation>
     </Method>
     <Method Name="GetMode" Id="{df3fefc4-9266-079c-2077-340c16420786}" FolderPath="ITF_SaMController\">
-      <Declaration><![CDATA[METHOD PUBLIC GetMode : E_SaMModes
+      <Declaration><![CDATA[METHOD PUBLIC GetMode : E_BaseMachineMode
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -247,7 +247,7 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="GetState" Id="{e651e76f-e8a9-016f-279f-b41f48a21ac0}" FolderPath="ITF_SaMController\">
-      <Declaration><![CDATA[METHOD PUBLIC GetState : E_SaMStates
+      <Declaration><![CDATA[METHOD PUBLIC GetState : E_BaseMachineState
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -339,17 +339,17 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.arrModes [E_SaMModes.NotAllowed]	:= THIS^.stModes.fbUndefined;
+        <ST><![CDATA[THIS^.arrModes [E_BaseMachineMode.NotAllowed]	:= THIS^.stModes.fbUndefined;
 THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbUndefined);
-THIS^.arrModes [E_SaMModes.Production]	:= THIS^.stModes.fbProduction;
+THIS^.arrModes [E_BaseMachineMode.Production]	:= THIS^.stModes.fbProduction;
 THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbProduction);
-THIS^.arrModes [E_SaMModes.Maintance]	:= THIS^.stModes.fbMaintenance;
+THIS^.arrModes [E_BaseMachineMode.Maintenance]	:= THIS^.stModes.fbMaintenance;
 THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbMaintenance);
-THIS^.arrModes [E_SaMModes.Manual]	:= THIS^.stModes.fbManual;
+THIS^.arrModes [E_BaseMachineMode.Manual]	:= THIS^.stModes.fbManual;
 THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbManual);
-THIS^.arrModes [E_SaMModes.Washing]	:= THIS^.stModes.fbWashing;
+THIS^.arrModes [E_BaseMachineMode.Washing]	:= THIS^.stModes.fbWashing;
 THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbWashing);
-THIS^.arrModes [E_SaMModes.Diagnostics]	:= THIS^.stModes.fbDiagnostics;
+THIS^.arrModes [E_BaseMachineMode.Diagnostics]	:= THIS^.stModes.fbDiagnostics;
 THIS^.AddComponent (itfComponent	:= THIS^.stModes.fbDiagnostics);
 
 
@@ -367,24 +367,24 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[FOR iI := 0 TO GVL_SaMConstans.NUMBER_OF_MODES DO
-	THIS^.arrStatesInModes [iI][E_SaMStates.Undefined] 		:= THIS^.arrstStates [iI].fbUndefined;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Aborting] 		:= THIS^.arrstStates [iI].fbAborting;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Aborted] 		:= THIS^.arrstStates [iI].fbAborted;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Clearing] 		:= THIS^.arrstStates [iI].fbClearing;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Stopping] 		:= THIS^.arrstStates [iI].fbStopping;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Stopped] 		:= THIS^.arrstStates [iI].fbStopped;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Resetting] 		:= THIS^.arrstStates [iI].fbResetting;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Idle] 			:= THIS^.arrstStates [iI].fbIdle;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Starting] 		:= THIS^.arrstStates [iI].fbStarting;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Execute] 		:= THIS^.arrstStates [iI].fbExecute;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Suspending]	 	:= THIS^.arrstStates [iI].fbSuspending;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Suspended] 		:= THIS^.arrstStates [iI].fbSuspended;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Unsuspending]	:= THIS^.arrstStates [iI].fbUnsuspending;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Holding] 		:= THIS^.arrstStates [iI].fbHolding;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Held] 			:= THIS^.arrstStates [iI].fbHeld;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Unholding] 		:= THIS^.arrstStates [iI].fbUnholding;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Completing] 	:= THIS^.arrstStates [iI].fbCompleting;
-	THIS^.arrStatesInModes [iI][E_SaMStates.Complete] 		:= THIS^.arrstStates [iI].fbComplete;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Undefined] 		:= THIS^.arrstStates [iI].fbUndefined;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Aborting] 		:= THIS^.arrstStates [iI].fbAborting;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Aborted] 		:= THIS^.arrstStates [iI].fbAborted;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Clearing] 		:= THIS^.arrstStates [iI].fbClearing;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Stopping] 		:= THIS^.arrstStates [iI].fbStopping;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Stopped] 		:= THIS^.arrstStates [iI].fbStopped;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Resetting] 		:= THIS^.arrstStates [iI].fbResetting;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Idle] 			:= THIS^.arrstStates [iI].fbIdle;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Starting] 		:= THIS^.arrstStates [iI].fbStarting;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Execute] 		:= THIS^.arrstStates [iI].fbExecute;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Suspending]	 	:= THIS^.arrstStates [iI].fbSuspending;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Suspended] 		:= THIS^.arrstStates [iI].fbSuspended;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Unsuspending]	:= THIS^.arrstStates [iI].fbUnsuspending;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Holding] 		:= THIS^.arrstStates [iI].fbHolding;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Held] 			:= THIS^.arrstStates [iI].fbHeld;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Unholding] 		:= THIS^.arrstStates [iI].fbUnholding;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Completing] 	:= THIS^.arrstStates [iI].fbCompleting;
+	THIS^.arrStatesInModes [iI][E_BaseMachineState.Complete] 		:= THIS^.arrstStates [iI].fbComplete;
 	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbUndefined);
 	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbAborting);
 	THIS^.AddComponent (itfComponent 	:= THIS^.arrstStates [iI].fbAborted);
@@ -433,7 +433,7 @@ END_FOR]]></ST>
 *)
 METHOD PRIVATE Initialization_CopeEnabledStateToMode
 VAR_INPUT
-	eMode			: E_SaMModes;
+	eMode			: E_BaseMachineMode;
 END_VAR
 
 VAR
@@ -481,26 +481,26 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.arrModeTransitionEnableInState [E_SaMModes.NotAllowed][E_SaMStates.Undefined]		:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Production][E_SaMStates.Undefined]		:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Maintance][E_SaMStates.Undefined]		:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Manual][E_SaMStates.Undefined]			:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Washing][E_SaMStates.Undefined]		:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Diagnostics][E_SaMStates.Undefined]	:= TRUE;
+        <ST><![CDATA[THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.NotAllowed][E_BaseMachineState.Undefined]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Production][E_BaseMachineState.Undefined]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Maintenance][E_BaseMachineState.Undefined]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Manual][E_BaseMachineState.Undefined]			:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Washing][E_BaseMachineState.Undefined]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Diagnostics][E_BaseMachineState.Undefined]	:= TRUE;
 
-THIS^.arrModeTransitionEnableInState [E_SaMModes.NotAllowed][E_SaMStates.Aborted]		:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Production][E_SaMStates.Aborted]		:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Maintance][E_SaMStates.Aborted]		:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Manual][E_SaMStates.Aborted]			:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Washing][E_SaMStates.Aborted]			:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Diagnostics][E_SaMStates.Aborted]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.NotAllowed][E_BaseMachineState.Aborted]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Production][E_BaseMachineState.Aborted]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Maintenance][E_BaseMachineState.Aborted]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Manual][E_BaseMachineState.Aborted]			:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Washing][E_BaseMachineState.Aborted]			:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Diagnostics][E_BaseMachineState.Aborted]		:= TRUE;
 
-THIS^.arrModeTransitionEnableInState [E_SaMModes.NotAllowed][E_SaMStates.Stopped]		:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Production][E_SaMStates.Stopped]		:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Maintance][E_SaMStates.Stopped]		:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Manual][E_SaMStates.Stopped]			:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Washing][E_SaMStates.Stopped]			:= TRUE;
-THIS^.arrModeTransitionEnableInState [E_SaMModes.Diagnostics][E_SaMStates.Stopped]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.NotAllowed][E_BaseMachineState.Stopped]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Production][E_BaseMachineState.Stopped]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Maintenance][E_BaseMachineState.Stopped]		:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Manual][E_BaseMachineState.Stopped]			:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Washing][E_BaseMachineState.Stopped]			:= TRUE;
+THIS^.arrModeTransitionEnableInState [E_BaseMachineMode.Diagnostics][E_BaseMachineState.Stopped]		:= TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -515,126 +515,126 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.arrstStates [E_SaMModes.NotAllowed].fbUndefined.SetEnabled (bIN		:= TRUE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbAborting.SetEnabled (bIN		:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbAborted.SetEnabled (bIN			:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbClearing.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbStopping.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbStopped.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbResetting.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbIdle.SetEnabled (bIN 			:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbStarting.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbExecute.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbSuspending.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbSuspended.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbUnsuspending.SetEnabled (bIN	:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbHolding.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbHeld.SetEnabled (bIN 			:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbUnholding.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbCompleting.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.NotAllowed].fbComplete.SetEnabled (bIN 		:= FALSE);
-THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.NotAllowed);
+        <ST><![CDATA[THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbUndefined.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbAborting.SetEnabled (bIN		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbAborted.SetEnabled (bIN			:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbClearing.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbStopping.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbStopped.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbResetting.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbIdle.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbStarting.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbExecute.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbSuspending.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbSuspended.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbUnsuspending.SetEnabled (bIN	:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbHolding.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbHeld.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbUnholding.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbCompleting.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.NotAllowed].fbComplete.SetEnabled (bIN 		:= FALSE);
+THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_BaseMachineMode.NotAllowed);
 
 
-THIS^.arrstStates [E_SaMModes.Production].fbUndefined.SetEnabled (bIN		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbAborting.SetEnabled (bIN		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbAborted.SetEnabled (bIN			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbClearing.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbStopping.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbStopped.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbResetting.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbIdle.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbStarting.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbExecute.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbSuspending.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbSuspended.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbUnsuspending.SetEnabled (bIN	:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbHolding.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbHeld.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbUnholding.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbCompleting.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Production].fbComplete.SetEnabled (bIN 		:= TRUE);
-THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Production);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbUndefined.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbAborting.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbAborted.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbClearing.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbStopping.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbStopped.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbResetting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbIdle.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbStarting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbExecute.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbSuspending.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbSuspended.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbUnsuspending.SetEnabled (bIN	:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbHolding.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbHeld.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbUnholding.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbCompleting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Production].fbComplete.SetEnabled (bIN 		:= TRUE);
+THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_BaseMachineMode.Production);
 
-THIS^.arrstStates [E_SaMModes.Maintance].fbUndefined.SetEnabled (bIN		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbAborting.SetEnabled (bIN			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbAborted.SetEnabled (bIN			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbClearing.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbStopping.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbStopped.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbResetting.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbIdle.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbStarting.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbExecute.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbSuspending.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbSuspended.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbUnsuspending.SetEnabled (bIN		:= FALSE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbHolding.SetEnabled (bIN 			:= FALSE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbHeld.SetEnabled (bIN 			:= FALSE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbUnholding.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbCompleting.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.Maintance].fbComplete.SetEnabled (bIN 		:= FALSE);
-THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Maintance);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbUndefined.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbAborting.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbAborted.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbClearing.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbStopping.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbStopped.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbResetting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbIdle.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbStarting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbExecute.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbSuspending.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbSuspended.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbUnsuspending.SetEnabled (bIN		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbHolding.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbHeld.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbUnholding.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbCompleting.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Maintenance].fbComplete.SetEnabled (bIN 		:= FALSE);
+THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_BaseMachineMode.Maintenance);
 
-THIS^.arrstStates [E_SaMModes.Manual].fbUndefined.SetEnabled (bIN			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbAborting.SetEnabled (bIN			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbAborted.SetEnabled (bIN				:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbClearing.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbStopping.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbStopped.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbResetting.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbIdle.SetEnabled (bIN 				:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbStarting.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbExecute.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbSuspending.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbSuspended.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbUnsuspending.SetEnabled (bIN		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbHolding.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbHeld.SetEnabled (bIN 				:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbUnholding.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbCompleting.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Manual].fbComplete.SetEnabled (bIN 			:= TRUE);
-THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Manual);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbUndefined.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbAborting.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbAborted.SetEnabled (bIN				:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbClearing.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbStopping.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbStopped.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbResetting.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbIdle.SetEnabled (bIN 				:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbStarting.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbExecute.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbSuspending.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbSuspended.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbUnsuspending.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbHolding.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbHeld.SetEnabled (bIN 				:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbUnholding.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbCompleting.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Manual].fbComplete.SetEnabled (bIN 			:= TRUE);
+THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_BaseMachineMode.Manual);
 
-THIS^.arrstStates [E_SaMModes.Washing].fbUndefined.SetEnabled (bIN			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Washing].fbAborting.SetEnabled (bIN			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Washing].fbAborted.SetEnabled (bIN			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Washing].fbClearing.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Washing].fbStopping.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Washing].fbStopped.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Washing].fbResetting.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Washing].fbIdle.SetEnabled (bIN 				:= TRUE);
-THIS^.arrstStates [E_SaMModes.Washing].fbStarting.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Washing].fbExecute.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Washing].fbSuspending.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.Washing].fbSuspended.SetEnabled (bIN 			:= FALSE);
-THIS^.arrstStates [E_SaMModes.Washing].fbUnsuspending.SetEnabled (bIN		:= FALSE);
-THIS^.arrstStates [E_SaMModes.Washing].fbHolding.SetEnabled (bIN 			:= FALSE);
-THIS^.arrstStates [E_SaMModes.Washing].fbHeld.SetEnabled (bIN 				:= FALSE);
-THIS^.arrstStates [E_SaMModes.Washing].fbUnholding.SetEnabled (bIN 			:= FALSE);
-THIS^.arrstStates [E_SaMModes.Washing].fbCompleting.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.Washing].fbComplete.SetEnabled (bIN 			:= FALSE);
-THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Washing);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbUndefined.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbAborting.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbAborted.SetEnabled (bIN			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbClearing.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbStopping.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbStopped.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbResetting.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbIdle.SetEnabled (bIN 				:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbStarting.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbExecute.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbSuspending.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbSuspended.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbUnsuspending.SetEnabled (bIN		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbHolding.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbHeld.SetEnabled (bIN 				:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbUnholding.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbCompleting.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Washing].fbComplete.SetEnabled (bIN 			:= FALSE);
+THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_BaseMachineMode.Washing);
 
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbUndefined.SetEnabled (bIN		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbAborting.SetEnabled (bIN		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbAborted.SetEnabled (bIN		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbClearing.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbStopping.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbStopped.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbResetting.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbIdle.SetEnabled (bIN 			:= TRUE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbStarting.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbExecute.SetEnabled (bIN 		:= TRUE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbSuspending.SetEnabled (bIN 	:= FALSE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbSuspended.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbUnsuspending.SetEnabled (bIN	:= FALSE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbHolding.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbHeld.SetEnabled (bIN 			:= FALSE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbUnholding.SetEnabled (bIN 		:= FALSE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbCompleting.SetEnabled (bIN 	:= FALSE);
-THIS^.arrstStates [E_SaMModes.Diagnostics].fbComplete.SetEnabled (bIN 		:= FALSE);
-THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_SaMModes.Diagnostics);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbUndefined.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbAborting.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbAborted.SetEnabled (bIN		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbClearing.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbStopping.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbStopped.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbResetting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbIdle.SetEnabled (bIN 			:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbStarting.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbExecute.SetEnabled (bIN 		:= TRUE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbSuspending.SetEnabled (bIN 	:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbSuspended.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbUnsuspending.SetEnabled (bIN	:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbHolding.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbHeld.SetEnabled (bIN 			:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbUnholding.SetEnabled (bIN 		:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbCompleting.SetEnabled (bIN 	:= FALSE);
+THIS^.arrstStates [E_BaseMachineMode.Diagnostics].fbComplete.SetEnabled (bIN 		:= FALSE);
+THIS^.Initialization_CopeEnabledStateToMode (eMode	:= E_BaseMachineMode.Diagnostics);
 ]]></ST>
       </Implementation>
     </Method>
@@ -701,7 +701,7 @@ END_VAR
     <Method Name="IsModeEnebles" Id="{ba118139-1c1b-0f84-1e39-4e98f108464d}" FolderPath="ITF_SaMControllerCommandChange\">
       <Declaration><![CDATA[METHOD IsModeEnebles : BOOL
 VAR_INPUT
-	eMode			: E_SaMModes;
+	eMode			: E_BaseMachineMode;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -722,7 +722,7 @@ END_VAR
     <Method Name="IsPossibleExitState" Id="{64bec622-8222-09ec-1977-c38277b5e18a}" FolderPath="ITF_SaMControllerCommandChange\">
       <Declaration><![CDATA[METHOD IsPossibleExitState : BOOL
 VAR_INPUT
-	eMode		: E_SaMModes;
+	eMode		: E_BaseMachineMode;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -733,7 +733,7 @@ END_VAR
     <Method Name="IsStateInModeEnabled" Id="{0076f71f-25de-0166-149a-720af9605ad5}" FolderPath="ITF_SaMControllerCommandChange\">
       <Declaration><![CDATA[METHOD PUBLIC IsStateInModeEnabled : BOOL
 VAR_INPUT
-	eNewState			: E_SaMStates;
+	eNewState			: E_BaseMachineState;
 END_VAR
 ]]></Declaration>
       <Implementation>

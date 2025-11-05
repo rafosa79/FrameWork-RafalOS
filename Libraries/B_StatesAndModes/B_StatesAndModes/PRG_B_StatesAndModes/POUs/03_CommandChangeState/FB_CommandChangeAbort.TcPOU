@@ -21,23 +21,23 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.itfSaMController.GetState () = E_SaMStates.Resetting OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Idle OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Starting OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Suspending OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Suspended OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Unsuspending OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Holding OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Held OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Unholding OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Completing OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Complete OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Stopped OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Stopping OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Clearing OR
-	THIS^.itfSaMController.GetState () = E_SaMStates.Undefined) THEN		// sprawdzenie czy jesteśmy w dobrym stanie dla tego rozkazu
-	IF (THIS^.itfSaMController.IsStateInModeEnabled (eNewState := E_SaMStates.Aborting)) THEN	//test czy stan do którego chcemy przejśc jest właczony dla tego trybu
-		THIS^.itfSaMController.ChangeStateTo (eNewState := E_SaMStates.Aborting);
+        <ST><![CDATA[IF (THIS^.itfSaMController.GetState () = E_BaseMachineState.Resetting OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Idle OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Starting OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Suspending OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Suspended OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Unsuspending OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Holding OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Held OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Unholding OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Completing OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Complete OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Stopped OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Stopping OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Clearing OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Undefined) THEN		// sprawdzenie czy jesteśmy w dobrym stanie dla tego rozkazu
+	IF (THIS^.itfSaMController.IsStateInModeEnabled (eNewState := E_BaseMachineState.Aborting)) THEN	//test czy stan do którego chcemy przejśc jest właczony dla tego trybu
+		THIS^.itfSaMController.ChangeStateTo (eNewState := E_BaseMachineState.Aborting);
 	ELSE
 		THIS^.EventSetActive (iNumber := 5);	//stan docelowy jest wylaczony w tym trybie
 	END_IF

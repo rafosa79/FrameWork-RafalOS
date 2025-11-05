@@ -7,7 +7,9 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF (PRG_SystemControlMachineInit.bFirstCycle) THEN
+	(*	Wywołanie obsługi Logera	*)
 	GVL_SystemVariable.fbLogger ();
+	(*	Wywołanie pracy maszyny		*)
 	GVL_SystemVariable.fbMachineControl ();
 END_IF
 ]]></ST>

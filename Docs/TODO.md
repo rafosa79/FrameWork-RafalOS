@@ -23,3 +23,5 @@ stworzyć testowe topelementy w testach i dorobić  fb konfiguracji maszyny
 
 
 dodać SaM do MC i tam przeprowadzać testy ale najpierw dorobić obsługe stanów aktywnych i pasywnych i automatyczne wyjscia z ing
+
+!!!!! Jak będzie za długi cykl pracy maszyny to można zrobić tak że niektóre elementy są wywoływane co któryś cykl np przyciski 

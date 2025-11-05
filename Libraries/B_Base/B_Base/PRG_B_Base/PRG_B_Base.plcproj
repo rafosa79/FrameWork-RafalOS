@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.56</ProjectVersion>
+    <ProjectVersion>0.0.0.57</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -158,7 +158,7 @@
     <Compile Include="POUs\A01_Base\ITF_Base.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseSAM.TcIO">
+    <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseSaM.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\B01_Komunikator\ITF_BaseCommunicator.TcIO">

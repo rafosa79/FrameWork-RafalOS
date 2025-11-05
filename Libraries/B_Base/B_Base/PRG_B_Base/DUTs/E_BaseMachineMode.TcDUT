@@ -5,7 +5,7 @@
 {attribute 'strict'}
 TYPE E_BaseMachineMode :
 (
-    Undefined			:= 0,
+    NotAllowed			:= 0,
     Production			:= 1,
     Maintenance			:= 2,
     Manual				:= 3,

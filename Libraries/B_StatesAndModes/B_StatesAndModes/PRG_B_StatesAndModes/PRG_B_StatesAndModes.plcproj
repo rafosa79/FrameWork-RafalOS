@@ -102,12 +102,6 @@
     <Compile Include="POUs\01_StatesAndModes\E_SaMCommandChangeMode.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_StatesAndModes\E_SaMStates.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\01_StatesAndModes\E_SaMModes.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\01_StatesAndModes\FB_SaMController.TcPOU">
       <SubType>Code</SubType>
     </Compile>

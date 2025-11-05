@@ -3,8 +3,8 @@
   <Itf Name="ITF_BaseTopElement" Id="{2822f205-b986-005f-04be-ccc64a012929}">
     <Declaration><![CDATA[INTERFACE ITF_BaseTopElement EXTENDS ITF_BaseGroupElement
 ]]></Declaration>
-    <Method Name="LinkSAM" Id="{afe7878d-4995-0f53-2961-aff4e9d5c093}">
-      <Declaration><![CDATA[METHOD PUBLIC LinkSAM : BOOL
+    <Method Name="LinkSaM" Id="{afe7878d-4995-0f53-2961-aff4e9d5c093}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkSaM : BOOL
 VAR_INPUT
 	fbSAM				: ITF_BaseSAM;
 END_VAR

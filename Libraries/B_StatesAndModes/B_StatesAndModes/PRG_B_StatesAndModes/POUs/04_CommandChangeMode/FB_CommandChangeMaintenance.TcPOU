@@ -21,10 +21,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.itfSaMController.IsModeEnebles (eMode := E_SaMModes.Maintance)) THEN
+        <ST><![CDATA[IF (THIS^.itfSaMController.IsModeEnebles (eMode := E_BaseMachineMode.Maintenance)) THEN
 	IF (THIS^.itfSaMController.IsPossibleExitActiveState ()) THEN
-		IF (THIS^.itfSaMController.IsPossibleExitState (eMode := E_SaMModes.Maintance)) THEN
-			THIS^.itfSaMController.ChangeModeTo (eNewMode := E_SaMModes.Maintance);
+		IF (THIS^.itfSaMController.IsPossibleExitState (eMode := E_BaseMachineMode.Maintenance)) THEN
+			THIS^.itfSaMController.ChangeModeTo (eNewMode := E_BaseMachineMode.Maintenance);
 		ELSE
 			THIS^.EventSetActive (iNumber := 3);	//brak możlwiosći wejście do trybu w tym stanie 
 		END_IF

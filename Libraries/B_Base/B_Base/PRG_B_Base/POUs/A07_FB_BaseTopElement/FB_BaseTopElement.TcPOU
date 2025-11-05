@@ -9,7 +9,7 @@
 FUNCTION_BLOCK FB_BaseTopElement EXTENDS FB_BaseGroupElement IMPLEMENTS ITF_BaseTopElement, ITF_BaseTopElement_HMI_Connector
 VAR
 	refstRecipe				: REFERENCE TO ST_BaseRecipe;	//referencja do wybranej receptury
-	itfSAM					: ITF_BaseSAM;
+	itfSaM					: ITF_BaseSaM;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -140,7 +140,7 @@ METHOD SP_Aborted : BOOL
 METHOD SP_Aborting : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (NOT THIS^.itfSAM.IsModeChangeBusy ()) THEN
+        <ST><![CDATA[IF (NOT THIS^.itfSAM.IsChangeModeBusy ()) THEN
 	IF (THIS^.stPower.bStatus AND NOT THIS^.stPower.cmdTurnOff.IsBusy ()) THEN
 		THIS^.stPower.cmdTurnOff.Execute ();
 	END_IF
@@ -206,7 +206,7 @@ METHOD SP_Execute : BOOL
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[CASE THIS^.itfSAM.GetMode () OF
-	E_BaseMachineMode.Undefined		    : ;	
+	E_BaseMachineMode.NotAllowed	    : ;	
 	E_BaseMachineMode.Production		: SP_Execute_1_Production ();
 	E_BaseMachineMode.Maintenance		: SP_Execute_2_Maintenance ();
 	E_BaseMachineMode.Manual			: SP_Execute_3_Manual ();
