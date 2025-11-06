@@ -26,3 +26,4 @@ dodać SaM do MC i tam przeprowadzać testy ale najpierw dorobić obsługe stan�
 
 !!!!! Jak będzie za długi cykl pracy maszyny to można zrobić tak że niektóre elementy są wywoływane co któryś cykl np przyciski 
 
+HMI 
