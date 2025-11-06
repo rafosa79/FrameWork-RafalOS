@@ -8,14 +8,14 @@
 *)
 FUNCTION_BLOCK FB_BaseCommand
 VAR
-	bStatus								: BOOL := TRUE;		//flaga informująca o tym czy polecenia aktywne czy nie  - DONE
+	bStatus								: BOOL	:= TRUE;	//flaga informująca o tym czy polecenia aktywne czy nie  - DONE
 	bFirstCycle							: BOOL;
 	bLastCycle							: BOOL;
 	bExecute							: BOOL;				//wlączanie polecenia
 	bBusy								: BOOL;				//trwa - BUSY
-	bDone								: bool;				// informacja że polecenie zakończyło sie pomyślnie
-	iExternalCommandMethodStep			: INT := 0;			//krok używany w metodzie zewnętrzej polecenia poprzez dostepne metody
-	iInternalCommandMethodStep			: INT := 0;			//Krok Wywoływania Metody Polecenia - krok 
+	bDone								: BOOL	:= TRUE;	// informacja że polecenie zakończyło sie pomyślnie
+	iExternalCommandMethodStep			: INT	:= 0;		//krok używany w metodzie zewnętrzej polecenia poprzez dostepne metody
+	iInternalCommandMethodStep			: INT 	:= 0;		//Krok Wywoływania Metody Polecenia - krok 
 	bAborted							: BOOL;
 END_VAR
 ]]></Declaration>

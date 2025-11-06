@@ -30,6 +30,7 @@ END_VAR
 	(*	Podpięcie zarządzania stanami i trybami pracy	*)
 	GVL_SystemVariable.fbMachineControl.AddModulSaM (fbSaMController	:= GVL_SystemVariable.fbSaMController);
 	
+	
 END_IF]]></ST>
     </Implementation>
   </POU>

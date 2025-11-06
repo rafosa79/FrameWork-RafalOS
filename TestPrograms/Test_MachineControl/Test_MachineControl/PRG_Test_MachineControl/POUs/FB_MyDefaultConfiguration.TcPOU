@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_MyDefaultConfiguration" Id="{b648aa86-a7e1-098c-12e9-4759598ffa68}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MyDefaultConfiguration EXTENDS FB_Base IMPLEMENTS ITF_Configuration
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddTopElementToLogger" Id="{332b5b16-6a8b-4f9c-b147-743d36983c25}">
+      <Declaration><![CDATA[METHOD PUBLIC AddTopElementToLogger : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GVL_TestSystemVariable.fbMachineControl.JoinTheLogger ();
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddTopElementToMachineControl" Id="{58e1fa28-d374-49d5-b4f2-6555dd78af83}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		29.10.2025		TC 4024.66
+	Dodawanie TopElementu do systemu
+*)
+METHOD PUBLIC AddTopElementToMachineControl : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "System");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "System");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "System");
+GVL_TestSystemVariable.fbMachineControl.SetName (stName := THIS^.GetTexts ());
+itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_TestSystemVariable.fbMachineControl);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStartMode" Id="{281bfd3c-5022-467b-b076-37f9b0db67bc}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStartMode : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.SetStartMode (eStartMode := E_BaseMachineMode.Production);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StateAndModes" Id="{017f3a1b-6dcb-4e00-82fc-a658d05da483}">
+      <Declaration><![CDATA[METHOD StateAndModes : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Clear,		itfRequest := GVL_TestRequeestChange.fbprClear);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Reset, 	itfRequest := GVL_TestRequeestChange.fbprReset);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Start, 	itfRequest := GVL_TestRequeestChange.fbprStart);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Stop, 		itfRequest := GVL_TestRequeestChange.fbprStop);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Suspend, 	itfRequest := GVL_TestRequeestChange.fbprSuspend);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Unsuspend, itfRequest := GVL_TestRequeestChange.fbprUnsuspend);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Hold, 		itfRequest := GVL_TestRequeestChange.fbprHold);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Unhold, 	itfRequest := GVL_TestRequeestChange.fbprUnhold);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Complete, 	itfRequest := GVL_TestRequeestChange.fbprComplete);
+itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Abort,		itfRequest := GVL_TestRequeestChange.fbprAbort);
+
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Production, 	itfRequest := GVL_TestRequeestChange.fbprProduction);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Maintenance,	itfRequest := GVL_TestRequeestChange.fbprMaintenance);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Manual, 		itfRequest := GVL_TestRequeestChange.fbprManual);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Washing,		itfRequest := GVL_TestRequeestChange.fbprWashing);
+itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Diagnostisc,	itfRequest := GVL_TestRequeestChange.fbprDiagnostics);
+
+
+
+
+
+
+
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

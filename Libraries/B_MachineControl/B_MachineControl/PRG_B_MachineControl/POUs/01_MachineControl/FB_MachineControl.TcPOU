@@ -26,7 +26,6 @@ VAR
 	arrRequestChangeMode			: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_MODES] OF ITF_RequiredChange;
 	(*	Tablica informacyjna czy praca w stanie aktywnym zakończona	*)
 	arrTopElementWorkFinishedInState	: ARRAY [1..GVL_SaMConstans.NUMBER_OF_STATES] OF BOOL;
-	bTopElementStateWorkCompleted	: BOOL;	//praca w trybach aktywnych zakończona
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -154,42 +153,57 @@ END_FOR]]></ST>
       <Declaration><![CDATA[METHOD PRIVATE ExecuteCycle_SaM
 VAR
 	iI					: INT;
+	bBlockade			: BOOL;	//polecenie zmiany trybu i nie sprawdzaj czy jest polecenie zmiany stanu
+	bTypeStateActive		: BOOL;
+	bTopElementStateWorkCompleted	: BOOL;	//praca w trybach aktywnych zakończona
+	
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 	(*	Zarządzanie stanami i trybami pracy 	*)
 
+IF (NOT THIS^.itfSaMController.IsChangeModeBusy () AND NOT THIS^.itfSaMController.IsChangeStateBusy ()) THEN	
 	(*	Testowanie czy jest rządzanie zmiany trybu	*)
-FOR iI := 1 TO GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_MODES DO 
-	IF (THIS^.arrRequestChangeMode [iI] <> 0) THEN
-		IF (THIS^.arrRequestChangeMode [iI].Testing ()) THEN
-			THIS^.itfSaMController.Execute (iNumberOfCommand := iI, eChangeCategory := E_SaMChangeCategory.eMode);
+	FOR iI := 1 TO GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_MODES DO 
+		IF (THIS^.arrRequestChangeMode [iI] <> 0) THEN
+			IF (THIS^.arrRequestChangeMode [iI].Testing ()) THEN
+				THIS^.itfSaMController.Execute (iNumberOfCommand := iI, eChangeCategory := E_SaMChangeCategory.eMode);
+				bBlockade		:= TRUE;
+				EXIT;
+			END_IF
 		END_IF
-	END_IF
-END_FOR	
+	END_FOR	
 	
 	(*	Testowanie czy jest rządanie zmiany stany	*)
-FOR iI := 1 TO GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES DO 
-	IF (THIS^.arrRequestChangeState [iI] <> 0) THEN
-		IF (THIS^.arrRequestChangeState [iI].Testing ()) THEN
-			THIS^.itfSaMController.Execute (iNumberOfCommand := iI, eChangeCategory := E_SaMChangeCategory.eState);
-		END_IF
+	IF (NOT bBlockade) THEN
+		FOR iI := 1 TO GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES DO 
+			IF (THIS^.arrRequestChangeState [iI] <> 0) THEN
+				IF (THIS^.arrRequestChangeState [iI].Testing ()) THEN
+					THIS^.itfSaMController.Execute (iNumberOfCommand := iI, eChangeCategory := E_SaMChangeCategory.eState);
+					EXIT;
+				END_IF
+			END_IF
+		END_FOR
 	END_IF
-END_FOR
+END_IF
 
-	(*	Obsługa stanów aktywnych - ing	*)
-THIS^.bTopElementStateWorkCompleted						:= SEL (THIS^.itfSaMController.GetState () <> E_BaseMachineState.Undefined,FALSE,THIS^.itfSaMController.IsStateTypeActive ()); //informacja czy jesteśny w stanie aktywnym 
-IF (NOT THIS^.itfSaMController.IsChangeModeBusy () AND NOT THIS^.itfSaMController.IsChangeStateBusy ()) THEN
+	(*	Obsługa stanów 		*)
+//informacja czy jesteśny w stanie aktywnym	
+bTypeStateActive	 := SEL (THIS^.itfSaMController.GetState () <> E_BaseMachineState.Undefined,FALSE,THIS^.itfSaMController.IsStateTypeActive ());
+IF (THIS^.itfSaMController.IsChangeModeDone () AND THIS^.itfSaMController.IsChangeStateDone ()) THEN
+	bTopElementStateWorkCompleted := bTypeStateActive;
 	IF (THIS^.itfSaMController.GetState () <> E_BaseMachineState.Undefined) THEN
 		FOR iI := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
-			THIS^.arrTopElementWorkFinishedInState [iI]	:= THIS^.itfSaMController.ExecuteTopElementOperationsForCurrentState (itfTopElement := THIS^.arrTopElements [iI]);
-			THIS^.bTopElementStateWorkCompleted			:= THIS^.bTopElementStateWorkCompleted AND THIS^.arrTopElementWorkFinishedInState [iI];
+			IF ( (bTypeStateActive AND NOT THIS^.arrTopElementWorkFinishedInState [iI]) OR NOT bTypeStateActive) THEN
+				THIS^.arrTopElementWorkFinishedInState [iI]	:= THIS^.itfSaMController.ExecuteTopElementOperationsForCurrentState (itfTopElement := THIS^.arrTopElements [iI]);
+				bTopElementStateWorkCompleted			:= bTopElementStateWorkCompleted AND THIS^.arrTopElementWorkFinishedInState [iI];
+			END_IF
 		END_FOR
 	END_IF
 END_IF
 (*	OPeracja zakonczona wyczysc tablice dla kolejnej zmiany stanow i konczenia pracy	*)
-IF (THIS^.bTopElementStateWorkCompleted) THEN
+IF (bTopElementStateWorkCompleted) THEN
 	MEMSET (
 		destAddr							:= ADR (THIS^.arrTopElementWorkFinishedInState),
 		fillByte							:= 0,

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL_TestMCSafety" Id="{451bd6aa-b1ce-4028-9df3-f0fda13e64ea}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	flSS1				: FB_BaseFlag;
+	flSTO				: FB_BaseFlag;
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

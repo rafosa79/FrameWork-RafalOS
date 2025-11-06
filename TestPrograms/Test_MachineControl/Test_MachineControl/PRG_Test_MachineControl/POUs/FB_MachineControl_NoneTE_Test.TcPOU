@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_MachineControl_NoneTE_Test" Id="{5b881a74-9d5c-46c4-a8bf-b8b08c44b3e1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MachineControl_NoneTE_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+	bKoniec			: BOOL;
+	iTest			: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[T01_FirstCycleInit ();
+T02_FirstCycleMachine ();
+//T03_PrzejsciePrzezStany ();
+
+
+T99_Test ();]]></ST>
+    </Implementation>
+    <Method Name="T01_FirstCycleInit" Id="{553917a6-ceff-47ba-a922-a0ece16cefb1}">
+      <Declaration><![CDATA[METHOD PRIVATE T01_FirstCycleInit
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_FirstCycleInit')) THEN
+	iTest	:= 1;
+	(*	Podpięcie zmiennych głównych do struktury	*)	
+	GVL_TestSystemVariable.stCommonData.itfTime			:= GVL_TestSystemVariable.fbTime;
+	GVL_TestSystemVariable.stCommonData.itfLocaciotn	:= GVL_TestSystemVariable.fbLocation;
+	GVL_TestSystemVariable.stCommonData.itfLogger		:= GVL_TestSystemVariable.fbLogger;
+	(*	Podpięcie zarządzania stanami i trybami pracy	*)
+	GVL_TestSystemVariable.fbMachineControl.AddModulSaM (fbSaMController	:= GVL_TestSystemVariable.fbSaMController);
+	(*	Podpięcie zmiennych Safety		*)
+	GVL_TestSystemVariable.fbMachineControl.LinkSS1 (fbSS1	:= GVL_TestMCSafety.flSS1);
+	GVL_TestSystemVariable.fbMachineControl.LinkSTO (fbSTO	:= GVL_TestMCSafety.flSTO);
+	(*	Podpięcie podstawowej konfiguracji	*)
+	GVL_TestSystemVariable.fbMachineControl.AddModulConfigure (fbMachineConfigure	:= GVL_TestSystemVariable.fbMachineConfigure);
+	GVL_TestSystemVariable.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_TestSystemVariable.fbDefaultMachineConfiguration);
+	(*	Linkowanie zmiennych z modułami	*)
+	GVL_TestSystemVariable.fbLogger.LinkCommonData (stCommonData 				:= GVL_TestSystemVariable.stCommonData);
+	GVL_TestSystemVariable.fbMachineControl.LinkCommonData (stCommonData		:= GVL_TestSystemVariable.stCommonData);
+	
+	AssertEquals_INT (Expected := 1, Actual := GVL_TestSystemVariable.fbMachineConfigure.iNubmerOfAddedConfigure, Message := 'T01 - bledna ilosc konfiguracji');
+	
+	
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T02_FirstCycleMachine" Id="{90c768ab-7f55-4daa-98a3-5e77b9784314}">
+      <Declaration><![CDATA[METHOD PRIVATE T02_FirstCycleMachine
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_FirstCycleMachine')) THEN
+	iTest	:= 2;
+	GVL_TestSystemVariable.fbMachineControl ();
+	
+	AssertEquals_UINT (Expected := 1, Actual := GVL_TestSystemVariable.fbMachineControl.uiNumberOfControlElement, Message := 'T01- bledna ilosc controlelementow');
+	
+
+	TcUnit.TEST_FINISHED ();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T20_PrzejsciePrzezStany" Id="{e988fddf-4be8-4150-a11b-ab54934704c7}">
+      <Declaration><![CDATA[METHOD PRIVATE T20_PrzejsciePrzezStany
+VAR_INST
+	iStep			: INT;
+	iStepChange		: INT;
+	eModeExpected	: E_BaseMachineMode;
+	eModeActual		: E_BaseMachineMode;
+	eStateExpected	: E_BaseMachineState;
+	eStateActual	: E_BaseMachineState;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T20_PrzejsciePrzezStany')) THEN
+	GVL_TestSystemVariable.fbMachineControl ();
+	CASE iStep OF
+	0	:
+		iTest := 3;
+		GVL_TestSystemVariable.fbMachineControl ();
+		GVL_TestMCSafety.flSS1.SetFlag (bState := TRUE);
+        GVL_TestMCSafety.flSTO.SetFlag (bState := TRUE);
+		WRITE_PROTECTED_INT (Ptr := ADR (GVL_TestSystemVariable.fbSaMController.eState), Value := 0);
+		iStep := iStep + 10;
+	10	:
+		eModeActual := GVL_TestSystemVariable.fbSaMController.GetMode ();
+		eModeExpected := E_BaseMachineMode.Production;
+		AssertEquals (Expected := eModeExpected, Actual := eModeActual, Message := 'S10 - T01 - bledny tryb opuszczenie testu');
+		IF (eModeExpected = eModeActual) THEN
+			iStep		:= iStep + 10;
+		ELSE
+			iStep		:= GVL_BaseConstans.FINISH_STEP;
+		END_IF
+	20	:
+		CASE iStepChange OF
+		0	: eStateExpected := E_BaseMachineState.Aborting; 		GVL_TestRequeestChange.fbprAbort.SetRequiredChange (bIn := TRUE);
+		1	: eStateExpected := E_BaseMachineState.Clearing;		GVL_TestRequeestChange.fbprClear.SetRequiredChange (bIN := TRUE);	//wyjscie z Aborted
+		2	: eStateExpected := E_BaseMachineState.Resetting;		GVL_TestRequeestChange.fbprReset.SetRequiredChange (bIN := TRUE);
+    	3	: eStateExpected := E_BaseMachineState.Starting;		GVL_TestRequeestChange.fbprStart.SetRequiredChange (bIN := TRUE);
+		4	: eStateExpected := E_BaseMachineState.Suspending;		GVL_TestRequeestChange.fbprSuspend.SetRequiredChange (bIN := TRUE);
+		5	: eStateExpected := E_BaseMachineState.Unsuspending;	GVL_TestRequeestChange.fbprUnsuspend.SetRequiredChange (bIN := TRUE);
+		6	: eStateExpected := E_BaseMachineState.Holding;			GVL_TestRequeestChange.fbprHold.SetRequiredChange (bIN := TRUE);
+		7	: eStateExpected := E_BaseMachineState.Unholding;		GVL_TestRequeestChange.fbprUnhold.SetRequiredChange (bIN := TRUE);
+		8	: eStateExpected := E_BaseMachineState.Completing;		GVL_TestRequeestChange.fbprComplete.SetRequiredChange (bIN := TRUE);
+		9	: eStateExpected := E_BaseMachineState.Resetting;		GVL_TestRequeestChange.fbprReset.SetRequiredChange (bIN := TRUE);
+		10	: eStateExpected := E_BaseMachineState.Stopping;		GVL_TestRequeestChange.fbprStop.SetRequiredChange (bIN := TRUE);
+		11	: eStateExpected := E_BaseMachineState.Aborting;		GVL_TestRequeestChange.fbprAbort.SetRequiredChange (bIN := TRUE);	//petla zrobiona dojcie jeszcze raz to execute
+		12	: eStateExpected := E_BaseMachineState.Clearing;		GVL_TestRequeestChange.fbprClear.SetRequiredChange (bIN := TRUE);
+		13	: eStateExpected := E_BaseMachineState.Resetting;		GVL_TestRequeestChange.fbprReset.SetRequiredChange (bIN := TRUE);
+    	14	: eStateExpected := E_BaseMachineState.Starting;		GVL_TestRequeestChange.fbprStart.SetRequiredChange (bIN := TRUE);
+		15	: eStateExpected := E_BaseMachineState.Stopping;		GVL_TestRequeestChange.fbprStop.SetRequiredChange (bIN := TRUE);	//i nacisniecie stop
+		16	: eStateExpected := E_BaseMachineState.Resetting;		GVL_TestRequeestChange.fbprReset.SetRequiredChange (bIN := TRUE);	//Dojscie jeszcze raz do execute
+    	17	: eStateExpected := E_BaseMachineState.Starting;		GVL_TestRequeestChange.fbprStart.SetRequiredChange (bIN := TRUE);
+		18	: eStateExpected := E_BaseMachineState.Aborting;		GVL_TestRequeestChange.fbprAbort.SetRequiredChange (bIN := TRUE);	//i nacisniecie grzyba
+		END_CASE
+		iStepChange := iStepChange + 1;	
+		iStep := iStep + 10;
+	30	:
+		AssertTrue (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateBusy (), 	Message := 'S30 - T01 - Bledny stan busy');
+		AssertFalse (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateDone (), 	Message := 'S30 - T02 - Bledny stan done');
+		AssertFalse (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateStatus (), 	Message := 'S30 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	40	://krok zmiany stanu
+		AssertTrue (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateBusy (), 	Message := 'S40 - T01 - Bledny stan busy');
+		AssertFalse (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateDone (),	Message := 'S40 - T02 - Bledny stan done');
+		AssertFalse (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateStatus (), 	Message := 'S40 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	50	:	//ostani krok 
+		AssertFalse (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateBusy (), 	Message := 'S50 - T01 - Bledny stan busy');
+		AssertTrue (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateDone (), 	Message := 'S50 - T02 - Bledny stan done');
+		AssertTrue (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateStatus (), 	Message := 'S50 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	60	:
+		eStateActual			:= GVL_TestSystemVariable.fbSaMController.GetState ();
+		AssertEquals_INT (Expected := eStateExpected, Actual := eStateActual, Message := 'S60 - T01 - Bledny stan');
+		IF (eStateExpected <> eStateActual) THEN
+			AssertFalse (Condition := TRUE, Message := 'S60 - T02 - Wyjscie przy blednym stanie');
+			iStep				:= GVL_BaseConstans.FINISH_STEP;
+		ELSE
+			CASE eStateActual OF
+				E_BaseMachineState.Aborting		: eStateExpected	:= E_BaseMachineState.Aborted;
+				E_BaseMachineState.Clearing		: eStateExpected	:= E_BaseMachineState.Stopped;
+				E_BaseMachineState.Stopping		: eStateExpected	:= E_BaseMachineState.Stopped;
+				E_BaseMachineState.Resetting	: eStateExpected	:= E_BaseMachineState.Idle;
+				E_BaseMachineState.Starting		: eStateExpected	:= E_BaseMachineState.Execute;
+				E_BaseMachineState.Unsuspending	: eStateExpected	:= E_BaseMachineState.Execute;
+				E_BaseMachineState.Unholding	: eStateExpected	:= E_BaseMachineState.Execute;
+				E_BaseMachineState.Suspending	: eStateExpected	:= E_BaseMachineState.Suspended;
+				E_BaseMachineState.Holding		: eStateExpected	:= E_BaseMachineState.Held;
+				E_BaseMachineState.Completing	: eStateExpected	:= E_BaseMachineState.Complete;
+			END_CASE
+//			iStep				:= iStep + 10;
+//		END_IF
+//	70	:
+			AssertTrue (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateBusy (), 	Message := 'S60 - T01 - Bledny stan busy');
+			AssertFalse (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateDone (), 	Message := 'S60 - T02 - Bledny stan done');
+			AssertFalse (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateStatus (), 	Message := 'S60 - T03 - Bledny stan status');
+			iStep	:= iStep + 10;
+		END_IF
+	70	://krok zmiany stanu
+		AssertTrue (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateBusy (), 	Message := 'S70 - T01 - Bledny stan busy');
+		AssertFalse (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateDone (),	Message := 'S70 - T02 - Bledny stan done');
+		AssertFalse (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateStatus (), 	Message := 'S70 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	80	:	//ostani krok 
+		AssertFalse (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateBusy (), 	Message := 'S80 - T01 - Bledny stan busy');
+		AssertTrue (Condition := 	GVL_TestSystemVariable.fbSaMController.IsChangeStateDone (), 	Message := 'S80 - T02 - Bledny stan done');
+		AssertTrue (Condition :=	GVL_TestSystemVariable.fbSaMController.IsChangeStateStatus (), 	Message := 'S80 - T03 - Bledny stan status');
+		iStep	:= iStep + 10;
+	90	:
+		eStateActual			:= GVL_TestSystemVariable.fbSaMController.GetState ();
+		AssertEquals_INT (Expected := eStateExpected, Actual := eStateActual, Message := 'S100 - T01 - Bledny stan');
+		IF (eStateExpected <> eStateActual) THEN
+			AssertFalse (Condition := TRUE, Message := 'S100 - T02 - Wyjscie przy blednym stanie');
+			iStep				:= GVL_BaseConstans.FINISH_STEP;
+		ELSE
+			IF (iStepChange = 19) THEN
+				iStep				:= GVL_BaseConstans.FINISH_STEP;
+			ELSE
+				iStep				:= 20;
+			END_IF
+		END_IF	
+	GVL_BaseConstans.FINISH_STEP	:
+		TcUnit.TEST_FINISHED ();
+	END_CASE
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T99_Test" Id="{94909434-1a4e-4276-bc41-0193f4660504}">
+      <Declaration><![CDATA[METHOD PRIVATE T99_Test
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T99_Test')) THEN
+	IF (iTest <> 99) THEN
+		iTest	:= 99;
+		GVL_TestMCSafety.flSS1.SetFlag (bState := TRUE);
+		GVL_TestMCSafety.flSTO.SetFlag (bState := TRUE);
+	END_IF
+	GVL_TestSystemVariable.fbMachineControl ();
+	IF (bKoniec) THEN
+		bKoniec	:= FALSE;
+		TcUnit.TEST_FINISHED ();
+	END_IF
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -24,6 +24,7 @@ END_VAR
         <ST><![CDATA[IF (THIS^.itfSaMController.GetState () = E_BaseMachineState.Resetting OR
 	THIS^.itfSaMController.GetState () = E_BaseMachineState.Idle OR
 	THIS^.itfSaMController.GetState () = E_BaseMachineState.Starting OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Execute OR
 	THIS^.itfSaMController.GetState () = E_BaseMachineState.Suspending OR
 	THIS^.itfSaMController.GetState () = E_BaseMachineState.Suspended OR
 	THIS^.itfSaMController.GetState () = E_BaseMachineState.Unsuspending OR

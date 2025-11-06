@@ -351,7 +351,7 @@ THIS^.stCmdStates.cmdChangeSuspend.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Unsuspend]	:= THIS^.stCmdStates.cmdChangeUnSuspend;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeUnSuspend);
-THIS^.stCmdStates.cmdChangeSuspend.LinkSaMCotroller (itfSaMController	:= THIS^);
+THIS^.stCmdStates.cmdChangeUnSuspend.LinkSaMCotroller (itfSaMController	:= THIS^);
 
 THIS^.arrcmdStates [E_SaMCommandChangeState.Complete]	:= THIS^.stCmdStates.cmdChangeComplete;
 THIS^.AddComponent (itfComponent 	:= THIS^.stCmdStates.cmdChangeComplete);

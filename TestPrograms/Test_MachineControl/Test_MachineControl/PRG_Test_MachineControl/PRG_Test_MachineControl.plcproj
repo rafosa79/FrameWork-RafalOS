@@ -19,6 +19,18 @@
     <Released>false</Released>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GVLs\GVL_TestMCSafety.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_TestRequeestChange.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_TestSystemVariable.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\GVL_TopElement1.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -27,17 +39,23 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
-    <Compile Include="GVLs\GVL_Variable.TcGVL">
+    <Compile Include="GVLs\GVL_TestSaMContoller.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_MachineControlTest.TcPOU">
+    <Compile Include="POUs\FB_MyDefaultConfiguration.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_MyNewConfiguration.TcPOU">
+    <Compile Include="POUs\FB_MachineControl_NoneTE_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_MyNewConfigurationAddTE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_SaMControllerTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\POUs TopElement1\FB_ControlElement1.TcPOU">
@@ -118,10 +136,10 @@
     </PlaceholderReference>
     <PlaceholderReference Include="B_MachineControl">
       <DefaultResolution>B_MachineControl, * (RafalOS)</DefaultResolution>
-      <Namespace>B_MachineControl</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="B_StatesAndModes">
       <DefaultResolution>B_StatesAndModes, * (RafalOS)</DefaultResolution>
+      <Namespace>B_StatesAndModes</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>

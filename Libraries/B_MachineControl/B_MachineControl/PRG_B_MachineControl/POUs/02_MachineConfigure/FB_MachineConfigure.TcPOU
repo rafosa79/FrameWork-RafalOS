@@ -4,8 +4,8 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MachineConfigure EXTENDS FB_Base IMPLEMENTS ITF_MachineConfigure
 VAR
 	(*	Baza konfiguracji	*)
-	arritfConfigure				: ARRAY [0..10] OF ITF_Configuration;
-	iNubmerOfAddedConfigure		: INT := -1;
+	arritfConfigure				: ARRAY [1..10] OF ITF_Configuration;
+	iNubmerOfAddedConfigure		: INT;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -41,7 +41,7 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[bResult			:= TRUE;
 
-FOR iI := 0 TO THIS^.iNubmerOfAddedConfigure DO 
+FOR iI := 1 TO THIS^.iNubmerOfAddedConfigure DO 
 	IF (THIS^.arritfConfigure [iI] <> 0) THEN
 		THIS^.arritfConfigure [iI].AddTopElementToMachineControl (itfMachineControl	:= fbMachineControl);
 		THIS^.arritfConfigure [iI].AddTopElementToLogger ();
