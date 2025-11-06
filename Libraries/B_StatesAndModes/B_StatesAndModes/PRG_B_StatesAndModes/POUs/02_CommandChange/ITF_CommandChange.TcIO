@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_CommandChange" Id="{aec9df3b-b1f6-0d18-0c43-736201fc414a}">
+    <Declaration><![CDATA[INTERFACE ITF_CommandChange EXTENDS ITF_BaseComponent
+]]></Declaration>
+    <Method Name="Execute" Id="{60c49daa-906e-0e4f-1a24-8fb80f45e366}">
+      <Declaration><![CDATA[METHOD PUBLIC Execute : BOOL
+VAR_INPUT
+	iNumberOfCommand	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

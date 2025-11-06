@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SaMElement" Id="{03aaa14d-d8d1-0ccd-22ca-7daa896b0e09}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_SaMElement EXTENDS FB_BaseComponent IMPLEMENTS ITF_SaMElement
+VAR
+	bActive						: BOOL;				//informacja czy dany element jest aktywny 
+	bIsEnabled					: BOOL;				//informacje czy dany element jest włączony
+	bTypeActive					: BOOL;				//informacja czy stan jest stanem aktywnym końcówka ING 
+END_VAR
+VAR PERSISTENT
+	ltWorkTime					: LTIME;				//czas pracy w danym stanie - trybie
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="GetNextState" Id="{f590e1b9-3142-030b-0f04-fca32d6a9521}">
+      <Declaration><![CDATA[METHOD public GetNextState : E_BaseMachineState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IncrementTime" Id="{304bcff5-f12b-0ac9-38cb-f597f33e927e}">
+      <Declaration><![CDATA[METHOD PUBLIC IncrementTime
+VAR_INPUT
+	tInterval				: TIME := T#100MS;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.ltWorkTime			:= THIS^.ltWorkTime + TO_LTIME (tInterval);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InvokeStateForTopElement" Id="{6567004d-543a-0afb-18b9-4317e3330f74}">
+      <Declaration><![CDATA[METHOD PUBLIC InvokeStateForTopElement : BOOL
+VAR_INPUT
+	itfTopElement		: ITF_BaseSaMStateMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsActive" Id="{0737c9dc-d560-0e62-3c1f-3b7ef8ae10dc}">
+      <Declaration><![CDATA[METHOD PUBLIC IsActive : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsActive			:= THIS^.bActive;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsEnabled" Id="{cda05f82-8147-0995-0f93-35b325b598b2}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Zwraca czy element jest właczony w systemie
+*)
+METHOD PUBLIC IsEnabled : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsEnabled			:= THIS^.bIsEnabled;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsStateTypeActive" Id="{b5945446-1304-056a-0fb2-4c94a8255c40}">
+      <Declaration><![CDATA[METHOD PUBLIC IsStateTypeActive : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStateTypeActive		:= THIS^.bTypeActive;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetTime" Id="{99320a18-e3c5-086e-3eea-75bf7272336f}">
+      <Declaration><![CDATA[METHOD PUBLIC ResetTime
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.ltWorkTime		:= LTIME#0MS;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetActive" Id="{335a6819-5ef9-0396-0548-e2fbc0cd5a33}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Ustawia czy dane element jest aktywny
+*)
+METHOD PUBLIC SetActive
+VAR_INPUT
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bActive	:= bIN;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEnabled" Id="{d993afe0-6068-084d-0e12-cadc7945aa48}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Ustawie czy element jest włączony w systemie
+*)
+METHOD PUBLIC SetEnabled
+VAR_INPUT
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bIsEnabled		:= bIN;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -5,7 +5,7 @@
 ]]></Declaration>
     <Method Name="EventAcknowledgeByID" Id="{aa9672a4-c4e6-09f1-3f96-bba7e4c8f9c4}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		09.06.2025		TC 4024.66
 	Szuka czy ma zgłoszenie i zadanym ID jak tak to usuwa i zwraca true w przeciwnym razie zwraca false 
 *)
@@ -17,7 +17,7 @@ END_VAR
     </Method>
     <Method Name="EventSetInactiveByID" Id="{dcdbc491-0072-0718-3d2c-19591fbbe90d}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		09.06.2025		TC 4024.66
 	Szuka czy ma zgłoszenie i zadanym ID jak tak to usuwa i zwraca true w przeciwnym razie zwraca false 
 *)

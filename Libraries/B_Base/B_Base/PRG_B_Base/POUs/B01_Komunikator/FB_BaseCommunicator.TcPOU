@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_BaseCommunicator" Id="{1b33e1cc-6ea2-087e-1241-9e727acff4fb}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		30.07.2025		TC 4024.66
 	Głowny fb do kumunikacji pomiędzy fb frameworka
 *)
@@ -19,7 +19,7 @@ END_VAR
     </Implementation>
     <Method Name="AddMessage" Id="{8318a4ce-e51e-018c-1ad9-9fe355e32429}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		30.07.2025		TC 4024.66
 	Dodaje komunikat który będzie wysyłany w systemie. Np. Gotowy wartość TRUE
 *)
@@ -69,7 +69,7 @@ END_VAR
     </Method>
     <Method Name="GetIsMeesageExist" Id="{a96b9b1f-cdf2-052c-22ae-bb31e5798abb}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		31.07.2025		TC 4024.66
 	
 *)
@@ -97,7 +97,7 @@ GetIsMeesageExist				:= FALSE;
     </Method>
     <Method Name="GetIsRecipientAuthorized" Id="{e94f808a-e5d5-0cb5-0e0f-6c857b4bd799}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		31.07.2025		TC 4024.66
 	Sprawdza czy ten kto nadaje komunikat jest do tego uprawniony
 *)
@@ -122,7 +122,7 @@ GetIsRecipientAuthorized			:= FALSE;
     </Method>
     <Method Name="GetIsSenderAuthorized" Id="{f5007911-c0a0-0e0e-092b-165e92d9bb54}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		31.07.2025		TC 4024.66
 	Sprawdza czy ten kto nadaje komunikat jest do tego uprawniony
 *)
@@ -191,7 +191,7 @@ ReceiveData_REAL			:= FALSE;
     </Method>
     <Method Name="ReceiveDataConfirm" Id="{2c5ae29b-50da-0da6-0045-cd8f7de03a41}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		30.07.2025		TC 4024.66
 	Wysyła potwierdzenie że odebrał dane
 *)

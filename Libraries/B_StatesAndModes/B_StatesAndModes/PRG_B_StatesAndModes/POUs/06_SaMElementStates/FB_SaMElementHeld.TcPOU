@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SaMElementHeld" Id="{0400cb0a-d57f-0c02-1d71-8f61e17c7518}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SaMElementHeld EXTENDS FB_SaMElement
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{9d677194-daf5-0518-1e19-a18f03f7fb73}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bTypeActive		:= FALSE;
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Przerwany");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Held");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Abgehalten");
+THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InvokeStateForTopElement" Id="{16480bd9-3671-012f-0c93-288f258f399e}">
+      <Declaration><![CDATA[METHOD PUBLIC InvokeStateForTopElement : BOOL
+VAR_INPUT
+	itfTopElement		: ITF_BaseSaMStateMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[InvokeStateForTopElement	:= itfTopElement.SP_Held ();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

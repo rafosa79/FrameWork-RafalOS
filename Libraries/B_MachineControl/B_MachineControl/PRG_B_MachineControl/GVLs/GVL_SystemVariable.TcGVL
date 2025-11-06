@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="GVL_SystemVariable" Id="{43caca74-3016-4c5c-b16d-bd2eb876d78a}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	fbTime							: FB_BaseTime;
+	fbLocation						: FB_BaseLocation;
+	fbLogger						: FB_BaseLogger;
+	
+	stCommonData					: ST_BaseCommonData;
+
+	fbDefaultMachineConfiguration	: FB_DefaultConfiguration;
+	fbMachineConfigure				: FB_MachineConfigure;
+	
+	fbSaMController					: FB_SaMController;
+	
+	fbMachineControl				: FB_MachineControl;
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

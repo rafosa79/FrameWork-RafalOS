@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SaMController" Id="{c7f4a38b-e5fc-0e2c-38d0-203cc4e95405}">
+    <Declaration><![CDATA[INTERFACE ITF_SaMController EXTENDS ITF_BaseTopElement, ITF_SaMControllerConfigure, ITF_SaMControllerCommandChange, ITF_BaseSaM
+]]></Declaration>
+    <Method Name="Execute" Id="{63ca3afc-c287-0bdd-12ae-e0974b7b3d54}">
+      <Declaration><![CDATA[METHOD Execute : BOOL
+VAR_INPUT
+	iNumberOfCommand		: INT;
+	eChangeCategory			: E_SaMChangeCategory;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ExecuteTopElementOperationsForCurrentState" Id="{39fee9f5-3dd7-0b11-0632-2982610ba37f}">
+      <Declaration><![CDATA[METHOD ExecuteTopElementOperationsForCurrentState : BOOL
+VAR_INPUT
+	itfTopElement				: ITF_BaseSaMStateMethod;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ExitActivState" Id="{cb9e97a3-d22a-0cd9-02f4-6cb8ea8c3bb2}">
+      <Declaration><![CDATA[METHOD PUBLIC ExitActivState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetMode" Id="{1d69f223-181f-0972-3ad1-54d77ed4be14}">
+      <Declaration><![CDATA[METHOD PUBLIC GetMode : E_BaseMachineMode
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetState" Id="{b839727c-3386-0559-0733-9b44c3817a01}">
+      <Declaration><![CDATA[METHOD PUBLIC GetState : E_BaseMachineState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsChangeModeBusy" Id="{73bde51a-f1cb-03c3-05cb-d231e41b8173}">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeModeBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsChangeModeDone" Id="{aa2a3fdb-2759-03f4-0561-42f93974f928}">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeModeDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsChangeModeStatus" Id="{e91da177-da6e-070f-13f5-9d907fb4dad3}">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeModeStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsChangeStateBusy" Id="{2c3ca8da-7edb-06c9-2406-8ed89d3c1841}">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeStateBusy : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsChangeStateDone" Id="{613c6918-490c-0d09-051a-6b090bdae6b4}">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeStateDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsChangeStateStatus" Id="{65896b9c-a764-034c-3270-ababbefc1d46}">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangeStateStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStateTypeActive" Id="{e84694eb-2fa3-0f44-1c4e-04cf04acd99f}">
+      <Declaration><![CDATA[METHOD PUBLIC IsStateTypeActive : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

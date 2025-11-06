@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CommandChangeMaintenance" Id="{c8b43683-8473-058f-31ea-a19af17c138c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CommandChangeMaintenance EXTENDS FB_CommandChange IMPLEMENTS ITF_CommandChange
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{6aaf7c02-035b-0bf5-217b-83e5376f5099}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Test czy można zmienić stan lub tryb i zwraca czy można i uruchamia zmianę
+*)
+METHOD PUBLIC Execute : BOOL
+VAR_INPUT
+	iNumberOfCommand	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.itfSaMController.IsModeEnebles (eMode := E_BaseMachineMode.Maintenance)) THEN
+	IF (THIS^.itfSaMController.IsPossibleExitActiveState ()) THEN
+		IF (THIS^.itfSaMController.IsPossibleExitState (eMode := E_BaseMachineMode.Maintenance)) THEN
+			THIS^.itfSaMController.ChangeModeTo (eNewMode := E_BaseMachineMode.Maintenance);
+		ELSE
+			THIS^.EventSetActive (iNumber := 3);	//brak możlwiosći wejście do trybu w tym stanie 
+		END_IF
+	ELSE
+		THIS^.EventSetActive (iNumber := 2);	//brak możliwości wyjścia w tym stanie z tego trybu
+	END_IF
+ELSE
+	THIS^.EventSetActive (iNumber := 1);	//tryb docelowy wylaczony
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{b905cf72-36fd-02d3-0dd3-6197ba440be8}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change mode - Maintenance");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change mode - Maintenance");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change mode - Maintenance");
+THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_CommandChangeState" Id="{ccb209ac-603d-0918-0da1-a73eadaf8007}">
+    <Declaration><![CDATA[TYPE ST_CommandChangeState :
+STRUCT
+	cmdChangeAbort		   		: FB_CommandChangeAbort;
+	cmdChangeClear		   		: FB_CommandChangeClear;
+	cmdChangeReset		   		: FB_CommandChangeReset;
+	cmdChangeStart		   		: FB_CommandChangeStart;
+	cmdChangeStop		    	: FB_CommandChangeStop;
+	cmdChangeHold		    	: FB_CommandChangeHold;
+	cmdChangeUnhold		  		: FB_CommandChangeUnHold;
+	cmdChangeSuspend		 	: FB_CommandChangeSuspend;
+	cmdChangeUnSuspend	  		: FB_CommandChangeUnSuspend;
+	cmdChangeComplete		 	: FB_CommandChangeComplete;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

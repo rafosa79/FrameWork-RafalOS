@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Base" Id="{303a894f-e290-0185-2c2d-0a345e19b0b8}">
+    <Declaration><![CDATA[INTERFACE ITF_Base
+]]></Declaration>
+    <Method Name="SetName" Id="{f9de5d73-0bee-0af9-32d6-cc15dbaba99a}">
+      <Declaration><![CDATA[METHOD PUBLIC SetName
+VAR_INPUT
+	stName				: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

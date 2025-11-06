@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_BaseRecipe" Id="{03e2ca9f-77ac-071f-2df8-6ca780aace72}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		28.02.2025		TC 4026.13		wer. 0.0.0.1
 	Obsługa receptur
 *)
@@ -27,7 +27,7 @@ END_VAR
     </Implementation>
     <Method Name="AddIngredientToTemplate" Id="{0f0ee292-ddb9-015d-0fb4-0a56214e5144}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		25.10.2025		TC 4024.66
 	Dodawanie składnika do szablonu
 *)
@@ -49,7 +49,7 @@ END_IF
     </Method>
     <Method Name="AddITFToCreateTemplate" Id="{fc3ad54c-4bea-0239-2698-b594715f0dc6}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		25.10.2025		TC 4024.66
 	Dodanie itferfejsu FB dla tworzenia szablonów receptur z programu maszyny
 *)
@@ -71,7 +71,7 @@ END_IF
     </Method>
     <Method Name="AddRecipeFromRecipe" Id="{651128f8-f372-064a-0b31-eab503693b6e}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Kopiuje składniki z wybranej receptury i tworzy nową recepture
 *)
@@ -94,7 +94,7 @@ END_IF
     </Method>
     <Method Name="AddRecipeFromTemplate" Id="{f52b2116-f623-0030-2d81-4397661a0136}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Kopiuje składniki z wybranego szablonu i tworzy nową recepture
 *)
@@ -117,7 +117,7 @@ END_IF
     </Method>
     <Method Name="AddTemplate" Id="{07b2ff28-6360-0746-3fd3-88d58ad87d2f}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		25.10.2025		TC 4024.66
 	Dodawanie szablonu - metoda wykorzystywana w zewnętrznym FB tworzenia receptur
 *)
@@ -141,7 +141,7 @@ END_IF
     </Method>
     <Method Name="Choose" Id="{d3d8f3be-0ff3-0bae-204e-3c67cd270da4}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Przypisuje do referencji wybraną rtecepture
 *)
@@ -159,7 +159,7 @@ THIS^.uiChosen					:= uiNumber;
     </Method>
     <Method Name="CreateTemplates" Id="{567bc23d-3d67-029c-03c4-22699719c412}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		25.10.2025		TC 4024.66
 	Utworzenie nowych szablonów receptur na podstawie dodanych fb zewnętrznych - wywołanie metody powoduje
 	skosowanie dotychczasowych szablonów i receptur
@@ -183,7 +183,7 @@ END_FOR
     </Method>
     <Method Name="DeleteRecipe" Id="{53b2bec5-5d7d-0d47-2b2d-3884e18298a9}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	
 *)
@@ -209,7 +209,7 @@ END_IF
     </Method>
     <Method Name="DeleteRecipes" Id="{172f62a0-9798-0cab-305e-feffa8cbdf70}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		30.04.2025		TC 4024.66
 	usunięcie wszystkich receptur
 *)
@@ -230,7 +230,7 @@ THIS^.uiChosen			:= 0;
     </Method>
     <Method Name="DeleteTemplates" Id="{4b596d00-c06a-060f-25fd-144da0dc5122}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		30.04.2025		TC 4024.66
 	usunięcie wszystkich szablonów
 *)
@@ -252,7 +252,7 @@ THIS^.uiNumberOfTemplates 	:= 0;
     </Method>
     <Method Name="GetAdressOfRecipe" Id="{13f1299c-1beb-03d3-2037-731660ef600e}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Zwraca referencje do  receptury
 *)
@@ -273,7 +273,7 @@ GetAdressOfRecipe			:= ADR (THIS^.arrRecipes [uiNumber]);
     </Method>
     <Method Name="GetChoosen" Id="{0b6c1e02-8b31-0759-12bf-4304e5db0302}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Zwraca referencje do  receptury
 *)
@@ -292,7 +292,7 @@ GetChoosen			REF= THIS^.GetReferenceToRecipe (uiNumer := THIS^.uiChosen);
     </Method>
     <Method Name="GetIngredientFromRecipe" Id="{fa0b3268-f087-02b5-2150-6927c92d965d}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	
 *)
@@ -309,7 +309,7 @@ END_VAR
     </Method>
     <Method Name="GetIngredientFromTemplate" Id="{dec3be3a-9832-066c-12f1-a481c32b69fa}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	
 *)
@@ -358,7 +358,7 @@ END_VAR
     </Method>
     <Method Name="GetNumberIngredientOfRecipe" Id="{39c1e455-f5b9-089b-3e06-95352ee4e1fd}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	
 *)
@@ -415,7 +415,7 @@ END_VAR
     </Method>
     <Method Name="GetReferencesToChoosen" Id="{e9149c79-504e-0c5c-3057-2590aa04a45e}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		24.03.2025		TC 4024.66
 	Zwraca reference do wybranej receptury
 *)
@@ -430,7 +430,7 @@ END_VAR
     </Method>
     <Method Name="GetReferenceToRecipe" Id="{e42b8556-fc97-0ff9-194c-62f7ba6208f4}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Zwraca referencje do  receptury
 *)
@@ -449,7 +449,7 @@ GetReferenceToRecipe			REF= THIS^.arrRecipes [uiNumer];
     </Method>
     <Method Name="ReplaceRecipeWithAnotherRecipe" Id="{9d38f019-e018-0442-09b3-55a9a1042ed0}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Zastępuje wybraną recepture przez istenijącą receputre
 *)
@@ -473,7 +473,7 @@ END_IF
     </Method>
     <Method Name="ReplaceRecipeWithTemplateRecipe" Id="{0b1e8d6f-ca25-0422-2111-a33a00a4d2b5}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Zastępuje wybraną recepture przez istenijącą receputre z szablonu
 *)
@@ -498,7 +498,7 @@ END_IF
     </Method>
     <Method Name="WyczyscWybrana" Id="{160f797c-8196-0238-2a45-b769a3eb5c43}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.06.2025		TC 4024.66
 	usuwa referencje do wybranej
 *)
@@ -513,7 +513,7 @@ END_VAR
     </Method>
     <Method Name="WyzerujUstawionaRecepture" Id="{51a84241-eda0-0452-15de-03118734a297}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		16.09.2025		TC 4024.66
 	Ustawia numer wybranej receptury na 0 
 *)

@@ -9,10 +9,10 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF (THIS^.GetFirstCycle ()) THEN
+      <ST><![CDATA[IF (THIS^.IsFirstCycle ()) THEN
 	iI1 := iI1 + 1;
 END_IF
-IF (THIS^.GetLastCycle ()) THEN
+IF (THIS^.IsLastCycle ()) THEN
 	iI2 := iI2 + 1;
 END_IF
 ]]></ST>

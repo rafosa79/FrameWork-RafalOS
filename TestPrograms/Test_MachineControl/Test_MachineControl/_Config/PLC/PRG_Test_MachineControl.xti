@@ -1,0 +1,296 @@
+<?xml version="1.0"?>
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66" ClassName="CNestedPlcProjDef">
+	<Project GUID="{3780EFA1-7263-41CB-978E-889998C8A1F9}" Name="PRG_Test_MachineControl" PrjFilePath="..\..\PRG_Test_MachineControl\PRG_Test_MachineControl.plcproj" TmcFilePath="..\..\PRG_Test_MachineControl\PRG_Test_MachineControl.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_Test_MachineControl\PRG_Test_MachineControl.tmc" TmcHash="{D778639D-8EEF-B0B3-2B87-078A8197DA65}">
+			<Name>PRG_Test_MachineControl Instance</Name>
+			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+			<Vars VarGrpType="1">
+				<Name>PlcTask Inputs</Name>
+				<Var>
+					<Name>GVL_RequeestChange.fbprAbort.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprClear.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprReset.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprStart.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprStop.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprHold.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprUnhold.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprSuspend.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprUnsuspend.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprComplete.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprProduction.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprMaintenance.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprManual.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprWashing.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprDiagnostics.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprAbort.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprClear.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprReset.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprStart.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprStop.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprHold.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprUnhold.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprSuspend.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprUnsuspend.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprComplete.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprProduction.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprMaintenance.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprManual.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprWashing.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TestRequeestChange.fbprDiagnostics.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement1.senControlElement1Start.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement1.senControlElement1End.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement1.senControlElement2Start.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement1.senControlElement2End.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement1.senControlElement2Position1.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement1.senControlElement2Position2.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement1.senTopElement1Position1.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement1.senTopElement1Position2.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senControlElement3Start.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senControlElement3End.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senControlElement4Start.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senControlElement4End.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senControlElement4Position1.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senControlElement4Position2.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senGroupElement1Position1.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senGroupElement1Position2.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senControlElement5Start.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senControlElement5End.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senControlElement6Start.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senControlElement6End.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senControlElement6Position1.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senControlElement6Position2.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senTopElement1Position1.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TopElement2.senTopElement1Position2.bContact</Name>
+					<Comment><![CDATA[ Styk czujnika]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+			</Vars>
+			<Contexts>
+				<Context>
+					<Id>0</Id>
+					<Name>PlcTask</Name>
+					<ManualConfig>
+						<OTCID>#x02010030</OTCID>
+					</ManualConfig>
+					<Priority>20</Priority>
+					<CycleTime>10000000</CycleTime>
+				</Context>
+			</Contexts>
+			<TaskPouOids>
+				<TaskPouOid Prio="20" OTCID="#x08502001"/>
+			</TaskPouOids>
+		</Instance>
+	</Project>
+</TcSmItem>

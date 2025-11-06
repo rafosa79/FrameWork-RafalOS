@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_IOElectrovalve" Id="{ab7faff1-27f9-0552-30db-a3ee03923e14}" SpecialFunc="None">
+    <Declaration><![CDATA[(*
+	RJM Maszyny sp. z o.o.
+	autor 	: Rafał Osajda
+	data	: 02.02.2024
+	TC		: 3.1 4024.54
+	wersja	: 0.0.1.0	: pełna obsługa
+
+	Obsługa elektrozaworu do sterowania siłownikiem pneumatycznym. FB bazowy dla pozostałych rodzajów elektrozaworów
+*)
+FUNCTION_BLOCK ABSTRACT FB_IOElectrovalve EXTENDS FB_BaseComponent IMPLEMENTS  ITF_IOElectrovalve, ITF_IOElectrovalve_HMI_Init
+VAR
+	bCoilA							AT %Q*	: BOOL;
+	bCoilB							AT %Q*	: BOOL;
+	eType									: E_IOElectrovalveType;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_Electrovalve_HMI_Connector" Id="{a1d6ab22-3179-4649-9c0b-995a03a33f53}" />
+    <Method Name="Contol" Id="{05101fa4-1b68-0522-344f-bfe6ed566f1a}">
+      <Declaration><![CDATA[(*
+	RJM Maszyny sp. z o.o.
+	autor 	: Rafał Osajda
+	data	: 21.02.2024
+	TC		: 3.1 4024.54
+	wersja	: 0.0.1.0	: pełna obsługa
+
+	Ustawienie odpowiednich wyjść
+*)
+METHOD Contol : BOOL
+VAR_INPUT
+	eAction	: E_IOElectrovalveAction;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetElectrovalveType" Id="{014a69c7-7219-4234-8c0c-36b58219e3c9}" FolderPath="ITF_Electrovalve_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetElectrovalveType : E_IOElectrovalveType
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetElectrovalveType			:= THIS^.eType;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetElectrovalveTypeToString" Id="{debc1117-cfe7-4a5c-b55c-0e8daa5df6ba}" FolderPath="ITF_Electrovalve_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetElectrovalveTypeToString : STRING
+VAR CONSTANT
+	arrType		: ARRAY [0..5] OF STRING := ['NC_3na2', 'NO_3na2', 'C1_5na2', 'C2_5na2', 'C2_5na3O', 'C2_5na3Z'];
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetElectrovalveTypeToString			:= arrType [TO_INT (THIS^.eType)];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsActiveCoilA" Id="{15a459f2-566d-4208-ab88-8334c1bb7aa4}" FolderPath="ITF_Electrovalve_HMI_Connector\">
+      <Declaration><![CDATA[METHOD IsActiveCoilA : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsActiveCoilA			:= THIS^.bCoilA;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsActiveCoilB" Id="{7203c2d0-cd87-4264-b035-36bda2e9f593}" FolderPath="ITF_Electrovalve_HMI_Connector\">
+      <Declaration><![CDATA[METHOD IsActiveCoilB : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsActiveCoilB			:= THIS^.bCoilB;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

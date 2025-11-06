@@ -242,7 +242,7 @@ END_VAR
 	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T03f - bledny stan');
 	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T03g - bledna ilosc zgloszen');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDItem,				Message := 'T03h - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T03i - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T03i - bledne ID zgloszenia');
 (*	Wyslanie zgloszen zamnięcie *)
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_K1.bResetAlarm), Value := TRUE);
 	GVL_Variable.fbPB1_K1 ();
@@ -257,7 +257,7 @@ END_VAR
 	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T05f - bledny stan');
 	AssertEquals_INT (Expected := 1, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T05g - bledna ilosc zgloszen');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDItem,				Message := 'T05h - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T05i - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T05i - bledne ID zgloszenia');
 (*	Wyslanie zgloszen	*)
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_K1.bSetAlarm), Value := TRUE);
 	GVL_Variable.fbPB1_K1 ();
@@ -272,9 +272,9 @@ END_VAR
 	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T07f - bledny stan');
 	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T07g - bledna ilosc zgloszen');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDItem,				Message := 'T07h - 1 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T07i - 2 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T07i - 2 - bledne ID zgloszenia');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDItem,				Message := 'T07j - 3 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T07k - 4 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T07k - 4 - bledne ID zgloszenia');
 (*	proba wysłania potwierrdzenia do zdarzenia bez potwierdzenia nic sie nie powinno wyfarzyć 	*)
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_K1.bAckAlarm), Value := TRUE);
 	GVL_Variable.fbPB1_K1 ();
@@ -289,9 +289,9 @@ END_VAR
 	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T09f - bledny stan');
 	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T09g - bledna ilosc zgloszen');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDItem,				Message := 'T09h - 1 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T09i - 2 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T09i - 2 - bledne ID zgloszenia');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDItem,				Message := 'T09j - 3 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T09k - 4 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T09k - 4 - bledne ID zgloszenia');
 	AssertFalse (Condition := gvl.fbLogger.stMemory.arrRow [1].bConfirm,								Message := 'T09l - bledny stan');
 	AssertFalse (Condition := gvl.fbLogger.stMemory.arrRow [1].bConfirmed,								Message := 'T09m - bledny stan');
 (*	Wyslanie zgloszen zamnięcie *)
@@ -308,9 +308,9 @@ END_VAR
 	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T11f - bledny stan');
 	AssertEquals_INT (Expected := 2, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T11g - bledna ilosc zgloszen');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDItem,				Message := 'T11h - 1 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T11i - 2 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T11i - 2 - bledne ID zgloszenia');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDItem,				Message := 'T11j - 3 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T11k - 4 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T11k - 4 - bledne ID zgloszenia');
 	
 	TcUnit.TEST_FINISHED ();
 END_IF]]></ST>
@@ -337,11 +337,11 @@ END_VAR
 	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T02f - bledny stan');
 	AssertEquals_INT (Expected := 3, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T02g - bledna ilosc zgloszen');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDItem,				Message := 'T02h - 1 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 8, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T02i - 2 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T02i - 2 - bledne ID zgloszenia');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDItem,				Message := 'T02j - 1 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T02k - 2 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T02k - 2 - bledne ID zgloszenia');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDItem,				Message := 'T02l - 3 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDEvent,				Message := 'T02m - 4 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDEvent,				Message := 'T02m - 4 - bledne ID zgloszenia');
 (*	Wyslanie zgloszen zamnięcie bez potwierdzenia nic sie nie powinno stac*)
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_K1.bResetError2), Value := TRUE);
 	GVL_Variable.fbPB1_K1 ();
@@ -356,11 +356,11 @@ END_VAR
 	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T04f - bledny stan');
 	AssertEquals_INT (Expected := 3, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T04g - bledna ilosc zgloszen');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDItem,				Message := 'T04h - 1 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 8, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T04i - 2 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T04i - 2 - bledne ID zgloszenia');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDItem,				Message := 'T04j - 1 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T04k - 2 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T04k - 2 - bledne ID zgloszenia');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDItem,				Message := 'T04l - 3 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDEvent,				Message := 'T04m - 4 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDEvent,				Message := 'T04m - 4 - bledne ID zgloszenia');
 (*	wysłanie potwierdzenia 	*)
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_K1.bAckError2), Value := TRUE);
 	GVL_Variable.fbPB1_K1 ();
@@ -375,11 +375,11 @@ END_VAR
 	AssertTrue (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T06f - bledny stan');
 	AssertEquals_INT (Expected := 3, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T06g - bledna ilosc zgloszen');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDItem,				Message := 'T06h - 1 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 8, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T06i - 2 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T06i - 2 - bledne ID zgloszenia');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDItem,				Message := 'T06j - 1 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T06k - 2 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T06k - 2 - bledne ID zgloszenia');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDItem,				Message := 'T06l - 3 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDEvent,				Message := 'T06m - 4 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDEvent,				Message := 'T06m - 4 - bledne ID zgloszenia');
 (*	Wyslanie zgloszen zamnięcie *)
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_K1.bReseterror2), Value := TRUE);
 	GVL_Variable.fbPB1_K1 ();
@@ -394,11 +394,11 @@ END_VAR
 	AssertFalse (Condition := GVL.fbLogger.stNumberOfReports.bIsActive,									Message := 'T08f - bledny stan');
 	AssertEquals_INT (Expected := 3, Actual := GVL.fbLogger.stNumberOfReports.iTotalNumer,				Message := 'T08g - bledna ilosc zgloszen');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDItem,				Message := 'T08h - 1 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 8, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T08i - 2 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL.fbLogger.stMemory.arrRow [1].uiIDEvent,				Message := 'T08i - 2 - bledne ID zgloszenia');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDItem,				Message := 'T08j - 1 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T08k - 2 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T08k - 2 - bledne ID zgloszenia');
 	AssertEquals_UINT (Expected := 2, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDItem,				Message := 'T08l - 3 - bledne ID elementu');
-	AssertEquals_UINT (Expected := 6, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDEvent,				Message := 'T08m - 4 - bledne ID zgloszenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDEvent,				Message := 'T08m - 4 - bledne ID zgloszenia');
 	
 	TcUnit.TEST_FINISHED ();
 END_IF]]></ST>
@@ -456,42 +456,42 @@ END_VAR
 	AssertFalse (Condition := GVL.fbLogger.arrNumberOfReportsForItem [2].arrActive [2], Message := 'T08 - bledny stan');
 	
 	AssertEquals_INT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.iNumberOfRow , Message := 'T10 - bledna ilosc do wyswietlenia');
-	AssertEquals_UINT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [1].uiIDEvent , Message := 'T10 - [01] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 11, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [2].uiIDEvent , Message := 'T10 - [02] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 8, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [3].uiIDEvent , Message := 'T10 - [03] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 9, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [4].uiIDEvent , Message := 'T10 - [04] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 8, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [5].uiIDEvent , Message := 'T10 - [05] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 6, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [6].uiIDEvent , Message := 'T10 - [06] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 6, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [7].uiIDEvent , Message := 'T10 - [07] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 8, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [1].uiIDEvent , Message := 'T10 - [01] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 12, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [2].uiIDEvent , Message := 'T10 - [02] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [3].uiIDEvent , Message := 'T10 - [03] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 10, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [4].uiIDEvent , Message := 'T10 - [04] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [5].uiIDEvent , Message := 'T10 - [05] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [6].uiIDEvent , Message := 'T10 - [06] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [7].uiIDEvent , Message := 'T10 - [07] - Bledny ID zdarzenia');
 	
 //tylko aktywne	
 	GVL.stTopElementData.stComponent1.stBaseLoggerElement.stFilter.bActive	:= TRUE;
 	GVL_VariableHMI.fbPB1_K1_HMI.GetYourEventTable ();
 	AssertEquals_INT (Expected := 3, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.iNumberOfRow , Message := 'T11 - bledna ilosc do wyswietlenia');
-	AssertEquals_UINT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [1].uiIDEvent , Message := 'T11 - [01] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 11, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [2].uiIDEvent , Message := 'T11 - [02] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 8, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [3].uiIDEvent , Message := 'T11 - [03] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 8, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [1].uiIDEvent , Message := 'T11 - [01] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 12, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [2].uiIDEvent , Message := 'T11 - [02] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [3].uiIDEvent , Message := 'T11 - [03] - Bledny ID zdarzenia');
 	
 //tylko nie aktywne	
 	GVL.stTopElementData.stComponent1.stBaseLoggerElement.stFilter.bActive	:= FALSE;
 	GVL.stTopElementData.stComponent1.stBaseLoggerElement.stFilter.bNotActive	:= TRUE;	
 	GVL_VariableHMI.fbPB1_K1_HMI.GetYourEventTable ();
 	AssertEquals_INT (Expected := 4, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.iNumberOfRow , Message := 'T12 - bledna ilosc do wyswietlenia');
-	AssertEquals_UINT (Expected := 9, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [1].uiIDEvent , Message := 'T12 - [01] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 8, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [2].uiIDEvent , Message := 'T12 - [02] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 6, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [3].uiIDEvent , Message := 'T12 - [03] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 6, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [4].uiIDEvent , Message := 'T12 - [04] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 10, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [1].uiIDEvent , Message := 'T12 - [01] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [2].uiIDEvent , Message := 'T12 - [02] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [3].uiIDEvent , Message := 'T12 - [03] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [4].uiIDEvent , Message := 'T12 - [04] - Bledny ID zdarzenia');
 
 	GVL.stTopElementData.stComponent1.stBaseLoggerElement.stFilter.bNotActive	:= FALSE;	
 	GVL_VariableHMI.fbPB1_K1_HMI.GetYourEventTable ();
 	AssertEquals_INT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.iNumberOfRow , Message := 'T13 - bledna ilosc do wyswietlenia');
-	AssertEquals_UINT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [1].uiIDEvent , Message := 'T13 - [01] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 11, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [2].uiIDEvent , Message := 'T13 - [02] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 8, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [3].uiIDEvent , Message := 'T13 - [03] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 9, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [4].uiIDEvent , Message := 'T13 - [04] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 8, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [5].uiIDEvent , Message := 'T13 - [05] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 6, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [6].uiIDEvent , Message := 'T13 - [06] - Bledny ID zdarzenia');
-	AssertEquals_UINT (Expected := 6, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [7].uiIDEvent , Message := 'T13 - [07] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 8, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [1].uiIDEvent , Message := 'T13 - [01] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 12, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [2].uiIDEvent , Message := 'T13 - [02] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [3].uiIDEvent , Message := 'T13 - [03] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 10, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [4].uiIDEvent , Message := 'T13 - [04] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 9, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [5].uiIDEvent , Message := 'T13 - [05] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [6].uiIDEvent , Message := 'T13 - [06] - Bledny ID zdarzenia');
+	AssertEquals_UINT (Expected := 7, Actual := GVL_VariableHMI.fbPB1_K1_HMI.refstBaseLoggerElementDataHMI.stListOfEventsToDisplay.arrToDisplay [7].uiIDEvent , Message := 'T13 - [07] - Bledny ID zdarzenia');
 
 	
 	TcUnit.TEST_FINISHED ();
@@ -517,9 +517,9 @@ END_VAR
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Operation ();
 		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stEvents.arrState [1], 				Message := 'S10 - T01 - bledny stan bledu SS1');
 		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stEvents.arrState [2], 				Message := 'S10 - T02 - bledny stan bledu STO');
-		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.GetBusy (), 			Message := 'S10 - T03 - bledny stan trwa');
-		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.GetFirstCycle (), 	Message := 'S10 - T05 - bledny pierwszy cykl');
-		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.GetLastCycle (), 	Message := 'S10 - T06 - bledny ostatni cykl');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.IsBusy (), 			Message := 'S10 - T03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.IsFirstCycle (), 	Message := 'S10 - T05 - bledny pierwszy cykl');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.IsLastCycle (), 	Message := 'S10 - T06 - bledny ostatni cykl');
 		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.PowerGetStatus (), 					Message := 'S10 - T04 - bledny status');
 		
 		iStep		:= iStep + 10;
@@ -528,9 +528,9 @@ END_VAR
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Operation ();
 		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stEvents.arrState [1], 				Message := 'T20 - 01 - bledny stan bledu SS1');
 		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stEvents.arrState [2], 				Message := 'T20 - 02 - bledny stan bledu STO');
-		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.GetBusy (),		 	Message := 'T20 - 03 - bledny stan trwa');
-		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.GetFirstCycle (),	Message := 'T20 - 05 - bledny pierwszy cykl');
-		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stpower.cmdTurnOn.GetLastCycle (), 	Message := 'T20 - 06 - bledny ostatni cykl');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.IsBusy (),		 	Message := 'T20 - 03 - bledny stan trwa');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.IsFirstCycle (),	Message := 'T20 - 05 - bledny pierwszy cykl');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stpower.cmdTurnOn.IsLastCycle (), 	Message := 'T20 - 06 - bledny ostatni cykl');
 		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.PowerGetStatus (), 					Message := 'T20 - 04 - bledny status');
 		GVL.fbSS1.SetFlag (bState := TRUE);
 		GVL.fbSTO.SetFlag (bState := TRUE);
@@ -547,7 +547,7 @@ END_VAR
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Operation ();
 		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stEvents.arrState [1], 						Message := 'T50 - 01 - bledny stan bledu SS1');
 		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stEvents.arrState [2],				 			Message := 'T50 - 02 - bledny stan bledu STO');
-		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.GetBusy (),				 	Message := 'T50 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.IsBusy (),				 	Message := 'T50 - 03 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.PowerGetStatus (),			 				Message := 'T50 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	60	:
@@ -555,14 +555,14 @@ END_VAR
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Operation ();
 		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stEvents.arrState [1], 						Message := 'T60 - 01 - bledny stan bledu SS1');
 		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stEvents.arrState [2], 						Message := 'T60 - 02 - bledny stan bledu STO');
-		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.GetBusy (),				 	Message := 'T60 - 03 - bledny stan trwa');
-		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.powerGetStatus (), 							Message := 'T60 - 04 - bledny status');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOn.IsBusy (),				 	Message := 'T60 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.PowerGetStatus (), 							Message := 'T60 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	70	:
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Test ();
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Operation ();
-		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stpower.cmdTurnOn.GetBusy (), 				Message := 'T70 - 01 - bledny stan trwa');
-		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.PowergetStatus(),			 					Message := 'T70 - 02 - bledny status');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stpower.cmdTurnOn.IsBusy (), 				Message := 'T70 - 01 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.PowerGetStatus(),			 					Message := 'T70 - 02 - bledny status');
 		iStep			:= iStep + 10;
 	80	:
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Test ();
@@ -574,19 +574,19 @@ END_VAR
 	100	:
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Test ();
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Operation ();
-		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOff.GetBusy (), 	Message := 'T100 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOff.IsBusy (), 	Message := 'T100 - 03 - bledny stan trwa');
 		AssertTrue (Condition := GVL_Variable.fbPB1_Wyk1.PowerGetStatus (), 				Message := 'T100 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	110	:
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Test ();
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Operation ();
-		AssertTrue (Condition := GVL_variable.fbPB1_Wyk1.stPower.cmdTurnOff.GetBusy (), 	Message := 'T110 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_variable.fbPB1_Wyk1.stPower.cmdTurnOff.IsBusy (), 	Message := 'T110 - 03 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.PowerGetStatus (), 					Message := 'T110 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	120	:
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Test ();
 		GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Operation ();
-		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOff.GetBusy (), 	Message := 'T120 - 01 - bledny stan trwa');
+		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.stPower.cmdTurnOff.IsBusy (), 	Message := 'T120 - 01 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1_Wyk1.PowerGetStatus (), 					Message := 'T120 - 02 - bledny status');
 		
 
@@ -619,17 +619,17 @@ END_VAR]]></Declaration>
 	10	:
 		AssertFalse (Condition := GVL_Variable.fbPB1.stEvents.arrState [1], 				Message := 'T10 - 01 - bledny stan bledu SS1');
 		AssertFalse (Condition := GVL_Variable.fbPB1.stEvents.arrState [2], 				Message := 'T10 - 02 - bledny stan bledu STO');
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 			Message := 'T10 - 03 - bledny stan trwa');
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetFirstCycle (), 	Message := 'T10 - 05 - bledny pierwszy cykl');
-		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetLastCycle (), 	Message := 'T10 - 06 - bledny ostatni cykl');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsBusy (), 			Message := 'T10 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsFirstCycle (), 	Message := 'T10 - 05 - bledny pierwszy cykl');
+		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsLastCycle (), 	Message := 'T10 - 06 - bledny ostatni cykl');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T10 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	20	:
 		AssertTrue (Condition := GVL_Variable.fbPB1.stEvents.arrState [1], 					Message := 'T20 - 01 - bledny stan bledu SS1');
 		AssertTrue (Condition := GVL_Variable.fbPB1.stEvents.arrState [2], 					Message := 'T20 - 02 - bledny stan bledu STO');
-		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 			Message := 'T20 - 03 - bledny stan trwa');
-		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetFirstCycle (),	Message := 'T20 - 05 - bledny pierwszy cykl');
-		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetLastCycle (),	 	Message := 'T20 - 06 - bledny ostatni cykl');
+		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsBusy (), 			Message := 'T20 - 03 - bledny stan trwa');
+		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsFirstCycle (),	Message := 'T20 - 05 - bledny pierwszy cykl');
+		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsLastCycle (),	 	Message := 'T20 - 06 - bledny ostatni cykl');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T20 - 04 - bledny status');
 		GVL.fbSS1.SetFlag (bState	:= TRUE);
 		GVL.fbSTO.SetFlag (bState	:= TRUE);
@@ -642,41 +642,41 @@ END_VAR]]></Declaration>
 	50	:
 		AssertTrue (Condition := GVL_Variable.fbPB1.stEvents.arrState [1], 				Message := 'T50 - 01 - bledny stan bledu SS1');
 		AssertTrue (Condition := GVL_Variable.fbPB1.stEvents.arrState [2], 				Message := 'T50 - 02 - bledny stan bledu STO');
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 		Message := 'T50 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsBusy (), 		Message := 'T50 - 03 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T50 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	60	:
 		AssertFalse (Condition := GVL_Variable.fbPB1.stEvents.arrState [1], 			Message := 'T60 - 01 - bledny stan bledu SS1');
 		AssertFalse (Condition := GVL_Variable.fbPB1.stEvents.arrState [2], 			Message := 'T60 - 02 - bledny stan bledu STO');
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 		Message := 'T60 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsBusy (), 		Message := 'T60 - 03 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T60 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	70	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 		Message := 'T70 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsBusy (), 		Message := 'T70 - 03 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T70 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	80	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 		Message := 'T80 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsBusy (), 		Message := 'T80 - 03 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T80 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	90	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 		Message := 'T90 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsBusy (), 		Message := 'T90 - 03 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T90 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	100	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 		Message := 'T100 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsBusy (), 		Message := 'T100 - 03 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T100 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	110	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 		Message := 'T110 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsBusy (), 		Message := 'T110 - 03 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T110 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	120	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 		Message := 'T120 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsBusy (), 		Message := 'T120 - 03 - bledny stan trwa');
 		AssertTrue (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T120 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	130	:
-		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.GetBusy (), 	Message := 'T130 - 03 - bledny stan trwa');
+		AssertFalse (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOn.IsBusy (), 	Message := 'T130 - 03 - bledny stan trwa');
 		AssertTrue (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T130 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	140	:
@@ -685,35 +685,35 @@ END_VAR]]></Declaration>
 		GVL_Variable.fbPB1.PowerTurnOff ();
 		iStep			:= iStep + 10;
 	160	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.GetBusy (), 	Message := 'T160 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.IsBusy (), 	Message := 'T160 - 03 - bledny stan trwa');
 		AssertTrue (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T160 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	170	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.GetBusy (), 	Message := 'T170 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.IsBusy (), 	Message := 'T170 - 03 - bledny stan trwa');
 		AssertTrue (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T170 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	180	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.GetBusy (), 	Message := 'T180 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.IsBusy (), 	Message := 'T180 - 03 - bledny stan trwa');
 		AssertTrue (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T180 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	190	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.GetBusy (), 	Message := 'T190 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.IsBusy (), 	Message := 'T190 - 03 - bledny stan trwa');
 		AssertTrue (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T190 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	200	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.GetBusy (), 	Message := 'T200 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.IsBusy (), 	Message := 'T200 - 03 - bledny stan trwa');
 		AssertTrue (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T200 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	210	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.GetBusy (), 	Message := 'T210 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.IsBusy (), 	Message := 'T210 - 03 - bledny stan trwa');
 		AssertTrue (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T210 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	220	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.GetBusy (), 	Message := 'T220 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.IsBusy (), 	Message := 'T220 - 03 - bledny stan trwa');
 		AssertTrue (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T220 - 04 - bledny status');
 		iStep			:= iStep + 10;
 	230	:
-		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.GetBusy (), 	Message := 'T230 - 03 - bledny stan trwa');
+		AssertTrue (Condition := GVL_Variable.fbPB1.stPower.cmdTurnOff.IsBusy (), 	Message := 'T230 - 03 - bledny stan trwa');
 		AssertFalse (Condition := GVL_Variable.fbPB1.PowerGetStatus (), 					Message := 'T230 - 04 - bledny status');
 		iStep		:= 1000;
 	1000	:

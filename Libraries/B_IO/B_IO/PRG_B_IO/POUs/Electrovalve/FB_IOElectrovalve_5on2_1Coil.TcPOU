@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_IOElectrovalve_5on2_1Coil" Id="{f05beb48-ad03-02a9-17e7-b14c81a9cbb4}" SpecialFunc="None">
+    <Declaration><![CDATA[(*
+	RJM Maszyny sp. z o.o.
+	autor 	: Rafał Osajda
+	data	: 02.02.2024
+	TC		: 3.1 4024.54
+	wersja	: 0.0.1.0	: pełna obsługa
+
+	Obsługa elektrozaworu do sterowania siłownikiem pneumatycznym.sterowanie 5 na 2 1 cewka
+*)
+FUNCTION_BLOCK FB_IOElectrovalve_5on2_1Coil EXTENDS FB_IOElectrovalve
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Contol" Id="{51b0d103-b3ed-080b-10c4-25225c130a03}">
+      <Declaration><![CDATA[(*
+	RJM Maszyny sp. z o.o.
+	autor 	: Rafał Osajda
+	data	: 21.02.2024
+	TC		: 3.1 4024.54
+	wersja	: 0.0.1.0	: pełna obsługa
+
+	Ustawienie odpowiednich wyjść
+*)
+METHOD Contol : BOOL
+VAR_INPUT
+	eAction	: E_IOElectrovalveAction;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE eAction OF
+	E_IOElectrovalveAction.e_EV_Out4_Deactive	:
+		bCoilA								:= FALSE;
+	E_IOElectrovalveAction.e_EV_OUT4_Active	:
+		bCoilA								:= TRUE;
+	E_IOElectrovalveAction.e_EV_ToStart	:
+		bCoilA								:= FALSE;
+	E_IOElectrovalveAction.e_EV_ToEnd		:
+		bCoilA								:= TRUE;
+	E_IOElectrovalveAction.e_EV_Reset			:
+		bCoilA								:= FALSE;
+END_CASE
+THIS^.bCoilB								:= FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{6b3bf50e-cc11-4a3c-99c4-2a04d7452798}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.eType			:= E_IOElectrovalveType.C1_5na2;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

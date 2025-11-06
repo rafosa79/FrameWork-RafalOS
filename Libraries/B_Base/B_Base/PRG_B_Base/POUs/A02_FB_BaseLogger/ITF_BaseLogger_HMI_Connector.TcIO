@@ -5,7 +5,7 @@
 ]]></Declaration>
     <Method Name="GetChangeInMemory" Id="{cefe7588-5f63-083f-0636-0b6488cb4e6e}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		02.10.2025		TC 4024.66
 	Zwraca czy nastąpiła jakaś zmiana w pamięci zgłoszeń - całej nie tylko dla jakiegoś elementu
 *)
@@ -44,7 +44,7 @@ END_VAR
     </Method>
     <Method Name="ResetChangeInMemory" Id="{d381c273-43a8-0471-16dd-328c4ccf4ec4}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		02.10.2025		TC 4024.66
 	
 *)

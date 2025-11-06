@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL_TestRequeestChange" Id="{75e5bba3-be85-4c06-b48d-660f20da55be}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+//Przyciski zmaiany stanu	
+//	fbprUndefined			: FB_RequestChanges;
+	fbprAbort				: FB_RequiredChange;
+  	fbprClear				: FB_RequiredChange;
+   	fbprReset				: FB_RequiredChange;
+   	fbprStart				: FB_RequiredChange;
+   	fbprStop				: FB_RequiredChange;
+   	fbprHold				: FB_RequiredChange;
+   	fbprUnhold				: FB_RequiredChange;
+   	fbprSuspend				: FB_RequiredChange;
+   	fbprUnsuspend			: FB_RequiredChange;
+  	fbprComplete			: FB_RequiredChange;
+//przyciski zmiany trybu
+//	fbprNiedozwolony		: FB_SITP_PolecenieZmianyTrybu (ePolecenie := E_SITP_PolecenieZmianyTrybu.brak);     
+	fbprProduction			: FB_RequiredChange;
+    fbprMaintenance			: FB_RequiredChange;
+    fbprManual				: FB_RequiredChange;
+    fbprWashing				: FB_RequiredChange;
+    fbprDiagnostics			: FB_RequiredChange;
+//    fbprUzytkownika2		: FB_RequestChanges;
+//   fbprUzytkownika3		: FB_RequestChanges;
+//    fbprUzytkownika4		: FB_RequestChanges;
+//    fbprUzytkownika5		: FB_RequestChanges;
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

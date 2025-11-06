@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="GVL_SaMConstans" Id="{25814de6-e60b-0d65-1320-217ffae8c436}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+	NUMBER_OF_STATES				: INT := 17;
+	NUMBER_OF_MODES					: INT := 5;
+	NUMBER_OF_COMMAND_CHANGE_STATES	: INT := 10;
+	NUMBER_OF_COMMAND_CHANGE_MODES	: INT := 5;
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

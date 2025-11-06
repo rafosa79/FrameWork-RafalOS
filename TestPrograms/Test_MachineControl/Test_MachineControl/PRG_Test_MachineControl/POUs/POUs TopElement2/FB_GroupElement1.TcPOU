@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_GroupElement1" Id="{cd21d53e-8287-45ce-bf9a-86e05acda050}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_GroupElement1 EXTENDS FB_BaseGroupElement IMPLEMENTS ITF_GroupElement1
+VAR
+	itfControlElement3		: ITF_ControlElement3;
+	itfControlElement4		: ITF_ControlElement4;
+	itfsenPosition1			: ITF_IOSensor;	
+	itfsenPosition2			: ITF_IOSensor;	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{8d687cdc-e9f3-4ffb-bd1e-fa8487f95bfe}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfControlElement3		: ITF_ControlElement3;
+	itfControlElement4		: ITF_ControlElement4;
+	itfsenPosition1			: ITF_IOSensor;	
+	itfsenPosition2			: ITF_IOSensor;	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfControlElement3			:= itfControlElement3;
+THIS^.AddControlElement (itfControlElement	:= itfControlElement3);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa control elementu 3 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa control elementu 3 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa control elementu 3 de");
+THIS^.itfControlElement3.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfControlElement4			:= itfControlElement4;
+THIS^.AddControlElement (itfControlElement	:= itfControlElement4);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa control elementu 4 2 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa control elementu 4 2 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa control elementu 4 2 de");
+THIS^.itfControlElement4.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfsenPosition1				:= itfsenPosition1;
+THIS^.AddComponent (itfComponent	:= itfsenPosition1);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 3 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu 3 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu 3 de");
+THIS^.itfsenPosition1.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfsenPosition2				:= itfsenPosition2;
+THIS^.AddComponent (itfComponent	:= itfsenPosition2);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 4 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu 4 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu 4 de");
+THIS^.itfsenPosition2.SetName (stName	:= THIS^.GetTexts ());]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

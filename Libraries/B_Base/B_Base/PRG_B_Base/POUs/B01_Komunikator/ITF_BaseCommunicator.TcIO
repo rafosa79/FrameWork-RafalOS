@@ -27,7 +27,7 @@ END_VAR
     </Method>
     <Method Name="ReceiveDataConfirm" Id="{6ac813ee-f7bb-0187-2694-7b161d81b711}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		30.07.2025		TC 4024.66
 	Wysyła potwierdzenie że odebrał dane
 *)

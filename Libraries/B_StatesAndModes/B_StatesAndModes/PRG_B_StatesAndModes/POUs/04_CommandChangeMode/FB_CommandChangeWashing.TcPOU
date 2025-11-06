@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CommandChangeWashing" Id="{fc59e713-f62c-0b84-1e8c-cb2160191a08}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CommandChangeWashing EXTENDS FB_CommandChange IMPLEMENTS ITF_CommandChange
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{a46cf882-184e-0de9-30ef-131ea00763c0}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Test czy można zmienić stan lub tryb i zwraca czy można i uruchamia zmianę
+*)
+METHOD PUBLIC Execute : BOOL
+VAR_INPUT
+	iNumberOfCommand	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.itfSaMController.IsModeEnebles (eMode := E_BaseMachineMode.Washing)) THEN
+	IF (THIS^.itfSaMController.IsPossibleExitActiveState ()) THEN
+		IF (THIS^.itfSaMController.IsPossibleExitState (eMode := E_BaseMachineMode.Washing)) THEN
+			THIS^.itfSaMController.ChangeModeTo (eNewMode := E_BaseMachineMode.Washing);
+		ELSE
+			THIS^.EventSetActive (iNumber := 3);	//brak możlwiosći wejście do trybu w tym stanie 
+		END_IF
+	ELSE
+		THIS^.EventSetActive (iNumber := 2);	//brak możliwości wyjścia w tym stanie z tego trybu
+	END_IF
+ELSE
+	THIS^.EventSetActive (iNumber := 1);	//tryb docelowy wylaczony
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{e6509efe-e45a-06cc-0931-244ab26fcb25}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change mode - Washing");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change mode - Washing");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change mode - Washing");
+THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

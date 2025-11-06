@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_RequestChangeMode" Id="{9bde77f9-3c33-0c5b-34cc-a5aa77e240a2}">
+    <Declaration><![CDATA[TYPE ST_RequestChangeMode :
+STRUCT
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

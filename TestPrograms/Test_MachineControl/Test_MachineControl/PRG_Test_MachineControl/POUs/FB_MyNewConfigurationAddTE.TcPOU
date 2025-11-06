@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_MyNewConfigurationAddTE" Id="{deb53b3d-9e12-46d3-b5d1-c50be418a5c2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MyNewConfigurationAddTE EXTENDS FB_Base IMPLEMENTS ITF_Configuration
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddTopElementToLogger" Id="{1f68059a-854c-4b77-869d-6d14a3d68622}">
+      <Declaration><![CDATA[METHOD AddTopElementToLogger : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GVL_TopElement1.fbTopElement1.JoinTheLogger ();
+GVL_TopElement2.fbTopElement2.JoinTheLogger ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddTopElementToMachineControl" Id="{14c2a0df-b97e-48ab-8674-34192113ffc6}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		29.10.2025		TC 4024.66
+	Dodawanie TopElementu do systemu
+*)
+METHOD AddTopElementToMachineControl : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "TopElement 1 pl");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "TopElement 1 en");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "TopElement 1 de");
+GVL_TopElement1.fbTopElement1.SetName (stName := THIS^.GetTexts ());
+itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_TopElement1.fbTopElement1);
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "TopElement 2 pl");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "TopElement 2 en");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "TopElement 2 de");
+GVL_TopElement1.fbTopElement1.SetName (stName := THIS^.GetTexts ());
+itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_TopElement2.fbTopElement2);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStartMode" Id="{503f7887-fe7e-43b2-afe8-42df368491ab}">
+      <Declaration><![CDATA[METHOD SetStartMode : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StateAndModes" Id="{eaff7a1f-24dd-4234-bac4-3b82e13d6de6}">
+      <Declaration><![CDATA[METHOD StateAndModes : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

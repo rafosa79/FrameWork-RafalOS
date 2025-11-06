@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_ControlElement3" Id="{4eece595-1329-43ed-bb1e-32fb774a7860}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ControlElement3 EXTENDS FB_BaseControlElement IMPLEMENTS ITF_ControlElement3
+VAR
+	
+	itfsenStart			: ITF_IOSensor;
+	itfsenEnd			: ITF_IOSensor;	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{22cf010f-03b8-4ee8-b762-3a2212f6cab5}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfsenStart			: ITF_IOSensor;
+	itfsenEnd			: ITF_IOSensor;	
+	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfsenStart					:= itfsenStart;
+THIS^.AddComponent (itfComponent	:= itfsenStart);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 1 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu 1 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu 1 de");
+THIS^.itfsenStart.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfsenEnd						:= itfsenEnd;
+THIS^.AddComponent (itfComponent	:= itfsenEnd);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 2 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu 2 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu 2 de");
+THIS^.itfsenEnd.SetName (stName	:= THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

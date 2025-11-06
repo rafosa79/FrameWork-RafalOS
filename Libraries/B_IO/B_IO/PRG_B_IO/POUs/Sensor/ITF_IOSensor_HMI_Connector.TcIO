@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_IOSensor_HMI_Connector" Id="{57b4f594-d387-4ed4-8db1-68a63d49b635}">
+    <Declaration><![CDATA[INTERFACE ITF_IOSensor_HMI_Connector EXTENDS ITF_BaseComponent_HMI_Connector
+]]></Declaration>
+    <Method Name="GetSensorType" Id="{31a21ebe-02ee-4c07-9169-c1701efbd394}">
+      <Declaration><![CDATA[METHOD PUBLIC GetSensorType : E_IOSensorType
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetSensorTypeToString" Id="{590f537c-a25d-49a8-aeac-7b8f8d4b481b}">
+      <Declaration><![CDATA[METHOD PUBLIC GetSensorTypeToString : STRING
+]]></Declaration>
+    </Method>
+    <Method Name="IsActive" Id="{79a44996-4f25-4bd1-b09b-5661b4559709}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		05.02.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca aktualny stan czujnika
+*)
+METHOD IsActive : BOOL
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

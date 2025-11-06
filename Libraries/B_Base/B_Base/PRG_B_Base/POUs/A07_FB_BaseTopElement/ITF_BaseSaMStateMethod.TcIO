@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseSaMStateMethod" Id="{7e3c1c18-75b8-00d6-3fb6-5d3a0452b892}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseSaMStateMethod
+]]></Declaration>
+    <Method Name="SP_Aborted" Id="{6b23a743-8f71-07c5-380d-5c69c0d84e59}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi czekania na reset
+*)
+METHOD SP_Aborted : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Aborting" Id="{18fe1872-8126-0956-310e-439563f77685}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi wyłączania napędów po wciśnięciu grzyba
+*)
+METHOD SP_Aborting : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Clearing" Id="{4c0e0026-18f2-0ea4-2d8c-4d07d6557235}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi czyszczenia po grzybie
+*)
+METHOD SP_Clearing : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Complete" Id="{031fe2b0-9c19-0340-1ea4-63cbc80a70e0}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi Wykonania określonego zadania
+*)
+METHOD SP_Complete : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Completing" Id="{bea012fe-0777-0b5e-06c0-2a3efb3875fb}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi pracy automatycznej do zadanej wartości ilości elementów
+*)
+METHOD SP_Completing : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Execute" Id="{e2ff57be-5f57-0363-12ae-b476906f4b75}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi pracy
+*)
+METHOD SP_Execute : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Held" Id="{2ebfb7bc-e804-02ac-2c8e-397af5a88f2d}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi wstrzymania pracy ze względów na błędy/alarmy
+*)
+METHOD SP_Held : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Holding" Id="{68bb7fed-3975-07bc-3d5f-a7e6ea665107}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi wyjścia z wstrzymania pracy
+*)
+METHOD SP_Holding : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Idle" Id="{6d6f7c17-cd70-0b93-12ce-db41b3497afc}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi czekania na dalsze rozkazy
+*)
+METHOD SP_Idle : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Resetting" Id="{a3bd883f-af98-06dd-0f87-0344b4caa2a7}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	Metoda sprawdzająca czy elementy maszyny ustawiły się na 0 wczytanie parametrów pracy
+*)
+METHOD SP_Resetting : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Starting" Id="{7e05d190-4512-0d5a-3b77-51d6ce16d978}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi uruchamiania pracy
+*)
+METHOD SP_Starting : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Stopped" Id="{8d04b776-80b5-0083-1be7-f96b9f005d3f}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi czekania na dalsze rozkazy
+*)
+METHOD SP_Stopped : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Stopping" Id="{9e998fde-a9c5-0265-1f11-23daf2a83ee7}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	Metoda sprawdzająca czy wszystkie operacje zostały już zakończone i można wyłaczyc pracę 
+*)
+METHOD SP_Stopping : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Suspended" Id="{1d769045-c275-0d9c-2a7c-8fa5ca603032}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi wstrzymania pracy ze względu na warunki zewnętrzne np brak materialu
+*)
+METHOD SP_Suspended : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Suspending" Id="{3e599bb7-c429-0edb-3268-fdb5c6cadb34}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi zawieszania pracy ze wzgledu na okoliczności zewnętrzne
+*)
+METHOD SP_Suspending : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Undefined" Id="{0fdbf1bc-fc17-0663-3461-7aee359cea4e}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi stanu zabroniownego - występuje tylko przy starcie
+*)
+METHOD SP_Undefined : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Unholding" Id="{53d4c8b5-c90b-0896-2436-9031d9c72f8a}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi uruchamiania po wstrzymaniu
+*)
+METHOD SP_Unholding : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SP_Unsuspending" Id="{5c16e480-5a62-0431-02e8-fbe0caca7fd1}">
+      <Declaration><![CDATA[(*			RafalOS
+	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
+	metoda obsługi uruchamiania po wstzryamaniu
+*)
+METHOD SP_Unsuspending : BOOL
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

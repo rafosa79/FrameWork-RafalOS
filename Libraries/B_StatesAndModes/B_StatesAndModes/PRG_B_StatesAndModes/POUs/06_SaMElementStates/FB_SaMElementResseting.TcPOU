@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_SaMElementResseting" Id="{67aead33-83d6-0ab7-3f8b-522a487d85a7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SaMElementResseting EXTENDS FB_SaMElement
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{6fff04b8-dc37-07bc-2c4a-7f51181fe0fa}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bTypeActive		:= TRUE;
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Bazowanie");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Resetting");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zurücksetzen");
+THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNextState" Id="{dc6be4f9-fd2c-043f-3610-a89f971018cf}">
+      <Declaration><![CDATA[METHOD public GetNextState : E_BaseMachineState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNextState		:= E_BaseMachineState.Idle;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InvokeStateForTopElement" Id="{2ee602f3-78d2-0112-3e31-a8892b806127}">
+      <Declaration><![CDATA[METHOD PUBLIC InvokeStateForTopElement : BOOL
+VAR_INPUT
+	itfTopElement		: ITF_BaseSaMStateMethod;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[InvokeStateForTopElement	:= itfTopElement.SP_Resetting ();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

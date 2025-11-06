@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CommandChangeAbort" Id="{1080c924-9518-0281-279e-816b2e111b37}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CommandChangeAbort EXTENDS FB_CommandChange IMPLEMENTS ITF_CommandChange
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{f687e002-1150-0d08-0c51-943c2add8d6e}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.11.2025		TC 4024.66
+	Test czy można zmienić stan lub tryb i zwraca czy można i uruchamia zmianę
+*)
+METHOD PUBLIC Execute : BOOL
+VAR_INPUT
+	iNumberOfCommand	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.itfSaMController.GetState () = E_BaseMachineState.Resetting OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Idle OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Starting OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Execute OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Suspending OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Suspended OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Unsuspending OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Holding OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Held OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Unholding OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Completing OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Complete OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Stopped OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Stopping OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Clearing OR
+	THIS^.itfSaMController.GetState () = E_BaseMachineState.Undefined) THEN		// sprawdzenie czy jesteśmy w dobrym stanie dla tego rozkazu
+	IF (THIS^.itfSaMController.IsStateInModeEnabled (eNewState := E_BaseMachineState.Aborting)) THEN	//test czy stan do którego chcemy przejśc jest właczony dla tego trybu
+		THIS^.itfSaMController.ChangeStateTo (eNewState := E_BaseMachineState.Aborting);
+	ELSE
+		THIS^.EventSetActive (iNumber := 5);	//stan docelowy jest wylaczony w tym trybie
+	END_IF
+ELSE
+	THIS^.EventSetActive (iNumber := 4);	//ten rozkaz nie obsluguje tego stanu
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{cc9b24b8-7883-0274-0f42-2fb69035f999}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Command change state - Abort");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Command change state - Abort");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Command change state - Abort");
+THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

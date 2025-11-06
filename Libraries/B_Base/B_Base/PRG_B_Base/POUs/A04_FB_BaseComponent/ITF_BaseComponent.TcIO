@@ -6,7 +6,7 @@
     <Folder Name="Parameter" Id="{162355fc-3282-0c2e-2d48-030ede6ecd3a}" />
     <Method Name="ExecuteEveryCycle_Error" Id="{9687ff7f-0d6e-0d51-23a3-336377b58d2c}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
 *)
@@ -17,7 +17,7 @@ END_VAR
     </Method>
     <Method Name="ExecuteEveryCycle_Operation" Id="{84e8e489-e3ad-03cb-399e-9ce5e19542d8}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Wywolanie co cykl operacji 
 *)
@@ -28,7 +28,7 @@ END_VAR
     </Method>
     <Method Name="ExecuteEveryCycle_Status" Id="{a817f84c-463c-04f3-0e77-c3fd90132b64}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Aktualizacja flag 
 *)
@@ -39,7 +39,7 @@ END_VAR
     </Method>
     <Method Name="ExecuteEveryCycle_Test" Id="{9b8a596a-c333-0a36-2211-eb0d1ec8eb39}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Testowanie czy nei pojawil sie jakis rozkaz i uruchomienie odpowiednich operacji
 *)
@@ -62,7 +62,7 @@ END_VAR
     </Method>
     <Method Name="JoinTheLogger" Id="{6452dc54-6621-0a82-3e77-69f38e77752f}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		07.10.2025		TC 4024.66
 	Dodpisywanie się do listy logera
 *)
@@ -80,7 +80,7 @@ END_VAR
     </Method>
     <Method Name="ParameterAdd" Id="{cb2832e6-b124-0d0c-38c6-780ac9f7fc1b}" FolderPath="Parameter\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		26.03.2025		TC 4024.66
 	Dodawanie parametru do elementu wykonawczego - metode wywołać przy pierwszym uruchomieniu programu by wgrać parametry do pamięci
 	później używać tylko edycji lub przywracania wartości domyślnych
@@ -93,7 +93,7 @@ END_VAR
     </Method>
     <Method Name="ParameterCorrectDefaultValue" Id="{4bbe970d-6672-018d-1d17-344ff0ac718a}" FolderPath="Parameter\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		26.03.2025		TC 4024.66
 	Modyfikuje wartość domyślną w istniejącym parametrze - true jak się zmiana udała
 *)
@@ -115,7 +115,7 @@ END_VAR
     </Method>
     <Method Name="ParameterCorrectValue" Id="{5c025912-789a-0744-1c53-d16d2837f884}" FolderPath="Parameter\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		26.03.2025		TC 4024.66
 	Modyfikuje wartość w istniejącym parametrze - true jak się zmiana udała
 *)
@@ -134,7 +134,7 @@ END_VAR]]></Declaration>
     </Method>
     <Method Name="ParameterGetDefaultValue" Id="{4f87981f-6989-0e65-1fcf-fb3647acf1ca}" FolderPath="Parameter\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		26.03.2025		TC 4024.66
 	Zwraca wartosc domyslna
 *)
@@ -146,7 +146,7 @@ END_VAR
     </Method>
     <Method Name="ParameterGetMax" Id="{4b75e398-c9ba-09cb-0312-dd60c23d0d65}" FolderPath="Parameter\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		26.03.2025		TC 4024.66
 	Zwraca wartość MAX
 *)
@@ -158,7 +158,7 @@ END_VAR
     </Method>
     <Method Name="ParameterGetMin" Id="{6889c42b-5d50-0a09-0e6b-5ce55ebd8346}" FolderPath="Parameter\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		26.03.2025		TC 4024.66
 	Zwraca wartość MIN
 *)
@@ -176,7 +176,7 @@ END_VAR
     </Method>
     <Method Name="ParameterGetUnit" Id="{a76199e2-2fb6-08b3-12ae-6d01fe05455e}" FolderPath="Parameter\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		26.03.2025		TC 4024.66
 	Zwraca jednostke
 *)
@@ -188,7 +188,7 @@ END_VAR
     </Method>
     <Method Name="ParameterGetValue" Id="{9424063b-795d-0b64-3fc5-8cce9ff5d1eb}" FolderPath="Parameter\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		26.03.2025		TC 4024.66
 	Zwraca wartość
 *)
@@ -200,7 +200,7 @@ END_VAR
     </Method>
     <Method Name="ParameterModify" Id="{8f713bac-a4fa-07d4-0764-9b59380d937d}" FolderPath="Parameter\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		26.03.2025		TC 4024.66
 	Modyfikacja istniejącego parametra jako przypisanie nowego deskryptora
 *)
@@ -220,7 +220,7 @@ END_VAR
     </Method>
     <Method Name="ParametersCreate" Id="{f87dac04-0e60-0cf9-3fcb-2ab850eac29d}" FolderPath="Parameter\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		04.05.2025		TC 4024.66
 	Skasowanie i utworzenie tablicy parametrów od nowa 
 *)
@@ -229,7 +229,7 @@ METHOD PUBLIC ParametersCreate : BOOL
     </Method>
     <Method Name="ParameterSetToDefault" Id="{76330915-de2f-01b9-34f0-39db59d2b98e}" FolderPath="Parameter\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		04.05.2025		TC 4024.66
 	Przywrocenie parametrow - in na false to tylko ten element true razem z podelementami
 *)

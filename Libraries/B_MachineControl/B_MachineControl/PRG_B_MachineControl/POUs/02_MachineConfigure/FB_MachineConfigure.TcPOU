@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_MachineConfigure" Id="{acdf548e-a6e8-4a73-8e7d-d1245eb04ae9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MachineConfigure EXTENDS FB_Base IMPLEMENTS ITF_MachineConfigure
+VAR
+	(*	Baza konfiguracji	*)
+	arritfConfigure				: ARRAY [1..10] OF ITF_Configuration;
+	iNubmerOfAddedConfigure		: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddConfiguration" Id="{d9c2fdfe-2f2f-4e46-b4ba-30ce811a56ac}">
+      <Declaration><![CDATA[METHOD PUBLIC AddConfiguration : BOOL
+VAR_INPUT
+	fbConfigure		: ITF_Configuration;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.iNubmerOfAddedConfigure + 1 <= 10) THEN
+	THIS^.iNubmerOfAddedConfigure	:= THIS^.iNubmerOfAddedConfigure + 1;
+	THIS^.arritfConfigure [THIS^.iNubmerOfAddedConfigure]	:= fbConfigure;
+	AddConfiguration	:= TRUE;
+ELSE
+	AddConfiguration	:= FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Configure" Id="{f50fab32-d524-456f-8450-39a322865b3f}">
+      <Declaration><![CDATA[METHOD PUBLIC Configure : BOOL
+VAR_INPUT
+	fbMachineControl	: ITF_MachineControlConfigure;
+END_VAR
+
+VAR
+	bResult				: BOOL;
+	iI					: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult			:= TRUE;
+
+FOR iI := 1 TO THIS^.iNubmerOfAddedConfigure DO 
+	IF (THIS^.arritfConfigure [iI] <> 0) THEN
+		THIS^.arritfConfigure [iI].AddTopElementToMachineControl (itfMachineControl	:= fbMachineControl);
+		THIS^.arritfConfigure [iI].AddTopElementToLogger ();
+		THIS^.arritfConfigure [iI].StateAndModes (itfMachineControl := fbMachineControl);
+		THIS^.arritfConfigure [iI].SetStartMode (itfMachineControl := fbMachineControl);
+	END_IF
+END_FOR
+
+Configure		:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

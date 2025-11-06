@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_ControlElement2" Id="{12f02cb3-dc26-47ac-8bad-c64ebe8591af}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ControlElement2 EXTENDS FB_BaseControlElement IMPLEMENTS ITF_ControlElement2
+VAR
+	
+	itfsenStart			: ITF_IOSensor;
+	itfsenEnd			: ITF_IOSensor;	
+	itfsenPosition1		: ITF_IOSensor;	
+	itfsenPosition2		: ITF_IOSensor;	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{647d487b-c800-4413-91c8-7d3a577f73ea}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfsenStart			: ITF_IOSensor;
+	itfsenEnd			: ITF_IOSensor;	
+	itfsenPosition1		: ITF_IOSensor;	
+	itfsenPosition2		: ITF_IOSensor;	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfsenStart					:= itfsenStart;
+THIS^.AddComponent (itfComponent	:= itfsenStart);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 1 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu 1 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu 1 de");
+THIS^.itfsenStart.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfsenEnd						:= itfsenEnd;
+THIS^.AddComponent (itfComponent	:= itfsenEnd);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 2 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu 2 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu 2 de");
+THIS^.itfsenEnd.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfsenPosition1				:= itfsenPosition1;
+THIS^.AddComponent (itfComponent	:= itfsenPosition1);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 3 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu 3 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu 3 de");
+THIS^.itfsenPosition1.SetName (stName	:= THIS^.GetTexts ());
+
+THIS^.itfsenPosition2				:= itfsenPosition2;
+THIS^.AddComponent (itfComponent	:= itfsenPosition2);
+THIS^.SetText (eLocation 			:= E_BaseLocation.pl, wsDescription := "Nazwa komponentu 4 pl");
+THIS^.SetText (eLocation 			:= E_BaseLocation.en, wsDescription := "Nazwa komponentu 4 en");
+THIS^.SetText (eLocation 			:= E_BaseLocation.de, wsDescription := "Nazwa komponentu 4 de");
+THIS^.itfsenPosition2.SetName (stName	:= THIS^.GetTexts ());]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

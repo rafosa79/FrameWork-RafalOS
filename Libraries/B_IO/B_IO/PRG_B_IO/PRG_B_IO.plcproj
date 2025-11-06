@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_IO</Title>
-    <ProjectVersion>0.0.0.5</ProjectVersion>
+    <ProjectVersion>0.0.0.7</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -89,88 +89,88 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\E_ElectrovalveAction.TcDUT">
+    <Compile Include="POUs\Electrovalve\E_IOElectrovalveAction.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\E_ElectrovalveType.TcDUT">
+    <Compile Include="POUs\Electrovalve\E_IOElectrovalveType.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\E_SensorType.TcDUT">
+    <Compile Include="POUs\Sensor\E_IOSensorType.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\FB_Sensor.TcPOU">
+    <Compile Include="POUs\Sensor\FB_IOSensor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\FB_Sensor_NC.TcPOU">
+    <Compile Include="POUs\Sensor\FB_IOSensor_NC.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\FB_Sensor_NO.TcPOU">
+    <Compile Include="POUs\Sensor\FB_IOSensor_NO.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\FB_Sensor_NO_2InRow.TcPOU">
+    <Compile Include="POUs\Sensor\FB_IOSensor_NO_2InRow.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\ITF_Sensor.TcIO">
+    <Compile Include="POUs\Sensor\ITF_IOSensor.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\ITF_Sensor_HMI_Init.TcIO">
+    <Compile Include="POUs\Sensor\ITF_IOSensor_HMI_Init.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Sensor\ITF_Sensor_HMI_Connector.TcIO">
+    <Compile Include="POUs\Sensor\ITF_IOSensor_HMI_Connector.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Electrovalve.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_IOElectrovalve.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Electrovalve_3on2_NC.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_IOElectrovalve_3on2_NC.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Electrovalve_3on2_NO.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_IOElectrovalve_3on2_NO.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Electrovalve_5on2_1Coil.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_IOElectrovalve_5on2_1Coil.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Electrovalve_5on2_2Coil.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_IOElectrovalve_5on2_2Coil.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Electrovalve_5on3_2Coil_Vented.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_IOElectrovalve_5on3_2Coil_Vented.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\FB_Electrovalve_5on3_2Coil_Infected.TcPOU">
+    <Compile Include="POUs\Electrovalve\FB_IOElectrovalve_5on3_2Coil_Infected.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\ITF_Electrovalve.TcIO">
+    <Compile Include="POUs\Electrovalve\ITF_IOElectrovalve.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\ITF_Electrovalve_HMI_Init.TcIO">
+    <Compile Include="POUs\Electrovalve\ITF_IOElectrovalve_HMI_Init.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Electrovalve\ITF_Electrovalve_HMI_Connector.TcIO">
+    <Compile Include="POUs\Electrovalve\ITF_IOElectrovalve_HMI_Connector.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\LampkaRozszerzona\FB_LampBlinking.TcPOU">
+    <Compile Include="POUs\LampkaRozszerzona\FB_IOLampBlinking.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\LampkaRozszerzona\ITF_LampBlinking.TcIO">
+    <Compile Include="POUs\LampkaRozszerzona\ITF_IOLampBlinking.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lampka\FB_Lamp.TcPOU">
+    <Compile Include="POUs\Lampka\FB_IOLamp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lampka\ITF_Lamp.TcIO">
+    <Compile Include="POUs\Lampka\ITF_IOLamp.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Przyciski\FB_Button.TcPOU">
+    <Compile Include="POUs\Przyciski\FB_IOButton.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Przyciski\FB_Button_NC.TcPOU">
+    <Compile Include="POUs\Przyciski\FB_IOButton_NC.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Przyciski\FB_Button_NO.TcPOU">
+    <Compile Include="POUs\Przyciski\FB_IOButton_NO.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Przyciski\ITF_Button.TcIO">
+    <Compile Include="POUs\Przyciski\ITF_IOButton.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL_TestSaMContoller" Id="{6a962dfd-5722-4359-8bb2-411af6f813c5}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	fbMyNewConfiguration		: FB_MyNewConfigurationAddTE;
+	
+(* zmienne potrzebne do przetestowania samego SaMController	*)
+	fbTime							: FB_BaseTime;
+	fbLocation						: FB_BaseLocation;
+	fbLogger						: FB_BaseLogger;
+	stCommonData					: ST_BaseCommonData;
+	flSS1							: FB_BaseFlag;
+	flSTO							: FB_BaseFlag;
+
+	fbMySaMController				: FB_SaMController;
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

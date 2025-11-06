@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_SaMControllerCommandChange" Id="{4f3c20a9-bad8-0c25-32a4-4d92805aad72}">
+    <Declaration><![CDATA[INTERFACE ITF_SaMControllerCommandChange
+]]></Declaration>
+    <Method Name="ChangeModeTo" Id="{438f8f9d-6699-052d-3a6f-112ca53c6c0f}">
+      <Declaration><![CDATA[METHOD PUBLIC ChangeModeTo
+VAR_INPUT
+	eNewMode			: E_BaseMachineMode;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ChangeStateTo" Id="{20e110f3-d687-003b-0708-468cc54e6e0f}">
+      <Declaration><![CDATA[METHOD PUBLIC ChangeStateTo
+VAR_INPUT
+	eNewState			: E_BaseMachineState;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetState" Id="{2d9fe36b-32c7-049a-021e-6cda6bb4eaab}">
+      <Declaration><![CDATA[METHOD PUBLIC GetState : E_BaseMachineState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsModeEnebles" Id="{6a423769-8c8d-07e3-138a-e7ec7acacb3e}">
+      <Declaration><![CDATA[METHOD IsModeEnebles : BOOL
+VAR_INPUT
+	eMode			: E_BaseMachineMode;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsPossibleExitActiveState" Id="{653e7c6d-6acc-090e-2947-56adaa34f221}">
+      <Declaration><![CDATA[METHOD IsPossibleExitActiveState : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsPossibleExitState" Id="{41333180-94d8-0463-3725-199c7f48084c}">
+      <Declaration><![CDATA[METHOD IsPossibleExitState : BOOL
+VAR_INPUT
+	eMode		: E_BaseMachineMode;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStateInModeEnabled" Id="{8b94b531-de78-0248-28cf-4d8a71b21e15}">
+      <Declaration><![CDATA[METHOD PUBLIC IsStateInModeEnabled : BOOL
+VAR_INPUT
+	eNewState			: E_BaseMachineState;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

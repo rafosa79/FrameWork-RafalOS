@@ -20,9 +20,10 @@ END_VAR
     <Folder Name="ITF_BaseLogger_Item" Id="{dbd5ee07-415c-0f41-0935-285bdd005cb3}" />
     <Folder Name="ITF_BaseLoggerElement_HMI_Connector" Id="{abdbf241-16b7-0948-3bea-83a764b01a75}" />
     <Folder Name="ITF_DecoratedElement" Id="{45d6060b-650b-0bb6-051b-501dae1ea836}" />
+    <Folder Name="WiazanieZmiennych" Id="{98197f04-d9d8-0737-3608-73b62ab39818}" />
     <Method Name="AddEvent" Id="{634f9b8e-85a8-02a3-013c-6c409e6a5e93}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		24.03.2025		TC 4024.66
 	Dodawanie zgłoszenia do systemu
 *)
@@ -82,7 +83,7 @@ EventAcknowledge					:= btmpExit;
     </Method>
     <Method Name="EventAcknowledgeByID" Id="{d6ae372f-a167-0547-2911-1a7a4a3c6316}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		09.06.2025		TC 4024.66
 	Szuka czy ma zgłoszenie i zadanym ID jak tak to usuwa i zwraca true w przeciwnym razie zwraca false 
 *)
@@ -120,7 +121,7 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="EventIsActive" Id="{26eab0fd-2bb3-0346-0602-400ebebb16bf}" FolderPath="Events\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		16.10.2024		TC 4026.11		wer. 0.0.0.1
 	Zwraca aktualny stan wybranego zgłoszenia
 *)
@@ -138,7 +139,7 @@ END_IF
     </Method>
     <Method Name="EventsDefinition" Id="{d570146c-fc2a-0a65-1409-5460668a36c6}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		24.03.2025		TC 4024.66
 	Definicja nowego zgłoszenia
 *)
@@ -157,7 +158,7 @@ THIS^.stEvents.uiNumberOfAdded	:= 0;
     </Method>
     <Method Name="EventSetActive" Id="{cd4c6b9b-bccf-068d-166d-01d15ad0e0f4}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		24.03.2025		TC 4024.66
 	Zgloszenie nowe wlacz 
 *)
@@ -195,7 +196,7 @@ END_IF
     </Method>
     <Method Name="EventSetInactive" Id="{cbc377f7-8b9e-032f-3bcd-c0c642b3107f}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		24.03.2025		TC 4024.66
 	Zgloszenie zakonczone wylacz
 *)
@@ -235,7 +236,7 @@ EventSetInactive 						:= btmpExit;
     </Method>
     <Method Name="EventSetInactiveByID" Id="{9d42079a-a5a3-0b10-1300-b37d8a078d2a}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		09.06.2025		TC 4024.66
 	Szuka czy ma zgłoszenie i zadanym ID jak tak to usuwa i zwraca true w przeciwnym razie zwraca false 
 *)
@@ -276,8 +277,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[	(*	Zdefiniowanie zdarzeń dla elementu	*)
 THIS^.EventsDefinition ();
-(* sprawdzenie czy jest podłaczony loger	*)
-THIS^.stEvents.bLoggerDataCompleted	:= THIS^.refstCommonData.itfLogger <> 0;
+
 
 FirstCycle					:= TRUE;
 ]]></ST>
@@ -410,6 +410,24 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="LinkCommonData" Id="{8c354c70-5965-0201-173e-22462054c4c8}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
+VAR_INPUT
+	stCommonData				: REFERENCE TO ST_BaseCommonData;
+END_VAR
+VAR
+	bResult						: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult		:= SUPER^.LinkCommonData (stCommonData := stCommonData);
+
+(* sprawdzenie czy jest podłaczony loger	*)
+THIS^.stEvents.bLoggerDataCompleted	:= THIS^.refstCommonData.itfLogger <> 0;
+
+LinkCommonData		:= bResult AND THIS^.stEvents.bLoggerDataCompleted;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetCode" Id="{fe7a56f6-55e1-0e90-11d6-90800c0cf084}" FolderPath="ID\">
       <Declaration><![CDATA[METHOD PUBLIC SetCode
 VAR_INPUT
@@ -424,7 +442,7 @@ END_VAR
     </Method>
     <Method Name="SetEventsIDs" Id="{84a4a006-1e0f-0e23-3e24-f3c4945bc416}" FolderPath="Events\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		03.10.2025		TC 4024.66
 	nadawanie unikalnych ID dla zdarzeń
 *)
@@ -434,11 +452,15 @@ VAR_INPUT
 END_VAR
 VAR
 	uiI			: UINT;
+	uitmpValue	: UINT;
+	uitmpValue2	: UINT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (THIS^.stEvents.uiNumberOfAdded > 0) THEN
 	FOR uiI := 1 TO THIS^.stEvents.uiNumberOfAdded DO
-		THIS^.stEvents.arrDefinitions [uiI].uiIDEvent	:= uiNewID + uiI - 1;
+		uitmpValue	:= SEL (uiNewID = 0, uiNewID, 1);
+		uitmpValue2	:= uitmpValue + uiI;// - 1;
+		THIS^.stEvents.arrDefinitions [uiI].uiIDEvent	:= uitmpValue2;
 	END_FOR
 	SetEventsIDs				:= uiNewID + THIS^.stEvents.uiNumberOfAdded;
 ELSE

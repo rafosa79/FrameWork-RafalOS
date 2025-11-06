@@ -8,7 +8,7 @@
     <Folder Name="Zasilanie" Id="{5277a279-1f79-0b64-1781-5812a3c092e7}" />
     <Method Name="HomingGetDone" Id="{fde5b151-5c08-07ea-2de6-6340c0692556}" FolderPath="Bazowanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		31.03.2025		TC 4024.66
 	Flaga że w tej sesji pracy maszyny element został już wybazowany
 *)
@@ -19,7 +19,7 @@ END_VAR
     </Method>
     <Method Name="HomingGetIsNeeded" Id="{af92a4dc-5ebd-0ea2-0b2f-d3ed007008d4}" FolderPath="Bazowanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		11.04.2025		TC 4024.66
 	Zwraca czy bazowanie jest potrzebne
 *)
@@ -30,7 +30,7 @@ END_VAR
     </Method>
     <Method Name="HomingStart" Id="{4da12ea9-04a5-0fd9-182f-16900ea540df}" FolderPath="Bazowanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.05.2025		TC 4024.66
 	Uruchomienie metody bazowania
 *)
@@ -41,7 +41,7 @@ END_VAR
     </Method>
     <Method Name="IsDoNothing" Id="{ffddb488-5890-0adf-06a6-f772df0e09cc}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		30.04.2025		TC 4024.66
 	Zwraca czy element jest czymś zajety
 *)
@@ -50,7 +50,7 @@ METHOD PUBLIC IsDoNothing : BOOL
     </Method>
     <Method Name="IsPosition0" Id="{44c176d3-d246-039d-2b7a-13136bdef39e}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		30.04.2025		TC 4024.66
 	Zwraca czy element jest w pozycji 0 - referencyjnej
 *)
@@ -75,7 +75,7 @@ END_VAR
     </Method>
     <Method Name="PowerGetStatus" Id="{365f79a7-e897-0e0f-0996-f98b05052eb0}" FolderPath="Zasilanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		31.03.2025		TC 4024.66
 	Zwraca status zasilania	
 *)
@@ -86,7 +86,7 @@ END_VAR
     </Method>
     <Method Name="PowerTurnOff" Id="{c3b82c4f-b776-099b-1ee8-48f958193ea3}" FolderPath="Zasilanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		31.03.2025		TC 4024.66
 	Wyłączenie zasilania
 *)
@@ -97,7 +97,7 @@ END_VAR
     </Method>
     <Method Name="PowerTurnOn" Id="{a4b9ee87-99e7-08e4-233a-a1dfefa8327a}" FolderPath="Zasilanie\">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		31.03.2025		TC 4024.66
 	Uruchomienie zasialania
 *)

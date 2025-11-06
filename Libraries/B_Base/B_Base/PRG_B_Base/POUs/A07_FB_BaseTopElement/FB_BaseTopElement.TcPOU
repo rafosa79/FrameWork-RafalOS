@@ -9,18 +9,19 @@
 FUNCTION_BLOCK FB_BaseTopElement EXTENDS FB_BaseGroupElement IMPLEMENTS ITF_BaseTopElement, ITF_BaseTopElement_HMI_Connector
 VAR
 	refstRecipe				: REFERENCE TO ST_BaseRecipe;	//referencja do wybranej receptury
-	itfSAM					: ITF_BaseSAM;
+	itfSaM					: ITF_BaseSaM;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_BaseSaMStateMethod" Id="{bc9e0aa1-6349-0ee3-0846-f6ba0fae3062}" />
     <Folder Name="ITF_BaseTopElement" Id="{052dd554-421e-0ab4-0a3f-9910e310e106}" />
     <Folder Name="ITF_DecoratedElement" Id="{882a84e3-bde0-0fb8-0f20-5da4c990e3e6}" />
     <Folder Name="WiazanieZmiennych" Id="{fabb565b-a607-0553-34a9-5404aa78d6ea}" />
     <Method Name="ExecuteEveryCycle_Error" Id="{7d7b831e-4b28-0c6d-1881-11fac660b25a}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Obsluga bledow sprawdzanie czy jakis blad sie nei pojawil i ustawienie stanu lub wylaczenie
 *)
@@ -35,7 +36,7 @@ END_VAR
     </Method>
     <Method Name="ExecuteEveryCycle_Operation" Id="{841e6a4b-e4c1-0c2c-0e48-b22271ccf3c1}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Wywolanie co cykl operacji 
 *)
@@ -50,7 +51,7 @@ END_VAR
     </Method>
     <Method Name="ExecuteEveryCycle_Status" Id="{8fc845d8-b98b-055f-14fd-7c549a782f93}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Aktualizacja flag 
 *)
@@ -65,7 +66,7 @@ END_VAR
     </Method>
     <Method Name="ExecuteEveryCycle_Test" Id="{836e6c96-252b-0639-239a-fc6d6e00c17d}">
       <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
+	RafalOS
 	Rafał Osajda		27.03.2025		TC 4024.66
 	Testowanie czy nei pojawil sie jakis rozkaz i uruchomienie odpowiednich operacji
 *)
@@ -121,8 +122,8 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Aborted" Id="{de812620-c80f-4491-8781-86350bbf09cd}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Aborted" Id="{de812620-c80f-4491-8781-86350bbf09cd}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi czekania na reset
 *)
@@ -132,19 +133,19 @@ METHOD SP_Aborted : BOOL
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Aborting" Id="{84f926b6-8205-47b1-9a05-d57122a84273}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Aborting" Id="{84f926b6-8205-47b1-9a05-d57122a84273}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi wyłączania napędów po wciśnięciu grzyba
 *)
 METHOD SP_Aborting : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (NOT THIS^.itfSAM.IsModeChangeBusy ()) THEN
-	IF (THIS^.stPower.bStatus AND NOT THIS^.stPower.cmdTurnOff.GetBusy ()) THEN
+        <ST><![CDATA[IF (NOT THIS^.itfSAM.IsChangeModeBusy ()) THEN
+	IF (THIS^.stPower.bStatus AND NOT THIS^.stPower.cmdTurnOff.IsBusy ()) THEN
 		THIS^.stPower.cmdTurnOff.Execute ();
 	END_IF
-	IF (NOT THIS^.stPower.bStatus AND THIS^.stPower.cmdTurnOff.GetDone ()) THEN
+	IF (NOT THIS^.stPower.bStatus AND THIS^.stPower.cmdTurnOff.IsDone ()) THEN
 		SP_Aborting								:= TRUE;
 		THIS^.Reset ();
 	ELSE
@@ -154,19 +155,19 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Clearing" Id="{8d631297-04cc-4759-807f-666c15626b49}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Clearing" Id="{8d631297-04cc-4759-807f-666c15626b49}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi czyszczenia po grzybie
 *)
 METHOD SP_Clearing : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (NOT THIS^.stPower.bStatus AND NOT THIS^.stPower.cmdTurnOn.GetBusy ()
+        <ST><![CDATA[IF (NOT THIS^.stPower.bStatus AND NOT THIS^.stPower.cmdTurnOn.IsBusy ()
 	AND THIS^.itfSS1.GetFlag () AND THIS^.itfSTO.GetFlag ()) THEN
 	THIS^.stPower.cmdTurnOn.Execute ();
 END_IF
-IF (THIS^.stPower.bStatus AND THIS^.stPower.cmdTurnOn.GetDone ()) THEN
+IF (THIS^.stPower.bStatus AND THIS^.stPower.cmdTurnOn.IsDone ()) THEN
 	SP_Clearing								:= TRUE;
 ELSE
 	SP_Clearing								:= FALSE;
@@ -174,8 +175,8 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Complete" Id="{8b671c6f-7c51-46a4-b6d0-c7077e6ce194}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Complete" Id="{8b671c6f-7c51-46a4-b6d0-c7077e6ce194}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi Wykonania określonego zadania
 *)
@@ -185,8 +186,8 @@ METHOD SP_Complete : BOOL
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Completing" Id="{d6110e2a-6082-41e2-b228-8d6ba8d365a8}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Completing" Id="{d6110e2a-6082-41e2-b228-8d6ba8d365a8}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi pracy automatycznej do zadanej wartości ilości elementów
 *)
@@ -197,8 +198,8 @@ METHOD SP_Completing : BOOL
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Execute" Id="{b57728c0-ae72-40fb-bc1c-c563c65f6a47}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Execute" Id="{b57728c0-ae72-40fb-bc1c-c563c65f6a47}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi pracy
 *)
@@ -206,7 +207,7 @@ METHOD SP_Execute : BOOL
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[CASE THIS^.itfSAM.GetMode () OF
-	E_BaseMachineMode.Undefined		    : ;	
+	E_BaseMachineMode.NotAllowed	    : ;	
 	E_BaseMachineMode.Production		: SP_Execute_1_Production ();
 	E_BaseMachineMode.Maintenance		: SP_Execute_2_Maintenance ();
 	E_BaseMachineMode.Manual			: SP_Execute_3_Manual ();
@@ -221,8 +222,8 @@ END_CASE
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Execute_1_Production" Id="{03770d89-769d-0456-2d9d-6b6dfd3178c8}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Execute_1_Production" Id="{03770d89-769d-0456-2d9d-6b6dfd3178c8}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi pracy
 *)
@@ -234,8 +235,8 @@ END_VAR]]></Declaration>
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Execute_2_Maintenance" Id="{19580b77-590a-0958-1e78-daa8b0648685}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Execute_2_Maintenance" Id="{19580b77-590a-0958-1e78-daa8b0648685}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi pracy
 *)
@@ -247,8 +248,8 @@ END_VAR]]></Declaration>
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Execute_3_Manual" Id="{023e966e-3d12-0b2f-28a4-a99bc4ccbd4c}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Execute_3_Manual" Id="{023e966e-3d12-0b2f-28a4-a99bc4ccbd4c}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi pracy
 *)
@@ -260,8 +261,8 @@ END_VAR]]></Declaration>
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Execute_4_Washing" Id="{d22d0e1f-ec43-0be7-1522-1b4e98f3abbd}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Execute_4_Washing" Id="{d22d0e1f-ec43-0be7-1522-1b4e98f3abbd}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi pracy
 *)
@@ -273,8 +274,8 @@ END_VAR]]></Declaration>
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Execute_5_Diagnostics" Id="{d04a02ef-dc0d-0796-39a6-0aef6664f217}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Execute_5_Diagnostics" Id="{d04a02ef-dc0d-0796-39a6-0aef6664f217}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi pracy
 *)
@@ -286,8 +287,8 @@ END_VAR]]></Declaration>
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Held" Id="{d5c3a933-a628-4079-8f1e-82263ea6caf5}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Held" Id="{d5c3a933-a628-4079-8f1e-82263ea6caf5}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi wstrzymania pracy ze względów na błędy/alarmy
 *)
@@ -297,8 +298,8 @@ METHOD SP_Held : BOOL
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Holding" Id="{c73f1606-e504-46ff-8271-439650a0f486}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Holding" Id="{c73f1606-e504-46ff-8271-439650a0f486}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi wyjścia z wstrzymania pracy
 *)
@@ -310,8 +311,8 @@ SP_Holding									:= TRUE;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Idle" Id="{379bfde9-11a6-459d-9754-f4dfc042dbbc}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Idle" Id="{379bfde9-11a6-459d-9754-f4dfc042dbbc}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi czekania na dalsze rozkazy
 *)
@@ -321,8 +322,8 @@ METHOD SP_Idle : BOOL
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Resetting" Id="{53af9e15-e74b-4d61-80d5-632eeb30efad}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Resetting" Id="{53af9e15-e74b-4d61-80d5-632eeb30efad}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	Metoda sprawdzająca czy elementy maszyny ustawiły się na 0 wczytanie parametrów pracy
 *)
@@ -332,15 +333,15 @@ METHOD SP_Resetting : BOOL
         <ST><![CDATA[IF (NOT THIS^.stHoming.bIsNeeded OR THIS^.itfSAM.GetMode () = E_BaseMachineMode.Maintenance) THEN
 	SP_Resetting				:= TRUE;
 ELSE
-	IF (NOT THIS^.stHoming.cmdExecute.GetBusy ()) THEN
+	IF (NOT THIS^.stHoming.cmdExecute.IsBusy ()) THEN
 		THIS^.stHoming.cmdExecute.Execute ();
 	END_IF
 	SP_Resetting				:= FALSE;
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Starting" Id="{854033b8-a34f-4030-802c-0dbedf956037}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Starting" Id="{854033b8-a34f-4030-802c-0dbedf956037}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi uruchamiania pracy
 *)
@@ -353,8 +354,8 @@ SP_Starting									:= TRUE;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Stopped" Id="{c157b517-5a90-4f18-9b9b-8ec7f41d03d8}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Stopped" Id="{c157b517-5a90-4f18-9b9b-8ec7f41d03d8}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi czekania na dalsze rozkazy
 *)
@@ -364,8 +365,8 @@ METHOD SP_Stopped : BOOL
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Stopping" Id="{4b16dbcc-162b-4691-b817-9a6d3bb7ebc1}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Stopping" Id="{4b16dbcc-162b-4691-b817-9a6d3bb7ebc1}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	Metoda sprawdzająca czy wszystkie operacje zostały już zakończone i można wyłaczyc pracę 
 *)
@@ -381,8 +382,8 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Suspended" Id="{52cb31bb-0140-4669-8894-27f0d9917b8c}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Suspended" Id="{52cb31bb-0140-4669-8894-27f0d9917b8c}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi wstrzymania pracy ze względu na warunki zewnętrzne np brak materialu
 *)
@@ -392,8 +393,8 @@ METHOD SP_Suspended : BOOL
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Suspending" Id="{8d8f0d69-10be-4ec3-8a55-9709b6119efa}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Suspending" Id="{8d8f0d69-10be-4ec3-8a55-9709b6119efa}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi zawieszania pracy ze wzgledu na okoliczności zewnętrzne
 *)
@@ -405,8 +406,8 @@ SP_Suspending								:= TRUE;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Undefined" Id="{ba897ecb-060b-46ed-93bf-a022651b8a25}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Undefined" Id="{ba897ecb-060b-46ed-93bf-a022651b8a25}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi stanu zabroniownego - występuje tylko przy starcie
 *)
@@ -416,8 +417,8 @@ METHOD SP_Undefined : BOOL
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Unholding" Id="{3e3a3b71-b336-4762-a938-07bce997be19}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Unholding" Id="{3e3a3b71-b336-4762-a938-07bce997be19}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi uruchamiania po wstrzymaniu
 *)
@@ -429,8 +430,8 @@ SP_Unholding								:= TRUE;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SP_Unsuspending" Id="{c4b30392-c445-4794-95df-341261e77d40}" FolderPath="ITF_BaseTopElement\">
-      <Declaration><![CDATA[(*			EVERDE sp. z o.o.
+    <Method Name="SP_Unsuspending" Id="{c4b30392-c445-4794-95df-341261e77d40}" FolderPath="ITF_BaseSaMStateMethod\">
+      <Declaration><![CDATA[(*			RafalOS
 	Rafał Osajda		27.10.2024		TC 4026.11		wer. 0.0.0.1
 	metoda obsługi uruchamiania po wstzryamaniu
 *)
