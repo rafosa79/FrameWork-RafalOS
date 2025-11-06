@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1">
-  <POU Name="PRG_SystemControlMachineInit" Id="{6e1492bc-4f02-0ee9-0a49-e2590478923c}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="PRG_SystemControlMachineInit" Id="{6b815878-88af-4b04-8bbb-26a2f8ec4db7}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		25.10.2025		TC 4024.66

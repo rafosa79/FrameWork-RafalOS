@@ -3,7 +3,7 @@
   <POU Name="PRG_Compilation" Id="{c7b8d360-1f07-4d6a-b795-97ab52a4b56b}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
-
+	fbMachineControl		: FB_MCMachineControl;
 	
 END_VAR
 ]]></Declaration>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="FB_MyNewConfigurationAddTE" Id="{deb53b3d-9e12-46d3-b5d1-c50be418a5c2}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_MyNewConfigurationAddTE EXTENDS FB_Base IMPLEMENTS ITF_Configuration
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MyNewConfigurationAddTE EXTENDS FB_Base IMPLEMENTS ITF_MCConfiguration
 VAR
 
 END_VAR
@@ -26,7 +26,7 @@ GVL_TopElement2.fbTopElement2.JoinTheLogger ();
 *)
 METHOD AddTopElementToMachineControl : BOOL
 VAR_INPUT
-	itfMachineControl	: B_MachineControl.ITF_MachineControlConfigure;
+	itfMachineControl	: ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -46,7 +46,7 @@ itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_TopElement
     <Method Name="SetStartMode" Id="{503f7887-fe7e-43b2-afe8-42df368491ab}">
       <Declaration><![CDATA[METHOD SetStartMode : BOOL
 VAR_INPUT
-	itfMachineControl	: B_MachineControl.ITF_MachineControlConfigure;
+	itfMachineControl	: ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -56,7 +56,7 @@ END_VAR
     <Method Name="StateAndModes" Id="{eaff7a1f-24dd-4234-bac4-3b82e13d6de6}">
       <Declaration><![CDATA[METHOD StateAndModes : BOOL
 VAR_INPUT
-	itfMachineControl	: B_MachineControl.ITF_MachineControlConfigure;
+	itfMachineControl	: ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
