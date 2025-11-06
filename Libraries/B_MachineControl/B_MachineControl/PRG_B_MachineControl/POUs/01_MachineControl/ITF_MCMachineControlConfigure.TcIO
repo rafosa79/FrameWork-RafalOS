@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <Itf Name="ITF_MachineControlConfigure" Id="{407b3a6e-6e4f-4b87-8313-a53f9cca235d}">
+  <Itf Name="ITF_MCMachineControlConfigure" Id="{407b3a6e-6e4f-4b87-8313-a53f9cca235d}">
     <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		29.10.2025		TC 4024.66
 	Metody do konfiguracji MAchine control wywoływane z MachineConfigure z pomocą przekazanego ITF
 *)
-INTERFACE ITF_MachineControlConfigure EXTENDS ITF_Base
+INTERFACE ITF_MCMachineControlConfigure EXTENDS ITF_Base
 ]]></Declaration>
     <Method Name="AddRequestModeChange" Id="{b57a036d-1128-0d9e-3e41-4e327c6cc617}">
       <Declaration><![CDATA[METHOD PUBLIC AddRequestModeChange : BOOL
 VAR_INPUT
 	iNumberOfRequest			: INT;
-	itfRequest					: ITF_RequiredChange;
+	itfRequest					: ITF_MCRequiredChange;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -20,7 +20,7 @@ END_VAR
       <Declaration><![CDATA[METHOD PUBLIC AddRequestStateChange : BOOL
 VAR_INPUT
 	iNumberOfRequest			: INT;
-	itfRequest					: ITF_RequiredChange;
+	itfRequest					: ITF_MCRequiredChange;
 END_VAR
 ]]></Declaration>
     </Method>

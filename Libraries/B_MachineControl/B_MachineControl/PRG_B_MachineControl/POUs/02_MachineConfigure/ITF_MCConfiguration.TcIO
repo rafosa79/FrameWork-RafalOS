@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <Itf Name="ITF_Configuration" Id="{687dfd14-96fc-4e9e-9986-638f15f5b1fd}">
-    <Declaration><![CDATA[INTERFACE ITF_Configuration
+  <Itf Name="ITF_MCConfiguration" Id="{687dfd14-96fc-4e9e-9986-638f15f5b1fd}">
+    <Declaration><![CDATA[INTERFACE ITF_MCConfiguration
 ]]></Declaration>
     <Method Name="AddTopElementToLogger" Id="{a4cd0c5f-7f5c-0a74-2586-ca395c8c0f41}">
       <Declaration><![CDATA[METHOD PUBLIC AddTopElementToLogger : BOOL
@@ -17,21 +17,21 @@ END_VAR
 *)
 METHOD PUBLIC AddTopElementToMachineControl : BOOL
 VAR_INPUT
-	itfMachineControl			: ITF_MachineControlConfigure;
+	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
     </Method>
     <Method Name="SetStartMode" Id="{36444d97-b5e1-0e95-31fa-e113c6730599}">
       <Declaration><![CDATA[METHOD PUBLIC SetStartMode : BOOL
 VAR_INPUT
-	itfMachineControl			: ITF_MachineControlConfigure;
+	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
     </Method>
     <Method Name="StateAndModes" Id="{58f0fcc3-ac6f-0f4f-040a-f5ab763b7603}">
       <Declaration><![CDATA[METHOD StateAndModes : BOOL
 VAR_INPUT
-	itfMachineControl			: ITF_MachineControlConfigure;
+	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
     </Method>

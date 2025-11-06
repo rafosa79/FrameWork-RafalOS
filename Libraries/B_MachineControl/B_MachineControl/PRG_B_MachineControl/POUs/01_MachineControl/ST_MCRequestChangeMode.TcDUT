@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <DUT Name="ST_RequestChangeState" Id="{c58c2240-9093-04af-02a3-8cca733321df}">
-    <Declaration><![CDATA[TYPE ST_RequestChangeState :
+  <DUT Name="ST_MCRequestChangeMode" Id="{9bde77f9-3c33-0c5b-34cc-a5aa77e240a2}">
+    <Declaration><![CDATA[TYPE ST_MCRequestChangeMode :
 STRUCT
+
 END_STRUCT
 END_TYPE
 ]]></Declaration>

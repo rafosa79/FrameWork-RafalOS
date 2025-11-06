@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_MachineControl" Id="{03d9ff00-a300-4d9d-a349-75e3318a4c90}" SpecialFunc="None">
+  <POU Name="FB_MCMachineControl" Id="{03d9ff00-a300-4d9d-a349-75e3318a4c90}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		04.11.2025		TC 4024.66
 	Główny FB zarządzający pracą maszyny
 *)
-FUNCTION_BLOCK FB_MachineControl EXTENDS FB_BaseTopElement IMPLEMENTS ITF_MachineControlConfigure
+FUNCTION_BLOCK FB_MCMachineControl EXTENDS FB_BaseTopElement IMPLEMENTS ITF_MCMachineControlConfigure
 VAR
 	(*	Inicjalizacja		*)
 	bInitializeCycle			: BOOL;
 	bInitDone					: BOOL;
 	(*	Konfiguracja		*)
-	itfMachineConfigure			: ITF_MachineConfigure;		//moduł konfiguracji
+	itfMachineConfigure			: ITF_MCMachineConfigure;		//moduł konfiguracji
 	(*	TopElementu systemu	*)
 	arrTopElements					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT] OF ITF_BaseTopElement;
 	uiNumberOfAddedTopElement		: UINT := 0;//przy dodawaniu element 0 to system 
@@ -22,8 +22,8 @@ VAR
 	(*	Zarządzenia stanami i trybami pracy	*)
 	itfSaMController				: ITF_SaMController;
 	(*	Stany i Tryby	*)
-	arrRequestChangeState			: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES] OF ITF_RequiredChange;
-	arrRequestChangeMode			: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_MODES] OF ITF_RequiredChange;
+	arrRequestChangeState			: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES] OF ITF_MCRequiredChange;
+	arrRequestChangeMode			: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_MODES] OF ITF_MCRequiredChange;
 	(*	Tablica informacyjna czy praca w stanie aktywnym zakończona	*)
 	arrTopElementWorkFinishedInState	: ARRAY [1..GVL_SaMConstans.NUMBER_OF_STATES] OF BOOL;
 END_VAR
@@ -47,7 +47,7 @@ END_IF
 *)
 METHOD PUBLIC AddModulConfigure : BOOL
 VAR_INPUT
-	fbMachineConfigure			: ITF_MachineConfigure;
+	fbMachineConfigure			: ITF_MCMachineConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -71,7 +71,7 @@ THIS^.AddControlElement (itfControlElement	:= fbSaMController);
       <Declaration><![CDATA[METHOD PUBLIC AddRequestModeChange : BOOL
 VAR_INPUT
 	iNumberOfRequest			: INT;
-	itfRequest					: ITF_RequiredChange;
+	itfRequest					: ITF_MCRequiredChange;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -83,7 +83,7 @@ END_VAR
       <Declaration><![CDATA[METHOD PUBLIC AddRequestStateChange : BOOL
 VAR_INPUT
 	iNumberOfRequest			: INT;
-	itfRequest					: ITF_RequiredChange;
+	itfRequest					: ITF_MCRequiredChange;
 END_VAR
 ]]></Declaration>
       <Implementation>

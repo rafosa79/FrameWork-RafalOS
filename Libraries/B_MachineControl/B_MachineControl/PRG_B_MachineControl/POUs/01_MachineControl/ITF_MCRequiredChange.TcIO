@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <Itf Name="ITF_RequiredChange" Id="{0bb9e62f-bd86-08dc-230b-c32c9f5d16b2}">
-    <Declaration><![CDATA[INTERFACE ITF_RequiredChange EXTENDS ITF_IOButton
+  <Itf Name="ITF_MCRequiredChange" Id="{0bb9e62f-bd86-08dc-230b-c32c9f5d16b2}">
+    <Declaration><![CDATA[INTERFACE ITF_MCRequiredChange EXTENDS ITF_IOButton
 ]]></Declaration>
     <Method Name="SetRequiredChange" Id="{5622f058-de00-0ab9-37a6-b85c4b833687}">
       <Declaration><![CDATA[METHOD PUBLIC SetRequiredChange

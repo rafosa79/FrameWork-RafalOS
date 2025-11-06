@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_RequiredChange" Id="{375a2992-5fcd-0418-3ca1-78865de1c3ed}" SpecialFunc="None">
+  <POU Name="FB_MCRequiredChange" Id="{375a2992-5fcd-0418-3ca1-78865de1c3ed}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		04.11.2025		TC 4024.66
 	Polecenie zmiany trybu lub stanu - rozszerzony przycisk o możliwość sterowania z HMI i na wyjściu daje mi impuls na jeden cykl
 *)
-FUNCTION_BLOCK FB_RequiredChange EXTENDS FB_IOButton_NO IMPLEMENTS ITF_RequiredChange
+FUNCTION_BLOCK FB_MCRequiredChange EXTENDS FB_IOButton_NO IMPLEMENTS ITF_MCRequiredChange
 VAR
 	bChange					: BOOL;
 	rtChange				: Tc2_Standard.R_TRIG;

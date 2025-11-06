@@ -10,11 +10,11 @@ VAR_GLOBAL
 	stCommonData					: ST_BaseCommonData;
 
 	fbDefaultMachineConfiguration	: FB_MyDefaultConfiguration;
-	fbMachineConfigure				: FB_MachineConfigure;
+	fbMachineConfigure				: FB_MCMachineConfigure;
 	
 	fbSaMController					: FB_SaMController;
 	
-	fbMachineControl				: FB_MachineControl;
+	fbMachineControl				: FB_MCMachineControl;
 	
 END_VAR]]></Declaration>
   </GVL>

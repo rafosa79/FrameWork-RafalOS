@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1">
-  <GVL Name="GVL_MCSafety" Id="{408e1c6e-7663-05c5-1c01-34065daabb61}">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL_MCSafety" Id="{451bd6aa-b1ce-4028-9df3-f0fda13e64ea}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
 	flSS1				: FB_BaseFlag;

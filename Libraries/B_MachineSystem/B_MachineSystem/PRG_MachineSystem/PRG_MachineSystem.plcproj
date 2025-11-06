@@ -3,127 +3,54 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0595cac4-c7ad-45ed-81f2-c4fbfc94df8b}</ProjectGuid>
+    <ProjectGuid>{58daf0dd-501f-48e2-98da-a3cabcbd80c6}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
-    <WriteProductVersion>false</WriteProductVersion>
+    <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>PRG_B_MachineControl</Name>
+    <Name>PRG_MachineSystem</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
-    <Application>{d068d493-97b4-4d3c-90dc-d6281d9ce98d}</Application>
-    <TypeSystem>{2fead4aa-976b-4a41-a8f6-60fcd5bfe3a0}</TypeSystem>
-    <Implicit_Task_Info>{8ed2b462-225a-4261-9a9a-9126ee29c960}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{5440d4d3-9480-487d-8b8e-e60f3bd7713c}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{b092e8cd-9ec4-4631-84ce-b9f03651902e}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{905159e1-dc11-4ab4-b97d-1b27593f3ce8}</LibraryReferences>
-    <Company>RafalOS</Company>
-    <Released>false</Released>
-    <Title>B_MachineControl</Title>
-    <ProjectVersion>0.0.0.20</ProjectVersion>
-    <LibraryCategories>
-      <LibraryCategory xmlns="">
-        <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
-        <Version>1.0.0.0</Version>
-        <DefaultName>RafalOS</DefaultName>
-      </LibraryCategory>
-      <LibraryCategory xmlns="">
-        <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
-        <Version>1.0.0.0</Version>
-        <ParentCategory>
-          <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
-        </ParentCategory>
-        <DefaultName>Biblioteki i ich elementy</DefaultName>
-      </LibraryCategory>
-      <LibraryCategory xmlns="">
-        <Id>{b9904a12-953a-4ef3-ac35-10e52398b2c1}</Id>
-        <Version>1.0.0.0</Version>
-        <ParentCategory>
-          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
-        </ParentCategory>
-        <DefaultName>Biblioteki</DefaultName>
-      </LibraryCategory>
-      <LibraryCategory xmlns="">
-        <Id>{d7993a17-e2cc-40b8-abc3-8f6a6054b793}</Id>
-        <Version>1.0.0.0</Version>
-        <ParentCategory>
-          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
-        </ParentCategory>
-        <DefaultName>Biblioteki HMI</DefaultName>
-      </LibraryCategory>
-      <LibraryCategory xmlns="">
-        <Id>{965bfd45-94a6-4019-b3e4-d0869ce533c6}</Id>
-        <Version>1.0.0.0</Version>
-        <ParentCategory>
-          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
-        </ParentCategory>
-        <DefaultName>Dekoratory do elementow z bibliotek</DefaultName>
-      </LibraryCategory>
-      <LibraryCategory xmlns="">
-        <Id>{501eed1d-c165-4994-a262-657bb34e1119}</Id>
-        <Version>1.0.0.0</Version>
-        <ParentCategory>
-          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
-        </ParentCategory>
-        <DefaultName>Biblioteki PLCHMI</DefaultName>
-      </LibraryCategory>
-      <LibraryCategory xmlns="">
-        <Id>{4b941d07-e34c-48f7-83cf-ea402c5a73e5}</Id>
-        <Version>1.0.0.0</Version>
-        <ParentCategory>
-          <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
-        </ParentCategory>
-        <DefaultName>Smarownica</DefaultName>
-      </LibraryCategory>
-    </LibraryCategories>
-    <SelectedLibraryCategories>
-      <Id xmlns="">{b9904a12-953a-4ef3-ac35-10e52398b2c1}</Id>
-    </SelectedLibraryCategories>
-    <DefaultNamespace>B_MachineControl</DefaultNamespace>
-    <Author>Rafał Osajda</Author>
-    <CombineIds>true</CombineIds>
+    <Application>{98c478c1-d4a1-40c1-aef4-dbb1025082d3}</Application>
+    <TypeSystem>{8e9a472e-0560-454b-a066-5ffab8d50c78}</TypeSystem>
+    <Implicit_Task_Info>{55334814-c528-4f81-8c17-5d71719d7531}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{5050c9fa-7a68-4eca-aa77-d68c4494b43b}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{efe4b19c-5ab5-40de-95d7-cd1fa34be798}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{14455c7d-594d-4326-a1f1-3a9e26e6bc24}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GVLs\GVL_MCSafety.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_RequeestChange.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_SystemVariable.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
+    <Compile Include="POUsCompilation\Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_MachineControl\FB_MCMachineControl.TcPOU">
+    <Compile Include="POUs\03_Configuration\FB_DefaultConfiguration.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_MachineControl\ITF_MCMachineControlConfigure.TcIO">
+    <Compile Include="POUs\PRG_SystemControlMachineInit.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_MachineControl\ITF_MCRequiredChange.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\01_MachineControl\ST_MCRequestChangeMode.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\01_MachineControl\ST_MCRequestChangeState.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\02_MachineConfigure\FB_MCMachineConfigure.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\02_MachineConfigure\ITF_MCConfiguration.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\02_MachineConfigure\ITF_MCMachineConfigure.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\03_RequiredChange\FB_MCRequiredChange.TcPOU">
+    <Compile Include="POUs\PRG_SystemControlMachineWork.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
-    <Folder Include="POUs Compilation" />
-    <Folder Include="POUs\01_MachineControl" />
-    <Folder Include="POUs\02_MachineConfigure" />
-    <Folder Include="POUs\03_RequiredChange" />
+    <Folder Include="POUsCompilation" />
+    <Folder Include="POUs\03_Configuration" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -136,9 +63,12 @@
       <DefaultResolution>B_IO, * (RafalOS)</DefaultResolution>
       <Namespace>B_IO</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="B_MachineControl">
+      <DefaultResolution>B_MachineControl, * (RafalOS)</DefaultResolution>
+      <Namespace>B_MachineControl</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="B_StatesAndModes">
       <DefaultResolution>B_StatesAndModes, * (RafalOS)</DefaultResolution>
-      <Namespace>B_StatesAndModes</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -154,15 +84,15 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="PRG_B_MachineControl.tmc">
+    <None Include="PRG_MachineSystem.tmc">
       <SubType>Content</SubType>
     </None>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-        <Data>
-          <o xml:space="preserve" t="OptionKey">
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>
@@ -183,13 +113,13 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

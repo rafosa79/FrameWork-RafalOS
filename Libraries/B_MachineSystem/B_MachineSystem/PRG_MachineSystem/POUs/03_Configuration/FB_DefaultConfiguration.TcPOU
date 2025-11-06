@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_DefaultConfiguration" Id="{b3dd6042-604c-4c61-931b-83a2a51b25e3}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_DefaultConfiguration EXTENDS FB_Base IMPLEMENTS ITF_Configuration
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_DefaultConfiguration" Id="{b648aa86-a7e1-098c-12e9-4759598ffa68}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_DefaultConfiguration EXTENDS FB_Base IMPLEMENTS ITF_MCConfiguration
 VAR
 
 END_VAR
@@ -9,7 +9,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="AddTopElementToLogger" Id="{36be91d2-ad26-0a71-30b5-b0c6ca0ce3ae}">
+    <Method Name="AddTopElementToLogger" Id="{332b5b16-6a8b-4f9c-b147-743d36983c25}">
       <Declaration><![CDATA[METHOD PUBLIC AddTopElementToLogger : BOOL
 VAR_INPUT
 END_VAR
@@ -20,7 +20,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddTopElementToMachineControl" Id="{5d7430ec-14d9-0c38-3500-a1ae21ec7008}">
+    <Method Name="AddTopElementToMachineControl" Id="{58e1fa28-d374-49d5-b4f2-6555dd78af83}">
       <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		29.10.2025		TC 4024.66
@@ -28,7 +28,7 @@ END_VAR
 *)
 METHOD PUBLIC AddTopElementToMachineControl : BOOL
 VAR_INPUT
-	itfMachineControl			: ITF_MachineControlConfigure;
+	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -40,10 +40,10 @@ itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_SystemVari
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetStartMode" Id="{2d8e37f8-978f-0396-3184-f3024c4fb837}">
+    <Method Name="SetStartMode" Id="{281bfd3c-5022-467b-b076-37f9b0db67bc}">
       <Declaration><![CDATA[METHOD PUBLIC SetStartMode : BOOL
 VAR_INPUT
-	itfMachineControl			: ITF_MachineControlConfigure;
+	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -51,10 +51,10 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="StateAndModes" Id="{04eaf0df-aa66-0bed-030e-62a32cc97b08}">
+    <Method Name="StateAndModes" Id="{017f3a1b-6dcb-4e00-82fc-a658d05da483}">
       <Declaration><![CDATA[METHOD StateAndModes : BOOL
 VAR_INPUT
-	itfMachineControl			: ITF_MachineControlConfigure;
+	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
