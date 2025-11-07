@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_HMIEButton" Id="{936d0e57-6045-41ed-8f87-65656e00bc73}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HMIEButton EXTENDS FB_BaseComponent IMPLEMENTS ITF_HMIEButton
+VAR
+	bContact			: BOOL;
+	bActive				: BOOL;	//wybrany
+	bVisible			: BOOL; //widoczny
+	bEnable				: BOOL; //wlaczony
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="IsActive" Id="{582562ff-b9de-4d7d-a44e-ecab9d1d0a4b}">
+      <Declaration><![CDATA[METHOD PUBLIC IsActive : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsActive		:= THIS^.bActive;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsEnable" Id="{cc02517e-7fb6-47a3-8cdf-80218cb01ab6}">
+      <Declaration><![CDATA[METHOD PUBLIC IsEnable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsEnable		:= THIS^.bEnable;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsPressed" Id="{4bba51f0-58a8-4445-82db-fb1d08a086cc}">
+      <Declaration><![CDATA[METHOD PUBLIC IsPressed : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsPressed		:= THIS^.bContact;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsVisible" Id="{a6226b79-41e0-467b-aa0a-501eef35b9b4}">
+      <Declaration><![CDATA[METHOD PUBLIC IsVisible : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsVisible		:= THIS^.bVisible;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetActive" Id="{bc4aabf8-0a33-46b0-83fb-083bcdcc6795}">
+      <Declaration><![CDATA[METHOD PUBLIC SetActive
+VAR_INPUT
+	bIN: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bActive		:= bIN;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEnable" Id="{b4464f1e-1039-4330-a435-f23826a59a2f}">
+      <Declaration><![CDATA[METHOD PUBLIC SetEnable
+VAR_INPUT
+	bIN: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bEnable		:= bIN;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetPressed" Id="{f64a26bb-2bd6-4352-9080-c9b29385f5a8}">
+      <Declaration><![CDATA[METHOD PUBLIC SetPressed
+VAR_INPUT
+	bIN: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bContact		:= bIN;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetVisible" Id="{ae3fd991-7f0d-4cc8-be08-e9c95a3ba73e}">
+      <Declaration><![CDATA[METHOD PUBLIC SetVisible
+VAR_INPUT
+	bIN: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bVisible		:= bIN;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

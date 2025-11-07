@@ -3,22 +3,22 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{badc33d3-b869-414a-a89e-032d02554a30}</ProjectGuid>
+    <ProjectGuid>{cc977e0a-6b1a-45d2-bc88-385eff4e6c75}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>PRG_B_HMIManager</Name>
+    <Name>PRG_HMIElements</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
-    <Application>{31146446-4e37-4ca7-906b-b855afd610f2}</Application>
-    <TypeSystem>{0055e9f9-5630-474d-84fa-bd871c9675f8}</TypeSystem>
-    <Implicit_Task_Info>{0f738e03-dda2-4c1e-94dc-a6927343daed}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{1409eb0f-7529-405e-8979-03c53d7ec6cc}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{bd4dc765-224f-4f37-bf9c-3056522a0b7b}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{7a0f8194-891d-4fd0-85c0-7d4e98b1d512}</LibraryReferences>
-    <Company>RafałOS</Company>
+    <Application>{8769b5d6-fce1-4aae-8d4f-dabf7b95c6cf}</Application>
+    <TypeSystem>{2f3ca683-fa9a-4ed3-b118-8e1fa05d7221}</TypeSystem>
+    <Implicit_Task_Info>{c415281b-9ab0-4a0a-a34f-cf65c40cb324}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{48302800-86b8-4a94-b00f-5afa2a1f945b}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{44e46e9d-5f8a-44f4-a215-d84df59de17d}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{4a591602-1728-4729-868a-345ab9177cbb}</LibraryReferences>
+    <Company>RafalOS</Company>
     <Released>false</Released>
-    <Title>B_HMIManager</Title>
+    <Title>B_HMIElements</Title>
     <ProjectVersion>0.0.0.1</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
@@ -76,23 +76,33 @@
       </LibraryCategory>
     </LibraryCategories>
     <SelectedLibraryCategories>
-      <Id xmlns="">{b9904a12-953a-4ef3-ac35-10e52398b2c1}</Id>
+      <Id xmlns="">{d7993a17-e2cc-40b8-abc3-8f6a6054b793}</Id>
     </SelectedLibraryCategories>
-    <DefaultNamespace>B_HMI_Manager</DefaultNamespace>
+    <DefaultNamespace>B_HMIElements</DefaultNamespace>
     <Author>Rafał Osajda</Author>
     <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GVLs\GVL_HMIEConstans.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_HMIManager.TcPOU">
+    <Compile Include="POUs\01_Button\FB_HMIEButton.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\ITF_HMIManager.TcIO">
+    <Compile Include="POUs\01_Button\ITF_HMIEButton.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02_Menu\FB_HMIEMenu.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02_Menu\ITF_HMIEMenu.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -100,6 +110,8 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
+    <Folder Include="POUs\01_Button" />
+    <Folder Include="POUs\02_Menu" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -107,18 +119,6 @@
     <PlaceholderReference Include="B_Base">
       <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
       <Namespace>B_Base</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="B_Base_HMI_Connector">
-      <DefaultResolution>B_Base_HMI_Connector, * (RafalOS)</DefaultResolution>
-      <Namespace>B_Base_HMI_Connector</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="B_HMIElements">
-      <DefaultResolution>B_HMIElements, * (RafalOS)</DefaultResolution>
-      <Namespace>B_HMIElements</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="B_MachineControl">
-      <DefaultResolution>B_MachineControl, * (RafalOS)</DefaultResolution>
-      <Namespace>B_MachineControl</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -134,7 +134,7 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="PRG_B_HMIManager.tmc">
+    <None Include="PRG_HMIElements.tmc">
       <SubType>Content</SubType>
     </None>
   </ItemGroup>

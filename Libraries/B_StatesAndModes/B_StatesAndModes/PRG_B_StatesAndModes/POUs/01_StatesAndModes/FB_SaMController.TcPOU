@@ -6,7 +6,7 @@
 	Rafał Osajda		30.10.2025		TC 4024.66
 	Główny FB do zarządzania stanami i trybami pracy
 *)
-FUNCTION_BLOCK FB_SaMController EXTENDS FB_BaseTopElement IMPLEMENTS ITF_SaMController
+FUNCTION_BLOCK FB_SaMController EXTENDS FB_BaseControlElement IMPLEMENTS ITF_SaMController
 VAR
 (*	Polecenia zmiany stany	*)	
 	stCmdStates					: ST_CommandChangeState;

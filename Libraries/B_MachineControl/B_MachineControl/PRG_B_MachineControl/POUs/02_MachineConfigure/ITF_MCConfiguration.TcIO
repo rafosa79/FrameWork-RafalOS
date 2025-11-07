@@ -3,6 +3,13 @@
   <Itf Name="ITF_MCConfiguration" Id="{687dfd14-96fc-4e9e-9986-638f15f5b1fd}">
     <Declaration><![CDATA[INTERFACE ITF_MCConfiguration
 ]]></Declaration>
+    <Method Name="AddHMIToMachineControl" Id="{a28c44f4-1960-0bac-0962-df1754c1376f}">
+      <Declaration><![CDATA[METHOD AddHMIToMachineControl : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="AddTopElementToLogger" Id="{a4cd0c5f-7f5c-0a74-2586-ca395c8c0f41}">
       <Declaration><![CDATA[METHOD PUBLIC AddTopElementToLogger : BOOL
 VAR_INPUT

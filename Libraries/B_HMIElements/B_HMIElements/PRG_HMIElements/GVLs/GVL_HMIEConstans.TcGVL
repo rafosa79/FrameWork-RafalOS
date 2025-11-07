@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <GVL Name="GVL_MCSafety" Id="{451bd6aa-b1ce-4028-9df3-f0fda13e64ea}">
+  <GVL Name="GVL_HMIEConstans" Id="{8f5771d4-0142-4111-9a81-ac5cf3458a4b}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
-VAR_GLOBAL
-	flSS1				: FB_BaseFlag;
-	flSTO				: FB_BaseFlag;
+VAR_GLOBAL CONSTANT
+	MAX_NUMBER_OF_BUTTON_IN_MENU	: INT := 20;
 	
 END_VAR]]></Declaration>
   </GVL>

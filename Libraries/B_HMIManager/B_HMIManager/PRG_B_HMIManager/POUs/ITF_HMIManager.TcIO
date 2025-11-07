@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_HMIManager" Id="{a317d999-660b-08b0-285a-99f61544469f}">
+    <Declaration><![CDATA[INTERFACE ITF_HMIManager EXTENDS ITF_BaseGroupElement
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

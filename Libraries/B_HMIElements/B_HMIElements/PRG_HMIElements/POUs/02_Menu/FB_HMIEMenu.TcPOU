@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_HMIEMenu" Id="{aca5b8d6-8bd3-4247-801c-4d7202167bd3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HMIEMenu EXTENDS FB_BaseControlElement IMPLEMENTS ITF_HMIEMenu
+VAR
+	arrButtons		: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF ITF_HMIEButton;
+	iNumerOfButton	: INT := -1;	//ilosć przycisków w menu
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddButton" Id="{84c5fa09-21a3-408e-a468-e17b66190995}">
+      <Declaration><![CDATA[METHOD PUBLIC AddButton : BOOL
+VAR_INPUT
+	fbButton			: FB_HMIEButton;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.iNumerOfButton + 1 <= GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU) THEN
+	THIS^.iNumerOfButton := THIS^.iNumerOfButton + 1;
+	THIS^.arrButtons [THIS^.iNumerOfButton] := fbButton;
+	AddButton := TRUE;
+ELSE
+	AddButton := FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

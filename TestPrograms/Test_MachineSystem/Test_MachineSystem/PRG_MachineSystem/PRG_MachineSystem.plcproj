@@ -3,122 +3,37 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{badc33d3-b869-414a-a89e-032d02554a30}</ProjectGuid>
+    <ProjectGuid>{88e57cad-b425-4b25-be7f-83262681d382}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
-    <WriteProductVersion>false</WriteProductVersion>
+    <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>PRG_B_HMIManager</Name>
+    <Name>PRG_MachineSystem</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
-    <Application>{31146446-4e37-4ca7-906b-b855afd610f2}</Application>
-    <TypeSystem>{0055e9f9-5630-474d-84fa-bd871c9675f8}</TypeSystem>
-    <Implicit_Task_Info>{0f738e03-dda2-4c1e-94dc-a6927343daed}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{1409eb0f-7529-405e-8979-03c53d7ec6cc}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{bd4dc765-224f-4f37-bf9c-3056522a0b7b}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{7a0f8194-891d-4fd0-85c0-7d4e98b1d512}</LibraryReferences>
-    <Company>RafałOS</Company>
-    <Released>false</Released>
-    <Title>B_HMIManager</Title>
-    <ProjectVersion>0.0.0.1</ProjectVersion>
-    <LibraryCategories>
-      <LibraryCategory xmlns="">
-        <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
-        <Version>1.0.0.0</Version>
-        <DefaultName>RafalOS</DefaultName>
-      </LibraryCategory>
-      <LibraryCategory xmlns="">
-        <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
-        <Version>1.0.0.0</Version>
-        <ParentCategory>
-          <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
-        </ParentCategory>
-        <DefaultName>Biblioteki i ich elementy</DefaultName>
-      </LibraryCategory>
-      <LibraryCategory xmlns="">
-        <Id>{b9904a12-953a-4ef3-ac35-10e52398b2c1}</Id>
-        <Version>1.0.0.0</Version>
-        <ParentCategory>
-          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
-        </ParentCategory>
-        <DefaultName>Biblioteki</DefaultName>
-      </LibraryCategory>
-      <LibraryCategory xmlns="">
-        <Id>{d7993a17-e2cc-40b8-abc3-8f6a6054b793}</Id>
-        <Version>1.0.0.0</Version>
-        <ParentCategory>
-          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
-        </ParentCategory>
-        <DefaultName>Biblioteki HMI</DefaultName>
-      </LibraryCategory>
-      <LibraryCategory xmlns="">
-        <Id>{965bfd45-94a6-4019-b3e4-d0869ce533c6}</Id>
-        <Version>1.0.0.0</Version>
-        <ParentCategory>
-          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
-        </ParentCategory>
-        <DefaultName>Dekoratory do elementow z bibliotek</DefaultName>
-      </LibraryCategory>
-      <LibraryCategory xmlns="">
-        <Id>{501eed1d-c165-4994-a262-657bb34e1119}</Id>
-        <Version>1.0.0.0</Version>
-        <ParentCategory>
-          <Id>{1a768727-ca9a-4692-99d7-dcc30260c025}</Id>
-        </ParentCategory>
-        <DefaultName>Biblioteki PLCHMI</DefaultName>
-      </LibraryCategory>
-      <LibraryCategory xmlns="">
-        <Id>{4b941d07-e34c-48f7-83cf-ea402c5a73e5}</Id>
-        <Version>1.0.0.0</Version>
-        <ParentCategory>
-          <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
-        </ParentCategory>
-        <DefaultName>Smarownica</DefaultName>
-      </LibraryCategory>
-    </LibraryCategories>
-    <SelectedLibraryCategories>
-      <Id xmlns="">{b9904a12-953a-4ef3-ac35-10e52398b2c1}</Id>
-    </SelectedLibraryCategories>
-    <DefaultNamespace>B_HMI_Manager</DefaultNamespace>
-    <Author>Rafał Osajda</Author>
-    <CombineIds>true</CombineIds>
+    <Application>{2f21582a-9687-49fa-9b79-5d44e56a898e}</Application>
+    <TypeSystem>{b3f4fac1-86ff-4b5c-868b-0b3e426c1224}</TypeSystem>
+    <Implicit_Task_Info>{52b8ced8-28ea-499c-b001-92ded8a3ebee}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{09bfe2a9-bade-41df-ab42-022e739540fa}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{48e28209-1fe6-4f8d-b9b2-86eb5dd834ed}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{42c98bbe-cde3-464d-ae9e-9c6d642647fa}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_HMIManager.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\ITF_HMIManager.TcIO">
+    <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
-    <Folder Include="POUs Compilation" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
-    <PlaceholderReference Include="B_Base">
-      <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
-      <Namespace>B_Base</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="B_Base_HMI_Connector">
-      <DefaultResolution>B_Base_HMI_Connector, * (RafalOS)</DefaultResolution>
-      <Namespace>B_Base_HMI_Connector</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="B_HMIElements">
-      <DefaultResolution>B_HMIElements, * (RafalOS)</DefaultResolution>
-      <Namespace>B_HMIElements</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="B_MachineControl">
-      <DefaultResolution>B_MachineControl, * (RafalOS)</DefaultResolution>
-      <Namespace>B_MachineControl</Namespace>
+    <PlaceholderReference Include="B_MachineSystem">
+      <DefaultResolution>B_MachineSystem, * (RafalOS)</DefaultResolution>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -133,16 +48,11 @@
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="PRG_B_HMIManager.tmc">
-      <SubType>Content</SubType>
-    </None>
-  </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-        <Data>
-          <o xml:space="preserve" t="OptionKey">
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>
@@ -163,13 +73,13 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

@@ -39,6 +39,18 @@ END_IF
     </Implementation>
     <Folder Name="ITF_MachineControlConfigure" Id="{973d3ff0-85f0-4bae-9395-cc62a4917833}" />
     <Folder Name="WiazanieModulow" Id="{3d8e3574-09c0-0f20-0429-cf1b0f8aec79}" />
+    <Method Name="AddHMIManagerFromConfiguration" Id="{4ce40e08-6792-0f1e-2e36-5f882a8aa746}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC AddHMIManagerFromConfiguration : BOOL
+VAR_INPUT
+	itfHMIManager			: ITF_BaseGroupElement;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.AddControlElement (itfControlElement := itfHMIManager);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddModulConfigure" Id="{e05e86ab-e65a-0460-123e-9f866e36dccc}" FolderPath="WiazanieModulow\">
       <Declaration><![CDATA[(*			
 	RafalOS

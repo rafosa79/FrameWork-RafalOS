@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_HMIEMenu" Id="{dc3b9d3c-c21c-4086-8483-fad3245993b2}">
+    <Declaration><![CDATA[INTERFACE ITF_HMIEMenu EXTENDS ITF_BaseControlElement
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

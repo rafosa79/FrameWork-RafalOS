@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_DefaultConfiguration" Id="{b648aa86-a7e1-098c-12e9-4759598ffa68}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_DefaultConfiguration EXTENDS FB_Base IMPLEMENTS ITF_MCConfiguration
 VAR
@@ -9,6 +9,21 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="AddHMIToMachineControl" Id="{a7198e30-decd-4e41-8890-1beca855e8e4}">
+      <Declaration><![CDATA[METHOD AddHMIToMachineControl : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "HMI");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "HMI");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "HMI");
+GVL_SystemVariable.fbMachineControl.SetName (stName := THIS^.GetTexts ());
+itfMachineControl.AddHMIManagerFromConfiguration (itfHMIManager := GVL_SystemVariable.fbHMIManager);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddTopElementToLogger" Id="{332b5b16-6a8b-4f9c-b147-743d36983c25}">
       <Declaration><![CDATA[METHOD PUBLIC AddTopElementToLogger : BOOL
 VAR_INPUT
