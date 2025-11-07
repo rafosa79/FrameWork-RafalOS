@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_HMIEButton" Id="{14d1f316-2b91-41b8-b484-818a4466f396}">
+    <Declaration><![CDATA[INTERFACE ITF_HMIEButton EXTENDS ITF_BaseComponent
+]]></Declaration>
+    <Method Name="IsActive" Id="{e0bc8f17-89dd-4a9b-875d-616a3ddfc18f}">
+      <Declaration><![CDATA[METHOD PUBLIC IsActive : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsEnable" Id="{5521f910-e583-4d6a-8c5c-c249526f7fb6}">
+      <Declaration><![CDATA[METHOD PUBLIC IsEnable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsPressed" Id="{27aaf993-15e5-423e-b32f-8a5a82cffa46}">
+      <Declaration><![CDATA[METHOD PUBLIC IsPressed : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsVisible" Id="{048361d6-a46b-4e00-862f-6824933c22da}">
+      <Declaration><![CDATA[METHOD PUBLIC IsVisible : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetActive" Id="{f1243930-7010-4229-96f7-7cd4fb0a8afd}">
+      <Declaration><![CDATA[METHOD PUBLIC SetActive
+VAR_INPUT
+	bIN: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetEnable" Id="{bafce03b-6d54-41c0-95f9-50e6831d4f4e}">
+      <Declaration><![CDATA[METHOD PUBLIC SetEnable
+VAR_INPUT
+	bIN: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetPressed" Id="{9137d876-b226-4e8c-b402-300bfa4f10e2}">
+      <Declaration><![CDATA[METHOD PUBLIC SetPressed
+VAR_INPUT
+	bIN: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetVisible" Id="{4d0d96ea-766b-43be-b944-f85284a90fda}">
+      <Declaration><![CDATA[METHOD PUBLIC SetVisible
+VAR_INPUT
+	bIN: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

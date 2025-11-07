@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="Compilation" Id="{0f17c587-b026-48f1-9b9b-d704338eca71}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM Compilation
+  <POU Name="PRG_Compilation" Id="{c5cc7d45-cf9d-4ea0-97cb-d3fd07051ddf}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
-	
+	fbButton		: FB_HMIEButton;
+	fbMenu			: FB_HMIEMenu;
 END_VAR
 ]]></Declaration>
     <Implementation>
