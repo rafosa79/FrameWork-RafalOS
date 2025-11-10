@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_HMIManager" Id="{a88b626b-1335-01ba-387a-b90d8f220c55}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HMIManager EXTENDS FB_BaseGroupElement IMPLEMENTS ITF_HMIManager, ITF_HMIManagerConfigure
+VAR
+	(*	Konfiguracja		*)
+	itfHMIConfigure			: ITF_HMIConfigure;		//moduł konfiguracji
+	(*	Menu główne	*)
+	itfMainMenu				: ITF_HMIEMenu;
+	iNumberOfButtonMainMenu	: INT;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_HMIManagerConfigure" Id="{89138cc2-cb73-0422-3e5b-ed5c94136f56}" />
+    <Folder Name="WiazanieModulow" Id="{82c7cc63-7604-0b87-2d45-08cdf14b79c2}" />
+    <Method Name="AddMainMenu" Id="{6015e53e-8f7a-0411-0f19-c77aa60698c6}" FolderPath="WiazanieModulow\">
+      <Declaration><![CDATA[METHOD PUBLIC AddMainMenu : BOOL
+VAR_INPUT
+	fbMenu				 : FB_HMIEMenu;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMainMenu		:= fbMenu;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddModulConfigure" Id="{5f177fbc-999e-00c7-3b52-585090f74977}" FolderPath="WiazanieModulow\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		29.10.2025		TC 4024.66
+	Dodawanie intefejsu konfiguracji
+*)
+METHOD PUBLIC AddModulConfigure : BOOL
+VAR_INPUT
+	fbHMIConfigure			: ITF_HMIConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfHMIConfigure		:= fbHMIConfigure;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Execute" Id="{52b242f4-a20c-0dfc-3dbf-ca9f805176f3}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		10.11.2025		TC 4024.66
+	Główna metoda sterujaca wyświetlaniem dsanych na HMI
+*)
+METHOD PUBLIC Execute
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{85423e2b-17dc-0f54-335f-3500ae6327f4}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "HMI Menadżer");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "HMI Manager");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "HMI Manager");
+THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetActiveButtonMainMenu" Id="{21ebb6b9-82ee-02ba-113e-377786737a20}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC SetActiveButtonMainMenu : BOOL
+VAR_INPUT
+	iButton			: INT;	//numer przycisku od 0
+	bValue			: BOOL;	//true aktywny może być tylko jeden w menu
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMainMenu.SetActiveButton (iButton := iButton, bIN := bValue);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEnableButtonMainMenu" Id="{39fad727-a855-013c-28c5-6e8efb5ac96d}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC SetEnableButtonMainMenu : BOOL
+VAR_INPUT
+	iButton			: INT;	//numer przycisku od 0
+	bValue			: BOOL;	//true włączony
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMainMenu.SetEnableButton (iButton := iButton, bIN := bValue);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetVisibleButtonMainMenu" Id="{14e91481-d18f-0509-14ea-2677809820f7}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC SetVisibleButtonMainMenu : BOOL
+VAR_INPUT
+	iButton			: INT;	//numer przycisku od 0
+	bValue			: BOOL;	//true widoczny
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMainMenu.SetVisibleButton (iButton := iButton, bIN := bValue);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

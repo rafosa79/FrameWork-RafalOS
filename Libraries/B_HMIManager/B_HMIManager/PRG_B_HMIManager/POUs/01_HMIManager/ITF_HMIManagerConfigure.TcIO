@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_HMIManagerConfigure" Id="{6d65f736-9707-03a5-294a-a8aaa4bb0d85}">
+    <Declaration><![CDATA[INTERFACE ITF_HMIManagerConfigure EXTENDS ITF_Base
+]]></Declaration>
+    <Method Name="SetActiveButtonMainMenu" Id="{4dd734d3-5e2a-057b-358d-afee9409412b}">
+      <Declaration><![CDATA[METHOD PUBLIC SetActiveButtonMainMenu : BOOL
+VAR_INPUT
+	iButton			: INT;	//numer przycisku od 0
+	bValue			: BOOL;	//true aktywny może być tylko jeden w menu
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetEnableButtonMainMenu" Id="{9306a453-79bc-09ac-29a7-df180b99e765}">
+      <Declaration><![CDATA[METHOD PUBLIC SetEnableButtonMainMenu : BOOL
+VAR_INPUT
+	iButton			: INT;	//numer przycisku od 0
+	bValue			: BOOL;	//true włączony
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetVisibleButtonMainMenu" Id="{ebe30521-ad78-08e6-2f96-9b2742b37c55}">
+      <Declaration><![CDATA[METHOD PUBLIC SetVisibleButtonMainMenu : BOOL
+VAR_INPUT
+	iButton			: INT;	//numer przycisku od 0
+	bValue			: BOOL;	//true widoczny
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

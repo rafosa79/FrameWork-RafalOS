@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_MCMachineConfigure" Id="{acdf548e-a6e8-4a73-8e7d-d1245eb04ae9}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_MCMachineConfigure EXTENDS FB_Base IMPLEMENTS ITF_MCMachineConfigure
+  <POU Name="FB_HMIConfigure" Id="{1396ad99-d92c-4ed4-a711-16f2a071df52}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HMIConfigure EXTENDS FB_Base IMPLEMENTS ITF_HMIConfigure
 VAR
 	(*	Baza konfiguracji	*)
-	arritfConfigure				: ARRAY [1..10] OF ITF_MCConfiguration;
+	arritfConfigure				: ARRAY [1..10] OF ITF_HMIConfiguration;
 	iNubmerOfAddedConfigure		: INT;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="AddConfiguration" Id="{d9c2fdfe-2f2f-4e46-b4ba-30ce811a56ac}">
+    <Method Name="AddConfiguration" Id="{668b04e9-50eb-4ae1-9dd6-f7187fdbc317}">
       <Declaration><![CDATA[METHOD PUBLIC AddConfiguration : BOOL
 VAR_INPUT
-	fbConfigure		: ITF_MCConfiguration;
+	fbConfigure		: ITF_HMIConfiguration;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -28,12 +28,11 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Configure" Id="{f50fab32-d524-456f-8450-39a322865b3f}">
+    <Method Name="Configure" Id="{4a465225-aae0-41c8-ad3c-fe75dc47ce84}">
       <Declaration><![CDATA[METHOD PUBLIC Configure : BOOL
 VAR_INPUT
-	fbMachineControl	: ITF_MCMachineControlConfigure;
+	fbHMIManager			: ITF_HMIManagerConfigure;
 END_VAR
-
 VAR
 	bResult				: BOOL;
 	iI					: INT;
@@ -43,11 +42,8 @@ END_VAR]]></Declaration>
 
 FOR iI := 1 TO THIS^.iNubmerOfAddedConfigure DO 
 	IF (THIS^.arritfConfigure [iI] <> 0) THEN
-		THIS^.arritfConfigure [iI].AddHMIToMachineControl (itfMachineControl := fbMachineControl);
-   		THIS^.arritfConfigure [iI].AddTopElementToMachineControl (itfMachineControl := fbMachineControl);
-		THIS^.arritfConfigure [iI].AddTopElementToLogger ();
-		THIS^.arritfConfigure [iI].StateAndModes (itfMachineControl := fbMachineControl);
-		THIS^.arritfConfigure [iI].SetStartMode (itfMachineControl := fbMachineControl);
+		THIS^.arritfConfigure [iI].MainMenuConfigure (itfHMIManager	:= fbHMIManager);
+		;;
 	END_IF
 END_FOR
 

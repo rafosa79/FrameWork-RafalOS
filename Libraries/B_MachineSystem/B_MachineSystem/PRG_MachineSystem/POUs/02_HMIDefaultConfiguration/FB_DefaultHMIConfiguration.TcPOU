@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_DefaultHMIConfiguration" Id="{d9806d62-298f-058f-3795-91a96daea1b3}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		10.11.2025		TC 4024.66
+	Główny blok konfigurujący HMI
+*)
+FUNCTION_BLOCK FB_DefaultHMIConfiguration EXTENDS FB_Base IMPLEMENTS ITF_HMIConfiguration
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="MainMenuConfigure" Id="{fc0eaafe-d571-0294-3df6-99335dc02c74}">
+      <Declaration><![CDATA[METHOD MainMenuConfigure : BOOL
+VAR_INPUT
+	itfHMIManager			: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//itfHMIManager.SetActiveButtonMainMenu (iButton := 0, bValue := TRUE);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

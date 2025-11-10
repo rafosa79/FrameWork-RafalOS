@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_ControlHMI" Id="{2dfd529a-8da9-0bb7-1a99-ad15ed92c2b8}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		10.11.2025		TC 4024.66
+	Program sterowanie HMI
+*)
+PROGRAM PRG_ControlHMI
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+	(*	Wywołanie metody sterowania HMI	*)
+
+IF (GVL_SystemVariable.bDefaultInitDone AND
+	GVL_SystemVariable.bMachineInitDone AND
+	GVL_SystemVariable.fbMachineControl.IsInitDone ()) THEN
+	
+	IF (GVL_SystemVariable.itmpWywolaniePRGHMI = 0) THEN
+	GVL_SystemVariable.iLicznik	:= GVL_SystemVariable.iLicznik + 1;
+	GVL_SystemVariable.itmpWywolaniePRGHMI	:= GVL_SystemVariable.iLicznik;
+	END_IF
+	
+	GVL_SystemVariable.fbHMIManager.Execute ();
+END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

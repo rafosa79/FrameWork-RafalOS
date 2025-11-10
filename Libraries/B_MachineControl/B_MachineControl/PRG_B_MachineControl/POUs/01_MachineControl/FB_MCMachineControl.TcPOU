@@ -39,15 +39,14 @@ END_IF
     </Implementation>
     <Folder Name="ITF_MachineControlConfigure" Id="{973d3ff0-85f0-4bae-9395-cc62a4917833}" />
     <Folder Name="WiazanieModulow" Id="{3d8e3574-09c0-0f20-0429-cf1b0f8aec79}" />
-    <Method Name="AddHMIManagerFromConfiguration" Id="{4ce40e08-6792-0f1e-2e36-5f882a8aa746}" FolderPath="ITF_MachineControlConfigure\">
-      <Declaration><![CDATA[METHOD PUBLIC AddHMIManagerFromConfiguration : BOOL
+    <Method Name="AddHMIManager" Id="{83eb5c4d-6a27-0a18-07a0-6bb5a84b3772}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[METHOD AddHMIManager : BOOL
 VAR_INPUT
 	itfHMIManager			: ITF_BaseGroupElement;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[
-THIS^.AddControlElement (itfControlElement := itfHMIManager);
+        <ST><![CDATA[THIS^.AddControlElement (itfControlElement := itfHMIManager);
 ]]></ST>
       </Implementation>
     </Method>
@@ -237,13 +236,17 @@ END_VAR]]></Declaration>
 
 bResult				:= bResult AND THIS^.itfMachineConfigure.Configure (fbMachineControl := THIS^);
 
-//FOR iI := 0 TO THIS^.iNumberOfAddedTopElement DO
-//	bResult				:= bResult AND THIS^.arrTopElements [iI].FirstCycle ();
-//END_FOR
-
-
-
 InitializeCycle		:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsInitDone" Id="{4528eef7-0f59-0f1a-2d71-aaa809d5e525}">
+      <Declaration><![CDATA[METHOD PUBLIC IsInitDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsInitDone		:= THIS^.bInitDone;
 ]]></ST>
       </Implementation>
     </Method>

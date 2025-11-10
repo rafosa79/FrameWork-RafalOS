@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_HMIConfiguration" Id="{815a9dbf-7990-4d6d-af4f-3263d1132175}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		10.11.2025		TC 4024.66
+	Główny blok konfigurujący HMI
+*)
+FUNCTION_BLOCK FB_HMIConfiguration EXTENDS FB_Base IMPLEMENTS ITF_HMIConfiguration
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

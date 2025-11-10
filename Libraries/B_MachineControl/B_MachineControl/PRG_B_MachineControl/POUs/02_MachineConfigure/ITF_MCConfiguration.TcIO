@@ -1,13 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_MCConfiguration" Id="{687dfd14-96fc-4e9e-9986-638f15f5b1fd}">
-    <Declaration><![CDATA[INTERFACE ITF_MCConfiguration
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		10.11.2025		TC 4024.66
+	Interfejs metod do konfiguracji FB wywoływane z FB_Cofigure
+*)
+INTERFACE ITF_MCConfiguration
 ]]></Declaration>
-    <Method Name="AddHMIToMachineControl" Id="{a28c44f4-1960-0bac-0962-df1754c1376f}">
-      <Declaration><![CDATA[METHOD AddHMIToMachineControl : BOOL
+    <Method Name="AddHMIToMachineControl" Id="{409454a0-5e83-031e-2ac9-831d35103c6a}">
+      <Declaration><![CDATA[METHOD PUBLIC AddHMIToMachineControl : BOOL
 VAR_INPUT
 	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR
+
 ]]></Declaration>
     </Method>
     <Method Name="AddTopElementToLogger" Id="{a4cd0c5f-7f5c-0a74-2586-ca395c8c0f41}">

@@ -4,10 +4,20 @@
 		<System>
 			<Settings MaxCpus="6" NonWinCpus="1" Packages="2">
 				<Cpu CpuId="5"/>
+				<IoIdleTask Priority="4"/>
 			</Settings>
 			<Tasks>
-				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+				<Task Id="3" Priority="10" CycleTime="100000" AmsPort="350" TickModulo="3" AdtTasks="true">
 					<Name>PlcTask</Name>
+				</Task>
+				<Task Id="4" Priority="12" CycleTime="2000000" AmsPort="351" DisableFpExceptions="true" AdtTasks="true">
+					<Name>VISU_TASK</Name>
+				</Task>
+				<Task Id="5" Priority="20" CycleTime="100000" AmsPort="352" AdtTasks="true">
+					<Name>DefaultInit</Name>
+				</Task>
+				<Task Id="6" Priority="21" CycleTime="100000" AmsPort="353" AdtTasks="true">
+					<Name>MachineInit</Name>
 				</Task>
 			</Tasks>
 		</System>

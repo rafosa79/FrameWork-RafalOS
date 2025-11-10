@@ -19,7 +19,7 @@
     <Company>RafalOS</Company>
     <Released>false</Released>
     <Title>B_MachineSystem</Title>
-    <ProjectVersion>0.0.0.1</ProjectVersion>
+    <ProjectVersion>0.0.0.6</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -101,7 +101,13 @@
     <Compile Include="POUsCompilation\Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\03_Configuration\FB_DefaultConfiguration.TcPOU">
+    <Compile Include="POUs\01_MachineDefaultConfiguration\FB_MachineDefaultConfiguration.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02_HMIDefaultConfiguration\FB_DefaultHMIConfiguration.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PRG_ControlHMI.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\PRG_SystemControlMachineInit.TcPOU">
@@ -115,7 +121,8 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUsCompilation" />
-    <Folder Include="POUs\03_Configuration" />
+    <Folder Include="POUs\01_MachineDefaultConfiguration" />
+    <Folder Include="POUs\02_HMIDefaultConfiguration" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -123,6 +130,10 @@
     <PlaceholderReference Include="B_Base">
       <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
       <Namespace>B_Base</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_HMIElements">
+      <DefaultResolution>B_HMIElements, * (RafalOS)</DefaultResolution>
+      <Namespace>B_HMIElements</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="B_HMIManager">
       <DefaultResolution>B_HMIManager, * (RafałOS)</DefaultResolution>

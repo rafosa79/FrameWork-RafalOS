@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="PRG_MachineConfigure" Id="{3a3f2f0a-85ff-4c45-9b85-749efe215256}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_MachineConfigure
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (NOT GVL_SystemVariable.bMachineInitDone) THEN
+
+	IF (GVL_SystemVariable.itmpWywolanieMachineInit = 0) THEN
+	GVL_SystemVariable.iLicznik	:= GVL_SystemVariable.iLicznik + 1;
+	GVL_SystemVariable.itmpWywolanieMachineInit	:= GVL_SystemVariable.iLicznik;
+	END_IF
+
+	
+
+	GVL_SystemVariable.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_MachineVariable.fbMachineConfiguration);
+	GVL_SystemVariable.fbHMIConfigure.AddConfiguration (fbConfigure := GVL_MachineVariable.fbHMIConfiguration);
+	GVL_SystemVariable.bMachineInitDone		:= TRUE;
+END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

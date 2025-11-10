@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_HMIConfiguration" Id="{d7340403-e938-4a39-b0ea-a459eb342446}">
+    <Declaration><![CDATA[INTERFACE ITF_HMIConfiguration
+]]></Declaration>
+    <Method Name="MainMenuConfigure" Id="{1e0869f0-3d07-0b3c-0db2-39d4e328e682}">
+      <Declaration><![CDATA[METHOD MainMenuConfigure : BOOL
+VAR_INPUT
+	itfHMIManager			: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

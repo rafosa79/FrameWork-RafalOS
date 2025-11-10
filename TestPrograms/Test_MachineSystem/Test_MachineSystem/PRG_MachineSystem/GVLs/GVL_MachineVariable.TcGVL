@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL_MachineVariable" Id="{cd0e9623-7f5e-4ae1-835b-923ddeb15d5b}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	fbMachineConfiguration		: FB_MachineConfiguration;
+	fbHMIConfiguration			: FB_HMIConfiguration;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

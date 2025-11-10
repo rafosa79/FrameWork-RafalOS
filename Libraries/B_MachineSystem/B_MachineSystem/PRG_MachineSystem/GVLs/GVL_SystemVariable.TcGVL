@@ -7,15 +7,32 @@ VAR_GLOBAL
 	fbLocation						: FB_BaseLocation;
 	fbLogger						: FB_BaseLogger;
 	stCommonData					: ST_BaseCommonData;
-
-	fbDefaultMachineConfiguration	: FB_DefaultConfiguration;
-	fbMachineConfigure				: FB_MCMachineConfigure;
 	
+	(*	Konfiguracja MachineControl	*)
+	fbDefaultMachineConfiguration	: FB_MachineDefaultConfiguration;
+	fbMachineConfigure				: FB_MCMachineConfigure;
+	(*	Element FB_MachineControl - sterowanie stanami i trybami pracy	*)
 	fbSaMController					: FB_SaMController;
-
+	(*	Główny element sterujący maszyną - logika pracy					*)
 	fbMachineControl				: FB_MCMachineControl;
 	
+	(*	Konfiguracja HMIManager		*)
+	fbDedaultHMIConfiguration		: FB_DefaultHMIConfiguration;
+	fbHMIConfigure					: FB_HMIConfigure;
+	(*	Główny element sterowania wyświetlaniem na HMI					*)
 	fbHMIManager					: FB_HMIManager;
+	
+	(*	Zmienne zakończenia konfiguracji	*)
+	bDefaultInitDone				: BOOL;
+	bMachineInitDone				: BOOL;
+	
+	itmpWywolanieDefaultInit		: INT;
+	itmpWywolanieMachineInit		: INT;
+	itmpWywolaniePRG				: INT;
+	itmpWywolaniePRGHMI				: INT;
+	
+	iLicznik						: INT;
+	
 	
 END_VAR]]></Declaration>
   </GVL>

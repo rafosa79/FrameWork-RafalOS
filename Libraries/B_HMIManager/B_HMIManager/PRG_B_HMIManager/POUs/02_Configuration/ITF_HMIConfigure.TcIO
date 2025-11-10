@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_HMIConfigure" Id="{ee035145-d6e4-4092-9d0a-50f12b14f82b}">
+    <Declaration><![CDATA[INTERFACE ITF_HMIConfigure
+]]></Declaration>
+    <Method Name="AddConfiguration" Id="{33ffb79c-1b8e-4f62-b6a6-1fa2a7db8629}">
+      <Declaration><![CDATA[METHOD PUBLIC AddConfiguration : BOOL
+VAR_INPUT
+	fbConfigure		: ITF_HMIConfiguration;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Configure" Id="{eeb9239e-d327-4e6b-a63b-9dac7e02c31c}">
+      <Declaration><![CDATA[METHOD PUBLIC Configure : BOOL
+VAR_INPUT
+	fbHMIManager			: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

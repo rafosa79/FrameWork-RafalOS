@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_MachineConfiguration" Id="{ee925a5b-f7fe-416e-8a33-e493e5327aae}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		10.11.2025		TC 4024.66
+	Główny blok konfiguracyjny MachineControl
+*)
+FUNCTION_BLOCK FB_MachineConfiguration EXTENDS FB_Base IMPLEMENTS ITF_MCConfiguration
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddHMIToMachineControl" Id="{ffc37eed-8ed2-06a3-104a-b82614e86822}">
+      <Declaration><![CDATA[METHOD AddHMIToMachineControl : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddTopElementToLogger" Id="{6bf1abcb-3a94-077e-299d-d7f78a25bce3}">
+      <Declaration><![CDATA[METHOD PUBLIC AddTopElementToLogger : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddTopElementToMachineControl" Id="{003b0af5-836b-0137-2c28-c69f61c52f45}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		29.10.2025		TC 4024.66
+	Dodawanie TopElementu do systemu
+*)
+METHOD PUBLIC AddTopElementToMachineControl : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetStartMode" Id="{70c10de1-003d-0e99-28ac-94330c66e77a}">
+      <Declaration><![CDATA[METHOD PUBLIC SetStartMode : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StateAndModes" Id="{59a5cac6-3dd4-06e2-1a26-05926ce02445}">
+      <Declaration><![CDATA[METHOD StateAndModes : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+
+
+
+
+
+
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

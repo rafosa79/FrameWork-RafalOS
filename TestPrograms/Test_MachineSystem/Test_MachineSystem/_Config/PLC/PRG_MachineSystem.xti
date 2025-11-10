@@ -1,15 +1,131 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66" ClassName="CNestedPlcProjDef">
 	<Project GUID="{88E57CAD-B425-4B25-BE7F-83262681D382}" Name="PRG_MachineSystem" PrjFilePath="..\..\PRG_MachineSystem\PRG_MachineSystem.plcproj" TmcFilePath="..\..\PRG_MachineSystem\PRG_MachineSystem.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{DDB2BA20-B7EA-AAF0-0DFF-B74080840EED}">
 			<Name>PRG_MachineSystem Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+			<Vars VarGrpType="1" ContextId="3" AreaNo="48">
+				<Name>MachineInit Inputs</Name>
+				<Var>
+					<Name>GVL_RequeestChange.fbprAbort.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprClear.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprReset.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprStart.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprStop.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprHold.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprUnhold.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprSuspend.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprUnsuspend.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprComplete.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprProduction.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprMaintenance.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprManual.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprWashing.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_RequeestChange.fbprDiagnostics.bContact</Name>
+					<Comment><![CDATA[ Styk przycisku ]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+			</Vars>
 			<Contexts>
 				<Context>
+					<Id>0</Id>
+					<Name>PlcTask</Name>
+					<ManualConfig>
+						<OTCID>#x02010030</OTCID>
+					</ManualConfig>
+					<Priority>10</Priority>
+					<CycleTime>10000000</CycleTime>
+				</Context>
+				<Context>
 					<Id>1</Id>
-					<Name>Default</Name>
+					<Name>VISU_TASK</Name>
+					<ManualConfig>
+						<OTCID>#x02010040</OTCID>
+					</ManualConfig>
+					<Priority>12</Priority>
+					<CycleTime>200000000</CycleTime>
+				</Context>
+				<Context>
+					<Id>2</Id>
+					<Name>DefaultInit</Name>
+					<ManualConfig>
+						<OTCID>#x02010050</OTCID>
+					</ManualConfig>
+					<Priority>20</Priority>
+					<CycleTime>10000000</CycleTime>
+				</Context>
+				<Context>
+					<Id>3</Id>
+					<Name>MachineInit</Name>
+					<ManualConfig>
+						<OTCID>#x02010060</OTCID>
+					</ManualConfig>
+					<Priority>21</Priority>
+					<CycleTime>10000000</CycleTime>
 				</Context>
 			</Contexts>
+			<TaskPouOids>
+				<TaskPouOid Prio="10" OTCID="#x08502001"/>
+				<TaskPouOid Prio="12" OTCID="#x08502002"/>
+				<TaskPouOid Prio="20" OTCID="#x08502003"/>
+				<TaskPouOid Prio="21" OTCID="#x08502004"/>
+			</TaskPouOids>
 		</Instance>
 	</Project>
 </TcSmItem>

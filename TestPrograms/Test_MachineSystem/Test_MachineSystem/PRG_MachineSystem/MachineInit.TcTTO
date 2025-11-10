@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <Task Name="MachineInit" Id="{faa2b508-41fd-4279-86f3-e564d37e0c51}">
+    <!--CycleTime in micro seconds.-->
+    <CycleTime>10000</CycleTime>
+    <Priority>21</Priority>
+    <PouCall>
+      <Name>PRG_MachineConfigure</Name>
+    </PouCall>
+    <TaskFBGuid>{9e60c638-e568-4798-88d0-f744fc50d1fe}</TaskFBGuid>
+    <Fb_init>{2ac00bd8-b770-49bd-a232-ef7c97d8ee43}</Fb_init>
+    <Fb_exit>{7df1d5ad-bf8b-42f0-a68e-cefb53fae81a}</Fb_exit>
+    <CycleUpdate>{5a70ea75-6c03-43c5-ab51-8208934d4b4c}</CycleUpdate>
+    <PostCycleUpdate>{9bfb6840-30f0-4660-a5d3-6084b9c63cdb}</PostCycleUpdate>
+  </Task>
+</TcPlcObject>

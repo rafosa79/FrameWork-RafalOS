@@ -3,6 +3,9 @@
   <POU Name="PRG_Compilation" Id="{b568ccfe-ad89-0519-135c-7c4521d3542e}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
+	fbHMIManager		: FB_HMIManager;
+	fbHMIConfigure		: FB_HMIConfigure;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>

@@ -4,7 +4,7 @@
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
 	fbMachineControl		: FB_MCMachineControl;
-	
+	fbMachineConfigure		: FB_MCMachineConfigure;
 END_VAR
 ]]></Declaration>
     <Implementation>

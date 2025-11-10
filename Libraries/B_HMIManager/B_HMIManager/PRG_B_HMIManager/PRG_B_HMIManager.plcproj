@@ -89,10 +89,22 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_HMIManager.TcPOU">
+    <Compile Include="POUs\01_HMIManager\FB_HMIManager.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\ITF_HMIManager.TcIO">
+    <Compile Include="POUs\01_HMIManager\ITF_HMIManager.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_HMIManager\ITF_HMIManagerConfigure.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02_Configuration\FB_HMIConfigure.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02_Configuration\ITF_HMIConfiguration.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02_Configuration\ITF_HMIConfigure.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -100,6 +112,8 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
+    <Folder Include="POUs\01_HMIManager" />
+    <Folder Include="POUs\02_Configuration" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

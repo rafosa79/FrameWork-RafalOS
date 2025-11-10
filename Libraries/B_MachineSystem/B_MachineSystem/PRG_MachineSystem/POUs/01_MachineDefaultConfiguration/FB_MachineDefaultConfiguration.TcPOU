@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_DefaultConfiguration" Id="{b648aa86-a7e1-098c-12e9-4759598ffa68}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_DefaultConfiguration EXTENDS FB_Base IMPLEMENTS ITF_MCConfiguration
+  <POU Name="FB_MachineDefaultConfiguration" Id="{b648aa86-a7e1-098c-12e9-4759598ffa68}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		10.11.2025		TC 4024.66
+	Główny blok konfiguracyjny MachineControl
+*)
+FUNCTION_BLOCK FB_MachineDefaultConfiguration EXTENDS FB_Base IMPLEMENTS ITF_MCConfiguration
 VAR
 
 END_VAR
@@ -9,18 +14,15 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="AddHMIToMachineControl" Id="{a7198e30-decd-4e41-8890-1beca855e8e4}">
-      <Declaration><![CDATA[METHOD AddHMIToMachineControl : BOOL
+    <Method Name="AddHMIToMachineControl" Id="{1ddb6eb9-c931-0e11-33e1-e42c75396327}">
+      <Declaration><![CDATA[METHOD PUBLIC AddHMIToMachineControl : BOOL
 VAR_INPUT
 	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR
+
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "HMI");
-THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "HMI");
-THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "HMI");
-GVL_SystemVariable.fbMachineControl.SetName (stName := THIS^.GetTexts ());
-itfMachineControl.AddHMIManagerFromConfiguration (itfHMIManager := GVL_SystemVariable.fbHMIManager);
+        <ST><![CDATA[itfMachineControl.AddHMIManager (itfHMIManager := GVL_SystemVariable.fbHMIManager);
 ]]></ST>
       </Implementation>
     </Method>

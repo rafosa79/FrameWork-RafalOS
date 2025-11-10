@@ -3,10 +3,18 @@
   <POU Name="PRG_SystemControlMachineWork" Id="{7cf4e122-3b89-4f4f-9f5d-2b648ff60401}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_SystemControlMachineWork
 VAR
+	bFirstCycle		: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF (PRG_SystemControlMachineInit.bFirstCycle) THEN
+      <ST><![CDATA[IF (GVL_SystemVariable.bDefaultInitDone AND
+	GVL_SystemVariable.bMachineInitDone) THEN
+
+	IF (GVL_SystemVariable.itmpWywolaniePRG = 0) THEN
+	GVL_SystemVariable.iLicznik	:= GVL_SystemVariable.iLicznik + 1;
+	GVL_SystemVariable.itmpWywolaniePRG	:= GVL_SystemVariable.iLicznik;
+	END_IF
+	
 	(*	Wywołanie obsługi Logera	*)
 	GVL_SystemVariable.fbLogger ();
 	(*	Wywołanie pracy maszyny		*)

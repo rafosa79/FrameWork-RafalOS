@@ -3,5 +3,53 @@
   <Itf Name="ITF_HMIEMenu" Id="{dc3b9d3c-c21c-4086-8483-fad3245993b2}">
     <Declaration><![CDATA[INTERFACE ITF_HMIEMenu EXTENDS ITF_BaseControlElement
 ]]></Declaration>
+    <Method Name="IsActiveButton" Id="{f22efdf8-7886-0a69-2875-61fb93444426}">
+      <Declaration><![CDATA[METHOD IsActiveButton : BOOL
+VAR_INPUT
+	iButton		: INT;	//numer przycisku
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsEnableButton" Id="{72febfc2-fec1-00a8-30f0-9e1258ba32a6}">
+      <Declaration><![CDATA[METHOD IsEnableButton : BOOL
+VAR_INPUT
+	iButton		: INT;	//numer przycisku
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsVisibleButton" Id="{c97994a9-d7c0-0cc8-398f-1e3c16523eda}">
+      <Declaration><![CDATA[METHOD IsVisibleButton : BOOL
+VAR_INPUT
+	iButton		: INT;	//numer przycisku
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetActiveButton" Id="{32dcc8e6-c509-00e9-0dab-1d92581de236}">
+      <Declaration><![CDATA[METHOD SetActiveButton : BOOL
+VAR_INPUT
+	iButton		: INT;	//numer przycisku
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetEnableButton" Id="{3c4c605a-1ecc-0462-26e5-8097143c9e41}">
+      <Declaration><![CDATA[METHOD SetEnableButton : BOOL
+VAR_INPUT
+	iButton		: INT;	//numer przycisku
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetVisibleButton" Id="{748343ca-0118-07c9-326b-1ec360eba4bb}">
+      <Declaration><![CDATA[METHOD SetVisibleButton : BOOL
+VAR_INPUT
+	iButton		: INT;	//numer przycisku
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

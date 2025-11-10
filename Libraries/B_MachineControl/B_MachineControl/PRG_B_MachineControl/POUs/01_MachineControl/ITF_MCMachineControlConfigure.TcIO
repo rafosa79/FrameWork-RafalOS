@@ -8,8 +8,8 @@
 *)
 INTERFACE ITF_MCMachineControlConfigure EXTENDS ITF_Base
 ]]></Declaration>
-    <Method Name="AddHMIManagerFromConfiguration" Id="{6f7bea06-7a40-0dc1-19c1-ca7e34083a7d}">
-      <Declaration><![CDATA[METHOD PUBLIC AddHMIManagerFromConfiguration : BOOL
+    <Method Name="AddHMIManager" Id="{dd3ca412-72d8-0921-0265-5fd20dcd2dce}">
+      <Declaration><![CDATA[METHOD AddHMIManager : BOOL
 VAR_INPUT
 	itfHMIManager			: ITF_BaseGroupElement;
 END_VAR

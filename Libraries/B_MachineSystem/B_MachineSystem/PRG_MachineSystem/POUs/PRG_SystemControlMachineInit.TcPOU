@@ -8,30 +8,44 @@
 *)
 PROGRAM PRG_SystemControlMachineInit
 VAR
-	bFirstCycle		: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF (NOT bFirstCycle) THEN
-	bFirstCycle										:= TRUE;
-	(*	Podpięcie zmiennych głównych do struktury	*)	
-	GVL_SystemVariable.stCommonData.itfTime			:= GVL_SystemVariable.fbTime;
-	GVL_SystemVariable.stCommonData.itfLocaciotn	:= GVL_SystemVariable.fbLocation;
-	GVL_SystemVariable.stCommonData.itfLogger		:= GVL_SystemVariable.fbLogger;
+      <ST><![CDATA[IF (NOT GVL_SystemVariable.bDefaultInitDone AND 
+	NOT GVL_SystemVariable.bMachineInitDone) THEN
+	IF (GVL_SystemVariable.itmpWywolanieDefaultInit = 0) THEN
+	GVL_SystemVariable.iLicznik	:= GVL_SystemVariable.iLicznik + 1;
+	GVL_SystemVariable.itmpWywolanieDefaultInit	:= GVL_SystemVariable.iLicznik;
+	END_IF
+
+	GVL_SystemVariable.stCommonData.itfTime := GVL_SystemVariable.fbTime;
+	GVL_SystemVariable.stCommonData.itfLocaciotn := GVL_SystemVariable.fbLocation;
+	GVL_SystemVariable.stCommonData.itfLogger := GVL_SystemVariable.fbLogger;
 	(*	Linkowanie zmiennych z modułami	*)
-	GVL_SystemVariable.fbLogger.LinkCommonData (stCommonData 				:= GVL_SystemVariable.stCommonData);
-	GVL_SystemVariable.fbMachineControl.LinkCommonData (stCommonData		:= GVL_SystemVariable.stCommonData);
+	GVL_SystemVariable.fbLogger.LinkCommonData (stCommonData := GVL_SystemVariable.stCommonData);
+	GVL_SystemVariable.fbMachineControl.LinkCommonData (stCommonData := GVL_SystemVariable.stCommonData);
 	(*	Podpięcie zmiennych Safety		*)
-	GVL_SystemVariable.fbMachineControl.LinkSS1 (fbSS1	:= GVL_MCSafety.flSS1);
-	GVL_SystemVariable.fbMachineControl.LinkSTO (fbSTO	:= GVL_MCSafety.flSTO);
+	GVL_SystemVariable.fbMachineControl.LinkSS1 (fbSS1 := GVL_MCSafety.flSS1);
+	GVL_SystemVariable.fbMachineControl.LinkSTO (fbSTO := GVL_MCSafety.flSTO);
 	(*	Podpięcie podstawowej konfiguracji	*)
-	GVL_SystemVariable.fbMachineControl.AddModulConfigure (fbMachineConfigure	:= GVL_SystemVariable.fbMachineConfigure);
+	GVL_SystemVariable.fbMachineControl.AddModulConfigure (fbMachineConfigure := GVL_SystemVariable.fbMachineConfigure);
 	GVL_SystemVariable.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_SystemVariable.fbDefaultMachineConfiguration);
 	(*	Podpięcie zarządzania stanami i trybami pracy	*)
-	GVL_SystemVariable.fbMachineControl.AddModulSaM (fbSaMController	:= GVL_SystemVariable.fbSaMController);
+	GVL_SystemVariable.fbMachineControl.AddModulSaM (fbSaMController := GVL_SystemVariable.fbSaMController);
+	
+	(*	Konfiguracjia systemu HMI	*)
+	GVL_SystemVariable.fbHMIManager.AddModulConfigure (fbHMIConfigure := GVL_SystemVariable.fbHMIConfigure);
+	GVL_SystemVariable.fbHMIConfigure.AddConfiguration (fbConfigure := GVL_SystemVariable.fbDedaultHMIConfiguration);
+	GVL_SystemVariable.fbHMIManager.LinkCommonData (stCommonData := GVL_SystemVariable.stCommonData);
+	(*	Podpięcie zmiennych Safety		*)
+	GVL_SystemVariable.fbHMIManager.LinkSS1 (fbSS1 := GVL_MCSafety.flSS1);
+	GVL_SystemVariable.fbHMIManager.LinkSTO (fbSTO := GVL_MCSafety.flSTO);
 	
 	
-END_IF]]></ST>
+	
+	GVL_SystemVariable.bDefaultInitDone	:= TRUE;
+END_IF
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
