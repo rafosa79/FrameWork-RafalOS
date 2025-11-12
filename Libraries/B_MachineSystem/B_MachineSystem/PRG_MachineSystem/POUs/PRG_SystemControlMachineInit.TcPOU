@@ -13,10 +13,6 @@ END_VAR
     <Implementation>
       <ST><![CDATA[IF (NOT GVL_SystemVariable.bDefaultInitDone AND 
 	NOT GVL_SystemVariable.bMachineInitDone) THEN
-	IF (GVL_SystemVariable.itmpWywolanieDefaultInit = 0) THEN
-	GVL_SystemVariable.iLicznik	:= GVL_SystemVariable.iLicznik + 1;
-	GVL_SystemVariable.itmpWywolanieDefaultInit	:= GVL_SystemVariable.iLicznik;
-	END_IF
 
 	GVL_SystemVariable.stCommonData.itfTime := GVL_SystemVariable.fbTime;
 	GVL_SystemVariable.stCommonData.itfLocaciotn := GVL_SystemVariable.fbLocation;

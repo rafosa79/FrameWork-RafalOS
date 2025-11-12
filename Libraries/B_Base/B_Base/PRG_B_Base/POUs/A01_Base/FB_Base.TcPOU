@@ -13,7 +13,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[ ]]></ST>
     </Implementation>
     <Folder Name="ITF_Base" Id="{70941d1c-8d1a-053f-19c8-e7a482018a2c}" />
     <Folder Name="WiazanieZmiennych" Id="{b787f832-98eb-08e4-13a1-b117586dc5c5}" />

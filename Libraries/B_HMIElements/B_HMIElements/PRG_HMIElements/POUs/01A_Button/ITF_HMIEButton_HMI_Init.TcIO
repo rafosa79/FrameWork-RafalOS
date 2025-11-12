@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_HMIEButton_HMI_Init" Id="{63ee1d53-8c62-0443-0047-79ef6d585774}">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		12.11.2025		TC 4024.66
+	interfejs do przekazywania przy tworzeniu elementów
+*)
+INTERFACE ITF_HMIEButton_HMI_Init EXTENDS ITF_BaseComponent, ITF_HMIEButton_HMI_Connector
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

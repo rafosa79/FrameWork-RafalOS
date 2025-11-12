@@ -3,27 +3,48 @@
   <POU Name="FB_HMIManager" Id="{a88b626b-1335-01ba-387a-b90d8f220c55}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_HMIManager EXTENDS FB_BaseGroupElement IMPLEMENTS ITF_HMIManager, ITF_HMIManagerConfigure
 VAR
+	(*	Inicjalizacja		*)
+	bInitializeCycle			: BOOL;
+	bInitDone					: BOOL;
 	(*	Konfiguracja		*)
 	itfHMIConfigure			: ITF_HMIConfigure;		//moduł konfiguracji
 	(*	Menu główne	*)
 	itfMainMenu				: ITF_HMIEMenu;
 	iNumberOfButtonMainMenu	: INT;
-	
+	(*	Obsługa zmiany strony	*)
+	arrChangePageSupport	: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF ITF_ChangePageSupport;
+	(*	Dana wspólne dla całego systemu	*)
+	refstData				: REFERENCE TO ST_HMIManager;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[IF (NOT THIS^.bInitializeCycle) THEN
+	THIS^.bInitializeCycle		:= TRUE;
+	THIS^.bInitDone				:= THIS^.InitializeCycle ();
+ELSIF (THIS^.bInitDone) THEN
+	THIS^.ExecuteCycle ();
+END_IF
+
+]]></ST>
     </Implementation>
     <Folder Name="ITF_HMIManagerConfigure" Id="{89138cc2-cb73-0422-3e5b-ed5c94136f56}" />
     <Folder Name="WiazanieModulow" Id="{82c7cc63-7604-0b87-2d45-08cdf14b79c2}" />
-    <Method Name="AddMainMenu" Id="{6015e53e-8f7a-0411-0f19-c77aa60698c6}" FolderPath="WiazanieModulow\">
+    <Method Name="AddMainMenu" Id="{6015e53e-8f7a-0411-0f19-c77aa60698c6}" FolderPath="ITF_HMIManagerConfigure\">
       <Declaration><![CDATA[METHOD PUBLIC AddMainMenu : BOOL
 VAR_INPUT
-	fbMenu				 : FB_HMIEMenu;
+	fbMenu				 : ITF_HMIEMenu;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.itfMainMenu		:= fbMenu;
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Menu główne");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Main menu");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Hauptmenü");
+fbMenu.SetName (stName := THIS^.GetTexts ());
+THIS^.AddControlElement (itfControlElement := fbMenu);
+
+THIS^.itfMainMenu		:= fbMenu;
+THIS^.itfMainMenu.LinkCommonData (stCommonData := THIS^.refstCommonData);
+
 ]]></ST>
       </Implementation>
     </Method>
@@ -43,18 +64,35 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Execute" Id="{52b242f4-a20c-0dfc-3dbf-ca9f805176f3}">
+    <Method Name="ExecuteCycle" Id="{52b242f4-a20c-0dfc-3dbf-ca9f805176f3}">
       <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		10.11.2025		TC 4024.66
 	Główna metoda sterujaca wyświetlaniem dsanych na HMI
 *)
-METHOD PUBLIC Execute
-VAR_INPUT
-END_VAR
+METHOD PUBLIC ExecuteCycle
+
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[(*
+	(* Testowanie MenuGlownego	*)
+THIS^.itfMainMenu.Testing ();
+
+	(*	Aktualizacja zmiennych przy zmianie strony	*)
+IF (THIS^.itfMainMenu.IsChangePage ()) THEN
+	THIS^.refstData.iNUmberOfActivePage	:= THIS^.itfMainMenu.GetNumberOfActriveScreen ();
+	
+END_IF
+
+	(*	Odświerzenia strrony 	*)
+IF (THIS^.arrChangePageSupport [THIS^.refstData.iNUmberOfActivePage] <> 0) THEN
+	THIS^.arrChangePageSupport [THIS^.refstData.iNUmberOfActivePage].PreparePage ();
+	//wyczyszczenie po ramce 
+	//przygotowanie ramki
+END_IF
+	(*	Skasowanie flagi zmiany strony	*)
+THIS^.itfMainMenu.ResetChangePage ();
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{85423e2b-17dc-0f54-335f-3500ae6327f4}">
@@ -69,6 +107,21 @@ END_VAR
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "HMI Manager");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "HMI Manager");
 THIS^.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InitializeCycle" Id="{4e6e3c9a-8c44-48fc-b890-f0782f1c52b4}">
+      <Declaration><![CDATA[METHOD PRIVATE InitializeCycle : BOOL
+VAR
+	bResult					: BOOL;
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bResult				:= TRUE;
+
+bResult				:= bResult AND THIS^.itfHMIConfigure.Configure (fbHMIManager := THIS^);
+
+InitializeCycle		:= bResult;
 ]]></ST>
       </Implementation>
     </Method>

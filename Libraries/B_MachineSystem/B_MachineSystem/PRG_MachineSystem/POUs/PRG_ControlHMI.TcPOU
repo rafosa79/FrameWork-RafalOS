@@ -18,12 +18,7 @@ IF (GVL_SystemVariable.bDefaultInitDone AND
 	GVL_SystemVariable.bMachineInitDone AND
 	GVL_SystemVariable.fbMachineControl.IsInitDone ()) THEN
 	
-	IF (GVL_SystemVariable.itmpWywolaniePRGHMI = 0) THEN
-	GVL_SystemVariable.iLicznik	:= GVL_SystemVariable.iLicznik + 1;
-	GVL_SystemVariable.itmpWywolaniePRGHMI	:= GVL_SystemVariable.iLicznik;
-	END_IF
-	
-	GVL_SystemVariable.fbHMIManager.Execute ();
+	GVL_SystemVariable.fbHMIManager ();
 END_IF
 ]]></ST>
     </Implementation>

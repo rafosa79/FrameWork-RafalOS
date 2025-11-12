@@ -92,10 +92,16 @@
     <Compile Include="POUs\01_HMIManager\FB_HMIManager.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\01_HMIManager\ITF_ChangePageSupport.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\01_HMIManager\ITF_HMIManager.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\01_HMIManager\ITF_HMIManagerConfigure.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_HMIManager\ST_HMIManager.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\02_Configuration\FB_HMIConfigure.TcPOU">

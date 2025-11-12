@@ -3,6 +3,20 @@
   <Itf Name="ITF_HMIManagerConfigure" Id="{6d65f736-9707-03a5-294a-a8aaa4bb0d85}">
     <Declaration><![CDATA[INTERFACE ITF_HMIManagerConfigure EXTENDS ITF_Base
 ]]></Declaration>
+    <Method Name="AddMainMenu" Id="{8ebdcd07-a1d1-0f7a-1ac3-023548752dfd}">
+      <Declaration><![CDATA[METHOD PUBLIC AddMainMenu : BOOL
+VAR_INPUT
+	fbMenu				 : ITF_HMIEMenu;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkCommonData" Id="{46c4bf07-78d5-03cf-1cd9-cdabd433abe1}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
+VAR_INPUT
+	stCommonData				: REFERENCE TO ST_BaseCommonData;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="SetActiveButtonMainMenu" Id="{4dd734d3-5e2a-057b-358d-afee9409412b}">
       <Declaration><![CDATA[METHOD PUBLIC SetActiveButtonMainMenu : BOOL
 VAR_INPUT

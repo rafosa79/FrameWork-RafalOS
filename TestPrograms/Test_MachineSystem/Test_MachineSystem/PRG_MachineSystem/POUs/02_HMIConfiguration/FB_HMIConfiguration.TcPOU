@@ -13,5 +13,16 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="MainMenuConfigure" Id="{00d11fa0-d306-42d3-9d7c-fc6e784b0b6c}">
+      <Declaration><![CDATA[
+METHOD MainMenuConfigure : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

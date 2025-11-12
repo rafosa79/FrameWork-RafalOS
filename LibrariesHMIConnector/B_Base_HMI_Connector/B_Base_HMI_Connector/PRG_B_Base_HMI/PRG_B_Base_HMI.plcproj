@@ -176,7 +176,7 @@
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
     <Folder Include="POUs\A00_BasicHMI" />
-    <Folder Include="POUs\A01_" />
+    <Folder Include="POUs\A01_Base_HMI" />
     <Folder Include="POUs\A02_FB_BaseLogger_HMI" />
     <Folder Include="POUs\A03_FB_BaseLoggerElement_HMI" />
     <Folder Include="POUs\A04_FB_BaseComponent_HMI" />

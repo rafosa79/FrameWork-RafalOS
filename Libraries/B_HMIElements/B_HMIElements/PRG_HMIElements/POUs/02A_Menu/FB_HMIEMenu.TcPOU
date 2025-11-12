@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_HMIEMenu" Id="{aca5b8d6-8bd3-4247-801c-4d7202167bd3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HMIEMenu EXTENDS FB_BaseControlElement IMPLEMENTS ITF_HMIEMenu, ITF_HMIEMenu_HMI_Init
+VAR
+	arrButtons				: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF ITF_HMIEButton;
+	iNumberOfButton			: INT := -1;	//ilosć przycisków w menu
+	iActiveButton			: INT;	//numer aktywnego przycisku
+	iActiveButtonPrev		: INT;
+	bChangePage				: BOOL; //zmiana strony
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_HMIEMenu" Id="{4b3a4679-e153-0f1c-0cf6-c4b1dfee1813}" />
+    <Method Name="AddButton" Id="{84c5fa09-21a3-408e-a468-e17b66190995}">
+      <Declaration><![CDATA[METHOD PUBLIC AddButton : BOOL
+VAR_INPUT
+	fbButton			: ITF_HMIEButton;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.iNumberOfButton + 1 <= GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU) THEN
+	THIS^.iNumberOfButton := THIS^.iNumberOfButton + 1;
+	THIS^.arrButtons [THIS^.iNumberOfButton] := fbButton;
+	THIS^.arrButtons [THIS^.iNumberOfButton].SetEnable (bIN := TRUE);
+	THIS^.arrButtons [THIS^.iNumberOfButton].SetVisible (bIN := TRUE);
+	THIS^.AddComponent (itfComponent := fbButton);
+	AddButton := TRUE;
+ELSE
+	AddButton := FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfActrivePreviewScreen" Id="{bc1974a1-9289-063d-1b9a-5c2077cdc82b}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfActrivePreviewScreen : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfActrivePreviewScreen := THIS^.iActiveButtonPrev;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfActriveScreen" Id="{98ddb291-5f6a-05ea-22f7-6340aae7623a}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfActriveScreen : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfActriveScreen := THIS^.iActiveButton;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetTitleOfActivePage" Id="{4dfec56d-8e66-0e98-2e07-c6efc333db3e}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[METHOD PUBLIC GetTitleOfActivePage : WSTRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//GetTitleOfActivePage := this^.arrButtons [this^.iActiveButton].GetName ();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsActiveButton" Id="{b4d1a0ff-bd9d-0a66-1dc5-0550ed0d188d}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[METHOD IsActiveButton : BOOL
+VAR_INPUT
+	iButton		: INT;	//numer przycisku
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsActiveButton	:= THIS^.arrButtons [iButton].IsActive ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangePage" Id="{8bd78c0c-f9d1-037d-04be-4e292db60507}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangePage : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangePage := THIS^.bChangePage;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsEnableButton" Id="{217e2c6a-563a-08bd-0fa4-1cc88765e86d}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[METHOD IsEnableButton : BOOL
+VAR_INPUT
+	iButton		: INT;	//numer przycisku
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsEnableButton	:= THIS^.arrButtons [iButton].IsEnable ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsVisibleButton" Id="{20df5edd-f349-000a-1620-91b9a13457e8}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[METHOD IsVisibleButton : BOOL
+VAR_INPUT
+	iButton		: INT;	//numer przycisku
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsVisibleButton	:= THIS^.arrButtons [iButton].IsVisible ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ResetChangePage" Id="{2630c3ba-0ff9-0859-1451-9a6bf39714eb}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[METHOD PUBLIC ResetChangePage
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bChangePage := FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetActiveButton" Id="{4a3f2cd9-b9dc-0e5a-20ae-b9e5849184e6}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[METHOD SetActiveButton : BOOL
+VAR_INPUT
+	iButton		: INT;	//numer przycisku
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrButtons [iButton].SetActive (bIN := bIN);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEnableButton" Id="{09238708-59e8-0f4e-3df3-b9bd70508c9d}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[METHOD SetEnableButton : BOOL
+VAR_INPUT
+	iButton		: INT;	//numer przycisku
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrButtons [iButton].SetEnable (bIN := bIN);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetVisibleButton" Id="{9b32dc56-5171-0eb1-09b1-fe51305e187e}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[METHOD SetVisibleButton : BOOL
+VAR_INPUT
+	iButton		: INT;	//numer przycisku
+	bIN			: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrButtons [iButton].SetVisible (bIN := bIN);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Testing" Id="{8201623d-ba65-073c-2675-52346bd25414}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		11.11.2025		TC 4024.66
+	testuje czy jest coś naciśnięte w menu i przełącza
+*)
+METHOD PUBLIC Testing : BOOL
+VAR
+	iI		: INT;
+	iJ		: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 0 TO THIS^.iNumberOfButton DO
+	IF (THIS^.arrButtons [iI].IsPressed ()) THEN
+		FOR iJ := 0 TO THIS^.iNumberOfButton DO 
+			THIS^.arrButtons [iJ].SetActive (bIN := FALSE);
+		END_FOR
+		THIS^.arrButtons [iI].SetActive (bIN := TRUE);
+		THIS^.iActiveButtonPrev := THIS^.iActiveButton;
+		THIS^.iActiveButton := iI;
+		THIS^.bChangePage := TRUE;
+	END_IF
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

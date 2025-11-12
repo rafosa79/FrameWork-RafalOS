@@ -4,7 +4,9 @@
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
 	fbButton		: FB_HMIEButton;
+	fbButtonHMI		: FB_HMIEButton_HMI (itfButton := fbButton);
 	fbMenu			: FB_HMIEMenu;
+	fbMenuHMI		: FB_HMIEMenu_HMI (itfMenu := fbMenu);
 END_VAR
 ]]></Declaration>
     <Implementation>

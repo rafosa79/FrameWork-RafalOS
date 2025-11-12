@@ -26,13 +26,6 @@ VAR_GLOBAL
 	bDefaultInitDone				: BOOL;
 	bMachineInitDone				: BOOL;
 	
-	itmpWywolanieDefaultInit		: INT;
-	itmpWywolanieMachineInit		: INT;
-	itmpWywolaniePRG				: INT;
-	itmpWywolaniePRGHMI				: INT;
-	
-	iLicznik						: INT;
-	
 	
 END_VAR]]></Declaration>
   </GVL>

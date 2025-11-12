@@ -19,7 +19,7 @@
     <Company>RafalOS</Company>
     <Released>false</Released>
     <Title>B_HMIElements</Title>
-    <ProjectVersion>0.0.0.2</ProjectVersion>
+    <ProjectVersion>0.0.0.4</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -93,16 +93,40 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_Button\FB_HMIEButton.TcPOU">
+    <Compile Include="POUs\01A_Button\FB_HMIEButton.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_Button\ITF_HMIEButton.TcIO">
+    <Compile Include="POUs\01A_Button\ITF_HMIEButton.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\02_Menu\FB_HMIEMenu.TcPOU">
+    <Compile Include="POUs\01A_Button\ITF_HMIEButton_HMI_Connector.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\02_Menu\ITF_HMIEMenu.TcIO">
+    <Compile Include="POUs\01A_Button\ITF_HMIEButton_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01B_ButtonHMI\FB_HMIEButton_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01B_ButtonHMI\ITF_HMIEButton_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02A_Menu\FB_HMIEMenu.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02A_Menu\ITF_HMIEMenu_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02A_Menu\ITF_HMIEMenu_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02A_Menu\ITF_HMIEMenu.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02B_MenuHMI\FB_HMIEMenu_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02B_MenuHMI\ITF_HMIEMenu_HMI.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -110,8 +134,10 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
-    <Folder Include="POUs\01_Button" />
-    <Folder Include="POUs\02_Menu" />
+    <Folder Include="POUs\01A_Button" />
+    <Folder Include="POUs\02A_Menu" />
+    <Folder Include="POUs\01B_ButtonHMI" />
+    <Folder Include="POUs\02B_MenuHMI" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -119,6 +145,10 @@
     <PlaceholderReference Include="B_Base">
       <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
       <Namespace>B_Base</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_Base_HMI_Connector">
+      <DefaultResolution>B_Base_HMI_Connector, * (RafalOS)</DefaultResolution>
+      <Namespace>B_Base_HMI_Connector</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>

@@ -20,7 +20,30 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[//itfHMIManager.SetActiveButtonMainMenu (iButton := 0, bValue := TRUE);
+        <ST><![CDATA[(*	Utowrzenie menu głównego	*)
+	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB0_MainScreen);
+	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB1_Recipe);
+	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB2_Parameters);
+	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB3_Events);
+	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB4_ModeChange);
+	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB5_Statistics);
+	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB6_StateDiagram);
+	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB7_Settings);
+
+	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB0_MainScreen_HMI_Connector);
+	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB1_Recipe_HMI_Connector);
+	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB2_Parameters_HMI_Connector);
+	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB3_Events_HMI_Connector);
+	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB4_ModeChange_HMI_Connector);
+	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB5_Statistics_HMI_Connector);
+	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB6_StateDiagram_HMI_Connector);
+	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB7_Settings_HMI_Connector);
+
+	itfHMIManager.AddMainMenu (fbMenu := GVL_SystemHMIVariable.fbMainMenu);
+	
+	
+
+//itfHMIManager.SetActiveButtonMainMenu (iButton := 0, bValue := TRUE);
 ]]></ST>
       </Implementation>
     </Method>

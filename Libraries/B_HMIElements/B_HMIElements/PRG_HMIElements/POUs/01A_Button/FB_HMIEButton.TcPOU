@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_HMIEButton" Id="{936d0e57-6045-41ed-8f87-65656e00bc73}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_HMIEButton EXTENDS FB_BaseComponent IMPLEMENTS ITF_HMIEButton
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HMIEButton EXTENDS FB_BaseComponent IMPLEMENTS ITF_HMIEButton, ITF_HMIEButton_HMI_Init
 VAR
 	bContact			: BOOL;
 	bActive				: BOOL;	//wybrany

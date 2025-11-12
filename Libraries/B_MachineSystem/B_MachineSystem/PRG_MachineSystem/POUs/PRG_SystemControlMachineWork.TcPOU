@@ -10,11 +10,6 @@ END_VAR
       <ST><![CDATA[IF (GVL_SystemVariable.bDefaultInitDone AND
 	GVL_SystemVariable.bMachineInitDone) THEN
 
-	IF (GVL_SystemVariable.itmpWywolaniePRG = 0) THEN
-	GVL_SystemVariable.iLicznik	:= GVL_SystemVariable.iLicznik + 1;
-	GVL_SystemVariable.itmpWywolaniePRG	:= GVL_SystemVariable.iLicznik;
-	END_IF
-	
 	(*	Wywołanie obsługi Logera	*)
 	GVL_SystemVariable.fbLogger ();
 	(*	Wywołanie pracy maszyny		*)

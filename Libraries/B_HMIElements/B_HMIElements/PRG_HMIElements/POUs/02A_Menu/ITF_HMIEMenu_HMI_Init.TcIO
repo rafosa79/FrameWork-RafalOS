@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_HMIEMenu_HMI_Init" Id="{3d5bacc6-1c37-046a-128d-335ccf25c56b}">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		12.11.2025		TC 4024.66
+	interfejs do przekazywania przy tworzeniu elementów
+*)
+INTERFACE ITF_HMIEMenu_HMI_Init EXTENDS ITF_BaseControlElement, ITF_HMIEMenu_HMI_Connector
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

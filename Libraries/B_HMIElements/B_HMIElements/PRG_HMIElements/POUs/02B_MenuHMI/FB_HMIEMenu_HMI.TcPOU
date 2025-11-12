@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_HMIEMenu_HMI" Id="{32283892-420b-0753-03cd-dc3368be6f1b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HMIEMenu_HMI EXTENDS FB_BaseControlElement_HMI IMPLEMENTS ITF_HMIEMenu_HMI
+VAR
+	itfMenu			: ITF_HMIEMenu_HMI_Connector;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ ]]></ST>
+    </Implementation>
+    <Method Name="AddButton" Id="{4f014b96-6944-0cc7-0240-fb8c15d621cb}">
+      <Declaration><![CDATA[METHOD PUBLIC AddButton : BOOL
+VAR_INPUT
+	fbButtonHMI			: ITF_HMIEButton_HMI;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.AddComponent (itfComponentHMI := fbButtonHMI);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{f01e8c8b-ee4e-0349-1f79-1ffd9fd87d49}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfMenu			: ITF_HMIEMenu_HMI_Init;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMenu := itfMenu;
+
+//Przypisanie do elementów z biblioteki
+THIS^.itfBaseLoggerElementConnector		:= itfMenu;
+THIS^.itfBaseComponentConnector			:= itfMenu;
+THIS^.itfBaseControlElementConnector	:= itfMenu;
+//
+THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
+//
+
+IF (THIS^.itfMenu <> 0 AND
+	THIS^.itfBaseLoggerElementConnector <> 0 AND
+	THIS^.itfBaseComponentConnector	<> 0 AND
+	THIS^.itfBaseControlElementConnector <> 0 AND
+	THIS^.itfBaseLoggerConnector <> 0) THEN
+	THIS^.bIsInit						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

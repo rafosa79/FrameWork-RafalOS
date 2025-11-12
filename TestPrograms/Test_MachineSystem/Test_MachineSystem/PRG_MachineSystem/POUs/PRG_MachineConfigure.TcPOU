@@ -8,13 +8,6 @@ END_VAR
     <Implementation>
       <ST><![CDATA[IF (NOT GVL_SystemVariable.bMachineInitDone) THEN
 
-	IF (GVL_SystemVariable.itmpWywolanieMachineInit = 0) THEN
-	GVL_SystemVariable.iLicznik	:= GVL_SystemVariable.iLicznik + 1;
-	GVL_SystemVariable.itmpWywolanieMachineInit	:= GVL_SystemVariable.iLicznik;
-	END_IF
-
-	
-
 	GVL_SystemVariable.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_MachineVariable.fbMachineConfiguration);
 	GVL_SystemVariable.fbHMIConfigure.AddConfiguration (fbConfigure := GVL_MachineVariable.fbHMIConfiguration);
 	GVL_SystemVariable.bMachineInitDone		:= TRUE;
