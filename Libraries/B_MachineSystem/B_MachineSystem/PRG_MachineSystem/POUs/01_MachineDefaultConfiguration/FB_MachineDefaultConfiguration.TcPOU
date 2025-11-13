@@ -14,83 +14,193 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="AddHMIToMachineControl" Id="{1ddb6eb9-c931-0e11-33e1-e42c75396327}">
-      <Declaration><![CDATA[METHOD PUBLIC AddHMIToMachineControl : BOOL
+    <Method Name="AddElements" Id="{d32e32b9-a89e-0a44-15ad-90b7784453b1}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Metoda przeznaczona do dodawania elementów do FB_MachineControl
+*)
+METHOD AddElements : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddMachineCotrolToYourSelf" Id="{64c7fe67-f36e-0232-10b9-fb13acc8e5c0}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie samego siebie do systemu controli maszyny
+*)
+METHOD AddMachineCotrolToYourSelf : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.AddMachineCotrolToYourSelfFromConfiguration ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddSaMCotrollerToMachineControl" Id="{c7264e79-e037-009f-20e3-77b9947fed95}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie modułu sterowania stanami i trybami do machinecontrol
+*)
+METHOD PUBLIC AddSaMCotrollerToMachineControl : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.AddSaMCotrollerToMachineControlFromConfiguration (itfSaMController := GVL_SystemVariable.fbSaMController);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkCommonDataToAddedElements" Id="{23886805-2788-0bdd-1a2b-d773e51344bc}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Zlinkowanie danych wspólnych do dodanych elementów
+*)
+METHOD LinkCommonDataToAddedElements : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.LinkCommonDataToAddedElementsFromConfiguration (stCommonData := GVL_SystemVariable.stCommonData);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCodeToAddedElements" Id="{1b39a1ed-5064-01d7-257d-8cea5be2e882}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Nadanie unikalnych kodów elementom w systemie
+*)
+METHOD SetCodeToAddedElements : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.SetCodeToAddedElementsFromConfiguration ();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetIDEventsToAddedElements" Id="{6a6fd1b7-5a67-00a6-02bb-61313e511b34}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Nadaje unikalne ID zgłoszeniom dodanym do elementów w sesyemie
+*)
+METHOD SetIDEventsToAddedElements : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.SetIDEventsToAddedElementsFromConfiguration ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetIDToAddedElements" Id="{132b0a5e-1bb2-05e5-2376-46651725d966}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie wszystkim elementom w systemie unikalnego ID
+*)
+METHOD SetIDToAddedElements : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.SetIDToAddedElementsFromConfiguration ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="STARE_AddHMIToMachineControl" Id="{1ddb6eb9-c931-0e11-33e1-e42c75396327}">
+      <Declaration><![CDATA[METHOD PUBLIC STARE_AddHMIToMachineControl : BOOL
 VAR_INPUT
 	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR
 
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[itfMachineControl.AddHMIManager (itfHMIManager := GVL_SystemVariable.fbHMIManager);
+        <ST><![CDATA[//itfMachineControl.AddHMIManager (itfHMIManager := GVL_SystemVariable.fbHMIManager);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddTopElementToLogger" Id="{332b5b16-6a8b-4f9c-b147-743d36983c25}">
-      <Declaration><![CDATA[METHOD PUBLIC AddTopElementToLogger : BOOL
+    <Method Name="STARE_AddTopElementToLogger" Id="{332b5b16-6a8b-4f9c-b147-743d36983c25}">
+      <Declaration><![CDATA[METHOD PUBLIC STARE_AddTopElementToLogger : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GVL_SystemVariable.fbMachineControl.JoinTheLogger ();
+        <ST><![CDATA[//GVL_SystemVariable.fbMachineControl.JoinTheLogger ();
 
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddTopElementToMachineControl" Id="{58e1fa28-d374-49d5-b4f2-6555dd78af83}">
+    <Method Name="STARE_AddTopElementToMachineControl" Id="{58e1fa28-d374-49d5-b4f2-6555dd78af83}">
       <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		29.10.2025		TC 4024.66
 	Dodawanie TopElementu do systemu
 *)
-METHOD PUBLIC AddTopElementToMachineControl : BOOL
+METHOD PUBLIC STARE_AddTopElementToMachineControl : BOOL
 VAR_INPUT
 	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "System");
-THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "System");
-THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "System");
-GVL_SystemVariable.fbMachineControl.SetName (stName := THIS^.GetTexts ());
-itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_SystemVariable.fbMachineControl);
+        <ST><![CDATA[//THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "System");
+//THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "System");
+//THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "System");
+//GVL_SystemVariable.fbMachineControl.SetName (stName := THIS^.GetTexts ());
+//itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_SystemVariable.fbMachineControl);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetStartMode" Id="{281bfd3c-5022-467b-b076-37f9b0db67bc}">
-      <Declaration><![CDATA[METHOD PUBLIC SetStartMode : BOOL
+    <Method Name="STARE_SetStartMode" Id="{281bfd3c-5022-467b-b076-37f9b0db67bc}">
+      <Declaration><![CDATA[METHOD PUBLIC STARE_SetStartMode : BOOL
 VAR_INPUT
 	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[itfMachineControl.SetStartMode (eStartMode := E_BaseMachineMode.Production);
+        <ST><![CDATA[//itfMachineControl.SetStartMode (eStartMode := E_BaseMachineMode.Production);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="StateAndModes" Id="{017f3a1b-6dcb-4e00-82fc-a658d05da483}">
-      <Declaration><![CDATA[METHOD StateAndModes : BOOL
+    <Method Name="STARE_StateAndModes" Id="{017f3a1b-6dcb-4e00-82fc-a658d05da483}">
+      <Declaration><![CDATA[METHOD STARE_StateAndModes : BOOL
 VAR_INPUT
 	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Clear,		itfRequest := GVL_RequeestChange.fbprClear);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Reset, 	itfRequest := GVL_RequeestChange.fbprReset);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Start, 	itfRequest := GVL_RequeestChange.fbprStart);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Stop, 		itfRequest := GVL_RequeestChange.fbprStop);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Suspend, 	itfRequest := GVL_RequeestChange.fbprSuspend);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Unsuspend, itfRequest := GVL_RequeestChange.fbprUnsuspend);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Hold, 		itfRequest := GVL_RequeestChange.fbprHold);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Unhold, 	itfRequest := GVL_RequeestChange.fbprUnhold);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Complete, 	itfRequest := GVL_RequeestChange.fbprComplete);
-itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Abort,		itfRequest := GVL_RequeestChange.fbprAbort);
-
-itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Production, 	itfRequest := GVL_RequeestChange.fbprProduction);
-itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Maintenance,	itfRequest := GVL_RequeestChange.fbprMaintenance);
-itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Manual, 		itfRequest := GVL_RequeestChange.fbprManual);
-itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Washing,		itfRequest := GVL_RequeestChange.fbprWashing);
-itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Diagnostisc,	itfRequest := GVL_RequeestChange.fbprDiagnostics);
+        <ST><![CDATA[//itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Clear,		itfRequest := GVL_RequeestChange.fbprClear);
+//itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Reset, 	itfRequest := GVL_RequeestChange.fbprReset);
+//itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Start, 	itfRequest := GVL_RequeestChange.fbprStart);
+//itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Stop, 		itfRequest := GVL_RequeestChange.fbprStop);
+//itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Suspend, 	itfRequest := GVL_RequeestChange.fbprSuspend);
+//itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Unsuspend, itfRequest := GVL_RequeestChange.fbprUnsuspend);
+//itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Hold, 		itfRequest := GVL_RequeestChange.fbprHold);
+//itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Unhold, 	itfRequest := GVL_RequeestChange.fbprUnhold);
+//itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Complete, 	itfRequest := GVL_RequeestChange.fbprComplete);
+//itfMachineControl.AddRequestStateChange (iNumberOfRequest := E_SaMCommandChangeState.Abort,		itfRequest := GVL_RequeestChange.fbprAbort);
+//
+//itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Production, 	itfRequest := GVL_RequeestChange.fbprProduction);
+//itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Maintenance,	itfRequest := GVL_RequeestChange.fbprMaintenance);
+//itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Manual, 		itfRequest := GVL_RequeestChange.fbprManual);
+//itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Washing,		itfRequest := GVL_RequeestChange.fbprWashing);
+//itfMachineControl.AddRequestModeChange (iNumberOfRequest := E_SaMCommandChangeMode.Diagnostisc,	itfRequest := GVL_RequeestChange.fbprDiagnostics);
 
 
 

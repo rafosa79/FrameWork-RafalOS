@@ -42,7 +42,11 @@ END_VAR]]></Declaration>
 
 FOR iI := 1 TO THIS^.iNubmerOfAddedConfigure DO 
 	IF (THIS^.arritfConfigure [iI] <> 0) THEN
-		THIS^.arritfConfigure [iI].MainMenuConfigure (itfHMIManager	:= fbHMIManager);
+		THIS^.arritfConfigure [iI].AddElements (itfHMIManager := fbHMIManager);
+
+
+
+//		THIS^.arritfConfigure [iI].MainMenuConfigure (itfHMIManager	:= fbHMIManager);
 		;;
 	END_IF
 END_FOR

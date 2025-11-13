@@ -14,67 +14,109 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="AddHMIToMachineControl" Id="{ffc37eed-8ed2-06a3-104a-b82614e86822}">
-      <Declaration><![CDATA[METHOD AddHMIToMachineControl : BOOL
-VAR_INPUT
-	itfMachineControl			: ITF_MCMachineControlConfigure;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="AddTopElementToLogger" Id="{6bf1abcb-3a94-077e-299d-d7f78a25bce3}">
-      <Declaration><![CDATA[METHOD PUBLIC AddTopElementToLogger : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="AddTopElementToMachineControl" Id="{003b0af5-836b-0137-2c28-c69f61c52f45}">
+    <Method Name="AddElements" Id="{7b730765-41af-4c9b-9f6a-4c5a645abba8}">
       <Declaration><![CDATA[(*			
 	RafalOS
-	Rafał Osajda		29.10.2025		TC 4024.66
-	Dodawanie TopElementu do systemu
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Metoda przeznaczona do dodawania elementów do FB_MachineControl
 *)
-METHOD PUBLIC AddTopElementToMachineControl : BOOL
+METHOD AddElements : BOOL
 VAR_INPUT
-	itfMachineControl			: ITF_MCMachineControlConfigure;
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetStartMode" Id="{70c10de1-003d-0e99-28ac-94330c66e77a}">
-      <Declaration><![CDATA[METHOD PUBLIC SetStartMode : BOOL
+    <Method Name="AddMachineCotrolToYourSelf" Id="{c8ed0d9d-f48c-476a-915b-a4eba002124b}">
+      <Declaration><![CDATA[(*
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie samego siebie do systemu controli maszyny
+*)
+METHOD AddMachineCotrolToYourSelf : BOOL
 VAR_INPUT
-	itfMachineControl			: ITF_MCMachineControlConfigure;
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="StateAndModes" Id="{59a5cac6-3dd4-06e2-1a26-05926ce02445}">
-      <Declaration><![CDATA[METHOD StateAndModes : BOOL
+    <Method Name="AddSaMCotrollerToMachineControl" Id="{01e4bd98-cea4-48b9-bac4-c2658d2eb279}">
+      <Declaration><![CDATA[(*
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie modułu sterowania stanami i trybami do machinecontrol
+*)
+METHOD AddSaMCotrollerToMachineControl : BOOL
 VAR_INPUT
-	itfMachineControl			: ITF_MCMachineControlConfigure;
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[
-
-
-
-
-
-
-
-
-]]></ST>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkCommonDataToAddedElements" Id="{ac0aabe4-15a4-490d-b3a0-5896b9031d05}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Zlinkowanie danych wspólnych do dodanych elementów
+*)
+METHOD LinkCommonDataToAddedElements : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCodeToAddedElements" Id="{10c39845-1161-4a70-8150-cbc008075584}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Nadanie unikalnych kodów elementom w systemie
+*)
+METHOD SetCodeToAddedElements : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetIDEventsToAddedElements" Id="{d886dcd7-8305-494f-9ced-3ff0d8f83511}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Nadaje unikalne ID zgłoszeniom dodanym do elementów w sesyemie
+*)
+METHOD SetIDEventsToAddedElements : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetIDToAddedElements" Id="{3f3df8aa-f4cd-41e5-9f39-ff6b258bd4d3}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie wszystkim elementom w systemie unikalnego ID
+*)
+METHOD SetIDToAddedElements : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
   </POU>

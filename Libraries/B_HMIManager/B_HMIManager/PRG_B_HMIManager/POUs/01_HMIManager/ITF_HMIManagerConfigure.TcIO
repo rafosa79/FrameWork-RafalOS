@@ -3,41 +3,15 @@
   <Itf Name="ITF_HMIManagerConfigure" Id="{6d65f736-9707-03a5-294a-a8aaa4bb0d85}">
     <Declaration><![CDATA[INTERFACE ITF_HMIManagerConfigure EXTENDS ITF_Base
 ]]></Declaration>
-    <Method Name="AddMainMenu" Id="{8ebdcd07-a1d1-0f7a-1ac3-023548752dfd}">
-      <Declaration><![CDATA[METHOD PUBLIC AddMainMenu : BOOL
+    <Method Name="AddElementFromConfiguration" Id="{cbb96269-a4ca-0f6c-069e-32922f7227f8}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodawanie elementów wywoływane z konfiguracji 
+*)
+METHOD PUBLIC AddElementFromConfiguration : BOOL
 VAR_INPUT
-	fbMenu				 : ITF_HMIEMenu;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="LinkCommonData" Id="{46c4bf07-78d5-03cf-1cd9-cdabd433abe1}">
-      <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
-VAR_INPUT
-	stCommonData				: REFERENCE TO ST_BaseCommonData;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="SetActiveButtonMainMenu" Id="{4dd734d3-5e2a-057b-358d-afee9409412b}">
-      <Declaration><![CDATA[METHOD PUBLIC SetActiveButtonMainMenu : BOOL
-VAR_INPUT
-	iButton			: INT;	//numer przycisku od 0
-	bValue			: BOOL;	//true aktywny może być tylko jeden w menu
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="SetEnableButtonMainMenu" Id="{9306a453-79bc-09ac-29a7-df180b99e765}">
-      <Declaration><![CDATA[METHOD PUBLIC SetEnableButtonMainMenu : BOOL
-VAR_INPUT
-	iButton			: INT;	//numer przycisku od 0
-	bValue			: BOOL;	//true włączony
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="SetVisibleButtonMainMenu" Id="{ebe30521-ad78-08e6-2f96-9b2742b37c55}">
-      <Declaration><![CDATA[METHOD PUBLIC SetVisibleButtonMainMenu : BOOL
-VAR_INPUT
-	iButton			: INT;	//numer przycisku od 0
-	bValue			: BOOL;	//true widoczny
+	itfElements		: ITF_BaseTopElement_HMI;
 END_VAR
 ]]></Declaration>
     </Method>

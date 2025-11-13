@@ -39,15 +39,34 @@ END_IF
     </Implementation>
     <Folder Name="ITF_MachineControlConfigure" Id="{973d3ff0-85f0-4bae-9395-cc62a4917833}" />
     <Folder Name="WiazanieModulow" Id="{3d8e3574-09c0-0f20-0429-cf1b0f8aec79}" />
-    <Method Name="AddHMIManager" Id="{83eb5c4d-6a27-0a18-07a0-6bb5a84b3772}" FolderPath="ITF_MachineControlConfigure\">
-      <Declaration><![CDATA[METHOD AddHMIManager : BOOL
+    <Method Name="AddElementFromConfiguration" Id="{7dfdd75b-9905-0acd-138c-819c9dbddb2a}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodawanie elementów wywoływane z konfiguracji 
+*)
+METHOD PUBLIC AddElementFromConfiguration : BOOL
 VAR_INPUT
-	itfHMIManager			: ITF_BaseGroupElement;
+	itfElements		: ITF_BaseTopElement;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.AddControlElement (itfControlElement := itfHMIManager);
-]]></ST>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddMachineCotrolToYourSelfFromConfiguration" Id="{dace522a-7d51-077e-3a49-9a0de96e23d6}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie samego sibie do obsługi w MachineControl
+*)
+METHOD PUBLIC AddMachineCotrolToYourSelfFromConfiguration : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrTopElements [1]	:= THIS^;
+this^.uiNumberOfAddedTopElement := 1;]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddModulConfigure" Id="{e05e86ab-e65a-0460-123e-9f866e36dccc}" FolderPath="WiazanieModulow\">
@@ -78,63 +97,20 @@ THIS^.AddControlElement (itfControlElement	:= fbSaMController);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddRequestModeChange" Id="{eee38abc-f39d-0ce2-0412-12f1dcddd8de}" FolderPath="ITF_MachineControlConfigure\">
-      <Declaration><![CDATA[METHOD PUBLIC AddRequestModeChange : BOOL
-VAR_INPUT
-	iNumberOfRequest			: INT;
-	itfRequest					: ITF_MCRequiredChange;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.arrRequestChangeMode [iNumberOfRequest]	:= itfRequest;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="AddRequestStateChange" Id="{3a316008-6053-0642-3d72-eda4def5bdc4}" FolderPath="ITF_MachineControlConfigure\">
-      <Declaration><![CDATA[METHOD PUBLIC AddRequestStateChange : BOOL
-VAR_INPUT
-	iNumberOfRequest			: INT;
-	itfRequest					: ITF_MCRequiredChange;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.arrRequestChangeState [iNumberOfRequest]	:= itfRequest;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="AddTopElementFromConfiguration" Id="{100f011a-3941-0f6f-14c0-c4dea046c178}" FolderPath="ITF_MachineControlConfigure\">
+    <Method Name="AddSaMCotrollerToMachineControlFromConfiguration" Id="{c3944397-3e49-0760-2f0b-d3104ae7ce2d}" FolderPath="ITF_MachineControlConfigure\">
       <Declaration><![CDATA[(*			
 	RafalOS
-	Rafał Osajda		29.10.2025		TC 4024.66
-	Metoda dodawania top elementu wywoływana z konfiguracji
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie modułu sterowania stanami i trybami do machinecontrol z konfiguracji
 *)
-METHOD AddTopElementFromConfiguration : BOOL
+METHOD PUBLIC AddSaMCotrollerToMachineControlFromConfiguration : BOOL
 VAR_INPUT
-	fbTopElement		: ITF_BaseTopElement;
+	itfSaMController			: ITF_SaMController;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.uiNumberOfAddedTopElement + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT) THEN
-	THIS^.uiNumberOfAddedTopElement							:= THIS^.uiNumberOfAddedTopElement + 1;
-	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement]	:= fbTopElement;
-	
-	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkCommonData (stCommonData	:= THIS^.refstCommonData);
-	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkSS1 (fbSS1	:= THIS^.itfSS1);
-	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkSTO (fbSTO	:= THIS^.itfSTO);
-	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkCommunicator (fbCommunicator	:= THIS^.fbMasterCommunicator);
-	(*	Podpięcie systemu sterowania stanami i trybami	*)
-	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkSAM (fbSAM	:= THIS^.itfSaMController);
-	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].FirstCycle ();
-	THIS^.uiNumberOfAllAddedElements 						:= THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].SetID (uiID := THIS^.uiNumberOfAllAddedElements + 1);
-	THIS^.refstCommonData.itfLogger.SetNumerOfReportsIntheSystem (
-			uiValue := THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].SetEventsIDs (
-				uiNewID := THIS^.refstCommonData.itfLogger.GetNumerOfReportsIntheSystem ()
-			)
-	);
-	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].SetCode (sCode := '0.0.0.0.0', sAdd := TO_STRING (THIS^.uiNumberOfAddedTopElement));
-	
-	AddTopElementFromConfiguration							:= TRUE;
-END_IF
+        <ST><![CDATA[THIS^.AddControlElement (itfControlElement := itfSaMController);
+THIS^.itfSaMController := itfSaMController;
 ]]></ST>
       </Implementation>
     </Method>
@@ -250,8 +226,169 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetStartMode" Id="{d33b08a8-5ec6-0245-01ba-557e6d74ea6b}" FolderPath="ITF_MachineControlConfigure\">
-      <Declaration><![CDATA[METHOD PUBLIC SetStartMode
+    <Method Name="LinkCommonDataToAddedElementsFromConfiguration" Id="{694a103f-41a5-0324-38e3-12e026a9da84}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Zlinkowanie danych wspólnych do dodanych elementów wywoływane z konfiguracji
+*)
+METHOD PUBLIC LinkCommonDataToAddedElementsFromConfiguration : BOOL
+VAR_INPUT
+	stCommonData		: REFERENCE TO ST_BaseCommonData;
+END_VAR
+
+VAR
+	iNumberOfTopElement: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iNumberOfTopElement := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
+	THIS^.arrTopElements [iNumberOfTopElement].LinkCommonData (
+		stCommonData := stCommonData
+	);
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCodeToAddedElementsFromConfiguration" Id="{9c0e8717-2de6-01d7-053e-0f21ff1e2b0f}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Nadanie unikalnych kodów elementom w systemie wywołane z konfiguracji
+*)
+METHOD PUBLIC SetCodeToAddedElementsFromConfiguration : BOOL
+VAR_INPUT
+END_VAR
+
+VAR
+	iNumberOfTopElement: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iNumberOfTopElement := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
+	THIS^.arrTopElements [iNumberOfTopElement].SetCode (
+		sCode := '0.0.0.0.0', sAdd := TO_STRING (iNumberOfTopElement)
+	);
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetIDEventsToAddedElementsFromConfiguration" Id="{3e3b7f79-eb1f-0356-2fb4-03649ebeaacb}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Nadaje unikalne ID zgłoszeniom dodanym do elementów w sesyemie wywołane z konfiguracji
+*)
+METHOD PUBLIC SetIDEventsToAddedElementsFromConfiguration : BOOL
+VAR_INPUT
+END_VAR
+VAR
+	iNumberOfTopElement	: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iNumberOfTopElement := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
+	THIS^.refstCommonData.itfLogger.SetNumerOfReportsIntheSystem (
+			uiValue := THIS^.arrTopElements [iNumberOfTopElement].SetEventsIDs (
+				uiNewID := THIS^.refstCommonData.itfLogger.GetNumerOfReportsIntheSystem ()
+			)
+	);
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetIDToAddedElementsFromConfiguration" Id="{02d9bff6-6a30-0c5f-1b06-10a6d4b0df72}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie wszystkim elementom w systemie unikalnego ID
+*)
+METHOD PUBLIC SetIDToAddedElementsFromConfiguration : BOOL
+VAR_INPUT
+END_VAR
+VAR
+	iNumberOfTopElement		: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iNumberOfTopElement := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
+	THIS^.uiNumberOfAllAddedElements := 
+		THIS^.arrTopElements [iNumberOfTopElement].SetID (
+			uiID := THIS^.uiNumberOfAllAddedElements + 1
+		);
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="STARE_AddHMIManager" Id="{83eb5c4d-6a27-0a18-07a0-6bb5a84b3772}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[METHOD STARE_AddHMIManager : BOOL
+VAR_INPUT
+	itfHMIManager			: ITF_BaseGroupElement;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.AddControlElement (itfControlElement := itfHMIManager);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="STARE_AddRequestModeChange" Id="{eee38abc-f39d-0ce2-0412-12f1dcddd8de}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC STARE_AddRequestModeChange : BOOL
+VAR_INPUT
+	iNumberOfRequest			: INT;
+	itfRequest					: ITF_MCRequiredChange;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrRequestChangeMode [iNumberOfRequest]	:= itfRequest;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="STARE_AddRequestStateChange" Id="{3a316008-6053-0642-3d72-eda4def5bdc4}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC STARE_AddRequestStateChange : BOOL
+VAR_INPUT
+	iNumberOfRequest			: INT;
+	itfRequest					: ITF_MCRequiredChange;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrRequestChangeState [iNumberOfRequest]	:= itfRequest;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="STARE_AddTopElementFromConfiguration" Id="{100f011a-3941-0f6f-14c0-c4dea046c178}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		29.10.2025		TC 4024.66
+	Metoda dodawania top elementu wywoływana z konfiguracji
+*)
+METHOD STARE_AddTopElementFromConfiguration : BOOL
+VAR_INPUT
+	fbTopElement		: ITF_BaseTopElement;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.uiNumberOfAddedTopElement + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT) THEN
+	THIS^.uiNumberOfAddedTopElement							:= THIS^.uiNumberOfAddedTopElement + 1;
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement]	:= fbTopElement;
+	
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkCommonData (stCommonData	:= THIS^.refstCommonData);
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkSS1 (fbSS1	:= THIS^.itfSS1);
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkSTO (fbSTO	:= THIS^.itfSTO);
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkCommunicator (fbCommunicator	:= THIS^.fbMasterCommunicator);
+	(*	Podpięcie systemu sterowania stanami i trybami	*)
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].LinkSAM (fbSAM	:= THIS^.itfSaMController);
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].FirstCycle ();
+	THIS^.uiNumberOfAllAddedElements 						:= THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].SetID (uiID := THIS^.uiNumberOfAllAddedElements + 1);
+	THIS^.refstCommonData.itfLogger.SetNumerOfReportsIntheSystem (
+			uiValue := THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].SetEventsIDs (
+				uiNewID := THIS^.refstCommonData.itfLogger.GetNumerOfReportsIntheSystem ()
+			)
+	);
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement].SetCode (sCode := '0.0.0.0.0', sAdd := TO_STRING (THIS^.uiNumberOfAddedTopElement));
+	
+	STARE_AddTopElementFromConfiguration							:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="STARE_SetStartMode" Id="{d33b08a8-5ec6-0245-01ba-557e6d74ea6b}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC STARE_SetStartMode
 VAR_INPUT
 	eStartMode				: E_BaseMachineMode;
 END_VAR

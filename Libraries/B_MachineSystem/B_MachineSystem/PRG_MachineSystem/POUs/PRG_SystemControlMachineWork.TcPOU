@@ -7,9 +7,9 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF (GVL_SystemVariable.bDefaultInitDone AND
-	GVL_SystemVariable.bMachineInitDone) THEN
-
+      <ST><![CDATA[IF (GVL_SystemConfigure.bDefaultInitDone AND
+	GVL_SystemConfigure.bMachineInitDone) THEN
+	;
 	(*	Wywołanie obsługi Logera	*)
 	GVL_SystemVariable.fbLogger ();
 	(*	Wywołanie pracy maszyny		*)

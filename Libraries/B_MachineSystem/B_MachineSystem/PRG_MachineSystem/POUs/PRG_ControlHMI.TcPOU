@@ -14,8 +14,8 @@ END_VAR
       <ST><![CDATA[
 	(*	Wywołanie metody sterowania HMI	*)
 
-IF (GVL_SystemVariable.bDefaultInitDone AND
-	GVL_SystemVariable.bMachineInitDone AND
+IF (GVL_SystemConfigure.bDefaultInitDone AND
+	GVL_SystemConfigure.bMachineInitDone AND
 	GVL_SystemVariable.fbMachineControl.IsInitDone ()) THEN
 	
 	GVL_SystemVariable.fbHMIManager ();

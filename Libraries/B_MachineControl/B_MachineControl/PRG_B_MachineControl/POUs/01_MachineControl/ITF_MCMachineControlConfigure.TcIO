@@ -8,40 +8,83 @@
 *)
 INTERFACE ITF_MCMachineControlConfigure EXTENDS ITF_Base
 ]]></Declaration>
-    <Method Name="AddHMIManager" Id="{dd3ca412-72d8-0921-0265-5fd20dcd2dce}">
-      <Declaration><![CDATA[METHOD AddHMIManager : BOOL
+    <Method Name="AddElementFromConfiguration" Id="{e89dd9da-8dd4-0a9c-2aef-2c77ae2e90a6}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodawanie elementów wywoływane z konfiguracji 
+*)
+METHOD PUBLIC AddElementFromConfiguration : BOOL
 VAR_INPUT
-	itfHMIManager			: ITF_BaseGroupElement;
+	itfElements		: ITF_BaseTopElement;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="AddRequestModeChange" Id="{b57a036d-1128-0d9e-3e41-4e327c6cc617}">
-      <Declaration><![CDATA[METHOD PUBLIC AddRequestModeChange : BOOL
+    <Method Name="AddMachineCotrolToYourSelfFromConfiguration" Id="{c25f9486-135c-08b4-3ae6-4554d81c2915}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie samego sibie do obsługi w MachineControl
+*)
+METHOD PUBLIC AddMachineCotrolToYourSelfFromConfiguration : BOOL
 VAR_INPUT
-	iNumberOfRequest			: INT;
-	itfRequest					: ITF_MCRequiredChange;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="AddRequestStateChange" Id="{08c041f6-74b0-0495-1384-b053ecfc16a9}">
-      <Declaration><![CDATA[METHOD PUBLIC AddRequestStateChange : BOOL
+    <Method Name="AddSaMCotrollerToMachineControlFromConfiguration" Id="{5f46170b-dc51-015c-29c2-1d1aa725f278}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie modułu sterowania stanami i trybami do machinecontrol z konfiguracji
+*)
+METHOD PUBLIC AddSaMCotrollerToMachineControlFromConfiguration : BOOL
 VAR_INPUT
-	iNumberOfRequest			: INT;
-	itfRequest					: ITF_MCRequiredChange;
+	itfSaMController			: ITF_SaMController;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="AddTopElementFromConfiguration" Id="{c458ce8f-1021-07a3-1b12-05adfb9f74f9}">
-      <Declaration><![CDATA[METHOD AddTopElementFromConfiguration : BOOL
+    <Method Name="LinkCommonDataToAddedElementsFromConfiguration" Id="{999c603c-5ddf-0de0-1c6d-967de2690d60}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Zlinkowanie danych wspólnych do dodanych elementów wywoływane z konfiguracji
+*)
+METHOD PUBLIC LinkCommonDataToAddedElementsFromConfiguration : BOOL
 VAR_INPUT
-	fbTopElement		: ITF_BaseTopElement;
+	stCommonData		: REFERENCE TO ST_BaseCommonData;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="SetStartMode" Id="{8d345749-18d6-038a-3e39-290be0c31c98}">
-      <Declaration><![CDATA[METHOD PUBLIC SetStartMode
+    <Method Name="SetCodeToAddedElementsFromConfiguration" Id="{e29cfd7a-e36e-0ccd-0657-e5130b8e3726}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Nadanie unikalnych kodów elementom w systemie wywołane z konfiguracji
+*)
+METHOD PUBLIC SetCodeToAddedElementsFromConfiguration : BOOL
 VAR_INPUT
-	eStartMode				: E_BaseMachineMode;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetIDEventsToAddedElementsFromConfiguration" Id="{43a66352-c9d0-04a2-24fa-2b0d6136f596}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Nadaje unikalne ID zgłoszeniom dodanym do elementów w sesyemie wywołane z konfiguracji
+*)
+METHOD PUBLIC SetIDEventsToAddedElementsFromConfiguration : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetIDToAddedElementsFromConfiguration" Id="{243ff86a-db4b-054d-362f-d62d02971187}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie wszystkim elementom w systemie unikalnego ID
+*)
+METHOD PUBLIC SetIDToAddedElementsFromConfiguration : BOOL
+VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>

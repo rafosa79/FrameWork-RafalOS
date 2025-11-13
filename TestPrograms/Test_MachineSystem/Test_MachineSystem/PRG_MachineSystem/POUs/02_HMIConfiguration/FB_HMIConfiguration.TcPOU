@@ -13,9 +13,13 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="MainMenuConfigure" Id="{00d11fa0-d306-42d3-9d7c-fc6e784b0b6c}">
-      <Declaration><![CDATA[
-METHOD MainMenuConfigure : BOOL
+    <Method Name="AddElements" Id="{7302c3e8-1e13-4369-a5d6-2e8b1d6b4005}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Metoda przeznaczona do dodawania elementów do FB_HMIManager
+*)
+METHOD AddElements : BOOL
 VAR_INPUT
 	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
 END_VAR

@@ -8,23 +8,14 @@ VAR_GLOBAL
 	fbLogger						: FB_BaseLogger;
 	stCommonData					: ST_BaseCommonData;
 	
-	(*	Konfiguracja MachineControl	*)
-	fbDefaultMachineConfiguration	: FB_MachineDefaultConfiguration;
-	fbMachineConfigure				: FB_MCMachineConfigure;
 	(*	Element FB_MachineControl - sterowanie stanami i trybami pracy	*)
 	fbSaMController					: FB_SaMController;
+	
 	(*	Główny element sterujący maszyną - logika pracy					*)
 	fbMachineControl				: FB_MCMachineControl;
 	
-	(*	Konfiguracja HMIManager		*)
-	fbDedaultHMIConfiguration		: FB_DefaultHMIConfiguration;
-	fbHMIConfigure					: FB_HMIConfigure;
 	(*	Główny element sterowania wyświetlaniem na HMI					*)
 	fbHMIManager					: FB_HMIManager;
-	
-	(*	Zmienne zakończenia konfiguracji	*)
-	bDefaultInitDone				: BOOL;
-	bMachineInitDone				: BOOL;
 	
 	
 END_VAR]]></Declaration>

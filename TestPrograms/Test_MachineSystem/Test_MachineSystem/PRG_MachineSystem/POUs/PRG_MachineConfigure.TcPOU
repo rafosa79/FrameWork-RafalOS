@@ -6,11 +6,11 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF (NOT GVL_SystemVariable.bMachineInitDone) THEN
+      <ST><![CDATA[IF (NOT GVL_SystemConfigure.bMachineInitDone) THEN
 
-	GVL_SystemVariable.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_MachineVariable.fbMachineConfiguration);
-	GVL_SystemVariable.fbHMIConfigure.AddConfiguration (fbConfigure := GVL_MachineVariable.fbHMIConfiguration);
-	GVL_SystemVariable.bMachineInitDone		:= TRUE;
+//	GVL_SystemConfigure.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_MachineVariable.fbMachineConfiguration);
+//	GVL_SystemConfigure.fbHMIConfigure.AddConfiguration (fbConfigure := GVL_MachineVariable.fbHMIConfiguration);
+	GVL_SystemConfigure.bMachineInitDone		:= TRUE;
 END_IF
 ]]></ST>
     </Implementation>
