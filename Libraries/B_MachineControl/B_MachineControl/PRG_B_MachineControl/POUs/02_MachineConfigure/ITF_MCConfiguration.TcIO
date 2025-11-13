@@ -56,6 +56,30 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="LinkMassangerToaddedTopElements" Id="{2a58e9f3-2ec9-0c43-3e29-5857c79f8756}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie głównego komunikatora pomiędzy topelementami do topelementów
+*)
+METHOD PUBLIC LinkMassangerToaddedTopElements : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkSafetyToaddedElements" Id="{32626c45-626b-0ec2-2722-4f9716cc629d}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Podłączenie wsyzstkich zmiennych pochodzących od Programu safety 
+*)
+METHOD PUBLIC LinkSafetyToaddedElements : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="SetCodeToAddedElements" Id="{7e7d82d8-4495-020e-142f-3deabe039ec4}">
       <Declaration><![CDATA[(*			
 	RafalOS

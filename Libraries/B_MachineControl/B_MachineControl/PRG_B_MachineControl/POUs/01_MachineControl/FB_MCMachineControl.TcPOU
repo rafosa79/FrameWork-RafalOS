@@ -201,6 +201,16 @@ IF (bTopElementStateWorkCompleted) THEN
 END_IF]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetCommunicatorITF" Id="{d2d430b9-5eb5-0584-25ef-418eb079b38b}">
+      <Declaration><![CDATA[METHOD PUBLIC GetCommunicatorITF : ITF_BaseCommunicator
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetCommunicatorITF := THIS^.fbMasterCommunicator;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="InitializeCycle" Id="{f127c58d-f380-4c5b-91fc-37aed1ddc70f}">
       <Declaration><![CDATA[METHOD PRIVATE InitializeCycle : BOOL
 VAR
@@ -247,6 +257,39 @@ END_VAR]]></Declaration>
 	);
 END_FOR
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkMassangerToaddedTopElementsFromConfiguration" Id="{676d4ba8-fe87-04d9-35d0-6c4c9941f800}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie głównego komunikatora pomiędzy topelementami do topelementów wywolywane z konfiguracji
+*)
+METHOD PUBLIC LinkMassangerToaddedTopElementsFromConfiguration : BOOL
+VAR_INPUT
+	fbCommunicator		: ITF_BaseCommunicator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfCommunicator := fbCommunicator;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkSafetyToaddedElementsFromConfiguration" Id="{421093b7-8353-0bdc-2224-ca9aae0b6f9c}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Podłączenie wsyzstkich zmiennych pochodzących od Programu safety wywoływane w konfiguratorze
+*)
+METHOD PUBLIC LinkSafetyToaddedElementsFromConfiguration : BOOL
+VAR_INPUT
+	flSS1				: ITF_BaseFlagGet;
+	flSTO				: ITF_BaseFlagGet;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.LinkSS1 (fbSS1 := flSS1);
+this^.LinkSTO (fbSTO := flSTO);]]></ST>
       </Implementation>
     </Method>
     <Method Name="SetCodeToAddedElementsFromConfiguration" Id="{9c0e8717-2de6-01d7-053e-0f21ff1e2b0f}" FolderPath="ITF_MachineControlConfigure\">

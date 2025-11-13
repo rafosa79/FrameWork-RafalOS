@@ -61,6 +61,8 @@ THIS^.arritfConfigure [1].LinkCommonDataToAddedElements (itfMachineControl := fb
 THIS^.arritfConfigure [1].SetIDToAddedElements (itfMachineControl := fbMachineControl);
 THIS^.arritfConfigure [1].SetIDEventsToAddedElements (itfMachineControl := fbMachineControl);
 THIS^.arritfConfigure [1].SetCodeToAddedElements (itfMachineControl := fbMachineControl);
+THIS^.arritfConfigure [1].LinkSafetyToAddedElements (itfMachineControl := fbMachineControl);
+THIS^.arritfConfigure [1].LinkMassangerToaddedTopElements (itfMachineControl := fbMachineControl);
 
 Configure		:= bResult;
 ]]></ST>

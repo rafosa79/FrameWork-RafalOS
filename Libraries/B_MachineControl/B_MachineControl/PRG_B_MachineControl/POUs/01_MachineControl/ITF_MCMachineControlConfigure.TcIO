@@ -55,6 +55,31 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="LinkMassangerToaddedTopElementsFromConfiguration" Id="{843efcca-b78f-023a-17c5-679ef58c5dea}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie głównego komunikatora pomiędzy topelementami do topelementów wywolywane z konfiguracji
+*)
+METHOD PUBLIC LinkMassangerToaddedTopElementsFromConfiguration : BOOL
+VAR_INPUT
+	fbCommunicator		: ITF_BaseCommunicator;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkSafetyToaddedElementsFromConfiguration" Id="{c07f7f6a-d91f-08db-2bc2-b870db8dac2e}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Podłączenie wsyzstkich zmiennych pochodzących od Programu safety wywoływane w konfiguratorze
+*)
+METHOD PUBLIC LinkSafetyToaddedElementsFromConfiguration : BOOL
+VAR_INPUT
+	flSS1				: ITF_BaseFlagGet;
+	flSTO				: ITF_BaseFlagGet;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="SetCodeToAddedElementsFromConfiguration" Id="{e29cfd7a-e36e-0ccd-0657-e5130b8e3726}">
       <Declaration><![CDATA[(*			
 	RafalOS

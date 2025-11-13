@@ -77,6 +77,43 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="LinkMassangerToaddedTopElements" Id="{3d1ec45d-85a7-0f26-2afb-97fceead6326}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Dodanie głównego komunikatora pomiędzy topelementami do topelementów
+*)
+METHOD LinkMassangerToaddedTopElements : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.LinkMassangerToaddedTopElementsFromConfiguration (
+	fbCommunicator := GVL_SystemVariable.fbMachineControl.GetCommunicatorITF ()
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkSafetyToaddedElements" Id="{3acce192-adb0-05aa-0805-6253a900664e}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Podłączenie wsyzstkich zmiennych pochodzących od Programu safety 
+*)
+METHOD LinkSafetyToaddedElements : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.LinkSafetyToaddedElementsFromConfiguration (
+	flSS1 := GVL_MCSafety.flSS1,
+	flSTO := GVL_MCSafety.flSTO
+);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetCodeToAddedElements" Id="{1b39a1ed-5064-01d7-257d-8cea5be2e882}">
       <Declaration><![CDATA[(*			
 	RafalOS
