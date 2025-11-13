@@ -20,6 +20,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="AddHMIManagerFromConfiguration" Id="{469471a7-c1b8-090c-0901-f9505ee12d4f}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Podpięcie menadżera HMI wywoływane z konfiguracji
+*)
+METHOD AddHMIManagerFromConfiguration : BOOL
+VAR_INPUT
+	fbHMIManager			: ITF_BaseGroupElement;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="AddMachineCotrolToYourSelfFromConfiguration" Id="{c25f9486-135c-08b4-3ae6-4554d81c2915}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -40,6 +52,17 @@ END_VAR
 METHOD PUBLIC AddSaMCotrollerToMachineControlFromConfiguration : BOOL
 VAR_INPUT
 	itfSaMController			: ITF_SaMController;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ExecuteFirstCycle" Id="{d24ffd5b-ca68-0962-3c0e-990de5787f5e}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Wywołanie pierwszego przejścia u wszystkich podzepsołów
+*)
+METHOD PUBLIC ExecuteFirstCycle : BOOL
+VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
@@ -88,6 +111,18 @@ END_VAR
 *)
 METHOD PUBLIC SetCodeToAddedElementsFromConfiguration : BOOL
 VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetEnableHMIServiceFromConfiguration" Id="{040c385a-ca7a-03e1-31b3-f2ce7a8f716f}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Uruchomienie lub wyłączenie obsługi HMI jak jest false fb obsługi nie jest dodawane do MachineControl wywolywane z konfiguracji
+*)
+METHOD SetEnableHMIServiceFromConfiguration : BOOL
+VAR_INPUT
+	bValue		: BOOL;
 END_VAR
 ]]></Declaration>
     </Method>

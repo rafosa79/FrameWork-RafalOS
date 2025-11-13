@@ -16,6 +16,9 @@
     <PouCall>
       <Name>PRG_SystemControlMachineWork</Name>
     </PouCall>
+    <PouCall>
+      <Name>PRG_ControlHMIInit</Name>
+    </PouCall>
     <TaskFBGuid>{afd9b5ae-091e-4ee0-8e40-b376fe9e3567}</TaskFBGuid>
     <Fb_init>{b4efc136-4416-44dd-9911-e5c1dfb3a53b}</Fb_init>
     <Fb_exit>{6899ef58-ac25-489f-a2a8-1dbb1d9a86e9}</Fb_exit>

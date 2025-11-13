@@ -29,6 +29,22 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
+    <Method Name="AddHMIManager" Id="{a5991951-f512-024a-2e07-3e925ccdfffa}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Podpięcie menadżera HMI
+*)
+METHOD AddHMIManager : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.AddHMIManagerFromConfiguration (fbHMIManager := PRG_ControlHMI.fbHMIManager);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddMachineCotrolToYourSelf" Id="{64c7fe67-f36e-0232-10b9-fb13acc8e5c0}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -127,6 +143,22 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[itfMachineControl.SetCodeToAddedElementsFromConfiguration ();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEnableHMIService" Id="{3a888c24-bc79-05e2-02e1-aafc3f4b0d67}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Uruchomienie lub wyłączenie obsługi HMI jak jest false fb obsługi nie jest dodawane do MachineControl
+*)
+METHOD SetEnableHMIService : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.SetEnableHMIServiceFromConfiguration (bValue := TRUE);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="SetIDEventsToAddedElements" Id="{6a6fd1b7-5a67-00a6-02bb-61313e511b34}">

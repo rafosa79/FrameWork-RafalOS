@@ -13,6 +13,7 @@ VAR
 	bInitDone					: BOOL;
 	(*	Konfiguracja		*)
 	itfMachineConfigure			: ITF_MCMachineConfigure;		//moduł konfiguracji
+	bEnableHMIService			: BOOL;
 	(*	TopElementu systemu	*)
 	arrTopElements					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT] OF ITF_BaseTopElement;
 	uiNumberOfAddedTopElement		: UINT := 0;//przy dodawaniu element 0 to system 
@@ -54,6 +55,25 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
+    <Method Name="AddHMIManagerFromConfiguration" Id="{7cfeaa08-7b5d-0aee-0b40-25f6d8c78dfc}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Podpięcie menadżera HMI wywoływane z konfiguracji
+*)
+METHOD AddHMIManagerFromConfiguration : BOOL
+VAR_INPUT
+	fbHMIManager			: ITF_BaseGroupElement;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.bEnableHMIService) THEN
+	THIS^.AddControlElement (itfControlElement := fbHMIManager);
+	
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddMachineCotrolToYourSelfFromConfiguration" Id="{dace522a-7d51-077e-3a49-9a0de96e23d6}" FolderPath="ITF_MachineControlConfigure\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -65,8 +85,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.arrTopElements [1]	:= THIS^;
-this^.uiNumberOfAddedTopElement := 1;]]></ST>
+        <ST><![CDATA[THIS^.uiNumberOfAddedTopElement := THIS^.uiNumberOfAddedTopElement + 1;
+THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement]	:= THIS^;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddModulConfigure" Id="{e05e86ab-e65a-0460-123e-9f866e36dccc}" FolderPath="WiazanieModulow\">
@@ -107,10 +128,17 @@ METHOD PUBLIC AddSaMCotrollerToMachineControlFromConfiguration : BOOL
 VAR_INPUT
 	itfSaMController			: ITF_SaMController;
 END_VAR
-]]></Declaration>
+VAR
+	iNumberOfTopElement			: INT;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.AddControlElement (itfControlElement := itfSaMController);
 THIS^.itfSaMController := itfSaMController;
+FOR iNumberOfTopElement := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
+	THIS^.arrTopElements [iNumberOfTopElement].LinkSaM (
+		fbSAM := itfSaMController
+	);
+END_FOR
 ]]></ST>
       </Implementation>
     </Method>
@@ -199,6 +227,26 @@ IF (bTopElementStateWorkCompleted) THEN
 	(*	Zmiana stanu na następny wyjście ze stanu aktywnego	*)
 	THIS^.itfSaMController.ExitActivState ();
 END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ExecuteFirstCycle" Id="{edf70b77-ba2f-0213-0d5c-b6184a3aaef1}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Wywołanie pierwszego przejścia u wszystkich podzepsołów
+*)
+METHOD PUBLIC ExecuteFirstCycle : BOOL
+VAR_INPUT
+END_VAR
+
+VAR
+	iNumberOfTopElement: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iNumberOfTopElement := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
+	THIS^.arrTopElements [iNumberOfTopElement].FirstCycle ();
+END_FOR
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetCommunicatorITF" Id="{d2d430b9-5eb5-0584-25ef-418eb079b38b}">
@@ -311,6 +359,22 @@ END_VAR]]></Declaration>
 		sCode := '0.0.0.0.0', sAdd := TO_STRING (iNumberOfTopElement)
 	);
 END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEnableHMIServiceFromConfiguration" Id="{1b03fb6c-ff23-066d-3ec3-09ff078a4135}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Uruchomienie lub wyłączenie obsługi HMI jak jest false fb obsługi nie jest dodawane do MachineControl wywolywane z konfiguracji
+*)
+METHOD SetEnableHMIServiceFromConfiguration : BOOL
+VAR_INPUT
+	bValue		: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bEnableHMIService := bValue;
 ]]></ST>
       </Implementation>
     </Method>

@@ -29,6 +29,21 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
+    <Method Name="AddHMIManager" Id="{61cfca67-957e-4d83-bef0-a0e80d36252f}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Podpięcie menadżera HMI
+*)
+METHOD AddHMIManager : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddMachineCotrolToYourSelf" Id="{c8ed0d9d-f48c-476a-915b-a4eba002124b}">
       <Declaration><![CDATA[(*
 	RafalOS
@@ -111,6 +126,21 @@ END_VAR
 	Nadanie unikalnych kodów elementom w systemie
 *)
 METHOD SetCodeToAddedElements : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEnableHMIService" Id="{a61f4a35-550a-4888-b810-7ccf06b9a44a}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Uruchomienie lub wyłączenie obsługi HMI jak jest false fb obsługi nie jest dodawane do MachineControl
+*)
+METHOD SetEnableHMIService : BOOL
 VAR_INPUT
 	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
 END_VAR

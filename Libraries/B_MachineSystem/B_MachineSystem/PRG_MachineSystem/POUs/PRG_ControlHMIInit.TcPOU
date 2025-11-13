@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_ControlHMIInit" Id="{9feea808-f820-0e23-2d25-71153216f220}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_ControlHMIInit
+VAR
+	(*	Konfiguracja HMIManager		*)
+	fbDedaultHMIConfiguration		: FB_DefaultHMIConfiguration;
+	fbHMIConfigure					: FB_HMIConfigure;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (NOT GVL_SystemVariable.bControlHMIInit) THEN
+	GVL_SystemVariable.bControlHMIInit := TRUE;
+		(*	Konfiguracjia systemu HMI	*)
+	fbHMIConfigure.AddConfiguration (fbConfigure := fbDedaultHMIConfiguration);
+	PRG_ControlHMI.fbHMIManager.AddModulConfigure (fbHMIConfigure := fbHMIConfigure);
+	
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

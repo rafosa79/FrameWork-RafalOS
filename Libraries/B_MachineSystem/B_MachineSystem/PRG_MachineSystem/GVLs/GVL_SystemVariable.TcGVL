@@ -14,8 +14,10 @@ VAR_GLOBAL
 	(*	Główny element sterujący maszyną - logika pracy					*)
 	fbMachineControl				: FB_MCMachineControl;
 	
-	(*	Główny element sterowania wyświetlaniem na HMI					*)
-	fbHMIManager					: FB_HMIManager;
+	(*	Zmienne zakończenia konfiguracji	*)
+	bDefaultInitDone				: BOOL;
+	bMachineInitDone				: BOOL;
+	bControlHMIInit					: BOOL;
 	
 	
 END_VAR]]></Declaration>

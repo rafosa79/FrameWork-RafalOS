@@ -8,22 +8,23 @@
 *)
 PROGRAM PRG_SystemControlMachineInit
 VAR
+	(*	Konfiguracja MachineControl	*)
+	fbDefaultMachineConfiguration	: FB_MachineDefaultConfiguration;
+	fbMachineConfigure				: FB_MCMachineConfigure;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF (NOT GVL_SystemConfigure.bDefaultInitDone AND 
-	NOT GVL_SystemConfigure.bMachineInitDone) THEN
+      <ST><![CDATA[IF (NOT GVL_SystemVariable.bDefaultInitDone AND 
+	NOT GVL_SystemVariable.bMachineInitDone) THEN
 
 	GVL_SystemVariable.stCommonData.itfTime := GVL_SystemVariable.fbTime;
 	GVL_SystemVariable.stCommonData.itfLocaciotn := GVL_SystemVariable.fbLocation;
 	GVL_SystemVariable.stCommonData.itfLogger := GVL_SystemVariable.fbLogger;
 
 		(*	Podpięcie podstawowej konfiguracji	*)
-	GVL_SystemConfigure.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_SystemConfigure.fbDefaultMachineConfiguration);
-	GVL_SystemVariable.fbMachineControl.AddModulConfigure (fbMachineConfigure := GVL_SystemConfigure.fbMachineConfigure);
-		(*	Konfiguracjia systemu HMI	*)
-	GVL_SystemConfigure.fbHMIConfigure.AddConfiguration (fbConfigure := GVL_SystemConfigure.fbDedaultHMIConfiguration);
-	GVL_SystemVariable.fbHMIManager.AddModulConfigure (fbHMIConfigure := GVL_SystemConfigure.fbHMIConfigure);
+	fbMachineConfigure.AddConfiguration (fbConfigure := fbDefaultMachineConfiguration);
+	GVL_SystemVariable.fbMachineControl.AddModulConfigure (fbMachineConfigure := fbMachineConfigure);
 		(*	Podpięcie danych do leogera 	*)
 	GVL_SystemVariable.fbLogger.LinkCommonData (stCommonData := GVL_SystemVariable.stCommonData);
 
@@ -44,7 +45,7 @@ END_VAR
 	
 	
 *)	
-	GVL_SystemConfigure.bDefaultInitDone	:= TRUE;
+	GVL_SystemVariable.bDefaultInitDone	:= TRUE;
 END_IF
 ]]></ST>
     </Implementation>

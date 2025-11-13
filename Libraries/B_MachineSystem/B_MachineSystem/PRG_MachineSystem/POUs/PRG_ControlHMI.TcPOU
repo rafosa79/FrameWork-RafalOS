@@ -8,17 +8,21 @@
 *)
 PROGRAM PRG_ControlHMI
 VAR
+	(*	Główny element sterowania wyświetlaniem na HMI					*)
+	fbHMIManager					: FB_HMIManager;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 	(*	Wywołanie metody sterowania HMI	*)
 
-IF (GVL_SystemConfigure.bDefaultInitDone AND
-	GVL_SystemConfigure.bMachineInitDone AND
+IF (GVL_Systemvariable.bDefaultInitDone AND
+	GVL_Systemvariable.bMachineInitDone AND
+	GVL_SystemVariable.bControlHMIInit AND
 	GVL_SystemVariable.fbMachineControl.IsInitDone ()) THEN
 	
-	GVL_SystemVariable.fbHMIManager ();
+	fbHMIManager ();
 END_IF
 ]]></ST>
     </Implementation>
