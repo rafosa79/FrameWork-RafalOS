@@ -80,6 +80,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="LinkRequestButtonChange" Id="{d9b97e2e-8863-05df-1f12-2961044b0f2d}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Podpięcie przyciskow zmiany trybu i stanu
+*)
+METHOD LinkRequestButtonChange : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="LinkSafetyToaddedElements" Id="{32626c45-626b-0ec2-2722-4f9716cc629d}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -135,6 +147,18 @@ END_VAR
 	Dodanie wszystkim elementom w systemie unikalnego ID
 *)
 METHOD PUBLIC SetIDToAddedElements : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetStartMode" Id="{e7982d92-8d50-06ab-1e09-5a2a0d93a313}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	ustawienie trybu poczatkowego
+*)
+METHOD SetStartMode : BOOL
 VAR_INPUT
 	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR

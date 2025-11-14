@@ -111,6 +111,37 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="LinkRequestButtonChange" Id="{b10a4914-2063-0cae-2590-d6e52909f8a4}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Podpięcie przyciskow zmiany trybu i stanu
+*)
+METHOD LinkRequestButtonChange : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.LinkRequestButtonStateChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeState.Clear,		itfRequest := GVL_RequeestChange.fbprClear);
+itfMachineControl.LinkRequestButtonStateChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeState.Reset, 	itfRequest := GVL_RequeestChange.fbprReset);
+itfMachineControl.LinkRequestButtonStateChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeState.Start, 	itfRequest := GVL_RequeestChange.fbprStart);
+itfMachineControl.LinkRequestButtonStateChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeState.Stop, 		itfRequest := GVL_RequeestChange.fbprStop);
+itfMachineControl.LinkRequestButtonStateChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeState.Suspend, 	itfRequest := GVL_RequeestChange.fbprSuspend);
+itfMachineControl.LinkRequestButtonStateChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeState.Unsuspend, itfRequest := GVL_RequeestChange.fbprUnsuspend);
+itfMachineControl.LinkRequestButtonStateChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeState.Hold, 		itfRequest := GVL_RequeestChange.fbprHold);
+itfMachineControl.LinkRequestButtonStateChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeState.Unhold, 	itfRequest := GVL_RequeestChange.fbprUnhold);
+itfMachineControl.LinkRequestButtonStateChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeState.Complete, 	itfRequest := GVL_RequeestChange.fbprComplete);
+itfMachineControl.LinkRequestButtonStateChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeState.Abort,		itfRequest := GVL_RequeestChange.fbprAbort);
+
+itfMachineControl.LinkRequestButtonModeChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeMode.Production, 	itfRequest := GVL_RequeestChange.fbprProduction);
+itfMachineControl.LinkRequestButtonModeChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeMode.Maintenance,	itfRequest := GVL_RequeestChange.fbprMaintenance);
+itfMachineControl.LinkRequestButtonModeChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeMode.Manual, 		itfRequest := GVL_RequeestChange.fbprManual);
+itfMachineControl.LinkRequestButtonModeChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeMode.Washing,		itfRequest := GVL_RequeestChange.fbprWashing);
+itfMachineControl.LinkRequestButtonModeChangeFromConfiguration (iNumberOfRequest := E_SaMCommandChangeMode.Diagnostisc,	itfRequest := GVL_RequeestChange.fbprDiagnostics);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="LinkSafetyToaddedElements" Id="{3acce192-adb0-05aa-0805-6253a900664e}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -193,6 +224,22 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SetStartMode" Id="{cccc5924-88f9-0ded-0130-1c253693e113}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	ustawienie trybu poczatkowego
+*)
+METHOD SetStartMode : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.SetStartModeFromConfiguration (eStartMode := E_BaseMachineMode.Production);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="STARE_AddHMIToMachineControl" Id="{1ddb6eb9-c931-0e11-33e1-e42c75396327}">
       <Declaration><![CDATA[METHOD PUBLIC STARE_AddHMIToMachineControl : BOOL
 VAR_INPUT
@@ -233,17 +280,6 @@ END_VAR
 //THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "System");
 //GVL_SystemVariable.fbMachineControl.SetName (stName := THIS^.GetTexts ());
 //itfMachineControl.AddTopElementFromConfiguration (fbTopElement	:= GVL_SystemVariable.fbMachineControl);
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="STARE_SetStartMode" Id="{281bfd3c-5022-467b-b076-37f9b0db67bc}">
-      <Declaration><![CDATA[METHOD PUBLIC STARE_SetStartMode : BOOL
-VAR_INPUT
-	itfMachineControl			: ITF_MCMachineControlConfigure;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[//itfMachineControl.SetStartMode (eStartMode := E_BaseMachineMode.Production);
 ]]></ST>
       </Implementation>
     </Method>

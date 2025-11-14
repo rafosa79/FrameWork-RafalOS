@@ -42,24 +42,19 @@ END_VAR]]></Declaration>
         <ST><![CDATA[bResult			:= TRUE;
 
 THIS^.arritfConfigure [1].AddMachineCotrolToYourSelf (itfMachineControl := fbMachineControl);
-
+THIS^.arritfConfigure [1].AddSaMCotrollerToMachineControl (itfMachineControl := fbMachineControl);
 FOR iI := 1 TO THIS^.iNubmerOfAddedConfigure DO 
 	IF (THIS^.arritfConfigure [iI] <> 0) THEN
 		
 		THIS^.arritfConfigure [iI].SetEnableHMIService (itfMachineControl := fbMachineControl);
 		THIS^.arritfConfigure [iI].AddHMIManager (itfMachineControl := fbMachineControl);
 		THIS^.arritfConfigure [iI].AddElements (itfMachineControl	:= fbMachineControl);
-
-
-//		THIS^.arritfConfigure [iI].AddHMIToMachineControl (itfMachineControl := fbMachineControl);
-// 		THIS^.arritfConfigure [iI].AddTopElementToMachineControl (itfMachineControl := fbMachineControl);
-//		THIS^.arritfConfigure [iI].AddTopElementToLogger ();
-//		THIS^.arritfConfigure [iI].StateAndModes (itfMachineControl := fbMachineControl);
-//		THIS^.arritfConfigure [iI].SetStartMode (itfMachineControl := fbMachineControl);
+		THIS^.arritfConfigure [iI].LinkRequestButtonChange (itfMachineControl	:= fbMachineControl);
+		THIS^.arritfConfigure [iI].SetStartMode (itfMachineControl	:= fbMachineControl);
 	END_IF
 END_FOR
 
-THIS^.arritfConfigure [1].AddSaMCotrollerToMachineControl (itfMachineControl := fbMachineControl);
+
 
 THIS^.arritfConfigure [1].LinkCommonDataToAddedElements (itfMachineControl := fbMachineControl);
 THIS^.arritfConfigure [1].SetIDToAddedElements (itfMachineControl := fbMachineControl);

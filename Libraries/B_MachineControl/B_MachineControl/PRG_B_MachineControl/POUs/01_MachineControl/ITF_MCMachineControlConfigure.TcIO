@@ -90,6 +90,32 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="LinkRequestButtonModeChangeFromConfiguration" Id="{dcc56f81-e212-0119-324f-69ff5c6b034b}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Podpięcie przyciskow zmiany stanu wywoływane z konfiguracji 
+*)
+METHOD LinkRequestButtonModeChangeFromConfiguration : BOOL
+VAR_INPUT
+	iNumberOfRequest			: INT;
+	itfRequest					: ITF_MCRequiredChange;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkRequestButtonStateChangeFromConfiguration" Id="{63c09a24-b846-0d5b-3dcb-52a59ac8bade}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Podpięcie przyciskow zmiany trybu i stanu wywoływane z konfiguracji 
+*)
+METHOD LinkRequestButtonStateChangeFromConfiguration : BOOL
+VAR_INPUT
+	iNumberOfRequest			: INT;
+	itfRequest					: ITF_MCRequiredChange;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="LinkSafetyToaddedElementsFromConfiguration" Id="{c07f7f6a-d91f-08db-2bc2-b870db8dac2e}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -145,6 +171,18 @@ END_VAR
 *)
 METHOD PUBLIC SetIDToAddedElementsFromConfiguration : BOOL
 VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetStartModeFromConfiguration" Id="{4c6ccb10-df9b-0976-30d9-7e3c3d75f702}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	ustawienie trybu poczatkowego wywoływane z konfiguracji
+*)
+METHOD SetStartModeFromConfiguration : BOOL
+VAR_INPUT
+	eStartMode				: E_BaseMachineMode;
 END_VAR
 ]]></Declaration>
     </Method>

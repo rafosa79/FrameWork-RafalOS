@@ -192,15 +192,31 @@ IF (NOT THIS^.itfSaMController.IsChangeModeBusy () AND NOT THIS^.itfSaMControlle
 	
 	(*	Testowanie czy jest rządanie zmiany stany	*)
 	IF (NOT bBlockade) THEN
-		FOR iI := 1 TO GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES DO 
-			IF (THIS^.arrRequestChangeState [iI] <> 0) THEN
-				IF (THIS^.arrRequestChangeState [iI].Testing ()) THEN
-					THIS^.itfSaMController.Execute (iNumberOfCommand := iI, eChangeCategory := E_SaMChangeCategory.eState);
-					EXIT;
+		IF (THIS^.itfSaMController.GetMode () <> E_BaseMachineMode.NotAllowed AND
+			THIS^.itfSaMController.GetState () = E_BaseMachineState.Undefined) THEN
+			
+			THIS^.itfSaMController.Execute (
+				iNumberOfCommand := E_SaMCommandChangeState.Abort,
+				eChangeCategory := E_SaMChangeCategory.eState
+			);
+			
+		ELSE
+			
+			FOR iI := 1 TO GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES DO 
+				IF (THIS^.arrRequestChangeState [iI] <> 0) THEN
+					IF (THIS^.arrRequestChangeState [iI].Testing ()) THEN
+						THIS^.itfSaMController.Execute (
+							iNumberOfCommand := iI,
+							eChangeCategory := E_SaMChangeCategory.eState
+						);
+						EXIT;
+					END_IF
 				END_IF
-			END_IF
-		END_FOR
+			END_FOR
+			
+		END_IF
 	END_IF
+
 END_IF
 
 	(*	Obsługa stanów 		*)
@@ -323,6 +339,40 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="LinkRequestButtonModeChangeFromConfiguration" Id="{49d3b965-a6b2-0957-1dcd-d8d0f3112b66}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Podpięcie przyciskow zmiany stanu wywoływane z konfiguracji 
+*)
+METHOD LinkRequestButtonModeChangeFromConfiguration : BOOL
+VAR_INPUT
+	iNumberOfRequest			: INT;
+	itfRequest					: ITF_MCRequiredChange;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrRequestChangeMode [iNumberOfRequest]	:= itfRequest;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkRequestButtonStateChangeFromConfiguration" Id="{d4ccb592-970e-0ea2-15fa-e0a3407d8233}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Podpięcie przyciskow zmiany stanu wywoływane z konfiguracji 
+*)
+METHOD LinkRequestButtonStateChangeFromConfiguration : BOOL
+VAR_INPUT
+	iNumberOfRequest			: INT;
+	itfRequest					: ITF_MCRequiredChange;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrRequestChangeState [iNumberOfRequest]	:= itfRequest;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="LinkSafetyToaddedElementsFromConfiguration" Id="{421093b7-8353-0bdc-2224-ca9aae0b6f9c}" FolderPath="ITF_MachineControlConfigure\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -423,6 +473,21 @@ END_FOR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SetStartModeFromConfiguration" Id="{43529a63-c868-0bd4-2738-b9b5832c43ec}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	ustawienie trybu poczatkowego wywoływane z konfiguracji
+*)
+METHOD SetStartModeFromConfiguration : BOOL
+VAR_INPUT
+	eStartMode				: E_BaseMachineMode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfSaMController.Execute (iNumberOfCommand := eStartMode, eChangeCategory := E_SaMChangeCategory.eMode);]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="STARE_AddHMIManager" Id="{83eb5c4d-6a27-0a18-07a0-6bb5a84b3772}" FolderPath="ITF_MachineControlConfigure\">
       <Declaration><![CDATA[METHOD STARE_AddHMIManager : BOOL
 VAR_INPUT
@@ -431,30 +496,6 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.AddControlElement (itfControlElement := itfHMIManager);
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="STARE_AddRequestModeChange" Id="{eee38abc-f39d-0ce2-0412-12f1dcddd8de}" FolderPath="ITF_MachineControlConfigure\">
-      <Declaration><![CDATA[METHOD PUBLIC STARE_AddRequestModeChange : BOOL
-VAR_INPUT
-	iNumberOfRequest			: INT;
-	itfRequest					: ITF_MCRequiredChange;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.arrRequestChangeMode [iNumberOfRequest]	:= itfRequest;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="STARE_AddRequestStateChange" Id="{3a316008-6053-0642-3d72-eda4def5bdc4}" FolderPath="ITF_MachineControlConfigure\">
-      <Declaration><![CDATA[METHOD PUBLIC STARE_AddRequestStateChange : BOOL
-VAR_INPUT
-	iNumberOfRequest			: INT;
-	itfRequest					: ITF_MCRequiredChange;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.arrRequestChangeState [iNumberOfRequest]	:= itfRequest;
 ]]></ST>
       </Implementation>
     </Method>
@@ -492,16 +533,6 @@ END_VAR
 	STARE_AddTopElementFromConfiguration							:= TRUE;
 END_IF
 ]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="STARE_SetStartMode" Id="{d33b08a8-5ec6-0245-01ba-557e6d74ea6b}" FolderPath="ITF_MachineControlConfigure\">
-      <Declaration><![CDATA[METHOD PUBLIC STARE_SetStartMode
-VAR_INPUT
-	eStartMode				: E_BaseMachineMode;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.itfSaMController.Execute (iNumberOfCommand := eStartMode, eChangeCategory := E_SaMChangeCategory.eMode);]]></ST>
       </Implementation>
     </Method>
   </POU>

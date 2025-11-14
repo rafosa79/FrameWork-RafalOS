@@ -121,6 +121,42 @@ InitializeCycle		:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SetActiveButtonMainMenuFromConfiguration" Id="{21ebb6b9-82ee-02ba-113e-377786737a20}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC SetActiveButtonMainMenuFromConfiguration : BOOL
+VAR_INPUT
+	iButton			: INT;	//numer przycisku od 0
+	bValue			: BOOL;	//true aktywny może być tylko jeden w menu
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMainMenu.SetActiveButton (iButton := iButton, bIN := bValue);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetEnableButtonMainMenuFromConfiguration" Id="{39fad727-a855-013c-28c5-6e8efb5ac96d}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC SetEnableButtonMainMenuFromConfiguration : BOOL
+VAR_INPUT
+	iButton			: INT;	//numer przycisku od 0
+	bValue			: BOOL;	//true włączony
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMainMenu.SetEnableButton (iButton := iButton, bIN := bValue);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetVisibleButtonMainMenuFromConfiguration" Id="{14e91481-d18f-0509-14ea-2677809820f7}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC SetVisibleButtonMainMenuFromConfiguration : BOOL
+VAR_INPUT
+	iButton			: INT;	//numer przycisku od 0
+	bValue			: BOOL;	//true widoczny
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMainMenu.SetVisibleButton (iButton := iButton, bIN := bValue);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="STARE_AddMainMenu" Id="{6015e53e-8f7a-0411-0f19-c77aa60698c6}" FolderPath="ITF_HMIManagerConfigure\">
       <Declaration><![CDATA[METHOD PUBLIC STARE_AddMainMenu : BOOL
 VAR_INPUT
@@ -137,42 +173,6 @@ THIS^.AddControlElement (itfControlElement := fbMenu);
 THIS^.itfMainMenu		:= fbMenu;
 THIS^.itfMainMenu.LinkCommonData (stCommonData := THIS^.refstCommonData);
 
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="STARE_SetActiveButtonMainMenu" Id="{21ebb6b9-82ee-02ba-113e-377786737a20}" FolderPath="ITF_HMIManagerConfigure\">
-      <Declaration><![CDATA[METHOD PUBLIC STARE_SetActiveButtonMainMenu : BOOL
-VAR_INPUT
-	iButton			: INT;	//numer przycisku od 0
-	bValue			: BOOL;	//true aktywny może być tylko jeden w menu
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.itfMainMenu.SetActiveButton (iButton := iButton, bIN := bValue);
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="STARE_SetEnableButtonMainMenu" Id="{39fad727-a855-013c-28c5-6e8efb5ac96d}" FolderPath="ITF_HMIManagerConfigure\">
-      <Declaration><![CDATA[METHOD PUBLIC STARE_SetEnableButtonMainMenu : BOOL
-VAR_INPUT
-	iButton			: INT;	//numer przycisku od 0
-	bValue			: BOOL;	//true włączony
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.itfMainMenu.SetEnableButton (iButton := iButton, bIN := bValue);
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="STARE_SetVisibleButtonMainMenu" Id="{14e91481-d18f-0509-14ea-2677809820f7}" FolderPath="ITF_HMIManagerConfigure\">
-      <Declaration><![CDATA[METHOD PUBLIC STARE_SetVisibleButtonMainMenu : BOOL
-VAR_INPUT
-	iButton			: INT;	//numer przycisku od 0
-	bValue			: BOOL;	//true widoczny
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.itfMainMenu.SetVisibleButton (iButton := iButton, bIN := bValue);
 ]]></ST>
       </Implementation>
     </Method>
