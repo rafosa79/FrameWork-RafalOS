@@ -9,7 +9,7 @@
 			</Tasks>
 		</System>
 		<Plc>
-			<Project File="PRG_MachineControl_HMI_Connector.xti"/>
+			<Project File="PRG_MC_HMI_Conn.xti"/>
 		</Plc>
 	</Project>
 </TcSmProject>

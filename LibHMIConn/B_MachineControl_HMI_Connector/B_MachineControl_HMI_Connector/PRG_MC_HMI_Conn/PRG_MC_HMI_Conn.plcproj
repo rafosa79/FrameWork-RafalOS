@@ -8,7 +8,7 @@
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>PRG_MachineControl_HMI_Connector</Name>
+    <Name>PRG_MC_HMI_Conn</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
     <Application>{252abc8d-9c17-4051-bf0b-fc4045cb8ee7}</Application>
     <TypeSystem>{55117e7a-6c9f-4546-add5-f3e4fb8c6a21}</TypeSystem>
@@ -101,10 +101,10 @@
     <Compile Include="POUs\01_MC\ST_MCHMIMachineControl_HMI.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\02_RodzicDlaPrzygotowywanieStron\FB_MCHMIPrepareDataForScreen.TcPOU">
+    <Compile Include="POUs\02_PrepareScreenParent\FB_MCHMIPrepareDataForScreen.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\02_RodzicDlaPrzygotowywanieStron\ITF_MCHMIPrepareDataForScreen.TcIO">
+    <Compile Include="POUs\02_PrepareScreenParent\ITF_MCHMIPrepareDataForScreen.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -113,7 +113,7 @@
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
     <Folder Include="POUs\01_MC" />
-    <Folder Include="POUs\02_RodzicDlaPrzygotowywanieStron" />
+    <Folder Include="POUs\02_PrepareScreenParent" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -151,7 +151,7 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="PRG_MachineControl_HMI_Connector.tmc">
+    <None Include="PRG_MC_HMI_Conn.tmc">
       <SubType>Content</SubType>
     </None>
   </ItemGroup>
