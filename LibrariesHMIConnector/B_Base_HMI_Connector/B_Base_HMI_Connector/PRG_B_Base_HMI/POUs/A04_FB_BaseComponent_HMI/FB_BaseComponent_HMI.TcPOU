@@ -10,6 +10,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_BaseLoggerElement_HMI" Id="{a7bde6f3-dd07-01ad-312e-4b18ae6dfe2c}" />
     <Folder Name="WiazanieZmiennych" Id="{870c23bf-4b00-0970-28a0-73e67a9b4230}" />
     <Method Name="IsLinkedReferences" Id="{7e0f46e5-1712-0fd2-084d-d6fe8737dc5c}" FolderPath="WiazanieZmiennych\">
       <Declaration><![CDATA[METHOD PUBLIC IsLinkedReferences : BOOL
@@ -20,6 +21,22 @@ END_VAR
         <ST><![CDATA[IF (SUPER^.IsLinkedReferences () AND __ISVALIDREF (THIS^.refstBaseComponentDataHMI)) THEN
 	IsLinkedReferences			:= TRUE;
 END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataForHMI" Id="{49fd316c-5d5b-0f7d-2ccf-0b061cb6666d}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Metoda przygotowywania danych dla HMI 
+	W niej odbywa się odpytywanie właściego elementu przez łącznik
+*)
+METHOD PUBLIC PrepareDataForHMI : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstBaseComponentDataHMI.wsName := THIS^.GetTextFromLabelForActiveLocation (stLabel := THIS^.itfBaseComponentConnector.GetName ());
 ]]></ST>
       </Implementation>
     </Method>

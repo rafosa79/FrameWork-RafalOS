@@ -3,7 +3,8 @@
   <POU Name="Compilation" Id="{0f17c587-b026-48f1-9b9b-d704338eca71}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Compilation
 VAR
-	
+	fbMachineConfiguration	: FB_MachineDefaultConfiguration;
+	fbHMIConfiguration		: FB_DefaultHMIConfiguration;
 END_VAR
 ]]></Declaration>
     <Implementation>

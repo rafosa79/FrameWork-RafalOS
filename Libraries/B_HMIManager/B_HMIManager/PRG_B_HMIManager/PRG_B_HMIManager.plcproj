@@ -19,7 +19,7 @@
     <Company>RafałOS</Company>
     <Released>false</Released>
     <Title>B_HMIManager</Title>
-    <ProjectVersion>0.0.0.1</ProjectVersion>
+    <ProjectVersion>0.0.0.4</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -139,6 +139,9 @@
     <PlaceholderReference Include="B_MachineControl">
       <DefaultResolution>B_MachineControl, * (RafalOS)</DefaultResolution>
       <Namespace>B_MachineControl</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_StatesAndModes">
+      <DefaultResolution>B_StatesAndModes, * (RafalOS)</DefaultResolution>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>

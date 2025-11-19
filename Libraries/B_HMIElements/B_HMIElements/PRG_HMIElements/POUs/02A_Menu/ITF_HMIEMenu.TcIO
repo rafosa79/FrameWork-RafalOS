@@ -9,6 +9,12 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetNumberOfAddedButton" Id="{cc008938-87b3-00fa-29a8-ecaf33db7187}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfAddedButton : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="IsActiveButton" Id="{f22efdf8-7886-0a69-2875-61fb93444426}">
       <Declaration><![CDATA[METHOD IsActiveButton : BOOL
 VAR_INPUT

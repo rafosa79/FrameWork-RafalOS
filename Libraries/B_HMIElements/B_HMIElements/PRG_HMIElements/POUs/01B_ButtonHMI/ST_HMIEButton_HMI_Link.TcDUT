@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_HMIEButton_HMI_Link" Id="{8c4ec469-8bd9-016d-035f-17b632626697}">
+    <Declaration><![CDATA[TYPE ST_HMIEButton_HMI_Link EXTENDS ST_BaseComponent_HMI_Link :
+STRUCT
+	stButtonHMI			: ST_HMIEButton_HMI;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

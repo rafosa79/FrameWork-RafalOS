@@ -13,52 +13,161 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="AddElements" Id="{707de1b3-1d02-0dcc-2713-293dd173ba9c}">
+    <Method Name="AddMainMenu" Id="{44b09da7-75f1-0fb2-248e-9ffa540d4691}">
       <Declaration><![CDATA[(*			
 	RafalOS
-	Rafał Osajda		13.11.2025		TC 4024.66
-	Metoda przeznaczona do dodawania elementów do FB_HMIManager
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Dodanie do systemu menu głównego 
 *)
-METHOD AddElements : BOOL
+METHOD AddMainMenu : BOOL
 VAR_INPUT
 	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[	(*	Utowrzenie menu głównego	*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Okno główne");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Main screen");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Hauptbildschirm");
+PRG_ControlHMI.fbMMB0_MainScreen.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB0_MainScreen);
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Receptury");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Recipe");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Rezept");
+PRG_ControlHMI.fbMMB1_Recipe.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB1_Recipe);
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Parametry");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Parameters");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Parameter");
+PRG_ControlHMI.fbMMB2_Parameters.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB2_Parameters);
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zdarzenia");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Events");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Veranstaltungen");
+PRG_ControlHMI.fbMMB3_Events.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB3_Events);
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zmiana trybu");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Mode change");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Modusänderung");
+PRG_ControlHMI.fbMMB4_ModeChange.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB4_ModeChange);
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Statystyki");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Statistics");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Statistiken");
+PRG_ControlHMI.fbMMB5_Statistics.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB5_Statistics);
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Diagram stanów");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "State diagram");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zustandsdiagramm");
+PRG_ControlHMI.fbMMB6_StateDiagram.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB6_StateDiagram);
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Ustawienia");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Settings");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Einstellungen");
+PRG_ControlHMI.fbMMB7_Settings.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB7_Settings);
+//
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB0_MainScreen_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB1_Recipe_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB2_Parameters_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB3_Events_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB4_ModeChange_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB5_Statistics_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB6_StateDiagram_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB7_Settings_HMI_Connector);
+
+itfHMIManager.AddMainMenuFromConfiguration (
+	fbMenu := PRG_ControlHMI.fbMainMenu,
+	fbMenu_HMI := PRG_ControlHMI.fbMainMenu_HMI_Connector
+);
+]]></ST>
       </Implementation>
     </Method>
-    <Method Name="STARE_MainMenuConfigure" Id="{fc0eaafe-d571-0294-3df6-99335dc02c74}">
-      <Declaration><![CDATA[METHOD STARE_MainMenuConfigure : BOOL
+    <Method Name="LinkCommonStructureData" Id="{809bebf6-2341-0229-3504-bc3941e2cafc}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Podłączenie głównej struktury danych dla domyślnych elementów 
+*)
+METHOD LinkCommonStructureData : BOOL
 VAR_INPUT
-	itfHMIManager			: ITF_HMIManagerConfigure;
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[(*	Utowrzenie menu głównego	*)
-//	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB0_MainScreen);
-//	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB1_Recipe);
-//	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB2_Parameters);
-//	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB3_Events);
-//	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB4_ModeChange);
-//	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB5_Statistics);
-//	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB6_StateDiagram);
-//	GVL_SystemHMIVariable.fbMainMenu.AddButton (fbButton := GVL_SystemHMIVariable.fbMMB7_Settings);
-//
-//	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB0_MainScreen_HMI_Connector);
-//	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB1_Recipe_HMI_Connector);
-//	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB2_Parameters_HMI_Connector);
-//	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB3_Events_HMI_Connector);
-//	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB4_ModeChange_HMI_Connector);
-//	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB5_Statistics_HMI_Connector);
-//	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB6_StateDiagram_HMI_Connector);
-//	GVL_SystemHMIVariable.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := GVL_SystemHMIVariable.fbMMB7_Settings_HMI_Connector);
+        <ST><![CDATA[itfHMIManager.LinkHMIManagerDataFromConfiguration (stData := PRG_ControlHMI.stHMIData);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkHMIManagerData" Id="{0dd4ccc1-f7b5-039f-2ef7-cc7039656273}">
+      <Declaration><![CDATA[METHOD LinkHMIManagerData : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfHMIManager.LinkHMIManagerDataFromConfiguration (stData := PRG_ControlHMI.stHMIData);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetButtonActive" Id="{ef4dae27-eac3-0c53-0fad-accc29e40bae}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przycisk na aktywny  - pierwsze okno w wyświetlaniu wizualizacji
+*)
+METHOD SetButtonActive : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfHMIManager.SetButtonActiveFromConfiguration (iNumber := 0, bValue := TRUE);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetButtonsEnabled" Id="{01362e76-6df6-0e77-3a0b-ea16d9695793}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przyciski na wlaczone lub wylaczone - możliwośc naciśnięcia
+*)
+METHOD SetButtonsEnabled : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
 
-//	itfHMIManager.AddMainMenu (fbMenu := GVL_SystemHMIVariable.fbMainMenu);
-	
-	
-
-//itfHMIManager.SetActiveButtonMainMenu (iButton := 0, bValue := TRUE);
+VAR
+	iI					: INT;
+	iNumberofButtons	: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[iNumberofButtons := itfHMIManager.GetNumberOfAddedButtons ();
+FOR iI := 0 TO iNumberofButtons DO
+	itfHMIManager.SetButtonsEnabledFromConfiguration (iNumber := iI, bValue := TRUE);
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetButtonsVisible" Id="{18290a14-9a2f-0158-2aba-671cc7a631d1}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przyciski na widoczne lub nie widoczne
+*)
+METHOD SetButtonsVisible : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+VAR
+	iI					: INT;
+	iNumberofButtons	: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[iNumberofButtons := itfHMIManager.GetNumberOfAddedButtons ();
+FOR iI := 0 TO iNumberofButtons DO
+	itfHMIManager.SetButtonsEnabledFromConfiguration (iNumber := iI, bValue := TRUE);
+END_FOR
 ]]></ST>
       </Implementation>
     </Method>

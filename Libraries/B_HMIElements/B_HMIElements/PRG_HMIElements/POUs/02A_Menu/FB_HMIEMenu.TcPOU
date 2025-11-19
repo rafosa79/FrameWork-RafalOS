@@ -54,6 +54,16 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetNumberOfAddedButton" Id="{d4afd020-cb51-0d9c-3094-74d7a76ca847}" FolderPath="ITF_HMIEMenu\">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfAddedButton : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfAddedButton := THIS^.iNumberOfButton;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetTitleOfActivePage" Id="{4dfec56d-8e66-0e98-2e07-c6efc333db3e}" FolderPath="ITF_HMIEMenu\">
       <Declaration><![CDATA[METHOD PUBLIC GetTitleOfActivePage : WSTRING
 VAR_INPUT
@@ -172,6 +182,7 @@ END_VAR]]></Declaration>
 		FOR iJ := 0 TO THIS^.iNumberOfButton DO 
 			THIS^.arrButtons [iJ].SetActive (bIN := FALSE);
 		END_FOR
+		THIS^.arrButtons [iI].SetPressed (bIN := FALSE);
 		THIS^.arrButtons [iI].SetActive (bIN := TRUE);
 		THIS^.iActiveButtonPrev := THIS^.iActiveButton;
 		THIS^.iActiveButton := iI;

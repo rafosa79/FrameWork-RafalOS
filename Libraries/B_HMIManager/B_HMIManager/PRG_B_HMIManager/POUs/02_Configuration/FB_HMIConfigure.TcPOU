@@ -40,16 +40,20 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[bResult			:= TRUE;
 
+THIS^.arritfConfigure [1].AddMainMenu (itfHMIManager := fbHMIManager);
+THIS^.arritfConfigure [1].LinkCommonStructureData (itfHMIManager := fbHMIManager);
+
 FOR iI := 1 TO THIS^.iNubmerOfAddedConfigure DO 
 	IF (THIS^.arritfConfigure [iI] <> 0) THEN
-		THIS^.arritfConfigure [iI].AddElements (itfHMIManager := fbHMIManager);
+		THIS^.arritfConfigure [iI].SetButtonActive (itfHMIManager	:= fbHMIManager);
+		THIS^.arritfConfigure [iI].SetButtonsVisible (itfHMIManager	:= fbHMIManager);
+		THIS^.arritfConfigure [iI].SetButtonsEnabled (itfHMIManager	:= fbHMIManager);
+		//THIS^.arritfConfigure [iI].
 
-
-
-//		THIS^.arritfConfigure [iI].MainMenuConfigure (itfHMIManager	:= fbHMIManager);
-		;;
 	END_IF
 END_FOR
+
+THIS^.arritfConfigure [1].LinkHMIManagerData (itfHMIManager := fbHMIManager);
 
 Configure		:= bResult;
 ]]></ST>

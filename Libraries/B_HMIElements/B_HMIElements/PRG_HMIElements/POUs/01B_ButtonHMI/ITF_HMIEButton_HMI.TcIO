@@ -8,5 +8,18 @@
 *)
 INTERFACE ITF_HMIEButton_HMI EXTENDS ITF_BaseComponent_HMI
 ]]></Declaration>
+    <Method Name="GetNameOfButton" Id="{bd82dba9-3352-044f-12b2-76cc17ef9ad5}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNameOfButton : WSTRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkHMIEButtonData" Id="{deb1c421-36cc-02c1-0aa4-1df324480eb1}">
+      <Declaration><![CDATA[METHOD LinkHMIEButtonData : BOOL
+VAR_INPUT
+	stData					: REFERENCE TO ST_HMIEButton_HMI_Link;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

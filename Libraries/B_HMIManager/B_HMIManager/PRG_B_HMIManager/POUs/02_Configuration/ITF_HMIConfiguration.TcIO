@@ -3,15 +3,70 @@
   <Itf Name="ITF_HMIConfiguration" Id="{d7340403-e938-4a39-b0ea-a459eb342446}">
     <Declaration><![CDATA[INTERFACE ITF_HMIConfiguration
 ]]></Declaration>
-    <Method Name="AddElements" Id="{9060569c-58f7-00ad-2f02-e2eaabb301c6}">
+    <Method Name="AddMainMenu" Id="{98f90ff2-100a-026d-3450-11a10aa1ddf5}">
       <Declaration><![CDATA[(*			
 	RafalOS
-	Rafał Osajda		13.11.2025		TC 4024.66
-	Metoda przeznaczona do dodawania elementów do FB_HMIManager
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Dodanie do systemu menu głównego 
 *)
-METHOD AddElements : BOOL
+METHOD PUBLIC AddMainMenu : BOOL
 VAR_INPUT
-	itfHMIManager			: ITF_HMIManagerConfigure;
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkCommonStructureData" Id="{6d83fd23-9a15-0c3d-10b8-860ec632af49}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Podłączenie głównej struktury danych dla domyślnych elementów 
+*)
+METHOD LinkCommonStructureData : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkHMIManagerData" Id="{8f28a6e9-16a1-01d0-03bd-8677182f29cd}">
+      <Declaration><![CDATA[METHOD LinkHMIManagerData : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetButtonActive" Id="{14442edb-64d3-0e73-0287-1e3dc26a0acb}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przycisk na aktywny  - pierwsze okno w wyświetlaniu wizualizacji
+*)
+METHOD SetButtonActive : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetButtonsEnabled" Id="{aa333f43-c2d2-09fd-09bf-7b0affc2fb1e}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przyciski na wlaczone lub wylaczone - możliwośc naciśnięcia
+*)
+METHOD SetButtonsEnabled : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetButtonsVisible" Id="{1e6ec0d9-fc20-0b6f-03e9-bcb76b59581a}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przyciski na widoczne lub nie widoczne
+*)
+METHOD SetButtonsVisible : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
 END_VAR
 ]]></Declaration>
     </Method>

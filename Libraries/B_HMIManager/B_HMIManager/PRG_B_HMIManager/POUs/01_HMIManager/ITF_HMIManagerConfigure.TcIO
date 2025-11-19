@@ -3,39 +3,80 @@
   <Itf Name="ITF_HMIManagerConfigure" Id="{6d65f736-9707-03a5-294a-a8aaa4bb0d85}">
     <Declaration><![CDATA[INTERFACE ITF_HMIManagerConfigure EXTENDS ITF_Base
 ]]></Declaration>
-    <Method Name="AddElementFromConfiguration" Id="{cbb96269-a4ca-0f6c-069e-32922f7227f8}">
+    <Method Name="AddMainMenuFromConfiguration" Id="{5d351bd6-396f-077b-3187-507bb716d7ff}">
       <Declaration><![CDATA[(*			
 	RafalOS
-	Rafał Osajda		13.11.2025		TC 4024.66
-	Dodawanie elementów wywoływane z konfiguracji 
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Dodanie do systemu menu głównego 
 *)
-METHOD PUBLIC AddElementFromConfiguration : BOOL
+METHOD PUBLIC AddMainMenuFromConfiguration : BOOL
 VAR_INPUT
-	itfElements		: ITF_BaseTopElement_HMI;
+	fbMenu			: ITF_HMIEMenu;
+	fbMenu_HMI		: ITF_HMIEMenu_HMI;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="SetActiveButtonMainMenuFromConfiguration" Id="{cdf721a6-dc5b-0c73-241d-55603429a05e}">
-      <Declaration><![CDATA[METHOD PUBLIC SetActiveButtonMainMenuFromConfiguration : BOOL
+    <Method Name="GetNumberOfAddedButtons" Id="{2c006b9d-049e-083c-1d94-a7dce0f449ea}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfAddedButtons : INT
 VAR_INPUT
-	iButton			: INT;	//numer przycisku od 0
-	bValue			: BOOL;	//true aktywny może być tylko jeden w menu
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="SetEnableButtonMainMenuFromConfiguration" Id="{e2de0d16-7ec7-0fc2-0d78-1fb5f0951163}">
-      <Declaration><![CDATA[METHOD PUBLIC SetEnableButtonMainMenuFromConfiguration : BOOL
+    <Method Name="LinkCommonStructureDataFromConfiguration" Id="{f67c9029-0935-0e07-0059-add9f4fb8fb8}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Podłączenie głównej struktury danych dla domyślnych elementów 
+*)
+METHOD LinkCommonStructureDataFromConfiguration : BOOL
 VAR_INPUT
-	iButton			: INT;	//numer przycisku od 0
-	bValue			: BOOL;	//true włączony
+	stData			: reference to ST_HMIManager;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="SetVisibleButtonMainMenuFromConfiguration" Id="{5d86cc57-0570-0325-2604-cbdbc75ba2c3}">
-      <Declaration><![CDATA[METHOD PUBLIC SetVisibleButtonMainMenuFromConfiguration : BOOL
+    <Method Name="LinkHMIManagerDataFromConfiguration" Id="{4353d84b-e3a5-0c30-00a7-976ea9ba5068}">
+      <Declaration><![CDATA[METHOD LinkHMIManagerDataFromConfiguration : BOOL
 VAR_INPUT
-	iButton			: INT;	//numer przycisku od 0
-	bValue			: BOOL;	//true widoczny
+	stData					: REFERENCE TO ST_HMIManager;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetButtonActiveFromConfiguration" Id="{2513bb7b-083f-0ce5-2652-2da661dd93e6}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przycisk na aktywny  - pierwsze okno w wyświetlaniu wizualizacji - wywoływane z konfiguracji
+*)
+METHOD SetButtonActiveFromConfiguration : BOOL
+VAR_INPUT
+	iNumber		: INT;	//numr przycisku
+	bValue		: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetButtonsEnabledFromConfiguration" Id="{2ccb6324-360d-0e6d-0088-9ddae4e698ec}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przyciski na wlaczone lub wylaczone - możliwośc naciśnięcia
+*)
+METHOD SetButtonsEnabledFromConfiguration : BOOL
+VAR_INPUT
+	iNumber		: INT;	//numr przycisku
+	bValue		: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetButtonsVisibleFromConfiguration" Id="{b19a0ccf-91a9-0f5d-2117-190b136425c3}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przyciski na widoczne lub nie widoczne
+*)
+METHOD SetButtonsVisibleFromConfiguration : BOOL
+VAR_INPUT
+	iNumber		: INT;	//numr przycisku
+	bValue		: BOOL;
 END_VAR
 ]]></Declaration>
     </Method>

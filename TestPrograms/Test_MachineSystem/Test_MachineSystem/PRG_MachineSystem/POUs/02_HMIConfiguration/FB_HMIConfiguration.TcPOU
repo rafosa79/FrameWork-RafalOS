@@ -13,17 +13,94 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="AddElements" Id="{7302c3e8-1e13-4369-a5d6-2e8b1d6b4005}">
+    <Method Name="AddMainMenu" Id="{6bf9837b-274c-40eb-8c3c-74021e24fc85}">
       <Declaration><![CDATA[(*			
 	RafalOS
-	Rafał Osajda		13.11.2025		TC 4024.66
-	Metoda przeznaczona do dodawania elementów do FB_HMIManager
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Dodanie do systemu menu głównego 
 *)
-METHOD AddElements : BOOL
+METHOD AddMainMenu : BOOL
 VAR_INPUT
 	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
 END_VAR
 ]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkCommonStructureData" Id="{2f841f18-3ebb-43fd-bc79-6857670a6334}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Podłączenie głównej struktury danych dla domyślnych elementów 
+*)
+METHOD LinkCommonStructureData : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkHMIManagerData" Id="{9bb812d3-8f7f-46d6-82ea-9d4cd46a1c99}">
+      <Declaration><![CDATA[METHOD LinkHMIManagerData : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetButtonActive" Id="{b7975efa-badc-44b1-9777-0f0695598b68}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przycisk na aktywny  - pierwsze okno w wyświetlaniu wizualizacji
+*)
+METHOD SetButtonActive : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetButtonsEnabled" Id="{59ecdeab-3de9-4695-a2d1-49dc65d4d755}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przyciski na wlaczone lub wylaczone - możliwośc naciśnięcia
+*)
+METHOD SetButtonsEnabled : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+
+VAR
+	iI					: INT;
+	iNumberofButtons	: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetButtonsVisible" Id="{40f3fac9-ca30-49ba-b260-c4d67b1bb117}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przyciski na widoczne lub nie widoczne
+*)
+METHOD SetButtonsVisible : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+VAR
+	iI					: INT;
+	iNumberofButtons	: INT;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
       </Implementation>

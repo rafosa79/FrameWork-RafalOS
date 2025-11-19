@@ -4,11 +4,17 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_HMIEMenu_HMI EXTENDS FB_BaseControlElement_HMI IMPLEMENTS ITF_HMIEMenu_HMI
 VAR
 	itfMenu			: ITF_HMIEMenu_HMI_Connector;
+	refstMenuData	: REFERENCE TO ST_HMIEMenu_HMI;
+
+	arrButtons		: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF ITF_HMIEButton_HMI;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[ ]]></ST>
+      <ST><![CDATA[
+]]></ST>
     </Implementation>
+    <Folder Name="ITF_HMIEMenu_HMI" Id="{b0502494-7f7d-0241-31c9-4b989b48af98}" />
     <Method Name="AddButton" Id="{4f014b96-6944-0cc7-0240-fb8c15d621cb}">
       <Declaration><![CDATA[METHOD PUBLIC AddButton : BOOL
 VAR_INPUT
@@ -17,6 +23,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.AddComponent (itfComponentHMI := fbButtonHMI);
+THIS^.arrButtons [THIS^.uiNumberOfComponents - 1] := fbButtonHMI;
 ]]></ST>
       </Implementation>
     </Method>
@@ -25,6 +32,7 @@ END_VAR
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfBaseLoggerConnector	: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
 	itfMenu			: ITF_HMIEMenu_HMI_Init;
 END_VAR
 ]]></Declaration>
@@ -46,6 +54,123 @@ IF (THIS^.itfMenu <> 0 AND
 	THIS^.itfBaseLoggerConnector <> 0) THEN
 	THIS^.bIsInit						:= TRUE;
 END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfActiveScreen" Id="{c13eac24-fb7d-012f-2896-92dfffad9ff4}" FolderPath="ITF_HMIEMenu_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Pobiera numer aktywnej strony menu głównego
+*)
+METHOD GetNumberOfActiveScreen : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfActiveScreen := THIS^.itfMenu.GetNumberOfActriveScreen ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfPreviewScreen" Id="{17ee4f43-a6d2-0e9e-1ff1-04fd1f64281c}" FolderPath="ITF_HMIEMenu_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Pobiera numer aktywnej strony menu głównego
+*)
+METHOD GetNumberOfPreviewScreen : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfPreviewScreen := THIS^.itfMenu.GetNumberOfActrivePreviewScreen ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetTitleOfActualScreen" Id="{9e17f36d-59e1-0860-34b3-6260ca3d3a8e}" FolderPath="ITF_HMIEMenu_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Pobiera tytuł z aktywnej strony
+*)
+METHOD GetTitleOfActualScreen : WSTRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetTitleOfActualScreen := THIS^.GetTextFromLabelForActiveLocation (stLabel := THIS^.itfMenu.GetName ());
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangePage" Id="{596c69dc-cc66-00aa-0892-22175db3ba5c}" FolderPath="ITF_HMIEMenu_HMI\">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangePage : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangePage := THIS^.itfMenu.IsChangePage ();
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkHMIEMenuData" Id="{5275c565-c683-007f-04c4-2dbeebacd437}" FolderPath="ITF_HMIEMenu_HMI\">
+      <Declaration><![CDATA[METHOD LinkHMIEMenuData : BOOL
+VAR_INPUT
+	stData				: reference to ST_HMIEMenu_HMI_Link;
+END_VAR
+VAR
+	iI					: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstMenuData REF= stData.stMenu;	//ta zmienna powstaje w elemencie 
+
+THIS^.refstBaseLoggerElementDataHMI REF= stData.stBaseLoggerElement;	//zmienne z biblioteki ale dopiero tu je moge przypisać 
+THIS^.refstBaseComponentDataHMI REF= stData.stBaseComponent;
+THIS^.refstBaseControlElementDataHMI REF= stData.stBaseControlElement;
+
+FOR iI := 0 TO GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU DO
+	IF (THIS^.arrButtons [iI] <> 0) THEN
+		THIS^.arrButtons [iI].LinkHMIEButtonData (stData := stData.arrButton [iI]);
+	END_IF
+END_FOR
+
+
+THIS^.CreateLinkToEventsMemory ();	//wywołanie metody linkującą poamięc zgłoszęń
+
+IF (__ISVALIDREF (THIS^.refstMenuData) AND THIS^.IsLinkedReferences ()) THEN
+	THIS^.bIsValidData := TRUE;
+	LinkHMIEMenuData := TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataForHMI" Id="{ee5ad57a-0276-09ec-3a1e-f7c631af76c3}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Metoda przygotowywania danych dla HMI 
+	W niej odbywa się odpytywanie właściego elementu przez łącznik
+*)
+METHOD PUBLIC PrepareDataForHMI : BOOL
+VAR_INPUT
+END_VAR
+
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.PrepareDataForHMI ();
+
+THIS^.refstMenuData.iNUmberOfActivePage := THIS^.itfMenu.GetNumberOfActriveScreen ();
+THIS^.refstMenuData.iNumberOfAddedScreen := THIS^.itfMenu.GetNumberOfAddedButton ();
+
+FOR iI := 0 TO THIS^.refstMenuData.iNumberOfAddedScreen - 1 DO	//w tablicy komponentów jest od 1 a w button od 0 stąd przesunięcie o -1
+	THIS^.arrButtons [iI].PrepareDataForHMI ();
+END_FOR
+
+
+THIS^.refstMenuData.wsTitleActivePage := THIS^.arrButtons [THIS^.refstMenuData.iNUmberOfActivePage].GetNameOfButton ();
+THIS^.refstMenuData.bChangePage := THIS^.itfMenu.IsChangePage ();
 ]]></ST>
       </Implementation>
     </Method>

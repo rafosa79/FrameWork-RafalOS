@@ -1,11 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <DUT Name="ST_HMIManager" Id="{441ec49a-4b40-0697-0231-8aaac2c61dc1}">
-    <Declaration><![CDATA[TYPE ST_HMIManager :
+  <DUT Name="ST_HMIManager" Id="{00420619-130e-0800-1c2b-996195a2f14c}">
+    <Declaration><![CDATA[TYPE ST_HMIManager EXTENDS ST_BaseGroupElement_HMI_Link :
 STRUCT
-	iNUmberOfActivePage			: INT;
-	wsTitleActivePage			: WSTRING;
-	bChangePage					: BOOL;
+	stMainMenu			: ST_HMIEMenu_HMI_Link;
 	
 END_STRUCT
 END_TYPE

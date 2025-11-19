@@ -3,10 +3,11 @@
   <POU Name="PRG_Compilation" Id="{c5cc7d45-cf9d-4ea0-97cb-d3fd07051ddf}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Compilation
 VAR
+	fbLogger		: FB_BaseLogger;
 	fbButton		: FB_HMIEButton;
-	fbButtonHMI		: FB_HMIEButton_HMI (itfButton := fbButton);
+	fbButtonHMI		: FB_HMIEButton_HMI (itfBaseLoggerConnector := fbLogger, itfButton := fbButton);
 	fbMenu			: FB_HMIEMenu;
-	fbMenuHMI		: FB_HMIEMenu_HMI (itfMenu := fbMenu);
+	fbMenuHMI		: FB_HMIEMenu_HMI (itfBaseLoggerConnector := fbLogger, itfMenu := fbMenu);
 END_VAR
 ]]></Declaration>
     <Implementation>

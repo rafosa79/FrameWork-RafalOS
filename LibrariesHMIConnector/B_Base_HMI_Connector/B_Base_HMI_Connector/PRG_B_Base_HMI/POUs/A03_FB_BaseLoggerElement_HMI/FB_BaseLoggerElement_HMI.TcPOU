@@ -77,14 +77,14 @@ END_IF
 
 refarrToDisplay [iNumberOfRow].sEventCategory		:= stItemInformation.sEventCategory; 
 refarrToDisplay [iNumberOfRow].uiRepetitionCounter	:= stItemInformation.uiRepetitionCounter;
-wstmpDescriptionFull		:= THIS^.GetTextFromLabel (stLabel	:= stItemInformation.stDescription);
+wstmpDescriptionFull		:= THIS^.GetTextFromLabelForActiveLocation (stLabel	:= stItemInformation.stDescription);
 iDltmp												:= WLEN (wstmpDescriptionFull);
 IF (iDltmp > 100) THEN
 	wstmpDescription								:= WDELETE (wstmpDescriptionFull, iDltmp - 100, iDltmp);
 END_IF
 refarrToDisplay [iNumberOfRow].wsDescription		:= wstmpDescription;
 refarrToDisplay [iNumberOfRow].wsDescriptionFull	:= wstmpDescriptionFull;
-refarrToDisplay [iNumberOfRow].wsNameOfitem			:= THIS^.GetTextFromLabel (stLabel := stItemInformation.stItemName);
+refarrToDisplay [iNumberOfRow].wsNameOfitem			:= THIS^.GetTextFromLabelForActiveLocation (stLabel := stItemInformation.stItemName);
 ]]></ST>
       </Implementation>
     </Method>
@@ -310,10 +310,25 @@ GetIsActiveFilter	:= bResult;
       <Declaration><![CDATA[METHOD PROTECTED GetTextFromLabel : WSTRING
 VAR_INPUT
 	stLabel				: ST_BaseLabel;
+	eLocation			: E_BaseLocation;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetTextFromLabel			:= stLabel.arrText [refstCommonData.itfLocaciotn.GetLocation ()];
+        <ST><![CDATA[GetTextFromLabel := stLabel.arrText [eLocation];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetTextFromLabelForActiveLocation" Id="{a64a1e4e-c601-06e6-195a-7e58002b1474}">
+      <Declaration><![CDATA[METHOD PROTECTED GetTextFromLabelForActiveLocation : WSTRING
+VAR_INPUT
+	stLabel				: ST_BaseLabel;
+END_VAR
+
+VAR
+	dfsfsdaf: WSTRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetTextFromLabelForActiveLocation := stLabel.arrText [THIS^.refstCommonData.itfLocaciotn.GetLocation ()];
 ]]></ST>
       </Implementation>
     </Method>
@@ -372,6 +387,21 @@ END_VAR
       <Implementation>
         <ST><![CDATA[IsValidData				:= THIS^.bIsValidData;
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataForHMI" Id="{331b6ebd-d5ed-0e5c-2e82-348a492deb20}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Metoda przygotowywania danych dla HMI 
+	W niej odbywa się odpytywanie właściego elementu przez łącznik
+*)
+METHOD PUBLIC PrepareDataForHMI : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
     <Method Name="PrepareQuantitiesForDisplay" Id="{4a51ff7a-bc42-01f0-2da8-11249a1d4598}">
@@ -439,6 +469,18 @@ END_FOR
 //przeddział czasowy
 
 RemoveRowFormList	:= bRemove;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SelectLocation" Id="{6bed02d4-9bbe-0541-2dba-6a636b08d172}">
+      <Declaration><![CDATA[METHOD PROTECTED SelectLocation : WSTRING
+VAR_INPUT
+	stTexts			: ST_BaseLabel;
+	eLocation		: E_BaseLocation;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SelectLocation := stTexts.arrText [eLocation];
+]]></ST>
       </Implementation>
     </Method>
   </POU>

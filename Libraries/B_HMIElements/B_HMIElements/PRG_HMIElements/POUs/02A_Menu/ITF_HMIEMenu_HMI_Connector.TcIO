@@ -8,5 +8,29 @@
 *)
 INTERFACE ITF_HMIEMenu_HMI_Connector EXTENDS ITF_BaseControlElement_HMI_Connector
 ]]></Declaration>
+    <Method Name="GetNumberOfActrivePreviewScreen" Id="{37bbb933-f165-04a3-37e4-a26af27797f3}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfActrivePreviewScreen : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfActriveScreen" Id="{f18f1ac5-0cee-0dba-1fc3-ab4e5614410f}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfActriveScreen : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfAddedButton" Id="{244a66b8-1190-0385-2576-d36189f23591}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfAddedButton : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsChangePage" Id="{5977192d-eabb-02c2-2cc6-e8a135136555}">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangePage : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>
