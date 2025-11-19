@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MCMachineControl_HMI_Connector" Id="{d570e5d8-dcb3-079b-12de-407ccb79a8e5}">
+    <Declaration><![CDATA[INTERFACE ITF_MCMachineControl_HMI_Connector EXTENDS ITF_BaseTopElement_HMI_Connector
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

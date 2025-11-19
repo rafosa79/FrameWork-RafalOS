@@ -16,6 +16,20 @@ END_VAR
     </Implementation>
     <Folder Name="ITF_BaseLoggerElement_HMI" Id="{490d29d6-def9-07f2-16cf-bb21a6440bb9}" />
     <Folder Name="WiazanieZmiennych" Id="{4d450796-b575-0397-39db-94123d6241c4}" />
+    <Method Name="ClearAfterScreen" Id="{17479a5b-b734-05e1-2331-97f746fc52fa}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Czyści danych przy zmienia ramki po poprzedniej ramce
+*)
+METHOD PUBLIC ClearAfterScreen : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CompleteTheDetailedInformation" Id="{0b06bff0-7255-0a63-19f0-5ecb92dff9d6}">
       <Declaration><![CDATA[METHOD PRIVATE CompleteTheDetailedInformation : BOOL
 VAR_INPUT
@@ -397,6 +411,20 @@ END_VAR
 	W niej odbywa się odpytywanie właściego elementu przez łącznik
 *)
 METHOD PUBLIC PrepareDataForHMI : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareForScreen" Id="{a782b09d-bac8-034d-0cad-2d6d75d40276}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Przygotowanie ramki pood tamke do wyświetlenia - tylko przygotowanie a nie przygotowanie danych do wyświetlenia
+*)
+METHOD PUBLIC PrepareForScreen : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>

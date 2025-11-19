@@ -16,11 +16,13 @@ VAR
 	iNumberOfActiveScreen		: INT;
 	iNumberOfPreviewScreen		: INT;
 	bChangePage					: BOOL;
-	(*	Obsługa zmiany strony	*)
-	arrChangePageSupport		: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF 
-									ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ITF_ChangePageSupport;
+//	(*	Obsługa zmiany strony	*)
+//	arrChangePageSupport		: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF 
+//									ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ITF_PrepareDataForScreen;
 	(*	Dana wspólne dla całego systemu	*)
 	refstManagerData			: REFERENCE TO ST_HMIManager;
+	(*	Łącznik do MachineControl	*)
+	itfMachineControl			: ITF_MachineControl_HMI;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -35,6 +37,23 @@ END_IF
     </Implementation>
     <Folder Name="ITF_HMIManagerConfigure" Id="{89138cc2-cb73-0422-3e5b-ed5c94136f56}" />
     <Folder Name="WiazanieModulow" Id="{82c7cc63-7604-0b87-2d45-08cdf14b79c2}" />
+    <Method Name="AddMachineControlConnectorFromConfiguration" Id="{1f32671d-7d0a-0b94-0866-9f070dcaf520}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie połączenia do MachineControl  wywoływane z konfiguracji
+*)
+METHOD AddMachineControlConnectorFromConfiguration : BOOL
+VAR_INPUT
+	itfMachineControl	: ITF_MachineControl_HMI;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMachineControl := itfMachineControl;
+
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddMainMenuFromConfiguration" Id="{0bcd27d6-400c-092f-1954-e2bd335ae594}" FolderPath="ITF_HMIManagerConfigure\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -78,6 +97,21 @@ END_VAR
       <Implementation>
         <ST><![CDATA[THIS^.itfHMIConfigure		:= fbHMIConfigure;
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddPrepareScreenModuleFromConfiguration" Id="{e28d4628-ae05-0e0f-1c40-93eed2a23ed2}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie modułów do przygotowywania stron do wyświetlenia
+*)
+METHOD AddPrepareScreenModuleFromConfiguration : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[this^.itfMachineControl.Add]]></ST>
       </Implementation>
     </Method>
     <Method Name="ExecuteCycle" Id="{52b242f4-a20c-0dfc-3dbf-ca9f805176f3}">
@@ -162,24 +196,13 @@ InitializeCycle		:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="LinkCommonStructureDataFromConfiguration" Id="{0f8e79a9-8331-04fd-33e0-419915fccdc4}" FolderPath="ITF_HMIManagerConfigure\">
+    <Method Name="LinkHMIManagerDataFromConfiguration" Id="{1311aef0-5f44-031f-25c5-6387fb109106}" FolderPath="ITF_HMIManagerConfigure\">
       <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		18.11.2025		TC 4024.66
 	Podłączenie głównej struktury danych dla domyślnych elementów 
 *)
-METHOD LinkCommonStructureDataFromConfiguration : BOOL
-VAR_INPUT
-	stData			: reference to ST_HMIManager;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.refstManagerData REF= stData;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="LinkHMIManagerDataFromConfiguration" Id="{1311aef0-5f44-031f-25c5-6387fb109106}" FolderPath="ITF_HMIManagerConfigure\">
-      <Declaration><![CDATA[METHOD LinkHMIManagerDataFromConfiguration : BOOL
+METHOD LinkHMIManagerDataFromConfiguration : BOOL
 VAR_INPUT
 	stData					: REFERENCE TO ST_HMIManager;
 END_VAR
@@ -189,7 +212,7 @@ END_VAR
 
 THIS^.itfMainMenuHMI.LinkHMIEMenuData (stData := stData.stMainMenu);
 
-
+THIS^.itfMachineControl.LinkMachineControlData (stData := stData.stMachineControl);
 
 IF (__ISVALIDREF (THIS^.refstManagerData)) THEN
 	THIS^.bIsValidData := TRUE;

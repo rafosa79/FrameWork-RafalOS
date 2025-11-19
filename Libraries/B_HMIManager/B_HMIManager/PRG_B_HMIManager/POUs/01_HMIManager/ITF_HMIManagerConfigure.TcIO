@@ -3,6 +3,18 @@
   <Itf Name="ITF_HMIManagerConfigure" Id="{6d65f736-9707-03a5-294a-a8aaa4bb0d85}">
     <Declaration><![CDATA[INTERFACE ITF_HMIManagerConfigure EXTENDS ITF_Base
 ]]></Declaration>
+    <Method Name="AddMachineControlConnectorFromConfiguration" Id="{b4f79250-fdb4-0df1-352a-40a716fbb3a9}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie połączenia do MachineControl  wywoływane z konfiguracji
+*)
+METHOD AddMachineControlConnectorFromConfiguration : BOOL
+VAR_INPUT
+	itfMachineControl	: ITF_MachineControl_HMI;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="AddMainMenuFromConfiguration" Id="{5d351bd6-396f-077b-3187-507bb716d7ff}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -22,20 +34,13 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="LinkCommonStructureDataFromConfiguration" Id="{f67c9029-0935-0e07-0059-add9f4fb8fb8}">
+    <Method Name="LinkHMIManagerDataFromConfiguration" Id="{4353d84b-e3a5-0c30-00a7-976ea9ba5068}">
       <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		18.11.2025		TC 4024.66
 	Podłączenie głównej struktury danych dla domyślnych elementów 
 *)
-METHOD LinkCommonStructureDataFromConfiguration : BOOL
-VAR_INPUT
-	stData			: reference to ST_HMIManager;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="LinkHMIManagerDataFromConfiguration" Id="{4353d84b-e3a5-0c30-00a7-976ea9ba5068}">
-      <Declaration><![CDATA[METHOD LinkHMIManagerDataFromConfiguration : BOOL
+METHOD LinkHMIManagerDataFromConfiguration : BOOL
 VAR_INPUT
 	stData					: REFERENCE TO ST_HMIManager;
 END_VAR

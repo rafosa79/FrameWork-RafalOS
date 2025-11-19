@@ -3,6 +3,17 @@
   <Itf Name="ITF_BaseLoggerElement_HMI" Id="{5cb45a4d-d295-0879-1e7e-f79957b9c07c}">
     <Declaration><![CDATA[INTERFACE ITF_BaseLoggerElement_HMI
 ]]></Declaration>
+    <Method Name="ClearAfterScreen" Id="{2177d0dc-fff4-07c6-039d-6d97b86c4606}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Czyści danych przy zmienia ramki po poprzedniej ramce
+*)
+METHOD PUBLIC ClearAfterScreen : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="GetEventTableForIDItem" Id="{423d51d2-ec85-0a49-364c-a80a033c440a}">
       <Declaration><![CDATA[(*			
 	EVERDE sp. z o.o.

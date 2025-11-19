@@ -34,6 +34,8 @@ VAR
 	fbMMB7_Settings_HMI_Connector		: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB7_Settings);
 	(*	Menu główne - Łącznik	*)
 	fbMainMenu_HMI_Connector			: FB_HMIEMenu_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfMenu := fbMainMenu);
+	(*	Łącznik do Machine Control	*)
+	fbMachineControl_HMI_Connector		: FB_MachineControl_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfMachineControlConnector := GVL_SystemVariable.fbMachineControl);
 	
 END_VAR
 ]]></Declaration>

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MCHMIMachineControl_HMI" Id="{6538430b-c357-0110-090b-55567298ce9d}">
+    <Declaration><![CDATA[INTERFACE ITF_MCHMIMachineControl_HMI EXTENDS ITF_BaseTopElement_HMI
+]]></Declaration>
+    <Method Name="ClearAfterScreenFroHMIManager" Id="{f45baa25-757c-0fe6-219c-a44fc4762619}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Sprzątanie po stronie wywoływane z HMIManager i wywołująca odpowiednią metode z ITF z arrPrepareScreen
+*)
+METHOD ClearAfterScreenFroHMIManager : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkMachineControlData" Id="{5b1d074d-68af-002e-0084-5fe1502c4b5b}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkMachineControlData : BOOL
+VAR_INPUT
+	stData			: REFERENCE TO ST_MCHMIMachineControl_HMI_Link;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="PrepareDataForScreenFromHMIManager" Id="{19732316-0985-0bc4-10a0-bbeee6760cf3}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Przygotowanie danych dla strony wywoływane z HMIManager i wywołująca odpowiednią metode z ITF z arrPrepareScreen
+*)
+METHOD PrepareDataForScreenFromHMIManager : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="PrepareForScreenFromHMIManager" Id="{ab08d887-ef68-0904-2cb0-dfdd188c94ac}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Przygotowanie strony wywoływane z HMIManager i wywołująca odpowiednią metode z ITF z arrPrepareScreen
+*)
+METHOD PrepareForScreenFromHMIManager : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

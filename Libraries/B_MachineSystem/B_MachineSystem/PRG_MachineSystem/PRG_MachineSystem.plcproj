@@ -150,6 +150,10 @@
       <DefaultResolution>B_MachineControl, * (RafalOS)</DefaultResolution>
       <Namespace>B_MachineControl</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="B_MachineControl_HMI_Connector">
+      <DefaultResolution>B_MachineControl_HMI_Connector, * (RafalOS)</DefaultResolution>
+      <Namespace>B_MachineControl_HMI_Connector</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="B_StatesAndModes">
       <DefaultResolution>B_StatesAndModes, * (RafalOS)</DefaultResolution>
       <Namespace>B_StatesAndModes</Namespace>

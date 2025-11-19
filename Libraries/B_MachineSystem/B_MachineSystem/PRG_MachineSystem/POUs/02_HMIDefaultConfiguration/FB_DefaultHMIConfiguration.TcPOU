@@ -13,6 +13,24 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="AddMachineControlConnector" Id="{d51a48ac-8dc5-007c-2135-eafa58a5dc35}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie połączenia do MachineControl
+*)
+METHOD AddMachineControlConnector : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfHMIManager.AddMachineControlConnectorFromConfiguration (
+	itfMachineControl := PRG_ControlHMI.fbMachineControl_HMI_Connector
+);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddMainMenu" Id="{44b09da7-75f1-0fb2-248e-9ffa540d4691}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -83,24 +101,13 @@ itfHMIManager.AddMainMenuFromConfiguration (
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="LinkCommonStructureData" Id="{809bebf6-2341-0229-3504-bc3941e2cafc}">
+    <Method Name="LinkHMIManagerData" Id="{0dd4ccc1-f7b5-039f-2ef7-cc7039656273}">
       <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		18.11.2025		TC 4024.66
 	Podłączenie głównej struktury danych dla domyślnych elementów 
 *)
-METHOD LinkCommonStructureData : BOOL
-VAR_INPUT
-	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[itfHMIManager.LinkHMIManagerDataFromConfiguration (stData := PRG_ControlHMI.stHMIData);
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="LinkHMIManagerData" Id="{0dd4ccc1-f7b5-039f-2ef7-cc7039656273}">
-      <Declaration><![CDATA[METHOD LinkHMIManagerData : BOOL
+METHOD LinkHMIManagerData : BOOL
 VAR_INPUT
 	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
 END_VAR

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MCMachineControl" Id="{3df9f3b2-e7e8-0a37-055d-5ffd5d1b0cac}">
+    <Declaration><![CDATA[INTERFACE ITF_MCMachineControl EXTENDS ITF_BaseTopElement
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

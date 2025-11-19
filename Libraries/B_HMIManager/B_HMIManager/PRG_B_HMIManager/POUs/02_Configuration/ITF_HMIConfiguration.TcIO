@@ -3,6 +3,18 @@
   <Itf Name="ITF_HMIConfiguration" Id="{d7340403-e938-4a39-b0ea-a459eb342446}">
     <Declaration><![CDATA[INTERFACE ITF_HMIConfiguration
 ]]></Declaration>
+    <Method Name="AddMachineControlConnector" Id="{b532a06b-db44-0079-3a27-42c0b03e7cc5}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie połączenia do MachineControl
+*)
+METHOD AddMachineControlConnector : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="AddMainMenu" Id="{98f90ff2-100a-026d-3450-11a10aa1ddf5}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -15,20 +27,25 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="LinkCommonStructureData" Id="{6d83fd23-9a15-0c3d-10b8-860ec632af49}">
+    <Method Name="AddPrepareScreenModule" Id="{48e01874-d9bd-0213-23ff-a98f43b0bab8}">
       <Declaration><![CDATA[(*			
 	RafalOS
-	Rafał Osajda		18.11.2025		TC 4024.66
-	Podłączenie głównej struktury danych dla domyślnych elementów 
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie modułów do przygotowywania stron do wyświetlenia
 *)
-METHOD LinkCommonStructureData : BOOL
+METHOD AddPrepareScreenModule : BOOL
 VAR_INPUT
 	itfHMIManager	: ITF_HMIManagerConfigure;
 END_VAR
 ]]></Declaration>
     </Method>
     <Method Name="LinkHMIManagerData" Id="{8f28a6e9-16a1-01d0-03bd-8677182f29cd}">
-      <Declaration><![CDATA[METHOD LinkHMIManagerData : BOOL
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Podłączenie głównej struktury danych dla domyślnych elementów 
+*)
+METHOD LinkHMIManagerData : BOOL
 VAR_INPUT
 	itfHMIManager	: ITF_HMIManagerConfigure;
 END_VAR

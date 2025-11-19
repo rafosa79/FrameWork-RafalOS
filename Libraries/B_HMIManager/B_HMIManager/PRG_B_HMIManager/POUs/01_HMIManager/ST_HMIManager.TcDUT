@@ -4,6 +4,7 @@
     <Declaration><![CDATA[TYPE ST_HMIManager EXTENDS ST_BaseGroupElement_HMI_Link :
 STRUCT
 	stMainMenu			: ST_HMIEMenu_HMI_Link;
+	stMachineControl	: ST_MachineControl_HMI_Link;
 	
 END_STRUCT
 END_TYPE

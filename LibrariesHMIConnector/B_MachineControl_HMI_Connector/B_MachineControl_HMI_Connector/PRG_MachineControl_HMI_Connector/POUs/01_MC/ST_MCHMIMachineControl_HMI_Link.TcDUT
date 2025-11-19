@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCHMIMachineControl_HMI_Link" Id="{de3f052c-6d0e-09d4-01ae-703b19e29b5c}">
+    <Declaration><![CDATA[TYPE ST_MCHMIMachineControl_HMI_Link EXTENDS ST_BaseTopElement_HMI_Link :
+STRUCT
+	stMachineControl		: ST_MCHMIMachineControl_HMI;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRGCompilation" Id="{6da300e2-4a5f-4e8e-a9ba-b4f69f4dff67}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRGCompilation
+VAR
+	fbLogger						: FB_BaseLogger;
+	fbMachineControl				: FB_MCMachineControl;
+	fbMachineControlHMIConnector	: FB_MCHMIMachineControl_HMI (
+										itfBaseLoggerConnector		:= fbLogger,
+	                                    itfMachineControlConnector	:= fbMachineControl
+									);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

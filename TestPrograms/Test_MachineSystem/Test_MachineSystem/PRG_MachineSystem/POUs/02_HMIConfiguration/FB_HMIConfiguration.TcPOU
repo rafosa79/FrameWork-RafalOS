@@ -13,6 +13,21 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="AddMachineControlConnector" Id="{feaf6d5d-6fa3-4fd9-8473-6c32e4900833}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie połączenia do MachineControl
+*)
+METHOD AddMachineControlConnector : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddMainMenu" Id="{6bf9837b-274c-40eb-8c3c-74021e24fc85}">
       <Declaration><![CDATA[(*			
 	RafalOS

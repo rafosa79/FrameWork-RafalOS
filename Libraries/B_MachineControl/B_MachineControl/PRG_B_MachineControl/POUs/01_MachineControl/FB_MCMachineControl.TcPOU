@@ -6,7 +6,7 @@
 	Rafał Osajda		04.11.2025		TC 4024.66
 	Główny FB zarządzający pracą maszyny
 *)
-FUNCTION_BLOCK FB_MCMachineControl EXTENDS FB_BaseTopElement IMPLEMENTS ITF_MCMachineControlConfigure
+FUNCTION_BLOCK FB_MCMachineControl EXTENDS FB_BaseTopElement IMPLEMENTS ITF_MCMachineControl, ITF_MCMachineControlConfigure, ITF_MCMachineControl_HMI_Init
 VAR
 	(*	Inicjalizacja		*)
 	bInitializeCycle			: BOOL;

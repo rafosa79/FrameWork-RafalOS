@@ -3,23 +3,23 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0595cac4-c7ad-45ed-81f2-c4fbfc94df8b}</ProjectGuid>
+    <ProjectGuid>{9ee6bf4f-8dcd-4d6b-be79-5fd3d4ce91be}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>PRG_B_MachineControl</Name>
+    <Name>PRG_MachineControl_HMI_Connector</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
-    <Application>{d068d493-97b4-4d3c-90dc-d6281d9ce98d}</Application>
-    <TypeSystem>{2fead4aa-976b-4a41-a8f6-60fcd5bfe3a0}</TypeSystem>
-    <Implicit_Task_Info>{8ed2b462-225a-4261-9a9a-9126ee29c960}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{5440d4d3-9480-487d-8b8e-e60f3bd7713c}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{b092e8cd-9ec4-4631-84ce-b9f03651902e}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{905159e1-dc11-4ab4-b97d-1b27593f3ce8}</LibraryReferences>
+    <Application>{252abc8d-9c17-4051-bf0b-fc4045cb8ee7}</Application>
+    <TypeSystem>{55117e7a-6c9f-4546-add5-f3e4fb8c6a21}</TypeSystem>
+    <Implicit_Task_Info>{344410af-33fd-4e79-9980-44a67a413161}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{3bed78f7-f7d0-437a-be02-ee45f9ab6239}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{260c2801-19e0-400e-a97a-4b5c8bcfc9e5}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{e4e2a34f-5e12-4aa4-86e1-627cf38749bc}</LibraryReferences>
     <Company>RafalOS</Company>
     <Released>false</Released>
-    <Title>B_MachineControl</Title>
-    <ProjectVersion>0.0.0.25</ProjectVersion>
+    <Title>B_MachineControl_HMI_Connector</Title>
+    <ProjectVersion>0.0.0.3</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -76,53 +76,35 @@
       </LibraryCategory>
     </LibraryCategories>
     <SelectedLibraryCategories>
-      <Id xmlns="">{b9904a12-953a-4ef3-ac35-10e52398b2c1}</Id>
+      <Id xmlns="">{d7993a17-e2cc-40b8-abc3-8f6a6054b793}</Id>
     </SelectedLibraryCategories>
-    <DefaultNamespace>B_MachineControl</DefaultNamespace>
-    <Author>Rafał Osajda</Author>
+    <DefaultNamespace>B_MachineControl_HMI_Connector</DefaultNamespace>
+    <Author>Rafal Osajda</Author>
     <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
+    <Compile Include="POUs Compilation\PRGCompilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_MachineControl\FB_MCMachineControl.TcPOU">
+    <Compile Include="POUs\01_MC\FB_MCHMIMachineControl_HMI.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_MachineControl\ITF_MCMachineControl.TcIO">
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_MachineControl\ITF_MCMachineControl_HMI_Connector.TcIO">
+    <Compile Include="POUs\01_MC\ST_MCHMIMachineControl_HMI_Link.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_MachineControl\ITF_MCMachineControl_HMI_Init.TcIO">
+    <Compile Include="POUs\01_MC\ST_MCHMIMachineControl_HMI.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_MachineControl\ITF_MCMachineControlConfigure.TcIO">
+    <Compile Include="POUs\02_RodzicDlaPrzygotowywanieStron\FB_MCHMIPrepareDataForScreen.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_MachineControl\ITF_MCRequiredChange.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\01_MachineControl\ST_MCRequestChangeMode.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\01_MachineControl\ST_MCRequestChangeState.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\02_MachineConfigure\FB_MCMachineConfigure.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\02_MachineConfigure\ITF_MCConfiguration.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\02_MachineConfigure\ITF_MCMachineConfigure.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\03_RequiredChange\FB_MCRequiredChange.TcPOU">
+    <Compile Include="POUs\02_RodzicDlaPrzygotowywanieStron\ITF_MCHMIPrepareDataForScreen.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -130,9 +112,8 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs Compilation" />
-    <Folder Include="POUs\01_MachineControl" />
-    <Folder Include="POUs\02_MachineConfigure" />
-    <Folder Include="POUs\03_RequiredChange" />
+    <Folder Include="POUs\01_MC" />
+    <Folder Include="POUs\02_RodzicDlaPrzygotowywanieStron" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -141,9 +122,16 @@
       <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
       <Namespace>B_Base</Namespace>
     </PlaceholderReference>
-    <PlaceholderReference Include="B_IO">
-      <DefaultResolution>B_IO, * (RafalOS)</DefaultResolution>
-      <Namespace>B_IO</Namespace>
+    <PlaceholderReference Include="B_Base_HMI_Connector">
+      <DefaultResolution>B_Base_HMI_Connector, * (RafalOS)</DefaultResolution>
+      <Namespace>B_Base_HMI_Connector</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_HMIElements">
+      <DefaultResolution>B_HMIElements, * (RafalOS)</DefaultResolution>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_MachineControl">
+      <DefaultResolution>B_MachineControl, * (RafalOS)</DefaultResolution>
+      <Namespace>B_MachineControl</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="B_StatesAndModes">
       <DefaultResolution>B_StatesAndModes, * (RafalOS)</DefaultResolution>
@@ -163,7 +151,7 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="PRG_B_MachineControl.tmc">
+    <None Include="PRG_MachineControl_HMI_Connector.tmc">
       <SubType>Content</SubType>
     </None>
   </ItemGroup>

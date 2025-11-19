@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_MCHMIMachineControl_HMI" Id="{824b19d4-94d9-0bfc-3720-89c998a439e0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MCHMIMachineControl_HMI EXTENDS FB_BaseTopElement_HMI IMPLEMENTS ITF_MCHMIMachineControl_HMI
+VAR
+	itfMachineControlConnector			: ITF_MCMachineControl_HMI_Connector;
+	refstMachineControlData				: REFERENCE TO ST_MCHMIMachineControl_HMI;
+	(*	Przygotowywanie danych dla ramek	*)
+	arrPrepareScreen					: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF 
+											ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ITF_MCHMIPrepareDataForScreen;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_MachineControl_HMI" Id="{a9d7c349-9130-01e1-1aed-5c09a6784e4c}" />
+    <Method Name="AddPrepareScreenModuleFromManager" Id="{3a4d88d9-e1f1-069f-33f6-e25e0914935a}" FolderPath="ITF_MachineControl_HMI\">
+      <Declaration><![CDATA[METHOD PUBLIC AddPrepareScreenModuleFromManager : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearAfterScreenFroHMIManager" Id="{ba105132-73c6-04e7-2948-825f2b608f69}" FolderPath="ITF_MachineControl_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Sprzątanie po stronie wywoływane z HMIManager i wywołująca odpowiednią metode z ITF z arrPrepareScreen
+*)
+METHOD ClearAfterScreenFroHMIManager : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{6e789ec0-7c6a-0ef7-1933-c74097114aeb}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfBaseLoggerConnector				: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
+	itfMachineControlConnector			: ITF_MCMachineControl_HMI_Connector;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Przypisanie do elementu który własnie stworzyliśmy
+THIS^.itfMachineControlConnector := itfMachineControlConnector;
+//Przypisanie do elementów z biblioteki
+THIS^.itfBaseLoggerElementConnector := itfMachineControlConnector;
+THIS^.itfBaseComponentConnector := itfMachineControlConnector;
+THIS^.itfBaseControlElementConnector := itfMachineControlConnector;
+THIS^.itfBaseGroupElementConnector := itfMachineControlConnector;
+THIS^.itfBaseTopElementConnector := itfMachineControlConnector;
+//
+THIS^.itfBaseLoggerConnector := itfBaseLoggerConnector;
+
+IF (THIS^.itfMachineControlConnector <> 0 AND
+	THIS^.itfBaseLoggerElementConnector <> 0 AND
+	THIS^.itfBaseComponentConnector	<> 0 AND
+	THIS^.itfBaseControlElementConnector <> 0 AND
+	THIS^.itfBaseGroupElementConnector <> 0 AND
+	THIS^.itfBaseTopElementConnector <> 0 AND
+	THIS^.itfBaseLoggerConnector <> 0) THEN
+	THIS^.bIsInit						:= TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkMachineControlData" Id="{7164a5f6-e4e6-0149-033c-51ba8887454c}" FolderPath="ITF_MachineControl_HMI\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkMachineControlData : BOOL
+VAR_INPUT
+	stData			: REFERENCE TO ST_MCHMIMachineControl_HMI_Link;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstMachineControlData REF= stData.stMachineControl;
+
+THIS^.refstBaseLoggerElementDataHMI REF= stData.stBaseLoggerElement;
+THIS^.refstBaseComponentDataHMI REF= stData.stBaseComponent;
+THIS^.refstBaseControlElementDataHMI REF= stData.stBaseControlElement;
+THIS^.refstBaseGroupElementDataHMI REF= stData.stBaseGroupElement;
+THIS^.refstBaseTopElementDataHMI REF= stData.stBaseTopElement;
+
+THIS^.CreateLinkToEventsMemory ();
+
+IF (__ISVALIDREF (THIS^.refstMachineControlData) AND THIS^.IsLinkedReferences ()) THEN
+	THIS^.bIsValidData := TRUE;
+	LinkMachineControlData := TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataForScreenFromHMIManager" Id="{1d99028f-2467-0f34-2422-b384e99508df}" FolderPath="ITF_MachineControl_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Przygotowanie danych dla strony wywoływane z HMIManager i wywołująca odpowiednią metode z ITF z arrPrepareScreen
+*)
+METHOD PrepareDataForScreenFromHMIManager : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareForScreenFromHMIManager" Id="{bef4ad1c-1fba-0010-1aa2-9a6ca8ed5ac6}" FolderPath="ITF_MachineControl_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Przygotowanie strony wywoływane z HMIManager i wywołująca odpowiednią metode z ITF z arrPrepareScreen
+*)
+METHOD PrepareForScreenFromHMIManager : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

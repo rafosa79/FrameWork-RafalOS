@@ -41,8 +41,8 @@ END_VAR]]></Declaration>
         <ST><![CDATA[bResult			:= TRUE;
 
 THIS^.arritfConfigure [1].AddMainMenu (itfHMIManager := fbHMIManager);
-THIS^.arritfConfigure [1].LinkCommonStructureData (itfHMIManager := fbHMIManager);
-
+THIS^.arritfConfigure [1].AddMachineControlConnector (itfHMIManager := fbHMIManager);
+this^.arritfConfigure [1].AddPrepareScreenModule (itfHMIManager := fbHMIManager);
 FOR iI := 1 TO THIS^.iNubmerOfAddedConfigure DO 
 	IF (THIS^.arritfConfigure [iI] <> 0) THEN
 		THIS^.arritfConfigure [iI].SetButtonActive (itfHMIManager	:= fbHMIManager);

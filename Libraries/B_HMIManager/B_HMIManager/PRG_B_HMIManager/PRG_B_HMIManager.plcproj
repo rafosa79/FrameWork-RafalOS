@@ -19,7 +19,7 @@
     <Company>RafałOS</Company>
     <Released>false</Released>
     <Title>B_HMIManager</Title>
-    <ProjectVersion>0.0.0.4</ProjectVersion>
+    <ProjectVersion>0.0.0.7</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -92,9 +92,6 @@
     <Compile Include="POUs\01_HMIManager\FB_HMIManager.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_HMIManager\ITF_ChangePageSupport.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\01_HMIManager\ITF_HMIManager.TcIO">
       <SubType>Code</SubType>
     </Compile>
@@ -140,8 +137,13 @@
       <DefaultResolution>B_MachineControl, * (RafalOS)</DefaultResolution>
       <Namespace>B_MachineControl</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="B_MachineControl_HMI_Connector">
+      <DefaultResolution>B_MachineControl_HMI_Connector, * (RafalOS)</DefaultResolution>
+      <Namespace>B_MachineControl_HMI_Connector</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="B_StatesAndModes">
       <DefaultResolution>B_StatesAndModes, * (RafalOS)</DefaultResolution>
+      <Namespace>B_StatesAndModes</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
