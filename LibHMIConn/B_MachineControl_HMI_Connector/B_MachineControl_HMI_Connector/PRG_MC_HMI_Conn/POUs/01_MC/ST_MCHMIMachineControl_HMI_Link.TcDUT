@@ -4,6 +4,19 @@
     <Declaration><![CDATA[TYPE ST_MCHMIMachineControl_HMI_Link EXTENDS ST_BaseTopElement_HMI_Link :
 STRUCT
 	stMachineControl		: ST_MCHMIMachineControl_HMI;
+	stPrepScr_00_01			: ST_MCHMIPrepareScreen_00_01;
+	stPrepScr_00_02			: ST_MCHMIPrepareScreen_00_02;
+	stPrepScr_00_03			: ST_MCHMIPrepareScreen_00_03;
+	stPrepScr_00_04			: ST_MCHMIPrepareScreen_00_04;
+	stPrepScr_00_05			: ST_MCHMIPrepareScreen_00_05;
+	stPrepScr_01_XX			: ST_MCHMIPrepareScreen_01_XX;
+	stPrepScr_02_XX			: ST_MCHMIPrepareScreen_02_XX;
+	stPrepScr_03_XX			: ST_MCHMIPrepareScreen_03_XX;
+	stPrepScr_04_XX			: ST_MCHMIPrepareScreen_04_XX;
+	stPrepScr_05_XX			: ST_MCHMIPrepareScreen_05_XX;
+	stPrepScr_06_XX			: ST_MCHMIPrepareScreen_06_XX;
+	stPrepScr_07_XX			: ST_MCHMIPrepareScreen_07_XX;
+	
 END_STRUCT
 END_TYPE
 ]]></Declaration>

@@ -6,17 +6,19 @@
 	Rafał Osajda		19.11.2025		TC 4024.66
 	Domyślne przygotowanie danych dla ekranu
 *)
-FUNCTION_BLOCK FB_MCHMIPrepareDataForScreen EXTENDS FB_BaseComponent_HMI IMPLEMENTS ITF_MCHMIPrepareDataForScreen
+FUNCTION_BLOCK FB_MCHMIPrepareDataForScreen EXTENDS FB_BaseComponent_HMI IMPLEMENTS ITF_MCHMIPrepareScreen_Init
 VAR
 	//itf do lacznika machinecontrol
 	//strulture danych 
-	//dodać ITF dla możliwości obsługi rozszerzonej obsługi wyświetlania 
+	itfExtendedDisplay			: ITF_MCHMIDisplayExtension;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="ClearAfterScreen" Id="{9877e0d9-8678-0ae8-355c-333615fe32d2}">
+    <Folder Name="ITF_Init" Id="{8b968d7c-09bf-07b6-1c78-8a1436fa4012}" />
+    <Folder Name="ITF_PDFS" Id="{5ed5ea20-8c25-034d-2252-9059bf81fcb7}" />
+    <Method Name="ClearAfterScreen" Id="{9877e0d9-8678-0ae8-355c-333615fe32d2}" FolderPath="ITF_PDFS\">
       <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		19.11.2025		TC 4024.66
@@ -27,11 +29,146 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.ClearAfterScreen ();
+        <ST><![CDATA[IF (THIS^.itfExtendedDisplay <> 0) THEN
+	THIS^.itfExtendedDisplay.ExtendedClearAfterScreen ();
+END_IF
+
+
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PrepareDataForHMI" Id="{bc2b143f-e4a1-0155-38ef-904b1a2f8b08}">
+    <Method Name="LinkDataHMI_00_01" Id="{02b6a1d7-d2e7-0d96-1a06-125016d837fd}" FolderPath="ITF_Init\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_00_01 : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_00_01;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_00_02" Id="{1845f68e-bb67-0bb0-0014-7d4a64071beb}" FolderPath="ITF_Init\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_00_02 : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_00_02;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_00_03" Id="{8ebbb9ec-ac0d-0603-2b3d-1d6587257fa3}" FolderPath="ITF_Init\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_00_03 : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_00_03;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_00_04" Id="{850e4e53-e593-068e-3d0b-357841e59ebc}" FolderPath="ITF_Init\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_00_04 : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_00_04;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_00_05" Id="{862d07cc-c025-0f7d-0d4e-5a2f317ce50a}" FolderPath="ITF_Init\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_00_05 : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_00_05;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_01_XX" Id="{ea4ca59d-69b8-0d18-3dc0-015aa5af68ee}" FolderPath="ITF_Init\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_01_XX : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_01_XX;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_02_XX" Id="{a1128685-79de-030f-39b5-2f5a3cd092bf}" FolderPath="ITF_Init\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_02_XX : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_02_XX;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_03_XX" Id="{4319d5c0-d837-06e9-0760-3018e67c124c}" FolderPath="ITF_Init\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_03_XX : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_03_XX;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_04_XX" Id="{3c1def7f-03cf-027c-0bcf-e1bc0ca53b26}" FolderPath="ITF_Init\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_04_XX : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_04_XX;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_05_XX" Id="{e200060d-69b9-0ae8-0d21-dafbb767bf8f}" FolderPath="ITF_Init\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_05_XX : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_05_XX;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_06_XX" Id="{565b628b-139c-0646-26c5-ddaf3aef254b}" FolderPath="ITF_Init\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_06_XX : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_06_XX;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_07_XX" Id="{5849f20e-11ca-06a2-278b-1cb6412c0501}" FolderPath="ITF_Init\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_07_XX : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_07_XX;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkExtensionDisplay" Id="{f5e43dfa-4e83-0f5f-10aa-f7a9025acd9b}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkExtensionDisplay : BOOL
+VAR_INPUT
+	fbExtendedDisplay			: ITF_MCHMIDisplayExtension;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfExtendedDisplay := fbExtendedDisplay;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataForHMI" Id="{bc2b143f-e4a1-0155-38ef-904b1a2f8b08}" FolderPath="ITF_PDFS\">
       <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		14.11.2025		TC 4024.66
@@ -43,11 +180,15 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.PrepareDataForHMI ();
+        <ST><![CDATA[IF (THIS^.itfExtendedDisplay <> 0) THEN
+	THIS^.itfExtendedDisplay.ExtendedPrepareDataForHMI ();
+END_IF
+
+
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PrepareForScreen" Id="{28b2ca1f-8b84-0c44-1ac0-89ac26d6625e}">
+    <Method Name="PrepareForScreen" Id="{28b2ca1f-8b84-0c44-1ac0-89ac26d6625e}" FolderPath="ITF_PDFS\">
       <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		19.11.2025		TC 4024.66
@@ -58,7 +199,11 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.PrepareForScreen ();
+        <ST><![CDATA[IF (THIS^.itfExtendedDisplay <> 0) THEN
+	THIS^.itfExtendedDisplay.ExtendedPrepareForScreen ();
+END_IF
+
+
 ]]></ST>
       </Implementation>
     </Method>

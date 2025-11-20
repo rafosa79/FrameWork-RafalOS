@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MCHMIMachineControl_HMI_PrepScr_04_XX" Id="{6c0dca61-df29-01db-22d4-6cc3ef2928a2}">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Interfejs przekazywany do modułów tworzących strony
+*)
+INTERFACE ITF_MCHMIMachineControl_HMI_PrepScr_04_XX
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

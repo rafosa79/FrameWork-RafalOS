@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MCHMIPrepareScreen_00_02_Init" Id="{3a88f4de-f16d-0d4e-3bca-e35e65559770}">
+    <Declaration><![CDATA[INTERFACE ITF_MCHMIPrepareScreen_00_02_Init
+]]></Declaration>
+    <Method Name="LinkDataHMI_00_02" Id="{5d866a78-8173-05ea-2009-d27abce94aec}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_00_02 : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_00_02;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

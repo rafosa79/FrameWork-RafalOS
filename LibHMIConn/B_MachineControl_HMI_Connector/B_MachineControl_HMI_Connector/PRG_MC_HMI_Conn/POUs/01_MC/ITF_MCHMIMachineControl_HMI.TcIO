@@ -1,14 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_MCHMIMachineControl_HMI" Id="{6538430b-c357-0110-090b-55567298ce9d}">
-    <Declaration><![CDATA[INTERFACE ITF_MCHMIMachineControl_HMI EXTENDS ITF_BaseTopElement_HMI
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Interfejs umożliwający wywoływanie moted z HMIManager
+*)
+INTERFACE ITF_MCHMIMachineControl_HMI EXTENDS ITF_BaseTopElement_HMI
 ]]></Declaration>
     <Method Name="AddPrepareScreenModuleFromManager" Id="{aca03413-ab44-0db0-2798-45d6c1e55008}">
       <Declaration><![CDATA[METHOD PUBLIC AddPrepareScreenModuleFromManager : BOOL
 VAR_INPUT
-	iScreen		: INT;
-	iMode		: INT;
-	itfModule	: ITF_MCHMIPrepareDataForScreen;
+	itfModule	: ITF_MCHMIPrepareScreen_Init;// ITF_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -29,6 +32,20 @@ END_VAR
       <Declaration><![CDATA[METHOD PUBLIC LinkMachineControlData : BOOL
 VAR_INPUT
 	stData			: REFERENCE TO ST_MCHMIMachineControl_HMI_Link;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkPrepareScreenToArrayFromConfiguration" Id="{6019ac61-4b85-0056-06ad-6c9ca798e7f8}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Podpięcie modułu generowania danych do odpowiedniej pozycji w tablicy [Okno][Tryb]
+*)
+METHOD PUBLIC LinkPrepareScreenToArrayFromConfiguration : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+	itfModule	: ITF_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
     </Method>

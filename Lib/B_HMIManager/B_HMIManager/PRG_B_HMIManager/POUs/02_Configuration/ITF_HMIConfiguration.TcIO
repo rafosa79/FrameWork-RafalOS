@@ -3,6 +3,18 @@
   <Itf Name="ITF_HMIConfiguration" Id="{d7340403-e938-4a39-b0ea-a459eb342446}">
     <Declaration><![CDATA[INTERFACE ITF_HMIConfiguration
 ]]></Declaration>
+    <Method Name="AddExtendedDisplayToPrepScrModule" Id="{65fc8a00-a93b-0758-1b5b-eb2d2634bf1b}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Dodawanie rozszerzonego wyświetlania danych inna prezenacja danych niż domyślna lista
+*)
+METHOD PUBLIC AddExtendedDisplayToPrepScrModule : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="AddMachineControlConnector" Id="{b532a06b-db44-0079-3a27-42c0b03e7cc5}">
       <Declaration><![CDATA[(*			
 	RafalOS

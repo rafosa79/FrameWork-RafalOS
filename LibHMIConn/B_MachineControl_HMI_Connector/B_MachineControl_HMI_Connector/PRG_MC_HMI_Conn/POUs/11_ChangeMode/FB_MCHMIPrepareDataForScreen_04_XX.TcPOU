@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_MCHMIPrepareDataForScreen_04_XX" Id="{6e4dfaff-27c8-0025-119a-a34cf39f28f4}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Moduł przygotowania danych dla Okna zmiany trybu we wszystkich trybach
+*)
+FUNCTION_BLOCK FB_MCHMIPrepareDataForScreen_04_XX EXTENDS FB_MCHMIPrepareDataForScreen IMPLEMENTS ITF_MCHMIPrepareDataForScreen
+VAR
+	itfMachineControlHMI	: ITF_MCHMIMachineControl_HMI_PrepScr_04_XX;
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_04_XX;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_PDFS" Id="{66ea2dcc-5128-071a-252d-f1f6604cbb90}" />
+    <Method Name="ClearAfterScreen" Id="{8287c1d6-fd3c-0f0a-0fd5-127913c425ee}" FolderPath="ITF_PDFS\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Czyści danych przy zmienia ramki po poprzedniej ramce
+*)
+METHOD PUBLIC ClearAfterScreen : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.ClearAfterScreen ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_04_XX" Id="{2e53909c-f49d-097b-3748-36ac1b2bd0b8}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_04_XX : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_04_XX;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstData REF= refstData;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkMachineControlHMI" Id="{081b03c4-328d-0073-21e2-a1ffff3db083}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkMachineControlHMI : BOOL
+VAR_INPUT
+	fbMachineControlHMI	: ITF_MCHMIMachineControl_HMI_PrepScr_04_XX;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[this^.itfMachineControlHMI := fbMachineControlHMI;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataForHMI" Id="{f50cac7c-a5ce-09f1-11e2-97991cebb006}" FolderPath="ITF_PDFS\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Metoda przygotowywania danych dla HMI 
+	W niej odbywa się odpytywanie właściego elementu przez łącznik
+*)
+METHOD PUBLIC PrepareDataForHMI : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.PrepareDataForHMI ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareForScreen" Id="{b3c05c97-1dee-05a6-050f-2577330ebeb3}" FolderPath="ITF_PDFS\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Przygotowanie ramki pood tamke do wyświetlenia - tylko przygotowanie a nie przygotowanie danych do wyświetlenia
+*)
+METHOD PUBLIC PrepareForScreen : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.PrepareForScreen ();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

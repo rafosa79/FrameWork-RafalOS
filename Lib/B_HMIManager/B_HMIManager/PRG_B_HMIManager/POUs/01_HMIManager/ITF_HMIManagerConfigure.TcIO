@@ -3,6 +3,19 @@
   <Itf Name="ITF_HMIManagerConfigure" Id="{6d65f736-9707-03a5-294a-a8aaa4bb0d85}">
     <Declaration><![CDATA[INTERFACE ITF_HMIManagerConfigure EXTENDS ITF_Base
 ]]></Declaration>
+    <Method Name="AddExtendedDisplayToPrepScrModuleFromConfiguration" Id="{d4bca5ed-5a82-0c88-2f2d-43d244921795}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Dodawanie rozszerzonego wyświetlania danych inna prezenacja danych niż domyślna lista
+*)
+METHOD PUBLIC AddExtendedDisplayToPrepScrModuleFromConfiguration : BOOL
+VAR_INPUT
+	itfModule		: ITF_MCHMIPrepareDataForScreenExtension;
+	itfExtension	: ITF_MCHMIDisplayExtension;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="AddMachineControlConnectorFromConfiguration" Id="{b4f79250-fdb4-0df1-352a-40a716fbb3a9}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -36,9 +49,7 @@ END_VAR
 *)
 METHOD AddPrepareScreenModuleFromConfiguration : BOOL
 VAR_INPUT
-	iScreen		: INT;
-	iMode		: INT;
-	itfModule	: ITF_MCHMIPrepareDataForScreen;
+	itfModule	: ITF_MCHMIPrepareScreen_Init;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -57,6 +68,15 @@ END_VAR
 METHOD LinkHMIManagerDataFromConfiguration : BOOL
 VAR_INPUT
 	stData					: REFERENCE TO ST_HMIManager;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkPrepareScreenToArrayFromConfiguration" Id="{40e2613f-c04d-00e4-03ad-7d9b91859577}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkPrepareScreenToArrayFromConfiguration : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+	itfModule	: ITF_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
     </Method>

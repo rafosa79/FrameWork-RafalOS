@@ -19,7 +19,7 @@
     <Company>RafałOS</Company>
     <Released>false</Released>
     <Title>B_HMIManager</Title>
-    <ProjectVersion>0.0.0.8</ProjectVersion>
+    <ProjectVersion>0.0.0.11</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>

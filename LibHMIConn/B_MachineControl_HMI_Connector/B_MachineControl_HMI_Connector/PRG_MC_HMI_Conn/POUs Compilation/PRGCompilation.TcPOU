@@ -10,6 +10,20 @@ VAR
 	                                    itfMachineControlConnector	:= fbMachineControl
 									);
 	fbPrepareScreen					: FB_MCHMIPrepareDataForScreen;
+	fbPrepareScreen_00_01			: FB_MCHMIPrepareDataForScreen_00_01;
+	fbPrepareScreen_00_02			: FB_MCHMIPrepareDataForScreen_00_02;
+	fbPrepareScreen_00_03			: FB_MCHMIPrepareDataForScreen_00_03;
+	fbPrepareScreen_00_04			: FB_MCHMIPrepareDataForScreen_00_04;
+	fbPrepareScreen_00_05			: FB_MCHMIPrepareDataForScreen_00_05;
+	
+	fbPrepareScreen_01_XX			: FB_MCHMIPrepareDataForScreen_01_XX;
+	fbPrepareScreen_02_XX			: FB_MCHMIPrepareDataForScreen_02_XX;
+	fbPrepareScreen_03_XX			: FB_MCHMIPrepareDataForScreen_03_XX;
+	fbPrepareScreen_04_XX			: FB_MCHMIPrepareDataForScreen_04_XX;
+	fbPrepareScreen_05_XX			: FB_MCHMIPrepareDataForScreen_05_XX;
+	fbPrepareScreen_06_XX			: FB_MCHMIPrepareDataForScreen_06_XX;
+	fbPrepareScreen_07_XX			: FB_MCHMIPrepareDataForScreen_07_XX;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
