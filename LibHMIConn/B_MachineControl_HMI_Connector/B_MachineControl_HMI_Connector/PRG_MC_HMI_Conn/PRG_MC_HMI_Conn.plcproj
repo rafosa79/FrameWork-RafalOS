@@ -19,7 +19,7 @@
     <Company>RafalOS</Company>
     <Released>false</Released>
     <Title>B_MachineControl_HMI_Connector</Title>
-    <ProjectVersion>0.0.0.4</ProjectVersion>
+    <ProjectVersion>0.0.0.5</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -95,6 +95,9 @@
     <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepareScreen.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\01_MC\ST_MCHMIMachineControl_HMI_Link.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -107,6 +110,42 @@
     <Compile Include="POUs\02_PrepareScreenParent\ITF_MCHMIPrepareDataForScreen.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\03_MW_Production\FB_MCHMIPrepareDataForScreen_00_01.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_MW_Maitenance\FB_MCHMIPrepareDataForScreen_00_02.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_MW_Manual\FB_MCHMIPrepareDataForScreen_00_03.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_MW_Washing\FB_MCHMIPrepareDataForScreen_00_04.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\07_MW_Diagnostics\FB_MCHMIPrepareDataForScreen_00_05.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\08_Parameters\FB_MCHMIPrepareDataForScreen_01_XX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\09_Recipe\FB_MCHMIPrepareDataForScreen_02_XX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\10_Alarm\FB_MCHMIPrepareDataForScreen_03_XX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\11_ChangeMode\FB_MCHMIPrepareDataForScreen_04_XX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\12_Statistics\FB_MCHMIPrepareDataForScreen_05_XX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\13_StateDiagram\FB_MCHMIPrepareDataForScreen_06_XX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\14_Setings\FB_MCHMIPrepareDataForScreen_07_XX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
@@ -114,6 +153,18 @@
     <Folder Include="POUs Compilation" />
     <Folder Include="POUs\01_MC" />
     <Folder Include="POUs\02_PrepareScreenParent" />
+    <Folder Include="POUs\03_MW_Production" />
+    <Folder Include="POUs\04_MW_Maitenance" />
+    <Folder Include="POUs\05_MW_Manual" />
+    <Folder Include="POUs\06_MW_Washing" />
+    <Folder Include="POUs\07_MW_Diagnostics" />
+    <Folder Include="POUs\08_Parameters" />
+    <Folder Include="POUs\09_Recipe" />
+    <Folder Include="POUs\10_Alarm" />
+    <Folder Include="POUs\11_ChangeMode" />
+    <Folder Include="POUs\12_Statistics" />
+    <Folder Include="POUs\13_StateDiagram" />
+    <Folder Include="POUs\14_Setings" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

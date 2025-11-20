@@ -36,8 +36,6 @@ END_VAR
 *)
 METHOD AddPrepareScreenModuleFromConfiguration : BOOL
 VAR_INPUT
-	iScreen		: INT;
-	iMode		: INT;
 	itfModule	: ITF_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
@@ -57,6 +55,15 @@ END_VAR
 METHOD LinkHMIManagerDataFromConfiguration : BOOL
 VAR_INPUT
 	stData					: REFERENCE TO ST_HMIManager;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkPrepareScreenToArrayFromConfiguration" Id="{40e2613f-c04d-00e4-03ad-7d9b91859577}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkPrepareScreenToArrayFromConfiguration : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+	itfModule	: ITF_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
     </Method>

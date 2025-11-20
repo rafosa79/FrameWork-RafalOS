@@ -1,23 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_MCHMIPrepareDataForScreen" Id="{3050d0c5-d80e-0889-00e3-5f0104bdd004}" SpecialFunc="None">
+  <POU Name="FB_MCHMIPrepareDataForScreen_02_XX" Id="{3e345615-3045-0b97-1325-577dd10d4eb7}" SpecialFunc="None">
     <Declaration><![CDATA[(*			
 	RafalOS
-	Rafał Osajda		19.11.2025		TC 4024.66
-	Domyślne przygotowanie danych dla ekranu
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Moduł przygotowania danych dla Okna receptur we wszsytkich trybach
 *)
-FUNCTION_BLOCK FB_MCHMIPrepareDataForScreen EXTENDS FB_BaseComponent_HMI IMPLEMENTS ITF_MCHMIPrepareDataForScreen
+FUNCTION_BLOCK FB_MCHMIPrepareDataForScreen_02_XX EXTENDS FB_MCHMIPrepareDataForScreen IMPLEMENTS ITF_MCHMIPrepareDataForScreen
 VAR
-	//itf do lacznika machinecontrol
-	//strulture danych 
-	//dodać ITF dla możliwości obsługi rozszerzonej obsługi wyświetlania 
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="ITF_PDFS" Id="{5ed5ea20-8c25-034d-2252-9059bf81fcb7}" />
-    <Method Name="ClearAfterScreen" Id="{9877e0d9-8678-0ae8-355c-333615fe32d2}" FolderPath="ITF_PDFS\">
+    <Folder Name="ITF_PDFS" Id="{467dd6eb-033b-043b-391b-aaf5e7c85d56}" />
+    <Method Name="ClearAfterScreen" Id="{769c4d88-7d7c-0abd-3ec8-a2785eba0c8a}" FolderPath="ITF_PDFS\">
       <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		19.11.2025		TC 4024.66
@@ -32,7 +29,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PrepareDataForHMI" Id="{bc2b143f-e4a1-0155-38ef-904b1a2f8b08}" FolderPath="ITF_PDFS\">
+    <Method Name="PrepareDataForHMI" Id="{c0a0e110-4c8c-0f99-36c8-629e7e3d43c4}" FolderPath="ITF_PDFS\">
       <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		14.11.2025		TC 4024.66
@@ -48,7 +45,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PrepareForScreen" Id="{28b2ca1f-8b84-0c44-1ac0-89ac26d6625e}" FolderPath="ITF_PDFS\">
+    <Method Name="PrepareForScreen" Id="{53b07278-0656-0582-30f0-5f16589c93c8}" FolderPath="ITF_PDFS\">
       <Declaration><![CDATA[(*			
 	RafalOS
 	Rafał Osajda		19.11.2025		TC 4024.66

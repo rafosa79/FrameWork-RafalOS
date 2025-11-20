@@ -107,17 +107,14 @@ END_VAR
 *)
 METHOD AddPrepareScreenModuleFromConfiguration : BOOL
 VAR_INPUT
-	iScreen		: INT;
-	iMode		: INT;
 	itfModule	: ITF_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.itfMachineControl.AddPrepareScreenModuleFromManager (
-	iScreen 	:= iScreen,
-	iMode 		:= iMode,
 	itfModule	:= itfModule
 );
+itfModule.LinkCommonData (stCommonData := THIS^.refstCommonData);
 ]]></ST>
       </Implementation>
     </Method>
@@ -225,6 +222,23 @@ IF (__ISVALIDREF (THIS^.refstManagerData)) THEN
 	THIS^.bIsValidData := TRUE;
 	LinkHMIManagerDataFromConfiguration := TRUE;
 END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkPrepareScreenToArrayFromConfiguration" Id="{2dc60b04-e427-087a-1ef8-2d2885c74f43}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC LinkPrepareScreenToArrayFromConfiguration : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+	itfModule	: ITF_MCHMIPrepareDataForScreen;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMachineControl.LinkPrepareScreenToArrayFromConfiguration (
+	iScreen		:= iScreen,
+	iMode		:= iMode,
+	itfModule	:= itfModule
+);
 ]]></ST>
       </Implementation>
     </Method>
