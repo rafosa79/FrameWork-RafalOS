@@ -35,8 +35,9 @@ VAR
 	(*	Menu główne - Łącznik	*)
 	fbMainMenu_HMI_Connector			: FB_HMIEMenu_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfMenu := fbMainMenu);
 	(*	Łącznik do Machine Control	*)
-	fbMachineControl_HMI_Connector		: FB_MachineControl_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfMachineControlConnector := GVL_SystemVariable.fbMachineControl);
+	fbMachineControl_HMI_Connector		: FB_MCHMIMachineControl_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfMachineControlConnector := GVL_SystemVariable.fbMachineControl);
 	
+	fbPrepareDataModul_Empty			: FB_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
     <Implementation>

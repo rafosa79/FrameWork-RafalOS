@@ -11,7 +11,7 @@
 *)
 METHOD AddMachineControlConnectorFromConfiguration : BOOL
 VAR_INPUT
-	itfMachineControl	: ITF_MachineControl_HMI;
+	itfMachineControl	: ITF_MCHMIMachineControl_HMI;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -25,6 +25,20 @@ METHOD PUBLIC AddMainMenuFromConfiguration : BOOL
 VAR_INPUT
 	fbMenu			: ITF_HMIEMenu;
 	fbMenu_HMI		: ITF_HMIEMenu_HMI;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddPrepareScreenModuleFromConfiguration" Id="{bac31dcd-3d16-0095-3bc0-875eff1a8924}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie modułów do przygotowywania stron do wyświetlenia
+*)
+METHOD AddPrepareScreenModuleFromConfiguration : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+	itfModule	: ITF_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
     </Method>

@@ -6,7 +6,7 @@
 	Rafał Osajda		19.11.2025		TC 4024.66
 	Domyślne przygotowanie danych dla ekranu
 *)
-FUNCTION_BLOCK FB_MCHMIPrepareDataForScreen EXTENDS FB_BaseComponent_HMI IMPLEMENTS ITF_MCHMIMachineControl_HMI
+FUNCTION_BLOCK FB_MCHMIPrepareDataForScreen EXTENDS FB_BaseComponent_HMI IMPLEMENTS ITF_MCHMIPrepareDataForScreen
 VAR
 	//itf do lacznika machinecontrol
 	//strulture danych 

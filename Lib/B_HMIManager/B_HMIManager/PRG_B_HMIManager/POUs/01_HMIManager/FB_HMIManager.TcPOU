@@ -22,7 +22,7 @@ VAR
 	(*	Dana wspólne dla całego systemu	*)
 	refstManagerData			: REFERENCE TO ST_HMIManager;
 	(*	Łącznik do MachineControl	*)
-	itfMachineControl			: ITF_MachineControl_HMI;
+	itfMachineControl			: ITF_MCHMIMachineControl_HMI;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -45,7 +45,7 @@ END_IF
 *)
 METHOD AddMachineControlConnectorFromConfiguration : BOOL
 VAR_INPUT
-	itfMachineControl	: ITF_MachineControl_HMI;
+	itfMachineControl	: ITF_MCHMIMachineControl_HMI;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -107,11 +107,18 @@ END_VAR
 *)
 METHOD AddPrepareScreenModuleFromConfiguration : BOOL
 VAR_INPUT
-	itfHMIManager	: ITF_HMIManagerConfigure;
+	iScreen		: INT;
+	iMode		: INT;
+	itfModule	: ITF_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[this^.itfMachineControl.Add]]></ST>
+        <ST><![CDATA[THIS^.itfMachineControl.AddPrepareScreenModuleFromManager (
+	iScreen 	:= iScreen,
+	iMode 		:= iMode,
+	itfModule	:= itfModule
+);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="ExecuteCycle" Id="{52b242f4-a20c-0dfc-3dbf-ca9f805176f3}">

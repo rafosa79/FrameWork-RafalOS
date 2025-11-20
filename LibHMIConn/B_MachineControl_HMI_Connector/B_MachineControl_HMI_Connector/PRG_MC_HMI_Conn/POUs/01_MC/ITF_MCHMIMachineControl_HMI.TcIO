@@ -3,6 +3,15 @@
   <Itf Name="ITF_MCHMIMachineControl_HMI" Id="{6538430b-c357-0110-090b-55567298ce9d}">
     <Declaration><![CDATA[INTERFACE ITF_MCHMIMachineControl_HMI EXTENDS ITF_BaseTopElement_HMI
 ]]></Declaration>
+    <Method Name="AddPrepareScreenModuleFromManager" Id="{aca03413-ab44-0db0-2798-45d6c1e55008}">
+      <Declaration><![CDATA[METHOD PUBLIC AddPrepareScreenModuleFromManager : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+	itfModule	: ITF_MCHMIPrepareDataForScreen;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="ClearAfterScreenFroHMIManager" Id="{f45baa25-757c-0fe6-219c-a44fc4762619}">
       <Declaration><![CDATA[(*			
 	RafalOS

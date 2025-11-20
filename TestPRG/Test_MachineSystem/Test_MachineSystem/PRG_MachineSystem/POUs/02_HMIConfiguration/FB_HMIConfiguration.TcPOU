@@ -43,6 +43,21 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
+    <Method Name="AddPrepareScreenModule" Id="{8824f992-bf48-4958-9889-40a227436b03}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie modułów do przygotowywania stron do wyświetlenia
+*)
+METHOD AddPrepareScreenModule : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="LinkCommonStructureData" Id="{2f841f18-3ebb-43fd-bc79-6857670a6334}">
       <Declaration><![CDATA[(*			
 	RafalOS

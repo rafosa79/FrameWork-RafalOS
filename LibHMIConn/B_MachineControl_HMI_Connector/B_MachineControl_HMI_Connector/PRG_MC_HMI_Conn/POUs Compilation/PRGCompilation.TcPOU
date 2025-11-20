@@ -9,6 +9,7 @@ VAR
 										itfBaseLoggerConnector		:= fbLogger,
 	                                    itfMachineControlConnector	:= fbMachineControl
 									);
+	fbPrepareScreen					: FB_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
     <Implementation>

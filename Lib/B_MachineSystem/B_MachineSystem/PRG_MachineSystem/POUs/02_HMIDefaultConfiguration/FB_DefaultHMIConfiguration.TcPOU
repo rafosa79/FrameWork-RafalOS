@@ -101,6 +101,41 @@ itfHMIManager.AddMainMenuFromConfiguration (
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="AddPrepareScreenModule" Id="{63b11d9d-8cb5-0f9d-017d-ab57b2966545}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie modułów do przygotowywania stron do wyświetlenia
+*)
+METHOD AddPrepareScreenModule : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+VAR
+	iforScreen	: INT;
+	iforMode	: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[	(*	Przypisanie do wszystkich pól pustego FB *)
+FOR iforScreen := 0 TO GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU DO 
+	FOR iforMode := 0 TO GVL_SaMConstans.NUMBER_OF_MODES DO 
+		itfHMIManager.AddPrepareScreenModuleFromConfiguration (
+			iScreen := iforScreen, 
+			iMode := iforMode, 
+			itfModule := PRG_ControlHMI.fbPrepareDataModul_Empty
+		);
+	END_FOR
+END_FOR
+	(*	Przypisanie modułów do aktywnych akien 	*)
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (
+	iScreen := iforScreen, 
+	iMode := iforMode, 
+	itfModule := PRG_ControlHMI.fbPrepareDataModul_Empty
+);
+
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="LinkHMIManagerData" Id="{0dd4ccc1-f7b5-039f-2ef7-cc7039656273}">
       <Declaration><![CDATA[(*			
 	RafalOS

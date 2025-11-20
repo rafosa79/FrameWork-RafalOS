@@ -17,10 +17,15 @@ END_VAR
     <Method Name="AddPrepareScreenModuleFromManager" Id="{3a4d88d9-e1f1-069f-33f6-e25e0914935a}" FolderPath="ITF_MachineControl_HMI\">
       <Declaration><![CDATA[METHOD PUBLIC AddPrepareScreenModuleFromManager : BOOL
 VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+	itfModule	: ITF_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[THIS^.arrPrepareScreen [iScreen][iMode] := itfModule;
+THIS^.AddComponent (itfComponentHMI := itfModule);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="ClearAfterScreenFroHMIManager" Id="{ba105132-73c6-04e7-2948-825f2b608f69}" FolderPath="ITF_MachineControl_HMI\">
