@@ -13,6 +13,21 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="AddExtendedDisplayToPrepScrModule" Id="{164c2fc1-9e48-4f57-84ed-51098907a6de}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Dodawanie rozszerzonego wyświetlania danych inna prezenacja danych niż domyślna lista
+*)
+METHOD AddExtendedDisplayToPrepScrModule : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddMachineControlConnector" Id="{feaf6d5d-6fa3-4fd9-8473-6c32e4900833}">
       <Declaration><![CDATA[(*			
 	RafalOS

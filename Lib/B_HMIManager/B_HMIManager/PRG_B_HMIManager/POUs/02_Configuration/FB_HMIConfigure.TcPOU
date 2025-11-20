@@ -43,7 +43,8 @@ END_VAR]]></Declaration>
 THIS^.arritfConfigure [1].AddMainMenu (itfHMIManager := fbHMIManager);
 THIS^.arritfConfigure [1].AddMachineControlConnector (itfHMIManager := fbHMIManager);
 THIS^.arritfConfigure [1].AddPrepareScreenModule (itfHMIManager := fbHMIManager);
-
+THIS^.arritfConfigure [1].AddExtendedDisplayToPrepScrModule (itfHMIManager := fbHMIManager);
+	
 FOR iI := 1 TO THIS^.iNubmerOfAddedConfigure DO 
 	IF (THIS^.arritfConfigure [iI] <> 0) THEN
 		THIS^.arritfConfigure [iI].SetButtonActive (itfHMIManager	:= fbHMIManager);

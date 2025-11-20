@@ -8,6 +8,8 @@
 *)
 FUNCTION_BLOCK FB_MCHMIPrepareDataForScreen_04_XX EXTENDS FB_MCHMIPrepareDataForScreen IMPLEMENTS ITF_MCHMIPrepareDataForScreen
 VAR
+	itfMachineControlHMI	: ITF_MCHMIMachineControl_HMI_PrepScr_04_XX;
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_04_XX;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -27,6 +29,27 @@ END_VAR
       <Implementation>
         <ST><![CDATA[SUPER^.ClearAfterScreen ();
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkDataHMI_04_XX" Id="{2e53909c-f49d-097b-3748-36ac1b2bd0b8}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_04_XX : BOOL
+VAR_INPUT
+	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_04_XX;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstData REF= refstData;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkMachineControlHMI" Id="{081b03c4-328d-0073-21e2-a1ffff3db083}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkMachineControlHMI : BOOL
+VAR_INPUT
+	fbMachineControlHMI	: ITF_MCHMIMachineControl_HMI_PrepScr_04_XX;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[this^.itfMachineControlHMI := fbMachineControlHMI;]]></ST>
       </Implementation>
     </Method>
     <Method Name="PrepareDataForHMI" Id="{f50cac7c-a5ce-09f1-11e2-97991cebb006}" FolderPath="ITF_PDFS\">

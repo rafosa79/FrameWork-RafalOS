@@ -19,7 +19,7 @@
     <Company>RafalOS</Company>
     <Released>false</Released>
     <Title>B_MachineControl_HMI_Connector</Title>
-    <ProjectVersion>0.0.0.5</ProjectVersion>
+    <ProjectVersion>0.0.0.9</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -95,7 +95,43 @@
     <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepareScreen.TcIO">
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr_00_01.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr_00_02.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr_00_03.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr_00_04.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr_00_05.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr_01_XX.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr_02_XX.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr_03_XX.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr_04_XX.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr_05_XX.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr_06_XX.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ITF_MCHMIMachineControl_HMI_PrepScr_07_XX.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\01_MC\ST_MCHMIMachineControl_HMI_Link.TcDUT">
@@ -107,43 +143,124 @@
     <Compile Include="POUs\02_PrepareScreenParent\FB_MCHMIPrepareDataForScreen.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\02_PrepareScreenParent\ITF_MCHMIDisplayExtension.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\02_PrepareScreenParent\ITF_MCHMIPrepareDataForScreen.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02_PrepareScreenParent\ITF_MCHMIPrepareDataForScreenExtension.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02_PrepareScreenParent\ITF_MCHMIPrepareScreen_Init.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\03_MW_Production\FB_MCHMIPrepareDataForScreen_00_01.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\03_MW_Production\ITF_MCHMIPrepareScreen_00_01_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_MW_Production\ST_MCHMIPrepareScreen_00_01.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\04_MW_Maitenance\FB_MCHMIPrepareDataForScreen_00_02.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_MW_Maitenance\ITF_MCHMIPrepareScreen_00_02_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_MW_Maitenance\ST_MCHMIPrepareScreen_00_02.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\05_MW_Manual\FB_MCHMIPrepareDataForScreen_00_03.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\05_MW_Manual\ITF_MCHMIPrepareScreen_00_03_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_MW_Manual\ST_MCHMIPrepareScreen_00_03.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\06_MW_Washing\FB_MCHMIPrepareDataForScreen_00_04.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_MW_Washing\ITF_MCHMIPrepareScreen_00_04_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\06_MW_Washing\ST_MCHMIPrepareScreen_00_04.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\07_MW_Diagnostics\FB_MCHMIPrepareDataForScreen_00_05.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\07_MW_Diagnostics\ITF_MCHMIPrepareScreen_00_05_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\07_MW_Diagnostics\ST_MCHMIPrepareScreen_00_05.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\08_Parameters\FB_MCHMIPrepareDataForScreen_01_XX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\08_Parameters\ITF_MCHMIPrepareScreen_01_XX_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\08_Parameters\ST_MCHMIPrepareScreen_01_XX.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\09_Recipe\FB_MCHMIPrepareDataForScreen_02_XX.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\09_Recipe\ITF_MCHMIPrepareScreen_02_XX_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\09_Recipe\ST_MCHMIPrepareScreen_02_XX.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\10_Alarm\FB_MCHMIPrepareDataForScreen_03_XX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\10_Alarm\ITF_MCHMIPrepareScreen_03_XX_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\10_Alarm\ST_MCHMIPrepareScreen_03_XX.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\11_ChangeMode\FB_MCHMIPrepareDataForScreen_04_XX.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\11_ChangeMode\ITF_MCHMIPrepareScreen_04_XX_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\11_ChangeMode\ST_MCHMIPrepareScreen_04_XX.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\12_Statistics\FB_MCHMIPrepareDataForScreen_05_XX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\12_Statistics\ITF_MCHMIPrepareScreen_05_XX_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\12_Statistics\ST_MCHMIPrepareScreen_05_XX.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\13_StateDiagram\FB_MCHMIPrepareDataForScreen_06_XX.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\13_StateDiagram\ITF_MCHMIPrepareScreen_06_XX_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\13_StateDiagram\ST_MCHMIPrepareScreen_06_XX.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\14_Setings\FB_MCHMIPrepareDataForScreen_07_XX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\14_Setings\ITF_MCHMIPrepareScreen_07_XX_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\14_Setings\ST_MCHMIPrepareScreen_07_XX.TcDUT">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

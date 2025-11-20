@@ -11,9 +11,7 @@ INTERFACE ITF_MCHMIMachineControl_HMI EXTENDS ITF_BaseTopElement_HMI
     <Method Name="AddPrepareScreenModuleFromManager" Id="{aca03413-ab44-0db0-2798-45d6c1e55008}">
       <Declaration><![CDATA[METHOD PUBLIC AddPrepareScreenModuleFromManager : BOOL
 VAR_INPUT
-//	iScreen		: INT;
-//	iMode		: INT;
-	itfModule	: ITF_MCHMIPrepareDataForScreen;
+	itfModule	: ITF_MCHMIPrepareScreen_Init;// ITF_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
     </Method>

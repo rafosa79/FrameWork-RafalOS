@@ -37,6 +37,22 @@ END_IF
     </Implementation>
     <Folder Name="ITF_HMIManagerConfigure" Id="{89138cc2-cb73-0422-3e5b-ed5c94136f56}" />
     <Folder Name="WiazanieModulow" Id="{82c7cc63-7604-0b87-2d45-08cdf14b79c2}" />
+    <Method Name="AddExtendedDisplayToPrepScrModuleFromConfiguration" Id="{bb0f7184-b066-0b31-247f-5b56c025b682}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Dodawanie rozszerzonego wyświetlania danych inna prezenacja danych niż domyślna lista
+*)
+METHOD PUBLIC AddExtendedDisplayToPrepScrModuleFromConfiguration : BOOL
+VAR_INPUT
+	itfModule		: ITF_MCHMIPrepareDataForScreenExtension;
+	itfExtension	: ITF_MCHMIDisplayExtension;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfModule.LinkExtensionDisplay (fbExtendedDisplay := itfExtension);]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddMachineControlConnectorFromConfiguration" Id="{1f32671d-7d0a-0b94-0866-9f070dcaf520}" FolderPath="ITF_HMIManagerConfigure\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -107,7 +123,7 @@ END_VAR
 *)
 METHOD AddPrepareScreenModuleFromConfiguration : BOOL
 VAR_INPUT
-	itfModule	: ITF_MCHMIPrepareDataForScreen;
+	itfModule	: ITF_MCHMIPrepareScreen_Init;
 END_VAR
 ]]></Declaration>
       <Implementation>

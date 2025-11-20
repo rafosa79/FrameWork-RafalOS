@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCHMIPrepareScreen_03_XX" Id="{e5701d8d-c3b1-0fa2-16c8-dd973d024494}">
+    <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_03_XX :
+STRUCT
+	btmpValue_03_XX	: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

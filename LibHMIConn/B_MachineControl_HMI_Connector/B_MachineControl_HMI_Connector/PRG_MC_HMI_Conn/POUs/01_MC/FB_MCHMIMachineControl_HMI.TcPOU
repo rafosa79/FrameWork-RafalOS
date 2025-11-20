@@ -1,12 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_MCHMIMachineControl_HMI" Id="{824b19d4-94d9-0bfc-3720-89c998a439e0}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_MCHMIMachineControl_HMI EXTENDS FB_BaseTopElement_HMI IMPLEMENTS ITF_MCHMIMachineControl_HMI
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Łącznik MachineControl do wizualizacji
+*)
+FUNCTION_BLOCK FB_MCHMIMachineControl_HMI EXTENDS FB_BaseTopElement_HMI IMPLEMENTS ITF_MCHMIMachineControl_HMI, ITF_MCHMIMachineControl_HMI_PrepScr					
 VAR
 	itfMachineControlConnector			: ITF_MCMachineControl_HMI_Connector;
 	refstMachineControlData				: REFERENCE TO ST_MCHMIMachineControl_HMI;
 	(*	Przygotowywanie danych dla ramek	*)
-	arrPrepareScreen					: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF 
+	arrPrepareScreen					: ARRAY [1..20] OF ITF_MCHMIPrepareScreen_Init;
+	iNumberOfAddedPrepScren				: INT;
+	arrPrepareScreen_Execute			: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF 
 											ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ITF_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
@@ -14,18 +21,33 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="ITF_MachineControl_HMI" Id="{a9d7c349-9130-01e1-1aed-5c09a6784e4c}" />
+    <Folder Name="ITF_PrepScr_00_01" Id="{fb21d947-9c03-0fcd-0e5b-1b9afd205409}" />
+    <Folder Name="ITF_PrepScr_00_02" Id="{a457c4ae-8fa9-0b0c-31c8-eac0ffc13714}" />
+    <Folder Name="ITF_PrepScr_00_03" Id="{190fbbda-4268-0520-363b-c5a1d4b25259}" />
+    <Folder Name="ITF_PrepScr_00_04" Id="{fd0cdd28-259a-085a-0912-88f7c2784ea6}" />
+    <Folder Name="ITF_PrepScr_00_05" Id="{cf1a97da-92f0-0513-2a45-28625b25e93e}" />
+    <Folder Name="ITF_PrepScr_01_XX" Id="{cfdaff18-3512-0745-1493-b5a9ec6750e2}" />
+    <Folder Name="ITF_PrepScr_02_XX" Id="{8db85327-7862-0cfc-0fb6-a341ac086758}" />
+    <Folder Name="ITF_PrepScr_03_XX" Id="{0fb49cf2-70f9-0815-2034-5842c06162df}" />
+    <Folder Name="ITF_PrepScr_04_XX" Id="{32611315-0fc8-04d0-11a4-df5bff992e15}" />
+    <Folder Name="ITF_PrepScr_05_XX" Id="{be3675d3-c7f1-0a5b-26ec-eabce98a903b}" />
+    <Folder Name="ITF_PrepScr_06_XX" Id="{578d6671-baee-03c4-3c6d-75c480eb8724}" />
+    <Folder Name="ITF_PrepScr_07_XX" Id="{f9c91a0e-f822-0c1a-0897-c36bb99ec540}" />
     <Method Name="AddPrepareScreenModuleFromManager" Id="{3a4d88d9-e1f1-069f-33f6-e25e0914935a}" FolderPath="ITF_MachineControl_HMI\">
       <Declaration><![CDATA[METHOD PUBLIC AddPrepareScreenModuleFromManager : BOOL
 VAR_INPUT
-//	iScreen		: INT;
-//	iMode		: INT;
-	itfModule	: ITF_MCHMIPrepareDataForScreen;
+	itfModule	: ITF_MCHMIPrepareScreen_Init;// ITF_MCHMIPrepareDataForScreen;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[//THIS^.arrPrepareScreen [iScreen][iMode] := itfModule;
-THIS^.AddComponent (itfComponentHMI := itfModule);
-]]></ST>
+        <ST><![CDATA[IF (THIS^.iNumberOfAddedPrepScren + 1 <= 20) THEN
+	THIS^.AddComponent (itfComponentHMI := itfModule);
+	THIS^.iNumberOfAddedPrepScren := THIS^.iNumberOfAddedPrepScren + 1;
+	THIS^.arrPrepareScreen [THIS^.iNumberOfAddedPrepScren] := itfModule;
+	AddPrepareScreenModuleFromManager := TRUE;
+ELSE
+	AddPrepareScreenModuleFromManager := FALSE;
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="ClearAfterScreenFroHMIManager" Id="{ba105132-73c6-04e7-2948-825f2b608f69}" FolderPath="ITF_MachineControl_HMI\">
@@ -84,6 +106,21 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.refstMachineControlData REF= stData.stMachineControl;
+//w tablicy pole 1 zajmuje metoda pusta domyślna do niej się nie linkuje danych
+THIS^.arrPrepareScreen [2].LinkDataHMI_00_01 (refstData := stData.stPrepScr_00_01);
+THIS^.arrPrepareScreen [3].LinkDataHMI_00_02 (refstData := stData.stPrepScr_00_02);
+THIS^.arrPrepareScreen [4].LinkDataHMI_00_03 (refstData := stData.stPrepScr_00_03);
+THIS^.arrPrepareScreen [5].LinkDataHMI_00_04 (refstData := stData.stPrepScr_00_04);
+THIS^.arrPrepareScreen [6].LinkDataHMI_00_05 (refstData := stData.stPrepScr_00_05);
+
+THIS^.arrPrepareScreen [7].LinkDataHMI_01_XX (refstData := stData.stPrepScr_01_XX);
+THIS^.arrPrepareScreen [8].LinkDataHMI_02_XX (refstData := stData.stPrepScr_02_XX);
+THIS^.arrPrepareScreen [9].LinkDataHMI_03_XX (refstData := stData.stPrepScr_03_XX);
+THIS^.arrPrepareScreen [10].LinkDataHMI_04_XX (refstData := stData.stPrepScr_04_XX);
+THIS^.arrPrepareScreen [11].LinkDataHMI_05_XX (refstData := stData.stPrepScr_05_XX);
+THIS^.arrPrepareScreen [12].LinkDataHMI_06_XX (refstData := stData.stPrepScr_06_XX);
+THIS^.arrPrepareScreen [13].LinkDataHMI_07_XX (refstData := stData.stPrepScr_07_XX);
+
 
 THIS^.refstBaseLoggerElementDataHMI REF= stData.stBaseLoggerElement;
 THIS^.refstBaseComponentDataHMI REF= stData.stBaseComponent;
@@ -114,7 +151,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.arrPrepareScreen [iScreen][iMode] := itfModule;
+        <ST><![CDATA[THIS^.arrPrepareScreen_Execute [iScreen][iMode] := itfModule;
 ]]></ST>
       </Implementation>
     </Method>
