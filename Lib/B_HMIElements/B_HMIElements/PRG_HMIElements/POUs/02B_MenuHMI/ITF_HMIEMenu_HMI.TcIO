@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_HMIEMenu_HMI" Id="{76ad644f-bee1-09cd-13fb-a0a42abb1a07}">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		12.11.2025		TC 4024.66
+	interfejs potrzebny w HMI
+*)
+INTERFACE ITF_HMIEMenu_HMI EXTENDS ITF_BaseControlElement_HMI
+]]></Declaration>
+    <Method Name="GetNumberOfActiveScreen" Id="{d8eca6b8-7e5b-0738-2c79-ffc5cbc7f2fa}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Pobiera numer aktywnej strony menu głównego
+*)
+METHOD GetNumberOfActiveScreen : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfPreviewScreen" Id="{7c68b955-4475-02ed-0b84-012b6a804ca0}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Pobiera numer aktywnej strony menu głównego
+*)
+METHOD GetNumberOfPreviewScreen : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetTitleOfActualScreen" Id="{5ef0e837-3a2e-0963-0451-5609708c4890}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Pobiera tytuł z aktywnej strony
+*)
+METHOD GetTitleOfActualScreen : WSTRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsChangePage" Id="{8e973a4b-ed44-0193-11ec-28308870efea}">
+      <Declaration><![CDATA[METHOD PUBLIC IsChangePage : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkHMIEMenuData" Id="{d9eacb14-f795-08b0-0d89-e0ce0eda6a9c}">
+      <Declaration><![CDATA[METHOD LinkHMIEMenuData : BOOL
+VAR_INPUT
+	stData				: reference to ST_HMIEMenu_HMI_Link;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

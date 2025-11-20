@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MCHMIDisplayExtension" Id="{a492461b-867b-0a0d-23b7-55679e90d3ce}">
+    <Declaration><![CDATA[INTERFACE ITF_MCHMIDisplayExtension
+]]></Declaration>
+    <Method Name="ExtendedClearAfterScreen" Id="{ff3e14c8-0be6-04e7-3d06-986e3b241ebc}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Czyści danych przy zmienia ramki po poprzedniej ramce
+*)
+METHOD PUBLIC ExtendedClearAfterScreen : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ExtendedPrepareDataForHMI" Id="{0931d3f7-33be-046d-302c-587ede3d89a2}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Przygotuj rozszerzone wyświetlanie
+*)
+METHOD PUBLIC ExtendedPrepareDataForHMI : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ExtendedPrepareForScreen" Id="{27e9d0bb-ea3a-01f0-3c4f-ef86f8c4cafb}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Przygotowanie ramki pood tamke do wyświetlenia - tylko przygotowanie a nie przygotowanie danych do wyświetlenia
+*)
+METHOD PUBLIC ExtendedPrepareForScreen : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

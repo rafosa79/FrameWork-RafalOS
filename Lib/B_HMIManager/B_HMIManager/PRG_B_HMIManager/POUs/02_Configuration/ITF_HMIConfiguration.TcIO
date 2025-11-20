@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_HMIConfiguration" Id="{d7340403-e938-4a39-b0ea-a459eb342446}">
+    <Declaration><![CDATA[INTERFACE ITF_HMIConfiguration
+]]></Declaration>
+    <Method Name="AddExtendedDisplayToPrepScrModule" Id="{65fc8a00-a93b-0758-1b5b-eb2d2634bf1b}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Dodawanie rozszerzonego wyświetlania danych inna prezenacja danych niż domyślna lista
+*)
+METHOD PUBLIC AddExtendedDisplayToPrepScrModule : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddMachineControlConnector" Id="{b532a06b-db44-0079-3a27-42c0b03e7cc5}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie połączenia do MachineControl
+*)
+METHOD AddMachineControlConnector : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddMainMenu" Id="{98f90ff2-100a-026d-3450-11a10aa1ddf5}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Dodanie do systemu menu głównego 
+*)
+METHOD PUBLIC AddMainMenu : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddPrepareScreenModule" Id="{48e01874-d9bd-0213-23ff-a98f43b0bab8}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie modułów do przygotowywania stron do wyświetlenia
+*)
+METHOD AddPrepareScreenModule : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkHMIManagerData" Id="{8f28a6e9-16a1-01d0-03bd-8677182f29cd}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Podłączenie głównej struktury danych dla domyślnych elementów 
+*)
+METHOD LinkHMIManagerData : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetButtonActive" Id="{14442edb-64d3-0e73-0287-1e3dc26a0acb}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przycisk na aktywny  - pierwsze okno w wyświetlaniu wizualizacji
+*)
+METHOD SetButtonActive : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetButtonsEnabled" Id="{aa333f43-c2d2-09fd-09bf-7b0affc2fb1e}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przyciski na wlaczone lub wylaczone - możliwośc naciśnięcia
+*)
+METHOD SetButtonsEnabled : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetButtonsVisible" Id="{1e6ec0d9-fc20-0b6f-03e9-bcb76b59581a}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przyciski na widoczne lub nie widoczne
+*)
+METHOD SetButtonsVisible : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

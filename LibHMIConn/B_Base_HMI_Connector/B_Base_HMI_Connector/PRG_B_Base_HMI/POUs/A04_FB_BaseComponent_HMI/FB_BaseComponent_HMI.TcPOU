@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseComponent_HMI" Id="{52a5d3de-74e5-09ff-1362-d8678f55ad3c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseComponent_HMI EXTENDS FB_BaseLoggerElement_HMI IMPLEMENTS ITF_BaseComponent_HMI
+VAR
+	itfBaseComponentConnector			: ITF_BaseComponent_HMI_Connector;
+	refstBaseComponentDataHMI			: REFERENCE TO ST_BaseComponent_HMI;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_BaseLoggerElement_HMI" Id="{a7bde6f3-dd07-01ad-312e-4b18ae6dfe2c}" />
+    <Folder Name="WiazanieZmiennych" Id="{870c23bf-4b00-0970-28a0-73e67a9b4230}" />
+    <Method Name="IsLinkedReferences" Id="{7e0f46e5-1712-0fd2-084d-d6fe8737dc5c}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC IsLinkedReferences : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (SUPER^.IsLinkedReferences () AND __ISVALIDREF (THIS^.refstBaseComponentDataHMI)) THEN
+	IsLinkedReferences			:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataForHMI" Id="{49fd316c-5d5b-0f7d-2ccf-0b061cb6666d}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Metoda przygotowywania danych dla HMI 
+	W niej odbywa się odpytywanie właściego elementu przez łącznik
+*)
+METHOD PUBLIC PrepareDataForHMI : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstBaseComponentDataHMI.wsName := THIS^.GetTextFromLabelForActiveLocation (stLabel := THIS^.itfBaseComponentConnector.GetName ());
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MCHMIPrepareDataForScreenExtension" Id="{3eba7dd6-534a-0869-080a-4ac7386c187f}">
+    <Declaration><![CDATA[INTERFACE ITF_MCHMIPrepareDataForScreenExtension
+]]></Declaration>
+    <Method Name="LinkExtensionDisplay" Id="{59992657-2331-01e2-1f12-054db1ae02e6}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkExtensionDisplay : BOOL
+VAR_INPUT
+	fbExtendedDisplay			: ITF_MCHMIDisplayExtension;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

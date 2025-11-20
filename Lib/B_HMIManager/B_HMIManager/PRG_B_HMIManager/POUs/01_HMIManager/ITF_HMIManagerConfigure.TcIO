@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_HMIManagerConfigure" Id="{6d65f736-9707-03a5-294a-a8aaa4bb0d85}">
+    <Declaration><![CDATA[INTERFACE ITF_HMIManagerConfigure EXTENDS ITF_Base
+]]></Declaration>
+    <Method Name="AddExtendedDisplayToPrepScrModuleFromConfiguration" Id="{d4bca5ed-5a82-0c88-2f2d-43d244921795}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Dodawanie rozszerzonego wyświetlania danych inna prezenacja danych niż domyślna lista
+*)
+METHOD PUBLIC AddExtendedDisplayToPrepScrModuleFromConfiguration : BOOL
+VAR_INPUT
+	itfModule		: ITF_MCHMIPrepareDataForScreenExtension;
+	itfExtension	: ITF_MCHMIDisplayExtension;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddMachineControlConnectorFromConfiguration" Id="{b4f79250-fdb4-0df1-352a-40a716fbb3a9}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie połączenia do MachineControl  wywoływane z konfiguracji
+*)
+METHOD AddMachineControlConnectorFromConfiguration : BOOL
+VAR_INPUT
+	itfMachineControl	: ITF_MCHMIMachineControl_HMI;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddMainMenuFromConfiguration" Id="{5d351bd6-396f-077b-3187-507bb716d7ff}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Dodanie do systemu menu głównego 
+*)
+METHOD PUBLIC AddMainMenuFromConfiguration : BOOL
+VAR_INPUT
+	fbMenu			: ITF_HMIEMenu;
+	fbMenu_HMI		: ITF_HMIEMenu_HMI;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddPrepareScreenModuleFromConfiguration" Id="{bac31dcd-3d16-0095-3bc0-875eff1a8924}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Dodanie modułów do przygotowywania stron do wyświetlenia
+*)
+METHOD AddPrepareScreenModuleFromConfiguration : BOOL
+VAR_INPUT
+	itfModule	: ITF_MCHMIPrepareScreen_Init;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfAddedButtons" Id="{2c006b9d-049e-083c-1d94-a7dce0f449ea}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfAddedButtons : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkHMIManagerDataFromConfiguration" Id="{4353d84b-e3a5-0c30-00a7-976ea9ba5068}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Podłączenie głównej struktury danych dla domyślnych elementów 
+*)
+METHOD LinkHMIManagerDataFromConfiguration : BOOL
+VAR_INPUT
+	stData					: REFERENCE TO ST_HMIManager;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LinkPrepareScreenToArrayFromConfiguration" Id="{40e2613f-c04d-00e4-03ad-7d9b91859577}">
+      <Declaration><![CDATA[METHOD PUBLIC LinkPrepareScreenToArrayFromConfiguration : BOOL
+VAR_INPUT
+	iScreen		: INT;
+	iMode		: INT;
+	itfModule	: ITF_MCHMIPrepareDataForScreen;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetButtonActiveFromConfiguration" Id="{2513bb7b-083f-0ce5-2652-2da661dd93e6}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przycisk na aktywny  - pierwsze okno w wyświetlaniu wizualizacji - wywoływane z konfiguracji
+*)
+METHOD SetButtonActiveFromConfiguration : BOOL
+VAR_INPUT
+	iNumber		: INT;	//numr przycisku
+	bValue		: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetButtonsEnabledFromConfiguration" Id="{2ccb6324-360d-0e6d-0088-9ddae4e698ec}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przyciski na wlaczone lub wylaczone - możliwośc naciśnięcia
+*)
+METHOD SetButtonsEnabledFromConfiguration : BOOL
+VAR_INPUT
+	iNumber		: INT;	//numr przycisku
+	bValue		: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetButtonsVisibleFromConfiguration" Id="{b19a0ccf-91a9-0f5d-2117-190b136425c3}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		18.11.2025		TC 4024.66
+	Ustawia przyciski na widoczne lub nie widoczne
+*)
+METHOD SetButtonsVisibleFromConfiguration : BOOL
+VAR_INPUT
+	iNumber		: INT;	//numr przycisku
+	bValue		: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

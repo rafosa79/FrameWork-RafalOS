@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_HMIEMenu_HMI" Id="{00dc4fb8-32d3-00d2-1888-25beb20d707c}">
+    <Declaration><![CDATA[TYPE ST_HMIEMenu_HMI :
+STRUCT
+	iNumberOfActivePage			: INT;
+	iNumberOfAddedScreen		: INT;
+	wsTitleActivePage			: WSTRING;
+	bChangePage					: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

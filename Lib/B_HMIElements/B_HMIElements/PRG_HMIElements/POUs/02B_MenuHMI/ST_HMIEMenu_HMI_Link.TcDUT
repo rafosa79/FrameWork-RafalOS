@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_HMIEMenu_HMI_Link" Id="{1c44faa2-5ebf-0de4-06ec-3c45fed318a3}">
+    <Declaration><![CDATA[TYPE ST_HMIEMenu_HMI_Link EXTENDS ST_BaseControlElement_HMI_Link :
+STRUCT
+	stMenu					: ST_HMIEMenu_HMI;
+	arrButton				: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF ST_HMIEButton_HMI_Link;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_HMIEButton_HMI_Connector" Id="{844b6e15-1809-0471-0178-ea9b0092663b}">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		12.11.2025		TC 4024.66
+	Zbiór metod umożliwiające odczyt danych z hmi 
+*)
+INTERFACE ITF_HMIEButton_HMI_Connector EXTENDS ITF_BaseComponent_HMI_Connector
+]]></Declaration>
+    <Method Name="IsActive" Id="{3a179a9d-2764-0116-10d5-5a446015b45d}">
+      <Declaration><![CDATA[METHOD PUBLIC IsActive : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsEnable" Id="{ff193aa0-9b12-0157-0a4f-363d41ad824c}">
+      <Declaration><![CDATA[METHOD PUBLIC IsEnable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsPressed" Id="{783f8ebb-2f32-0835-2a99-47c8b546cf5a}">
+      <Declaration><![CDATA[METHOD PUBLIC IsPressed : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsVisible" Id="{4dd9ccb8-f05c-046e-1461-9a4d4f9008fd}">
+      <Declaration><![CDATA[METHOD PUBLIC IsVisible : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

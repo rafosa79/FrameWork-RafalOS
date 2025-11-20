@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_HMIEButton_HMI" Id="{e81abba6-357d-0e1b-3f4c-e2829cdfba99}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HMIEButton_HMI EXTENDS FB_BaseComponent_HMI IMPLEMENTS ITF_HMIEButton_HMI
+VAR
+	itfButton			: ITF_HMIEButton_HMI_Connector;
+	refstButtonData		: REFERENCE TO ST_HMIEButton_HMI;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_HMIEButton_HMI" Id="{4664e84e-5187-0731-38d4-046b9e0aabbf}" />
+    <Method Name="FB_init" Id="{a46b7005-8adb-0dc7-10bd-1cdaa0863fb7}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains 	: BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode 	: BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfBaseLoggerConnector	: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
+	itfButton				: ITF_HMIEButton_HMI_Init;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfButton := itfButton;
+//Przypisanie do elementów z biblioteki
+THIS^.itfBaseLoggerElementConnector := itfbutton;
+THIS^.itfBaseComponentConnector := itfbutton;
+
+//
+THIS^.itfBaseLoggerConnector := itfBaseLoggerConnector;
+
+IF (THIS^.itfButton <> 0 AND
+	THIS^.itfBaseLoggerElementConnector <> 0 AND
+	THIS^.itfBaseComponentConnector	<> 0 AND
+	THIS^.itfBaseLoggerConnector <> 0) THEN
+	THIS^.bIsInit						:= TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNameOfButton" Id="{0a1e5032-149a-099c-0ca9-9b45423adc63}" FolderPath="ITF_HMIEButton_HMI\">
+      <Declaration><![CDATA[METHOD PUBLIC GetNameOfButton : WSTRING
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNameOfButton := GetTextFromLabelForActiveLocation (stLabel := this^.itfButton.GetName ());]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkHMIEButtonData" Id="{4981bded-d079-0c54-32d6-172ef0d63141}" FolderPath="ITF_HMIEButton_HMI\">
+      <Declaration><![CDATA[METHOD LinkHMIEButtonData : BOOL
+VAR_INPUT
+	stData					: REFERENCE TO ST_HMIEButton_HMI_Link;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstButtonData REF= stData.stButtonHMI;
+
+THIS^.refstBaseLoggerElementDataHMI REF= stData.stBaseLoggerElement;
+THIS^.refstBaseComponentDataHMI REF= stData.stBaseComponent;
+
+THIS^.CreateLinkToEventsMemory ();
+
+IF (__ISVALIDREF (THIS^.refstButtonData) AND THIS^.IsLinkedReferences ()) THEN
+	THIS^.bIsValidData := TRUE;
+	LinkHMIEButtonData := TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataForHMI" Id="{ec4530d8-e2eb-0b18-3109-a1527ebcfbc8}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Metoda przygotowywania danych dla HMI 
+	W niej odbywa się odpytywanie właściego elementu przez łącznik
+*)
+METHOD PUBLIC PrepareDataForHMI : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.PrepareDataForHMI ();
+
+THIS^.refstButtonData.bActive := THIS^.itfButton.IsActive ();
+THIS^.refstButtonData.bEnable := THIS^.itfButton.IsEnable ();
+THIS^.refstButtonData.bVisible := THIS^.itfButton.IsVisible ();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

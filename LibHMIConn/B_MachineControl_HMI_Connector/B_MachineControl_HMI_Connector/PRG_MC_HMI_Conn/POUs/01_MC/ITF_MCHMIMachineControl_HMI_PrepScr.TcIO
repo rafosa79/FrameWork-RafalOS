@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MCHMIMachineControl_HMI_PrepScr" Id="{ecc5c2ba-dc79-092e-2271-118cc6d66ab9}">
+    <Declaration><![CDATA[INTERFACE ITF_MCHMIMachineControl_HMI_PrepScr EXTENDS ITF_MCHMIMachineControl_HMI_PrepScr_00_01, 
+	ITF_MCHMIMachineControl_HMI_PrepScr_00_02,
+	ITF_MCHMIMachineControl_HMI_PrepScr_00_03,
+	ITF_MCHMIMachineControl_HMI_PrepScr_00_04,
+	ITF_MCHMIMachineControl_HMI_PrepScr_00_05,
+	ITF_MCHMIMachineControl_HMI_PrepScr_01_XX,
+	ITF_MCHMIMachineControl_HMI_PrepScr_02_XX,
+	ITF_MCHMIMachineControl_HMI_PrepScr_03_XX,
+	ITF_MCHMIMachineControl_HMI_PrepScr_04_XX,
+	ITF_MCHMIMachineControl_HMI_PrepScr_05_XX,
+	ITF_MCHMIMachineControl_HMI_PrepScr_06_XX,
+	ITF_MCHMIMachineControl_HMI_PrepScr_07_XX
+
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

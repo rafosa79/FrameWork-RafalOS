@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MCHMIPrepareScreen_Init" Id="{0e97142d-a61b-0132-1ba7-e6586d728e01}">
+    <Declaration><![CDATA[INTERFACE ITF_MCHMIPrepareScreen_Init EXTENDS ITF_MCHMIPrepareDataForScreen,
+	ITF_MCHMIPrepareScreen_00_01_Init, 
+	ITF_MCHMIPrepareScreen_00_02_Init,
+	ITF_MCHMIPrepareScreen_00_03_Init,
+	ITF_MCHMIPrepareScreen_00_04_Init,
+	ITF_MCHMIPrepareScreen_00_05_Init,
+	ITF_MCHMIPrepareScreen_01_XX_Init,
+	ITF_MCHMIPrepareScreen_02_XX_Init,
+	ITF_MCHMIPrepareScreen_03_XX_Init,
+	ITF_MCHMIPrepareScreen_04_XX_Init,
+	ITF_MCHMIPrepareScreen_05_XX_Init,
+	ITF_MCHMIPrepareScreen_06_XX_Init,
+	ITF_MCHMIPrepareScreen_07_XX_Init,
+	ITF_MCHMIPrepareDataForScreenExtension
+]]></Declaration>
+  </Itf>
+</TcPlcObject>
