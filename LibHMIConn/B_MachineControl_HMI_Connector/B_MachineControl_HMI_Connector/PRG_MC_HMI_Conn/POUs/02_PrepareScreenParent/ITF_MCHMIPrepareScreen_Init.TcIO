@@ -16,5 +16,17 @@
 	ITF_MCHMIPrepareScreen_07_XX_Init,
 	ITF_MCHMIPrepareDataForScreenExtension
 ]]></Declaration>
+    <Method Name="LinkHMICommonData" Id="{594b6155-ac78-0b60-2450-a12862435980}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Podłączenie wspólnych danych do modułu 
+*)
+METHOD PUBLIC LinkHMICommonData : BOOL
+VAR_INPUT
+	stHMICommonData	: REFERENCE TO ST_MCHMICommonData;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

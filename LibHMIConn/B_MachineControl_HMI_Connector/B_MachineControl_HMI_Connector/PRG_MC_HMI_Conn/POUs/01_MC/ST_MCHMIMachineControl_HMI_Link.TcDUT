@@ -4,6 +4,7 @@
     <Declaration><![CDATA[TYPE ST_MCHMIMachineControl_HMI_Link EXTENDS ST_BaseTopElement_HMI_Link :
 STRUCT
 	stMachineControl		: ST_MCHMIMachineControl_HMI;
+	stCommonData			: ST_MCHMICommonData;
 	stPrepScr_00_01			: ST_MCHMIPrepareScreen_00_01;
 	stPrepScr_00_02			: ST_MCHMIPrepareScreen_00_02;
 	stPrepScr_00_03			: ST_MCHMIPrepareScreen_00_03;

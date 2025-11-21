@@ -94,20 +94,26 @@ END_VAR
       <Declaration><![CDATA[METHOD PRIVATE SettingLocation : BOOL
 VAR_INPUT
 END_VAR
-]]></Declaration>
+
+VAR
+	iI: INT;
+	sCodeLocation: STRING;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[
-
-
-
-(*
-IF (THIS^.refstOHMI.stSterowanie.bZmianaRamkiWewnetrznej) THEN
-	FOR iI := 0 TO B_Baza.STALE.LICZBA_DODANYCH_JEZYKOW -1 DO
-		THIS^.refstOHMI.stUstawienia.arrJezyki [iI]	:= THIS^.fbLokalizacja.zwrocOpis (iIN	:= iI + 1);
+        <ST><![CDATA[IF (THIS^.refstHMICommonData.bChangePage) THEN
+	FOR iI := 1 TO GVL_BaseConstans.NUMBER_OF_LOCATIONS DO
+		THIS^.refstData.arrLocationDescription [iI-1] := THIS^.refstCommonData.itfLocaciotn.GetDescription (iIN := iI);
 	END_FOR
-	THIS^.refstOHMI.stUstawienia.iWybranyJezyk			:= TO_INT (THIS^.fbLokalizacja.getJezyk ()) - 1;
+	THIS^.refstData.iChoosoLocation := TO_INT (THIS^.refstCommonData.itfLocaciotn.GetLocation ()) - 1;
 END_IF
 
+IF ((THIS^.refstData.iChoosoLocation + 1) <> TO_INT (THIS^.refstCommonData.itfLocaciotn.GetLocation ())) THEN
+	sCodeLocation := TO_STRING (THIS^.refstCommonData.itfLocaciotn.GetCode (iIN := THIS^.refstData.iChoosoLocation + 1));
+	THIS^.refstCommonData.itfLocaciotn.SetLocation (sLocation := TO_STRING (sCodeLocation));
+	CURRENTLANGUAGE := sCodeLocation;
+END_IF
+
+(*
 
 IF (THIS^.refstOHMI.stUstawienia.iWybranyJezyk <> (TO_INT (THIS^.fbLokalizacja.getJezyk ()) - 1)) THEN
 	THIS^.fbLokalizacja.setJezyk (sNowy				:= THIS^.fbLokalizacja.zwrocKod (iIN := THIS^.refstOHMI.stUstawienia.iWybranyJezyk + 1));

@@ -77,12 +77,16 @@
       <DefaultResolution>B_MachineControl, * (RafalOS)</DefaultResolution>
       <Namespace>B_MachineControl</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="B_MachineControl_HMI_Connector">
+      <DefaultResolution>B_MachineControl_HMI_Connector, * (RafalOS)</DefaultResolution>
+    </PlaceholderReference>
     <PlaceholderReference Include="B_MachineSystem">
       <DefaultResolution>B_MachineSystem, * (RafalOS)</DefaultResolution>
       <Namespace>B_MachineSystem</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="B_PLCHMIManager">
       <DefaultResolution>B_PLCHMIManager, * (RafalOS)</DefaultResolution>
+      <Namespace>B_PLCHMIManager</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="System_VisuElemMeter">
       <DefaultResolution>VisuElemMeter, 3.5.13.0 (System)</DefaultResolution>

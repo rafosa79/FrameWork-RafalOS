@@ -210,6 +210,10 @@
     <Folder Include="VISUs\TextListFrame" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="B_Base">
+      <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
+      <Namespace>B_Base</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="B_HMIElements">
       <DefaultResolution>B_HMIElements, * (RafalOS)</DefaultResolution>
       <Namespace>B_HMIElements</Namespace>

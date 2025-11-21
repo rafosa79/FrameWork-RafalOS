@@ -15,6 +15,7 @@ VAR
 	iNumberOfAddedPrepScren				: INT;
 	arrPrepareScreen_Execute			: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF 
 											ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ITF_MCHMIPrepareDataForScreen;
+	refstHMICommonData					: reference to ST_MCHMICommonData;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -134,6 +135,18 @@ THIS^.arrPrepareScreen [11].LinkDataHMI_05_XX (refstData := stData.stPrepScr_05_
 THIS^.arrPrepareScreen [12].LinkDataHMI_06_XX (refstData := stData.stPrepScr_06_XX);
 THIS^.arrPrepareScreen [13].LinkDataHMI_07_XX (refstData := stData.stPrepScr_07_XX);
 
+THIS^.arrPrepareScreen [2].LinkHMICommonData (stHMICommonData := stData.stCommonData);
+THIS^.arrPrepareScreen [3].LinkHMICommonData (stHMICommonData := stData.stCommonData);
+THIS^.arrPrepareScreen [4].LinkHMICommonData (stHMICommonData := stData.stCommonData);
+THIS^.arrPrepareScreen [5].LinkHMICommonData (stHMICommonData := stData.stCommonData);
+THIS^.arrPrepareScreen [6].LinkHMICommonData (stHMICommonData := stData.stCommonData);
+THIS^.arrPrepareScreen [7].LinkHMICommonData (stHMICommonData := stData.stCommonData);
+THIS^.arrPrepareScreen [8].LinkHMICommonData (stHMICommonData := stData.stCommonData);
+THIS^.arrPrepareScreen [9].LinkHMICommonData (stHMICommonData := stData.stCommonData);
+THIS^.arrPrepareScreen [10].LinkHMICommonData (stHMICommonData := stData.stCommonData);
+THIS^.arrPrepareScreen [11].LinkHMICommonData (stHMICommonData := stData.stCommonData);
+THIS^.arrPrepareScreen [12].LinkHMICommonData (stHMICommonData := stData.stCommonData);
+THIS^.arrPrepareScreen [13].LinkHMICommonData (stHMICommonData := stData.stCommonData);
 
 THIS^.refstBaseLoggerElementDataHMI REF= stData.stBaseLoggerElement;
 THIS^.refstBaseComponentDataHMI REF= stData.stBaseComponent;
@@ -203,6 +216,22 @@ END_VAR
         <ST><![CDATA[IF (THIS^.arrPrepareScreen_Execute [iScreen][iMode] <> 0) THEN
 	THIS^.arrPrepareScreen_Execute [iScreen][iMode].PrepareForScreen ();
 END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetChangePageFromManager" Id="{5beffb9a-dfee-0438-1cd7-4daeff8410c7}" FolderPath="ITF_MachineControl_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Ustawienei zmiennej w wspólnych zmiennych z managera
+*)
+METHOD PUBLIC SetChangePageFromManager : BOOL
+VAR_INPUT
+	bValue	: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstHMICommonData.bChangePage := bValue;
 ]]></ST>
       </Implementation>
     </Method>

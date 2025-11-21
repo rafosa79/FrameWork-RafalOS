@@ -11,6 +11,7 @@ VAR
 	//itf do lacznika machinecontrol
 	//strulture danych 
 	itfExtendedDisplay			: ITF_MCHMIDisplayExtension;
+	refstHMICommonData			: reference to ST_MCHMICommonData;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -166,6 +167,21 @@ END_VAR
       <Implementation>
         <ST><![CDATA[THIS^.itfExtendedDisplay := fbExtendedDisplay;
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkHMICommonData" Id="{c1f00ccb-b4b3-03d6-195e-eff68a9d6ff6}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Podłączenie wspólnych danych do modułu 
+*)
+METHOD PUBLIC LinkHMICommonData : BOOL
+VAR_INPUT
+	stHMICommonData	: REFERENCE TO ST_MCHMICommonData;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[this^.refstHMICommonData ref= stHMICommonData;]]></ST>
       </Implementation>
     </Method>
     <Method Name="PrepareDataForHMI" Id="{bc2b143f-e4a1-0155-38ef-904b1a2f8b08}" FolderPath="ITF_PDFS\">
