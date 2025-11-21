@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <ImagePool Name="ImagePool" Id="{0dca2649-adb8-4bbf-8513-78b592f582dc}">
+    <XmlArchive>
+      <Data>
+        <o xml:space="preserve" t="ImagePoolObject">
+          <v n="UniqueIdGenerator">"21"</v>
+          <l n="BitmapPool" t="ArrayList" cet="ImagePoolItem">
+            <o>
+              <v n="BitmapID">"00_MainScreen"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\00_MainScreen.png"</v>
+              <v n="ItemID">12</v>
+            </o>
+            <o>
+              <v n="BitmapID">"01_Parameters"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\01_Parameters.png"</v>
+              <v n="ItemID">13</v>
+            </o>
+            <o>
+              <v n="BitmapID">"02_Recipe"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\02_Recipe.png"</v>
+              <v n="ItemID">14</v>
+            </o>
+            <o>
+              <v n="BitmapID">"03_Events"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\03_Events.png"</v>
+              <v n="ItemID">15</v>
+            </o>
+            <o>
+              <v n="BitmapID">"04_ChangeMode"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\04_ChangeMode.png"</v>
+              <v n="ItemID">16</v>
+            </o>
+            <o>
+              <v n="BitmapID">"05_Statistics"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\05_Statistics.png"</v>
+              <v n="ItemID">17</v>
+            </o>
+            <o>
+              <v n="BitmapID">"06_Diagram"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\06_Diagram.png"</v>
+              <v n="ItemID">18</v>
+            </o>
+            <o>
+              <v n="BitmapID">"07_Setings"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\07_Setings.png"</v>
+              <v n="ItemID">19</v>
+            </o>
+            <o>
+              <v n="BitmapID">"logo"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\logo.png"</v>
+              <v n="ItemID">20</v>
+            </o>
+            <o>
+              <v n="BitmapID">""</v>
+              <v n="FileID">""</v>
+              <v n="ItemID">21</v>
+            </o>
+          </l>
+          <v n="GuidInit">{a54934fa-b4a0-4422-8909-04b5ffe9c340}</v>
+          <v n="GuidReInit">{f955d741-9ad5-4888-89b2-95bfcc88b97c}</v>
+          <v n="GuidExitX">{efe6afce-eed5-404d-a462-56d309cec2da}</v>
+          <v n="ValidIds">true</v>
+        </o>
+      </Data>
+      <TypeList>
+        <Type n="ArrayList">System.Collections.ArrayList</Type>
+        <Type n="Boolean">System.Boolean</Type>
+        <Type n="Guid">System.Guid</Type>
+        <Type n="ImagePoolItem">{215b2719-0347-4e4d-ba85-8bcd66946f66}</Type>
+        <Type n="ImagePoolObject">{bb0b9044-714e-4614-ad3e-33cbdf34d16b}</Type>
+        <Type n="Int32">System.Int32</Type>
+        <Type n="String">System.String</Type>
+      </TypeList>
+    </XmlArchive>
+  </ImagePool>
+</TcPlcObject>

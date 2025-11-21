@@ -64,7 +64,14 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.PrepareDataForHMI ();
+        <ST><![CDATA[	(*	Zmiana języka - przygotowanie listy dostępnych języków	*)
+THIS^.SettingLocation ();
+
+
+
+	(*	Rozszerzenie wyświetlania	*)
+SUPER^.PrepareDataForHMI ();
+
 ]]></ST>
       </Implementation>
     </Method>
@@ -81,6 +88,32 @@ END_VAR
       <Implementation>
         <ST><![CDATA[SUPER^.PrepareForScreen ();
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SettingLocation" Id="{fcbc6cbc-e79a-0bba-2afe-192439bfcb6a}">
+      <Declaration><![CDATA[METHOD PRIVATE SettingLocation : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+
+
+
+(*
+IF (THIS^.refstOHMI.stSterowanie.bZmianaRamkiWewnetrznej) THEN
+	FOR iI := 0 TO B_Baza.STALE.LICZBA_DODANYCH_JEZYKOW -1 DO
+		THIS^.refstOHMI.stUstawienia.arrJezyki [iI]	:= THIS^.fbLokalizacja.zwrocOpis (iIN	:= iI + 1);
+	END_FOR
+	THIS^.refstOHMI.stUstawienia.iWybranyJezyk			:= TO_INT (THIS^.fbLokalizacja.getJezyk ()) - 1;
+END_IF
+
+
+IF (THIS^.refstOHMI.stUstawienia.iWybranyJezyk <> (TO_INT (THIS^.fbLokalizacja.getJezyk ()) - 1)) THEN
+	THIS^.fbLokalizacja.setJezyk (sNowy				:= THIS^.fbLokalizacja.zwrocKod (iIN := THIS^.refstOHMI.stUstawienia.iWybranyJezyk + 1));
+	VisuElems.CURRENTLANGUAGE							:= THIS^.fbLokalizacja.zwrocAktualnyKod ();
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
   </POU>

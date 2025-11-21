@@ -153,25 +153,27 @@ THIS^.itfMainMenuHMI.PrepareDataForHMI ();
 THIS^.bChangePage := THIS^.itfMainMenuHMI.IsChangePage ();
 
 IF (THIS^.bChangePage) THEN
+	(*	Skasowanie flagi zmiany strony	*)
 	THIS^.itfMainMenu.ResetChangePage ();
 	THIS^.iNumberOfPreviewScreen := THIS^.itfMainMenuHMI.GetNumberOfPreviewScreen ();
 	THIS^.iNumberOfActiveScreen := THIS^.itfMainMenuHMI.GetNumberOfActiveScreen ();
-
-//	IF (THIS^.arrChangePageSupport [THIS^.iNumberOfPreviewScreen] <> 0) THEN
-//		THIS^.arrChangePageSupport [THIS^.iNumberOfPreviewScreen].ClaerAfterPage ();
-//	END_IF
-//	IF (THIS^.arrChangePageSupport [THIS^.iNumberOfActiveScreen] <> 0) THEN
-//		THIS^.arrChangePageSupport [THIS^.iNumberOfActiveScreen].PreparePage ();
-//	END_IF
+	
+	
+	THIS^.itfMachineControl.ClearAfterScreenFroHMIManager (
+		iScreen	:= THIS^.iNumberOfPreviewScreen,
+		iMode	:= THIS^.itfMachineControl.GetActiveModeFromManager ()
+	);
+	THIS^.itfMachineControl.PrepareForScreenFromHMIManager (
+		iScreen	:= THIS^.iNumberOfActiveScreen,
+		iMode	:= THIS^.itfMachineControl.GetActiveModeFromManager ()
+	);
 END_IF
 
 	(*	Odświerzenia strrony 	*)
-//IF (THIS^.arrChangePageSupport [THIS^.iNumberOfActiveScreen] <> 0) THEN
-//	THIS^.arrChangePageSupport [THIS^.iNumberOfActiveScreen].PrepareDataForHMI ();
-	//wyczyszczenie po ramce 
-	//przygotowanie ramki
-//END_IF
-	(*	Skasowanie flagi zmiany strony	*)
+THIS^.itfMachineControl.PrepareDataForScreenFromHMIManager (
+	iScreen	:= THIS^.iNumberOfActiveScreen,
+	iMode	:= THIS^.itfMachineControl.GetActiveModeFromManager ()
+);
 
 ]]></ST>
       </Implementation>

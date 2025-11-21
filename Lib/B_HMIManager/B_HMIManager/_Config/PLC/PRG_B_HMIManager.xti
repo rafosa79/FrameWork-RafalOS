@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66" ClassName="CNestedPlcProjDef">
 	<Project GUID="{BADC33D3-B869-414A-A89E-032D02554A30}" Name="PRG_B_HMIManager" PrjFilePath="..\..\PRG_B_HMIManager\PRG_B_HMIManager.plcproj" TmcFilePath="..\..\PRG_B_HMIManager\PRG_B_HMIManager.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_B_HMIManager\PRG_B_HMIManager.tmc" TmcHash="{6E33F4A3-8CCA-B747-D375-A70FB1D1C8D3}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_B_HMIManager\PRG_B_HMIManager.tmc" TmcHash="{CFD36483-9E0B-90E6-15C3-9619AEBEA356}">
 			<Name>PRG_B_HMIManager Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Contexts>

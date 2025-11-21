@@ -39,6 +39,7 @@ END_IF
 ]]></ST>
     </Implementation>
     <Folder Name="ITF_MachineControlConfigure" Id="{973d3ff0-85f0-4bae-9395-cc62a4917833}" />
+    <Folder Name="ITF_MC_HMI_Connector" Id="{cacfec9c-669f-01d9-2025-b7ec347d32d7}" />
     <Folder Name="WiazanieModulow" Id="{3d8e3574-09c0-0f20-0429-cf1b0f8aec79}" />
     <Method Name="AddElementFromConfiguration" Id="{7dfdd75b-9905-0acd-138c-819c9dbddb2a}" FolderPath="ITF_MachineControlConfigure\">
       <Declaration><![CDATA[(*			
@@ -262,6 +263,16 @@ END_VAR]]></Declaration>
         <ST><![CDATA[FOR iNumberOfTopElement := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
 	THIS^.arrTopElements [iNumberOfTopElement].FirstCycle ();
 END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetActiveMode" Id="{8082209e-2a25-0358-1ba6-8d6be4a4b203}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveMode : E_BaseMachineMode
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActiveMode := THIS^.itfSaMController.GetMode ();
 ]]></ST>
       </Implementation>
     </Method>

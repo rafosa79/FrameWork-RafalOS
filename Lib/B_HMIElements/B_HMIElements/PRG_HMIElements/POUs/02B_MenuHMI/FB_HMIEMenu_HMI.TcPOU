@@ -164,7 +164,7 @@ END_VAR]]></Declaration>
 THIS^.refstMenuData.iNUmberOfActivePage := THIS^.itfMenu.GetNumberOfActriveScreen ();
 THIS^.refstMenuData.iNumberOfAddedScreen := THIS^.itfMenu.GetNumberOfAddedButton ();
 
-FOR iI := 0 TO THIS^.refstMenuData.iNumberOfAddedScreen - 1 DO	//w tablicy komponentów jest od 1 a w button od 0 stąd przesunięcie o -1
+FOR iI := 0 TO THIS^.refstMenuData.iNumberOfAddedScreen  DO
 	THIS^.arrButtons [iI].PrepareDataForHMI ();
 END_FOR
 

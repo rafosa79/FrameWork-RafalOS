@@ -32,5 +32,12 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="SetPressed" Id="{11181202-8810-0a43-006f-1f84e2abaf20}">
+      <Declaration><![CDATA[METHOD PUBLIC SetPressed
+VAR_INPUT
+	bIN: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

@@ -67,6 +67,7 @@
   <ItemGroup>
     <PlaceholderReference Include="B_Base">
       <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
+      <Namespace>B_Base</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="B_HMIManager">
       <DefaultResolution>B_HMIManager, * (RafałOS)</DefaultResolution>
@@ -79,6 +80,9 @@
     <PlaceholderReference Include="B_MachineSystem">
       <DefaultResolution>B_MachineSystem, * (RafalOS)</DefaultResolution>
       <Namespace>B_MachineSystem</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_PLCHMIManager">
+      <DefaultResolution>B_PLCHMIManager, * (RafalOS)</DefaultResolution>
     </PlaceholderReference>
     <PlaceholderReference Include="System_VisuElemMeter">
       <DefaultResolution>VisuElemMeter, 3.5.13.0 (System)</DefaultResolution>

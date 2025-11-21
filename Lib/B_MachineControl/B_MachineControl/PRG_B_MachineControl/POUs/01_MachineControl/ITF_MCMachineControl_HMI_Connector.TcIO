@@ -3,5 +3,11 @@
   <Itf Name="ITF_MCMachineControl_HMI_Connector" Id="{d570e5d8-dcb3-079b-12de-407ccb79a8e5}">
     <Declaration><![CDATA[INTERFACE ITF_MCMachineControl_HMI_Connector EXTENDS ITF_BaseTopElement_HMI_Connector
 ]]></Declaration>
+    <Method Name="GetActiveMode" Id="{577b45bd-46f1-0f83-093b-77c467e398cb}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveMode : E_BaseMachineMode
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

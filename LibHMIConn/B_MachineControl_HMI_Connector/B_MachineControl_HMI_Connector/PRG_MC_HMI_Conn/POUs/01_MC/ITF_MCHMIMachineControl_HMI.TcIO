@@ -28,6 +28,12 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetActiveModeFromManager" Id="{8653b392-37ec-09d9-0e35-6dfa1db7f1ef}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveModeFromManager : E_BaseMachineMode
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="LinkMachineControlData" Id="{5b1d074d-68af-002e-0084-5fe1502c4b5b}">
       <Declaration><![CDATA[METHOD PUBLIC LinkMachineControlData : BOOL
 VAR_INPUT

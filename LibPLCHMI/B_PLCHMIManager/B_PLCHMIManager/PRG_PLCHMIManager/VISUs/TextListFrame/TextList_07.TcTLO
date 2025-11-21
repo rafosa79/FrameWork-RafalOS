@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <TextList Name="TextList_07" Id="{98639942-4805-0e52-29b6-cbef38307b96}">
+    <XmlArchive>
+      <Data>
+        <o xml:space="preserve" t="TextListObject">
+          <v n="UniqueIdGenerator">"0"</v>
+          <l n="TextList" t="ArrayList" cet="TextListRow">
+            <o>
+              <v n="TextID">"0"</v>
+              <v n="TextDefault">"Wybierz język"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Wybierz język</v>
+                <v>Select language</v>
+                <v>Sprache auswählen</v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">""</v>
+              <v n="TextDefault">""</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+          </l>
+          <l n="Languages" t="ArrayList" cet="String">
+            <v>pl</v>
+            <v>en</v>
+            <v>de</v>
+          </l>
+          <v n="GuidInit">{0a29e2e8-04af-4228-ba97-70b4b3fbd2d0}</v>
+          <v n="GuidReInit">{04358300-6f57-4256-a26d-2e48b237e472}</v>
+          <v n="GuidExitX">{0daeb02f-a154-4bd2-bda3-9a3a57e196fc}</v>
+        </o>
+      </Data>
+      <TypeList>
+        <Type n="ArrayList">System.Collections.ArrayList</Type>
+        <Type n="Guid">System.Guid</Type>
+        <Type n="String">System.String</Type>
+        <Type n="TextListObject">{2bef0454-1bd3-412a-ac2c-af0f31dbc40f}</Type>
+        <Type n="TextListRow">{53da1be7-ad25-47c3-b0e8-e26286dad2e0}</Type>
+      </TypeList>
+    </XmlArchive>
+  </TextList>
+</TcPlcObject>

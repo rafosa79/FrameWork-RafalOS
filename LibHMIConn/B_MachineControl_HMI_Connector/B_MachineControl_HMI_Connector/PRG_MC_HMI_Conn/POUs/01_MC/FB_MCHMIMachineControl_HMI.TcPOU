@@ -63,7 +63,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[IF (THIS^.arrPrepareScreen_Execute [iScreen][iMode] <> 0) THEN
+	THIS^.arrPrepareScreen_Execute [iScreen][iMode].ClearAfterScreen ();
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{6e789ec0-7c6a-0ef7-1933-c74097114aeb}">
@@ -96,6 +99,16 @@ IF (THIS^.itfMachineControlConnector <> 0 AND
 	THIS^.itfBaseLoggerConnector <> 0) THEN
 	THIS^.bIsInit						:= TRUE;
 END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetActiveModeFromManager" Id="{b423cdbb-f00c-0f1c-08a3-152aeb91d7a7}" FolderPath="ITF_MachineControl_HMI\">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveModeFromManager : E_BaseMachineMode
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActiveModeFromManager := THIS^.itfMachineControlConnector.GetActiveMode ();
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="LinkMachineControlData" Id="{7164a5f6-e4e6-0149-033c-51ba8887454c}" FolderPath="ITF_MachineControl_HMI\">
@@ -168,7 +181,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[IF (THIS^.arrPrepareScreen_Execute [iScreen][iMode] <> 0) THEN
+	THIS^.arrPrepareScreen_Execute [iScreen][iMode].PrepareDataForHMI ();
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="PrepareForScreenFromHMIManager" Id="{bef4ad1c-1fba-0010-1aa2-9a6ca8ed5ac6}" FolderPath="ITF_MachineControl_HMI\">
@@ -184,7 +200,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[IF (THIS^.arrPrepareScreen_Execute [iScreen][iMode] <> 0) THEN
+	THIS^.arrPrepareScreen_Execute [iScreen][iMode].PrepareForScreen ();
+END_IF
+]]></ST>
       </Implementation>
     </Method>
   </POU>

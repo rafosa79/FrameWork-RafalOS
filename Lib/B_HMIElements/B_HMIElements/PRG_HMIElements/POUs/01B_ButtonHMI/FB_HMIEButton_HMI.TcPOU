@@ -81,6 +81,11 @@ END_VAR
       <Implementation>
         <ST><![CDATA[SUPER^.PrepareDataForHMI ();
 
+IF (THIS^.refstButtonData.bPushed) THEN
+	THIS^.refstButtonData.bPushed := FALSE;
+	THIS^.itfButton.SetPressed (bIN := TRUE);
+END_IF
+
 THIS^.refstButtonData.bActive := THIS^.itfButton.IsActive ();
 THIS^.refstButtonData.bEnable := THIS^.itfButton.IsEnable ();
 THIS^.refstButtonData.bVisible := THIS^.itfButton.IsVisible ();
