@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCHMICommonData" Id="{480c357b-a090-08bb-2a3c-966a23f77842}">
+    <Declaration><![CDATA[TYPE ST_MCHMICommonData :
+STRUCT
+	bChangePage				: BOOL; //zmiana strony menu głównego
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

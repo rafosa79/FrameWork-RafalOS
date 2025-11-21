@@ -81,5 +81,17 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="SetChangePageFromManager" Id="{f79db7e5-0fc5-002e-3c54-62640b257ac0}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		20.11.2025		TC 4024.66
+	Ustawienei zmiennej w wspólnych zmiennych z managera
+*)
+METHOD PUBLIC SetChangePageFromManager : BOOL
+VAR_INPUT
+	bValue	: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

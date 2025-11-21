@@ -151,6 +151,7 @@ THIS^.itfMainMenuHMI.PrepareDataForHMI ();
 	
 	(*	Aktualizacja zmiennych przy zmianie strony	*)
 THIS^.bChangePage := THIS^.itfMainMenuHMI.IsChangePage ();
+THIS^.refstManagerData.stMachineControl.stCommonData.bChangePage := THIS^.bChangePage;
 
 IF (THIS^.bChangePage) THEN
 	(*	Skasowanie flagi zmiany strony	*)

@@ -3,7 +3,9 @@
   <DUT Name="ST_MCHMIPrepareScreen_07_XX" Id="{e249b51c-0d43-03c9-0c92-e3b9d85090ac}">
     <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_07_XX :
 STRUCT
-	btmpValue_07_XX	: BOOL;
+	arrLocationDescription	: ARRAY  [0..GVL_BaseConstans.NUMBER_OF_LOCATIONS] OF WSTRING;
+	iChoosoLocation			: INT;
+	
 END_STRUCT
 END_TYPE
 ]]></Declaration>
