@@ -262,6 +262,31 @@ THIS^.Initialization_ModeEnabled ();
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetActiveModeName" Id="{19c25c1d-61f4-0674-1429-090f65fea443}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveModeName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActiveModeName := THIS^.GetModeName (iNumber := THIS^.eState);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetActiveStateName" Id="{d3211641-429c-076a-0512-0ff9ec919da2}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveStateName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActiveStateName := THIS^.GetStateName (iNumber := THIS^.eState);
+
+
+
+
+
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetMode" Id="{df3fefc4-9266-079c-2077-340c16420786}" FolderPath="ITF_SaMController\">
       <Declaration><![CDATA[METHOD PUBLIC GetMode : E_BaseMachineMode
 VAR_INPUT
@@ -272,6 +297,17 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetModeName" Id="{8959274c-2df0-0162-3199-62035f690ffd}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC GetModeName : ST_BaseLabel
+VAR_INPUT
+	iNumber			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetModeName := THIS^.arrModes [iNumber].GetName ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetState" Id="{e651e76f-e8a9-016f-279f-b41f48a21ac0}" FolderPath="ITF_SaMController\">
       <Declaration><![CDATA[METHOD PUBLIC GetState : E_BaseMachineState
 VAR_INPUT
@@ -279,6 +315,17 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetState			:= THIS^.eState;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetStateName" Id="{14e96286-0b20-07aa-0362-f759b509f189}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD GetStateName : ST_BaseLabel
+VAR_INPUT
+	iNumber			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetStateName := THIS^.arrStatesInModes [THIS^.eMode][iNumber].GetName ();
 ]]></ST>
       </Implementation>
     </Method>

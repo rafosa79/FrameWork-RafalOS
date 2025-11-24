@@ -4,7 +4,7 @@
     <XmlArchive>
       <Data>
         <o xml:space="preserve" t="ImagePoolObject">
-          <v n="UniqueIdGenerator">"21"</v>
+          <v n="UniqueIdGenerator">"23"</v>
           <l n="BitmapPool" t="ArrayList" cet="ImagePoolItem">
             <o>
               <v n="BitmapID">"00_MainScreen"</v>
@@ -52,9 +52,14 @@
               <v n="ItemID">20</v>
             </o>
             <o>
+              <v n="BitmapID">"StateDiagram"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\StateDiagram.png"</v>
+              <v n="ItemID">21</v>
+            </o>
+            <o>
               <v n="BitmapID">""</v>
               <v n="FileID">""</v>
-              <v n="ItemID">21</v>
+              <v n="ItemID">22</v>
             </o>
           </l>
           <v n="GuidInit">{a54934fa-b4a0-4422-8909-04b5ffe9c340}</v>

@@ -67,6 +67,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[THIS^.itfMachineControl := itfMachineControl;
 
+THIS^.itfMachineControl.LinkCommonData (stCommonData := THIS^.refstCommonData);
 ]]></ST>
       </Implementation>
     </Method>

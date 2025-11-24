@@ -64,7 +64,16 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.PrepareDataForHMI ();
+        <ST><![CDATA[THIS^.refstData.sTimeOfWork := '';
+THIS^.refstData.wsActualMode := THIS^.GetTextFromLabelForActiveLocation (THIS^.itfMachineControlHMI.GetActiveModeName ());
+THIS^.refstData.wsActualState := THIS^.GetTextFromLabelForActiveLocation (THIS^.itfMachineControlHMI.GetActiveStateName ());
+
+
+
+
+
+
+SUPER^.PrepareDataForHMI ();
 ]]></ST>
       </Implementation>
     </Method>

@@ -21,7 +21,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_PLCHMIManager</Title>
-    <ProjectVersion>0.0.0.2</ProjectVersion>
+    <ProjectVersion>0.0.0.4</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -82,6 +82,7 @@
     </SelectedLibraryCategories>
     <DefaultNamespace>B_PLCHMIManager</DefaultNamespace>
     <Author>Rafał Osajda</Author>
+    <Description />
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GlobalTextList.TcGTLO">
@@ -98,6 +99,14 @@
     </Compile>
     <Compile Include="VISUs\Graphics\ImagePool.TcIPO">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VISUs\Keyboards\KlawiaturaCyfry.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\Keyboards\KlawiaturaLitery.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
     </Compile>
     <Compile Include="VISUs\MainFrame.TcVIS">
       <SubType>Code</SubType>
@@ -191,6 +200,9 @@
     <Compile Include="VISUs\TextListFrame\TextList_07.TcTLO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="VISUs\TextListGlobal.TcTLO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="VISUs\Visualization.TcVIS">
       <SubType>Code</SubType>
       <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
@@ -207,6 +219,7 @@
     <Folder Include="VISUs\Graphics" />
     <Folder Include="VISUs\MainMenu" />
     <Folder Include="VISUs\MainMenuFrame" />
+    <Folder Include="VISUs\Keyboards" />
     <Folder Include="VISUs\TextListFrame" />
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +308,9 @@
     </LibraryReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="VISUs\Graphics\StateDiagram.png">
+      <SubType>Content</SubType>
+    </Content>
     <None Include="PRG_PLCHMIManager.tmc">
       <SubType>Content</SubType>
     </None>

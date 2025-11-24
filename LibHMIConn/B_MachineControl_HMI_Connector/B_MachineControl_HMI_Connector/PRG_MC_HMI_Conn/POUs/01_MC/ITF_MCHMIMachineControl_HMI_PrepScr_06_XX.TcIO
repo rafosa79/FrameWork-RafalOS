@@ -8,5 +8,17 @@
 *)
 INTERFACE ITF_MCHMIMachineControl_HMI_PrepScr_06_XX
 ]]></Declaration>
+    <Method Name="GetActiveModeName" Id="{239c7565-46be-07aa-3fbc-99dcca9c8ba1}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveModeName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetActiveStateName" Id="{03ad543d-2706-0245-3071-13f8b151d31f}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveStateName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

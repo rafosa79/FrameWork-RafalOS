@@ -112,6 +112,26 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetActiveModeName" Id="{4e889352-be1f-0306-2398-4d2d9b8109e1}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveModeName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActiveModeName := THIS^.itfMachineControlConnector.GetActiveModeName ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetActiveStateName" Id="{cf260275-9859-0576-32c3-e9551fb50659}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveStateName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActiveStateName := THIS^.itfMachineControlConnector.GetActiveStateName ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="LinkMachineControlData" Id="{7164a5f6-e4e6-0149-033c-51ba8887454c}" FolderPath="ITF_MachineControl_HMI\">
       <Declaration><![CDATA[METHOD PUBLIC LinkMachineControlData : BOOL
 VAR_INPUT
@@ -120,6 +140,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.refstMachineControlData REF= stData.stMachineControl;
+
 //w tablicy pole 1 zajmuje metoda pusta domyślna do niej się nie linkuje danych
 THIS^.arrPrepareScreen [2].LinkDataHMI_00_01 (refstData := stData.stPrepScr_00_01);
 THIS^.arrPrepareScreen [3].LinkDataHMI_00_02 (refstData := stData.stPrepScr_00_02);
@@ -135,6 +156,7 @@ THIS^.arrPrepareScreen [11].LinkDataHMI_05_XX (refstData := stData.stPrepScr_05_
 THIS^.arrPrepareScreen [12].LinkDataHMI_06_XX (refstData := stData.stPrepScr_06_XX);
 THIS^.arrPrepareScreen [13].LinkDataHMI_07_XX (refstData := stData.stPrepScr_07_XX);
 
+THIS^.refstHMICommonData REF= stData.stCommonData;
 THIS^.arrPrepareScreen [2].LinkHMICommonData (stHMICommonData := stData.stCommonData);
 THIS^.arrPrepareScreen [3].LinkHMICommonData (stHMICommonData := stData.stCommonData);
 THIS^.arrPrepareScreen [4].LinkHMICommonData (stHMICommonData := stData.stCommonData);
@@ -194,7 +216,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (THIS^.arrPrepareScreen_Execute [iScreen][iMode] <> 0) THEN
+        <ST><![CDATA[THIS^.refstHMICommonData.wsActualMode := THIS^.GetTextFromLabelForActiveLocation (THIS^.itfMachineControlConnector.GetActiveModeName ());
+THIS^.refstHMICommonData.wsActualState := THIS^.GetTextFromLabelForActiveLocation (THIS^.itfMachineControlConnector.GetActiveStateName ());
+
+IF (THIS^.arrPrepareScreen_Execute [iScreen][iMode] <> 0) THEN
 	THIS^.arrPrepareScreen_Execute [iScreen][iMode].PrepareDataForHMI ();
 END_IF
 ]]></ST>

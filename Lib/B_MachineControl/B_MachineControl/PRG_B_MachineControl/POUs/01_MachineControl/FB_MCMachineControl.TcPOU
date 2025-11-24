@@ -276,6 +276,36 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetActiveModeName" Id="{38a487c5-d808-014b-0d92-de101516c096}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveModeName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActiveModeName := THIS^.itfSaMController.GetActiveModeName ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetActiveState" Id="{e5b5549c-336e-0574-2454-8e12e9984118}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveState : E_BaseMachineState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActiveState := THIS^.itfSaMController.GetState ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetActiveStateName" Id="{970ccbf0-5229-0375-0f13-aad6fb5dbacd}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveStateName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActiveStateName := THIS^.itfSaMController.GetActiveStateName ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetCommunicatorITF" Id="{d2d430b9-5eb5-0584-25ef-418eb079b38b}">
       <Declaration><![CDATA[METHOD PUBLIC GetCommunicatorITF : ITF_BaseCommunicator
 VAR_INPUT
@@ -283,6 +313,28 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetCommunicatorITF := THIS^.fbMasterCommunicator;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetModeName" Id="{d7dcb36a-81d4-015e-3c2d-4c15b356ceff}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetModeName : ST_BaseLabel
+VAR_INPUT
+	iNumber		: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetModeName := THIS^.itfSaMController.GetModeName (iNumber := iNumber);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetStateName" Id="{e5e4f5c5-63ee-0a0b-162a-2811dc8f9449}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC GetStateName : ST_BaseLabel
+VAR_INPUT
+	iNumber		: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetStateName := THIS^.itfSaMController.GetStateName (iNumber := iNumber);
 ]]></ST>
       </Implementation>
     </Method>

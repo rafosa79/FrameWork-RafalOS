@@ -9,5 +9,37 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetActiveModeName" Id="{4407dcff-23c5-0351-0a9c-547c33423be5}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveModeName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetActiveState" Id="{67cee8b6-905b-0059-03b5-535d5bad1116}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveState : E_BaseMachineState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetActiveStateName" Id="{0bb12475-6011-0270-1603-14ea9532c5e9}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveStateName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetModeName" Id="{ac65741e-56de-0aec-21f1-c2c7c554529c}">
+      <Declaration><![CDATA[METHOD PUBLIC GetModeName : ST_BaseLabel
+VAR_INPUT
+	iNumber		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetStateName" Id="{26719ab8-d41a-0159-05fa-021b5d6af891}">
+      <Declaration><![CDATA[METHOD PUBLIC GetStateName : ST_BaseLabel
+VAR_INPUT
+	iNumber		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

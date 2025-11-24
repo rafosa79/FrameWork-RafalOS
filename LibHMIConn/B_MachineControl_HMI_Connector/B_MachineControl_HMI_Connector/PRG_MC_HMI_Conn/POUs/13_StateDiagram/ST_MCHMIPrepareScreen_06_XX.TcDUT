@@ -3,7 +3,13 @@
   <DUT Name="ST_MCHMIPrepareScreen_06_XX" Id="{17a435a8-be8c-0952-0012-c6218b6c602d}">
     <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_06_XX :
 STRUCT
-	btmpValue_06_XX	: BOOL;
+	sTimeOfWork				: STRING;
+	wsActualState			: WSTRING;
+	wsActualMode			: WSTRING;
+	
+	
+	
+
 END_STRUCT
 END_TYPE
 ]]></Declaration>

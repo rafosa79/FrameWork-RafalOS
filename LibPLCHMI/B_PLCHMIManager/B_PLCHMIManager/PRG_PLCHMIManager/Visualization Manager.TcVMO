@@ -22,8 +22,8 @@
             <v n="VisuStyle">"White style, 3.1.6.0 (Beckhoff Automation GmbH)"</v>
             <v n="MaxNumOfClients">100</v>
             <n n="Language" />
-            <v n="NumpadDialog">"VisuDialogs.Numpad"</v>
-            <v n="KeypadDialog">"VisuDialogs.Keypad"</v>
+            <v n="NumpadDialog">"KlawiaturaCyfry"</v>
+            <v n="KeypadDialog">"KlawiaturaLitery"</v>
             <v n="InputWithLimitsDialog">"VisuDialogs.TextinputWithLimits"</v>
             <v n="UseInputWithLimits">false</v>
             <v n="TouchHandlingActive">false</v>
@@ -54,7 +54,7 @@
               <v>FB_Reinit</v>
               <v>ef58ba17-051b-46d5-9392-8aa0aade07a0</v>
             </d>
-            <v n="FbName">"NotImportant"</v>
+            <v n="FbName">"__VisuInitInstantiation_Fb"</v>
             <v n="FbGuid">{76541d56-e24c-4ec6-8737-903abd056e43}</v>
           </o>
           <o n="TargetProperties" t="VisualizationTargetProperties">
