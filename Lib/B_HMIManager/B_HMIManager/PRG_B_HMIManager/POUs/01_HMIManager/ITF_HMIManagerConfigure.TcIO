@@ -80,6 +80,19 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="LinkSafetyToaddedElementsFromConfiguration" Id="{f1c9758e-359d-0bd4-2407-29200e0e3be3}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Podłączenie wsyzstkich zmiennych pochodzących od Programu safety 
+*)
+METHOD PUBLIC LinkSafetyToaddedElementsFromConfiguration : BOOL
+VAR_INPUT
+	flSS1				: ITF_BaseFlagGet;
+	flSTO				: ITF_BaseFlagGet;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="SetButtonActiveFromConfiguration" Id="{2513bb7b-083f-0ce5-2652-2da661dd93e6}">
       <Declaration><![CDATA[(*			
 	RafalOS

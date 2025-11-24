@@ -285,15 +285,12 @@
                         <o>
                           <v n="FontStyle">1</v>
                           <v n="AdditionalFontStyle" t="UInt16">0</v>
-                          <v n="ExplicitColor">-16777216</v>
+                          <v n="ExplicitColor">-2171170</v>
                           <v n="FontName">"Tahoma"</v>
                           <v n="FontSize">11</v>
                           <v n="ScriptIdentification">0</v>
                           <v n="DoubleFontSize" t="Double">0</v>
-                          <o n="NamedColor" t="NamedStyleColor">
-                            <v n="Color">-2830136</v>
-                            <v n="CanonicalName">"Lightgray"</v>
-                          </o>
+                          <n n="NamedColor" />
                         </o>
                       </l>
                     </o>
@@ -461,15 +458,12 @@
                         <o>
                           <v n="FontStyle">1</v>
                           <v n="AdditionalFontStyle" t="UInt16">0</v>
-                          <v n="ExplicitColor">-16777216</v>
+                          <v n="ExplicitColor">-2171170</v>
                           <v n="FontName">"Tahoma"</v>
                           <v n="FontSize">11</v>
                           <v n="ScriptIdentification">0</v>
                           <v n="DoubleFontSize" t="Double">0</v>
-                          <o n="NamedColor" t="NamedStyleColor">
-                            <v n="Color">-2830136</v>
-                            <v n="CanonicalName">"Lightgray"</v>
-                          </o>
+                          <n n="NamedColor" />
                         </o>
                       </l>
                     </o>

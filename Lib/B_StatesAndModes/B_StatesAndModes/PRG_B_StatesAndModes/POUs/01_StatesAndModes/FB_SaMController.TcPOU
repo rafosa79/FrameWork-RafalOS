@@ -76,11 +76,11 @@ THIS^.cmdChangeMode.TestingLastCycle ();
     <Method Name="ChangeModeTo" Id="{6b94e17f-b8f4-087f-0f6f-660d61de79ee}" FolderPath="ITF_SaMControllerCommandChange\">
       <Declaration><![CDATA[METHOD PUBLIC ChangeModeTo
 VAR_INPUT
-	eNewMode			: E_BaseMachineMode;
+	eModeIn			: E_BaseMachineMode;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.eNewMode			:= eNewMode;
+        <ST><![CDATA[THIS^.eNewMode			:= eModeIn;
 THIS^.cmdChangeMode.Execute ();]]></ST>
       </Implementation>
     </Method>
@@ -109,11 +109,11 @@ THIS^.cmdChangeState.TestingLastCycle ();]]></ST>
     <Method Name="ChangeStateTo" Id="{628f54fb-c326-0184-1055-f36dc1e3eef6}" FolderPath="ITF_SaMControllerCommandChange\">
       <Declaration><![CDATA[METHOD PUBLIC ChangeStateTo
 VAR_INPUT
-	eNewState			: E_BaseMachineState;
+	eStateIn			: E_BaseMachineState;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.eNewState			:= eNewState;
+        <ST><![CDATA[THIS^.eNewState			:= eStateIn;
 THIS^.cmdChangeState.Execute ();
 ]]></ST>
       </Implementation>
@@ -233,7 +233,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.ChangeStateTo (eNewState := THIS^.refarrStatesForActiveMode [THIS^.eState].GetNextState ());
+        <ST><![CDATA[THIS^.ChangeStateTo (eStateIn := THIS^.refarrStatesForActiveMode [THIS^.eState].GetNextState ());
 ]]></ST>
       </Implementation>
     </Method>
@@ -268,7 +268,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetActiveModeName := THIS^.GetModeName (iNumber := THIS^.eState);
+        <ST><![CDATA[GetActiveModeName := THIS^.GetModeName (iNumber := THIS^.eMode);
 ]]></ST>
       </Implementation>
     </Method>
@@ -828,11 +828,11 @@ END_VAR
     <Method Name="IsStateInModeEnabled" Id="{0076f71f-25de-0166-149a-720af9605ad5}" FolderPath="ITF_SaMControllerCommandChange\">
       <Declaration><![CDATA[METHOD PUBLIC IsStateInModeEnabled : BOOL
 VAR_INPUT
-	eState			: E_BaseMachineState;
+	eStateIn			: E_BaseMachineState;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IsStateInModeEnabled		:= THIS^.arrStateEnableInMode [THIS^.eMode][eState];
+        <ST><![CDATA[IsStateInModeEnabled		:= THIS^.arrStateEnableInMode [THIS^.eMode][eStateIn];
 ]]></ST>
       </Implementation>
     </Method>

@@ -243,6 +243,25 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="LinkSafetyToaddedElements" Id="{6123aa6f-4f08-0aa4-1a07-0de5ecb745ab}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Podłączenie wsyzstkich zmiennych pochodzących od Programu safety 
+*)
+METHOD LinkSafetyToaddedElements : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfHMIManager.LinkSafetyToaddedElementsFromConfiguration (
+	flSS1 := GVL_MCSafety.flSS1,
+	flSTO := GVL_MCSafety.flSTO
+);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetButtonActive" Id="{ef4dae27-eac3-0c53-0fad-accc29e40bae}">
       <Declaration><![CDATA[(*			
 	RafalOS

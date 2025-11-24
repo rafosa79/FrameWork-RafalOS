@@ -246,6 +246,7 @@
     </PlaceholderReference>
     <PlaceholderReference Include="B_StatesAndModes">
       <DefaultResolution>B_StatesAndModes, * (RafalOS)</DefaultResolution>
+      <Namespace>B_StatesAndModes</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="CmpBitmapPool">
       <DefaultResolution>CmpBitmapPool, * (System)</DefaultResolution>

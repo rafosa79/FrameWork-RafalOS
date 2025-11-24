@@ -397,7 +397,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IsStateActiveInCurrentMode := THIS^.itfSaMController.IsStateInModeEnabled (eState := THIS^.itfSaMController.GetState ());
+        <ST><![CDATA[IsStateActiveInCurrentMode := THIS^.itfSaMController.IsStateInModeEnabled (eStateIn := THIS^.itfSaMController.GetState ());
 ]]></ST>
       </Implementation>
     </Method>

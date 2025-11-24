@@ -54,7 +54,7 @@ FOR iI := 1 TO THIS^.iNubmerOfAddedConfigure DO
 
 	END_IF
 END_FOR
-
+THIS^.arritfConfigure [1].LinkSafetyToaddedElements (itfHMIManager := fbHMIManager);
 THIS^.arritfConfigure [1].LinkHMIManagerData (itfHMIManager := fbHMIManager);
 
 Configure		:= bResult;

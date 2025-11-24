@@ -92,6 +92,8 @@ THIS^.AddControlElement (itfControlElement := fbMenu);
 
 THIS^.itfMainMenu := fbMenu;
 THIS^.itfMainMenu.LinkCommonData (stCommonData := THIS^.refstCommonData);
+//THIS^.itfMainMenu.LinkSS1 (fbSS1 := THIS^.itfSS1);
+//THIS^.itfMainMenu.LinkSTO (fbSTO := THIS^.itfSTO);
 
 THIS^.itfMainMenuHMI  := fbMenu_HMI;
 THIS^.itfMainMenuHMI.LinkCommonData (stCommonData := THIS^.refstCommonData);
@@ -259,6 +261,24 @@ END_VAR
 	iMode		:= iMode,
 	itfModule	:= itfModule
 );
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkSafetyToaddedElementsFromConfiguration" Id="{4f4e0271-6726-05e5-0886-ff30c320b550}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Podłączenie wsyzstkich zmiennych pochodzących od Programu safety 
+*)
+METHOD PUBLIC LinkSafetyToaddedElementsFromConfiguration : BOOL
+VAR_INPUT
+	flSS1				: ITF_BaseFlagGet;
+	flSTO				: ITF_BaseFlagGet;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.LinkSS1 (fbSS1 := flSS1);
+THIS^.LinkSTO (fbSTO := flSTO);
 ]]></ST>
       </Implementation>
     </Method>
