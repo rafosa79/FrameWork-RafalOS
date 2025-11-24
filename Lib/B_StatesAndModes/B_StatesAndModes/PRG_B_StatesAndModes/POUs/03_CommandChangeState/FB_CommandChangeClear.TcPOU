@@ -22,7 +22,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (THIS^.itfSaMController.GetState () = E_BaseMachineState.Aborted) THEN		// sprawdzenie czy jesteśmy w dobrym stanie dla tego rozkazu
-	IF (THIS^.itfSaMController.IsStateInModeEnabled (eNewState := E_BaseMachineState.Clearing)) THEN	//test czy stan do którego chcemy przejśc jest właczony dla tego trybu
+	IF (THIS^.itfSaMController.IsStateInModeEnabled (eState := E_BaseMachineState.Clearing)) THEN	//test czy stan do którego chcemy przejśc jest właczony dla tego trybu
 		THIS^.itfSaMController.ChangeStateTo (eNewState := E_BaseMachineState.Clearing);
 	ELSE
 		THIS^.EventSetActive (iNumber := 5);	//stan docelowy jest wylaczony w tym trybie

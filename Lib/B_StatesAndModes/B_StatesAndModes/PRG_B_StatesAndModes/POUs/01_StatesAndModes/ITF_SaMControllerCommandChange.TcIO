@@ -46,7 +46,7 @@ END_VAR
     <Method Name="IsStateInModeEnabled" Id="{8b94b531-de78-0248-28cf-4d8a71b21e15}">
       <Declaration><![CDATA[METHOD PUBLIC IsStateInModeEnabled : BOOL
 VAR_INPUT
-	eNewState			: E_BaseMachineState;
+	eState			: E_BaseMachineState;
 END_VAR
 ]]></Declaration>
     </Method>

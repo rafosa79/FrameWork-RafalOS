@@ -186,6 +186,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"834"</v>
+              <v n="TextDefault">"Abort"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"147"</v>
               <v n="TextDefault">"b"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -283,6 +288,11 @@
             <o>
               <v n="TextID">"980"</v>
               <v n="TextDefault">"H"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"970"</v>
+              <v n="TextDefault">"Hold"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -416,6 +426,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"444"</v>
+              <v n="TextDefault">"Reset"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"162"</v>
               <v n="TextDefault">"s"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -441,8 +456,23 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"613"</v>
+              <v n="TextDefault">"Start"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"81"</v>
               <v n="TextDefault">"Statistics"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"745"</v>
+              <v n="TextDefault">"Stop"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"96"</v>
+              <v n="TextDefault">"Suspend"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -463,6 +493,16 @@
             <o>
               <v n="TextID">"1007"</v>
               <v n="TextDefault">"U"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"708"</v>
+              <v n="TextDefault">"UnHold"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"950"</v>
+              <v n="TextDefault">"UnSuspend"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

@@ -62,6 +62,21 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetTimeStateForCurrentMode" Id="{9ff2f103-5ceb-04bb-3b3e-33be3a04971a}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTimeStateForCurrentMode : LTIME
+VAR_INPUT
+	iNumber		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetTimeStateForMode" Id="{240537f6-f716-06dd-2c19-f55d1c681a4f}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTimeStateForMode : LTIME
+VAR_INPUT
+	iMode		: int;
+	iState		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="IsChangeModeBusy" Id="{73bde51a-f1cb-03c3-05cb-d231e41b8173}">
       <Declaration><![CDATA[METHOD PUBLIC IsChangeModeBusy : BOOL
 VAR_INPUT

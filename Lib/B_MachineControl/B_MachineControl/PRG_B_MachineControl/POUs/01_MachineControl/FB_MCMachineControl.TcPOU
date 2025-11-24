@@ -338,6 +338,29 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetStateTimeForCurrentMode" Id="{2745c23a-6f63-0b92-39bd-64a014b88b46}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[METHOD GetStateTimeForCurrentMode : LTIME
+VAR_INPUT
+	iNumber			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetStateTimeForCurrentMode := THIS^.itfSaMController. GetTimeStateForCurrentMode (iNumber := iNumber);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetStateTimeForMode" Id="{f5f50ad8-84a2-06c3-1498-61fa7938a5ef}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[METHOD GetStateTimeForMode : LTIME
+VAR_INPUT
+	iMode			: INT;
+	iState			: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetStateTimeForMode := THIS^.itfSaMController.GetTimeStateForMode (iMode := iMode, iState := iState);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="InitializeCycle" Id="{f127c58d-f380-4c5b-91fc-37aed1ddc70f}">
       <Declaration><![CDATA[METHOD PRIVATE InitializeCycle : BOOL
 VAR
@@ -360,6 +383,21 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IsInitDone		:= THIS^.bInitDone;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsStateActiveInCurrentMode" Id="{9055241c-5212-0274-131d-f8d6aba0eb69}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		24.11.2025		TC 4024.66
+	Informacja czy dany stan jest aktywny w aktualnym trybie trybie
+*)
+METHOD PUBLIC IsStateActiveInCurrentMode : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStateActiveInCurrentMode := THIS^.itfSaMController.IsStateInModeEnabled (eState := THIS^.itfSaMController.GetState ());
 ]]></ST>
       </Implementation>
     </Method>
@@ -451,6 +489,17 @@ END_VAR
       <Implementation>
         <ST><![CDATA[THIS^.LinkSS1 (fbSS1 := flSS1);
 this^.LinkSTO (fbSTO := flSTO);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCmdChangeState" Id="{aaedd08e-f16e-012f-2524-bc1bc6905704}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC SetCmdChangeState
+VAR_INPUT
+	eCmdNumber		: E_SaMCommandChangeState;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrRequestChangeState [eCmdNumber].SetRequiredChange (bIn := TRUE);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="SetCodeToAddedElementsFromConfiguration" Id="{9c0e8717-2de6-01d7-053e-0f21ff1e2b0f}" FolderPath="ITF_MachineControlConfigure\">

@@ -21,7 +21,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_PLCHMIManager</Title>
-    <ProjectVersion>0.0.0.4</ProjectVersion>
+    <ProjectVersion>0.0.0.5</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -96,6 +96,10 @@
     </Compile>
     <Compile Include="Visualization Manager.TcVMO">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VISUs\Frame\F_DiagramState.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
     </Compile>
     <Compile Include="VISUs\Graphics\ImagePool.TcIPO">
       <SubType>Code</SubType>
@@ -220,6 +224,7 @@
     <Folder Include="VISUs\MainMenu" />
     <Folder Include="VISUs\MainMenuFrame" />
     <Folder Include="VISUs\Keyboards" />
+    <Folder Include="VISUs\Frame" />
     <Folder Include="VISUs\TextListFrame" />
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +243,9 @@
     <PlaceholderReference Include="B_MachineControl_HMI_Connector">
       <DefaultResolution>B_MachineControl_HMI_Connector, * (RafalOS)</DefaultResolution>
       <Namespace>B_MachineControl_HMI_Connector</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_StatesAndModes">
+      <DefaultResolution>B_StatesAndModes, * (RafalOS)</DefaultResolution>
     </PlaceholderReference>
     <PlaceholderReference Include="CmpBitmapPool">
       <DefaultResolution>CmpBitmapPool, * (System)</DefaultResolution>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCHMIPrepareScreen_06_XX_CmdChangeState" Id="{65e68b6a-2740-0207-0fec-083846c3b338}">
+    <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_06_XX_CmdChangeState :
+STRUCT
+	bPushed		: BOOL;
+	bEnabled	: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

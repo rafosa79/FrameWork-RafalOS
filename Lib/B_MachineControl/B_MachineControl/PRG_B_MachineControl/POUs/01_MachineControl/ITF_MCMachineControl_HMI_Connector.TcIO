@@ -41,5 +41,38 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetStateTimeForCurrentMode" Id="{89af58eb-efac-0122-3221-bddf27de8dd7}">
+      <Declaration><![CDATA[METHOD GetStateTimeForCurrentMode : LTIME
+VAR_INPUT
+	iNumber			: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetStateTimeForMode" Id="{9d30221a-e7e7-09a7-2cea-e8b17dc27adc}">
+      <Declaration><![CDATA[METHOD GetStateTimeForMode : LTIME
+VAR_INPUT
+	iMode			: INT;
+	iState			: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStateActiveInCurrentMode" Id="{a8b93514-5dce-08aa-0abb-b9e3c0d44ff0}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		24.11.2025		TC 4024.66
+	Informacja czy dany stan jest aktywny w aktualnym trybie trybie
+*)
+METHOD PUBLIC IsStateActiveInCurrentMode : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetCmdChangeState" Id="{7447a1a1-d662-0680-3b3a-420ffd87d41f}">
+      <Declaration><![CDATA[METHOD PUBLIC SetCmdChangeState
+VAR_INPUT
+	eCmdNumber		: E_SaMCommandChangeState;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

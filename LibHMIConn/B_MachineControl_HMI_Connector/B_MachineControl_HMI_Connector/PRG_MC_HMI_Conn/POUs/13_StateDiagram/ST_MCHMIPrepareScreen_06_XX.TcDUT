@@ -6,9 +6,14 @@ STRUCT
 	sTimeOfWork				: STRING;
 	wsActualState			: WSTRING;
 	wsActualMode			: WSTRING;
-	
-	
-	
+	(*	Informacje o stanach w trybie	*)
+	arrState				: ARRAY [0..GVL_SaMConstans.NUMBER_OF_STATES] OF ST_MCHMIPrepareScreen_06_XX_State;
+	arrStateEnabledInMode	: ARRAY [0..GVL_SaMConstans.NUMBER_OF_STATES] OF BOOL;
+	(*	Dane dotyczące wyświetlania czasów 	*)
+	bShowTime				: BOOL;
+	iNumberModeToShowTime	: INT;
+	(*	Przyciski poleceń zmiany stany	*)
+	arrCmdChangeState		: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES] OF ST_MCHMIPrepareScreen_06_XX_CmdChangeState;
 
 END_STRUCT
 END_TYPE

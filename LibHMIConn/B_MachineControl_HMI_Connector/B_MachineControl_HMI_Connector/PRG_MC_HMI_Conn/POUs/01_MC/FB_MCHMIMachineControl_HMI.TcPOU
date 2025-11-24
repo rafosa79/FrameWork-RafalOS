@@ -102,6 +102,16 @@ IF (THIS^.itfMachineControlConnector <> 0 AND
 END_IF]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetActiveMode" Id="{f4b1860e-d10a-063b-3493-e2e1302fe817}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[METHOD GetActiveMode : E_BaseMachineMode
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActiveMode := THIS^.itfMachineControlConnector.GetActiveMode ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetActiveModeFromManager" Id="{b423cdbb-f00c-0f1c-08a3-152aeb91d7a7}" FolderPath="ITF_MachineControl_HMI\">
       <Declaration><![CDATA[METHOD PUBLIC GetActiveModeFromManager : E_BaseMachineMode
 VAR_INPUT
@@ -122,6 +132,16 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetActiveState" Id="{b47c176e-2927-0006-1a15-9995444ca9ce}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[METHOD GetActiveState : E_BaseMachineState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetActiveState := THIS^.itfMachineControlConnector.GetActiveState ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetActiveStateName" Id="{cf260275-9859-0576-32c3-e9551fb50659}" FolderPath="ITF_PrepScr_06_XX\">
       <Declaration><![CDATA[METHOD PUBLIC GetActiveStateName : ST_BaseLabel
 VAR_INPUT
@@ -129,6 +149,39 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetActiveStateName := THIS^.itfMachineControlConnector.GetActiveStateName ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetStateName" Id="{4cb15cf4-7c1e-0afc-3223-6426a7017a18}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[METHOD GetStateName : ST_BaseLabel
+VAR_INPUT
+	iNumber		: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetStateName := THIS^.itfMachineControlConnector.GetStateName (iNumber := iNumber);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetStateTimeForMode" Id="{a970b32c-a4d3-0bbe-170a-4a7e946d8a8d}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[METHOD GetStateTimeForMode : LTIME
+VAR_INPUT
+	iMode		: INT;
+	iState		: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetStateTimeForMode := THIS^.itfMachineControlConnector.GetStateTimeForMode (iMode := iMode, iState := iState);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsStateActive" Id="{0568f69d-0407-048d-3652-b5dcc16c6c86}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[METHOD IsStateActive : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStateActive := THIS^.itfMachineControlConnector.IsStateActiveInCurrentMode ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -203,6 +256,26 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="PrepareDataForHMI" Id="{d0ec13b0-fdee-05ca-29bd-6b408365218b}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Metoda przygotowywania danych dla HMI 
+	W niej odbywa się odpytywanie właściego elementu przez łącznik
+*)
+METHOD PUBLIC PrepareDataForHMI : BOOL
+VAR
+	iJ		: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+
+
+SUPER^.PrepareDataForHMI ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="PrepareDataForScreenFromHMIManager" Id="{1d99028f-2467-0f34-2422-b384e99508df}" FolderPath="ITF_MachineControl_HMI\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -257,6 +330,22 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.refstHMICommonData.bChangePage := bValue;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCmdChangeState" Id="{010101ad-b25a-09d7-1063-ad26b95b260e}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		24.11.2025		TC 4024.66
+	Zmien stan 
+*)
+METHOD public SetCmdChangeState : BOOL
+VAR_INPUT
+	eCmdNumber : E_SaMCommandChangeState;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMachineControlConnector.SetCmdChangeState (eCmdNumber := eCmdNumber);
 ]]></ST>
       </Implementation>
     </Method>

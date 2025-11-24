@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCHMIPrepareScreen_06_XX_State" Id="{7db1b59f-f805-0dbb-2d81-2c1b24d6034b}">
+    <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_06_XX_State :
+STRUCT
+	wsNameOfState			: WSTRING;
+	iWidthFrame				: INT := 1;
+	bShowTime				: BOOL;
+	sTime					: STRING;
+	dwBackgroud				: DWORD;
+	(* rozpisane tło
+	16#<TT><RR><GG><BB>
+	<TT> 00-FF Transpoarency
+	<RR> 00-FF red
+	<GG> 00-FF green
+	<BB> 00-FF blue
+	*)
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
