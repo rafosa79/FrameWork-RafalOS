@@ -63,6 +63,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="LinkSafetyToaddedElements" Id="{8d2b9552-1daf-0a65-0e4e-8841e80df726}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		13.11.2025		TC 4024.66
+	Podłączenie wsyzstkich zmiennych pochodzących od Programu safety 
+*)
+METHOD PUBLIC LinkSafetyToaddedElements : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="SetButtonActive" Id="{14442edb-64d3-0e73-0287-1e3dc26a0acb}">
       <Declaration><![CDATA[(*			
 	RafalOS

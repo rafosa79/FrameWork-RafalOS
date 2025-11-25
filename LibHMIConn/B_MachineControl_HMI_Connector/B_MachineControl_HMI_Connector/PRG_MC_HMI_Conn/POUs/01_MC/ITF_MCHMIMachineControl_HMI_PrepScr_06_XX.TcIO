@@ -8,5 +8,135 @@
 *)
 INTERFACE ITF_MCHMIMachineControl_HMI_PrepScr_06_XX
 ]]></Declaration>
+    <Method Name="GetActiveMode" Id="{a279145b-3cca-0e58-3585-fed64ceeb001}">
+      <Declaration><![CDATA[METHOD GetActiveMode : E_BaseMachineMode
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetActiveModeName" Id="{239c7565-46be-07aa-3fbc-99dcca9c8ba1}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveModeName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetActiveState" Id="{12870f1e-c88f-0150-1149-14888effec1a}">
+      <Declaration><![CDATA[METHOD GetActiveState : E_BaseMachineState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetActiveStateName" Id="{03ad543d-2706-0245-3071-13f8b151d31f}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveStateName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetModeName" Id="{e7f26cd7-7576-09f1-32a0-ccbbafe30d7f}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca nazwę trybu o zadanym numerze
+*)
+METHOD GetModeName : ST_BaseLabel
+VAR_INPUT
+	iMode	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetStateName" Id="{aa929852-6738-0c67-2c3b-7f4149f4ae8c}">
+      <Declaration><![CDATA[METHOD GetStateName : ST_BaseLabel
+VAR_INPUT
+	iNumber		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetStateTimeForMode" Id="{a2f5dd15-bd22-0c7f-263e-8449c115b5a1}">
+      <Declaration><![CDATA[METHOD GetStateTimeForMode : LTIME
+VAR_INPUT
+	iMode		: INT;
+	iState		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetTimeWorkForMode" Id="{a6cc1d7c-b0a6-0602-1385-3c912a5a543e}">
+      <Declaration><![CDATA[METHOD GetTimeWorkForMode : LTIME
+VAR_INPUT
+	iMode	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetTotalWorkTime" Id="{c8f5a970-5cda-063d-03b4-30d8ea4e4689}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca całkowity czas pracy maszyny
+*)
+METHOD PUBLIC GetTotalWorkTime : LTIME
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsChangeModeDone" Id="{0c59ba08-708a-034d-3c2b-c2c3f5c82885}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy zmiana stanu sie skońćzyła
+*)
+METHOD IsChangeModeDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsModeEnabled" Id="{e0b1cdf1-ff72-0731-0420-f079df98b21a}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy tryb o podanym numerze jest włączony
+*)
+METHOD IsModeEnabled : BOOL
+VAR_INPUT
+	iMode 	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStateActive" Id="{d329a6a5-e706-030b-2256-9cfa32eec46f}">
+      <Declaration><![CDATA[METHOD IsStateActive : BOOL
+VAR_INPUT
+	iTestState : INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStateEnableInMode" Id="{ff3e3b19-08e1-0dde-1ff3-3b5f76908fb3}">
+      <Declaration><![CDATA[METHOD IsStateEnableInMode : BOOL
+VAR_INPUT
+	iTestState	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetCmdChangeMode" Id="{3e4c2415-1609-0570-1173-106f91b1e399}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		24.11.2025		TC 4024.66
+	Zmien tryb
+*)
+METHOD SetCmdChangeMode : BOOL
+VAR_INPUT
+	eCmdNumber	: E_SaMCommandChangeMode;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetCmdChangeState" Id="{def8d6a8-b83d-02a3-24b0-6f89e81e7d4c}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		24.11.2025		TC 4024.66
+	Zmien stan 
+*)
+METHOD public SetCmdChangeState : BOOL
+VAR_INPUT
+	eCmdNumber : E_SaMCommandChangeState;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

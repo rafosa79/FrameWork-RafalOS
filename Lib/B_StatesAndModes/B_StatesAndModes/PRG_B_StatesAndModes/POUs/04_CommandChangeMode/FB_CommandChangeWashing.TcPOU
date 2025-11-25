@@ -24,7 +24,7 @@ END_VAR
         <ST><![CDATA[IF (THIS^.itfSaMController.IsModeEnebles (eMode := E_BaseMachineMode.Washing)) THEN
 	IF (THIS^.itfSaMController.IsPossibleExitActiveState ()) THEN
 		IF (THIS^.itfSaMController.IsPossibleExitState (eMode := E_BaseMachineMode.Washing)) THEN
-			THIS^.itfSaMController.ChangeModeTo (eNewMode := E_BaseMachineMode.Washing);
+			THIS^.itfSaMController.ChangeModeTo (eModeIn := E_BaseMachineMode.Washing);
 		ELSE
 			THIS^.EventSetActive (iNumber := 3);	//brak możlwiosći wejście do trybu w tym stanie 
 		END_IF

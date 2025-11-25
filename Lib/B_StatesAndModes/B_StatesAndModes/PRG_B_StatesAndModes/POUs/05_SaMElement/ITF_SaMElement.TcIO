@@ -9,6 +9,19 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetTime" Id="{52effbdd-0fb3-07b7-1558-dd80896bbb6d}">
+      <Declaration><![CDATA[METHOD GetTime : LTIME
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IncrementTime" Id="{9e8edaeb-fd1f-0ca4-2056-68fd2a5f3032}">
+      <Declaration><![CDATA[METHOD PUBLIC IncrementTime
+VAR_INPUT
+	tInterval				: TIME := T#100MS;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="InvokeStateForTopElement" Id="{0f361f4f-cbec-0bac-0fc7-5725dafc2c84}">
       <Declaration><![CDATA[METHOD PUBLIC InvokeStateForTopElement : BOOL
 VAR_INPUT

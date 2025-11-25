@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <TextList Name="TextList_04" Id="{995465d3-f86b-0c9c-2552-70e215d82204}">
+  <TextList Name="TextListGlobal" Id="{9d88ac8d-dfee-05e3-3c03-115625ce9742}">
     <XmlArchive>
       <Data>
         <o xml:space="preserve" t="TextListObject">
@@ -8,20 +8,20 @@
           <l n="TextList" t="ArrayList" cet="TextListRow">
             <o>
               <v n="TextID">"0"</v>
-              <v n="TextDefault">"Dostępne tryby pracy"</v>
+              <v n="TextDefault">"Aktualny stan : "</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v>Dostępne tryby pracy</v>
-                <v>Available operating modes</v>
-                <v>Verfügbare Betriebsmodi</v>
+                <v>Aktualny stan : </v>
+                <v>Current state : </v>
+                <v>Aktueller Zustand : </v>
               </l>
             </o>
             <o>
               <v n="TextID">"1"</v>
-              <v n="TextDefault">"Zmień tryb"</v>
+              <v n="TextDefault">"Aktualny tryb : "</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v>Zmień tryb</v>
-                <v>Change mode</v>
-                <v>Modus ändern</v>
+                <v>Aktualny tryb : </v>
+                <v>Current mode : </v>
+                <v>Aktueller Modus : </v>
               </l>
             </o>
             <o>
@@ -39,9 +39,9 @@
             <v>en</v>
             <v>de</v>
           </l>
-          <v n="GuidInit">{fdceb514-53aa-423c-bb39-26c99e1ccc4d}</v>
-          <v n="GuidReInit">{8ec2f3b5-3526-4d45-b9b1-11629e722462}</v>
-          <v n="GuidExitX">{c28878bc-8ece-464d-9622-da6573e8a574}</v>
+          <v n="GuidInit">{5fbc57fe-541f-4171-ab40-16673f469a9d}</v>
+          <v n="GuidReInit">{bec42c40-846c-479a-8260-0556058c21dc}</v>
+          <v n="GuidExitX">{ced36799-bc3e-40c5-aa22-5f9585088aa1}</v>
         </o>
       </Data>
       <TypeList>

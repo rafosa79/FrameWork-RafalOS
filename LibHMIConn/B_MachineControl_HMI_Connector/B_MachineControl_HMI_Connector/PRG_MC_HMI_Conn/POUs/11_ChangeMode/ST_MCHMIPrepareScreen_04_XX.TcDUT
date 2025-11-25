@@ -3,7 +3,14 @@
   <DUT Name="ST_MCHMIPrepareScreen_04_XX" Id="{c9b6975e-17f6-0777-0f42-0163d8466f84}">
     <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_04_XX :
 STRUCT
-	btmpValue_04_XX	: BOOL;
+	wsActualMode			: WSTRING;
+	eActualMode				: E_BaseMachineMode;
+	
+	bChangeMode				: BOOL;	//zmien tryb polecenie z HMi
+	iSelectedMode			: INT;
+	iNumberModeToDisplay	: INT;
+	arrNamesOfMode			: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ST_MCHMIPrepareScreen_06_XX_ChangeMode;
+	bSelectedRow			: BOOL;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

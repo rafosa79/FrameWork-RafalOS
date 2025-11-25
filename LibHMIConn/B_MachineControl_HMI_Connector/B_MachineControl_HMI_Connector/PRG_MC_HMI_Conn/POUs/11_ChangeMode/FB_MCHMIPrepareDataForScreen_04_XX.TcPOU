@@ -60,11 +60,52 @@ END_VAR
 	W niej odbywa się odpytywanie właściego elementu przez łącznik
 *)
 METHOD PUBLIC PrepareDataForHMI : BOOL
-VAR_INPUT
+VAR_INST
+	etmpMode					: E_BaseMachineMode := E_BaseMachineMode.NotAllowed;
 END_VAR
-]]></Declaration>
+VAR
+	iJ							: INT;
+	iActiveMode					: E_BaseMachineMode;
+	etmpCmdChangeMode			: E_SaMCommandChangeMode;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.PrepareDataForHMI ();
+        <ST><![CDATA[THIS^.refstData.wsActualMode := THIS^.GetTextFromLabelForActiveLocation (THIS^.itfMachineControlHMI.GetActiveModeName ());
+THIS^.refstData.eActualMode := THIS^.itfMachineControlHMI.GetActiveMode ();
+
+
+	(*	Przygotowanie ifnormacji dla zmiany trybu	*)
+
+IF (THIS^.refstHMICommonData.bChangePage OR etmpMode <> THIS^.refstData.eActualMode) THEN
+	etmpMode := THIS^.refstData.eActualMode;
+	THIS^.refstData.iNumberModeToDisplay := 0;
+	iActiveMode := THIS^.itfMachineControlHMI.GetActiveMode ();
+	FOR iJ := 1 TO GVL_SaMConstans.NUMBER_OF_MODES DO
+		IF (THIS^.itfMachineControlHMI.IsModeEnabled (iMode := iJ) AND iJ <> iActiveMode) THEN
+			THIS^.refstData.arrNamesOfMode [THIS^.refstData.iNumberModeToDisplay].wsDescription := 
+				THIS^.GetTextFromLabelForActiveLocation (stLabel := THIS^.itfMachineControlHMI.GetModeName (iMode := iJ));
+			THIS^.refstData.arrNamesOfMode [THIS^.refstData.iNumberModeToDisplay].iNumber := iJ;
+			THIS^.refstData.iNumberModeToDisplay := THIS^.refstData.iNumberModeToDisplay + 1;
+			THIS^.refstData.iSelectedMode := -1;
+		END_IF
+	END_FOR
+END_IF
+IF (THIS^.refstData.bChangeMode AND THIS^.refstData.bSelectedRow) THEN
+	THIS^.refstData.bChangeMode := FALSE;
+	//polecenie zmiany trybu 
+	CASE THIS^.refstData.arrNamesOfMode [THIS^.refstData.iSelectedMode].iNumber OF
+	E_SaMCommandChangeMode.Production : etmpCmdChangeMode := E_SaMCommandChangeMode.Production;
+	E_SaMCommandChangeMode.Maintenance : etmpCmdChangeMode := E_SaMCommandChangeMode.Maintenance;
+	E_SaMCommandChangeMode.Manual : etmpCmdChangeMode := E_SaMCommandChangeMode.Manual;
+	E_SaMCommandChangeMode.Washing : etmpCmdChangeMode := E_SaMCommandChangeMode.Washing;
+	E_SaMCommandChangeMode.Diagnostisc : etmpCmdChangeMode := E_SaMCommandChangeMode.Diagnostisc;
+	END_CASE
+	THIS^.itfMachineControlHMI.SetCmdChangeMode (eCmdNumber := etmpCmdChangeMode);
+	THIS^.refstData.iSelectedMode := -1;
+END_IF
+
+
+
+SUPER^.PrepareDataForHMI ();
 ]]></ST>
       </Implementation>
     </Method>

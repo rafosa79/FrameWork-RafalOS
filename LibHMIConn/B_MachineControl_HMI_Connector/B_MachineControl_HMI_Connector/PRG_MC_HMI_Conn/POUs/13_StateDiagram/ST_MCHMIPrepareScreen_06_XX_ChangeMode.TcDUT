@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCHMIPrepareScreen_06_XX_ChangeMode" Id="{7d8f57e7-378c-0147-3d48-82c95390ec2c}">
+    <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_06_XX_ChangeMode :
+STRUCT
+	wsDescription			: WSTRING;
+	iNumber					: INT;	//numer trybu
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

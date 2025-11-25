@@ -6,14 +6,14 @@
     <Method Name="ChangeModeTo" Id="{438f8f9d-6699-052d-3a6f-112ca53c6c0f}">
       <Declaration><![CDATA[METHOD PUBLIC ChangeModeTo
 VAR_INPUT
-	eNewMode			: E_BaseMachineMode;
+	eModeIn			: E_BaseMachineMode;
 END_VAR
 ]]></Declaration>
     </Method>
     <Method Name="ChangeStateTo" Id="{20e110f3-d687-003b-0708-468cc54e6e0f}">
       <Declaration><![CDATA[METHOD PUBLIC ChangeStateTo
 VAR_INPUT
-	eNewState			: E_BaseMachineState;
+	eStateIn			: E_BaseMachineState;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -46,7 +46,7 @@ END_VAR
     <Method Name="IsStateInModeEnabled" Id="{8b94b531-de78-0248-28cf-4d8a71b21e15}">
       <Declaration><![CDATA[METHOD PUBLIC IsStateInModeEnabled : BOOL
 VAR_INPUT
-	eNewState			: E_BaseMachineState;
+	eStateIn			: E_BaseMachineState;
 END_VAR
 ]]></Declaration>
     </Method>

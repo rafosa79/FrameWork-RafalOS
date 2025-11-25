@@ -33,8 +33,8 @@ END_VAR
 	THIS^.itfSaMController.GetState () = E_BaseMachineState.Unholding OR
 	THIS^.itfSaMController.GetState () = E_BaseMachineState.Completing OR
 	THIS^.itfSaMController.GetState () = E_BaseMachineState.Complete) THEN		// sprawdzenie czy jesteśmy w dobrym stanie dla tego rozkazu
-	IF (THIS^.itfSaMController.IsStateInModeEnabled (eNewState := E_BaseMachineState.Stopping)) THEN	//test czy stan do którego chcemy przejśc jest właczony dla tego trybu
-		THIS^.itfSaMController.ChangeStateTo (eNewState := E_BaseMachineState.Stopping);
+	IF (THIS^.itfSaMController.IsStateInModeEnabled (eStateIn := E_BaseMachineState.Stopping)) THEN	//test czy stan do którego chcemy przejśc jest właczony dla tego trybu
+		THIS^.itfSaMController.ChangeStateTo (eStateIn := E_BaseMachineState.Stopping);
 	ELSE
 		THIS^.EventSetActive (iNumber := 5);	//stan docelowy jest wylaczony w tym trybie
 	END_IF

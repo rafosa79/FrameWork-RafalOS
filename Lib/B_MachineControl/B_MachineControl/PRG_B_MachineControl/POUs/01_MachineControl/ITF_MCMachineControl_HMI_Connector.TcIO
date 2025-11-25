@@ -4,8 +4,143 @@
     <Declaration><![CDATA[INTERFACE ITF_MCMachineControl_HMI_Connector EXTENDS ITF_BaseTopElement_HMI_Connector
 ]]></Declaration>
     <Method Name="GetActiveMode" Id="{577b45bd-46f1-0f83-093b-77c467e398cb}">
-      <Declaration><![CDATA[METHOD PUBLIC GetActiveMode : E_BaseMachineMode
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca aktualny tryb
+*)
+METHOD PUBLIC GetActiveMode : E_BaseMachineMode
 VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetActiveModeName" Id="{4407dcff-23c5-0351-0a9c-547c33423be5}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveModeName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetActiveState" Id="{67cee8b6-905b-0059-03b5-535d5bad1116}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca aktualny stan
+*)
+METHOD PUBLIC GetActiveState : E_BaseMachineState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetActiveStateName" Id="{0bb12475-6011-0270-1603-14ea9532c5e9}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveStateName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetModeName" Id="{ac65741e-56de-0aec-21f1-c2c7c554529c}">
+      <Declaration><![CDATA[METHOD PUBLIC GetModeName : ST_BaseLabel
+VAR_INPUT
+	iNumber		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetStateName" Id="{26719ab8-d41a-0159-05fa-021b5d6af891}">
+      <Declaration><![CDATA[METHOD PUBLIC GetStateName : ST_BaseLabel
+VAR_INPUT
+	iNumber		: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetStateTimeForCurrentMode" Id="{89af58eb-efac-0122-3221-bddf27de8dd7}">
+      <Declaration><![CDATA[METHOD GetStateTimeForCurrentMode : LTIME
+VAR_INPUT
+	iNumber			: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetStateTimeForMode" Id="{9d30221a-e7e7-09a7-2cea-e8b17dc27adc}">
+      <Declaration><![CDATA[METHOD GetStateTimeForMode : LTIME
+VAR_INPUT
+	iMode			: INT;
+	iState			: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetTimeWorkForMode" Id="{7a8b1108-00e3-0de0-3a7c-41ce8322a496}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTimeWorkForMode : LTIME
+VAR_INPUT
+	iMode	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetTotalWorkTime" Id="{34a42a30-c8cc-021d-3d6e-60547771fa78}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca całkowity czas pracy maszyny
+*)
+METHOD PUBLIC GetTotalWorkTime : LTIME
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsChangeModeDone" Id="{2e1840e3-1386-09cf-1b3a-5d2cb8fef492}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy zmiana trybu sie skoćńzyła
+*)
+METHOD PUBLIC IsChangeModeDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsModeEnabled" Id="{7bc2b87a-b512-0fb7-3bab-6b51f7c2fc2f}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy tryb o podanym numerze jest włączony
+*)
+METHOD IsModeEnabled : BOOL
+VAR_INPUT
+	iMode 	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStateActiveInCurrentMode" Id="{a8b93514-5dce-08aa-0abb-b9e3c0d44ff0}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		24.11.2025		TC 4024.66
+	Informacja czy dany stan jest aktywny w aktualnym trybie trybie
+*)
+METHOD PUBLIC IsStateActiveInCurrentMode : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStateIsActual" Id="{6938779b-3a1b-0281-3d67-6f9be6963487}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Informacja czy zadany stan jest stanem aktualnym
+*)
+METHOD PUBLIC IsStateIsActual : BOOL
+VAR_INPUT
+	iTestState	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetCmdChangeMode" Id="{8a57f6f2-6ee2-0e80-26e0-a659a32a14e9}">
+      <Declaration><![CDATA[METHOD PUBLIC SetCmdChangeMode
+VAR_INPUT
+	eCmdNumber		: E_SaMCommandChangeMode;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetCmdChangeState" Id="{7447a1a1-d662-0680-3b3a-420ffd87d41f}">
+      <Declaration><![CDATA[METHOD PUBLIC SetCmdChangeState
+VAR_INPUT
+	eCmdNumber		: E_SaMCommandChangeState;
 END_VAR
 ]]></Declaration>
     </Method>

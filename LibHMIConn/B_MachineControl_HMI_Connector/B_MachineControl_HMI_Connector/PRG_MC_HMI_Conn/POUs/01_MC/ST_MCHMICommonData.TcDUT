@@ -4,6 +4,9 @@
     <Declaration><![CDATA[TYPE ST_MCHMICommonData :
 STRUCT
 	bChangePage				: BOOL; //zmiana strony menu głównego
+	wsActualState			: WSTRING;
+	wsActualMode			: WSTRING;
+	
 	
 END_STRUCT
 END_TYPE
