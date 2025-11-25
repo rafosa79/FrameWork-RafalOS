@@ -8,5 +8,53 @@
 *)
 INTERFACE ITF_MCHMIMachineControl_HMI_PrepScr_04_XX
 ]]></Declaration>
+    <Method Name="GetActiveMode" Id="{a426eef2-2d14-0855-161f-d8439bed04fe}">
+      <Declaration><![CDATA[METHOD GetActiveMode : E_BaseMachineMode
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetActiveModeName" Id="{635b2dc2-3c63-0be7-010f-fb06d9a05798}">
+      <Declaration><![CDATA[METHOD PUBLIC GetActiveModeName : ST_BaseLabel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetModeName" Id="{82fa5f50-54ab-0943-1432-3db194c5dbd3}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca nazwę trybu o zadanym numerze
+*)
+METHOD GetModeName : ST_BaseLabel
+VAR_INPUT
+	iMode	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsModeEnabled" Id="{34959080-9bf8-026e-28d0-ac719a6e6ded}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy tryb o podanym numerze jest włączony
+*)
+METHOD IsModeEnabled : BOOL
+VAR_INPUT
+	iMode 	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetCmdChangeMode" Id="{26360b9f-c326-0156-2c27-2643b571ff5a}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		24.11.2025		TC 4024.66
+	Zmien tryb
+*)
+METHOD SetCmdChangeMode : BOOL
+VAR_INPUT
+	eCmdNumber	: E_SaMCommandChangeMode;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

@@ -7,6 +7,24 @@
           <v n="UniqueIdGenerator">"0"</v>
           <l n="TextList" t="ArrayList" cet="TextListRow">
             <o>
+              <v n="TextID">"0"</v>
+              <v n="TextDefault">"Dostępne tryby pracy"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Dostępne tryby pracy</v>
+                <v>Available operating modes</v>
+                <v>Verfügbare Betriebsmodi</v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1"</v>
+              <v n="TextDefault">"Zmień tryb"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Zmień tryb</v>
+                <v>Change mode</v>
+                <v>Modus ändern</v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">""</v>
               <v n="TextDefault">""</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">

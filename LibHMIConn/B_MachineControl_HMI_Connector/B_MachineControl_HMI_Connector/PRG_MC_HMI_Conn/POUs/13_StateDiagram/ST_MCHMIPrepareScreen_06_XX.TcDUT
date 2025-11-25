@@ -28,26 +28,9 @@ STRUCT
 	iSelectedMode			: INT;
 	iNumberModeToDisplay	: INT;
 	arrNamesOfMode			: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ST_MCHMIPrepareScreen_06_XX_ChangeMode;
-	
+	bSelectedRow			: BOOL;
 END_STRUCT
 END_TYPE
-
-
-(*
-
-//Czas pracy
-	bCzas								: BOOL;			//wlacza pokazywanie czasu pracy w danym stanie
-	bCzasPrzelaczWGore					: BOOL;			//przelacza tryb w gore na kolejny dostepny
-	bCzasPrzelaczWDol					: BOOL;			//przelacza tryb w dol na dostępny
-	wsCzasNazwaTrybu					: WSTRING;		//nazwa trybu dla pokazywanego czasu
-	iCzasNumerTrybu						: INT;			//numer trybu do pokazywania czasu
-	sCzasPracyWtrybie					: STRING;
-	
-//Zmaiana trybu pracy
-	arrDostepneTryby					: ARRAY [0..9] OF ST_OHMI_04_Diagram_DostepneTryby;
-	iNumerZListyDostepnegoTrybu			: INT;
-	bZmienTryb							: BOOL;
-	iIloscTrybow						: INT;	
-*)]]></Declaration>
+]]></Declaration>
   </DUT>
 </TcPlcObject>

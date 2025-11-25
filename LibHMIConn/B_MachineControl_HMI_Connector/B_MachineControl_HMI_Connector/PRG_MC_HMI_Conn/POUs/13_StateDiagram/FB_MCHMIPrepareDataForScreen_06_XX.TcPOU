@@ -118,7 +118,7 @@ IF (THIS^.refstHMICommonData.bChangePage OR etmpMode <> THIS^.refstData.eActualM
 		END_IF
 	END_FOR
 END_IF
-IF (THIS^.refstData.bChangeMode) THEN
+IF (THIS^.refstData.bChangeMode AND THIS^.refstData.bSelectedRow) THEN
 	THIS^.refstData.bChangeMode := FALSE;
 	//polecenie zmiany trybu 
 	CASE THIS^.refstData.arrNamesOfMode [THIS^.refstData.iSelectedMode].iNumber OF
