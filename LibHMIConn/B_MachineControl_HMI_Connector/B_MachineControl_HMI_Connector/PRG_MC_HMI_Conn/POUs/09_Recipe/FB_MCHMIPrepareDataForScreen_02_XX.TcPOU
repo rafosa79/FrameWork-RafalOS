@@ -64,7 +64,12 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.PrepareDataForHMI ();
+        <ST><![CDATA[
+
+
+
+(*	Zewnętrzna obsługa wyświetlania 	*)
+SUPER^.PrepareDataForHMI ();
 ]]></ST>
       </Implementation>
     </Method>

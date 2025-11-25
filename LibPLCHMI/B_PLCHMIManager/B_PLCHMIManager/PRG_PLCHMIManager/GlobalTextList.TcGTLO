@@ -611,6 +611,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1278"</v>
+              <v n="TextDefault">"_dostępne tryby"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"159"</v>
               <v n="TextDefault">"_pokaz czasy"</v>
               <l n="LanguageTexts" t="ArrayList" />
