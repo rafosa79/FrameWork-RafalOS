@@ -3,20 +3,51 @@
   <DUT Name="ST_MCHMIPrepareScreen_06_XX" Id="{17a435a8-be8c-0952-0012-c6218b6c602d}">
     <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_06_XX :
 STRUCT
-	sTimeOfWork				: STRING;
 	wsActualState			: WSTRING;
 	wsActualMode			: WSTRING;
+	eActualMode				: E_BaseMachineMode;
 	(*	Informacje o stanach w trybie	*)
 	arrState				: ARRAY [0..GVL_SaMConstans.NUMBER_OF_STATES] OF ST_MCHMIPrepareScreen_06_XX_State;
 	arrStateEnabledInMode	: ARRAY [0..GVL_SaMConstans.NUMBER_OF_STATES] OF BOOL;
 	(*	Dane dotyczące wyświetlania czasów 	*)
 	bShowTime				: BOOL;
+	sTotalWorkTime			: STRING;
 	iNumberModeToShowTime	: INT;
+	sWorkingTimeInMode		: STRING;
+	sNameOfModeShown		: STRING;	//nazwa trybu pokazywanego trybu
+	bNextModeToDisplayTime	: BOOL;
+	bPrevModeToDisplayTime	: BOOL;
+	wsNameModeOfTimeDisplay	: WSTRING;
+
+	
 	(*	Przyciski poleceń zmiany stany	*)
 	arrCmdChangeState		: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_STATES] OF ST_MCHMIPrepareScreen_06_XX_CmdChangeState;
 
+	(*	Obsługa zmiany trybu	*)
+	bChangeMode				: BOOL;	//zmien tryb polecenie z HMi
+	iSelectedMode			: INT;
+	iNumberModeToDisplay	: INT;
+	arrNamesOfMode			: ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ST_MCHMIPrepareScreen_06_XX_ChangeMode;
+	
 END_STRUCT
 END_TYPE
-]]></Declaration>
+
+
+(*
+
+//Czas pracy
+	bCzas								: BOOL;			//wlacza pokazywanie czasu pracy w danym stanie
+	bCzasPrzelaczWGore					: BOOL;			//przelacza tryb w gore na kolejny dostepny
+	bCzasPrzelaczWDol					: BOOL;			//przelacza tryb w dol na dostępny
+	wsCzasNazwaTrybu					: WSTRING;		//nazwa trybu dla pokazywanego czasu
+	iCzasNumerTrybu						: INT;			//numer trybu do pokazywania czasu
+	sCzasPracyWtrybie					: STRING;
+	
+//Zmaiana trybu pracy
+	arrDostepneTryby					: ARRAY [0..9] OF ST_OHMI_04_Diagram_DostepneTryby;
+	iNumerZListyDostepnegoTrybu			: INT;
+	bZmienTryb							: BOOL;
+	iIloscTrybow						: INT;	
+*)]]></Declaration>
   </DUT>
 </TcPlcObject>

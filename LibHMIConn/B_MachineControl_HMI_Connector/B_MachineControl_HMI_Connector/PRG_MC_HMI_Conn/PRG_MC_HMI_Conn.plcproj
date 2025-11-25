@@ -19,7 +19,7 @@
     <Company>RafalOS</Company>
     <Released>false</Released>
     <Title>B_MachineControl_HMI_Connector</Title>
-    <ProjectVersion>0.0.0.15</ProjectVersion>
+    <ProjectVersion>0.0.0.19</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -255,6 +255,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\13_StateDiagram\ST_MCHMIPrepareScreen_06_XX.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\13_StateDiagram\ST_MCHMIPrepareScreen_06_XX_ChangeMode.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\13_StateDiagram\ST_MCHMIPrepareScreen_06_XX_CmdChangeState.TcDUT">

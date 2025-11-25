@@ -32,6 +32,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetModeName" Id="{e7f26cd7-7576-09f1-32a0-ccbbafe30d7f}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca nazwę trybu o zadanym numerze
+*)
+METHOD GetModeName : ST_BaseLabel
+VAR_INPUT
+	iMode	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="GetStateName" Id="{aa929852-6738-0c67-2c3b-7f4149f4ae8c}">
       <Declaration><![CDATA[METHOD GetStateName : ST_BaseLabel
 VAR_INPUT
@@ -47,9 +59,70 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetTimeWorkForMode" Id="{a6cc1d7c-b0a6-0602-1385-3c912a5a543e}">
+      <Declaration><![CDATA[METHOD GetTimeWorkForMode : LTIME
+VAR_INPUT
+	iMode	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetTotalWorkTime" Id="{c8f5a970-5cda-063d-03b4-30d8ea4e4689}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca całkowity czas pracy maszyny
+*)
+METHOD PUBLIC GetTotalWorkTime : LTIME
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsChangeModeDone" Id="{0c59ba08-708a-034d-3c2b-c2c3f5c82885}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy zmiana stanu sie skońćzyła
+*)
+METHOD IsChangeModeDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsModeEnabled" Id="{e0b1cdf1-ff72-0731-0420-f079df98b21a}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy tryb o podanym numerze jest włączony
+*)
+METHOD IsModeEnabled : BOOL
+VAR_INPUT
+	iMode 	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="IsStateActive" Id="{d329a6a5-e706-030b-2256-9cfa32eec46f}">
       <Declaration><![CDATA[METHOD IsStateActive : BOOL
 VAR_INPUT
+	iTestState : INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStateEnableInMode" Id="{ff3e3b19-08e1-0dde-1ff3-3b5f76908fb3}">
+      <Declaration><![CDATA[METHOD IsStateEnableInMode : BOOL
+VAR_INPUT
+	iTestState	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetCmdChangeMode" Id="{3e4c2415-1609-0570-1173-106f91b1e399}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		24.11.2025		TC 4024.66
+	Zmien tryb
+*)
+METHOD SetCmdChangeMode : BOOL
+VAR_INPUT
+	eCmdNumber	: E_SaMCommandChangeMode;
 END_VAR
 ]]></Declaration>
     </Method>

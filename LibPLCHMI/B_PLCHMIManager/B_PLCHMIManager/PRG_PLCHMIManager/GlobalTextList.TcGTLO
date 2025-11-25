@@ -601,8 +601,28 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"391"</v>
+              <v n="TextDefault">"_całkowity czas"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1244"</v>
+              <v n="TextDefault">"_czas pracy w trybie"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"159"</v>
+              <v n="TextDefault">"_pokaz czasy"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"411"</v>
               <v n="TextDefault">"_wybierz jezyk"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1087"</v>
+              <v n="TextDefault">"_zmien tryb"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

@@ -92,11 +92,46 @@ END_FOR]]></ST>
 	Przygotowanie danych zmiany trybu i jego zmiana
 *)
 METHOD PRIVATE PrepareChangeMode
-VAR_INPUT
+VAR_INST
+	etmpMode					: E_BaseMachineMode := E_BaseMachineMode.NotAllowed;
 END_VAR
-]]></Declaration>
+
+VAR
+	iJ							: INT;
+	iActiveMode					: E_BaseMachineMode;
+	etmpCmdChangeMode			: E_SaMCommandChangeMode;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[	(*	Przygotowanie ifnormacji dla zmiany trybu	*)
+
+IF (THIS^.refstHMICommonData.bChangePage OR etmpMode <> THIS^.refstData.eActualMode) THEN
+	etmpMode := THIS^.refstData.eActualMode;
+	THIS^.refstData.iNumberModeToDisplay := 0;
+	iActiveMode := THIS^.itfMachineControlHMI.GetActiveMode ();
+	FOR iJ := 1 TO GVL_SaMConstans.NUMBER_OF_MODES DO
+		IF (THIS^.itfMachineControlHMI.IsModeEnabled (iMode := iJ) AND iJ <> iActiveMode) THEN
+			THIS^.refstData.arrNamesOfMode [THIS^.refstData.iNumberModeToDisplay].wsDescription := 
+				THIS^.GetTextFromLabelForActiveLocation (stLabel := THIS^.itfMachineControlHMI.GetModeName (iMode := iJ));
+			THIS^.refstData.arrNamesOfMode [THIS^.refstData.iNumberModeToDisplay].iNumber := iJ;
+			THIS^.refstData.iNumberModeToDisplay := THIS^.refstData.iNumberModeToDisplay + 1;
+			THIS^.refstData.iSelectedMode := -1;
+		END_IF
+	END_FOR
+END_IF
+IF (THIS^.refstData.bChangeMode) THEN
+	THIS^.refstData.bChangeMode := FALSE;
+	//polecenie zmiany trybu 
+	CASE THIS^.refstData.arrNamesOfMode [THIS^.refstData.iSelectedMode].iNumber OF
+	E_SaMCommandChangeMode.Production : etmpCmdChangeMode := E_SaMCommandChangeMode.Production;
+	E_SaMCommandChangeMode.Maintenance : etmpCmdChangeMode := E_SaMCommandChangeMode.Maintenance;
+	E_SaMCommandChangeMode.Manual : etmpCmdChangeMode := E_SaMCommandChangeMode.Manual;
+	E_SaMCommandChangeMode.Washing : etmpCmdChangeMode := E_SaMCommandChangeMode.Washing;
+	E_SaMCommandChangeMode.Diagnostisc : etmpCmdChangeMode := E_SaMCommandChangeMode.Diagnostisc;
+	END_CASE
+	THIS^.itfMachineControlHMI.SetCmdChangeMode (eCmdNumber := etmpCmdChangeMode);
+	THIS^.refstData.iSelectedMode := -1;
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="PrepareDataForHMI" Id="{2595d879-11d4-08a2-31e5-37340d685f33}" FolderPath="ITF_PDFS\">
@@ -110,10 +145,14 @@ METHOD PUBLIC PrepareDataForHMI : BOOL
 
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.refstData.sTimeOfWork := '';
-THIS^.refstData.wsActualMode := THIS^.GetTextFromLabelForActiveLocation (THIS^.itfMachineControlHMI.GetActiveModeName ());
+        <ST><![CDATA[THIS^.refstData.wsActualMode := THIS^.GetTextFromLabelForActiveLocation (THIS^.itfMachineControlHMI.GetActiveModeName ());
+THIS^.refstData.eActualMode := THIS^.itfMachineControlHMI.GetActiveMode ();
 THIS^.refstData.wsActualState := THIS^.GetTextFromLabelForActiveLocation (THIS^.itfMachineControlHMI.GetActiveStateName ());
 THIS^.eActiveMode := THIS^.itfMachineControlHMI.GetActiveMode ();//pobiera numer aktywnego trybu
+THIS^.refstData.sTotalWorkTime := THIS^.refstCommonData.itfTime.BaseLTimeToString (
+									ltTime 	:= THIS^.itfMachineControlHMI.GetTotalWorkTime (),
+									bShowMS	:= FALSE
+								);
 
 	(*	Wyświetlenie informacji o stanach pracy				*)
 
@@ -166,13 +205,17 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[FOR iJ := 0 TO GVL_SaMConstans.NUMBER_OF_STATES DO
-	IF (THIS^.itfMachineControlHMI.IsStateActive ()) THEN
-		THIS^.refstData.arrState [iJ].iWidthFrame := 3;
+	IF (THIS^.itfMachineControlHMI.IsStateEnableInMode (iTestState := iJ)) THEN
 		THIS^.refstData.arrStateEnabledInMode [iJ] := TRUE;
 	ELSE
-		THIS^.refstData.arrState [iJ].iWidthFrame := 1;
 		THIS^.refstData.arrStateEnabledInMode [iJ] := FALSE;
 	END_IF
+	IF (THIS^.itfMachineControlHMI.IsStateActive (iTestState := iJ)) THEN
+		THIS^.refstData.arrState [iJ].iWidthFrame := 3;
+	ELSE
+		THIS^.refstData.arrState [iJ].iWidthFrame := 1;
+	END_IF
+	
 	THIS^.refstData.arrState [iJ].bShowTime := THIS^.refstData.bShowTime;
 	THIS^.refstData.arrState [iJ].wsNameOfState := GetTextFromLabelForActiveLocation (THIS^.itfMachineControlHMI.GetStateName (iNumber := iJ));
 	IF (THIS^.refstData.arrState [iJ].bShowTime) THEN
@@ -207,11 +250,62 @@ END_FOR]]></ST>
 	Przygotowanie informacji o czasie pracy w stanie i trybie
 *)
 METHOD PRIVATE PrepareTimeInfo
-VAR_INPUT
+VAR_INST
+	rtTimeShow					: R_TRIG;
+	etmpMode					: E_BaseMachineMode := E_BaseMachineMode.NotAllowed;
 END_VAR
+
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
+	(*	uruchomienie pokazywania danych	*)
+
+rtTimeShow (CLK := THIS^.refstData.bShowTime);
+IF (THIS^.refstHMICommonData.bChangePage OR 
+		etmpMode <> THIS^.refstData.eActualMode OR 
+		rtTimeShow.Q) THEN
+	etmpMode := THIS^.refstData.eActualMode;
+	THIS^.refstData.iNumberModeToShowTime := THIS^.refstData.eActualMode;
+END_IF
+
+	(*	Wartosc dla wyświetlania czasu dla wybranego trybu czasu 	*)
+
+THIS^.refstData.sWorkingTimeInMode := THIS^.refstCommonData.itfTime.BaseLTimeToString (
+										ltTime 	:= THIS^.itfMachineControlHMI.GetTimeWorkForMode (
+														iMode := THIS^.refstData.iNumberModeToShowTime
+													),
+										bShowMS	:= FALSE
+									);
+
+	(*	Obsługa zmiany trybu dla wyświetlania czasu pracy 	*)
+
+IF (THIS^.refstData.bNextModeToDisplayTime) THEN
+	THIS^.refstData.bNextModeToDisplayTime := FALSE;
+	REPEAT
+		IF (THIS^.refstData.iNumberModeToShowTime + 1 <= GVL_SaMConstans.NUMBER_OF_MODES) THEN
+			THIS^.refstData.iNumberModeToShowTime := THIS^.refstData.iNumberModeToShowTime + 1;
+		ELSE
+			THIS^.refstData.iNumberModeToShowTime := 1;
+		END_IF
+	UNTIL 
+		THIS^.itfMachineControlHMI.IsModeEnabled (iMode := THIS^.refstData.iNumberModeToShowTime)
+	END_REPEAT
+END_IF
+IF (THIS^.refstData.bPrevModeToDisplayTime) THEN
+	THIS^.refstData.bPrevModeToDisplayTime := FALSE;
+	REPEAT
+		IF (THIS^.refstData.iNumberModeToShowTime - 1 >= 1) THEN
+			THIS^.refstData.iNumberModeToShowTime := THIS^.refstData.iNumberModeToShowTime - 1;
+		ELSE
+			THIS^.refstData.iNumberModeToShowTime := GVL_SaMConstans.NUMBER_OF_MODES;
+		END_IF
+	UNTIL 
+		THIS^.itfMachineControlHMI.IsModeEnabled (iMode := THIS^.refstData.iNumberModeToShowTime)
+	END_REPEAT
+END_IF
+THIS^.refstData.wsNameModeOfTimeDisplay := THIS^.GetTextFromLabelForActiveLocation (
+											 THIS^.itfMachineControlHMI.GetModeName (iMode := THIS^.refstData.iNumberModeToShowTime)
+										);
 ]]></ST>
       </Implementation>
     </Method>

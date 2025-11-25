@@ -152,6 +152,22 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetModeName" Id="{4c2c5085-4ec4-0a1a-08c9-2f551c9ba166}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca nazwę trybu o zadanym numerze
+*)
+METHOD GetModeName : ST_BaseLabel
+VAR_INPUT
+	iMode	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetModeName := THIS^.itfMachineControlConnector.GetModeName (iNumber := iMode);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetStateName" Id="{4cb15cf4-7c1e-0afc-3223-6426a7017a18}" FolderPath="ITF_PrepScr_06_XX\">
       <Declaration><![CDATA[METHOD GetStateName : ST_BaseLabel
 VAR_INPUT
@@ -175,13 +191,81 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsStateActive" Id="{0568f69d-0407-048d-3652-b5dcc16c6c86}" FolderPath="ITF_PrepScr_06_XX\">
-      <Declaration><![CDATA[METHOD IsStateActive : BOOL
+    <Method Name="GetTimeWorkForMode" Id="{ef96670a-7bc0-0914-1acb-27891fea8b0d}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[METHOD GetTimeWorkForMode : LTIME
+VAR_INPUT
+	iMode	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetTimeWorkForMode := THIS^.itfMachineControlConnector.GetTimeWorkForMode (iMode := iMode);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetTotalWorkTime" Id="{0f3e0cdc-eea9-0372-15c0-7f22eee808df}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca całkowity czas pracy maszyny
+*)
+METHOD PUBLIC GetTotalWorkTime : LTIME
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IsStateActive := THIS^.itfMachineControlConnector.IsStateActiveInCurrentMode ();
+        <ST><![CDATA[GetTotalWorkTime := THIS^.itfMachineControlConnector.GetTotalWorkTime ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChangeModeDone" Id="{807d98d3-632e-05cc-079b-8f4416ae0f15}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy zmiana stanu się skońćzyła
+*)
+METHOD IsChangeModeDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeModeDone := this^.itfMachineControlConnector.IsChangeModeDone ();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsModeEnabled" Id="{b8da1641-439d-092d-18a0-4b23ec5d4586}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy tryb o podanym numerze jest włączony
+*)
+METHOD IsModeEnabled : BOOL
+VAR_INPUT
+	iMode 	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsModeEnabled := THIS^.itfMachineControlConnector.IsModeEnabled (iMode := iMode);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsStateActive" Id="{0568f69d-0407-048d-3652-b5dcc16c6c86}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[METHOD IsStateActive : BOOL
+VAR_INPUT
+	iTestState : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStateActive := THIS^.itfMachineControlConnector.IsStateIsActual (iTestState := iTestState);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsStateEnableInMode" Id="{7ef79591-1e8c-08d8-3cfa-e96880e707af}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[METHOD IsStateEnableInMode : BOOL
+VAR_INPUT
+	iTestState	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStateEnableInMode := THIS^.itfMachineControlConnector.IsStateActiveInCurrentMode ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -330,6 +414,22 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.refstHMICommonData.bChangePage := bValue;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCmdChangeMode" Id="{9e7f28d3-46f5-0ebd-001a-a95169657e76}" FolderPath="ITF_PrepScr_06_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		24.11.2025		TC 4024.66
+	Zmien tryb
+*)
+METHOD SetCmdChangeMode : BOOL
+VAR_INPUT
+	eCmdNumber	: E_SaMCommandChangeMode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMachineControlConnector.SetCmdChangeMode (eCmdNumber := eCmdNumber);
 ]]></ST>
       </Implementation>
     </Method>

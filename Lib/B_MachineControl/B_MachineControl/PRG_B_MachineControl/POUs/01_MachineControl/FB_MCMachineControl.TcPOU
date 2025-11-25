@@ -28,7 +28,9 @@ VAR
 	(*	Tablica informacyjna czy praca w stanie aktywnym zakończona	*)
 	arrTopElementWorkFinishedInState	: ARRAY [1..GVL_SaMConstans.NUMBER_OF_STATES] OF BOOL;
 END_VAR
-]]></Declaration>
+VAR PERSISTENT
+	ltWorkTime						: LTIME;				//czas pracy w danym stanie - trybie
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF (NOT THIS^.bInitializeCycle) THEN
 	THIS^.bInitializeCycle		:= TRUE;
@@ -145,14 +147,25 @@ END_FOR
     </Method>
     <Method Name="ExecuteCycle" Id="{7066db40-c8ea-4d9b-9b50-7a0d826fe39e}">
       <Declaration><![CDATA[METHOD PRIVATE ExecuteCycle
-
+VAR_INST
+	tonInterval	: TON;
+END_VAR
 VAR
-	iI: INT;
+	iI			: INT;
+	tInterval	: TIME := T#100MS;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[	(*	Zarządzanie Stanami i Trybami	*)
 
 THIS^.ExecuteCycle_SaM ();
+
+	(*	Obsługa czasu *)
+
+tonInterval (IN := NOT tonInterval.Q, PT := tInterval);
+IF (tonInterval.Q) THEN
+	THIS^.itfSaMController.IncrementTimeStateAndMode (tInterval := tInterval);
+	THIS^.ltWorkTime := THIS^.ltWorkTime + TO_LTIME (tInterval);
+END_IF
 
 	(*	Wywołanie metod obsługiwanych co cykl dla każdego elementu	*)
 
@@ -267,7 +280,12 @@ END_FOR
       </Implementation>
     </Method>
     <Method Name="GetActiveMode" Id="{8082209e-2a25-0358-1ba6-8d6be4a4b203}" FolderPath="ITF_MC_HMI_Connector\">
-      <Declaration><![CDATA[METHOD PUBLIC GetActiveMode : E_BaseMachineMode
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca aktualny tryb
+*)
+METHOD PUBLIC GetActiveMode : E_BaseMachineMode
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -287,7 +305,12 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="GetActiveState" Id="{e5b5549c-336e-0574-2454-8e12e9984118}" FolderPath="ITF_MC_HMI_Connector\">
-      <Declaration><![CDATA[METHOD PUBLIC GetActiveState : E_BaseMachineState
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca aktualny stan
+*)
+METHOD PUBLIC GetActiveState : E_BaseMachineState
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -361,6 +384,37 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetTimeWorkForMode" Id="{4df6e39b-ac87-01ef-3b3e-7ad9f0d9a78d}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zrwaca wartośc pracy w trybie
+*)
+METHOD PUBLIC GetTimeWorkForMode : LTIME
+VAR_INPUT
+	iMode 	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetTimeWorkForMode := THIS^.itfSaMController.GetTimeWorkForMode (iMode := iMode);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetTotalWorkTime" Id="{5386dcfb-16ba-0ebb-3c3f-abf0c21408bc}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca całkowity czas pracy maszyny
+*)
+METHOD PUBLIC GetTotalWorkTime : LTIME
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetTotalWorkTime := THIS^.ltWorkTime;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="InitializeCycle" Id="{f127c58d-f380-4c5b-91fc-37aed1ddc70f}">
       <Declaration><![CDATA[METHOD PRIVATE InitializeCycle : BOOL
 VAR
@@ -376,6 +430,21 @@ InitializeCycle		:= bResult;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="IsChangeModeDone" Id="{b9b5dec4-9849-0216-0284-2c1ce24b9762}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy zmiana trybu sie skoćńzyła
+*)
+METHOD PUBLIC IsChangeModeDone : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChangeModeDone := THIS^.itfSaMController.IsChangeModeDone ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="IsInitDone" Id="{4528eef7-0f59-0f1a-2d71-aaa809d5e525}">
       <Declaration><![CDATA[METHOD PUBLIC IsInitDone : BOOL
 VAR_INPUT
@@ -383,6 +452,22 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IsInitDone		:= THIS^.bInitDone;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsModeEnabled" Id="{739e0b93-d97b-0854-3ca6-e50048c85998}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy tryb o podanym numerze jest włączony
+*)
+METHOD IsModeEnabled : BOOL
+VAR_INPUT
+	iMode 	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsModeEnabled := THIS^.itfSaMController.IsModeEnabled (iMode := iMode);
 ]]></ST>
       </Implementation>
     </Method>
@@ -398,6 +483,22 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IsStateActiveInCurrentMode := THIS^.itfSaMController.IsStateInModeEnabled (eStateIn := THIS^.itfSaMController.GetState ());
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsStateIsActual" Id="{8e6ab011-08b1-0a9e-2197-98c13c53919e}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Informacja czy zadany stan jest stanem aktualnym
+*)
+METHOD PUBLIC IsStateIsActual : BOOL
+VAR_INPUT
+	iTestState	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStateIsActual := THIS^.itfSaMController.IsStateIsActual (iTestState := iTestState);
 ]]></ST>
       </Implementation>
     </Method>
@@ -489,6 +590,17 @@ END_VAR
       <Implementation>
         <ST><![CDATA[THIS^.LinkSS1 (fbSS1 := flSS1);
 this^.LinkSTO (fbSTO := flSTO);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCmdChangeMode" Id="{cb62aa39-24fd-0d9e-02a7-0fc03dc37d4e}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[METHOD PUBLIC SetCmdChangeMode
+VAR_INPUT
+	eCmdNumber		: E_SaMCommandChangeMode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrRequestChangeMode [eCmdNumber].SetRequiredChange (bIn := TRUE);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="SetCmdChangeState" Id="{aaedd08e-f16e-012f-2524-bc1bc6905704}" FolderPath="ITF_MC_HMI_Connector\">

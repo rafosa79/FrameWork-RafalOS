@@ -77,6 +77,20 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetTimeWorkForMode" Id="{04f77d6d-980c-0fce-394f-46439c904b37}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTimeWorkForMode : LTIME
+VAR_INPUT
+	iMode	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IncrementTimeStateAndMode" Id="{fdc75c55-8250-02e9-11c9-c3b0fb9c4e0b}">
+      <Declaration><![CDATA[METHOD PUBLIC IncrementTimeStateAndMode
+VAR_INPUT
+	tInterval				: TIME := T#100MS;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="IsChangeModeBusy" Id="{73bde51a-f1cb-03c3-05cb-d231e41b8173}">
       <Declaration><![CDATA[METHOD PUBLIC IsChangeModeBusy : BOOL
 VAR_INPUT
@@ -110,6 +124,30 @@ END_VAR
     <Method Name="IsChangeStateStatus" Id="{65896b9c-a764-034c-3270-ababbefc1d46}">
       <Declaration><![CDATA[METHOD PUBLIC IsChangeStateStatus : BOOL
 VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsModeEnabled" Id="{97697320-58ea-077e-2495-b550560ba254}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy tryb o podanym numerze jest włączony
+*)
+METHOD IsModeEnabled : BOOL
+VAR_INPUT
+	iMode 	: INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsStateIsActual" Id="{e89a67a0-e9a4-0e36-2b43-8fa5f6d48d06}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Informacja czy zadany stan jest stanem aktualnym
+*)
+METHOD PUBLIC IsStateIsActual : BOOL
+VAR_INPUT
+	iTestState	: INT;
 END_VAR
 ]]></Declaration>
     </Method>

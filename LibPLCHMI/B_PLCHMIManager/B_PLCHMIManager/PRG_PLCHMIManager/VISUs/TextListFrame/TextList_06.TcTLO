@@ -7,6 +7,68 @@
           <v n="UniqueIdGenerator">"0"</v>
           <l n="TextList" t="ArrayList" cet="TextListRow">
             <o>
+              <v n="TextID">"0"</v>
+              <v n="TextDefault">"Całkowity czas"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Całkowity czas</v>
+                <v>Total time</v>
+                <v>Gesamtzeit</v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1"</v>
+              <v n="TextDefault">"Zmień tryb"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Zmień tryb</v>
+                <v>Change mode</v>
+                <v>Modus ändern</v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2"</v>
+              <v n="TextDefault">"Pokaż czasy"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Pokaż czasy</v>
+                <v>Show times</v>
+                <v>Zeiten anzeigen</v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"3"</v>
+              <v n="TextDefault">"Czas pracy w trybie"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Czas pracy w trybie</v>
+                <v>Working time in mode</v>
+                <v>Arbeitszeit im Modus</v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"4"</v>
+              <v n="TextDefault">"Zmień tryb
+w górę"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Zmień tryb
+w górę</v>
+                <v>Change mode
+up</v>
+                <v>Change mode
+up</v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"5"</v>
+              <v n="TextDefault">"Zmień tryb
+w dół"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Zmień tryb
+w dół</v>
+                <v>Change mode
+down</v>
+                <v>Modus ändern
+unten</v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">""</v>
               <v n="TextDefault">""</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">

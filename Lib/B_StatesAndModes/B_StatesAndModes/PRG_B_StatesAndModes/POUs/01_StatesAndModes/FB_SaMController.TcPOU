@@ -351,6 +351,29 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetTimeWorkForMode" Id="{a2e351bf-3b6e-0420-183b-e01f06da6a1b}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC GetTimeWorkForMode : LTIME
+VAR_INPUT
+	iMode	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetTimeWorkForMode := THIS^.arrModes [iMode].GetTime ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IncrementTimeStateAndMode" Id="{2bb58d14-7791-0d9e-2a3a-3b1d3500ae26}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[METHOD PUBLIC IncrementTimeStateAndMode
+VAR_INPUT
+	tInterval				: TIME := T#100MS;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refarrStatesForActiveMode [THIS^.eState].IncrementTime (tInterval := tInterval);
+THIS^.arrModes [THIS^.eMode].IncrementTime (tInterval := tInterval);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Initialization_AddCommandChangeModes" Id="{1109a5fd-0b62-0ed8-0a3b-0f57bddc8c59}" FolderPath="Initialization\">
       <Declaration><![CDATA[METHOD PRIVATE Initialization_AddCommandChangeModes : BOOL
 VAR_INPUT
@@ -793,6 +816,22 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="IsModeEnabled" Id="{a3aaf8cd-8e9f-0677-19ec-ca80723a32a2}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Zwraca czy tryb o podanym numerze jest włączony
+*)
+METHOD IsModeEnabled : BOOL
+VAR_INPUT
+	iMode 	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsModeEnabled := THIS^.arrModes [iMode].IsEnabled ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="IsModeEnebles" Id="{ba118139-1c1b-0f84-1e39-4e98f108464d}" FolderPath="ITF_SaMControllerCommandChange\">
       <Declaration><![CDATA[METHOD IsModeEnebles : BOOL
 VAR_INPUT
@@ -833,6 +872,22 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IsStateInModeEnabled		:= THIS^.arrStateEnableInMode [THIS^.eMode][eStateIn];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsStateIsActual" Id="{5602f0a6-333c-035e-03d0-3910b9ab5f13}" FolderPath="ITF_SaMController\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.11.2025		TC 4024.66
+	Informacja czy zadany stan jest stanem aktualnym
+*)
+METHOD PUBLIC IsStateIsActual : BOOL
+VAR_INPUT
+	iTestState	: int;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsStateIsActual := iTestState = THIS^.eState;
 ]]></ST>
       </Implementation>
     </Method>
