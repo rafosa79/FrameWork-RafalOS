@@ -73,6 +73,21 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
+    <Method Name="AddRecipeModule" Id="{9f4777db-9989-40bb-b1b9-57e2db598ce8}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Podłaczenie modułu receptur
+*)
+METHOD AddRecipeModule : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="LinkCommonStructureData" Id="{2f841f18-3ebb-43fd-bc79-6857670a6334}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -162,7 +177,8 @@ VAR
 	iNumberofButtons	: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[itfHMIManager.SetButtonsVisibleFromConfiguration (iNumber := 5, bValue := FALSE);
+]]></ST>
       </Implementation>
     </Method>
   </POU>

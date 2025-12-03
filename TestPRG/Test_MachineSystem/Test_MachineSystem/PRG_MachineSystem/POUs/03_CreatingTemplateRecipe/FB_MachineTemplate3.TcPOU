@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_MachineTemplate3" Id="{4e0b9e49-5257-427c-bba3-f0768588cc24}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MachineTemplate3 EXTENDS FB_Base IMPLEMENTS ITF_BaseCreateTemplateOfRecipe
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="CreateTamplateOfRecipe" Id="{cb2d4c8a-914a-4bd2-b393-484efae23c9d}">
+      <Declaration><![CDATA[METHOD CreateTamplateOfRecipe : BOOL
+VAR_INPUT
+	(*interfejs do obsługi receptur*)
+	itfRecipe	: B_Base.ITF_BaseCreatingTemplateMethod;
+END_VAR
+VAR
+	sttmpSkladnik			: ST_BaseDescriptor;
+	uiNumberOfTeplates		: UINT;
+	iI						: INT;
+	wstmpDescription		: WSTRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*	Metody tworzące szablon receptury 
+	- dodanie nazwy i utworzenie szablonu 
+	- dodawanie składników
+*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Nazwa szablonu 3 PL");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Nazwa szablonu 3 EN");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Nazwa szablonu 3 DE");
+itfRecipe.AddTemplate (stTexts	:= THIS^.GetTexts ());
+uiNumberOfTeplates	:= itfRecipe.GetNumberOfTemplate ();
+
+FOR iI := 1 TO 115 DO
+	THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.pl, wsDescription := wconcat ("Nazwa składnika PL ", TO_WSTRING (iI)));
+	THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.en, wsDescription := wconcat ("Nazwa składnika PL ", TO_WSTRING (iI)));
+	THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.de, wsDescription := wconcat ("Nazwa składnika PL ", TO_WSTRING (iI)));
+	THIS^.SetMaxIn (stIN := sttmpSkladnik, rMax := 10000+iI);
+	THIS^.SetMinIn (stIN := sttmpSkladnik, rMin := 1);
+	THIS^.SetValueIn (stIN := sttmpSkladnik, rValue := iI);
+	THIS^.SetDefaultValueIn (stIN := sttmpSkladnik, rDefaultValue := iI);
+	THIS^.SetUnitIn (stIN := sttmpSkladnik, sUnit := 'mm');
+	itfRecipe.AddIngredientToTemplate (uiNumber := uiNumberOfTeplates, stIngredient := sttmpSkladnik);
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

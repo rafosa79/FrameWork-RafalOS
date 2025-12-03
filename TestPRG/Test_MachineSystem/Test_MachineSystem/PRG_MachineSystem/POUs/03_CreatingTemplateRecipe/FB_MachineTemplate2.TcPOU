@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_MachineTemplate2" Id="{a8d3347d-c1bc-4026-9fbe-02036f43b84a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MachineTemplate2 EXTENDS FB_Base IMPLEMENTS ITF_BaseCreateTemplateOfRecipe
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="CreateTamplateOfRecipe" Id="{a9c149d3-3d44-42fc-9482-08031f9ff831}">
+      <Declaration><![CDATA[METHOD CreateTamplateOfRecipe : BOOL
+VAR_INPUT
+	(*interfejs do obsługi receptur*)
+	itfRecipe	: B_Base.ITF_BaseCreatingTemplateMethod;
+END_VAR
+VAR
+	sttmpSkladnik			: ST_BaseDescriptor;
+	uiNumberOfTeplates		: UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*	Metody tworzące szablon receptury 
+	- dodanie nazwy i utworzenie szablonu 
+	- dodawanie składników
+*)
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Nazwa szablonu 2 PL");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Nazwa szablonu 2 EN");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Nazwa szablonu 2 DE");
+itfRecipe.AddTemplate (stTexts	:= THIS^.GetTexts ());
+uiNumberOfTeplates	:= itfRecipe.GetNumberOfTemplate ();
+
+THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.pl, wsDescription := "Nazwa skladnika 1 PL");
+THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.en, wsDescription := "Nazwa skladnika 1 EN");
+THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.de, wsDescription := "Nazwa skladnika 1 DE");
+THIS^.SetMaxIn (stIN := sttmpSkladnik, rMax := 10000);
+THIS^.SetMinIn (stIN := sttmpSkladnik, rMin := 1);
+THIS^.SetValueIn (stIN := sttmpSkladnik, rValue := 1111);
+THIS^.SetDefaultValueIn (stIN := sttmpSkladnik, rDefaultValue := 1111);
+THIS^.SetUnitIn (stIN := sttmpSkladnik, sUnit := 'mm');
+itfRecipe.AddIngredientToTemplate (uiNumber := uiNumberOfTeplates, stIngredient := sttmpSkladnik);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

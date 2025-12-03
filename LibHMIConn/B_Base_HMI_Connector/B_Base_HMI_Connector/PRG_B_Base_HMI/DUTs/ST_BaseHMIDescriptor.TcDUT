@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseHMIDescriptor" Id="{0462c8ed-afc1-022c-187f-d1ac3ba11bde}">
+    <Declaration><![CDATA[TYPE ST_BaseHMIDescriptor :
+STRUCT
+	wsText						: WSTRING;
+	sUnit						: STRING(6);
+	rValue						: REAL;
+	rMin						: REAL;
+	rMax						: REAL;
+	rDefaultValue				: REAL;
+END_STRUCT
+END_TYPE
+	
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

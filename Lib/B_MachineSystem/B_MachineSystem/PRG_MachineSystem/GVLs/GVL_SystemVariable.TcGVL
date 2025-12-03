@@ -19,6 +19,8 @@ VAR_GLOBAL
 	bMachineInitDone				: BOOL;
 	bControlHMIInit					: BOOL;
 	
+	(*	receptury	*)
+	fbRecipe						: FB_BaseRecipe;
 	
 END_VAR]]></Declaration>
   </GVL>

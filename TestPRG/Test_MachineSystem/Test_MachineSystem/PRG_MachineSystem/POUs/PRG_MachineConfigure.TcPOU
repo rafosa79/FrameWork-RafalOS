@@ -8,8 +8,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[IF (NOT GVL_SystemVariable.bMachineInitDone) THEN
 
-//	GVL_SystemConfigure.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_MachineVariable.fbMachineConfiguration);
-//	GVL_SystemConfigure.fbHMIConfigure.AddConfiguration (fbConfigure := GVL_MachineVariable.fbHMIConfiguration);
+	PRG_SystemControlMachineInit.fbMachineConfigure.AddConfiguration (fbConfigure := GVL_MachineVariable.fbMachineConfiguration);
+	PRG_ControlHMIInit.fbHMIConfigure.AddConfiguration (fbConfigure := GVL_MachineVariable.fbHMIConfiguration);
+	
 	GVL_SystemVariable.bMachineInitDone		:= TRUE;
 END_IF
 ]]></ST>

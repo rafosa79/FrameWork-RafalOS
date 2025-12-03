@@ -14,6 +14,22 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="AddCreateTemplate" Id="{0b84ceee-f8e6-04f3-07fe-d40cf7530841}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Dodawanie szablonu receptury
+*)
+METHOD AddCreateTemplate : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//itfMachineControl.AddCreateTemplateFromConfiguration (fbCreateTemplate := );
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddElements" Id="{d32e32b9-a89e-0a44-15ad-90b7784453b1}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -58,6 +74,22 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[itfMachineControl.AddMachineCotrolToYourSelfFromConfiguration ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddModulRecipe" Id="{9d1d6f13-7035-01e6-1137-6bcbba350375}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Dodanie obsługi receptur
+*)
+METHOD AddModulRecipe : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.AddModulRecipeFromConfiguration (itfRecipe := GVL_SystemVariable.fbRecipe);
 ]]></ST>
       </Implementation>
     </Method>

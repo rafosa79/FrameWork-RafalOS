@@ -51,6 +51,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="AddRecipeModule" Id="{f62ae963-4ec4-0ffe-2561-b90a6deb87d8}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Podłaczenie modułu receptur
+*)
+METHOD PUBLIC AddRecipeModule : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="LinkHMIManagerData" Id="{8f28a6e9-16a1-01d0-03bd-8677182f29cd}">
       <Declaration><![CDATA[(*			
 	RafalOS

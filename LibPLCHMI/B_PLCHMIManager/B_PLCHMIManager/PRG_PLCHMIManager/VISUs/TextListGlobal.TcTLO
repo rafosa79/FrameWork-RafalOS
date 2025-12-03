@@ -25,6 +25,15 @@
               </l>
             </o>
             <o>
+              <v n="TextID">"2"</v>
+              <v n="TextDefault">"Anuluj"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Anuluj</v>
+                <v>Cancel</v>
+                <v>Stornieren</v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">""</v>
               <v n="TextDefault">""</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">

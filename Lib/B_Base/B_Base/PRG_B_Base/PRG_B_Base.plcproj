@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.60</ProjectVersion>
+    <ProjectVersion>0.0.0.70</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -311,10 +311,19 @@
     <Compile Include="POUs\B02_Recipes\ITF_BaseCreatingTemplateMethod.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\B02_Recipes\ITF_BaseRecipe.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B02_Recipes\ITF_BaseRecipe_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\B02_Recipes\ST_BaseRecipeListRow.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\B02_Recipes\ST_BaseRecipe.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B02_Recipes\ST_BaseRecipeList.TcDUT">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

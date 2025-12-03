@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseHMIDescriptorEdit" Id="{d5668f9c-b3e5-012a-1f37-e4d01fe94388}">
+    <Declaration><![CDATA[TYPE ST_BaseHMIDescriptorEdit :
+STRUCT
+	wsText						: WSTRING;
+	sUnit						: STRING(6);
+	rValue						: REAL;
+	rMin						: REAL;
+	rMax						: REAL;
+	rDefaultValue				: REAL;
+	bSave						: BOOL;
+	bSetDefault					: BOOL;
+END_STRUCT
+END_TYPE
+	
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

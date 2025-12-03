@@ -14,6 +14,30 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="AddCreateTemplate" Id="{38817812-7f9f-4443-85d8-4f2cc2644483}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Dodawanie szablonu receptury
+*)
+METHOD AddCreateTemplate : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.AddCreateTemplateFromConfiguration (
+	fbCreateTemplate := GVL_MachineVariable.fbMachineTemplate1
+);
+itfMachineControl.AddCreateTemplateFromConfiguration (
+	fbCreateTemplate := GVL_MachineVariable.fbMachineTemplate2
+);
+itfMachineControl.AddCreateTemplateFromConfiguration (
+	fbCreateTemplate := GVL_MachineVariable.fbMachineTemplate3
+);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddElements" Id="{7b730765-41af-4c9b-9f6a-4c5a645abba8}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -51,6 +75,21 @@ END_VAR
 	Dodanie samego siebie do systemu controli maszyny
 *)
 METHOD AddMachineCotrolToYourSelf : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddModulRecipe" Id="{4f952924-f63a-4755-add2-2e04b6a9389e}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Dodanie obsługi receptur
+*)
+METHOD AddModulRecipe : BOOL
 VAR_INPUT
 	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
 END_VAR

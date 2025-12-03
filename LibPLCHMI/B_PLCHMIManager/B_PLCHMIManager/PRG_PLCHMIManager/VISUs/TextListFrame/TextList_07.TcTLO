@@ -16,6 +16,33 @@
               </l>
             </o>
             <o>
+              <v n="TextID">"1"</v>
+              <v n="TextDefault">"Utwórz szablon receptur"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Utwórz szablon receptur</v>
+                <v>Create a recipe template</v>
+                <v>Erstellen Sie eine Rezeptvorlage</v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2"</v>
+              <v n="TextDefault">"Utworzenie szablonów spowoduje usunięcie istniejących receptur"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Utworzenie szablonów spowoduje usunięcie istniejących receptur</v>
+                <v>Creating templates will delete existing recipes</v>
+                <v>Beim Erstellen von Vorlagen werden bestehende Rezepte gelöscht.</v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"3"</v>
+              <v n="TextDefault">"Utwórz"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Utwórz</v>
+                <v>Create</v>
+                <v>Erstellen</v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">""</v>
               <v n="TextDefault">""</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">

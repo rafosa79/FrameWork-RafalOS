@@ -27,6 +27,9 @@ VAR
 	arrRequestChangeMode			: ARRAY [1..GVL_SaMConstans.NUMBER_OF_COMMAND_CHANGE_MODES] OF ITF_MCRequiredChange;
 	(*	Tablica informacyjna czy praca w stanie aktywnym zakończona	*)
 	arrTopElementWorkFinishedInState	: ARRAY [1..GVL_SaMConstans.NUMBER_OF_STATES] OF BOOL;
+	(*	Receptury	*)
+	itfRecipe						: ITF_BaseRecipe;
+	bWorkWithRecipe					: BOOL;
 END_VAR
 VAR PERSISTENT
 	ltWorkTime						: LTIME;				//czas pracy w danym stanie - trybie
@@ -43,6 +46,22 @@ END_IF
     <Folder Name="ITF_MachineControlConfigure" Id="{973d3ff0-85f0-4bae-9395-cc62a4917833}" />
     <Folder Name="ITF_MC_HMI_Connector" Id="{cacfec9c-669f-01d9-2025-b7ec347d32d7}" />
     <Folder Name="WiazanieModulow" Id="{3d8e3574-09c0-0f20-0429-cf1b0f8aec79}" />
+    <Method Name="AddCreateTemplateFromConfiguration" Id="{dbe46cf0-9749-09d0-34d7-5296a504556d}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Dodawanie szablonu receptury
+*)
+METHOD PUBLIC AddCreateTemplateFromConfiguration : BOOL
+VAR_INPUT
+	fbCreateTemplate			: ITF_BaseCreateTemplateOfRecipe;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe.AddITFToCreateTemplate (fbToCtreateTemplate := fbCreateTemplate);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddElementFromConfiguration" Id="{7dfdd75b-9905-0acd-138c-819c9dbddb2a}" FolderPath="ITF_MachineControlConfigure\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -106,6 +125,22 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.itfMachineConfigure		:= fbMachineConfigure;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddModulRecipeFromConfiguration" Id="{ac982117-770b-0933-3db6-4e07044fcdd7}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Dodanie obsługi receptur
+*)
+METHOD PUBLIC AddModulRecipeFromConfiguration : BOOL
+VAR_INPUT
+	itfRecipe			: ITF_BaseRecipe;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe := itfRecipe;
 ]]></ST>
       </Implementation>
     </Method>
@@ -425,6 +460,14 @@ END_VAR]]></Declaration>
         <ST><![CDATA[bResult				:= TRUE;
 
 bResult				:= bResult AND THIS^.itfMachineConfigure.Configure (fbMachineControl := THIS^);
+
+	(*	Utworzenie szablownów	*)
+IF (THIS^.itfRecipe.GetNumberOfTemplate () = 0 OR 
+	THIS^.itfRecipe.GetNumberOfCreatingRecipe () <> THIS^.itfRecipe.GetNumberOfTemplate ()
+	) THEN
+	THIS^.itfRecipe.CreateTemplates ();
+	THIS^.bWorkWithRecipe := TRUE;
+END_IF
 
 InitializeCycle		:= bResult;
 ]]></ST>

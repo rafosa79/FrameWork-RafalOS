@@ -137,6 +137,22 @@ itfModule.LinkCommonData (stCommonData := THIS^.refstCommonData);
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="AddRecipeModuleFromConfiguration" Id="{5c4b75f2-7bbb-0068-19e8-1b3e1d415662}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Podłaczenie modułu receptur
+*)
+METHOD PUBLIC AddRecipeModuleFromConfiguration : BOOL
+VAR_INPUT
+	fbRecipeModule		: ITF_BaseRecipe_HMI;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMachineControl.AddRecipeModulFormManager (fbRecipeModul := fbRecipeModule);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="ExecuteCycle" Id="{52b242f4-a20c-0dfc-3dbf-ca9f805176f3}">
       <Declaration><![CDATA[(*			
 	RafalOS

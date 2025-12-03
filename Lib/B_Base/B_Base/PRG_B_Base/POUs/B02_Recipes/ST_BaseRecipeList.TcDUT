@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseRecipeList" Id="{20af4396-244c-0894-2be2-65a345214b26}">
+    <Declaration><![CDATA[TYPE ST_BaseRecipeList :
+STRUCT
+	arrName 	: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_RECIPES] OF ST_BaseLabel;
+	iNumber		: INT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

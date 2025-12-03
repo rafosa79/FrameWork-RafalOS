@@ -107,6 +107,9 @@
     <Compile Include="POUs\02_HMIDefaultConfiguration\FB_DefaultHMIConfiguration.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\03_CreatingTempleteRecipe\FB_DefaultTemplate.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\PRG_ControlHMI.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -119,6 +122,12 @@
     <Compile Include="POUs\PRG_SystemControlMachineWork.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\ST_MainMenuButton.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ST_PrepareDataModules.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
@@ -126,6 +135,7 @@
     <Folder Include="POUsCompilation" />
     <Folder Include="POUs\01_MachineDefaultConfiguration" />
     <Folder Include="POUs\02_HMIDefaultConfiguration" />
+    <Folder Include="POUs\03_CreatingTempleteRecipe" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -133,6 +143,10 @@
     <PlaceholderReference Include="B_Base">
       <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
       <Namespace>B_Base</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_Base_HMI_Connector">
+      <DefaultResolution>B_Base_HMI_Connector, * (RafalOS)</DefaultResolution>
+      <Namespace>B_Base_HMI_Connector</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="B_HMIElements">
       <DefaultResolution>B_HMIElements, * (RafalOS)</DefaultResolution>

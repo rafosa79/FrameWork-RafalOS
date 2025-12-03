@@ -8,5 +8,17 @@
 *)
 INTERFACE ITF_MCHMIMachineControl_HMI_PrepScr_07_XX
 ]]></Declaration>
+    <Method Name="CreateRecipeTemplates" Id="{312e02d3-defc-0755-3aa3-1ada50e8ad65}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Utworzenie nowych szablonów receptur na podstawie dodanych fb zewnętrznych - wywołanie metody powoduje
+	skosowanie dotychczasowych szablonów i receptur
+*)
+METHOD PUBLIC CreateRecipeTemplates : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

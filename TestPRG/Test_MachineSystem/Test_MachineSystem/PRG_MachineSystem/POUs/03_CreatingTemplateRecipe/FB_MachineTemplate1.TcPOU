@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_MachineTemplate1" Id="{ba34ddc9-bcab-4926-a8b0-159cccebee44}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MachineTemplate1 EXTENDS FB_Base IMPLEMENTS ITF_BaseCreateTemplateOfRecipe
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="CreateTamplateOfRecipe" Id="{4af4e600-fc2e-42cd-8d7d-d32f38114b9a}">
+      <Declaration><![CDATA[METHOD CreateTamplateOfRecipe : BOOL
+VAR_INPUT
+	(*interfejs do obsługi receptur*)
+	itfRecipe	: B_Base.ITF_BaseCreatingTemplateMethod;
+END_VAR
+VAR
+	sttmpSkladnik			: ST_BaseDescriptor;
+	uiNumberOfTeplates		: UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*	Metody tworzące szablon receptury 
+	- dodanie nazwy i utworzenie szablonu 
+	- dodawanie składników
+*)
+
+//	utworzenie szablonu z podaną nazwą
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Nazwa szablonu PL");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Nazwa szablonu EN");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Nazwa szablonu DE");
+itfRecipe.AddTemplate (stTexts	:= THIS^.GetTexts ());
+uiNumberOfTeplates	:= itfRecipe.GetNumberOfTemplate ();
+
+THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.pl, wsDescription := "Nazwa skladnika 1 PL");
+THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.en, wsDescription := "Nazwa skladnika 1 EN");
+THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.de, wsDescription := "Nazwa skladnika 1 DE");
+THIS^.SetMaxIn (stIN := sttmpSkladnik, rMax := 10000);
+THIS^.SetMinIn (stIN := sttmpSkladnik, rMin := 1);
+THIS^.SetValueIn (stIN := sttmpSkladnik, rValue := 1111);
+THIS^.SetDefaultValueIn (stIN := sttmpSkladnik, rDefaultValue := 1111);
+THIS^.SetUnitIn (stIN := sttmpSkladnik, sUnit := 'mm');
+itfRecipe.AddIngredientToTemplate (uiNumber := uiNumberOfTeplates, stIngredient := sttmpSkladnik);
+
+THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.pl, wsDescription := "Nazwa skladnika 2 PL");
+THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.en, wsDescription := "Nazwa skladnika 2 EN");
+THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.de, wsDescription := "Nazwa skladnika 2 DE");
+THIS^.SetMaxIn (stIN := sttmpSkladnik, rMax := 10000);
+THIS^.SetMinIn (stIN := sttmpSkladnik, rMin := 1);
+THIS^.SetValueIn (stIN := sttmpSkladnik, rValue := 1112);
+THIS^.SetDefaultValueIn (stIN := sttmpSkladnik, rDefaultValue := 1112);
+THIS^.SetUnitIn (stIN := sttmpSkladnik, sUnit := 'mm/s');
+itfRecipe.AddIngredientToTemplate (uiNumber := uiNumberOfTeplates, stIngredient := sttmpSkladnik);
+
+THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.pl, wsDescription := "Nazwa skladnika 3 PL");
+THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.en, wsDescription := "Nazwa skladnika 3 EN");
+THIS^.SetTextIn (stIN := sttmpSkladnik, eLocation := E_BaseLocation.de, wsDescription := "Nazwa skladnika 3 DE");
+THIS^.SetMaxIn (stIN := sttmpSkladnik, rMax := 10000);
+THIS^.SetMinIn (stIN := sttmpSkladnik, rMin := 1);
+THIS^.SetValueIn (stIN := sttmpSkladnik, rValue := 1113);
+THIS^.SetDefaultValueIn (stIN := sttmpSkladnik, rDefaultValue := 1113);
+THIS^.SetUnitIn (stIN := sttmpSkladnik, sUnit := 'ms');
+itfRecipe.AddIngredientToTemplate (uiNumber := uiNumberOfTeplates, stIngredient := sttmpSkladnik);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseRecipe" Id="{9f3e5ec6-3df3-0654-0e62-baef5da299a2}">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		28.02.2025		TC 4026.13		wer. 0.0.0.1
+	Obsługa receptur
+*)
+INTERFACE ITF_BaseRecipe
+]]></Declaration>
+    <Method Name="AddITFToCreateTemplate" Id="{61ffc419-e2b4-01a9-37bf-09e990b561fa}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Dodanie itferfejsu FB dla tworzenia szablonów receptur z programu maszyny
+*)
+METHOD PUBLIC AddITFToCreateTemplate : BOOL
+VAR_INPUT
+	fbToCtreateTemplate		: ITF_BaseCreateTemplateOfRecipe;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddRecipeFromRecipe" Id="{6dc47c39-a0c5-044a-0d18-a4b5e862275c}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Kopiuje składniki z wybranej receptury i tworzy nową recepture
+*)
+METHOD PUBLIC AddRecipeFromRecipe : BOOL
+VAR_INPUT
+	uiNumberRecipe				: UINT;
+	stTexts						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddRecipeFromTemplate" Id="{4c9ad46f-7c73-0d5d-32a7-24f477a39998}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Kopiuje składniki z wybranego szablonu i tworzy nową recepture
+*)
+METHOD PUBLIC AddRecipeFromTemplate : BOOL
+VAR_INPUT
+	uiNumberTemplates			: UINT;
+	stTexts						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Choose" Id="{eaf1de71-ce52-0168-3c41-9a80f7d93304}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Przypisuje do referencji wybraną rtecepture
+*)
+METHOD PUBLIC Choose : BOOL
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ClearChosen" Id="{8c5a5cdc-1d0d-06a3-2640-8272f50a7ac1}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.06.2025		TC 4024.66
+	usuwa referencje do wybranej
+*)
+METHOD PUBLIC ClearChosen
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="CreateTemplates" Id="{755b302b-a4ec-0586-3c46-03220bf5cc6c}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Utworzenie nowych szablonów receptur na podstawie dodanych fb zewnętrznych - wywołanie metody powoduje
+	skosowanie dotychczasowych szablonów i receptur
+*)
+METHOD PUBLIC CreateTemplates : BOOL
+VAR_INPUT
+END_VAR
+
+]]></Declaration>
+    </Method>
+    <Method Name="DeleteRecipe" Id="{d900969e-a01b-05b8-0653-8e0b52f352af}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC DeleteRecipe : BOOL
+VAR_INPUT
+	uiNumber				: uint;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="DeleteRecipes" Id="{2ba58a25-046e-0558-2aad-2ffb774bb946}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		30.04.2025		TC 4024.66
+	usunięcie wszystkich receptur
+*)
+METHOD PUBLIC DeleteRecipes : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetChoosen" Id="{32d6d65f-e250-0a9e-24ac-4d94df0747a0}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca referencje do  receptury
+*)
+METHOD PUBLIC GetChoosen : REFERENCE TO ST_BaseRecipe
+
+]]></Declaration>
+    </Method>
+    <Method Name="GetIngredientFromRecipe" Id="{a98dd314-1ee4-03c3-2348-7dab95d6bc19}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC GetIngredientFromRecipe : ST_BaseDescriptor
+VAR_INPUT
+	uiNumberOfRecipe			: UINT;
+	uiNumberOfIngredient		: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNamesOfRecipe" Id="{e5b4d4ab-8221-0227-31cf-18654d179dab}">
+      <Declaration><![CDATA[METHOD GetNamesOfRecipe : ST_BaseLabel
+VAR_INPUT
+	uiNumber			: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNamesOfTemplate" Id="{aaf642f0-53b2-005a-24f4-464cc4b3d87d}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNamesOfTemplate : ST_BaseLabel
+VAR_INPUT
+	uiNumber			: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberIngredientOfRecipe" Id="{9280ca20-927d-0dd7-1d22-7893ab63479d}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC GetNumberIngredientOfRecipe : UINT
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberIngredientOFTemplate" Id="{bd9a135b-05d8-0e7b-366a-96d712daed65}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberIngredientOFTemplate : UINT
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfChoosen" Id="{23ec5a95-a025-006f-39b2-fb0f225d0c7a}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfChoosen : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfCreatingRecipe" Id="{01ddd423-c495-0622-2003-0071cdca587f}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfCreatingRecipe : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfRecipe" Id="{d5332562-3648-0d91-2c24-6ef96258a791}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfRecipe : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfTemplate" Id="{9dc605b1-d921-02d6-097b-6210e5bdc437}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfTemplate : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetReferencesToChoosen" Id="{9b9a1438-175e-0422-05b8-ef04ae838f4e}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		24.03.2025		TC 4024.66
+	Zwraca reference do wybranej receptury
+*)
+METHOD PUBLIC GetReferencesToChoosen : REFERENCE TO ST_BaseRecipe
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetReferenceToRecipe" Id="{be7393c3-8dcc-0d09-174c-cbc2780f8e7d}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zwraca referencje do  receptury
+*)
+METHOD PUBLIC GetReferenceToRecipe : REFERENCE TO ST_BaseRecipe
+VAR_INPUT
+	uiNumer					: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="IsChoosen" Id="{30fb0086-4875-0b66-0c09-39cbc316061c}">
+      <Declaration><![CDATA[METHOD PUBLIC IsChoosen : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ReplaceRecipeWithAnotherRecipe" Id="{8a59eaa7-c1ee-0fdf-3ff7-0b900b617e23}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zastępuje wybraną recepture przez istenijącą receputre
+*)
+METHOD PUBLIC ReplaceRecipeWithAnotherRecipe : BOOL
+VAR_INPUT
+	uiNumerRecepturyCel			: UINT;
+	uiNumerRecepturyZrodlo		: UINT;	
+	stNazwa						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ReplaceRecipeWithTemplateRecipe" Id="{40d391dc-641d-0d3b-2963-a463236331b7}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Zastępuje wybraną recepture przez istenijącą receputre z szablonu
+*)
+METHOD PUBLIC ReplaceRecipeWithTemplateRecipe : BOOL
+VAR_INPUT
+	uiNumerRecepturyCel			: UINT;
+	uiNumerRecepturyZrodlo		: UINT;
+	stNazwa						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

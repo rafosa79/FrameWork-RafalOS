@@ -31,6 +31,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"858"</v>
+              <v n="TextDefault">"%d"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"949"</v>
               <v n="TextDefault">"%s"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -78,6 +83,11 @@
             <o>
               <v n="TextID">"157"</v>
               <v n="TextDefault">"-"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"43"</v>
+              <v n="TextDefault">"-Wartoscdomyślna: %s"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -221,6 +231,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"987"</v>
+              <v n="TextDefault">"CANCEL"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"131"</v>
               <v n="TextDefault">"Change Mode"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -241,8 +256,23 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"300"</v>
+              <v n="TextDefault">"DE"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"243"</v>
               <v n="TextDefault">"Diagram"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"30"</v>
+              <v n="TextDefault">"Domyślna : %s"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"801"</v>
+              <v n="TextDefault">"Domyślna wartość : %s"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -253,6 +283,11 @@
             <o>
               <v n="TextID">"999"</v>
               <v n="TextDefault">"E"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"477"</v>
+              <v n="TextDefault">"EN"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -316,6 +351,16 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"791"</v>
+              <v n="TextDefault">"Jedn."</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"388"</v>
+              <v n="TextDefault">"Jednostka"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"983"</v>
               <v n="TextDefault">"k"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -346,13 +391,33 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1175"</v>
+              <v n="TextDefault">"Max :"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"192"</v>
               <v n="TextDefault">"Max:"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"55"</v>
+              <v n="TextDefault">"Max: %s"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"690"</v>
+              <v n="TextDefault">"Min :"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"191"</v>
               <v n="TextDefault">"Min:"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1119"</v>
+              <v n="TextDefault">"Min: %s"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -386,6 +451,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1328"</v>
+              <v n="TextDefault">"Opis"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"1012"</v>
               <v n="TextDefault">"p"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -398,6 +468,11 @@
             <o>
               <v n="TextID">"689"</v>
               <v n="TextDefault">"Parametry"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"281"</v>
+              <v n="TextDefault">"PL"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -526,6 +601,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1118"</v>
+              <v n="TextDefault">"Wartość"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"141"</v>
               <v n="TextDefault">"x"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -596,6 +676,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"175"</v>
+              <v n="TextDefault">"_anuluj"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"370"</v>
               <v n="TextDefault">"_brak receptury"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -616,13 +701,53 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1014"</v>
+              <v n="TextDefault">"_ostrzeżenie"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"159"</v>
               <v n="TextDefault">"_pokaz czasy"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"312"</v>
+              <v n="TextDefault">"_przywrócdomyślną"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"988"</v>
+              <v n="TextDefault">"_utworz"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1089"</v>
+              <v n="TextDefault">"_utworzszbalony"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1214"</v>
+              <v n="TextDefault">"_wartoscdomyślna "</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1108"</v>
+              <v n="TextDefault">"_wartoscdomyślna: %s"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"667"</v>
+              <v n="TextDefault">"_wartość"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"411"</v>
               <v n="TextDefault">"_wybierz jezyk"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1043"</v>
+              <v n="TextDefault">"_zapisz"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

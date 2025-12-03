@@ -3,7 +3,38 @@
   <DUT Name="ST_MCHMIPrepareScreen_02_XX" Id="{02ca9231-ad2e-0484-1137-d3642f9b37f4}">
     <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_02_XX :
 STRUCT
-	btmpValue_02_XX	: BOOL;
+	bRefreshList		: BOOL;	//odświerzenie listy po zmianie listy receptur
+	arrNameListRecipe	: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_RECIPES] OF WSTRING;
+	arrNameListTemplate	: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_RECIPES] OF WSTRING;
+	iNumberOfRecipe		: INT;
+	iNumberOfTemplate	: INT;
+	iSelectedNameRow	: INT;
+	iSelectedNameRowPrev 	: INT; //poprzedni wiersz listy receptur
+	bSelectedNameRow	: BOOL;
+(*	Wyświetlanie składników	*)
+	iTotalIngredient	: INT; //całkowita liczba składnikow w recepturze
+	iStartIndex			: INT; //liczba startowa
+	iNumberRowOnPage	: INT; //liczbna składników na stronie
+	iNumberOfPage		: INT; //ilosc stron potrzebnych do wyświetlenia wszystkich składników
+	iActualPage			: INT; //aktualna strona
+	iPreviewPage		: INT; //Poprzednia strona
+	stChossenRow		: ST_BaseHMIDescriptorEdit;
+	stIngredientList	: ST_MCHMIPrepareScreen_02_XX_IngredientList;
+	
+(*	Widoczność przycisków	*)
+	bVisibleButtonAddFromTemplate	: BOOL;
+	bVisibleButtonAddFromRecipe		: BOOL;
+	bVisibleButtonDelete			: BOOL;
+	bVsibleButtonEditIngredient		: BOOL;
+	bVisibleButtonChoose			: BOOL;
+	
+(*	Tworzenie nowej receptury	- ramka	*)
+	stAddRecipe			: ST_MCHMIPrepareScreen_02_XX_AddRecipe;
+(*	Ususwanie receptury	*)
+	stDeleteRecipe		: ST_MCHMIPrepareScreen_02_XX_DeleteRecipe;
+	
+	
+	
 END_STRUCT
 END_TYPE
 ]]></Declaration>

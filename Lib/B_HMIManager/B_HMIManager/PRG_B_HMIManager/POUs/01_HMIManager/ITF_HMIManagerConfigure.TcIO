@@ -53,6 +53,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="AddRecipeModuleFromConfiguration" Id="{b109306b-f689-035a-3d7c-a61e227ac42f}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Podłaczenie modułu receptur
+*)
+METHOD PUBLIC AddRecipeModuleFromConfiguration : BOOL
+VAR_INPUT
+	fbRecipeModule		: ITF_BaseRecipe_HMI;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="GetNumberOfAddedButtons" Id="{2c006b9d-049e-083c-1d94-a7dce0f449ea}">
       <Declaration><![CDATA[METHOD PUBLIC GetNumberOfAddedButtons : INT
 VAR_INPUT

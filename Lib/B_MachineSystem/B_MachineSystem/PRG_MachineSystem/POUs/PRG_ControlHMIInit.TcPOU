@@ -15,6 +15,7 @@ END_VAR
 		(*	Konfiguracjia systemu HMI	*)
 	fbHMIConfigure.AddConfiguration (fbConfigure := fbDedaultHMIConfiguration);
 	PRG_ControlHMI.fbHMIManager.AddModulConfigure (fbHMIConfigure := fbHMIConfigure);
+	PRG_ControlHMI.fbRecipeModul_HMI_Connector.LinkCommonData (stCommonData := GVL_SystemVariable.stCommonData);
 END_IF]]></ST>
     </Implementation>
   </POU>

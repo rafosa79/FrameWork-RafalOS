@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseRecipe_HMI_Connector" Id="{fcb4c597-dba0-054e-09b9-b3b3c97e660a}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseRecipe_HMI_Connector
+]]></Declaration>
+    <Method Name="AddRecipeFromRecipe" Id="{cb18e831-0c6d-0033-0613-ef21e9f8ce76}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Kopiuje składniki z wybranej receptury i tworzy nową recepture
+*)
+METHOD PUBLIC AddRecipeFromRecipe : BOOL
+VAR_INPUT
+	uiNumberRecipe				: UINT;
+	stTexts						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddRecipeFromTemplate" Id="{605efb51-9892-073e-3526-ad4eddad8fd1}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Kopiuje składniki z wybranego szablonu i tworzy nową recepture
+*)
+METHOD PUBLIC AddRecipeFromTemplate : BOOL
+VAR_INPUT
+	uiNumberTemplates			: UINT;
+	stTexts						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="CreateTemplates" Id="{c0ea4438-4056-0c9a-2216-27b96d0b5b2b}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Utworzenie nowych szablonów receptur na podstawie dodanych fb zewnętrznych - wywołanie metody powoduje
+	skosowanie dotychczasowych szablonów i receptur
+*)
+METHOD PUBLIC CreateTemplates : BOOL
+VAR_INPUT
+END_VAR
+
+]]></Declaration>
+    </Method>
+    <Method Name="DeleteRecipe" Id="{f8621140-98ee-0920-149e-5d10606da10b}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC DeleteRecipe : BOOL
+VAR_INPUT
+	uiNumber				: uint;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetIngredientFromRecipe" Id="{9cf6eeac-4052-00a6-34e5-c0caa3969eb8}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC GetIngredientFromRecipe : ST_BaseDescriptor
+VAR_INPUT
+	uiNumberOfRecipe			: UINT;
+	uiNumberOfIngredient		: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetIngredientRange" Id="{7d4fa712-3330-0358-0b8d-6427a167600c}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		02.12.2025		TC 4024.66
+	Zwraca do tablicy wybrany zakres składników
+*)
+METHOD PUBLIC GetIngredientRange 
+VAR_INPUT
+	iRecipe			: INT;	//numer receptury z której bierzemy składniki
+	iStartIndex		: INT;	//numer startowy składnika
+	iCount			: INT;	//ilośc pobieranych 
+END_VAR
+VAR_IN_OUT
+	arrOut : ARRAY [*] OF ST_BaseDescriptor;
+END_VAR
+VAR_OUTPUT
+	iNumberOfFilledData	: INT;	//ilosc wypelnionych danych na strone
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="GetNameList" Id="{231be13a-3f4f-0df9-1c3b-82a1d9d9c8e2}">
+      <Declaration><![CDATA[METHOD GetNameList : ST_BaseRecipeList
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNameListTemplate" Id="{bcf32165-1905-0fda-0586-b22629ddedc0}">
+      <Declaration><![CDATA[METHOD GetNameListTemplate : ST_BaseRecipeList
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberIngredientOfRecipe" Id="{771abac5-3f8d-094d-2cc3-574842fb20fb}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC GetNumberIngredientOfRecipe : UINT
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfRecipe" Id="{22f4972f-9a2c-05ff-3ad6-f22455966b69}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfRecipe : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfTemplate" Id="{a52dfc43-fec5-0d03-383b-4120904e1594}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfTemplate : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

@@ -15,6 +15,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="AddRecipeModulFormManager" Id="{dcd8dff5-bff8-0b5a-23b0-39dcfbef68dc}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Podłaczenie modułu receptur
+*)
+METHOD PUBLIC AddRecipeModulFormManager : BOOL
+VAR_INPUT
+	fbRecipeModul		: ITF_BaseRecipe_HMI;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="ClearAfterScreenFroHMIManager" Id="{f45baa25-757c-0fe6-219c-a44fc4762619}">
       <Declaration><![CDATA[(*			
 	RafalOS

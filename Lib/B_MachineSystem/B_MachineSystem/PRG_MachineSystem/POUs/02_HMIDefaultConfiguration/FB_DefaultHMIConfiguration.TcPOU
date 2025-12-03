@@ -67,52 +67,52 @@ END_VAR
 THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Okno główne");
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Main screen");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Hauptbildschirm");
-PRG_ControlHMI.fbMMB0_MainScreen.SetName (stName := THIS^.GetTexts ());
-PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB0_MainScreen);
+PRG_ControlHMI.stMainMenuButton.fbMMB0_MainScreen.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.stMainMenuButton.fbMMB0_MainScreen);
 THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Receptury");
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Recipe");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Rezept");
-PRG_ControlHMI.fbMMB1_Recipe.SetName (stName := THIS^.GetTexts ());
-PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB1_Recipe);
+PRG_ControlHMI.stMainMenuButton.fbMMB1_Recipe.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.stMainMenuButton.fbMMB1_Recipe);
 THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Parametry");
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Parameters");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Parameter");
-PRG_ControlHMI.fbMMB2_Parameters.SetName (stName := THIS^.GetTexts ());
-PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB2_Parameters);
+PRG_ControlHMI.stMainMenuButton.fbMMB2_Parameters.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.stMainMenuButton.fbMMB2_Parameters);
 THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zdarzenia");
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Events");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Veranstaltungen");
-PRG_ControlHMI.fbMMB3_Events.SetName (stName := THIS^.GetTexts ());
-PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB3_Events);
+PRG_ControlHMI.stMainMenuButton.fbMMB3_Events.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.stMainMenuButton.fbMMB3_Events);
 THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Zmiana trybu");
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Mode change");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Modusänderung");
-PRG_ControlHMI.fbMMB4_ModeChange.SetName (stName := THIS^.GetTexts ());
-PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB4_ModeChange);
+PRG_ControlHMI.stMainMenuButton.fbMMB4_ModeChange.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.stMainMenuButton.fbMMB4_ModeChange);
 THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Statystyki");
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Statistics");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Statistiken");
-PRG_ControlHMI.fbMMB5_Statistics.SetName (stName := THIS^.GetTexts ());
-PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB5_Statistics);
+PRG_ControlHMI.stMainMenuButton.fbMMB5_Statistics.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.stMainMenuButton.fbMMB5_Statistics);
 THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Diagram stanów");
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "State diagram");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Zustandsdiagramm");
-PRG_ControlHMI.fbMMB6_StateDiagram.SetName (stName := THIS^.GetTexts ());
-PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB6_StateDiagram);
+PRG_ControlHMI.stMainMenuButton.fbMMB6_StateDiagram.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.stMainMenuButton.fbMMB6_StateDiagram);
 THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Ustawienia");
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Settings");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Einstellungen");
-PRG_ControlHMI.fbMMB7_Settings.SetName (stName := THIS^.GetTexts ());
-PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.fbMMB7_Settings);
+PRG_ControlHMI.stMainMenuButton.fbMMB7_Settings.SetName (stName := THIS^.GetTexts ());
+PRG_ControlHMI.fbMainMenu.AddButton (fbButton :=PRG_ControlHMI.stMainMenuButton.fbMMB7_Settings);
 //
-PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB0_MainScreen_HMI_Connector);
-PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB1_Recipe_HMI_Connector);
-PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB2_Parameters_HMI_Connector);
-PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB3_Events_HMI_Connector);
-PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB4_ModeChange_HMI_Connector);
-PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB5_Statistics_HMI_Connector);
-PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB6_StateDiagram_HMI_Connector);
-PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.fbMMB7_Settings_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.stMainMenuButton.fbMMB0_MainScreen_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.stMainMenuButton.fbMMB1_Recipe_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.stMainMenuButton.fbMMB2_Parameters_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.stMainMenuButton.fbMMB3_Events_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.stMainMenuButton.fbMMB4_ModeChange_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.stMainMenuButton.fbMMB5_Statistics_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.stMainMenuButton.fbMMB6_StateDiagram_HMI_Connector);
+PRG_ControlHMI.fbMainMenu_HMI_Connector.AddButton (fbButtonHMI := PRG_ControlHMI.stMainMenuButton.fbMMB7_Settings_HMI_Connector);
 
 itfHMIManager.AddMainMenuFromConfiguration (
 	fbMenu := PRG_ControlHMI.fbMainMenu,
@@ -137,19 +137,19 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[	(*	Dodanie modułów do machine controil	*)
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_Empty);
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_00_01);
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_00_02);
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_00_03);
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_00_04);
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_00_05);
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_01_XX);
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_02_XX);
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_03_XX);
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_04_XX);
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_05_XX);
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_06_XX);
-itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.fbPrepareDataModul_07_XX);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_Empty);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_01);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_02);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_03);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_04);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_05);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_01_XX);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_02_XX);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_03_XX);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_04_XX);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_05_XX);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_06_XX);
+itfHMIManager.AddPrepareScreenModuleFromConfiguration (itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_07_XX);
 
 
 	(*	Przypisanie do wszystkich pól pustego FB *)
@@ -158,72 +158,88 @@ FOR iforScreen := 0 TO GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU DO
 		itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (
 			iScreen 	:= iforScreen, 
 			iMode 		:= iforMode, 
-			itfModule 	:= PRG_ControlHMI.fbPrepareDataModul_Empty
+			itfModule 	:= PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_Empty
 		);
 	END_FOR
 END_FOR
 
-PRG_ControlHMI.fbPrepareDataModul_00_01.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
-PRG_ControlHMI.fbPrepareDataModul_00_02.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
-PRG_ControlHMI.fbPrepareDataModul_00_03.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
-PRG_ControlHMI.fbPrepareDataModul_00_04.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
-PRG_ControlHMI.fbPrepareDataModul_00_05.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
-PRG_ControlHMI.fbPrepareDataModul_01_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
-PRG_ControlHMI.fbPrepareDataModul_02_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
-PRG_ControlHMI.fbPrepareDataModul_03_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
-PRG_ControlHMI.fbPrepareDataModul_04_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
-PRG_ControlHMI.fbPrepareDataModul_05_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
-PRG_ControlHMI.fbPrepareDataModul_06_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
-PRG_ControlHMI.fbPrepareDataModul_07_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
+PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_01.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
+PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_02.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
+PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_03.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
+PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_04.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
+PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_05.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
+PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_01_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
+PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_02_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
+PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_03_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
+PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_04_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
+PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_05_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
+PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_06_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
+PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_07_XX.LinkMachineControlHMI (fbMachineControlHMI := PRG_ControlHMI.fbMachineControl_HMI_Connector);
 
 	(*	Przypisanie modułów do aktywnych akien 	*)
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 0, iMode := 1, itfModule := PRG_ControlHMI.fbPrepareDataModul_00_01);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 0, iMode := 2, itfModule := PRG_ControlHMI.fbPrepareDataModul_00_02);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 0, iMode := 3, itfModule := PRG_ControlHMI.fbPrepareDataModul_00_03);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 0, iMode := 4, itfModule := PRG_ControlHMI.fbPrepareDataModul_00_04);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 0, iMode := 5, itfModule := PRG_ControlHMI.fbPrepareDataModul_00_05);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 0, iMode := 1, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_01);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 0, iMode := 2, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_02);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 0, iMode := 3, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_03);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 0, iMode := 4, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_04);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 0, iMode := 5, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_00_05);
 
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 1, iMode := 1, itfModule := PRG_ControlHMI.fbPrepareDataModul_01_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 1, iMode := 2, itfModule := PRG_ControlHMI.fbPrepareDataModul_01_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 1, iMode := 3, itfModule := PRG_ControlHMI.fbPrepareDataModul_01_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 1, iMode := 4, itfModule := PRG_ControlHMI.fbPrepareDataModul_01_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 1, iMode := 5, itfModule := PRG_ControlHMI.fbPrepareDataModul_01_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 1, iMode := 1, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_01_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 1, iMode := 2, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_01_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 1, iMode := 3, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_01_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 1, iMode := 4, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_01_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 1, iMode := 5, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_01_XX);
 
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 2, iMode := 1, itfModule := PRG_ControlHMI.fbPrepareDataModul_02_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 2, iMode := 2, itfModule := PRG_ControlHMI.fbPrepareDataModul_02_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 2, iMode := 3, itfModule := PRG_ControlHMI.fbPrepareDataModul_02_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 2, iMode := 4, itfModule := PRG_ControlHMI.fbPrepareDataModul_02_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 2, iMode := 5, itfModule := PRG_ControlHMI.fbPrepareDataModul_02_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 2, iMode := 1, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_02_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 2, iMode := 2, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_02_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 2, iMode := 3, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_02_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 2, iMode := 4, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_02_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 2, iMode := 5, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_02_XX);
 
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 3, iMode := 1, itfModule := PRG_ControlHMI.fbPrepareDataModul_03_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 3, iMode := 2, itfModule := PRG_ControlHMI.fbPrepareDataModul_03_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 3, iMode := 3, itfModule := PRG_ControlHMI.fbPrepareDataModul_03_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 3, iMode := 4, itfModule := PRG_ControlHMI.fbPrepareDataModul_03_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 3, iMode := 5, itfModule := PRG_ControlHMI.fbPrepareDataModul_03_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 3, iMode := 1, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_03_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 3, iMode := 2, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_03_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 3, iMode := 3, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_03_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 3, iMode := 4, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_03_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 3, iMode := 5, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_03_XX);
 
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 4, iMode := 1, itfModule := PRG_ControlHMI.fbPrepareDataModul_04_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 4, iMode := 2, itfModule := PRG_ControlHMI.fbPrepareDataModul_04_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 4, iMode := 3, itfModule := PRG_ControlHMI.fbPrepareDataModul_04_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 4, iMode := 4, itfModule := PRG_ControlHMI.fbPrepareDataModul_04_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 4, iMode := 5, itfModule := PRG_ControlHMI.fbPrepareDataModul_04_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 4, iMode := 1, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_04_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 4, iMode := 2, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_04_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 4, iMode := 3, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_04_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 4, iMode := 4, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_04_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 4, iMode := 5, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_04_XX);
 
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 5, iMode := 1, itfModule := PRG_ControlHMI.fbPrepareDataModul_05_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 5, iMode := 2, itfModule := PRG_ControlHMI.fbPrepareDataModul_05_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 5, iMode := 3, itfModule := PRG_ControlHMI.fbPrepareDataModul_05_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 5, iMode := 4, itfModule := PRG_ControlHMI.fbPrepareDataModul_05_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 5, iMode := 5, itfModule := PRG_ControlHMI.fbPrepareDataModul_05_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 5, iMode := 1, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_05_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 5, iMode := 2, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_05_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 5, iMode := 3, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_05_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 5, iMode := 4, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_05_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 5, iMode := 5, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_05_XX);
 
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 6, iMode := 1, itfModule := PRG_ControlHMI.fbPrepareDataModul_06_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 6, iMode := 2, itfModule := PRG_ControlHMI.fbPrepareDataModul_06_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 6, iMode := 3, itfModule := PRG_ControlHMI.fbPrepareDataModul_06_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 6, iMode := 4, itfModule := PRG_ControlHMI.fbPrepareDataModul_06_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 6, iMode := 5, itfModule := PRG_ControlHMI.fbPrepareDataModul_06_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 6, iMode := 1, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_06_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 6, iMode := 2, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_06_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 6, iMode := 3, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_06_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 6, iMode := 4, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_06_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 6, iMode := 5, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_06_XX);
 
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 7, iMode := 1, itfModule := PRG_ControlHMI.fbPrepareDataModul_07_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 7, iMode := 2, itfModule := PRG_ControlHMI.fbPrepareDataModul_07_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 7, iMode := 3, itfModule := PRG_ControlHMI.fbPrepareDataModul_07_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 7, iMode := 4, itfModule := PRG_ControlHMI.fbPrepareDataModul_07_XX);
-itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 7, iMode := 5, itfModule := PRG_ControlHMI.fbPrepareDataModul_07_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 7, iMode := 1, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_07_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 7, iMode := 2, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_07_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 7, iMode := 3, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_07_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 7, iMode := 4, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_07_XX);
+itfHMIManager.LinkPrepareScreenToArrayFromConfiguration (iScreen := 7, iMode := 5, itfModule := PRG_ControlHMI.stPrepareDataModules.fbPrepareDataModul_07_XX);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddRecipeModule" Id="{e5f99b57-1fc6-02ac-0c0c-c89f6f763f34}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Podłaczenie modułu receptur
+*)
+METHOD AddRecipeModule : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfHMIManager.AddRecipeModuleFromConfiguration (fbRecipeModule := PRG_ControlHMI.fbRecipeModul_HMI_Connector);
 ]]></ST>
       </Implementation>
     </Method>
