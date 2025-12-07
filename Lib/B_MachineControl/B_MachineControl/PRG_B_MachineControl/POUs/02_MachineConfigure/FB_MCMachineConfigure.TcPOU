@@ -64,6 +64,7 @@ fbMachineControl.ExecuteFirstCycle ();
 THIS^.arritfConfigure [1].SetIDEventsToAddedElements (itfMachineControl := fbMachineControl);
 THIS^.arritfConfigure [1].SetCodeToAddedElements (itfMachineControl := fbMachineControl);
 THIS^.arritfConfigure [1].LinkSafetyToAddedElements (itfMachineControl := fbMachineControl);
+THIS^.arritfConfigure [1].AddSaMToTopElement (itfMachineControl := fbMachineControl);
 THIS^.arritfConfigure [1].LinkMassangerToaddedTopElements (itfMachineControl := fbMachineControl);
 
 Configure		:= bResult;

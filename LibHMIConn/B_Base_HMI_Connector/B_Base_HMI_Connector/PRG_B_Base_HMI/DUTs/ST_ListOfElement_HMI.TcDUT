@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_ListOfElement_HMI" Id="{33b9bb5b-0ba9-45ab-97c1-17558a16604e}">
+    <Declaration><![CDATA[TYPE ST_ListOfElement_HMI :
+STRUCT
+(*	Lista wszystkich dodanych komponentów 	*)
+	arrRow					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_ALL_ITEM] OF ST_RowListOfElement_HMI;
+	iNumberOfAdded			: INT;
+(*	Lista indeksów PB w tablicy arrWiersz	*)
+	arrRowOfListTE			: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT] OF INT;
+	iNumberOfAddedTE		: INT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL_TE1" Id="{0986a09c-3a65-41b8-82d7-0523eaaccd64}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	fbTopElement1			: FB_TopElement1;
+	
+	fbTopElement1HMI		: FB_TopElement1_HMI (
+										itfBaseLoggerConnector				:= GVL_SystemVariable.fbLogger,
+                                        itfTopElementConnector				:= fbTopElement1
+							);
+							
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -13,6 +13,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_BaseLoggerElement_HMI" Id="{43a58e74-3038-07b9-3465-541bb380e3c9}" />
     <Folder Name="WiazanieZmiennych" Id="{4dfffb3d-2831-0778-0d83-d737d6645326}" />
     <Method Name="AddControlElement" Id="{76a032d3-46d3-05c1-2da2-40ea71aff009}">
       <Declaration><![CDATA[METHOD PROTECTED AddControlElement : BOOL
@@ -60,6 +61,27 @@ FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
 END_FOR
 
 IsValidCommonData			:= bResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="JoinTheList" Id="{8b5de760-b6b3-434e-b4d6-a0aa0ea8e4bb}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[METHOD PUBLIC JoinTheList : INT
+VAR_INPUT
+	refstList				: REFERENCE TO ST_ListOfElement_HMI;
+	iNumberOfParent			: INT; 	//numer rodzica na liście
+END_VAR
+VAR
+	iI						: INT;
+	itmpNumberOfParent			: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itmpNumberOfParent		:= SUPER^.JoinTheList (refstList := refstList, iNumberOfParent := iNumberOfParent);
+
+FOR iI := 1 TO TO_INT (THIS^.uiNumberOfControlElement) DO
+	THIS^.arrControlElement [iI].JoinTheList (refstList := refstList, iNumberOfParent := itmpNumberOfParent);
+END_FOR
+
+JoinTheList	:= itmpNumberOfParent;
 ]]></ST>
       </Implementation>
     </Method>

@@ -3,6 +3,18 @@
   <Itf Name="ITF_HMIConfiguration" Id="{d7340403-e938-4a39-b0ea-a459eb342446}">
     <Declaration><![CDATA[INTERFACE ITF_HMIConfiguration
 ]]></Declaration>
+    <Method Name="AddElement" Id="{b0b90195-2d07-0db6-0ff4-7bf398029df4}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		07.12.2025		TC 4024.66
+	Dodawanie elementów do systemmu wyświetlania
+*)
+METHOD AddElement
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="AddExtendedDisplayToPrepScrModule" Id="{65fc8a00-a93b-0758-1b5b-eb2d2634bf1b}">
       <Declaration><![CDATA[(*			
 	RafalOS

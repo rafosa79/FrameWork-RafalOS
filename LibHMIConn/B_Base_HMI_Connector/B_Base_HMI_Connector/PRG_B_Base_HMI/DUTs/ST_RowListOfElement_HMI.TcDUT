@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_RowListOfElement_HMI" Id="{9e0788dc-b055-4c6f-b0de-3a462b392005}">
+    <Declaration><![CDATA[TYPE ST_RowListOfElement_HMI :
+STRUCT
+	stIdentifiers		: ST_BaseElementIdentifier;
+	itfElement			: ITF_BaseComponent_HMI;
+//
+	arrChild			: ARRAY [0..GVL_BaseConstans.MAX_ITEM_PER_ELEMENT] OF INT;
+	iNumberOfChildAdded	: INT;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

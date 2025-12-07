@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_TopElement1_HMI" Id="{72240472-9116-03cb-36c6-17374bd97d62}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TopElement1_HMI EXTENDS FB_BaseTopElement_HMI IMPLEMENTS ITF_TopElement1_HMI
+VAR
+	itfTopElementConnector			: ITF_TopElement1_HMI_Lacznik;
+	refstTopElementData				: REFERENCE TO ST_TopElement1_HMI;
+
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_NazwaPB_HMI" Id="{ff441856-cda9-0c25-0700-4cb0f490f4a3}" />
+    <Method Name="FB_init" Id="{1625a283-a5a4-0658-16db-29129ffd0296}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfBaseLoggerConnector				: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
+	itfTopElementConnector				: ITF_TopElement1_HMI_Init;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Przypisanie do elementu który własnie stworzyliśmy
+THIS^.itfTopElementConnector			:= itfTopElementConnector;
+//Przypisanie do elementów z biblioteki
+THIS^.itfBaseLoggerElementConnector		:= itfTopElementConnector;
+THIS^.itfBaseComponentConnector			:= itfTopElementConnector;
+THIS^.itfBaseControlElementConnector	:= itfTopElementConnector;
+THIS^.itfBaseGroupElementConnector		:= itfTopElementConnector;
+THIS^.itfBaseTopElementConnector		:= itfTopElementConnector;
+//
+THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
+
+IF (THIS^.itfTopElementConnector <> 0 AND
+	THIS^.itfBaseLoggerElementConnector <> 0 AND
+	THIS^.itfBaseComponentConnector	<> 0 AND
+	THIS^.itfBaseControlElementConnector <> 0 AND
+	THIS^.itfBaseGroupElementConnector <> 0 AND
+	THIS^.itfBaseTopElementConnector <> 0 AND
+	THIS^.itfBaseLoggerConnector <> 0) THEN
+	THIS^.bIsInit						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkTopElementData" Id="{b5b619bd-8b68-4908-b96b-4f1ab05bb941}" FolderPath="ITF_NazwaPB_HMI\">
+      <Declaration><![CDATA[METHOD LinkTopElementData : BOOL
+VAR_INPUT
+	stData				: REFERENCE TO ST_TopElement1_HMI_Link;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstTopElementData REF= stData.stTopElement;
+
+THIS^.refstBaseLoggerElementDataHMI REF= stData.stBaseLoggerElement;
+THIS^.refstBaseComponentDataHMI REF= stData.stBaseComponent;
+THIS^.refstBaseControlElementDataHMI REF= stData.stBaseControlElement;
+THIS^.refstBaseGroupElementDataHMI REF= stData.stBaseGroupElement;
+THIS^.refstBaseTopElementDataHMI REF= stData.stBaseTopElement;
+(*
+THIS^.itfControlElement1.LinkControlElementData (stData := stData.stControlElement1);
+THIS^.itfControlElement2.LinkControlElementData (stData := stData.stControlElement2);
+THIS^.itfGroupElement1.LinkGroupelementData (stData := stData.stGroupElement1);
+THIS^.itfComponent1.LinkComponentData (stData := stData.stComponent1);
+THIS^.itfComponent2.LinkComponentData (stData := stData.stComponent2);
+THIS^.itfComponent3.LinkComponentData (stData := stData.stComponent3);
+*)
+THIS^.CreateLinkToEventsMemory ();
+
+IF (__ISVALIDREF (THIS^.refstTopElementData) AND this^.IsLinkedReferences ()) THEN
+	THIS^.bIsValidData		:= TRUE;
+	LinkTopElementData		:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

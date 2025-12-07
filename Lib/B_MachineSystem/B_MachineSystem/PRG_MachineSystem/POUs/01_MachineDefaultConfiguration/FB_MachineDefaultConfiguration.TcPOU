@@ -109,6 +109,17 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="AddSaMToTopElement" Id="{43e3942e-ed1d-0047-15f1-93194cae35f7}">
+      <Declaration><![CDATA[METHOD AddSaMToTopElement
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfMachineControl.AddSaMToTopElementFromConfiguration (itfSaMController := GVL_SystemVariable.fbSaMController);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="LinkCommonDataToAddedElements" Id="{23886805-2788-0bdd-1a2b-d773e51344bc}">
       <Declaration><![CDATA[(*			
 	RafalOS

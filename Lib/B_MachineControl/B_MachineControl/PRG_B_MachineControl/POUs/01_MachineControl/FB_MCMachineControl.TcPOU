@@ -74,7 +74,13 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[IF (THIS^.uiNumberOfAddedTopElement + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT) THEN
+	THIS^.uiNumberOfAddedTopElement := THIS^.uiNumberOfAddedTopElement + 1;
+	THIS^.arrTopElements [THIS^.uiNumberOfAddedTopElement] := itfElements;
+
+	AddElementFromConfiguration := TRUE;
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddHMIManagerFromConfiguration" Id="{7cfeaa08-7b5d-0aee-0b40-25f6d8c78dfc}" FolderPath="ITF_MachineControlConfigure\">
@@ -172,7 +178,25 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.AddControlElement (itfControlElement := itfSaMController);
 THIS^.itfSaMController := itfSaMController;
-FOR iNumberOfTopElement := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
+//FOR iNumberOfTopElement := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
+//	THIS^.arrTopElements [iNumberOfTopElement].LinkSaM (
+//		fbSAM := itfSaMController
+//	);
+//END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddSaMToTopElementFromConfiguration" Id="{9e70fe67-ea23-0901-262c-47ed864679da}" FolderPath="ITF_MachineControlConfigure\">
+      <Declaration><![CDATA[METHOD PUBLIC AddSaMToTopElementFromConfiguration
+VAR_INPUT
+	itfSaMController			: ITF_SaMController;
+END_VAR
+
+VAR
+	iNumberOfTopElement: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iNumberOfTopElement := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
 	THIS^.arrTopElements [iNumberOfTopElement].LinkSaM (
 		fbSAM := itfSaMController
 	);
@@ -578,9 +602,16 @@ METHOD PUBLIC LinkMassangerToaddedTopElementsFromConfiguration : BOOL
 VAR_INPUT
 	fbCommunicator		: ITF_BaseCommunicator;
 END_VAR
-]]></Declaration>
+
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.itfCommunicator := fbCommunicator;
+
+FOR iI := 2 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
+	THIS^.arrTopElements [iI].LinkCommunicator (fbCommunicator := fbCommunicator);
+END_FOR
 ]]></ST>
       </Implementation>
     </Method>
@@ -629,10 +660,19 @@ VAR_INPUT
 	flSS1				: ITF_BaseFlagGet;
 	flSTO				: ITF_BaseFlagGet;
 END_VAR
-]]></Declaration>
+
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.LinkSS1 (fbSS1 := flSS1);
-this^.LinkSTO (fbSTO := flSTO);]]></ST>
+THIS^.LinkSTO (fbSTO := flSTO);
+
+FOR iI := 2 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
+	THIS^.arrTopElements [iI].LinkSS1 (fbSS1 := flSS1);
+	THIS^.arrTopElements [iI].LinkSTO (fbSTO := flSTO);
+END_FOR
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="SetCmdChangeMode" Id="{cb62aa39-24fd-0d9e-02a7-0fc03dc37d4e}" FolderPath="ITF_MC_HMI_Connector\">

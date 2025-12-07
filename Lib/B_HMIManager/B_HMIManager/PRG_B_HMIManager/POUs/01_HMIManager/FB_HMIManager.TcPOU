@@ -23,6 +23,7 @@ VAR
 	refstManagerData			: REFERENCE TO ST_HMIManager;
 	(*	Łącznik do MachineControl	*)
 	itfMachineControl			: ITF_MCHMIMachineControl_HMI;
+	(*	Lista dodanych elementów	*)
 	
 END_VAR
 ]]></Declaration>
@@ -38,6 +39,21 @@ END_IF
     </Implementation>
     <Folder Name="ITF_HMIManagerConfigure" Id="{89138cc2-cb73-0422-3e5b-ed5c94136f56}" />
     <Folder Name="WiazanieModulow" Id="{82c7cc63-7604-0b87-2d45-08cdf14b79c2}" />
+    <Method Name="AddElementFromConfiguration" Id="{96fac7bf-a811-0926-08e6-bb3ad89e43e9}" FolderPath="ITF_HMIManagerConfigure\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		07.12.2025		TC 4024.66
+	Dodawanie elementów do systemmu wyświetlania
+*)
+METHOD AddElementFromConfiguration
+VAR_INPUT
+	fbTopElementHMI		: ITF_BaseTopElement_HMI;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddExtendedDisplayToPrepScrModuleFromConfiguration" Id="{bb0f7184-b066-0b31-247f-5b56c025b682}" FolderPath="ITF_HMIManagerConfigure\">
       <Declaration><![CDATA[(*			
 	RafalOS
