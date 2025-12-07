@@ -21,7 +21,7 @@
     <Company>RafalOS</Company>
     <Title>B_Base_HMI_Connector</Title>
     <DefaultNamespace>B_Base_HMI_Connector</DefaultNamespace>
-    <ProjectVersion>0.0.0.19</ProjectVersion>
+    <ProjectVersion>0.0.0.34</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -83,6 +83,12 @@
     <Author>Rafał Osajda</Author>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\ST_BaseHMIDescriptor.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\ST_BaseHMIDescriptorEdit.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -170,6 +176,15 @@
     <Compile Include="POUs\A07_FB_BaseTopElement_HMI\ST_BaseTopElement_HMI_Link.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\B02_Recipe\FB_BaseRecipe_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B02_Recipe\ITF_BaseRecipe_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\B02_Recipe\ST_BaseRecipe_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
@@ -184,6 +199,7 @@
     <Folder Include="POUs\A05_FB_BaseControlElement_HMI" />
     <Folder Include="POUs\A06_FB_BaseGroupElement_HMI" />
     <Folder Include="POUs\A07_FB_BaseTopElement_HMI" />
+    <Folder Include="POUs\B02_Recipe" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

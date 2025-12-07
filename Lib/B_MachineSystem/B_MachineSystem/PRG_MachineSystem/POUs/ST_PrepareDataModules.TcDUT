@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_PrepareDataModules" Id="{dc64179a-20aa-0237-321d-dea18b65551d}">
+    <Declaration><![CDATA[TYPE ST_PrepareDataModules :
+STRUCT
+	fbPrepareDataModul_Empty			: FB_MCHMIPrepareDataForScreen;
+	fbPrepareDataModul_00_01			: FB_MCHMIPrepareDataForScreen_00_01;
+	fbPrepareDataModul_00_02			: FB_MCHMIPrepareDataForScreen_00_02;
+	fbPrepareDataModul_00_03			: FB_MCHMIPrepareDataForScreen_00_03;
+	fbPrepareDataModul_00_04			: FB_MCHMIPrepareDataForScreen_00_04;
+	fbPrepareDataModul_00_05			: FB_MCHMIPrepareDataForScreen_00_05;
+	fbPrepareDataModul_01_XX			: FB_MCHMIPrepareDataForScreen_01_XX;	//parametry
+	fbPrepareDataModul_02_XX			: FB_MCHMIPrepareDataForScreen_02_XX;	//receptury
+	fbPrepareDataModul_03_XX			: FB_MCHMIPrepareDataForScreen_03_XX;	//alarmy 
+	fbPrepareDataModul_04_XX			: FB_MCHMIPrepareDataForScreen_04_XX;	//zmiana trybu
+	fbPrepareDataModul_05_XX			: FB_MCHMIPrepareDataForScreen_05_XX;	//statystyki
+	fbPrepareDataModul_06_XX			: FB_MCHMIPrepareDataForScreen_06_XX;	//diagram
+	fbPrepareDataModul_07_XX			: FB_MCHMIPrepareDataForScreen_07_XX;	//ustawienia
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

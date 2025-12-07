@@ -43,6 +43,7 @@ END_VAR]]></Declaration>
 
 THIS^.arritfConfigure [1].AddMachineCotrolToYourSelf (itfMachineControl := fbMachineControl);
 THIS^.arritfConfigure [1].AddSaMCotrollerToMachineControl (itfMachineControl := fbMachineControl);
+THIS^.arritfConfigure [1].AddModulRecipe (itfMachineControl := fbMachineControl);
 FOR iI := 1 TO THIS^.iNubmerOfAddedConfigure DO 
 	IF (THIS^.arritfConfigure [iI] <> 0) THEN
 		
@@ -51,6 +52,7 @@ FOR iI := 1 TO THIS^.iNubmerOfAddedConfigure DO
 		THIS^.arritfConfigure [iI].AddElements (itfMachineControl	:= fbMachineControl);
 		THIS^.arritfConfigure [iI].LinkRequestButtonChange (itfMachineControl	:= fbMachineControl);
 		THIS^.arritfConfigure [iI].SetStartMode (itfMachineControl	:= fbMachineControl);
+		THIS^.arritfConfigure [iI].AddCreateTemplate (itfMachineControl	:= fbMachineControl);
 	END_IF
 END_FOR
 

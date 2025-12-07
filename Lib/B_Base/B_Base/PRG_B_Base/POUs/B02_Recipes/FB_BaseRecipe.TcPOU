@@ -6,9 +6,8 @@
 	Rafał Osajda		28.02.2025		TC 4026.13		wer. 0.0.0.1
 	Obsługa receptur
 *)
-FUNCTION_BLOCK FB_BaseRecipe EXTENDS FB_Base IMPLEMENTS ITF_BaseCreatingTemplateMethod
+FUNCTION_BLOCK FB_BaseRecipe EXTENDS FB_Base IMPLEMENTS ITF_BaseRecipe, ITF_BaseCreatingTemplateMethod, ITF_BaseRecipe_HMI_Connector
 VAR
-	bChoose						: BOOL;		//receptura wybrana
 	iNumberToChoose				: INT;		//numer wybranej
 	arritfCreatingRecipe		: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES] OF ITF_BaseCreateTemplateOfRecipe;
 	uiNumberOfCreatingRecipe	: UINT;		//ilosc fb dla tworzenia receptur
@@ -25,6 +24,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="ITF_BaseRecipe_HMI_Connector" Id="{af1a709d-7f21-026c-204e-2977e4f6579d}" />
     <Method Name="AddIngredientToTemplate" Id="{0f0ee292-ddb9-015d-0fb4-0a56214e5144}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -128,10 +128,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (THIS^.uiNumberOfTemplates + 1 <= GVL_BaseConstans.MAX_NUMBER_OF_TEMPLATES) THEN
-	THIS^.uiNumberOfTemplates									:= THIS^.uiNumberOfTemplates + 1;
-	THIS^.arrTemplates [1].stTexts								:=  stTexts;
-	THIS^.arrTemplates [THIS^.uiNumberOfTemplates].uiTemplate	:= THIS^.uiNumberOfTemplates;
-	AddTemplate												:= TRUE;
+	THIS^.uiNumberOfTemplates := THIS^.uiNumberOfTemplates + 1;
+	THIS^.arrTemplates [THIS^.uiNumberOfTemplates].stTexts :=  stTexts;
+	THIS^.arrTemplates [THIS^.uiNumberOfTemplates].uiTemplate := THIS^.uiNumberOfTemplates;
+	AddTemplate := TRUE;
 END_IF
 
 
@@ -151,9 +151,23 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[//THIS^.refstWybrana				REF= THIS^.arrReceptury [uiNumer];
-THIS^.stChosen					:= THIS^.arrRecipes [uiNumber];
-THIS^.uiChosen					:= uiNumber;
+        <ST><![CDATA[THIS^.stChosen := THIS^.arrRecipes [uiNumber];
+THIS^.uiChosen := uiNumber;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearChosen" Id="{160f797c-8196-0238-2a45-b769a3eb5c43}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.06.2025		TC 4024.66
+	usuwa referencje do wybranej
+*)
+METHOD PUBLIC ClearChosen
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.uiChosen := 0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -324,13 +338,74 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetIsChoosen" Id="{4ec16f50-7578-088d-0803-c8d637862b3e}">
-      <Declaration><![CDATA[METHOD PUBLIC GetIsChoosen : BOOL
+    <Method Name="GetIngredientRange" Id="{0bda1b37-48c1-080b-088b-860354c4945a}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		02.12.2025		TC 4024.66
+	Zwraca do tablicy wybrany zakres składników
+*)
+METHOD PUBLIC GetIngredientRange 
 VAR_INPUT
+	iRecipe			: INT;	//numer receptury z której bierzemy składniki
+	iStartIndex		: INT;	//numer startowy składnika
+	iCount			: INT;	//ilośc pobieranych 
+END_VAR
+VAR_IN_OUT
+	arrOut : ARRAY [*] OF ST_BaseDescriptor;
+END_VAR
+VAR_OUTPUT
+	iNumberOfFilledData	: INT;	//ilosc wypelnionych danych na strone
+END_VAR
+VAR
+	itmpCount		: INT;
+	iI				: INT;
+	iJ				: INT;
+	sttmpEmpty		: ST_BaseDescriptor;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetIsChoosen			:= THIS^.uiChosen <> 0;
+        <ST><![CDATA[itmpCount := iStartIndex + iCount - 2;
+iJ := 0;
+FOR iI := iStartIndex TO itmpCount DO
+	IF (iI <= TO_INT (THIS^.arrRecipes [iRecipe].uiNumber)) THEN
+		iJ := iJ + 1;
+		arrOut [iJ] := THIS^.arrRecipes [iRecipe].arrIngredient [iI];
+		
+	ELSE
+		arrOut [iI] := sttmpEmpty;
+	END_IF
+END_FOR
+iNumberOfFilledData := iJ;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNameList" Id="{f517cf63-0074-0df2-3cd9-117fa6c88862}" FolderPath="ITF_BaseRecipe_HMI_Connector\">
+      <Declaration><![CDATA[METHOD GetNameList : ST_BaseRecipeList
+VAR
+	iI			: INT;
+	stResult	: ST_BaseRecipeList;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.uiNumberOfRecipes) DO
+	stResult.arrName [iI] := THIS^.arrRecipes [iI].stTexts;
+	stResult.iNumber := stResult.iNumber + 1;
+END_FOR
+GetNameList := stResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNameListTemplate" Id="{86be643b-7e76-0043-21a1-f86fe076a293}" FolderPath="ITF_BaseRecipe_HMI_Connector\">
+      <Declaration><![CDATA[METHOD GetNameListTemplate : ST_BaseRecipeList
+VAR
+	iI			: INT;
+	stResult	: ST_BaseRecipeList;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.uiNumberOfTemplates) DO
+	stResult.arrName [iI] := THIS^.arrTemplates [iI].stTexts;
+	stResult.iNumber := stResult.iNumber + 1;
+END_FOR
+GetNameListTemplate := stResult;
 ]]></ST>
       </Implementation>
     </Method>
@@ -342,6 +417,17 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetNamesOfRecipe			:= THIS^.arrRecipes [uiNumber].stTexts;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNamesOfSelectRecipe" Id="{79b38663-e867-0262-320e-b43016060d1a}">
+      <Declaration><![CDATA[METHOD GetNamesOfSelectRecipe : ST_BaseLabel
+VAR_INPUT
+
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNamesOfSelectRecipe := THIS^.GetNamesOfRecipe (uiNumber := THIS^.uiChosen);
 ]]></ST>
       </Implementation>
     </Method>
@@ -364,11 +450,11 @@ END_VAR
 *)
 METHOD PUBLIC GetNumberIngredientOfRecipe : UINT
 VAR_INPUT
-	uiNumer				: UINT;
+	uiNumber				: UINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[GetNumberIngredientOfRecipe 		:= THIS^.arrRecipes [uiNumer].uiNumber;
+        <ST><![CDATA[GetNumberIngredientOfRecipe 		:= THIS^.arrRecipes [uiNumber].uiNumber;
 ]]></ST>
       </Implementation>
     </Method>
@@ -390,6 +476,16 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetNumberOfChoosen			:= THIS^.uiChosen;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfCreatingRecipe" Id="{7cc53b2e-7caf-02f0-34fa-a46a085542ba}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfCreatingRecipe : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfCreatingRecipe := THIS^.uiNumberOfCreatingRecipe;
 ]]></ST>
       </Implementation>
     </Method>
@@ -443,7 +539,19 @@ END_VAR
         <ST><![CDATA[//IF (__ISVALIDREF (THIS^.refstWybrana )) THEN
 //	Zwroc 		:= THIS^.refstWybrana;
 //END_IF
-GetReferenceToRecipe			REF= THIS^.arrRecipes [uiNumer];
+IF (THIS^.uiChosen <> 0) THEN
+	GetReferenceToRecipe			REF= THIS^.arrRecipes [uiNumer];
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsChoosen" Id="{4ec16f50-7578-088d-0803-c8d637862b3e}">
+      <Declaration><![CDATA[METHOD PUBLIC IsChoosen : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsChoosen			:= THIS^.uiChosen <> 0;
 ]]></ST>
       </Implementation>
     </Method>
@@ -453,7 +561,7 @@ GetReferenceToRecipe			REF= THIS^.arrRecipes [uiNumer];
 	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
 	Zastępuje wybraną recepture przez istenijącą receputre
 *)
-METHOD PROTECTED ReplaceRecipeWithAnotherRecipe : BOOL
+METHOD PUBLIC ReplaceRecipeWithAnotherRecipe : BOOL
 VAR_INPUT
 	uiNumerRecepturyCel			: UINT;
 	uiNumerRecepturyZrodlo		: UINT;	
@@ -496,33 +604,21 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="WyczyscWybrana" Id="{160f797c-8196-0238-2a45-b769a3eb5c43}">
+    <Method Name="SetIngredientValue" Id="{42c33bd1-ee66-05f3-197e-ff0ef154a764}">
       <Declaration><![CDATA[(*			
 	RafalOS
-	Rafał Osajda		03.06.2025		TC 4024.66
-	usuwa referencje do wybranej
+	Rafał Osajda		05.12.2025		TC 4024.66
+	Ustawia nową wartośc w podanym składniku
 *)
-METHOD PUBLIC WyczyscWybrana
+METHOD PUBLIC SetIngredientValue
 VAR_INPUT
+	iRecipe			: int;
+	iIngredient		: INT;
+	rValue			: REAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.uiChosen := 0;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="WyzerujUstawionaRecepture" Id="{51a84241-eda0-0452-15de-03118734a297}">
-      <Declaration><![CDATA[(*			
-	RafalOS
-	Rafał Osajda		16.09.2025		TC 4024.66
-	Ustawia numer wybranej receptury na 0 
-*)
-METHOD PUBLIC WyzerujUstawionaRecepture : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.uiChosen			:= 0;
+        <ST><![CDATA[THIS^.arrRecipes [iRecipe].arrIngredient [iIngredient].rValue := rValue;
 ]]></ST>
       </Implementation>
     </Method>

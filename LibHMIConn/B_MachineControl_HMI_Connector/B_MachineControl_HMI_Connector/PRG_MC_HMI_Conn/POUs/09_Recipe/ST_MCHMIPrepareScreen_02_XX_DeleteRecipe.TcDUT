@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCHMIPrepareScreen_02_XX_DeleteRecipe" Id="{d44a74c7-a74d-07b7-063f-4742eb63831c}">
+    <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_02_XX_DeleteRecipe :
+STRUCT
+	bDeleteRecipe		: BOOL;
+	bOK					: BOOL;
+	bCancel				: BOOL;
+	wsDescription		: WSTRING;
+	wsNameRecipe		: WSTRING;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

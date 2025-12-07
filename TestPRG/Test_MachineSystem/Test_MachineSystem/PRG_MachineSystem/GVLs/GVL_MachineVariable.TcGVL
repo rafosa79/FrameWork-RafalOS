@@ -5,6 +5,11 @@
 VAR_GLOBAL
 	fbMachineConfiguration		: FB_MachineConfiguration;
 	fbHMIConfiguration			: FB_HMIConfiguration;
+	
+	fbMachineTemplate1			: FB_MachineTemplate1;
+	fbMachineTemplate2			: FB_MachineTemplate2;
+	fbMachineTemplate3			: FB_MachineTemplate3;
+	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="GVL_MCHMIConstans" Id="{b8ad7df3-21ef-03f9-00c2-78d7518b4fc0}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+	NUMBER_INDEGRIEND_ON_PAGE	: INT := 10;	//liczba wyświetlanych składników recepury w trybie domyślnym
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

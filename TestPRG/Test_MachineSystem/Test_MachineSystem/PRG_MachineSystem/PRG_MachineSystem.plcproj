@@ -42,6 +42,15 @@
     <Compile Include="POUs\02_HMIConfiguration\FB_HMIConfiguration.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\03_CreatingTemplateRecipe\FB_MachineTemplate1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_CreatingTemplateRecipe\FB_MachineTemplate2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03_CreatingTemplateRecipe\FB_MachineTemplate3.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\PRG_MachineConfigure.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -61,6 +70,7 @@
     <Folder Include="GVLs" />
     <Folder Include="POUs\01_MachineConfiguration" />
     <Folder Include="POUs\02_HMIConfiguration" />
+    <Folder Include="POUs\03_CreatingTemplateRecipe" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

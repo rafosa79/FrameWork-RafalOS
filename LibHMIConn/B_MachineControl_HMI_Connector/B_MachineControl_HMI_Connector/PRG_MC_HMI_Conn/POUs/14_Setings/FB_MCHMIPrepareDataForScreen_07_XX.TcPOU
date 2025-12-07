@@ -66,8 +66,11 @@ END_VAR
       <Implementation>
         <ST><![CDATA[	(*	Zmiana języka - przygotowanie listy dostępnych języków	*)
 THIS^.SettingLocation ();
-
-
+	
+IF (THIS^.refstData.bCreateRecipeTemplate) THEN
+	THIS^.refstData.bCreateRecipeTemplate := FALSE;
+	THIS^.itfMachineControlHMI.CreateRecipeTemplates ();
+END_IF
 
 	(*	Rozszerzenie wyświetlania	*)
 SUPER^.PrepareDataForHMI ();

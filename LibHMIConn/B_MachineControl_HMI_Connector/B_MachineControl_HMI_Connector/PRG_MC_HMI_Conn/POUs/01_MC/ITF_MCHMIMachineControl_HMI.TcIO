@@ -15,6 +15,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="AddRecipeModulFormManager" Id="{dcd8dff5-bff8-0b5a-23b0-39dcfbef68dc}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Podłaczenie modułu receptur
+*)
+METHOD PUBLIC AddRecipeModulFormManager : BOOL
+VAR_INPUT
+	fbRecipeModul		: ITF_BaseRecipe_HMI;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="ClearAfterScreenFroHMIManager" Id="{f45baa25-757c-0fe6-219c-a44fc4762619}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -30,6 +42,17 @@ END_VAR
     </Method>
     <Method Name="GetActiveModeFromManager" Id="{8653b392-37ec-09d9-0e35-6dfa1db7f1ef}">
       <Declaration><![CDATA[METHOD PUBLIC GetActiveModeFromManager : E_BaseMachineMode
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetInformationLatestRecipes" Id="{4da65f20-616b-0774-3e56-ad1ec501b110}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		07.12.2025		TC 4024.66
+	Pobierz informacje o aktualnym stanie recepur tzn o tym czy jest wybrana a jak tak to która
+*)
+METHOD PUBLIC GetInformationLatestRecipes
 VAR_INPUT
 END_VAR
 ]]></Declaration>

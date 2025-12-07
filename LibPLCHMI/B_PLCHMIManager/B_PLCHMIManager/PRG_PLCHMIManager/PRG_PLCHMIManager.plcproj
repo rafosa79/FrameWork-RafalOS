@@ -21,7 +21,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_PLCHMIManager</Title>
-    <ProjectVersion>0.0.0.8</ProjectVersion>
+    <ProjectVersion>0.0.0.23</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -96,6 +96,18 @@
     </Compile>
     <Compile Include="Visualization Manager.TcVMO">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VISUs\Dialogs\D_AddRecipe.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\Dialogs\D_DeleteRecipeCleim.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\Frame\F_Descriptor.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
     </Compile>
     <Compile Include="VISUs\Frame\F_DiagramState.TcVIS">
       <SubType>Code</SubType>
@@ -225,12 +237,17 @@
     <Folder Include="VISUs\MainMenuFrame" />
     <Folder Include="VISUs\Keyboards" />
     <Folder Include="VISUs\Frame" />
+    <Folder Include="VISUs\Dialogs" />
     <Folder Include="VISUs\TextListFrame" />
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="B_Base">
       <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
       <Namespace>B_Base</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_Base_HMI_Connector">
+      <DefaultResolution>B_Base_HMI_Connector, * (RafalOS)</DefaultResolution>
+      <Namespace>B_Base_HMI_Connector</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="B_HMIElements">
       <DefaultResolution>B_HMIElements, * (RafalOS)</DefaultResolution>
@@ -317,6 +334,9 @@
     </LibraryReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="VISUs\Graphics\RecipeChoose.png">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="VISUs\Graphics\StateDiagram.png">
       <SubType>Content</SubType>
     </Content>

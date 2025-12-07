@@ -8,6 +8,18 @@
 *)
 INTERFACE ITF_MCConfiguration
 ]]></Declaration>
+    <Method Name="AddCreateTemplate" Id="{2ce2eeac-f9fa-0b9b-268a-6fdeb5900800}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Dodawanie szablonu receptury
+*)
+METHOD PUBLIC AddCreateTemplate : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="AddElements" Id="{2f29af8b-2733-040a-066e-253c5572947d}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -39,6 +51,18 @@ END_VAR
 	Dodanie samego siebie do systemu controli maszyny
 *)
 METHOD PUBLIC AddMachineCotrolToYourSelf : BOOL
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddModulRecipe" Id="{f7b11840-8289-0e91-12ce-f1f623489ac5}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Dodanie obsługi receptur
+*)
+METHOD PUBLIC AddModulRecipe : BOOL
 VAR_INPUT
 	itfMachineControl			: ITF_MCMachineControlConfigure;
 END_VAR

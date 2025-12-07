@@ -8,6 +8,18 @@
 *)
 INTERFACE ITF_MCMachineControlConfigure EXTENDS ITF_Base
 ]]></Declaration>
+    <Method Name="AddCreateTemplateFromConfiguration" Id="{975f47f0-98dd-0dca-2e52-c1e6f55d4f86}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Dodawanie szablonu receptury
+*)
+METHOD PUBLIC AddCreateTemplateFromConfiguration : BOOL
+VAR_INPUT
+	fbCreateTemplate			: ITF_BaseCreateTemplateOfRecipe;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="AddElementFromConfiguration" Id="{e89dd9da-8dd4-0a9c-2aef-2c77ae2e90a6}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -40,6 +52,18 @@ END_VAR
 *)
 METHOD PUBLIC AddMachineCotrolToYourSelfFromConfiguration : BOOL
 VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddModulRecipeFromConfiguration" Id="{579798bc-b570-07f3-0ce4-9f9136ef6ddb}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Dodanie obsługi receptur
+*)
+METHOD PUBLIC AddModulRecipeFromConfiguration : BOOL
+VAR_INPUT
+	itfRecipe			: ITF_BaseRecipe;
 END_VAR
 ]]></Declaration>
     </Method>

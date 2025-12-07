@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MainMenuButton" Id="{5018f750-c23b-052b-28ac-1aa3c68e538e}">
+    <Declaration><![CDATA[TYPE ST_MainMenuButton :
+STRUCT
+	fbMMB0_MainScreen			: FB_HMIEButton;
+	fbMMB1_Recipe				: FB_HMIEButton;
+	fbMMB2_Parameters			: FB_HMIEButton;
+	fbMMB3_Events				: FB_HMIEButton;
+	fbMMB4_ModeChange			: FB_HMIEButton;
+	fbMMB5_Statistics			: FB_HMIEButton;
+	fbMMB6_StateDiagram			: FB_HMIEButton;
+	fbMMB7_Settings				: FB_HMIEButton;
+
+	fbMMB0_MainScreen_HMI_Connector		: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB0_MainScreen);
+	fbMMB1_Recipe_HMI_Connector			: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB1_Recipe);
+	fbMMB2_Parameters_HMI_Connector		: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB2_Parameters);
+	fbMMB3_Events_HMI_Connector			: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB3_Events);
+	fbMMB4_ModeChange_HMI_Connector		: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB4_ModeChange);
+	fbMMB5_Statistics_HMI_Connector		: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB5_Statistics);
+	fbMMB6_StateDiagram_HMI_Connector	: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB6_StateDiagram);
+	fbMMB7_Settings_HMI_Connector		: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB7_Settings);
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

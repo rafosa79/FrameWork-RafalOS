@@ -8,14 +8,21 @@
 *)
 FUNCTION_BLOCK FB_MCHMIMachineControl_HMI EXTENDS FB_BaseTopElement_HMI IMPLEMENTS ITF_MCHMIMachineControl_HMI, ITF_MCHMIMachineControl_HMI_PrepScr					
 VAR
+	(*	Główny łacznik do logiki maszyny	*)
 	itfMachineControlConnector			: ITF_MCMachineControl_HMI_Connector;
 	refstMachineControlData				: REFERENCE TO ST_MCHMIMachineControl_HMI;
+	(*	Moduł Receptur	*)
+	itfRecipe							: ITF_BaseRecipe_HMI;
 	(*	Przygotowywanie danych dla ramek	*)
 	arrPrepareScreen					: ARRAY [1..20] OF ITF_MCHMIPrepareScreen_Init;
 	iNumberOfAddedPrepScren				: INT;
 	arrPrepareScreen_Execute			: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF 
 											ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ITF_MCHMIPrepareDataForScreen;
-	refstHMICommonData					: reference to ST_MCHMICommonData;
+	refstHMICommonData					: REFERENCE TO ST_MCHMICommonData;
+	(*	wspólne opisy *)
+	stRecipeInfoSelect			: ST_BaseLabel;
+	stRecipeInfoNotSelect		: ST_BaseLabel;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -51,6 +58,62 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
+    <Method Name="AddRecipeFromRecipe" Id="{f40e01f3-dbfd-01dd-2ee1-39eed97611d2}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Kopiuje składniki z wybranej receptury i tworzy nową recepture
+*)
+METHOD PUBLIC AddRecipeFromRecipe : BOOL
+VAR_INPUT
+	uiNumberRecipe				: UINT;
+	stTexts						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe.AddRecipeFromRecipe (
+	uiNumberRecipe		:= uiNumberRecipe,
+	stTexts				:= stTexts
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddRecipeFromTemplate" Id="{84fec67c-04d4-0c49-16bc-d9d164373fef}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Kopiuje składniki z wybranego szablonu i tworzy nową recepture
+*)
+METHOD PUBLIC AddRecipeFromTemplate : BOOL
+VAR_INPUT
+	uiNumberTemplates			: UINT;
+	stTexts						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe.AddRecipeFromTemplate (
+	uiNumberTemplates	:= uiNumberTemplates,
+	stTexts				:= stTexts
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddRecipeModulFormManager" Id="{d21065ff-7b60-03df-3386-e5f4bb705c56}" FolderPath="ITF_MachineControl_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Podłaczenie modułu receptur
+*)
+METHOD PUBLIC AddRecipeModulFormManager : BOOL
+VAR_INPUT
+	fbRecipeModul		: ITF_BaseRecipe_HMI;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe := fbRecipeModul;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="ClearAfterScreenFroHMIManager" Id="{ba105132-73c6-04e7-2948-825f2b608f69}" FolderPath="ITF_MachineControl_HMI\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -67,6 +130,53 @@ END_VAR
         <ST><![CDATA[IF (THIS^.arrPrepareScreen_Execute [iScreen][iMode] <> 0) THEN
 	THIS^.arrPrepareScreen_Execute [iScreen][iMode].ClearAfterScreen ();
 END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearChosen" Id="{62912337-0919-0b4c-3b40-3161d7f6ce66}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.06.2025		TC 4024.66
+	usuwa referencje do wybranej
+*)
+METHOD PUBLIC ClearChosen
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe.ClearChosen ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CreateRecipeTemplates" Id="{b8b0bdd6-2973-0f73-1ec4-917ab5e570b5}" FolderPath="ITF_PrepScr_07_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		25.10.2025		TC 4024.66
+	Utworzenie nowych szablonów receptur na podstawie dodanych fb zewnętrznych - wywołanie metody powoduje
+	skosowanie dotychczasowych szablonów i receptur
+*)
+METHOD PUBLIC CreateRecipeTemplates : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe.CreateRecipeTemplates ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DeleteRecipe" Id="{1271fc01-aea9-04c8-3dca-32e166e32d05}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC DeleteRecipe : BOOL
+VAR_INPUT
+	uiNumber				: uint;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe.DeleteRecipe (uiNumber := uiNumber);
 ]]></ST>
       </Implementation>
     </Method>
@@ -99,7 +209,17 @@ IF (THIS^.itfMachineControlConnector <> 0 AND
 	THIS^.itfBaseTopElementConnector <> 0 AND
 	THIS^.itfBaseLoggerConnector <> 0) THEN
 	THIS^.bIsInit						:= TRUE;
-END_IF]]></ST>
+END_IF
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Receptura wybrana");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Recipe selected");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Rezept ausgewählt");
+THIS^.stRecipeInfoSelect := THIS^.GetTexts ();
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Brak wybranej receptury");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "No recipe selected");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Kein Rezept ausgewählt");
+THIS^.stRecipeInfoNotSelect := THIS^.GetTexts ();]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetActiveMode" Id="{f4b1860e-d10a-063b-3493-e2e1302fe817}" FolderPath="ITF_PrepScr_06_XX\">
@@ -152,6 +272,119 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetInformationLatestRecipes" Id="{0ee08023-6867-0e9d-3958-b8c640468601}" FolderPath="ITF_MachineControl_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		07.12.2025		TC 4024.66
+	Pobierz informacje o aktualnym stanie recepur tzn o tym czy jest wybrana a jak tak to która
+*)
+METHOD PUBLIC GetInformationLatestRecipes
+VAR_INST
+	tonChangeSelectRecipe	: TON;
+	rtNewRecipeSelected		: R_TRIG;
+	ftNewRecipeSelected		: F_TRIG;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstHMICommonData.stRecipeInformation.bRecipeSelected := THIS^.itfRecipe.IsRecipeSelected ();
+rtNewRecipeSelected (CLK := THIS^.refstHMICommonData.stRecipeInformation.bRecipeSelected);
+ftNewRecipeSelected (CLK := THIS^.refstHMICommonData.stRecipeInformation.bRecipeSelected);
+tonChangeSelectRecipe (PT := T#3S);
+
+IF (rtNewRecipeSelected.Q OR 
+	THIS^.refstHMICommonData.stRecipeInformation.bNewSelectedRecipe) THEN
+	;//jest wybrana
+	THIS^.refstHMICommonData.stRecipeInformation.bNewSelectedRecipe := FALSE;
+	tonChangeSelectRecipe.IN := TRUE;
+	THIS^.refstHMICommonData.stRecipeInformation.dwBackgroud := 16#FF00FF00;//zielony
+	THIS^.refstHMICommonData.stRecipeInformation.dwText := 16#FF000000;//cxzarny
+	THIS^.refstHMICommonData.stRecipeInformation.wsRecipeInformation := THIS^.GetTextFromLabelForActiveLocation (stLabel := THIS^.stRecipeInfoSelect);
+END_IF
+IF (ftNewRecipeSelected.Q) THEN
+	THIS^.refstHMICommonData.stRecipeInformation.dwBackgroud := 16#FFFF0000; //czerwony
+	THIS^.refstHMICommonData.stRecipeInformation.dwText := 16#FFFFFF00;//zółty
+	THIS^.refstHMICommonData.stRecipeInformation.wsRecipeInformation := THIS^.GetTextFromLabelForActiveLocation (stLabel := THIS^.stRecipeInfoNotSelect);
+END_IF
+IF (tonChangeSelectRecipe.Q) THEN 
+	tonChangeSelectRecipe.IN := FALSE;
+	THIS^.refstHMICommonData.stRecipeInformation.bNewSelectedRecipe := FALSE;
+	THIS^.refstHMICommonData.stRecipeInformation.dwBackgroud := 16#FF00FF00;//zielony
+	THIS^.refstHMICommonData.stRecipeInformation.dwText := 16#FF000000;//cxzarny
+	THIS^.refstHMICommonData.stRecipeInformation.wsRecipeInformation := THIS^.GetNumberAndNameRecipe ();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIngredientFromRecipe" Id="{14c04d83-e493-0f5a-3c50-da34ebd122fa}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC GetIngredientFromRecipe : ST_BaseDescriptor
+VAR_INPUT
+	uiNumberOfRecipe			: UINT;
+	uiNumberOfIngredient		: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetIngredientFromRecipe			:= THIS^.itfRecipe.GetIngredientFromRecipe (
+									uiNumberOfRecipe := uiNumberOfRecipe,
+									uiNumberOfIngredient := uiNumberOfIngredient
+								);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetIngredientRange" Id="{e51164dc-5cd5-05e4-158b-3510763820fd}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		02.12.2025		TC 4024.66
+	Zwraca do tablicy wybrany zakres składników
+*)
+METHOD PUBLIC GetIngredientRange 
+VAR_INPUT
+	iRecipe			: INT;	//numer receptury z której bierzemy składniki
+	iStartIndex		: INT;	//numer startowy składnika
+	iCount			: INT;	//ilośc pobieranych 
+END_VAR
+VAR_IN_OUT
+	arrOut : ARRAY [*] OF ST_BaseDescriptor;
+END_VAR
+VAR_OUTPUT
+	iNumberOfFilledData	: INT;	//ilosc wypelnionych danych na strone
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe.GetIngredientRange (
+	iRecipe		:= iRecipe,
+	iStartIndex	:= iStartIndex,
+	iCount		:= iCount,
+	arrOut		:= arrOut,
+	iNumberOfFilledData => iNumberOfFilledData
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetListOfNameRecipe" Id="{1056cf45-9ce1-0c45-29a3-8409755802c5}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[METHOD PUBLIC GetListOfNameRecipe : ST_BaseRecipeList
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetListOfNameRecipe := THIS^.itfRecipe.GetNameList ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetListOfNameTemplate" Id="{bc76b6fd-de9b-0dee-3c2d-49794aef32f7}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[METHOD PUBLIC GetListOfNameTemplate : ST_BaseRecipeList
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetListOfNameTemplate := THIS^.itfRecipe.GetNameListTemplate ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetModeName" Id="{4c2c5085-4ec4-0a1a-08c9-2f551c9ba166}" FolderPath="ITF_PrepScr_06_XX\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -165,6 +398,78 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetModeName := THIS^.itfMachineControlConnector.GetModeName (iNumber := iMode);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberAndNameRecipe" Id="{d0bb4ce4-bacf-02aa-3614-b6d00593f1ef}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		07.12.2025		TC 4024.66
+	Pobiera nazwę i numer aktualnej receptury
+*)
+METHOD PRIVATE GetNumberAndNameRecipe : WSTRING
+VAR_INPUT
+END_VAR
+
+VAR
+	wsNumber	: WSTRING;
+	wsName		: WSTRING;
+	wsResult	: WSTRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[wsNumber := TO_WSTRING (THIS^.itfRecipe.GetNumberOfChoosen ());
+wsName := THIS^.GetTextFromLabelForActiveLocation (stLabel := THIS^.itfRecipe.GetNamesOfSelectRecipe ());
+
+wsResult := wconcat (WCONCAT (" ID - ", wsNumber), WCONCAT (" - " ,wsName));
+
+
+GetNumberAndNameRecipe := wsResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberIngredientOfRecipe" Id="{d70a9bbe-e1ad-0574-2306-26260c18555a}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC GetNumberIngredientOfRecipe : UINT
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberIngredientOfRecipe 		:= THIS^.itfRecipe.GetNumberIngredientOfRecipe (uiNumber := uiNumber);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfChoosen" Id="{36705c10-3e00-0700-3dd1-65927a5e9afe}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfChoosen : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfChoosen := THIS^.itfRecipe.GetNumberOfChoosen ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfRecipe" Id="{ae2fb31c-b8de-0c4b-0240-d07ae6bec168}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfRecipe : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfRecipe			:= THIS^.itfRecipe.GetNumberOfRecipe ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfTemplate" Id="{3a4ab054-63df-0278-2001-c9ac1096827e}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfTemplate : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfTemplate		:= THIS^.itfRecipe.GetNumberOfTemplate ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -307,11 +612,14 @@ THIS^.arrPrepareScreen [11].LinkHMICommonData (stHMICommonData := stData.stCommo
 THIS^.arrPrepareScreen [12].LinkHMICommonData (stHMICommonData := stData.stCommonData);
 THIS^.arrPrepareScreen [13].LinkHMICommonData (stHMICommonData := stData.stCommonData);
 
+THIS^.itfRecipe.LinkRecipeDataHMI (stRecipe := stData.stRecipe);
+
 THIS^.refstBaseLoggerElementDataHMI REF= stData.stBaseLoggerElement;
 THIS^.refstBaseComponentDataHMI REF= stData.stBaseComponent;
 THIS^.refstBaseControlElementDataHMI REF= stData.stBaseControlElement;
 THIS^.refstBaseGroupElementDataHMI REF= stData.stBaseGroupElement;
 THIS^.refstBaseTopElementDataHMI REF= stData.stBaseTopElement;
+
 
 THIS^.CreateLinkToEventsMemory ();
 
@@ -401,6 +709,24 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SelectRecipe" Id="{c4fa876d-cede-02e0-21a3-8505752a8f99}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		06.12.2025		TC 4024.66
+	Wybranie receputury
+*)
+METHOD SelectRecipe : BOOL
+VAR_INPUT
+	uiRecipe: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe.SelectRecipe (
+	uiRecipe := uiRecipe
+);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetChangePageFromManager" Id="{5beffb9a-dfee-0438-1cd7-4daeff8410c7}" FolderPath="ITF_MachineControl_HMI\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -446,6 +772,27 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.itfMachineControlConnector.SetCmdChangeState (eCmdNumber := eCmdNumber);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetIngredientValue" Id="{c92ba1d5-0497-0291-1b45-b6edb7986c1e}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		05.12.2025		TC 4024.66
+	Ustawia nową wartośc w podanym składniku
+*)
+METHOD PUBLIC SetIngredientValue
+VAR_INPUT
+	iRecipe			: int;
+	iIngredient		: INT;
+	rValue			: REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe.SetIngredientValue (
+	iRecipe := iRecipe,
+	iIngredient := iIngredient,
+	rValue := rValue
+);
 ]]></ST>
       </Implementation>
     </Method>

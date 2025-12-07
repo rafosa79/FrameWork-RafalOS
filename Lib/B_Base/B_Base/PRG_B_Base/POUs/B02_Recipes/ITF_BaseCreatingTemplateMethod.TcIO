@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_BaseCreatingTemplateMethod" Id="{34818d90-5fc5-01c8-1c0b-50569864d718}">
-    <Declaration><![CDATA[INTERFACE ITF_BaseCreatingTemplateMethod
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		26.11.2025		TC 4024.66
+	Wydzielone metody do tworzenia szablonu receptury
+*)
+INTERFACE ITF_BaseCreatingTemplateMethod
 ]]></Declaration>
     <Method Name="AddIngredientToTemplate" Id="{af282e57-b6d3-0401-322d-4addeb9ad257}">
       <Declaration><![CDATA[(*			

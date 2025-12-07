@@ -4,7 +4,7 @@
     <XmlArchive>
       <Data>
         <o xml:space="preserve" t="ImagePoolObject">
-          <v n="UniqueIdGenerator">"23"</v>
+          <v n="UniqueIdGenerator">"30"</v>
           <l n="BitmapPool" t="ArrayList" cet="ImagePoolItem">
             <o>
               <v n="BitmapID">"00_MainScreen"</v>
@@ -57,9 +57,34 @@
               <v n="ItemID">21</v>
             </o>
             <o>
+              <v n="BitmapID">"RecipeCopy"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\RecipeCopy.png"</v>
+              <v n="ItemID">22</v>
+            </o>
+            <o>
+              <v n="BitmapID">"RecipeDelete"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\RecipeDelete.png"</v>
+              <v n="ItemID">26</v>
+            </o>
+            <o>
+              <v n="BitmapID">"RecipeEdit"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\RecipeEdit.png"</v>
+              <v n="ItemID">27</v>
+            </o>
+            <o>
+              <v n="BitmapID">"RecipeNew"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\RecipeNew.png"</v>
+              <v n="ItemID">28</v>
+            </o>
+            <o>
+              <v n="BitmapID">"RecipeChoose"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|VISUs\Graphics\RecipeChoose.png"</v>
+              <v n="ItemID">24</v>
+            </o>
+            <o>
               <v n="BitmapID">""</v>
               <v n="FileID">""</v>
-              <v n="ItemID">22</v>
+              <v n="ItemID">29</v>
             </o>
           </l>
           <v n="GuidInit">{a54934fa-b4a0-4422-8909-04b5ffe9c340}</v>

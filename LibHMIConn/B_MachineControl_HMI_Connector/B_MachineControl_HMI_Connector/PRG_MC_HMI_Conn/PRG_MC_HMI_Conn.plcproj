@@ -19,7 +19,7 @@
     <Company>RafalOS</Company>
     <Released>false</Released>
     <Title>B_MachineControl_HMI_Connector</Title>
-    <ProjectVersion>0.0.0.19</ProjectVersion>
+    <ProjectVersion>0.0.0.38</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -83,6 +83,16 @@
     <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\ST_MCHMIPrepareScreen_List.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\ST_MCHMIPrepareScreen_DescriptorList.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GVLs\GVL_MCHMIConstans.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -135,6 +145,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\01_MC\ST_MCHMICommonData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01_MC\ST_MCHMICommonData_RecipeInfo.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\01_MC\ST_MCHMIMachineControl_HMI_Link.TcDUT">
@@ -219,6 +232,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\09_Recipe\ST_MCHMIPrepareScreen_02_XX.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\09_Recipe\ST_MCHMIPrepareScreen_02_XX_AddRecipe.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\09_Recipe\ST_MCHMIPrepareScreen_02_XX_DeleteRecipe.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\10_Alarm\FB_MCHMIPrepareDataForScreen_03_XX.TcPOU">

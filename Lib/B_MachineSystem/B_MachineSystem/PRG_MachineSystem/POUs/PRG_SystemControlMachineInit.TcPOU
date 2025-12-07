@@ -27,6 +27,10 @@ END_VAR
 	GVL_SystemVariable.fbMachineControl.AddModulConfigure (fbMachineConfigure := fbMachineConfigure);
 		(*	Podpięcie danych do leogera 	*)
 	GVL_SystemVariable.fbLogger.LinkCommonData (stCommonData := GVL_SystemVariable.stCommonData);
+		(*	Podpięcie danych do receptur	*)
+	GVL_SystemVariable.fbRecipe.LinkCommonData (stCommonData := GVL_SystemVariable.stCommonData);
+		(* Pobranie ilosci szablonów jak nei ma żadnego szablonu to tworzymy *)
+	
 
 (*	
 	(*	Linkowanie zmiennych z modułami	*)

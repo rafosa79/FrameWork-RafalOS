@@ -10,6 +10,11 @@ FUNCTION_BLOCK FB_MCHMIPrepareDataForScreen_02_XX EXTENDS FB_MCHMIPrepareDataFor
 VAR
 	itfMachineControlHMI	: ITF_MCHMIMachineControl_HMI_PrepScr_02_XX;
 	refstData				: REFERENCE TO ST_MCHMIPrepareScreen_02_XX;
+	stTitleRecipe			: ST_BaseLabel;
+	stSourceRecipe			: ST_BaseLabel;
+	stTitleTemplate			: ST_BaseLabel;
+	stSourceTemplate		: ST_BaseLabel;
+	stDeleteRecipe			: ST_BaseLabel;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -29,6 +34,40 @@ END_VAR
       <Implementation>
         <ST><![CDATA[SUPER^.ClearAfterScreen ();
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CreateListName" Id="{1252c11d-de18-02b2-12df-495164898927}">
+      <Declaration><![CDATA[METHOD PRIVATE CreateListName : BOOL
+VAR
+	stNameList		: ST_BaseRecipeList;	
+	iI				: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstData.bRefreshList := FALSE;
+stNameList := THIS^.itfMachineControlHMI.GetListOfNameRecipe ();
+THIS^.refstData.iNumberOfRecipe := stNameList.iNumber;
+FOR iI := 1 TO stNameList.iNumber DO
+	THIS^.refstData.arrNameListRecipe [iI] := GetTextFromLabelForActiveLocation (
+											stLabel := stNameList.arrName [iI]
+										);
+END_FOR
+IF (stNameList.iNumber = 0) THEN
+	THIS^.refstData.bSelectedNameRow := FALSE;
+	THIS^.refstData.iSelectedNameRow := 0;
+	MEMSET (
+		destAddr := ADR (THIS^.refstData.arrNameListRecipe),
+		fillByte := 0,
+		n := SIZEOF (THIS^.refstData.arrNameListRecipe)
+	);
+END_IF
+stNameList := THIS^.itfMachineControlHMI.GetListOfNameTemplate ();
+THIS^.refstData.iNumberOfTemplate := stNameList.iNumber;
+FOR iI := 1 TO stNameList.iNumber DO
+	THIS^.refstData.arrNameListTemplate [iI] := GetTextFromLabelForActiveLocation (
+													stLabel := stNameList.arrName [iI]
+												);
+END_FOR]]></ST>
       </Implementation>
     </Method>
     <Method Name="LinkDataHMI_02_XX" Id="{b9da66c4-53ca-0131-2aca-8ea6a6948732}">
@@ -52,6 +91,206 @@ END_VAR
         <ST><![CDATA[this^.itfMachineControlHMI := fbMachineControlHMI;]]></ST>
       </Implementation>
     </Method>
+    <Method Name="PrepareDataAddRecipe" Id="{62e9cbc3-c3ce-09bf-05d2-a39fcdf0f1b3}">
+      <Declaration><![CDATA[METHOD PRIVATE PrepareDataAddRecipe : BOOL
+VAR_INST
+	rtAddRecipeFromTemplate		: R_TRIG;
+	rtAddRecipeFromRecipe		: R_TRIG;
+END_VAR
+
+VAR
+	btmpAddRecipe: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[	(*	Dodawanie Receptury	*)
+rtAddRecipeFromTemplate (CLK := refstData.stAddRecipe.bNewRecipeFromTemplate);
+rtAddRecipeFromRecipe (CLK := refstData.stAddRecipe.bNewRecipeFromRecipe);
+
+IF (rtAddRecipeFromTemplate.Q) THEN
+	refstData.stAddRecipe.arrListOfName := refstData.arrNameListTemplate;
+	refstData.stAddRecipe.iNumberOfNames := refstData.iNumberOfTemplate;
+	refstData.stAddRecipe.iSelectedName := -1;
+	THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "");
+	THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "");
+	THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "");
+	refstData.stAddRecipe.stNewNames := THIS^.GetTexts ();
+	refstData.stAddRecipe.wsTitle := THIS^.GetTextFromLabelForActiveLocation (
+										stLabel := THIS^.stTitleTemplate
+									);
+	refstData.stAddRecipe.wsSource := THIS^.GetTextFromLabelForActiveLocation (
+										stLabel := THIS^.stSourceTemplate
+									);
+END_IF
+IF (rtAddRecipeFromRecipe.Q) THEN
+	refstData.stAddRecipe.arrListOfName := refstData.arrNameListRecipe;
+	refstData.stAddRecipe.iNumberOfNames := refstData.iNumberOfRecipe;
+	refstData.stAddRecipe.iSelectedName := refstData.iSelectedNameRow;
+	THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "");
+	THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "");
+	THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "");
+	refstData.stAddRecipe.stNewNames := THIS^.GetTexts ();
+	refstData.stAddRecipe.wsTitle := THIS^.GetTextFromLabelForActiveLocation (
+										stLabel := THIS^.stTitleRecipe
+									);
+	refstData.stAddRecipe.wsSource := THIS^.GetTextFromLabelForActiveLocation (
+										stLabel := THIS^.stSourceRecipe
+									);
+END_IF
+	
+IF (refstData.stAddRecipe.bOk AND refstData.stAddRecipe.bNewRecipeFromTemplate) THEN
+	IF (refstData.stAddRecipe.bSelectedRow AND refstData.stAddRecipe.stNewNames.arrText [1] <> "") THEN
+		THIS^.itfMachineControlHMI.AddRecipeFromTemplate (
+			uiNumberTemplates := TO_UINT (refstData.stAddRecipe.iSelectedName),
+			stTexts := refstData.stAddRecipe.stNewNames
+		);
+		btmpAddRecipe := TRUE;
+	ELSE
+		refstData.stAddRecipe.bCancel := TRUE;
+	END_IF
+END_IF
+IF (refstData.stAddRecipe.bOk AND refstData.stAddRecipe.bNewRecipeFromRecipe) THEN
+	IF (refstData.stAddRecipe.bSelectedRow AND refstData.stAddRecipe.arrListOfName [1] <> "") THEN
+		THIS^.itfMachineControlHMI.AddRecipeFromRecipe (
+			uiNumberRecipe := TO_UINT (refstData.stAddRecipe.iSelectedName),
+			stTexts := refstData.stAddRecipe.stNewNames
+		);
+		btmpAddRecipe := TRUE;
+	ELSE
+		refstData.stAddRecipe.bCancel := TRUE;
+	END_IF
+END_IF
+IF (btmpAddRecipe) THEN
+	btmpAddRecipe := FALSE;
+	refstData.stAddRecipe.bOk := FALSE;
+	THIS^.refstData.bRefreshList := TRUE;
+	refstData.iSelectedNameRow := TO_INT (THIS^.itfMachineControlHMI.GetNumberOfRecipe ());
+	refstData.bSelectedNameRow := TRUE;
+	refstData.stAddRecipe.bNewRecipeFromTemplate := FALSE;
+	refstData.stAddRecipe.bNewRecipeFromRecipe := FALSE;
+END_IF
+IF (refstData.stAddRecipe.bCancel) THEN
+	refstData.stAddRecipe.bCancel := FALSE;
+	refstData.stAddRecipe.bOk := FALSE;
+	refstData.stAddRecipe.bNewRecipeFromTemplate := FALSE;
+	refstData.stAddRecipe.bNewRecipeFromRecipe := FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataChangePage" Id="{e58bbb97-7cc4-06e4-31c3-da187102d02b}">
+      <Declaration><![CDATA[METHOD PRIVATE PrepareDataChangePage : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstData.stIngredientList.stList.iSelectedRow := 0;
+THIS^.refstData.stIngredientList.stList.bSelectedRow := FALSE;
+THIS^.refstData.stIngredientList.iStartIndex := THIS^.refstData.stIngredientList.iActualPage * 
+												GVL_MCHMIConstans.NUMBER_INDEGRIEND_ON_PAGE + 1 - 10;
+THIS^.PrepareDataFillIngredientTable (
+	iRecipe		:= THIS^.refstData.iSelectedNameRow,
+	iStartIndex	:= THIS^.refstData.stIngredientList.iStartIndex,
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataDeleteRacipe" Id="{db0de493-0beb-0933-3e79-b72f6336dda8}">
+      <Declaration><![CDATA[METHOD PRIVATE PrepareDataDeleteRacipe : BOOL
+VAR_INST
+	rtDelete		: r_trig;
+	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[rtDelete (CLK := THIS^.refstData.stDeleteRecipe.bDeleteRecipe);
+
+IF (rtDelete.Q) THEN
+	THIS^.refstData.stDeleteRecipe.wsDescription := THIS^.GetTextFromLabelForActiveLocation (
+														stLabel := THIS^.stDeleteRecipe
+													);
+	THIS^.refstData.stDeleteRecipe.wsNameRecipe := THIS^.refstData.arrNameListRecipe [THIS^.refstData.iSelectedNameRow];
+END_IF
+
+IF (THIS^.refstData.stDeleteRecipe.bOK AND THIS^.refstData.stDeleteRecipe.bDeleteRecipe) THEN
+	THIS^.refstData.stDeleteRecipe.bOK := FALSE;
+	THIS^.refstData.stDeleteRecipe.bDeleteRecipe := FALSE;
+	IF (THIS^.refstData.iSelectedNameRow = TO_INT (THIS^.itfMachineControlHMI.GetNumberOfChoosen ())) THEN
+		THIS^.itfMachineControlHMI.ClearChosen ();
+	END_IF
+	THIS^.itfMachineControlHMI.DeleteRecipe (uiNumber := TO_UINT (THIS^.refstData.iSelectedNameRow));
+	THIS^.refstData.bRefreshList := TRUE;
+	THIS^.refstData.iSelectedNameRow := -1;
+	THIS^.refstData.iSelectedNameRowPrev := -1;
+	THIS^.refstData.bSelectedNameRow := FALSE;
+END_IF
+IF (THIS^.refstData.stDeleteRecipe.bCancel AND THIS^.refstData.stDeleteRecipe.bDeleteRecipe) THEN
+	THIS^.refstData.stDeleteRecipe.bCancel := FALSE;
+	THIS^.refstData.stDeleteRecipe.bDeleteRecipe := FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataFillIngredientTable" Id="{f2d998aa-a16f-01c4-3e4a-58a2dcb7eda8}">
+      <Declaration><![CDATA[METHOD PRIVATE PrepareDataFillIngredientTable : BOOL
+VAR_INPUT
+	iRecipe			: INT;	//numer receptury z której bierzemy składniki
+	iStartIndex		: INT;	//numer startowy składnika
+END_VAR
+VAR
+	arrtmpResultPage	: ARRAY [0..GVL_MCHMIConstans.NUMBER_INDEGRIEND_ON_PAGE] OF ST_BaseDescriptor;
+	iI					: INT;
+	
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfMachineControlHMI.GetIngredientRange (
+	iRecipe		:= iRecipe,
+	iStartIndex	:= iStartIndex,
+	iCount		:= GVL_MCHMIConstans.NUMBER_INDEGRIEND_ON_PAGE + 1,	//liczba musi byc równa ilości pol w tablicy przekazywanej
+	arrOut		:= arrtmpResultPage,
+	iNumberOfFilledData => THIS^.refstData.stIngredientList.iNumberRowOnPage
+);
+FOR iI := 1 TO GVL_MCHMIConstans.NUMBER_INDEGRIEND_ON_PAGE DO
+	THIS^.refstData.stIngredientList.stList.arrRow [iI].wsText :=
+		THIS^.GetTextFromLabelForActiveLocation (stLabel := arrtmpResultPage [iI].stTexts);
+	THIS^.refstData.stIngredientList.stList.arrRow [iI].rValue := arrtmpResultPage [iI].rValue;
+	THIS^.refstData.stIngredientList.stList.arrRow [iI].rMin := arrtmpResultPage [iI].rMin;
+	THIS^.refstData.stIngredientList.stList.arrRow [iI].rMax := arrtmpResultPage [iI].rMax;
+	THIS^.refstData.stIngredientList.stList.arrRow [iI].rDefaultValue := arrtmpResultPage [iI].rDefaultValue;
+	THIS^.refstData.stIngredientList.stList.arrRow [iI].sUnit := arrtmpResultPage [iI].sUnit;
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataFirstPageIngediends" Id="{a700640b-3112-04cd-3b48-070809a1406f}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		05.12.2025		TC 4024.66
+	Przygotowanie danych przy pierwszym wejściu do okienka
+*)
+METHOD PRIVATE PrepareDataFirstPageIngediends : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstData.stIngredientList.iActualPage := 1;
+THIS^.refstData.stIngredientList.stList.iSelectedRow := 0;
+THIS^.refstData.stIngredientList.stList.iSelectedRowPrev := 0;
+THIS^.refstData.stIngredientList.stList.bSelectedRow := FALSE;
+THIS^.refstData.stIngredientList.iStartIndex := 1;
+THIS^.refstData.stIngredientList.iTotal := TO_INT (
+		THIS^.itfMachineControlHMI.GetNumberIngredientOfRecipe (
+			uiNumber := TO_UINT (THIS^.refstData.iSelectedNameRow)
+		));
+THIS^.refstData.stIngredientList.iNumberOfPage := 
+	(THIS^.refstData.stIngredientList.iTotal + GVL_MCHMIConstans.NUMBER_INDEGRIEND_ON_PAGE -1 ) / 
+		GVL_MCHMIConstans.NUMBER_INDEGRIEND_ON_PAGE;
+THIS^.PrepareDataFillIngredientTable (
+	iRecipe		:= THIS^.refstData.iSelectedNameRow,
+	iStartIndex	:= THIS^.refstData.stIngredientList.iStartIndex,
+);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="PrepareDataForHMI" Id="{c0a0e110-4c8c-0f99-36c8-629e7e3d43c4}" FolderPath="ITF_PDFS\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -60,16 +299,124 @@ END_VAR
 	W niej odbywa się odpytywanie właściego elementu przez łącznik
 *)
 METHOD PUBLIC PrepareDataForHMI : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
+VAR
+	btmpAddRecipe		: BOOL;
+	arrtmpResultPage	: ARRAY [0..GVL_MCHMIConstans.NUMBER_INDEGRIEND_ON_PAGE] OF ST_BaseDescriptor;
+	iI: INT;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[
+        <ST><![CDATA[	(*	Lista receptur	*)
+
+IF (THIS^.refstHMICommonData.bChangePage OR THIS^.refstData.bRefreshList) THEN
+	THIS^.CreateListName ();
+END_IF
+	(*	Obsługa przycisków zarządzania recepturami	*)
+	
+THIS^.refstData.bVisibleButtonAddFromRecipe := THIS^.refstData.bSelectedNameRow;
+THIS^.refstData.bVisibleButtonAddFromTemplate := THIS^.refstData.iNumberOfTemplate > 0;
+THIS^.refstData.bVisibleButtonDelete := THIS^.refstData.bSelectedNameRow;
+THIS^.refstData.bVsibleButtonEditIngredient := THIS^.refstData.bSelectedNameRow;
+THIS^.refstData.bVisibleButtonChoose := THIS^.refstData.bSelectedNameRow AND 
+										TO_INT (THIS^.itfMachineControlHMI.GetNumberOfChoosen ()) <> THIS^.refstData.iSelectedNameRow; //and not test czy receputa wybrana;
+	
+THIS^.PrepareDataAddRecipe ();
+THIS^.PrepareDataDeleteRacipe ();
+
+	(*	Lista składników receptury	*)
+
+IF (THIS^.refstData.iSelectedNameRow <> THIS^.refstData.iSelectedNameRowPrev AND THIS^.refstData.bSelectedNameRow) THEN
+	THIS^.refstData.iSelectedNameRowPrev := THIS^.refstData.iSelectedNameRow;
+	THIS^.PrepareDataFirstPageIngediends ();	//przygotowanie pierwszej strony listy przy zmianie receptury
+END_IF
+IF (THIS^.refstData.stIngredientList.iActualPage <> THIS^.refstData.stIngredientList.iPreviewPage) THEN
+	THIS^.refstData.stIngredientList.iPreviewPage := THIS^.refstData.stIngredientList.iActualPage;
+	THIS^.PrepareDataChangePage (); //zmiana strony
+END_IF
+IF (THIS^.refstData.stIngredientList.bRefresh) THEN //odświerzenie listy składników
+	THIS^.PrepareDataFillIngredientTable (
+		iRecipe		:= THIS^.refstData.iSelectedNameRow,
+		iStartIndex	:= THIS^.refstData.stIngredientList.iStartIndex,
+	);	
+END_IF
+IF ( (THIS^.refstData.stIngredientList.stList.iSelectedRow <> THIS^.refstData.stIngredientList.stList.iSelectedRowPrev OR
+	THIS^.refstData.stIngredientList.bRefresh) AND
+	THIS^.refstData.bSelectedNameRow) THEN
+	THIS^.refstData.stIngredientList.stList.iSelectedRowPrev := THIS^.refstData.stIngredientList.stList.iSelectedRow;
+	THIS^.refstData.stIngredientList.bRefresh := FALSE;
+	THIS^.PrepareDataSelectedIngeriend ();
+END_IF
+	(*	Wybranie receptury	*)
+IF (THIS^.refstData.bSelectRecipe) THEN
+	THIS^.refstData.bSelectRecipe := FALSE;
+	THIS^.itfMachineControlHMI.SelectRecipe (
+		uiRecipe := TO_UINT (THIS^.refstData.iSelectedNameRow)
+	);
+	THIS^.refstHMICommonData.stRecipeInformation.bNewSelectedRecipe := TRUE;
+END_IF
+
+THIS^.refstData.stIngredientList.stChossenRow.bVisibleSave := THIS^.refstData.stIngredientList.stChossenRow.rValue <> 
+										THIS^.refstData.stIngredientList.stChossenRow.rValueOld;
+THIS^.refstData.stIngredientList.stChossenRow.bVisibleSetDefault := THIS^.refstData.stIngredientList.stChossenRow.rValue <> 
+										THIS^.refstData.stIngredientList.stChossenRow.rDefaultValue;
+THIS^.refstData.stIngredientList.stChossenRow.bVisibleCancel := THIS^.refstData.stIngredientList.stChossenRow.rValue <> 
+										THIS^.refstData.stIngredientList.stChossenRow.rValueOld;
+
+IF (THIS^.refstData.stIngredientList.stChossenRow.bSave) THEN
+	THIS^.refstData.stIngredientList.stChossenRow.bSave := FALSE;
+	THIS^.itfMachineControlHMI.SetIngredientValue (
+		iRecipe := THIS^.refstData.iSelectedNameRow,
+		iIngredient := THIS^.refstData.stIngredientList.stChossenRow.iID,
+		rValue := THIS^.refstData.stIngredientList.stChossenRow.rValue
+	);
+	THIS^.itfMachineControlHMI.ClearChosen ();
+	THIS^.refstData.stIngredientList.bRefresh := TRUE;
+END_IF
+IF (THIS^.refstData.stIngredientList.stChossenRow.bSetDefault) THEN
+	THIS^.refstData.stIngredientList.stChossenRow.bSetDefault := FALSE;
+	THIS^.refstData.stIngredientList.stChossenRow.rValue := THIS^.refstData.stIngredientList.stChossenRow.rDefaultValue;
+END_IF
+IF (THIS^.refstData.stIngredientList.stChossenRow.bCancel) THEN
+	THIS^.refstData.stIngredientList.stChossenRow.bCancel := FALSE;
+	THIS^.refstData.stIngredientList.stChossenRow.rValue := THIS^.refstData.stIngredientList.stChossenRow.rValueOld;
+END_IF
 
 
 
-(*	Zewnętrzna obsługa wyświetlania 	*)
+	(*	Zewnętrzna obsługa wyświetlania 	*)
 SUPER^.PrepareDataForHMI ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataSelectedIngeriend" Id="{055621ae-ee23-094c-3f58-24f4f2a148d6}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		05.12.2025		TC 4024.66
+	Wyświetl dane dla wybranego deskryptora
+*)
+METHOD PRIVATE PrepareDataSelectedIngeriend : BOOL
+VAR
+	iIndex		: INT;
+	stResult	: ST_BaseDescriptor;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[iIndex := THIS^.refstData.stIngredientList.iActualPage * GVL_MCHMIConstans.NUMBER_INDEGRIEND_ON_PAGE 
+				- 10 + THIS^.refstData.stIngredientList.stList.iSelectedRow;
+
+stResult := THIS^.itfMachineControlHMI.GetIngredientFromRecipe (
+				uiNumberOfRecipe := TO_UINT (THIS^.refstData.iSelectedNameRow),
+				uiNumberOfIngredient := TO_UINT (iIndex)
+			);
+
+THIS^.refstData.stIngredientList.stChossenRow.wsText := THIS^.GetTextFromLabelForActiveLocation (
+										stLabel := stResult.stTexts
+									);
+THIS^.refstData.stIngredientList.stChossenRow.rValue := stResult.rValue;
+THIS^.refstData.stIngredientList.stChossenRow.rValueOld := stResult.rValue;
+THIS^.refstData.stIngredientList.stChossenRow.rMin := stResult.rMin;
+THIS^.refstData.stIngredientList.stChossenRow.rMax := stResult.rMax;
+THIS^.refstData.stIngredientList.stChossenRow.rDefaultValue := stResult.rDefaultValue;
+THIS^.refstData.stIngredientList.stChossenRow.sUnit := stResult.sUnit;
+THIS^.refstData.stIngredientList.stChossenRow.iID := iIndex;
 ]]></ST>
       </Implementation>
     </Method>
@@ -84,7 +431,31 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.PrepareForScreen ();
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Utwórz recepturę z szablonu");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "");
+THIS^.stTitleRecipe := THIS^.GetTexts ();
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Wybierz szablon");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "");
+THIS^.stSourceRecipe := THIS^.GetTexts ();
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Utwórz recepturę z receptury");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "");
+THIS^.stTitleTemplate := THIS^.GetTexts ();
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Wybierz recepturę");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "");
+THIS^.stSourceTemplate := THIS^.GetTexts ();
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Czy napewno usunąć recepturę");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "");
+THIS^.stDeleteRecipe := THIS^.GetTexts ();
+
+
+SUPER^.PrepareForScreen ();
 ]]></ST>
       </Implementation>
     </Method>

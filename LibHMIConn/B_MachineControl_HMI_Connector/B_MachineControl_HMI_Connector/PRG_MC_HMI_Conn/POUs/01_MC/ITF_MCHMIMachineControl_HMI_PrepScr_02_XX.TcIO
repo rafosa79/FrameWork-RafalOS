@@ -8,5 +8,154 @@
 *)
 INTERFACE ITF_MCHMIMachineControl_HMI_PrepScr_02_XX
 ]]></Declaration>
+    <Method Name="AddRecipeFromRecipe" Id="{fe64c2b6-23e8-00b1-2f12-afff6c2ea7a8}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Kopiuje składniki z wybranej receptury i tworzy nową recepture
+*)
+METHOD PUBLIC AddRecipeFromRecipe : BOOL
+VAR_INPUT
+	uiNumberRecipe				: UINT;
+	stTexts						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="AddRecipeFromTemplate" Id="{c17c4ac5-8d5f-0ed4-2a0e-e2ef15d90b46}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	Kopiuje składniki z wybranego szablonu i tworzy nową recepture
+*)
+METHOD PUBLIC AddRecipeFromTemplate : BOOL
+VAR_INPUT
+	uiNumberTemplates			: UINT;
+	stTexts						: ST_BaseLabel;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ClearChosen" Id="{2ade284b-161d-0f92-27f5-269ee444ad3c}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.06.2025		TC 4024.66
+	usuwa referencje do wybranej
+*)
+METHOD PUBLIC ClearChosen
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="DeleteRecipe" Id="{bd79c12e-4969-00a8-362d-8b97c37e2c0e}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC DeleteRecipe : BOOL
+VAR_INPUT
+	uiNumber				: uint;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetIngredientFromRecipe" Id="{97138458-fc27-0195-21d6-0c92cd6d42cc}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC GetIngredientFromRecipe : ST_BaseDescriptor
+VAR_INPUT
+	uiNumberOfRecipe			: UINT;
+	uiNumberOfIngredient		: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetIngredientRange" Id="{5ca94d2b-d4ef-00d4-121f-35b78900eb80}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		02.12.2025		TC 4024.66
+	Zwraca do tablicy wybrany zakres składników
+*)
+METHOD PUBLIC GetIngredientRange 
+VAR_INPUT
+	iRecipe			: INT;	//numer receptury z której bierzemy składniki
+	iStartIndex		: INT;	//numer startowy składnika
+	iCount			: INT;	//ilośc pobieranych 
+END_VAR
+VAR_IN_OUT
+	arrOut : ARRAY [*] OF ST_BaseDescriptor;
+END_VAR
+VAR_OUTPUT
+	iNumberOfFilledData	: INT;	//ilosc wypelnionych danych na strone
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetListOfNameRecipe" Id="{998f8caf-974d-0587-2f07-f44bbf3aef42}">
+      <Declaration><![CDATA[METHOD PUBLIC GetListOfNameRecipe : ST_BaseRecipeList
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetListOfNameTemplate" Id="{dd9036c9-19e6-0acf-327e-b69202770ba3}">
+      <Declaration><![CDATA[METHOD PUBLIC GetListOfNameTemplate : ST_BaseRecipeList
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberIngredientOfRecipe" Id="{ea8d9dfb-7684-0401-228f-b30188512a31}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.03.2025		TC 4026.13		wer. 0.0.0.1
+	
+*)
+METHOD PUBLIC GetNumberIngredientOfRecipe : UINT
+VAR_INPUT
+	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfChoosen" Id="{16106a61-64e8-06ee-1d7a-40ebe07282b4}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfChoosen : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfRecipe" Id="{5231e86d-fba1-083e-3101-4fc4029c95f2}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfRecipe : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfTemplate" Id="{bda6b1e4-417c-046a-0b0a-79737178af73}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfTemplate : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SelectRecipe" Id="{8b838c6a-5d39-0503-2735-11b35e86ed4e}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		06.12.2025		TC 4024.66
+	Wybranie receputury
+*)
+METHOD SelectRecipe : BOOL
+VAR_INPUT
+	uiRecipe: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetIngredientValue" Id="{d636ee69-1e34-013a-0acd-dc2445abb91d}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		05.12.2025		TC 4024.66
+	Ustawia nową wartośc w podanym składniku
+*)
+METHOD PUBLIC SetIngredientValue
+VAR_INPUT
+	iRecipe			: int;
+	iIngredient		: INT;
+	rValue			: REAL;
+END_VAR]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

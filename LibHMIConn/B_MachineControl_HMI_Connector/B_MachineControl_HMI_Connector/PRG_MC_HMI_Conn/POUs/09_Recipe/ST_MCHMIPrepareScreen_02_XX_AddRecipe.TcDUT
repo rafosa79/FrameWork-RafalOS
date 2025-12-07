@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCHMIPrepareScreen_02_XX_AddRecipe" Id="{b0da0d0a-d07f-0439-262b-451f6839dd55}">
+    <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_02_XX_AddRecipe :
+STRUCT
+	bNewRecipeFromTemplate	: BOOL;
+	bNewRecipeFromRecipe	: BOOL;
+	arrListOfName			: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_RECIPES ] OF WSTRING;
+	iNumberOfNames			: INT;
+	iSelectedName			: INT;
+	bSelectedRow			: BOOL;
+	stNewNames				: ST_BaseLabel;	//nazwa nowej receptury
+	bOk						: BOOL;
+	bCancel					: BOOL;	
+	wsTitle					: WSTRING;
+	wsSource				: WSTRING;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

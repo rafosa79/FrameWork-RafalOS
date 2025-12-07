@@ -9,6 +9,9 @@ VAR
 	fbExecutiveElementHMI	: FB_BaseControlElement_HMI;
 	fbComplexElement		: FB_BaseGroupElement_HMI;
 	fbMainComponent			: FB_BaseTopElement_HMI;
+	
+	fbRecipe				: FB_BaseRecipe;
+	fbRecipeHMI				: FB_BaseRecipe_HMI (fbBaseRecipe := fbRecipe);
 END_VAR
 ]]></Declaration>
     <Implementation>

@@ -7,6 +7,15 @@
           <v n="UniqueIdGenerator">"0"</v>
           <l n="TextList" t="ArrayList" cet="TextListRow">
             <o>
+              <v n="TextID">"0"</v>
+              <v n="TextDefault">"Czy napewno usunąć recepturę ?"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Czy napewno usunąć recepturę ?</v>
+                <v>Are you sure you want to delete the recipe?</v>
+                <v>Möchten Sie das Rezept wirklich löschen?</v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">""</v>
               <v n="TextDefault">""</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">

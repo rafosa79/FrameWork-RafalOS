@@ -12,45 +12,18 @@ VAR
 	stHMIData					: ST_HMIManager;
 	(*	Główny element sterowania wyświetlaniem na HMI					*)
 	fbHMIManager				: FB_HMIManager;
-	(*	Domyślne przyciski menu głównego - Logika	*)
-	fbMMB0_MainScreen			: FB_HMIEButton;
-	fbMMB1_Recipe				: FB_HMIEButton;
-	fbMMB2_Parameters			: FB_HMIEButton;
-	fbMMB3_Events				: FB_HMIEButton;
-	fbMMB4_ModeChange			: FB_HMIEButton;
-	fbMMB5_Statistics			: FB_HMIEButton;
-	fbMMB6_StateDiagram			: FB_HMIEButton;
-	fbMMB7_Settings				: FB_HMIEButton;
-	(*	Menu główne - Logika	*)
+	(*	Domyślne przyciski menu głównego - Logika i łaczniki do HMI	*)
+	stMainMenuButton			: ST_MainMenuButton;
+	(*	Menu główne - Logika 	*)
 	fbMainMenu					: FB_HMIEMenu;
-	(*	Domyślne przyciski menu głównego - łączniki	*)
-	fbMMB0_MainScreen_HMI_Connector		: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB0_MainScreen);
-	fbMMB1_Recipe_HMI_Connector			: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB1_Recipe);
-	fbMMB2_Parameters_HMI_Connector		: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB2_Parameters);
-	fbMMB3_Events_HMI_Connector			: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB3_Events);
-	fbMMB4_ModeChange_HMI_Connector		: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB4_ModeChange);
-	fbMMB5_Statistics_HMI_Connector		: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB5_Statistics);
-	fbMMB6_StateDiagram_HMI_Connector	: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB6_StateDiagram);
-	fbMMB7_Settings_HMI_Connector		: FB_HMIEButton_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfButton := fbMMB7_Settings);
 	(*	Menu główne - Łącznik	*)
-	fbMainMenu_HMI_Connector			: FB_HMIEMenu_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfMenu := fbMainMenu);
+	fbMainMenu_HMI_Connector	: FB_HMIEMenu_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfMenu := fbMainMenu);
 	(*	Łącznik do Machine Control	*)
 	fbMachineControl_HMI_Connector		: FB_MCHMIMachineControl_HMI (itfBaseLoggerConnector := GVL_SystemVariable.fbLogger, itfMachineControlConnector := GVL_SystemVariable.fbMachineControl);
 	(*	Moduły przygotowyania danych dla stron	*)
-	fbPrepareDataModul_Empty			: FB_MCHMIPrepareDataForScreen;
-	fbPrepareDataModul_00_01			: FB_MCHMIPrepareDataForScreen_00_01;
-	fbPrepareDataModul_00_02			: FB_MCHMIPrepareDataForScreen_00_02;
-	fbPrepareDataModul_00_03			: FB_MCHMIPrepareDataForScreen_00_03;
-	fbPrepareDataModul_00_04			: FB_MCHMIPrepareDataForScreen_00_04;
-	fbPrepareDataModul_00_05			: FB_MCHMIPrepareDataForScreen_00_05;
-	fbPrepareDataModul_01_XX			: FB_MCHMIPrepareDataForScreen_01_XX;	//parametry
-	fbPrepareDataModul_02_XX			: FB_MCHMIPrepareDataForScreen_02_XX;	//receptury
-	fbPrepareDataModul_03_XX			: FB_MCHMIPrepareDataForScreen_03_XX;	//alarmy 
-	fbPrepareDataModul_04_XX			: FB_MCHMIPrepareDataForScreen_04_XX;	//zmiana trybu
-	fbPrepareDataModul_05_XX			: FB_MCHMIPrepareDataForScreen_05_XX;	//statystyki
-	fbPrepareDataModul_06_XX			: FB_MCHMIPrepareDataForScreen_06_XX;	//diagram
-	fbPrepareDataModul_07_XX			: FB_MCHMIPrepareDataForScreen_07_XX;	//ustawienia
-	
+	stPrepareDataModules		: ST_PrepareDataModules;
+	(*	Łącznik do receptur		*)
+	fbRecipeModul_HMI_Connector	: FB_BaseRecipe_HMI (fbBaseRecipe := GVL_SystemVariable.fbRecipe);
 END_VAR
 ]]></Declaration>
     <Implementation>
