@@ -242,5 +242,19 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="SetIngredientValue" Id="{e2cc3d2b-0fe5-08a5-2d14-50cf023b3abe}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		05.12.2025		TC 4024.66
+	Ustawia nową wartośc w podanym składniku
+*)
+METHOD PUBLIC SetIngredientValue
+VAR_INPUT
+	iRecipe			: int;
+	iIngredient		: INT;
+	rValue			: REAL;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

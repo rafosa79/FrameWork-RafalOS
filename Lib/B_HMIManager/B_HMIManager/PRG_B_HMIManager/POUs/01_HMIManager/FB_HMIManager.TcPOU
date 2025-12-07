@@ -23,6 +23,7 @@ VAR
 	refstManagerData			: REFERENCE TO ST_HMIManager;
 	(*	Łącznik do MachineControl	*)
 	itfMachineControl			: ITF_MCHMIMachineControl_HMI;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -160,6 +161,7 @@ END_VAR
 	Główna metoda sterujaca wyświetlaniem dsanych na HMI
 *)
 METHOD PUBLIC ExecuteCycle
+
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[	(* Testowanie MenuGlownego	*)
@@ -171,6 +173,9 @@ THIS^.itfMainMenuHMI.PrepareDataForHMI ();
 	(*	Aktualizacja zmiennych przy zmianie strony	*)
 THIS^.bChangePage := THIS^.itfMainMenuHMI.IsChangePage ();
 THIS^.refstManagerData.stMachineControl.stCommonData.bChangePage := THIS^.bChangePage;
+
+	(*	Test wybranej receptury	*)
+THIS^.itfMachineControl.GetInformationLatestRecipes ();
 
 IF (THIS^.bChangePage) THEN
 	(*	Skasowanie flagi zmiany strony	*)
@@ -210,6 +215,7 @@ END_VAR
 THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "HMI Manager");
 THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "HMI Manager");
 THIS^.SetName (stName := THIS^.GetTexts ());
+
 ]]></ST>
       </Implementation>
     </Method>

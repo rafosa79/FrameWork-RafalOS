@@ -420,6 +420,17 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetNamesOfSelectRecipe" Id="{79b38663-e867-0262-320e-b43016060d1a}">
+      <Declaration><![CDATA[METHOD GetNamesOfSelectRecipe : ST_BaseLabel
+VAR_INPUT
+
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNamesOfSelectRecipe := THIS^.GetNamesOfRecipe (uiNumber := THIS^.uiChosen);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetNamesOfTemplate" Id="{670a7656-2f3a-079c-06a7-6a04bc38f501}">
       <Declaration><![CDATA[METHOD PUBLIC GetNamesOfTemplate : ST_BaseLabel
 VAR_INPUT
@@ -590,6 +601,24 @@ END_VAR
 END_IF
 
 
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetIngredientValue" Id="{42c33bd1-ee66-05f3-197e-ff0ef154a764}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		05.12.2025		TC 4024.66
+	Ustawia nową wartośc w podanym składniku
+*)
+METHOD PUBLIC SetIngredientValue
+VAR_INPUT
+	iRecipe			: int;
+	iIngredient		: INT;
+	rValue			: REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.arrRecipes [iRecipe].arrIngredient [iIngredient].rValue := rValue;
 ]]></ST>
       </Implementation>
     </Method>

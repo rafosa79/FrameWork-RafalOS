@@ -6,8 +6,7 @@ STRUCT
 	bChangePage				: BOOL; //zmiana strony menu głównego
 	wsActualState			: WSTRING;
 	wsActualMode			: WSTRING;
-	
-	
+	stRecipeInformation		: ST_MCHMICommonData_RecipeInfo;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

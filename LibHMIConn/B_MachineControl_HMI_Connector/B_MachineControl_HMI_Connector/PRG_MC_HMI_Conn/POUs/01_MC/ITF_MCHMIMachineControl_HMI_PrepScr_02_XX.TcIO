@@ -34,6 +34,17 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="ClearChosen" Id="{2ade284b-161d-0f92-27f5-269ee444ad3c}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.06.2025		TC 4024.66
+	usuwa referencje do wybranej
+*)
+METHOD PUBLIC ClearChosen
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="DeleteRecipe" Id="{bd79c12e-4969-00a8-362d-8b97c37e2c0e}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -103,6 +114,12 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetNumberOfChoosen" Id="{16106a61-64e8-06ee-1d7a-40ebe07282b4}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfChoosen : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="GetNumberOfRecipe" Id="{5231e86d-fba1-083e-3101-4fc4029c95f2}">
       <Declaration><![CDATA[METHOD PUBLIC GetNumberOfRecipe : UINT
 VAR_INPUT
@@ -114,6 +131,31 @@ END_VAR
 VAR_INPUT
 END_VAR
 ]]></Declaration>
+    </Method>
+    <Method Name="SelectRecipe" Id="{8b838c6a-5d39-0503-2735-11b35e86ed4e}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		06.12.2025		TC 4024.66
+	Wybranie receputury
+*)
+METHOD SelectRecipe : BOOL
+VAR_INPUT
+	uiRecipe: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetIngredientValue" Id="{d636ee69-1e34-013a-0acd-dc2445abb91d}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		05.12.2025		TC 4024.66
+	Ustawia nową wartośc w podanym składniku
+*)
+METHOD PUBLIC SetIngredientValue
+VAR_INPUT
+	iRecipe			: int;
+	iIngredient		: INT;
+	rValue			: REAL;
+END_VAR]]></Declaration>
     </Method>
   </Itf>
 </TcPlcObject>

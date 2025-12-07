@@ -12,14 +12,7 @@ STRUCT
 	iSelectedNameRowPrev 	: INT; //poprzedni wiersz listy receptur
 	bSelectedNameRow	: BOOL;
 (*	Wyświetlanie składników	*)
-	iTotalIngredient	: INT; //całkowita liczba składnikow w recepturze
-	iStartIndex			: INT; //liczba startowa
-	iNumberRowOnPage	: INT; //liczbna składników na stronie
-	iNumberOfPage		: INT; //ilosc stron potrzebnych do wyświetlenia wszystkich składników
-	iActualPage			: INT; //aktualna strona
-	iPreviewPage		: INT; //Poprzednia strona
-	stChossenRow		: ST_BaseHMIDescriptorEdit;
-	stIngredientList	: ST_MCHMIPrepareScreen_02_XX_IngredientList;
+	stIngredientList	: ST_MCHMIPrepareScreen_DescriptorList;
 	
 (*	Widoczność przycisków	*)
 	bVisibleButtonAddFromTemplate	: BOOL;
@@ -32,8 +25,8 @@ STRUCT
 	stAddRecipe			: ST_MCHMIPrepareScreen_02_XX_AddRecipe;
 (*	Ususwanie receptury	*)
 	stDeleteRecipe		: ST_MCHMIPrepareScreen_02_XX_DeleteRecipe;
-	
-	
+(*	Wybieranie receptury	*)
+	bSelectRecipe		: BOOL;
 	
 END_STRUCT
 END_TYPE

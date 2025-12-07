@@ -9,8 +9,14 @@ STRUCT
 	rMin						: REAL;
 	rMax						: REAL;
 	rDefaultValue				: REAL;
+	rValueOld					: REAL; //wartosc przed zmiana do porównania czy cos się zmieniło
 	bSave						: BOOL;
 	bSetDefault					: BOOL;
+	bCancel						: BOOL;
+	bVisibleSave				: BOOL;
+	bVisibleSetDefault			: BOOL;
+	bVisibleCancel				: BOOL;
+	iID							: int; //numer deskryptora do edycji
 END_STRUCT
 END_TYPE
 	

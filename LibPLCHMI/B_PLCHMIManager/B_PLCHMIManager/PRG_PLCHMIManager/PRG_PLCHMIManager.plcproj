@@ -21,7 +21,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_PLCHMIManager</Title>
-    <ProjectVersion>0.0.0.19</ProjectVersion>
+    <ProjectVersion>0.0.0.23</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>

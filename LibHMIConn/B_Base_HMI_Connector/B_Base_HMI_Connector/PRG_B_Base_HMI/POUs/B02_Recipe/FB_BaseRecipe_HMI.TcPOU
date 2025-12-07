@@ -52,6 +52,21 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="ClearChosen" Id="{eda159b5-3855-0445-2d2d-95a084f4ae4e}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.06.2025		TC 4024.66
+	usuwa referencje do wybranej
+*)
+METHOD PUBLIC ClearChosen
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfBaseRecipe.ClearChosen ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CreateRecipeTemplates" Id="{26a4ef2c-be17-02db-05eb-ccea8127fa7c}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -167,6 +182,17 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetNamesOfSelectRecipe" Id="{1848830a-cd3f-0084-3963-a3e267f8d995}">
+      <Declaration><![CDATA[METHOD GetNamesOfSelectRecipe : ST_BaseLabel
+VAR_INPUT
+
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNamesOfSelectRecipe := THIS^.itfBaseRecipe.GetNamesOfSelectRecipe ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetNumberIngredientOfRecipe" Id="{583ae13c-d0e1-0a7d-356b-82e75f1a3572}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -180,6 +206,16 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetNumberIngredientOfRecipe 		:= THIS^.itfBaseRecipe.GetNumberIngredientOfRecipe (uiNumber := uiNumber);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfChoosen" Id="{abfa7b93-1b86-0995-0524-bc6492726345}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfChoosen : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfChoosen := THIS^.itfBaseRecipe.GetNumberOfChoosen ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -203,6 +239,21 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="IsRecipeSelected" Id="{f9e5884d-57eb-0504-008f-8a40c29ecf5a}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		06.12.2025		TC 4024.66
+	Sprawdza czy receptrua została wybrana
+*)
+METHOD PUBLIC IsRecipeSelected : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsRecipeSelected := THIS^.itfBaseRecipe.IsChoosen ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="LinkRecipeDataHMI" Id="{ac4eb793-b833-00fc-3c7b-28667d82ba04}" FolderPath="WiazanieZmiennych\">
       <Declaration><![CDATA[METHOD PUBLIC LinkRecipeDataHMI : BOOL
 VAR_INPUT
@@ -211,6 +262,45 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.refstRepiceData REF= stRecipe;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SelectRecipe" Id="{04b3f6e8-6c75-0a0a-3158-b5720d848d66}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		06.12.2025		TC 4024.66
+	Wybranie receputury
+*)
+METHOD SelectRecipe : BOOL
+VAR_INPUT
+	uiRecipe: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfBaseRecipe.Choose (
+	uiNumber := uiRecipe
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetIngredientValue" Id="{ad5bed90-0929-0676-3792-85f851c07d62}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		05.12.2025		TC 4024.66
+	Ustawia nową wartośc w podanym składniku
+*)
+METHOD PUBLIC SetIngredientValue
+VAR_INPUT
+	iRecipe			: int;
+	iIngredient		: INT;
+	rValue			: REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfBaseRecipe.SetIngredientValue (
+	iRecipe := iRecipe,
+	iIngredient := iIngredient,
+	rValue := rValue
+);
 ]]></ST>
       </Implementation>
     </Method>

@@ -46,6 +46,17 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetInformationLatestRecipes" Id="{4da65f20-616b-0774-3e56-ad1ec501b110}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		07.12.2025		TC 4024.66
+	Pobierz informacje o aktualnym stanie recepur tzn o tym czy jest wybrana a jak tak to która
+*)
+METHOD PUBLIC GetInformationLatestRecipes
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="LinkMachineControlData" Id="{5b1d074d-68af-002e-0084-5fe1502c4b5b}">
       <Declaration><![CDATA[METHOD PUBLIC LinkMachineControlData : BOOL
 VAR_INPUT

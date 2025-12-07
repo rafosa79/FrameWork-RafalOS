@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCHMIPrepareScreen_DescriptorList" Id="{82b969d2-91a9-00c8-16c5-c7c51ed8111a}">
+    <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_DescriptorList :
+STRUCT
+	iTotal				: INT; //całkowita liczba danych do wyświetlenia
+	iStartIndex			: INT; //liczba startowa
+	iNumberRowOnPage	: INT; //liczbna wierszy na stronie
+	iNumberOfPage		: INT; //ilosc stron potrzebnych do wyświetlenia wszystkich danych
+	iActualPage			: INT; //aktualna strona
+	iPreviewPage		: INT; //Poprzednia strona
+	stChossenRow		: ST_BaseHMIDescriptorEdit;
+	stList				: ST_MCHMIPrepareScreen_List;
+	bRefresh			: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

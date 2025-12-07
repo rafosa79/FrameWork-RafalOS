@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCHMICommonData_RecipeInfo" Id="{c0bff5c9-99ec-06ec-2be3-9450a6e59cdc}">
+    <Declaration><![CDATA[TYPE ST_MCHMICommonData_RecipeInfo :
+STRUCT
+	bRecipeSelected			: BOOL;
+	wsRecipeInformation		: WSTRING;
+	dwBackgroud				: DWORD;
+	dwText					: DWORD;
+	(* rozpisane tło
+	16#<TT><RR><GG><BB>
+	<TT> 00-FF Transpoarency
+	<RR> 00-FF red
+	<GG> 00-FF green
+	<BB> 00-FF blue
+	*)
+	bNewSelectedRecipe		: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

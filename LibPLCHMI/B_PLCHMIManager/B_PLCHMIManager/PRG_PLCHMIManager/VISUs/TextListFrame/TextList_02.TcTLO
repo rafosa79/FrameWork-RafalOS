@@ -16,42 +16,6 @@
               </l>
             </o>
             <o>
-              <v n="TextID">"1"</v>
-              <v n="TextDefault">"Wartość domyślna"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v>Wartość domyślna</v>
-                <v>Default value</v>
-                <v>Standardwert</v>
-              </l>
-            </o>
-            <o>
-              <v n="TextID">"2"</v>
-              <v n="TextDefault">"Wartość"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v>Wartość</v>
-                <v>Value</v>
-                <v>Wert</v>
-              </l>
-            </o>
-            <o>
-              <v n="TextID">"3"</v>
-              <v n="TextDefault">"Przywróc domyślną wartość"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v>Przywróc domyślną wartość</v>
-                <v>Restore default value</v>
-                <v>Standardwert wiederherstellen</v>
-              </l>
-            </o>
-            <o>
-              <v n="TextID">"4"</v>
-              <v n="TextDefault">"Zapisz"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v>Zapisz</v>
-                <v>Save</v>
-                <v>Speichern</v>
-              </l>
-            </o>
-            <o>
               <v n="TextID">""</v>
               <v n="TextDefault">""</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">

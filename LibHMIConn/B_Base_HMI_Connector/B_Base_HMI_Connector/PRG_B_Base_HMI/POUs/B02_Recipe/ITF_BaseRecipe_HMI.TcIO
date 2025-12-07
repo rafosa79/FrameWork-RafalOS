@@ -29,6 +29,17 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="ClearChosen" Id="{ef1396fd-acce-0d85-0daf-a11f5e0f9a07}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.06.2025		TC 4024.66
+	usuwa referencje do wybranej
+*)
+METHOD PUBLIC ClearChosen
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="CreateRecipeTemplates" Id="{3780c754-183f-007a-08a9-35bbe6e7109d}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -98,6 +109,13 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetNamesOfSelectRecipe" Id="{cb7b23f3-9e5b-0364-1659-31a9edd52e0b}">
+      <Declaration><![CDATA[METHOD GetNamesOfSelectRecipe : ST_BaseLabel
+VAR_INPUT
+
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="GetNumberIngredientOfRecipe" Id="{12a71505-8754-0b42-067a-e302c172453b}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -107,6 +125,12 @@ END_VAR
 METHOD PUBLIC GetNumberIngredientOfRecipe : UINT
 VAR_INPUT
 	uiNumber				: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetNumberOfChoosen" Id="{b9402692-0f4c-0809-2bbc-c153295cfad6}">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfChoosen : UINT
+VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
@@ -122,12 +146,48 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="IsRecipeSelected" Id="{5bc49e4d-a3a9-0df8-2545-4d72d8c5e0ae}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		06.12.2025		TC 4024.66
+	Sprawdza czy receptrua została wybrana
+*)
+METHOD PUBLIC IsRecipeSelected : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="LinkRecipeDataHMI" Id="{a146d0a3-3218-0405-09a0-ac5ab9ebcd2c}">
       <Declaration><![CDATA[METHOD PUBLIC LinkRecipeDataHMI : BOOL
 VAR_INPUT
 	stRecipe			: REFERENCE TO ST_BaseRecipe_HMI;
 END_VAR
 ]]></Declaration>
+    </Method>
+    <Method Name="SelectRecipe" Id="{cc9e4040-c232-0a81-3a35-673a01b37ac0}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		06.12.2025		TC 4024.66
+	Wybranie receputury
+*)
+METHOD SelectRecipe : BOOL
+VAR_INPUT
+	uiRecipe: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetIngredientValue" Id="{590694eb-2f78-0e33-1ca0-78e516a9d935}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		05.12.2025		TC 4024.66
+	Ustawia nową wartośc w podanym składniku
+*)
+METHOD PUBLIC SetIngredientValue
+VAR_INPUT
+	iRecipe			: int;
+	iIngredient		: INT;
+	rValue			: REAL;
+END_VAR]]></Declaration>
     </Method>
   </Itf>
 </TcPlcObject>

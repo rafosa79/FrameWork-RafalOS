@@ -8155,7 +8155,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"&lt;toggle/tap variable&gt;"</v>
+                      <v n="Value">""</v>
                     </o>
                     <o>
                       <v n="Id">3719097617L</v>
@@ -8213,15 +8213,15 @@
                     </o>
                     <o>
                       <v n="Id">390574330L</v>
-                      <v n="Value">"_brak receptury"</v>
+                      <v n="Value">"%s"</v>
                     </o>
                     <o>
                       <v n="Id">2114174855L</v>
-                      <v n="Value">"'TextList_Ekran'"</v>
+                      <v n="Value">""</v>
                     </o>
                     <o>
                       <v n="Id">3774423699L</v>
-                      <v n="Value">"18"</v>
+                      <v n="Value">""</v>
                     </o>
                     <o>
                       <v n="Id">2880254039L</v>
@@ -8236,8 +8236,20 @@
                       <v n="Value">""</v>
                     </o>
                     <o>
+                      <v n="Id">2477733581L</v>
+                      <v n="Value">"stHMIData.stMachineControl.stCommonData.stRecipeInformation.wsRecipeInformation"</v>
+                    </o>
+                    <o>
+                      <v n="Id">401380312L</v>
+                      <v n="Value">"stHMIData.stMachineControl.stCommonData.stRecipeInformation.dwBackgroud"</v>
+                    </o>
+                    <o>
+                      <v n="Id">55702900L</v>
+                      <v n="Value">"stHMIData.stMachineControl.stCommonData.stRecipeInformation.dwText"</v>
+                    </o>
+                    <o>
                       <v n="Id">823443203L</v>
-                      <v n="Value">"370"</v>
+                      <v n="Value">"949"</v>
                     </o>
                   </l>
                 </o>

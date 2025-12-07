@@ -323,7 +323,7 @@
                     </o>
                     <o>
                       <v n="Id">3866084034L</v>
-                      <v n="Value">false</v>
+                      <v n="Value">true</v>
                     </o>
                     <o>
                       <v n="Id">538318008L</v>
@@ -1262,7 +1262,15 @@
                 <v n="VisualElementIdentifier">"GenElemInst_8"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" />
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                  <v>OnMouseDown</v>
+                  <a cet="STSnippetInputAction">
+                    <o>
+                      <v n="STSnippet">"stScreenData.bSelectRecipe := TRUE;
+"</v>
+                    </o>
+                  </a>
+                </d>
                 <v n="VisualElementIdentification">{294bf614-5083-4e49-9b2b-8e78b142a824}</v>
                 <v n="VisualElementOwningObjectGuid">{ae3de09e-7d1d-4c08-9e3a-4f1ec9125868}</v>
                 <a n="LMGuids" et="Guid" />
@@ -1278,7 +1286,7 @@
                   <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
                     <o>
                       <v n="Id">2640826223L</v>
-                      <v n="Value">"HORIZONTAL"</v>
+                      <v n="Value">"VERTICAL"</v>
                     </o>
                     <o>
                       <v n="Id">3675497837L</v>
@@ -1338,19 +1346,19 @@
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
-                      <v n="Value" t="Int16">255</v>
+                      <v n="Value" t="Int16">960</v>
                     </o>
                     <o>
                       <v n="Id">357335551L</v>
-                      <v n="Value" t="Int16">340</v>
+                      <v n="Value" t="Int16">0</v>
                     </o>
                     <o>
                       <v n="Id">2422045748L</v>
-                      <v n="Value" t="Int16">640</v>
+                      <v n="Value" t="Int16">50</v>
                     </o>
                     <o>
                       <v n="Id">2134141914L</v>
-                      <v n="Value" t="Int16">40</v>
+                      <v n="Value" t="Int16">332</v>
                     </o>
                     <o>
                       <v n="Id">2341735680L</v>
@@ -1367,7 +1375,7 @@
                     </o>
                     <o>
                       <v n="Id">2245068023L</v>
-                      <v n="Value">"stScreenData.iNumberOfPage"</v>
+                      <v n="Value">"stScreenData.stIngredientList.iNumberOfPage"</v>
                     </o>
                     <o>
                       <v n="Id">3729828405L</v>
@@ -1427,7 +1435,7 @@
                     </o>
                     <o>
                       <v n="Id">1057716461L</v>
-                      <v n="Value">"stScreenData.iActualPage"</v>
+                      <v n="Value">"stScreenData.stIngredientList.iActualPage"</v>
                     </o>
                     <o>
                       <v n="Id">2880254039L</v>
@@ -1605,7 +1613,7 @@
                     </o>
                     <o>
                       <v n="Id">2422045748L</v>
-                      <v n="Value" t="Int16">760</v>
+                      <v n="Value" t="Int16">700</v>
                     </o>
                     <o>
                       <v n="Id">2134141914L</v>
@@ -1833,7 +1841,7 @@
                     </o>
                     <o>
                       <v n="Id">72808681L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow"</v>
                     </o>
                     <o>
                       <v n="Id">1636817830L</v>
@@ -1845,11 +1853,11 @@
                     </o>
                     <o>
                       <v n="Id">3854506369L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].wsText"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].wsText"</v>
                     </o>
                     <o>
                       <v n="Id">1218418051L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].rDefaultValue"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].rDefaultValue"</v>
                     </o>
                     <o>
                       <v n="Id">2232123230L</v>
@@ -1857,19 +1865,19 @@
                     </o>
                     <o>
                       <v n="Id">505689113L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].rDefaultValue"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].rDefaultValue"</v>
                     </o>
                     <o>
                       <v n="Id">2685023577L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].wsText"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].wsText"</v>
                     </o>
                     <o>
                       <v n="Id">2340480326L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].rDefaultValue"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].rDefaultValue"</v>
                     </o>
                     <o>
                       <v n="Id">4036189354L</v>
-                      <v n="Value" t="Int16">600</v>
+                      <v n="Value" t="Int16">537</v>
                     </o>
                     <o>
                       <v n="Id">3094565582L</v>
@@ -1928,12 +1936,12 @@
                           <v>Real</v>
                         </a>
                         <a n="ColumnNames" cet="String">
-                          <v>stScreenData.stIngredientList.arrIndegriend[INDEX].wsText</v>
-                          <v>stScreenData.stIngredientList.arrIndegriend[INDEX].sUnit</v>
-                          <v>stScreenData.stIngredientList.arrIndegriend[INDEX].rValue</v>
-                          <v>stScreenData.stIngredientList.arrIndegriend[INDEX].rMin</v>
-                          <v>stScreenData.stIngredientList.arrIndegriend[INDEX].rMax</v>
-                          <v>stScreenData.stIngredientList.arrIndegriend[INDEX].rDefaultValue</v>
+                          <v>stScreenData.stIngredientList.stList.arrRow[INDEX].wsText</v>
+                          <v>stScreenData.stIngredientList.stList.arrRow[INDEX].sUnit</v>
+                          <v>stScreenData.stIngredientList.stList.arrRow[INDEX].rValue</v>
+                          <v>stScreenData.stIngredientList.stList.arrRow[INDEX].rMin</v>
+                          <v>stScreenData.stIngredientList.stList.arrRow[INDEX].rMax</v>
+                          <v>stScreenData.stIngredientList.stList.arrRow[INDEX].rDefaultValue</v>
                         </a>
                         <v n="BaseType">false</v>
                         <a n="Bounds" cet="ArrayBound">
@@ -1955,7 +1963,7 @@
                     </o>
                     <o>
                       <v n="Id">1128707560L</v>
-                      <v n="Value">"stScreenData.iNumberRowOnPage"</v>
+                      <v n="Value">"stScreenData.stIngredientList.iNumberRowOnPage"</v>
                     </o>
                     <o>
                       <v n="Id">3597700437L</v>
@@ -1967,7 +1975,7 @@
                     </o>
                     <o>
                       <v n="Id">4092479075L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].rMin"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].rMin"</v>
                     </o>
                     <o>
                       <v n="Id">3922825740L</v>
@@ -1975,11 +1983,11 @@
                     </o>
                     <o>
                       <v n="Id">2170511999L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].rMin"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].rMin"</v>
                     </o>
                     <o>
                       <v n="Id">262371475L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].rMin"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].rMin"</v>
                     </o>
                     <o>
                       <v n="Id">1981426263L</v>
@@ -2007,7 +2015,7 @@
                     </o>
                     <o>
                       <v n="Id">2237128397L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].rMax"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].rMax"</v>
                     </o>
                     <o>
                       <v n="Id">3236595599L</v>
@@ -2015,11 +2023,11 @@
                     </o>
                     <o>
                       <v n="Id">3723444502L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].rMax"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].rMax"</v>
                     </o>
                     <o>
                       <v n="Id">4008173056L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].rMax"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].rMax"</v>
                     </o>
                     <o>
                       <v n="Id">332890263L</v>
@@ -2063,11 +2071,11 @@
                     </o>
                     <o>
                       <v n="Id">1137915858L</v>
-                      <v n="Value">"stScreenData.stIngredientList.iSelectedRow"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.iSelectedRow"</v>
                     </o>
                     <o>
                       <v n="Id">1822360349L</v>
-                      <v n="Value">"stScreenData.stIngredientList.bSelectedRow"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.bSelectedRow"</v>
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
@@ -2078,68 +2086,84 @@
                       <v n="Value">false</v>
                     </o>
                     <o>
-                      <v n="Id">208337472L</v>
-                      <v n="Value">"%s"</v>
+                      <v n="Id">2880254039L</v>
+                      <v n="Value">"not stScreenData.bSelectedNameRow"</v>
                     </o>
                     <o>
-                      <v n="Id">338671338L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].sUnit"</v>
-                    </o>
-                    <o>
-                      <v n="Id">1494231439L</v>
-                      <v n="Value">"388"</v>
-                    </o>
-                    <o>
-                      <v n="Id">677334476L</v>
-                      <v n="Value">true</v>
-                    </o>
-                    <o>
-                      <v n="Id">1755163831L</v>
-                      <v n="Value">"Jednostka"</v>
-                    </o>
-                    <o>
-                      <v n="Id">1791247317L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].sUnit"</v>
+                      <v n="Id">3829854167L</v>
+                      <v n="Value">false</v>
                     </o>
                     <o>
                       <v n="Id">3944074017L</v>
                       <v n="Value">false</v>
                     </o>
                     <o>
-                      <v n="Id">1009209577L</v>
-                      <v n="Value">1</v>
+                      <v n="Id">1494231439L</v>
+                      <v n="Value">"388"</v>
                     </o>
                     <o>
                       <v n="Id">2998295511L</v>
-                      <v n="Value" t="Int16">70</v>
-                    </o>
-                    <o>
-                      <v n="Id">3527550656L</v>
-                      <v n="Value">10</v>
+                      <v n="Value" t="Int16">80</v>
                     </o>
                     <o>
                       <v n="Id">1562208915L</v>
                       <v n="Value">"HCENTER"</v>
                     </o>
                     <o>
+                      <v n="Id">1009209577L</v>
+                      <v n="Value">1</v>
+                    </o>
+                    <o>
+                      <v n="Id">3527550656L</v>
+                      <v n="Value">10</v>
+                    </o>
+                    <o>
+                      <v n="Id">677334476L</v>
+                      <v n="Value">true</v>
+                    </o>
+                    <o>
+                      <v n="Id">40563340L</v>
+                      <v n="Value">true</v>
+                    </o>
+                    <o>
+                      <v n="Id">338671338L</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].sUnit"</v>
+                    </o>
+                    <o>
+                      <v n="Id">208337472L</v>
+                      <v n="Value">"%s"</v>
+                    </o>
+                    <o>
+                      <v n="Id">1791247317L</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].sUnit"</v>
+                    </o>
+                    <o>
+                      <v n="Id">1755163831L</v>
+                      <v n="Value">"Jednostka"</v>
+                    </o>
+                    <o>
                       <v n="Id">1467829077L</v>
                       <v n="Value">"%s"</v>
                     </o>
                     <o>
-                      <v n="Id">511219082L</v>
-                      <v n="Value">"Wartość"</v>
+                      <v n="Id">1892666644L</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].rValue"</v>
+                    </o>
+                    <o>
+                      <v n="Id">1893244285L</v>
+                      <v n="Value">"1118"</v>
                     </o>
                     <o>
                       <v n="Id">2981964749L</v>
                       <v n="Value">true</v>
                     </o>
                     <o>
-                      <v n="Id">1892666644L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].rValue"</v>
+                      <v n="Id">511219082L</v>
+                      <v n="Value">"Wartość"</v>
                     </o>
                     <o>
                       <v n="Id">3312258591L</v>
-                      <v n="Value">"stScreenData.stIngredientList.arrIndegriend[INDEX].rValue"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stList.arrRow[INDEX].rValue"</v>
                     </o>
                     <o>
                       <v n="Id">2541022970L</v>
@@ -2148,10 +2172,6 @@
                     <o>
                       <v n="Id">368043035L</v>
                       <v n="Value">2</v>
-                    </o>
-                    <o>
-                      <v n="Id">3479944212L</v>
-                      <v n="Value">false</v>
                     </o>
                     <o>
                       <v n="Id">1010392116L</v>
@@ -2164,14 +2184,6 @@
                     <o>
                       <v n="Id">1960173153L</v>
                       <v n="Value">"HCENTER"</v>
-                    </o>
-                    <o>
-                      <v n="Id">1893244285L</v>
-                      <v n="Value">"1118"</v>
-                    </o>
-                    <o>
-                      <v n="Id">2880254039L</v>
-                      <v n="Value">"not stScreenData.bSelectedNameRow"</v>
                     </o>
                   </l>
                 </o>
@@ -2499,7 +2511,7 @@
                         </o>
                         <o>
                           <v n="Id">2477733581L</v>
-                          <v n="Value">"stScreenData.iActualPage"</v>
+                          <v n="Value">"stScreenData.stIngredientList.iActualPage"</v>
                         </o>
                         <o>
                           <v n="Id">2827249010L</v>
@@ -2668,7 +2680,7 @@
                         </o>
                         <o>
                           <v n="Id">2477733581L</v>
-                          <v n="Value">"stScreenData.iNumberOfPage"</v>
+                          <v n="Value">" stScreenData.stIngredientList.iNumberOfPage"</v>
                         </o>
                         <o>
                           <v n="Id">2827249010L</v>
@@ -2949,15 +2961,15 @@
                     </o>
                     <o>
                       <v n="Id">357335551L</v>
-                      <v n="Value" t="Int16">390</v>
+                      <v n="Value" t="Int16">340</v>
                     </o>
                     <o>
                       <v n="Id">2422045748L</v>
-                      <v n="Value" t="Int16">755</v>
+                      <v n="Value" t="Int16">600</v>
                     </o>
                     <o>
                       <v n="Id">2134141914L</v>
-                      <v n="Value">100</v>
+                      <v n="Value">150</v>
                     </o>
                     <o>
                       <v n="Id">394923068L</v>
@@ -3226,11 +3238,11 @@
                     </o>
                     <o>
                       <v n="Id">550940142L</v>
-                      <v n="Value">632</v>
+                      <v n="Value">555</v>
                     </o>
                     <o>
                       <v n="Id">1473355128L</v>
-                      <v n="Value">440</v>
+                      <v n="Value">415</v>
                     </o>
                     <o>
                       <v n="Id">493260384L</v>
@@ -3257,7 +3269,7 @@
                         <l n="TypeNodeChildren" t="ArrayList" cet="BasicTypeNode">
                           <o>
                             <v n="Flags">2L</v>
-                            <v n="BasicTypeNodeValue">"stScreenData.stChossenRow"</v>
+                            <v n="BasicTypeNodeValue">"stScreenData.stIngredientList.stChossenRow"</v>
                             <v n="BasicTypeNodeAcceptsExpression">true</v>
                             <n n="BasicTypeNodeFastAccess" />
                             <a n="BasicTypeNodeEnumValues" et="String" />
@@ -3313,11 +3325,11 @@
                     </o>
                     <o>
                       <v n="Id">916562373L</v>
-                      <v n="Value">"stScreenData.stChossenRow"</v>
+                      <v n="Value">"stScreenData.stIngredientList.stChossenRow"</v>
                     </o>
                     <o>
                       <v n="Id">2880254039L</v>
-                      <v n="Value">"not stScreenData.stIngredientList.bSelectedRow"</v>
+                      <v n="Value">"not stScreenData.stIngredientList.stList.bSelectedRow"</v>
                     </o>
                     <o>
                       <v n="Id">1013868361L</v>
@@ -3574,6 +3586,7 @@
         <Type n="Guid">System.Guid</Type>
         <Type n="Hashtable">System.Collections.Hashtable</Type>
         <Type n="HotkeyConfiguration">{6b108d46-58af-4e41-a3f4-174d8f160cc4}</Type>
+        <Type n="IInputAction[]">_3S.CoDeSys.VisualElem.IInputAction[], VisualElem, Version=3.5.13.0, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="InputOpenDialogAction">{c01cd804-0a56-4714-ba1b-1040cfc48b6b}</Type>
         <Type n="InputOpenDialogAction[]">_3S.CoDeSys.VisualElem.InputOpenDialogAction[], VisualElem.plugin, Version=3.5.13.32, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="Int16">System.Int16</Type>

@@ -19,6 +19,9 @@ VAR
 	arrPrepareScreen_Execute			: ARRAY [0..GVL_HMIEConstans.MAX_NUMBER_OF_BUTTON_IN_MENU] OF 
 											ARRAY [0..GVL_SaMConstans.NUMBER_OF_MODES] OF ITF_MCHMIPrepareDataForScreen;
 	refstHMICommonData					: REFERENCE TO ST_MCHMICommonData;
+	(*	wspólne opisy *)
+	stRecipeInfoSelect			: ST_BaseLabel;
+	stRecipeInfoNotSelect		: ST_BaseLabel;
 	
 END_VAR
 ]]></Declaration>
@@ -130,6 +133,21 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="ClearChosen" Id="{62912337-0919-0b4c-3b40-3161d7f6ce66}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		03.06.2025		TC 4024.66
+	usuwa referencje do wybranej
+*)
+METHOD PUBLIC ClearChosen
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe.ClearChosen ();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CreateRecipeTemplates" Id="{b8b0bdd6-2973-0f73-1ec4-917ab5e570b5}" FolderPath="ITF_PrepScr_07_XX\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -191,7 +209,17 @@ IF (THIS^.itfMachineControlConnector <> 0 AND
 	THIS^.itfBaseTopElementConnector <> 0 AND
 	THIS^.itfBaseLoggerConnector <> 0) THEN
 	THIS^.bIsInit						:= TRUE;
-END_IF]]></ST>
+END_IF
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Receptura wybrana");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Recipe selected");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Rezept ausgewählt");
+THIS^.stRecipeInfoSelect := THIS^.GetTexts ();
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Brak wybranej receptury");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "No recipe selected");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Kein Rezept ausgewählt");
+THIS^.stRecipeInfoNotSelect := THIS^.GetTexts ();]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetActiveMode" Id="{f4b1860e-d10a-063b-3493-e2e1302fe817}" FolderPath="ITF_PrepScr_06_XX\">
@@ -241,6 +269,49 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetActiveStateName := THIS^.itfMachineControlConnector.GetActiveStateName ();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetInformationLatestRecipes" Id="{0ee08023-6867-0e9d-3958-b8c640468601}" FolderPath="ITF_MachineControl_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		07.12.2025		TC 4024.66
+	Pobierz informacje o aktualnym stanie recepur tzn o tym czy jest wybrana a jak tak to która
+*)
+METHOD PUBLIC GetInformationLatestRecipes
+VAR_INST
+	tonChangeSelectRecipe	: TON;
+	rtNewRecipeSelected		: R_TRIG;
+	ftNewRecipeSelected		: F_TRIG;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstHMICommonData.stRecipeInformation.bRecipeSelected := THIS^.itfRecipe.IsRecipeSelected ();
+rtNewRecipeSelected (CLK := THIS^.refstHMICommonData.stRecipeInformation.bRecipeSelected);
+ftNewRecipeSelected (CLK := THIS^.refstHMICommonData.stRecipeInformation.bRecipeSelected);
+tonChangeSelectRecipe (PT := T#3S);
+
+IF (rtNewRecipeSelected.Q OR 
+	THIS^.refstHMICommonData.stRecipeInformation.bNewSelectedRecipe) THEN
+	;//jest wybrana
+	THIS^.refstHMICommonData.stRecipeInformation.bNewSelectedRecipe := FALSE;
+	tonChangeSelectRecipe.IN := TRUE;
+	THIS^.refstHMICommonData.stRecipeInformation.dwBackgroud := 16#FF00FF00;//zielony
+	THIS^.refstHMICommonData.stRecipeInformation.dwText := 16#FF000000;//cxzarny
+	THIS^.refstHMICommonData.stRecipeInformation.wsRecipeInformation := THIS^.GetTextFromLabelForActiveLocation (stLabel := THIS^.stRecipeInfoSelect);
+END_IF
+IF (ftNewRecipeSelected.Q) THEN
+	THIS^.refstHMICommonData.stRecipeInformation.dwBackgroud := 16#FFFF0000; //czerwony
+	THIS^.refstHMICommonData.stRecipeInformation.dwText := 16#FFFFFF00;//zółty
+	THIS^.refstHMICommonData.stRecipeInformation.wsRecipeInformation := THIS^.GetTextFromLabelForActiveLocation (stLabel := THIS^.stRecipeInfoNotSelect);
+END_IF
+IF (tonChangeSelectRecipe.Q) THEN 
+	tonChangeSelectRecipe.IN := FALSE;
+	THIS^.refstHMICommonData.stRecipeInformation.bNewSelectedRecipe := FALSE;
+	THIS^.refstHMICommonData.stRecipeInformation.dwBackgroud := 16#FF00FF00;//zielony
+	THIS^.refstHMICommonData.stRecipeInformation.dwText := 16#FF000000;//cxzarny
+	THIS^.refstHMICommonData.stRecipeInformation.wsRecipeInformation := THIS^.GetNumberAndNameRecipe ();
+END_IF
 ]]></ST>
       </Implementation>
     </Method>
@@ -330,6 +401,32 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetNumberAndNameRecipe" Id="{d0bb4ce4-bacf-02aa-3614-b6d00593f1ef}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		07.12.2025		TC 4024.66
+	Pobiera nazwę i numer aktualnej receptury
+*)
+METHOD PRIVATE GetNumberAndNameRecipe : WSTRING
+VAR_INPUT
+END_VAR
+
+VAR
+	wsNumber	: WSTRING;
+	wsName		: WSTRING;
+	wsResult	: WSTRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[wsNumber := TO_WSTRING (THIS^.itfRecipe.GetNumberOfChoosen ());
+wsName := THIS^.GetTextFromLabelForActiveLocation (stLabel := THIS^.itfRecipe.GetNamesOfSelectRecipe ());
+
+wsResult := wconcat (WCONCAT (" ID - ", wsNumber), WCONCAT (" - " ,wsName));
+
+
+GetNumberAndNameRecipe := wsResult;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetNumberIngredientOfRecipe" Id="{d70a9bbe-e1ad-0574-2306-26260c18555a}" FolderPath="ITF_PrepScr_02_XX\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -343,6 +440,16 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetNumberIngredientOfRecipe 		:= THIS^.itfRecipe.GetNumberIngredientOfRecipe (uiNumber := uiNumber);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNumberOfChoosen" Id="{36705c10-3e00-0700-3dd1-65927a5e9afe}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[METHOD PUBLIC GetNumberOfChoosen : UINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetNumberOfChoosen := THIS^.itfRecipe.GetNumberOfChoosen ();
 ]]></ST>
       </Implementation>
     </Method>
@@ -602,6 +709,24 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SelectRecipe" Id="{c4fa876d-cede-02e0-21a3-8505752a8f99}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		06.12.2025		TC 4024.66
+	Wybranie receputury
+*)
+METHOD SelectRecipe : BOOL
+VAR_INPUT
+	uiRecipe: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe.SelectRecipe (
+	uiRecipe := uiRecipe
+);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="SetChangePageFromManager" Id="{5beffb9a-dfee-0438-1cd7-4daeff8410c7}" FolderPath="ITF_MachineControl_HMI\">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -647,6 +772,27 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.itfMachineControlConnector.SetCmdChangeState (eCmdNumber := eCmdNumber);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetIngredientValue" Id="{c92ba1d5-0497-0291-1b45-b6edb7986c1e}" FolderPath="ITF_PrepScr_02_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		05.12.2025		TC 4024.66
+	Ustawia nową wartośc w podanym składniku
+*)
+METHOD PUBLIC SetIngredientValue
+VAR_INPUT
+	iRecipe			: int;
+	iIngredient		: INT;
+	rValue			: REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfRecipe.SetIngredientValue (
+	iRecipe := iRecipe,
+	iIngredient := iIngredient,
+	rValue := rValue
+);
 ]]></ST>
       </Implementation>
     </Method>

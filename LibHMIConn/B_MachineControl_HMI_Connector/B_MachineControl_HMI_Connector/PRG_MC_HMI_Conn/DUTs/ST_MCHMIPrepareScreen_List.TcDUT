@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <DUT Name="ST_MCHMIPrepareScreen_02_XX_IngredientList" Id="{e725ee8e-f225-0f50-1dfa-6dbadeac5a6f}">
-    <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_02_XX_IngredientList :
+  <DUT Name="ST_MCHMIPrepareScreen_List" Id="{e725ee8e-f225-0f50-1dfa-6dbadeac5a6f}">
+    <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_List :
 STRUCT
-	arrIndegriend			: ARRAY [1..GVL_MCHMIConstans.NUMBER_INDEGRIEND_ON_PAGE] OF ST_BaseHMIDescriptor;
+	arrRow					: ARRAY [1..GVL_MCHMIConstans.NUMBER_INDEGRIEND_ON_PAGE] OF ST_BaseHMIDescriptor;
 	iSelectedRow			: INT; //numer wybranego składnika
 	iSelectedRowPrev		: INT; //numer wybranego składnika - poprzedni
 	bSelectedRow			: BOOL;
