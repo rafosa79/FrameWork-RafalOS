@@ -50,7 +50,17 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[itfMachineControl.AddElementFromConfiguration (itfElements := GVL_TE1.fbTopElement1);
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "TopElement 1");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "TopElement 1");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "TopElement 1");
+GVL_TE1.fbTopElement1.SetName (stName := THIS^.GetTexts ());
+itfMachineControl.AddElementFromConfiguration (itfElements := GVL_TE1.fbTopElement1);
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "TopElement 2");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "TopElement 2");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "TopElement 2");
+GVL_TE2.fbTopElement2.SetName (stName := THIS^.GetTexts ());
+itfMachineControl.AddElementFromConfiguration (itfElements := GVL_TE2.fbTopElement2);
 ]]></ST>
       </Implementation>
     </Method>

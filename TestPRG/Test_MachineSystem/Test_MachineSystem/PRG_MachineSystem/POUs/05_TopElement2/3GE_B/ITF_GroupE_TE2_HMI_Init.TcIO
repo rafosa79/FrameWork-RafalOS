@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <Itf Name="ITF_GroupE_TE2_HMI_Init" Id="{4e4f7d85-847d-49f1-9ce4-22091056cc97}">
+    <Declaration><![CDATA[INTERFACE ITF_GroupE_TE2_HMI_Init EXTENDS ITF_BaseGroupElement, ITF_GroupE_TE2_HMI_Connector
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_ControlE_TE2_HMI" Id="{00be1826-1cd1-409c-a12d-68e1192bb913}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ControlE_TE2_HMI EXTENDS FB_BaseControlElement_HMI IMPLEMENTS ITF_ControlE_TE2_HMI
+VAR
+	itfControlE_TE2Connector		: ITF_ControlE_TE2_HMI_Connector;
+	refstControlE_TE2Data			: REFERENCE TO ST_ControlE_TE2_HMI;
+
+	itfC1				: ITF_Component_TE2_HMI;
+	itfC2				: ITF_Component_TE2_HMI;
+	itfC3				: ITF_Component_TE2_HMI;
+	itfC4				: ITF_Component_TE2_HMI;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_NazwaPB_HMI" Id="{640b5fce-5dcd-45b5-a7e4-ade613363870}" />
+    <Method Name="FB_init" Id="{c9bd33bd-015e-491e-abe1-9c06aadc2b09}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfBaseLoggerConnector				: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
+	itfControlE_TE2Connector			: ITF_ControlE_TE2_HMI_Connector;
+	itfC1								: ITF_Component_TE2_HMI;
+	itfC2								: ITF_Component_TE2_HMI;
+	itfC3								: ITF_Component_TE2_HMI;
+	itfC4								: ITF_Component_TE2_HMI;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Przypisanie do elementu który własnie stworzyliśmy
+THIS^.itfControlE_TE2Connector := itfControlE_TE2Connector;
+//Przypisanie do elementów z biblioteki
+THIS^.itfBaseLoggerElementConnector := itfControlE_TE2Connector;
+THIS^.itfBaseComponentConnector := itfControlE_TE2Connector;
+THIS^.itfBaseControlElementConnector := itfControlE_TE2Connector;
+
+THIS^.AddComponent (itfComponentHMI := itfC1);
+THIS^.itfC1 := itfC1;
+THIS^.AddComponent (itfComponentHMI := itfC2);
+THIS^.itfC2 := itfC2;
+THIS^.AddComponent (itfComponentHMI := itfC3);
+THIS^.itfC3 := itfC3;
+THIS^.AddComponent (itfComponentHMI := itfC4);
+THIS^.itfC4 := itfC4;
+
+
+//
+THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
+
+IF (THIS^.itfControlE_TE2Connector <> 0 AND
+	THIS^.itfBaseLoggerElementConnector <> 0 AND
+	THIS^.itfBaseComponentConnector	<> 0 AND
+	THIS^.itfBaseControlElementConnector <> 0 AND
+	THIS^.itfBaseLoggerConnector <> 0) THEN
+	THIS^.bIsInit						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkControlEData" Id="{76d9c691-9adc-483b-aa35-ed6358042142}" FolderPath="ITF_NazwaPB_HMI\">
+      <Declaration><![CDATA[METHOD LinkControlEData : BOOL
+VAR_INPUT
+	stData				: REFERENCE TO ST_ControlE_TE2_HMI_Link;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstControlE_TE2Data REF= stData.stControlE_TE2;
+
+THIS^.refstBaseLoggerElementDataHMI REF= stData.stBaseLoggerElement;
+THIS^.refstBaseComponentDataHMI REF= stData.stBaseComponent;
+THIS^.refstBaseControlElementDataHMI REF= stData.stBaseControlElement;
+
+THIS^.itfC1.LinkComponentData (stData := stData.stComponetE1_TE2);
+THIS^.itfC2.LinkComponentData (stData := stData.stComponetE2_TE2);
+THIS^.itfC3.LinkComponentData (stData := stData.stComponetE3_TE2);
+THIS^.itfC4.LinkComponentData (stData := stData.stComponetE4_TE2);
+
+
+THIS^.CreateLinkToEventsMemory ();
+
+IF (__ISVALIDREF (THIS^.refstControlE_TE2Data) AND THIS^.IsLinkedReferences ()) THEN
+	THIS^.bIsValidData		:= TRUE;
+	LinkControlEData		:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

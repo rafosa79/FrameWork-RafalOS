@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <Itf Name="ITF_GroupE_TE2_HMI" Id="{3050dc31-db2c-4ea8-abc2-4dae72fd190a}">
+    <Declaration><![CDATA[INTERFACE ITF_GroupE_TE2_HMI EXTENDS ITF_BaseGroupElement_HMI
+]]></Declaration>
+    <Method Name="LinkGroupEData" Id="{e3bf014b-9cc1-47a2-b50a-0ad79fcb2c79}">
+      <Declaration><![CDATA[METHOD LinkGroupEData : BOOL
+VAR_INPUT
+	stData				: REFERENCE TO ST_GroupE_TE2_HMI_Link;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

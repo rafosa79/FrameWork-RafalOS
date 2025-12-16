@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="ST_TopElement2_HMI_Link" Id="{85946942-0c26-4530-b308-699435d0745e}">
+    <Declaration><![CDATA[TYPE ST_TopElement2_HMI_Link EXTENDS ST_BaseTopElement_HMI_Link :
+STRUCT
+	stTopElement		: ST_TopElement2_HMI;
+	
+	stGE1				: ST_GroupE_TE2_HMI_Link;
+	
+	stCE1				: ST_ControlE_TE2_HMI_Link;
+	stCE2				: ST_ControlE_TE2_HMI_Link;
+	
+	stC1				: ST_Component_TE2_HMI_Link;
+	stC2				: ST_Component_TE2_HMI_Link;
+	stC3				: ST_Component_TE2_HMI_Link;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

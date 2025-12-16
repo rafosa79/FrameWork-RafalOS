@@ -28,7 +28,10 @@ END_VAR
         <ST><![CDATA[itfHMIManager.AddElementFromConfiguration (
 	fbTopElementHMI := GVL_TE1.fbTopElement1HMI
 );
-]]></ST>
+
+itfHMIManager.AddElementFromConfiguration (
+	fbTopElementHMI := GVL_TE2.fbTopElement2HMI
+);]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddExtendedDisplayToPrepScrModule" Id="{164c2fc1-9e48-4f57-84ed-51098907a6de}">
@@ -139,6 +142,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GVL_TE1.fbTopElement1HMI.LinkTopElementData (stData := GVL_TE1.stTopElemenent1);
+GVL_TE2.fbTopElement2HMI.LinkTopElementData (stData := GVL_TE2.stTopElemenent2);
 ]]></ST>
       </Implementation>
     </Method>
