@@ -3,7 +3,8 @@
   <DUT Name="ST_MCHMIPrepareScreen_01_XX" Id="{e5c41a77-0f06-04e9-1d51-b2d6d911a624}">
     <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_01_XX :
 STRUCT
-	btmpValue_01_XX	: BOOL;
+	stListElement			: ST_MCHMIPrepareScreen_01_XX_ElementList;
+	
 END_STRUCT
 END_TYPE
 ]]></Declaration>

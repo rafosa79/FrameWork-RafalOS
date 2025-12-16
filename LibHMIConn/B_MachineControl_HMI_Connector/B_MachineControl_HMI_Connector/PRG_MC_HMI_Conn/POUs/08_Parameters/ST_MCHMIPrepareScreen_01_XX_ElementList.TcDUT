@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCHMIPrepareScreen_01_XX_ElementList" Id="{8b5a7316-f47c-06f2-3b0b-9473eddccf61}">
+    <Declaration><![CDATA[TYPE ST_MCHMIPrepareScreen_01_XX_ElementList :
+STRUCT
+	arrNames 			: ARRAY  [1..GVL_BaseConstans.MAX_NUMBER_OF_ALL_ITEM] OF WSTRING;
+	arrID				: ARRAY  [1..GVL_BaseConstans.MAX_NUMBER_OF_ALL_ITEM] OF UINT;
+	iNumber				: INT;	//liczba elementów z parametrami
+	itfElement			: ITF_BaseComponent_HMI;	//interfejs wybranego elementu
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

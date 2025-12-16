@@ -225,6 +225,9 @@
     <Compile Include="POUs\08_Parameters\ST_MCHMIPrepareScreen_01_XX.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\08_Parameters\ST_MCHMIPrepareScreen_01_XX_ElementList.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\09_Recipe\FB_MCHMIPrepareDataForScreen_02_XX.TcPOU">
       <SubType>Code</SubType>
     </Compile>

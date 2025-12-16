@@ -30,6 +30,15 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="CreateListName" Id="{dfb83b60-14e0-0020-26db-362d83675795}">
+      <Declaration><![CDATA[METHOD PRIVATE CreateListName
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="LinkDataHMI_01_XX" Id="{0241f470-6f5d-05e7-0457-a5cdb3f66823}">
       <Declaration><![CDATA[METHOD PUBLIC LinkDataHMI_01_XX : BOOL
 VAR_INPUT
@@ -63,7 +72,16 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.PrepareDataForHMI ();
+        <ST><![CDATA[
+IF (THIS^.refstHMICommonData.bChangePage) THEN
+	THIS^.CreateListName ();
+END_IF
+
+
+
+
+
+SUPER^.PrepareDataForHMI ();
 ]]></ST>
       </Implementation>
     </Method>
