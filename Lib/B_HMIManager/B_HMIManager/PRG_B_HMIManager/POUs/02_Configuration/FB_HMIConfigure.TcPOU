@@ -51,8 +51,9 @@ FOR iI := 1 TO THIS^.iNubmerOfAddedConfigure DO
 		THIS^.arritfConfigure [iI].SetButtonActive (itfHMIManager	:= fbHMIManager);
 		THIS^.arritfConfigure [iI].SetButtonsVisible (itfHMIManager	:= fbHMIManager);
 		THIS^.arritfConfigure [iI].SetButtonsEnabled (itfHMIManager	:= fbHMIManager);
-		//THIS^.arritfConfigure [iI].
-
+		THIS^.arritfConfigure [iI].AddElement (itfHMIManager	:= fbHMIManager);
+		THIS^.arritfConfigure [iI].LinkMachineData (itfHMIManager	:= fbHMIManager);
+		
 	END_IF
 END_FOR
 THIS^.arritfConfigure [1].LinkSafetyToaddedElements (itfHMIManager := fbHMIManager);

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="ST_ControlE_TE1_HMI_Link" Id="{711bd1da-48be-4880-b3a3-8efdf6c48e32}">
+    <Declaration><![CDATA[TYPE ST_ControlE_TE1_HMI_Link EXTENDS ST_BaseControlElement_HMI_Link :
+STRUCT
+	stControlE_TE1		: ST_ControlE_TE1_HMI;
+	
+	stComponetE1_TE1	: ST_Component_TE1_HMI_Link;
+	stComponetE2_TE1	: ST_Component_TE1_HMI_Link;
+	stComponetE3_TE1	: ST_Component_TE1_HMI_Link;
+	stComponetE4_TE1	: ST_Component_TE1_HMI_Link;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

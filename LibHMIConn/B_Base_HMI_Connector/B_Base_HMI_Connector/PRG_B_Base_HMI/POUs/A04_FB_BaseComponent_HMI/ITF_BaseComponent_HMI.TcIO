@@ -9,6 +9,14 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="JoinTheList" Id="{ce02cc1d-c1da-0221-08eb-87e2cdcbb14e}">
+      <Declaration><![CDATA[METHOD PUBLIC JoinTheList : INT
+VAR_INPUT
+	refstList				: REFERENCE TO ST_ListOfElement_HMI;
+	iNumberOfParent			: INT; 	//numer rodzica na liście
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="LinkCommonData" Id="{9592f34a-d939-01f0-03b2-89c41fa48d7d}">
       <Declaration><![CDATA[METHOD PUBLIC LinkCommonData : BOOL
 VAR_INPUT

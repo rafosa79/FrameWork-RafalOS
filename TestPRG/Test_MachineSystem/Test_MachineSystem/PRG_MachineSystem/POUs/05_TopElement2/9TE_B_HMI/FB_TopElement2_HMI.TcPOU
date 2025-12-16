@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_TopElement2_HMI" Id="{633d1036-9713-409a-8e93-d2d06fec43bd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TopElement2_HMI EXTENDS FB_BaseTopElement_HMI IMPLEMENTS ITF_TopElement1_HMI
+VAR
+	itfTopElementConnector			: ITF_TopElement2_HMI_Connector;
+	refstTopElementData				: REFERENCE TO ST_TopElement2_HMI;
+	
+	itfGE1							: ITF_GroupE_TE2_HMI;
+	
+	itfCE1							: ITF_ControlE_TE2_HMI;
+	itfCE2							: ITF_ControlE_TE2_HMI;
+	
+	itfC1							: ITF_Component_TE2_HMI;
+	itfC2							: ITF_Component_TE2_HMI;
+	itfC3							: ITF_Component_TE2_HMI;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_NazwaPB_HMI" Id="{4b6a3cc8-ad7a-4775-a340-2a140cd20c69}" />
+    <Method Name="FB_init" Id="{b0723090-1ede-40f5-b2e1-2627dd38d2b2}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfBaseLoggerConnector				: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
+	itfTopElementConnector				: ITF_TopElement2_HMI_Init;
+	itfGE1								: ITF_GroupE_TE2_HMI;
+	itfCE1								: ITF_ControlE_TE2_HMI;
+	itfCE2								: ITF_ControlE_TE2_HMI;
+	itfC1								: ITF_Component_TE2_HMI;
+	itfC2								: ITF_Component_TE2_HMI;
+	itfC3								: ITF_Component_TE2_HMI;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Przypisanie do elementu który własnie stworzyliśmy
+THIS^.itfTopElementConnector			:= itfTopElementConnector;
+//Przypisanie do elementów z biblioteki
+THIS^.itfBaseLoggerElementConnector		:= itfTopElementConnector;
+THIS^.itfBaseComponentConnector			:= itfTopElementConnector;
+THIS^.itfBaseControlElementConnector	:= itfTopElementConnector;
+THIS^.itfBaseGroupElementConnector		:= itfTopElementConnector;
+THIS^.itfBaseTopElementConnector		:= itfTopElementConnector;
+//
+THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
+
+THIS^.AddControlElement (itfControlElementHMI := itfGE1);
+THIS^.itfGE1 := itfGE1;
+
+THIS^.AddControlElement (itfControlElementHMI := itfCE1);
+THIS^.itfCE1 := itfCE1;
+
+THIS^.AddControlElement (itfControlElementHMI := itfCE2);
+THIS^.itfCE2 := itfCE2;
+
+THIS^.AddComponent (itfComponentHMI := itfC1);
+THIS^.itfC1 := itfC1;
+
+THIS^.AddComponent (itfComponentHMI := itfC2);
+THIS^.itfC2 := itfC2;
+
+THIS^.AddComponent (itfComponentHMI := itfC3);
+THIS^.itfC3 := itfC3;
+
+IF (THIS^.itfTopElementConnector <> 0 AND
+	THIS^.itfBaseLoggerElementConnector <> 0 AND
+	THIS^.itfBaseComponentConnector	<> 0 AND
+	THIS^.itfBaseControlElementConnector <> 0 AND
+	THIS^.itfBaseGroupElementConnector <> 0 AND
+	THIS^.itfBaseTopElementConnector <> 0 AND
+	THIS^.itfBaseLoggerConnector <> 0) THEN
+	THIS^.bIsInit						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkTopElementData" Id="{04fb3a2c-65f1-485c-8878-bcc089663d57}" FolderPath="ITF_NazwaPB_HMI\">
+      <Declaration><![CDATA[METHOD LinkTopElementData : BOOL
+VAR_INPUT
+	stData				: REFERENCE TO ST_TopElement2_HMI_Link;
+END_VAR
+
+VAR
+	stBaseGroupElem: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstTopElementData REF= stData.stTopElement;
+
+THIS^.refstBaseLoggerElementDataHMI REF= stData.stBaseLoggerElement;
+THIS^.refstBaseComponentDataHMI REF= stData.stBaseComponent;
+THIS^.refstBaseControlElementDataHMI REF= stData.stBaseControlElement;
+THIS^.refstBaseGroupElementDataHMI REF= stData.stBaseGroupElement;
+THIS^.refstBaseTopElementDataHMI REF= stData.stBaseTopElement;
+
+THIS^.itfGE1.LinkGroupEData (stData := stData.stGE1);
+
+THIS^.itfCE1.LinkControlEData (stData := stData.stCE1);
+THIS^.itfCE2.LinkControlEData (stData := stData.stCE2);
+
+THIS^.itfC1.LinkComponentData (stData := stData.stC1);
+THIS^.itfC2.LinkComponentData (stData := stData.stC2);
+THIS^.itfC3.LinkComponentData (stData := stData.stC3);
+
+(*
+THIS^.itfControlElement1.LinkControlElementData (stData := stData.stControlElement1);
+THIS^.itfControlElement2.LinkControlElementData (stData := stData.stControlElement2);
+THIS^.itfGroupElement1.LinkGroupelementData (stData := stData.stGroupElement1);
+THIS^.itfComponent1.LinkComponentData (stData := stData.stComponent1);
+THIS^.itfComponent2.LinkComponentData (stData := stData.stComponent2);
+THIS^.itfComponent3.LinkComponentData (stData := stData.stComponent3);
+*)
+THIS^.CreateLinkToEventsMemory ();
+
+IF (__ISVALIDREF (THIS^.refstTopElementData) AND this^.IsLinkedReferences ()) THEN
+	THIS^.bIsValidData		:= TRUE;
+	LinkTopElementData		:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

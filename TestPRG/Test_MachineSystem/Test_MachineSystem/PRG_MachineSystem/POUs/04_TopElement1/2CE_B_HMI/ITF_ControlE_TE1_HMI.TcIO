@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <Itf Name="ITF_ControlE_TE1_HMI" Id="{4b6b5f72-8289-4379-9da6-1c7c5fff7303}">
+    <Declaration><![CDATA[INTERFACE ITF_ControlE_TE1_HMI EXTENDS ITF_BaseControlElement_HMI
+]]></Declaration>
+    <Method Name="LinkControlEData" Id="{86db8138-5621-41b9-888c-0fee67e1b9d8}">
+      <Declaration><![CDATA[METHOD LinkControlEData : BOOL
+VAR_INPUT
+	stData				: REFERENCE TO ST_ControlE_TE1_HMI_Link;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

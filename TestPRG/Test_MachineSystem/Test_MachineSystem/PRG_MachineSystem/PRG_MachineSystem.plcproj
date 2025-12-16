@@ -30,6 +30,14 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="GVLs\GVL_TE1.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_TE2.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="MachineInit.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -49,6 +57,198 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\03_CreatingTemplateRecipe\FB_MachineTemplate3.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\3GE_B\FB_GroupE_TE1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\3GE_B\ITF_GroupE_TE1.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\3GE_B\ITF_GroupE_TE1_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\3GE_B\ITF_GroupE_TE1_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\3GE_B_HMI\FB_GroupE_TE1_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\3GE_B_HMI\ITF_GroupE_TE1_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\3GE_B_HMI\ST_GroupE_TE1_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\3GE_B_HMI\ST_GroupE_TE1_HMI_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\9TE_B\FB_TopElement1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\9TE_B\ITF_TopElement1_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\9TE_B\ITF_TopElement1_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\9TE_B\ITF_TopElement1.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\9TE_B_HMI\FB_TopElement1_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\9TE_B_HMI\ITF_TopElement1_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\9TE_B_HMI\ST_TopElement1_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\9TE_B_HMI\ST_TopElement1_HMI_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\1C_B\FB_Component_TE1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\1C_B\ITF_Component_TE1.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\1C_B\ITF_Component_TE1_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\1C_B\ITF_Component_TE1_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\2CE_B\FB_ControlE_TE1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\2CE_B\ITF_ControlE_TE1.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\2CE_B\ITF_ControlE_TE1_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\2CE_B\ITF_ControlE_TE1_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\1C_B_HMI\FB_Component_TE1_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\1C_B_HMI\ITF_Component_TE1_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\1C_B_HMI\ST_Component_TE1_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\1C_B_HMI\ST_Component_TE1_HMI_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\2CE_B_HMI\FB_ControlE_TE1_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\2CE_B_HMI\ITF_ControlE_TE1_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\2CE_B_HMI\ST_ControlE_TE1_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\04_TopElement1\2CE_B_HMI\ST_ControlE_TE1_HMI_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\1C_B\FB_Component_TE2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\1C_B\ITF_Component_TE2.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\1C_B\ITF_Component_TE2_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\1C_B\ITF_Component_TE2_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\1C_B_HMI\FB_Component_TE2_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\1C_B_HMI\ITF_Component_TE2_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\1C_B_HMI\ST_Component_TE2_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\1C_B_HMI\ST_Component_TE2_HMI_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\2CE_B\FB_ControlE_TE2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\2CE_B\ITF_ControlE_TE2.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\2CE_B\ITF_ControlE_TE2_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\2CE_B\ITF_ControlE_TE2_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\2CE_B_HMI\FB_ControlE_TE2_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\2CE_B_HMI\ITF_ControlE_TE2_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\2CE_B_HMI\ST_ControlE_TE2_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\2CE_B_HMI\ST_ControlE_TE2_HMI_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\3GE_B\FB_GroupE_TE2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\3GE_B\ITF_GroupE_TE2.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\3GE_B\ITF_GroupE_TE2_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\3GE_B\ITF_GroupE_TE2_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\3GE_B_HMI\FB_GroupE_TE2_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\3GE_B_HMI\ITF_GroupE_TE2_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\3GE_B_HMI\ST_GroupE_TE2_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\3GE_B_HMI\ST_GroupE_TE2_HMI_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\9TE_B\FB_TopElement2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\9TE_B\ITF_TopElement2.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\9TE_B\ITF_TopElement2_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\9TE_B\ITF_TopElement2_HMI_Init.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\9TE_B_HMI\FB_TopElement2_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\9TE_B_HMI\ITF_TopElement2_HMI.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\9TE_B_HMI\ST_TopElement2_HMI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\05_TopElement2\9TE_B_HMI\ST_TopElement2_HMI_Link.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\PRG_MachineConfigure.TcPOU">
@@ -71,6 +271,24 @@
     <Folder Include="POUs\01_MachineConfiguration" />
     <Folder Include="POUs\02_HMIConfiguration" />
     <Folder Include="POUs\03_CreatingTemplateRecipe" />
+    <Folder Include="POUs\04_TopElement1" />
+    <Folder Include="POUs\04_TopElement1\3GE_B" />
+    <Folder Include="POUs\04_TopElement1\3GE_B_HMI" />
+    <Folder Include="POUs\04_TopElement1\9TE_B" />
+    <Folder Include="POUs\04_TopElement1\9TE_B_HMI" />
+    <Folder Include="POUs\04_TopElement1\1C_B" />
+    <Folder Include="POUs\04_TopElement1\2CE_B" />
+    <Folder Include="POUs\04_TopElement1\1C_B_HMI" />
+    <Folder Include="POUs\04_TopElement1\2CE_B_HMI" />
+    <Folder Include="POUs\05_TopElement2" />
+    <Folder Include="POUs\05_TopElement2\1C_B" />
+    <Folder Include="POUs\05_TopElement2\1C_B_HMI" />
+    <Folder Include="POUs\05_TopElement2\2CE_B" />
+    <Folder Include="POUs\05_TopElement2\2CE_B_HMI" />
+    <Folder Include="POUs\05_TopElement2\3GE_B" />
+    <Folder Include="POUs\05_TopElement2\3GE_B_HMI" />
+    <Folder Include="POUs\05_TopElement2\9TE_B" />
+    <Folder Include="POUs\05_TopElement2\9TE_B_HMI" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -78,6 +296,9 @@
     <PlaceholderReference Include="B_Base">
       <DefaultResolution>B_Base, * (RafalOS)</DefaultResolution>
       <Namespace>B_Base</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_Base_HMI_Connector">
+      <DefaultResolution>B_Base_HMI_Connector, * (RafalOS)</DefaultResolution>
     </PlaceholderReference>
     <PlaceholderReference Include="B_HMIManager">
       <DefaultResolution>B_HMIManager, * (RafałOS)</DefaultResolution>
@@ -89,6 +310,7 @@
     </PlaceholderReference>
     <PlaceholderReference Include="B_MachineControl_HMI_Connector">
       <DefaultResolution>B_MachineControl_HMI_Connector, * (RafalOS)</DefaultResolution>
+      <Namespace>B_MachineControl_HMI_Connector</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="B_MachineSystem">
       <DefaultResolution>B_MachineSystem, * (RafalOS)</DefaultResolution>

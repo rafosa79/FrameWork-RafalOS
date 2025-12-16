@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <Itf Name="ITF_ControlE_TE2" Id="{0e41b0e3-c42f-4151-b708-b73d3701aa21}">
+    <Declaration><![CDATA[INTERFACE ITF_ControlE_TE2 EXTENDS ITF_BaseControlElement
+]]></Declaration>
+    <Method Name="testMethodCE" Id="{2b188a7c-2924-433b-abb1-c1df185fc721}">
+      <Declaration><![CDATA[METHOD testMethodCE : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

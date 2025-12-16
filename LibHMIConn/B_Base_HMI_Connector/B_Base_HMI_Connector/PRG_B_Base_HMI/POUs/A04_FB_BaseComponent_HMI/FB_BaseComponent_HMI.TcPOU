@@ -24,6 +24,33 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="JoinTheList" Id="{9c9a65cc-394a-42f3-8449-c5b446cfc626}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[METHOD PUBLIC JoinTheList : INT
+VAR_INPUT
+	refstList				: REFERENCE TO ST_ListOfElement_HMI;
+	iNumberOfParent			: INT; 	//numer rodzica na liście
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (refstList.iNumberOfAdded + 1 <= TO_INT (GVL_BaseConstans.MAX_NUMBER_OF_ALL_ITEM) AND THIS^.itfBaseComponentConnector <> 0) THEN
+	refstList.iNumberOfAdded := refstList.iNumberOfAdded + 1;
+	refstList.arrRow [refstList.iNumberOfAdded].stIdentifiers := THIS^.itfBaseComponentConnector.GetIdentyfier ();
+	refstList.arrRow [refstList.iNumberOfAdded].itfElement := THIS^;
+	IF (refstList.arrRow [refstList.iNumberOfAdded].stIdentifiers.eType = E_BaseElementType.eTop) THEN
+		(*	Zapisujemy w tablicy arrListaPB indekxy PB	*)
+		refstList.iNumberOfAddedTE := refstList.iNumberOfAddedTE + 1;
+		refstList.arrRowOfListTE [refstList.iNumberOfAddedTE] := refstList.iNumberOfAdded;
+		JoinTheList := refstList.iNumberOfAdded;
+	ELSE
+		(*	Dopisanie numeru swojego indeksu do poprzedniego idneksu czyli do swojego rodzica 	*)
+		refstList.arrRow [iNumberOfParent].iNumberOfChildAdded := refstList.arrRow [iNumberOfParent].iNumberOfChildAdded + 1;
+		refstList.arrRow [iNumberOfParent].arrChild [refstList.arrRow [iNumberOfParent].iNumberOfChildAdded] := refstList.iNumberOfAdded;
+		JoinTheList := refstList.iNumberOfAdded;
+	END_IF
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="PrepareDataForHMI" Id="{49fd316c-5d5b-0f7d-2ccf-0b061cb6666d}" FolderPath="ITF_BaseLoggerElement_HMI\">
       <Declaration><![CDATA[(*			
 	RafalOS

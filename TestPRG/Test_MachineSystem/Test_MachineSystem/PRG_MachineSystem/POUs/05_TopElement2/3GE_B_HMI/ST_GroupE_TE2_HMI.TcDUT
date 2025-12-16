@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="ST_GroupE_TE2_HMI" Id="{d86a71c0-5c70-4629-8542-0078d205dc7e}">
+    <Declaration><![CDATA[TYPE ST_GroupE_TE2_HMI :
+STRUCT
+	bZmienneTypoweDlaGE_TE2	: BOOL;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

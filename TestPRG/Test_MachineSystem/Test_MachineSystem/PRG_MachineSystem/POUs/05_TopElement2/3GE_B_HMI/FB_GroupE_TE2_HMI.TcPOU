@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_GroupE_TE2_HMI" Id="{47787ac0-915e-4f7c-83d2-71910992f5bb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_GroupE_TE2_HMI EXTENDS FB_BaseGroupElement_HMI IMPLEMENTS ITF_GroupE_TE2_HMI
+VAR
+	itfGroupE_TE2Connector		: ITF_GroupE_TE2_HMI_Connector;
+	refstGroupE_TE2Data			: REFERENCE TO ST_GroupE_TE2_HMI;
+	
+	itfCE1				: ITF_ControlE_TE2_HMI;
+	itfCE2				: ITF_ControlE_TE2_HMI;
+
+	itfC1				: ITF_Component_TE2_HMI;
+	itfC2				: ITF_Component_TE2_HMI;
+	itfC3				: ITF_Component_TE2_HMI;
+	itfC4				: ITF_Component_TE2_HMI;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_NazwaPB_HMI" Id="{282dd6f6-0189-4180-94dd-341315cd951d}" />
+    <Method Name="FB_init" Id="{0c7f33fe-20a3-413d-a3db-2f1d04fb9e5e}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfBaseLoggerConnector			: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
+	itfGroupE_TE2Connector			: ITF_GroupE_TE2_HMI_Connector;
+	itfCE1							: ITF_ControlE_TE2_HMI;
+	itfCE2							: ITF_ControlE_TE2_HMI;
+	itfC1								: ITF_Component_TE2_HMI;
+	itfC2								: ITF_Component_TE2_HMI;
+	itfC3								: ITF_Component_TE2_HMI;
+	itfC4								: ITF_Component_TE2_HMI;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Przypisanie do elementu który własnie stworzyliśmy
+THIS^.itfGroupE_TE2Connector := itfGroupE_TE2Connector;
+//Przypisanie do elementów z biblioteki
+THIS^.itfBaseLoggerElementConnector := itfGroupE_TE2Connector;
+THIS^.itfBaseComponentConnector := itfGroupE_TE2Connector;
+THIS^.itfBaseControlElementConnector := itfGroupE_TE2Connector;
+THIS^.itfBaseGroupElementConnector := itfGroupE_TE2Connector;
+
+THIS^.AddControlElement (itfControlElementHMI := itfCE1);
+THIS^.itfCE1 := itfCE1;
+THIS^.AddControlElement (itfControlElementHMI := itfCE2);
+THIS^.itfCE2 := itfCE2;
+
+THIS^.AddComponent (itfComponentHMI := itfC1);
+THIS^.itfC1 := itfC1;
+THIS^.AddComponent (itfComponentHMI := itfC2);
+THIS^.itfC2 := itfC2;
+THIS^.AddComponent (itfComponentHMI := itfC3);
+THIS^.itfC3 := itfC3;
+THIS^.AddComponent (itfComponentHMI := itfC4);
+THIS^.itfC4 := itfC4;
+
+
+//
+THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
+
+IF (THIS^.itfGroupE_TE2Connector <> 0 AND
+	THIS^.itfBaseLoggerElementConnector <> 0 AND
+	THIS^.itfBaseComponentConnector	<> 0 AND
+	THIS^.itfBaseControlElementConnector <> 0 AND
+	THIS^.itfBaseGroupElementConnector <> 0 AND
+	THIS^.itfBaseLoggerConnector <> 0) THEN
+	THIS^.bIsInit						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkGroupEData" Id="{7ce5f807-8cdf-40e3-9bfa-5274ca092559}" FolderPath="ITF_NazwaPB_HMI\">
+      <Declaration><![CDATA[METHOD LinkGroupEData : BOOL
+VAR_INPUT
+	stData				: REFERENCE TO ST_GroupE_TE2_HMI_Link;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstGroupE_TE2Data REF= stData.stGroupE_TE2;
+
+THIS^.refstBaseLoggerElementDataHMI REF= stData.stBaseLoggerElement;
+THIS^.refstBaseComponentDataHMI REF= stData.stBaseComponent;
+THIS^.refstBaseControlElementDataHMI REF= stData.stBaseControlElement;
+THIS^.refstBaseGroupElementDataHMI REF= stData.stBaseGroupElement;
+
+THIS^.itfCE1.LinkControlEData (stData := stData.stControlE1_TE2);
+THIS^.itfCE2.LinkControlEData (stData := stData.stControlE2_TE2);
+
+THIS^.itfC1.LinkComponentData (stData := stData.stComponetE1_TE2);
+THIS^.itfC2.LinkComponentData (stData := stData.stComponetE2_TE2);
+THIS^.itfC3.LinkComponentData (stData := stData.stComponetE3_TE2);
+THIS^.itfC4.LinkComponentData (stData := stData.stComponetE4_TE2);
+
+
+THIS^.CreateLinkToEventsMemory ();
+
+IF (__ISVALIDREF (THIS^.refstGroupE_TE2Data) AND THIS^.IsLinkedReferences ()) THEN
+	THIS^.bIsValidData		:= TRUE;
+	LinkGroupEData		:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

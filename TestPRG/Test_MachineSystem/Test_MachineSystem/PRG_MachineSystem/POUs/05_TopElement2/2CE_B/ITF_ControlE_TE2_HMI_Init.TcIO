@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <Itf Name="ITF_ControlE_TE2_HMI_Init" Id="{e8d2bfe3-9e56-4f77-bb6a-238bf21708a8}">
+    <Declaration><![CDATA[INTERFACE ITF_ControlE_TE2_HMI_Init EXTENDS ITF_BaseControlElement, ITF_ControlE_TE2_HMI_Connector
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

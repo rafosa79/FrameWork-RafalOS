@@ -13,6 +13,27 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="AddElement" Id="{0ac06193-8f9c-4f7b-a4f0-4d75310240c3}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		07.12.2025		TC 4024.66
+	Dodawanie elementów do systemmu wyświetlania
+*)
+METHOD AddElement
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[itfHMIManager.AddElementFromConfiguration (
+	fbTopElementHMI := GVL_TE1.fbTopElement1HMI
+);
+
+itfHMIManager.AddElementFromConfiguration (
+	fbTopElementHMI := GVL_TE2.fbTopElement2HMI
+);]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddExtendedDisplayToPrepScrModule" Id="{164c2fc1-9e48-4f57-84ed-51098907a6de}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -113,6 +134,18 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
+    <Method Name="LinkMachineData" Id="{e43d0a5e-5352-490d-8ac7-19f1d2c89e19}">
+      <Declaration><![CDATA[METHOD LinkMachineData : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GVL_TE1.fbTopElement1HMI.LinkTopElementData (stData := GVL_TE1.stTopElemenent1);
+GVL_TE2.fbTopElement2HMI.LinkTopElementData (stData := GVL_TE2.stTopElemenent2);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="LinkSafetyToaddedElements" Id="{0e677a39-174e-49fb-af91-fdf5515c5729}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -178,6 +211,7 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[itfHMIManager.SetButtonsVisibleFromConfiguration (iNumber := 5, bValue := FALSE);
+
 ]]></ST>
       </Implementation>
     </Method>

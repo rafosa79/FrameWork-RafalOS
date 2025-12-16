@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_TopElement2" Id="{852c6bd8-1cfa-43e9-a93d-d605bda52947}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TopElement2 EXTENDS FB_BaseTopElement IMPLEMENTS ITF_TopElement2, ITF_TopElement2_HMI_Init
+VAR
+	itfGE1				: ITF_GroupE_TE2;
+
+	itfCE1				: ITF_ControlE_TE2;
+	itfCE2				: ITF_ControlE_TE2;
+
+	itfC1				: ITF_Component_TE2;
+	itfC2				: ITF_Component_TE2;
+	itfC3				: ITF_Component_TE2;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{3b4b1574-7c7f-4f07-aa92-7fb1730a0f2a}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfGE1				: ITF_GroupE_TE2;
+	itfCE1				: ITF_ControlE_TE2;
+	itfCE2				: ITF_ControlE_TE2;
+	itfC1				: ITF_Component_TE2;
+	itfC2				: ITF_Component_TE2;
+	itfC3				: ITF_Component_TE2;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfGE1 := itfGE1;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Element złożony 1");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Element złożony 1");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Element złożony 1");
+itfGE1.SetName (stName := THIS^.GetTexts ());
+THIS^.AddControlElement (itfControlElement := itfGE1);
+
+THIS^.itfCE1 := itfCE1;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Element wykonawczy 1");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Element wykonawczy 1");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Element wykonawczy 1");
+itfCE1.SetName (stName := THIS^.GetTexts ());
+THIS^.AddControlElement (itfControlElement := itfCE1);
+
+THIS^.itfCE2 := itfCE2;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Element wykonawczy 2");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Element wykonawczy 2");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Element wykonawczy 2");
+itfCE2.SetName (stName := THIS^.GetTexts ());
+THIS^.AddControlElement (itfControlElement := itfCE2);
+
+
+THIS^.itfC1 := itfC1;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Komponent 1");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Komponent 1");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Komponent 1");
+itfC1.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent := itfC1);
+
+THIS^.itfC2 := itfC2;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Komponent 2");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Komponent 2");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Komponent 2");
+itfC2.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent := itfC2);
+
+THIS^.itfC3 := itfC3;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Komponent 3");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Komponent 3");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Komponent 3");
+itfC3.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent := itfC3);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

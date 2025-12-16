@@ -80,6 +80,13 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="AddSaMToTopElement" Id="{df260a52-b61c-08d3-0cfb-85e6c4f00a30}">
+      <Declaration><![CDATA[METHOD PUBLIC AddSaMToTopElement
+VAR_INPUT
+	itfMachineControl			: ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="LinkCommonDataToAddedElements" Id="{d43b7d0c-7c37-0336-0f68-4a3198856c53}">
       <Declaration><![CDATA[(*			
 	RafalOS

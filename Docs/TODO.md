@@ -1,3 +1,15 @@
+Do zrobienia: 
+- podczas rozruchu jak nie ma wybranej receptury to się nei wyświetla informacja na ekranie
+- jak się wybierze receptury nie przepisuje jej do topelementów
+
+- dopisywanie elementów na listy w HMIManager - metody w base zrobione - trzbea zrobić dodawanie w configuracji
+
+
+
+
+STARE INFORMACJE DO WERYFIKACJI
+
+
 Do zrobienia cały serwis
 
 zamykanie i potwierdzanie zgłoszeń i potem przetestować filtry 

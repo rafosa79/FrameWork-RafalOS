@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Component_TE1_HMI" Id="{32067bdf-c498-429e-afe7-7a43b9e6ece5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Component_TE1_HMI EXTENDS FB_BaseComponent_HMI IMPLEMENTS ITF_Component_TE1_HMI
+VAR
+	itfComponent_TE1Connector		: ITF_Component_TE1_HMI_Connector;
+	refstComponent_TE1Data			: REFERENCE TO ST_Component_TE1_HMI;
+
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_NazwaPB_HMI" Id="{b78936dd-c1f2-4fd0-b334-cb7fcdbbdbd9}" />
+    <Method Name="FB_init" Id="{3e866c97-b2e8-48cd-acf2-17ef73fcaec1}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfBaseLoggerConnector				: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
+	itfComponent_TE1Connector			: ITF_Component_TE1_HMI_Init;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Przypisanie do elementu który własnie stworzyliśmy
+THIS^.itfComponent_TE1Connector			:= itfComponent_TE1Connector;
+//Przypisanie do elementów z biblioteki
+THIS^.itfBaseLoggerElementConnector		:= itfComponent_TE1Connector;
+THIS^.itfBaseComponentConnector			:= itfComponent_TE1Connector;
+
+//
+THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
+
+IF (THIS^.itfComponent_TE1Connector <> 0 AND
+	THIS^.itfBaseLoggerElementConnector <> 0 AND
+	THIS^.itfBaseComponentConnector	<> 0 AND
+	THIS^.itfBaseLoggerConnector <> 0) THEN
+	THIS^.bIsInit						:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkComponentData" Id="{634b6051-f885-4d78-9f62-3739f3d56aec}" FolderPath="ITF_NazwaPB_HMI\">
+      <Declaration><![CDATA[METHOD LinkComponentData : BOOL
+VAR_INPUT
+	stData				: REFERENCE TO ST_Component_TE1_HMI_Link;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstComponent_TE1Data REF= stData.stComponent_TE1;
+
+THIS^.refstBaseLoggerElementDataHMI REF= stData.stBaseLoggerElement;
+THIS^.refstBaseComponentDataHMI REF= stData.stBaseComponent;
+
+
+
+THIS^.CreateLinkToEventsMemory ();
+
+IF (__ISVALIDREF (THIS^.refstComponent_TE1Data) AND this^.IsLinkedReferences ()) THEN
+	THIS^.bIsValidData		:= TRUE;
+	LinkComponentData		:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

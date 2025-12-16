@@ -79,6 +79,13 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="AddSaMToTopElementFromConfiguration" Id="{f1516be8-b675-0c63-1824-203297d21f44}">
+      <Declaration><![CDATA[METHOD PUBLIC AddSaMToTopElementFromConfiguration
+VAR_INPUT
+	itfSaMController			: ITF_SaMController;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="ExecuteFirstCycle" Id="{d24ffd5b-ca68-0962-3c0e-990de5787f5e}">
       <Declaration><![CDATA[(*			
 	RafalOS

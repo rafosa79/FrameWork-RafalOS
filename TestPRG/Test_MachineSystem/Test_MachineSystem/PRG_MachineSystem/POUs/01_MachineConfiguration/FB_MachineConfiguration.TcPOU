@@ -50,7 +50,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "TopElement 1");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "TopElement 1");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "TopElement 1");
+GVL_TE1.fbTopElement1.SetName (stName := THIS^.GetTexts ());
+itfMachineControl.AddElementFromConfiguration (itfElements := GVL_TE1.fbTopElement1);
+
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "TopElement 2");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "TopElement 2");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "TopElement 2");
+GVL_TE2.fbTopElement2.SetName (stName := THIS^.GetTexts ());
+itfMachineControl.AddElementFromConfiguration (itfElements := GVL_TE2.fbTopElement2);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddHMIManager" Id="{61cfca67-957e-4d83-bef0-a0e80d36252f}">
@@ -105,6 +116,16 @@ END_VAR
 	Dodanie modułu sterowania stanami i trybami do machinecontrol
 *)
 METHOD AddSaMCotrollerToMachineControl : BOOL
+VAR_INPUT
+	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddSaMToTopElement" Id="{7fc36476-0920-4829-9dca-beab78172002}">
+      <Declaration><![CDATA[METHOD AddSaMToTopElement
 VAR_INPUT
 	itfMachineControl	: B_MachineControl.ITF_MCMachineControlConfigure;
 END_VAR

@@ -13,6 +13,21 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="AddElement" Id="{9edecc12-6a33-0aba-13c6-690364b7f4aa}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		07.12.2025		TC 4024.66
+	Dodawanie elementów do systemmu wyświetlania
+*)
+METHOD AddElement
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AddExtendedDisplayToPrepScrModule" Id="{17bb6bfe-fa40-03c7-03a6-c1e50e676633}">
       <Declaration><![CDATA[(*			
 	RafalOS
@@ -257,6 +272,21 @@ END_VAR
       <Implementation>
         <ST><![CDATA[itfHMIManager.LinkHMIManagerDataFromConfiguration (stData := PRG_ControlHMI.stHMIData);
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LinkMachineData" Id="{564f1cb5-cab9-0ae0-03ba-5cc70564a362}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		16.12.2025		TC 4024.66
+	Wywołanie linkowania zmiennych w topelemencie i jego dzieciach
+*)
+METHOD LinkMachineData : BOOL
+VAR_INPUT
+	itfHMIManager	: B_HMI_Manager.ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
     <Method Name="LinkSafetyToaddedElements" Id="{6123aa6f-4f08-0aa4-1a07-0de5ecb745ab}">

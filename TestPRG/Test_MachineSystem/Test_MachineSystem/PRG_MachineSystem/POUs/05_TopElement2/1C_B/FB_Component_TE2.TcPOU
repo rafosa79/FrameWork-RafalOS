@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Component_TE2" Id="{b20d8b47-3886-4b8b-b836-316be1a8d7b8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Component_TE2 EXTENDS FB_BaseComponent IMPLEMENTS ITF_Component_TE2, ITF_Component_TE2_HMI_Init
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="testMethod" Id="{4b9e12f3-f334-4ea3-9195-5df56108187b}">
+      <Declaration><![CDATA[METHOD testMethod : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

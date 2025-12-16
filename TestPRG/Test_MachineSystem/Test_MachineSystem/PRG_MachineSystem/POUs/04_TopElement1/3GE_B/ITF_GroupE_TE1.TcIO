@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <Itf Name="ITF_GroupE_TE1" Id="{8c2e7460-d2fc-4270-8aad-d79cbefea607}">
+    <Declaration><![CDATA[INTERFACE ITF_GroupE_TE1 EXTENDS ITF_BaseGroupElement
+]]></Declaration>
+    <Method Name="testMethodGE" Id="{8dfc04b0-1810-4a33-a7fd-9741a961ad79}">
+      <Declaration><![CDATA[METHOD testMethodGE : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
