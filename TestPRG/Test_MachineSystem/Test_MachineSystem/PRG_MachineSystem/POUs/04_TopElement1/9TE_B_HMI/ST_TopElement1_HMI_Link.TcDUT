@@ -5,6 +5,14 @@
 STRUCT
 	stTopElement		: ST_TopElement1_HMI;
 	
+	stGE1				: ST_GroupE_TE1_HMI_Link;
+	
+	stCE1				: ST_ControlE_TE1_HMI_Link;
+	stCE2				: ST_ControlE_TE1_HMI_Link;
+	
+	stC1				: ST_Component_TE1_HMI_Link;
+	stC2				: ST_Component_TE1_HMI_Link;
+	stC3				: ST_Component_TE1_HMI_Link;
 	
 END_STRUCT
 END_TYPE

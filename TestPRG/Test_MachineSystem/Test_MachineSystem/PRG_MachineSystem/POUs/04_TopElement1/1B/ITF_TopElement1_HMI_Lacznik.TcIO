@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
-  <Itf Name="ITF_TopElement1_HMI_Lacznik" Id="{b987259f-ba74-0e29-3399-cb196a739695}">
-    <Declaration><![CDATA[INTERFACE ITF_TopElement1_HMI_Lacznik EXTENDS ITF_BaseTopElement_HMI_Connector
-]]></Declaration>
-  </Itf>
-</TcPlcObject>

@@ -87,6 +87,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="LinkMachineData" Id="{535c16e1-ff77-0948-27b6-8357c4db8301}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		16.12.2025		TC 4024.66
+	Wywołanie linkowania zmiennych w topelemencie i jego dzieciach
+*)
+METHOD PUBLIC LinkMachineData : BOOL
+VAR_INPUT
+	itfHMIManager	: ITF_HMIManagerConfigure;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="LinkSafetyToaddedElements" Id="{8d2b9552-1daf-0a65-0e4e-8841e80df726}">
       <Declaration><![CDATA[(*			
 	RafalOS

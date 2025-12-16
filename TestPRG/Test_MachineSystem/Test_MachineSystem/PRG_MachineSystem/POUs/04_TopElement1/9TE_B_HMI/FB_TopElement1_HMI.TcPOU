@@ -3,10 +3,17 @@
   <POU Name="FB_TopElement1_HMI" Id="{72240472-9116-03cb-36c6-17374bd97d62}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_TopElement1_HMI EXTENDS FB_BaseTopElement_HMI IMPLEMENTS ITF_TopElement1_HMI
 VAR
-	itfTopElementConnector			: ITF_TopElement1_HMI_Lacznik;
+	itfTopElementConnector			: ITF_TopElement1_HMI_Connector;
 	refstTopElementData				: REFERENCE TO ST_TopElement1_HMI;
-
 	
+	itfGE1							: ITF_GroupE_TE1_HMI;
+	
+	itfCE1							: ITF_ControlE_TE1_HMI;
+	itfCE2							: ITF_ControlE_TE1_HMI;
+	
+	itfC1							: ITF_Component_TE1_HMI;
+	itfC2							: ITF_Component_TE1_HMI;
+	itfC3							: ITF_Component_TE1_HMI;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -20,6 +27,12 @@ VAR_INPUT
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 	itfBaseLoggerConnector				: ITF_BaseLogger_HMI_Connector;	//bezpośredni łącznik do logera
 	itfTopElementConnector				: ITF_TopElement1_HMI_Init;
+	itfGE1								: ITF_GroupE_TE1_HMI;
+	itfCE1								: ITF_ControlE_TE1_HMI;
+	itfCE2								: ITF_ControlE_TE1_HMI;
+	itfC1								: ITF_Component_TE1_HMI;
+	itfC2								: ITF_Component_TE1_HMI;
+	itfC3								: ITF_Component_TE1_HMI;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -33,6 +46,24 @@ THIS^.itfBaseGroupElementConnector		:= itfTopElementConnector;
 THIS^.itfBaseTopElementConnector		:= itfTopElementConnector;
 //
 THIS^.itfBaseLoggerConnector			:= itfBaseLoggerConnector;
+
+THIS^.AddControlElement (itfControlElementHMI := itfGE1);
+THIS^.itfGE1 := itfGE1;
+
+THIS^.AddControlElement (itfControlElementHMI := itfCE1);
+THIS^.itfCE1 := itfCE1;
+
+THIS^.AddControlElement (itfControlElementHMI := itfCE2);
+THIS^.itfCE2 := itfCE2;
+
+THIS^.AddComponent (itfComponentHMI := itfC1);
+THIS^.itfC1 := itfC1;
+
+THIS^.AddComponent (itfComponentHMI := itfC2);
+THIS^.itfC2 := itfC2;
+
+THIS^.AddComponent (itfComponentHMI := itfC3);
+THIS^.itfC3 := itfC3;
 
 IF (THIS^.itfTopElementConnector <> 0 AND
 	THIS^.itfBaseLoggerElementConnector <> 0 AND
@@ -51,7 +82,10 @@ END_IF
 VAR_INPUT
 	stData				: REFERENCE TO ST_TopElement1_HMI_Link;
 END_VAR
-]]></Declaration>
+
+VAR
+	stBaseGroupElem: INT;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.refstTopElementData REF= stData.stTopElement;
 
@@ -60,6 +94,16 @@ THIS^.refstBaseComponentDataHMI REF= stData.stBaseComponent;
 THIS^.refstBaseControlElementDataHMI REF= stData.stBaseControlElement;
 THIS^.refstBaseGroupElementDataHMI REF= stData.stBaseGroupElement;
 THIS^.refstBaseTopElementDataHMI REF= stData.stBaseTopElement;
+
+THIS^.itfGE1.LinkGroupEData (stData := stData.stGE1);
+
+THIS^.itfCE1.LinkControlEData (stData := stData.stCE1);
+THIS^.itfCE2.LinkControlEData (stData := stData.stCE2);
+
+THIS^.itfC1.LinkComponentData (stData := stData.stC1);
+THIS^.itfC2.LinkComponentData (stData := stData.stC2);
+THIS^.itfC3.LinkComponentData (stData := stData.stC3);
+
 (*
 THIS^.itfControlElement1.LinkControlElementData (stData := stData.stControlElement1);
 THIS^.itfControlElement2.LinkControlElementData (stData := stData.stControlElement2);

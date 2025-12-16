@@ -24,7 +24,7 @@ VAR
 	(*	Łącznik do MachineControl	*)
 	itfMachineControl			: ITF_MCHMIMachineControl_HMI;
 	(*	Lista dodanych elementów	*)
-	
+	stElement					: ST_ListOfElement_HMI;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -51,7 +51,13 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[fbTopElementHMI.JoinTheList (
+	refstList		:= THIS^.stElement,
+	iNumberOfParent := 0
+);
+
+fbTopElementHMI.LinkCommonData (stCommonData := THIS^.refstCommonData);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddExtendedDisplayToPrepScrModuleFromConfiguration" Id="{bb0f7184-b066-0b31-247f-5b56c025b682}" FolderPath="ITF_HMIManagerConfigure\">

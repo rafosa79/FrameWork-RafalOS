@@ -3,6 +3,18 @@
   <Itf Name="ITF_HMIManagerConfigure" Id="{6d65f736-9707-03a5-294a-a8aaa4bb0d85}">
     <Declaration><![CDATA[INTERFACE ITF_HMIManagerConfigure EXTENDS ITF_Base
 ]]></Declaration>
+    <Method Name="AddElementFromConfiguration" Id="{d1b04012-30f1-0bba-0f3d-6e17a01d1b0f}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		07.12.2025		TC 4024.66
+	Dodawanie elementów do systemmu wyświetlania
+*)
+METHOD AddElementFromConfiguration
+VAR_INPUT
+	fbTopElementHMI		: ITF_BaseTopElement_HMI;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="AddExtendedDisplayToPrepScrModuleFromConfiguration" Id="{d4bca5ed-5a82-0c88-2f2d-43d244921795}">
       <Declaration><![CDATA[(*			
 	RafalOS

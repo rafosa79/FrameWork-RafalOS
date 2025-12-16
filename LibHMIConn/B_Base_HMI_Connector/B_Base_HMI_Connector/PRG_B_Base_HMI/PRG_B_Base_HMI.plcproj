@@ -21,7 +21,7 @@
     <Company>RafalOS</Company>
     <Title>B_Base_HMI_Connector</Title>
     <DefaultNamespace>B_Base_HMI_Connector</DefaultNamespace>
-    <ProjectVersion>0.0.0.34</ProjectVersion>
+    <ProjectVersion>0.0.0.35</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>

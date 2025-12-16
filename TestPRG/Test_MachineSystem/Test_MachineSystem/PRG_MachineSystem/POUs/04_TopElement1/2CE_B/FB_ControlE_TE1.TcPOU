@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_ControlE_TE1" Id="{c18b2192-e250-4e58-8114-4caf77427a2e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ControlE_TE1 EXTENDS FB_BaseControlElement IMPLEMENTS ITF_ControlE_TE1, ITF_ControlE_TE1_HMI_Init
+VAR
+	itfC1				: ITF_Component_TE1;
+	itfC2				: ITF_Component_TE1;
+	itfC3				: ITF_Component_TE1;
+	itfC4				: ITF_Component_TE1;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{1ac017bd-1b06-48e3-be6b-c152b8415b3e}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfC1				: ITF_Component_TE1;
+	itfC2				: ITF_Component_TE1;
+	itfC3				: ITF_Component_TE1;
+	itfC4				: ITF_Component_TE1;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfC1 := itfC1;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Komponent 1 EC");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Komponent 1 EC");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Komponent 1 EC");
+itfC1.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent := itfC1);
+
+THIS^.itfC2 := itfC2;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Komponent 2 EC");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Komponent 2 EC");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Komponent 2 EC");
+itfC2.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent := itfC2);
+
+THIS^.itfC3 := itfC3;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Komponent 3 EC");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Komponent 3 EC");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Komponent 3 EC");
+itfC3.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent := itfC3);
+
+THIS^.itfC4 := itfC4;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Komponent 4 EC");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Komponent 4 EC");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Komponent 4 EC");
+itfC4.SetName (stName := THIS^.GetTexts ());
+THIS^.AddComponent (itfComponent := itfC4);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="testMethodCE" Id="{a9807116-9a77-431b-9e60-1e9fb47df2e6}">
+      <Declaration><![CDATA[METHOD testMethodCE : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
