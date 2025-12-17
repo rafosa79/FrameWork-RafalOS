@@ -37,6 +37,19 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetElementNamesWithParameter" Id="{20c043f0-cd45-0b34-3b33-1798770d6c94}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		17.12.2025		TC 4024.66
+	Pobiera listę elementów które posiadaja parametr i 
+	przypisuje ja do zadanej struktury i zwraca true jak się uda
+*)
+METHOD GetElementNamesWithParameter : BOOL
+VAR_INPUT
+	stDane			: REFERENCE TO ST_MCElementListWithParameter;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="GetModeName" Id="{ac65741e-56de-0aec-21f1-c2c7c554529c}">
       <Declaration><![CDATA[METHOD PUBLIC GetModeName : ST_BaseLabel
 VAR_INPUT

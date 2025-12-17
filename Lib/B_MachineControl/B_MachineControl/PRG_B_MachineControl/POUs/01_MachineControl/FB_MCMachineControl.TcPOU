@@ -14,7 +14,7 @@ VAR
 	(*	Konfiguracja		*)
 	itfMachineConfigure			: ITF_MCMachineConfigure;		//moduł konfiguracji
 	bEnableHMIService			: BOOL;
-	(*	TopElementu systemu	*)
+	(*	TopElementy systemu	*)
 	arrTopElements					: ARRAY [1..GVL_BaseConstans.MAX_NUMBER_OF_TOP_ELEMENT] OF ITF_BaseTopElement;
 	uiNumberOfAddedTopElement		: UINT := 0;//przy dodawaniu element 0 to system 
 	uiNumberOfAllAddedElements		: UINT;		//liczba elementow które są na maszynie 
@@ -395,6 +395,28 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetCommunicatorITF := THIS^.fbMasterCommunicator;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetElementNamesWithParameter" Id="{fc756e7e-b3c2-0fc1-3313-c3250c36a609}" FolderPath="ITF_MC_HMI_Connector\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		17.12.2025		TC 4024.66
+	Pobiera listę elementów które posiadaja parametr i 
+	przypisuje ja do zadanej struktury i zwraca true jak się uda
+*)
+METHOD GetElementNamesWithParameter : BOOL
+VAR_INPUT
+	stDane			: REFERENCE TO ST_MCElementListWithParameter;
+END_VAR
+
+VAR
+	iI: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR iI := 1 TO TO_INT (THIS^.uiNumberOfAddedTopElement) DO
+	;
+END_FOR
 ]]></ST>
       </Implementation>
     </Method>

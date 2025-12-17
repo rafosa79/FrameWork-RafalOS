@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66" ClassName="CNestedPlcProjDef">
 	<Project GUID="{9EE6BF4F-8DCD-4D6B-BE79-5FD3D4CE91BE}" Name="PRG_MC_HMI_Conn" PrjFilePath="..\..\PRG_MC_HMI_Conn\PRG_MC_HMI_Conn.plcproj" TmcFilePath="..\..\PRG_MC_HMI_Conn\PRG_MC_HMI_Conn.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_MC_HMI_Conn\PRG_MC_HMI_Conn.tmc" TmcHash="{2F8F209D-DFA2-BB78-FD90-37BADF5CBE06}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PRG_MC_HMI_Conn\PRG_MC_HMI_Conn.tmc" TmcHash="{E69E2BF8-ED7A-43D8-B064-3A49E092ED0C}">
 			<Name>PRG_MC_HMI_Conn Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Contexts>

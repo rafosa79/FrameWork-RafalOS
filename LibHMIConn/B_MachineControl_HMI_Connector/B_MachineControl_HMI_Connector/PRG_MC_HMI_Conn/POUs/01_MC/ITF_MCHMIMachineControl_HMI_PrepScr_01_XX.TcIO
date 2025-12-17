@@ -8,5 +8,18 @@
 *)
 INTERFACE ITF_MCHMIMachineControl_HMI_PrepScr_01_XX
 ]]></Declaration>
+    <Method Name="GetElementNamesWithParameter" Id="{35c5365a-1977-000b-2946-52cc8bb841c4}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		17.12.2025		TC 4024.66
+	Pobiera listę elementów które posiadaja parametr i 
+	przypisuje ja do zadanej struktury i zwraca true jak się uda
+*)
+METHOD GetElementNamesWithParameter : BOOL
+VAR_INPUT
+	stDane			: REFERENCE TO ST_MCElementListWithParameter;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

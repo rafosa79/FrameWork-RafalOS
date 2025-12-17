@@ -272,6 +272,25 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetElementNamesWithParameter" Id="{bbb3367b-8725-03b2-04b8-8cb05f5722a1}" FolderPath="ITF_PrepScr_01_XX\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		17.12.2025		TC 4024.66
+	Pobiera listę elementów które posiadaja parametr i 
+	przypisuje ja do zadanej struktury i zwraca true jak się uda
+*)
+METHOD GetElementNamesWithParameter : BOOL
+VAR_INPUT
+	stDane			: REFERENCE TO ST_MCElementListWithParameter;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetElementNamesWithParameter := THIS^.itfMachineControlConnector.GetElementNamesWithParameter (
+									stDane := stDane
+								);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetInformationLatestRecipes" Id="{0ee08023-6867-0e9d-3958-b8c640468601}" FolderPath="ITF_MachineControl_HMI\">
       <Declaration><![CDATA[(*			
 	RafalOS

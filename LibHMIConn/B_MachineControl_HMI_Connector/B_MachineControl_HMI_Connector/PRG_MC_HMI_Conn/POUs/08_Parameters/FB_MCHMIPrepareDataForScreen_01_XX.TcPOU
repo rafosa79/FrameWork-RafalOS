@@ -36,7 +36,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[THIS^.itfMachineControlHMI.GetElementNamesWithParameter (
+	stDane := THIS^.refstData.stListElement
+);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="LinkDataHMI_01_XX" Id="{0241f470-6f5d-05e7-0457-a5cdb3f66823}">
