@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_BaseHMIComponent_Command" Id="{5b79c555-bb4e-0612-21b2-9800599bdf7c}">
-    <Declaration><![CDATA[INTERFACE ITF_BaseHMIComponent_Command
+    <Declaration><![CDATA[INTERFACE ITF_BaseHMIComponent_Command EXTENDS ITF_BaseHMILoggerElement_Command
 ]]></Declaration>
   </Itf>
 </TcPlcObject>

@@ -164,6 +164,9 @@
     <Compile Include="POUs\A04b_FB_BaseHMIComponent_Command\ITF_BaseHMIComponent_Command.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A04b_FB_BaseHMIComponent_Command\ST_BaseHMIComponent_Command.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A04b_FB_BaseHMIComponent_Command\ST_BaseHMIComponent_Command_Link.TcDUT">
       <SubType>Code</SubType>
     </Compile>

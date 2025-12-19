@@ -8,11 +8,11 @@
 *)
 TYPE ST_BaseHMITopElement_View_Link :
 STRUCT
-	stBaseLoggerElement				: ST_BaseHMILoggerElement_View;
-	stBaseComponent					: ST_BaseHMIComponent_View;
-	stBaseControlElement			: ST_BaseHMIControlElement_View;
-	stBaseGroupElement				: ST_BaseHMIGroupElement_View;
-	stBaseTopElement				: ST_BaseHMITopElement_View;
+	stLoggerElement				: ST_BaseHMILoggerElement_View;
+	stComponent					: ST_BaseHMIComponent_View;
+	stControlElement			: ST_BaseHMIControlElement_View;
+	stGroupElement				: ST_BaseHMIGroupElement_View;
+	stTopElement				: ST_BaseHMITopElement_View;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

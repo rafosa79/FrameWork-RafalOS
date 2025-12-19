@@ -8,8 +8,8 @@
 *)
 TYPE ST_BaseHMIComponent_Command_Link :
 STRUCT
-	stBaseLoggerElement				: ST_BaseHMILoggerElement_View;
-	stBaseComponent					: ST_BaseHMIComponent_View;
+	stLoggerElement				: ST_BaseHMILoggerElement_Command;
+	stComponent					: ST_BaseHMIComponent_Command;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

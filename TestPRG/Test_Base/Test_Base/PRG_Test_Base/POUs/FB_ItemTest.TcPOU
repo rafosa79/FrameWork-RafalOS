@@ -6,7 +6,8 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[T01_TestAddItems ();
+      <ST><![CDATA[(*
+T01_TestAddItems ();
 T02_TestFirstCycle ();
 T03_TestSetidEvent ();
 T04_TestSetIditem ();
@@ -32,7 +33,8 @@ T22_TestAddRecipeFromTemplate ();
 T23_TestDeleteRecipe ();
 T24_TestCopyRecipeToNewRecipe ();
 
-//T99_Test ();]]></ST>
+//T99_Test ();
+*)]]></ST>
     </Implementation>
     <Method Name="T01_TestAddItems" Id="{ffa5565e-1480-486c-8118-fd6635b9e30b}">
       <Declaration><![CDATA[METHOD PRIVATE T01_TestAddItems
@@ -40,7 +42,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T01_TestAddItems')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T01_TestAddItems')) THEN
 	AssertEquals_UINT (Expected := 3, Actual := GVL_Variable.fbPB1.uiNumberOfComponents, 		Message := 'T01 - bledna ilosc elementow');
 	AssertEquals_UINT (Expected := 3, Actual := GVL_Variable.fbPB1.uiNumberOfControlElement, 	Message := 'T02 - bledna ilosc elementow');
 
@@ -52,7 +55,8 @@ END_VAR
 	
 
 	TcUnit.TEST_FINISHED ();
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T02_TestFirstCycle" Id="{eff700b2-b65f-406d-a00d-f480c059d093}">
@@ -64,7 +68,8 @@ VAR
 	bResult: BOOL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T02_TestFirstCycle')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T02_TestFirstCycle')) THEN
 	GVL.stCommonData.itfTime				:= GVL.fbMyTime;
 	GVL.stCommonData.itfLocaciotn			:= GVL.fbMyLocation;
 	GVL.stCommonData.itfLogger				:= GVL.fbLogger;
@@ -86,7 +91,7 @@ END_VAR]]></Declaration>
 	
 	TcUnit.TEST_FINISHED ();
 END_IF
-]]></ST>
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T03_TestSetidEvent" Id="{9bdc2d0f-632e-4b95-9aba-3f7935f9d98b}">
@@ -98,7 +103,8 @@ VAR
 	uiLastID: UINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T03_TestSetidEvent')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T03_TestSetidEvent')) THEN
 	uiLastID		:= GVL_Variable.fbPB1.SetEventsIDs (uiNewID	:= 1);
 	
 	AssertEquals_UINT (Expected := 109, Actual := uiLastID, Message := 'T01 - Bledna ilosc nadanych ID zgloszeniom');
@@ -106,7 +112,8 @@ END_VAR]]></Declaration>
 	
 	
 	TcUnit.TEST_FINISHED ();
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T04_TestSetIditem" Id="{a33bae01-cbe9-4abe-b62e-d4ad4b94da31}">
@@ -118,13 +125,15 @@ VAR
 	uiResult: UINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T04_TestSetIditem')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T04_TestSetIditem')) THEN
 	uiResult 	:= GVL_Variable.fbPB1.SetID (uiID := 1);
 	AssertEquals_UINT (Expected := 19, Actual := uiResult, Message := 'T01 - bledny numer id');
 	
 	
 	TcUnit.TEST_FINISHED ();
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T05_TestSetCodeItem" Id="{044a7e9a-475a-4c86-bfa2-472cee579292}">
@@ -136,7 +145,8 @@ VAR
 	sResult: string;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T05_TestSetCodeItem')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T05_TestSetCodeItem')) THEN
 	GVL_Variable.fbPB1.SetCode (sCode := '0.0.0.0.0', sAdd := '1');
 //	AssertEquals_UINT (Expected := 19, Actual := uiResult, Message := 'T01 - bledny numer id');
 	AssertEquals_STRING (Expected := '1.0.0.0.0', Actual := GVL_Variable.fbPB1.GetCode (), Message := 'T01 - Bledny kod PB');
@@ -166,7 +176,8 @@ END_VAR]]></Declaration>
 	AssertEquals_STRING (Expected := '1.6.4.2.0', Actual := GVL_Variable.fbPB1_ZL1_Wyk2_K2.GetCode (), 	Message := 'T18 - Bledny kod PB ZL2 WYK1 K2');
 	
 	TcUnit.TEST_FINISHED ();
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T06_TestEventsAdd" Id="{6c65f74b-5234-4258-a261-2ba1552d9089}">
@@ -175,7 +186,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T06_TestEventsAdd')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T06_TestEventsAdd')) THEN
 	AssertEquals_UINT (Expected := 5, Actual := GVL_Variable.fbPB1.stEvents.uiNumberOfAdded, 	Message := 'T01 - bledna ilosc');
 	
 	AssertEquals_UINT (Expected := 6, Actual := GVL_Variable.fbPB1_K1.stEvents.uiNumberOfAdded, Message := 'T02 - bledna ilosc');
@@ -189,7 +201,7 @@ END_VAR
 	
 	TcUnit.TEST_FINISHED ();
 END_IF
-]]></ST>
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T07_TestLinkData" Id="{1b5302c2-980b-44f9-a646-403ed298179b}">
@@ -201,7 +213,8 @@ VAR
 	bResult: BOOL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T07_TestLinkData')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T07_TestLinkData')) THEN
 	bResult 	:= GVL_VariableHMI.fbPB1_HMI.LinkCommonData (stCommonData	:= GVL.stCommonData);
 	AssertTrue (Condition := bResult, Message := 'T01a - bladny wynik przepisania');
 	
@@ -213,7 +226,8 @@ END_VAR]]></Declaration>
 	AssertTrue (Condition := bResult, Message := 'T03 - bladny wynik przepisania');
 	
 	TcUnit.TEST_FINISHED ();
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T08_TestEventReport" Id="{0c904616-32b9-46fe-b921-f2cb2c1a5e9e}">
@@ -222,7 +236,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T08_TestEventReport')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T08_TestEventReport')) THEN
 (*	Wyczyszenie pamięci i sprawdzenie czy rzeczywiście nic tam nie ma *)
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL.fbLogger.bClearMemory), Value := TRUE);
 	GVL.fbLogger ();
@@ -313,7 +328,8 @@ END_VAR
 	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [2].uiIDEvent,				Message := 'T11k - 4 - bledne ID zgloszenia');
 	
 	TcUnit.TEST_FINISHED ();
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T09_TestEventReport" Id="{8709cc52-d2ae-4189-8de2-3e05c323545d}">
@@ -322,7 +338,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T09_TestEventReport')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T09_TestEventReport')) THEN
 (*	Wyslanie zgloszen	*)
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_K1.bSetError2), Value := TRUE);
 	GVL_Variable.fbPB1_K1 ();
@@ -401,7 +418,8 @@ END_VAR
 	AssertEquals_UINT (Expected := 7, Actual := GVL.fbLogger.stMemory.arrRow [3].uiIDEvent,				Message := 'T08m - 4 - bledne ID zgloszenia');
 	
 	TcUnit.TEST_FINISHED ();
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T10_PreparetableEventsForTesting" Id="{7c0656b1-07ea-4416-8b8a-5f38100adef3}">
@@ -410,7 +428,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T10_PreparetableEventsForTesting')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T10_PreparetableEventsForTesting')) THEN
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_Wyk1_K1.bSetAlarm2), Value := TRUE);
 	GVL_Variable.fbPB1_Wyk1_K1 ();
 	WRITE_PROTECTED_BOOL (Ptr := ADR (GVL_Variable.fbPB1_K1.bSetAlarm2), Value := TRUE);
@@ -434,7 +453,7 @@ END_VAR
 	GVL.fbLogger ();
 	TcUnit.TEST_FINISHED ();
 END_IF
-]]></ST>
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T11_TestGenerateListEvent" Id="{241b2ddc-41df-4506-9318-83efcc8ca76c}">
@@ -443,7 +462,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T11_TestGenerateListEvent')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T11_TestGenerateListEvent')) THEN
 	GVL_VariableHMI.fbPB1_K1_HMI.GetYourEventTable ();
 	AssertEquals_INT (Expected := 7, Actual := GVL.fbLogger.arrNumberOfReportsForItem [2].iTotalNumer, Message := 'T01 - bledna ilosc zgloszen');
 	AssertEquals_INT (Expected := 3, Actual := GVL.fbLogger.arrNumberOfReportsForItem [2].iNumberOfActive, Message := 'T02 - bledna ilosc zgloszen aktywnych');
@@ -495,7 +515,8 @@ END_VAR
 
 	
 	TcUnit.TEST_FINISHED ();
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T12_TestPower" Id="{e4e4c6b0-0f4a-4549-a00c-9441c17fe9b7}">
@@ -505,7 +526,8 @@ VAR_INST
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T12_TestPower')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T12_TestPower')) THEN
 	CASE iStep OF
 	0	:
 		AssertFalse (Condition := GVL.fbSS1.GetFlag (), Message := 'S00 - T01 - Bledny stan');
@@ -595,7 +617,8 @@ END_VAR
 	1000	:
 		TcUnit.TEST_FINISHED ();
 	END_CASE
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T13_TestPowerForTopElement" Id="{b9291c1e-223d-4d56-b9cb-779baf974e98}">
@@ -604,7 +627,8 @@ VAR_INST
 	iStep: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T13_TestPowerForTopElement')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T13_TestPowerForTopElement')) THEN
 	GVL_Variable.fbPB1.ExecuteEveryCycle_Test ();
 	GVL_Variable.fbPB1.ExecuteEveryCycle_Operation ();
 	GVL_Variable.fbPB1.ExecuteEveryCycle_Status ();
@@ -719,7 +743,8 @@ END_VAR]]></Declaration>
 	1000	:
 		TcUnit.TEST_FINISHED ();
 	END_CASE
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T14_TestHomingControlElementWithouutHomingMethod" Id="{b01b582c-8278-4359-bdda-8c9399156c97}">
@@ -729,7 +754,8 @@ VAR_INST
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T14_TestHomingControlElementWithouutHomingMethod')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T14_TestHomingControlElementWithouutHomingMethod')) THEN
 
 	GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Test ();
 	GVL_Variable.fbPB1_Wyk1.ExecuteEveryCycle_Operation ();
@@ -781,7 +807,8 @@ END_VAR
 	1000	:
 		TcUnit.TEST_FINISHED ();
 	END_CASE
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T15_TestHomingControlElementWithHomingMetod" Id="{daaa998d-fbc0-430b-9769-4ff1fd0da065}">
@@ -791,7 +818,8 @@ VAR_INST
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T15_TestHomingControlElementWithHomingMetod')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T15_TestHomingControlElementWithHomingMetod')) THEN
 
 	GVL_Variable.fbPB1_Wyk2.ExecuteEveryCycle_Test ();
 	GVL_Variable.fbPB1_Wyk2.ExecuteEveryCycle_Operation ();
@@ -861,7 +889,8 @@ END_VAR
 	1000	:
 		TcUnit.TEST_FINISHED ();
 	END_CASE
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T16_TestingTopElementHoming" Id="{4d5089e0-bd42-48d5-b99d-b6a91be342e9}">
@@ -871,7 +900,8 @@ VAR_INST
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T16_TestingTopElementHoming')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T16_TestingTopElementHoming')) THEN
 
 	GVL_Variable.fbPB1.ExecuteEveryCycle_Test ();
 	GVL_Variable.fbPB1.ExecuteEveryCycle_Operation ();
@@ -940,7 +970,8 @@ END_VAR
 	1000	:
 		TcUnit.TEST_FINISHED ();
 	END_CASE
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T20_TestCommunicator" Id="{f8e4c051-1d5a-4920-8450-5a5a92e5cf3a}">
@@ -955,7 +986,8 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T20_TestCommunicator')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T20_TestCommunicator')) THEN
 	GVL_Variable.fbClientComm1.LinkCommunicator (fbCommunicator := GVL.fbCommunicator);
 	GVL_Variable.fbClientComm2.LinkCommunicator (fbCommunicator := GVL.fbCommunicator);
 	GVL_Variable.fbClientComm3.LinkCommunicator (fbCommunicator := GVL.fbCommunicator);
@@ -1124,7 +1156,8 @@ END_VAR
 	AssertEquals_INT (Expected := 0, Actual := GVL.fbCommunicator.arrData [2].iNumberOfConfirmations,	Message := 'T06k - bledna ilosc odbiorcow do potwierdzenia');
 	
 	TcUnit.TEST_FINISHED ();
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T21_TestCreateTepmplate" Id="{43632f29-8c6b-468e-9b82-1d89110fa1e2}">
@@ -1134,7 +1167,8 @@ VAR
 	sttmpSkladnik: ST_BaseDescriptor;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T21_TestCreateTepmplate')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T21_TestCreateTepmplate')) THEN
 	//Dodanie zewnętreznego FB do twoerzenia szbalonów
 	GVL.fbRecipe.AddITFToCreateTemplate (fbToCtreateTemplate := GVL.fbCreatingTemplate1);
 	GVL.fbRecipe.AddITFToCreateTemplate (fbToCtreateTemplate := GVL.fbCreatingTemplate2);
@@ -1169,7 +1203,7 @@ END_VAR]]></Declaration>
 	
 	TcUnit.TEST_FINISHED ();
 END_IF
-
+*)
 (*
 //Wyczyszczeni danych i test czyszczenia
 	GVL.fbRecipe.DeleteRecipes ();
@@ -1278,7 +1312,7 @@ VAR
 	sttmpLabel: ST_BaseLabel;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T22_TestAddRecipeFromTemplate')) THEN
+        <ST><![CDATA[(*IF (TcUnit.TEST_ORDERED ('T22_TestAddRecipeFromTemplate')) THEN
 	MEMSET (
 		destAddr		:= ADR (GVL.fbRecipe.arrRecipes),
 		fillByte		:= 0,
@@ -1310,7 +1344,8 @@ END_VAR]]></Declaration>
 
 	TcUnit.TEST_FINISHED ();
 
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T23_TestDeleteRecipe" Id="{37f06922-98d5-001e-037c-ec8ccebec05f}">
@@ -1321,7 +1356,8 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T23_TestDeleteRecipe')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T23_TestDeleteRecipe')) THEN
 	bresult	:= GVL.fbRecipe.DeleteRecipe (uiNumber	:= 1);
 	AssertTrue (Condition := bresult, Message := 'Test 01 - Bladna wynik usuwania receptury');
 	AssertEquals_UINT (Expected := 0, Actual := GVL.fbRecipe.GetNumberOfRecipe (), Message := 'Test 02 - bledna ilosc receptur');
@@ -1365,7 +1401,7 @@ END_VAR
 	
 	TcUnit.TEST_FINISHED ();
 END_IF
-]]></ST>
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T24_TestCopyRecipeToNewRecipe" Id="{079cf1c4-fdc2-0deb-0ade-52eec5b0c230}">
@@ -1376,7 +1412,8 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T24_TestCopyRecipeToNewRecipe')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T24_TestCopyRecipeToNewRecipe')) THEN
 	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.pl, wsDescription	:= "Nazwa receptury klon PL");
 	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.en, wsDescription	:= "Nazwa receptury klon EN");
 	GVL.fbRecipe.SetText (eLocation := E_BaseLocation.de, wsDescription	:= "Nazwa receptury klon DE");
@@ -1400,7 +1437,7 @@ END_VAR
 	
 	TcUnit.TEST_FINISHED ();
 END_IF
-]]></ST>
+*)]]></ST>
       </Implementation>
     </Method>
     <Method Name="T99_Test" Id="{3bffd01d-c8de-4919-b8d1-c032dde1e9c1}">
@@ -1410,7 +1447,8 @@ VAR_INST
 	bT99Test: BOOL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (TcUnit.TEST_ORDERED ('T99_Test')) THEN
+        <ST><![CDATA[(*
+IF (TcUnit.TEST_ORDERED ('T99_Test')) THEN
 	bT99Test			:= TRUE;
 
 	GVL_Variable.fbPB1.ExecuteEveryCycle_Test ();
@@ -1422,7 +1460,8 @@ END_VAR]]></Declaration>
 		bT99Test		:= FALSE;
 		TcUnit.TEST_FINISHED ();
 	END_IF
-END_IF]]></ST>
+END_IF
+*)]]></ST>
       </Implementation>
     </Method>
   </POU>

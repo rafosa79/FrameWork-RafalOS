@@ -3,6 +3,10 @@
   <DUT Name="ST_BaseHMIGroupElement_Command_Link" Id="{b67d3e01-a885-0e5b-2c04-9a58d7c43b08}">
     <Declaration><![CDATA[TYPE ST_BaseHMIGroupElement_Command_Link :
 STRUCT
+	stLoggerElement				: ST_BaseHMILoggerElement_Command;
+	stComponent					: ST_BaseHMIComponent_Command;
+	stControlElement			: ST_BaseHMIControlElement_Command;
+	stGroupElement				: ST_BaseHMIGroupElement_Command;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

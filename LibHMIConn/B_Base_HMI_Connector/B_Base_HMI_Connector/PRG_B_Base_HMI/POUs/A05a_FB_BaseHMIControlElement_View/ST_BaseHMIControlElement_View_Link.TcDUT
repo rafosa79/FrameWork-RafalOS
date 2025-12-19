@@ -8,9 +8,9 @@
 *)
 TYPE ST_BaseHMIControlElement_View_Link :
 STRUCT
-	stBaseLoggerElement				: ST_BaseHMILoggerElement_View;
-	stBaseComponent					: ST_BaseHMIComponent_View;
-	stBaseControlElement			: ST_BaseHMIControlElement_View;
+	stLoggerElement				: ST_BaseHMILoggerElement_View;
+	stComponent					: ST_BaseHMIComponent_View;
+	stControlElement			: ST_BaseHMIControlElement_View;
 END_STRUCT
 END_TYPE
 ]]></Declaration>
