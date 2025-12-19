@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseHMIGroupElement_Command" Id="{25789494-5929-053d-1d8c-7cab743e4d3c}">
+    <Declaration><![CDATA[TYPE ST_BaseHMIGroupElement_Command :
+STRUCT
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

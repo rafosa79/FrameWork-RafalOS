@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseHMITopElement_View" Id="{d9fb61e2-46e3-081a-2db2-ee62cb4cde2f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseHMITopElement_View EXTENDS FB_BaseHMIGroupElement_View IMPLEMENTS ITF_BaseHMITopElement_View
+VAR
+	itfBaseTopElementConnector			: ITF_BaseTopElement_HMI_Connector;
+	refstBaseTopElementDataHMI			: REFERENCE TO ST_BaseHMITopElement_View;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="WiazanieZmiennych" Id="{f2b66130-fbff-0355-0434-ab5863f68bc5}" />
+    <Method Name="IsLinkedReferences" Id="{f6109c4f-4d95-022b-30d9-a365c0d19cd4}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC IsLinkedReferences : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (SUPER^.IsLinkedReferences () AND __ISVALIDREF (THIS^.refstBaseTopElementDataHMI)) THEN
+	IsLinkedReferences			:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

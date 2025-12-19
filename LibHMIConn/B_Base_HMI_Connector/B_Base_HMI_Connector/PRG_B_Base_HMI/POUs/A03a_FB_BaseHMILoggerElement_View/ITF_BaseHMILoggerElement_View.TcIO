@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseHMILoggerElement_View" Id="{5cb45a4d-d295-0879-1e7e-f79957b9c07c}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseHMILoggerElement_View
+]]></Declaration>
+    <Method Name="ClearAfterScreen" Id="{2177d0dc-fff4-07c6-039d-6d97b86c4606}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Czyści danych przy zmienia ramki po poprzedniej ramce
+*)
+METHOD PUBLIC ClearAfterScreen : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetEventTableForIDItem" Id="{423d51d2-ec85-0a49-364c-a80a033c440a}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.09.2025		TC 4024.66
+	Generuje tablicę zdarzeń dla podanego ID dla 0 dla wszystkich elementów
+*)
+METHOD PUBLIC GetEventTableForIDItem : BOOL
+VAR_INPUT
+	uiIdItem			: UINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetYourEventTable" Id="{df9a6c22-c1eb-0762-0f16-bbe7328d9649}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		09.09.2025		TC 4024.66
+	Zwraca tablicę swoich zdarzeń
+*)
+METHOD PUBLIC GetYourEventTable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="PrepareDataForHMI" Id="{634820b6-82e9-0625-1038-fe7e5f61cee9}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Metoda przygotowywania danych dla HMI 
+	W niej odbywa się odpytywanie właściego elementu przez łącznik
+*)
+METHOD PUBLIC PrepareDataForHMI : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="PrepareForScreen" Id="{63232c8c-3bcd-019c-111d-23e159556fed}">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.11.2025		TC 4024.66
+	Przygotowanie ramki pood tamke do wyświetlenia - tylko przygotowanie a nie przygotowanie danych do wyświetlenia
+*)
+METHOD PUBLIC PrepareForScreen : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

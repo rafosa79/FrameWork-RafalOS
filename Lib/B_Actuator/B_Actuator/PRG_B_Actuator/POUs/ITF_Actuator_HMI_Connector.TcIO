@@ -21,28 +21,6 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="MoveToEnd" Id="{3006b99f-44e9-40f1-95c8-49a478cbb81b}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		31.03.2025		TC 4024.66
-	Uruchomienie cyklu przesuwania do początku
-*)
-METHOD PUBLIC MoveToEnd
-VAR_INPUT
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="MoveToStart" Id="{908e00cc-d40c-427f-8007-88045ebc36fe}">
-      <Declaration><![CDATA[(*			
-	EVERDE sp. z o.o.
-	Rafał Osajda		31.03.2025		TC 4024.66
-	Uruchomienie cyklu przesuwania do początku
-*)
-METHOD PUBLIC MoveToStart
-VAR_INPUT
-END_VAR
-]]></Declaration>
-    </Method>
     <Method Name="MovingToEndBusy" Id="{5789098d-8fe2-4fa2-8dec-61be9c2c754c}">
       <Declaration><![CDATA[METHOD PUBLIC MovingToEndBusy : BOOL
 VAR_INPUT

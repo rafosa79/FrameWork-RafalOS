@@ -1,61 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <Itf Name="ITF_BaseLoggerElement_HMI_Connector" Id="{18066f33-5cce-0b8b-2b60-e60e4addcc02}">
-    <Declaration><![CDATA[INTERFACE ITF_BaseLoggerElement_HMI_Connector
+  <Itf Name="ITF_BaseLoggerElement_HMI_Connector" Id="{4c8dc41f-6fbe-0df0-315f-37d7e9df42d0}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseLoggerElement_HMI_Connector EXTENDS
+		ITF_BaseLoggerElement_HMI_Connector_Command, ITF_BaseLoggerElement_HMI_Connector_View
 ]]></Declaration>
-    <Method Name="EventAcknowledgeByID" Id="{aa9672a4-c4e6-09f1-3f96-bba7e4c8f9c4}">
-      <Declaration><![CDATA[(*			
-	RafalOS
-	Rafał Osajda		09.06.2025		TC 4024.66
-	Szuka czy ma zgłoszenie i zadanym ID jak tak to usuwa i zwraca true w przeciwnym razie zwraca false 
-*)
-METHOD PUBLIC EventAcknowledgeByID : BOOL
-VAR_INPUT
-	uiIDEvent				: UINT;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="EventSetInactiveByID" Id="{dcdbc491-0072-0718-3d2c-19591fbbe90d}">
-      <Declaration><![CDATA[(*			
-	RafalOS
-	Rafał Osajda		09.06.2025		TC 4024.66
-	Szuka czy ma zgłoszenie i zadanym ID jak tak to usuwa i zwraca true w przeciwnym razie zwraca false 
-*)
-METHOD PUBLIC EventSetInactiveByID : BOOL
-VAR_INPUT
-	uiIDEvent				: UINT;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="GetCode" Id="{f5cf3e5c-088f-0e43-06f5-119997559e59}">
-      <Declaration><![CDATA[METHOD PUBLIC GetCode : STRING
-VAR_INPUT
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="GetID" Id="{6d80811c-c1cb-062f-0769-541a69ee6d76}">
-      <Declaration><![CDATA[METHOD PUBLIC GetID : UINT
-VAR_INPUT
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="GetIdentyfier" Id="{ac6e2f1d-ef73-047b-0178-a3d1abb02eb3}">
-      <Declaration><![CDATA[METHOD PUBLIC GetIdentyfier : ST_BaseElementIdentifier
-VAR_INPUT
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="GetName" Id="{8b277639-3747-0d1b-09fd-1b4180f8280b}">
-      <Declaration><![CDATA[METHOD PUBLIC GetName : ST_BaseLabel
-VAR_INPUT
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="GetType" Id="{39784064-3fc4-0e64-092d-21b915a721a1}">
-      <Declaration><![CDATA[METHOD PUBLIC GetType : E_BaseElementType
-VAR_INPUT
-END_VAR
-]]></Declaration>
-    </Method>
   </Itf>
 </TcPlcObject>

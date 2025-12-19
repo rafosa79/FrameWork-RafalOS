@@ -1,3 +1,14 @@
+Plan działanbia na dzis 
+przerobienie w b_basehmi to co jest na dodatek View
+dodać w b_basehmi FB_BaseComponentHMI_Command i przekazywać do tego tak jak w View obiekt którym się bedzie sterować
+dodać do Command metody mogące przyjąć dane typu tryb pracy safety itp 
+przenieść z HMIManager do MachineControlHMI tablice w elementami HMI
+w konfiguracji zmienić zapic elementów z HMIManager na MachineControlHmi
+w konfiguracji dodać dodawanie fb command
+
+
+
+
 Do zrobienia: 
 - podczas rozruchu jak nie ma wybranej receptury to się nei wyświetla informacja na ekranie
 - jak się wybierze receptury nie przepisuje jej do topelementów

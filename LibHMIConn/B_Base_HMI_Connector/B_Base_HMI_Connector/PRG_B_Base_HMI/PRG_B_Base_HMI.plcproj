@@ -21,7 +21,7 @@
     <Company>RafalOS</Company>
     <Title>B_Base_HMI_Connector</Title>
     <DefaultNamespace>B_Base_HMI_Connector</DefaultNamespace>
-    <ProjectVersion>0.0.0.35</ProjectVersion>
+    <ProjectVersion>0.0.1.00</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -101,85 +101,142 @@
     <Compile Include="POUs Compilation\PRG_Compilation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A02_FB_BaseLogger_HMI\FB_BaseLogger_HMI.TcPOU">
+    <Compile Include="POUs\A02_FB_BaseHMILogger\FB_BaseHMILogger.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A02_FB_BaseLogger_HMI\ITF_BaseLogger_HMI.TcIO">
+    <Compile Include="POUs\A02_FB_BaseHMILogger\ITF_BaseHMILogger.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A02_FB_BaseLogger_HMI\ST_BaseLogger_HMI.TcDUT">
+    <Compile Include="POUs\A02_FB_BaseHMILogger\ST_BaseHMILogger.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A03_FB_BaseLoggerElement_HMI\FB_BaseLoggerElement_HMI.TcPOU">
+    <Compile Include="POUs\A03a_FB_BaseHMILoggerElement_View\FB_BaseHMILoggerElement_View.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A03_FB_BaseLoggerElement_HMI\ITF_BaseLoggerElement_HMI.TcIO">
+    <Compile Include="POUs\A03a_FB_BaseHMILoggerElement_View\ITF_BaseHMILoggerElement_View.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A03_FB_BaseLoggerElement_HMI\ST_BaseHMIConnectorEvents_ActionButtuns.TcDUT">
+    <Compile Include="POUs\A03a_FB_BaseHMILoggerElement_View\ST_BaseHMIConnectorEvents_ActionButtuns.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A03_FB_BaseLoggerElement_HMI\ST_BaseHMIConnectorEvents_DetailInformation.TcDUT">
+    <Compile Include="POUs\A03a_FB_BaseHMILoggerElement_View\ST_BaseHMIConnectorEvents_DetailInformation.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A03_FB_BaseLoggerElement_HMI\ST_BaseHMIConnectorEvents_Filter.TcDUT">
+    <Compile Include="POUs\A03a_FB_BaseHMILoggerElement_View\ST_BaseHMIConnectorEvents_Filter.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A03_FB_BaseLoggerElement_HMI\ST_BaseHMIConnectorEvents_ListToDisplay.TcDUT">
+    <Compile Include="POUs\A03a_FB_BaseHMILoggerElement_View\ST_BaseHMIConnectorEvents_ListToDisplay.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A03_FB_BaseLoggerElement_HMI\ST_BaseLoggerElement_HMI.TcDUT">
+    <Compile Include="POUs\A03a_FB_BaseHMILoggerElement_View\ST_BaseHMILoggerElement_View.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A03_FB_BaseLoggerElement_HMI\ST_BaseHMIConnectorEvents_ListToDisplayRow.TcDUT">
+    <Compile Include="POUs\A03a_FB_BaseHMILoggerElement_View\ST_BaseHMIConnectorEvents_ListToDisplayRow.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A04_FB_BaseComponent_HMI\FB_BaseComponent_HMI.TcPOU">
+    <Compile Include="POUs\A03b_FB_BaseHMILoggerElement_Command\FB_BaseHMILoggerElement_Command.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A04_FB_BaseComponent_HMI\ITF_BaseComponent_HMI.TcIO">
+    <Compile Include="POUs\A03b_FB_BaseHMILoggerElement_Command\ITF_BaseHMILoggerElement_Command.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A04_FB_BaseComponent_HMI\ST_BaseComponent_HMI.TcDUT">
+    <Compile Include="POUs\A03b_FB_BaseHMILoggerElement_Command\ST_BaseHMILoggerElement_Command_DataCheck.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A04_FB_BaseComponent_HMI\ST_BaseComponent_HMI_Link.TcDUT">
+    <Compile Include="POUs\A03b_FB_BaseHMILoggerElement_Command\ST_BaseHMILoggerElement_Command.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A05_FB_BaseControlElement_HMI\FB_BaseControlElement_HMI.TcPOU">
+    <Compile Include="POUs\A04a_FB_BaseHMIComponent_View\FB_BaseHMIComponent_View.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A05_FB_BaseControlElement_HMI\ITF_BaseControlElement_HMI.TcIO">
+    <Compile Include="POUs\A04a_FB_BaseHMIComponent_View\ITF_BaseHMIComponent_View.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A05_FB_BaseControlElement_HMI\ST_BaseControlElement_HMI.TcDUT">
+    <Compile Include="POUs\A04a_FB_BaseHMIComponent_View\ST_BaseHMIComponent_View.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A05_FB_BaseControlElement_HMI\ST_BaseControlElement_HMI_Link.TcDUT">
+    <Compile Include="POUs\A04a_FB_BaseHMIComponent_View\ST_BaseHMIComponent_View_Link.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A06_FB_BaseGroupElement_HMI\FB_BaseGroupElement_HMI.TcPOU">
+    <Compile Include="POUs\A04b_FB_BaseHMIComponent_Command\FB_BaseHMIComponent_Command.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A06_FB_BaseGroupElement_HMI\ITF_BaseGroupElement_HMI.TcIO">
+    <Compile Include="POUs\A04b_FB_BaseHMIComponent_Command\ITF_BaseHMIComponent_Command.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A06_FB_BaseGroupElement_HMI\ST_BaseGroupElement_HMI.TcDUT">
+    <Compile Include="POUs\A04b_FB_BaseHMIComponent_Command\ST_BaseHMIComponent_Command_Link.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A06_FB_BaseGroupElement_HMI\ST_BaseGroupElement_HMI_Link.TcDUT">
+    <Compile Include="POUs\A05a_FB_BaseHMIControlElement_View\FB_BaseHMIControlElement_View.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A07_FB_BaseTopElement_HMI\FB_BaseTopElement_HMI.TcPOU">
+    <Compile Include="POUs\A05a_FB_BaseHMIControlElement_View\ITF_BaseHMIControlElement_View.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A07_FB_BaseTopElement_HMI\ITF_BaseTopElement_HMI.TcIO">
+    <Compile Include="POUs\A05a_FB_BaseHMIControlElement_View\ST_BaseHMIControlElement_View.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A07_FB_BaseTopElement_HMI\ST_BaseTopElement_HMI.TcDUT">
+    <Compile Include="POUs\A05a_FB_BaseHMIControlElement_View\ST_BaseHMIControlElement_View_Link.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A07_FB_BaseTopElement_HMI\ST_BaseTopElement_HMI_Link.TcDUT">
+    <Compile Include="POUs\A05b_FB_BaseHMIControlElement_Command\FB_BaseHMIControlElement_Command.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A05b_FB_BaseHMIControlElement_Command\ITF_BaseHMIControlElement_Command.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A05b_FB_BaseHMIControlElement_Command\ST_BaseHMIControlElement_Command.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A05b_FB_BaseHMIControlElement_Command\ST_BaseHMIControlElement_Command_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06a_FB_BaseHMIGroupElement_View\FB_BaseHMIGroupElement_View.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06a_FB_BaseHMIGroupElement_View\ITF_BaseHMIGroupElement_View.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06a_FB_BaseHMIGroupElement_View\ST_BaseHMIGroupElement_View.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06a_FB_BaseHMIGroupElement_View\ST_BaseHMIGroupElement_View_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06b_FB_BaseHMIGroupElement_Command\FB_BaseHMIGroupElement_Command.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06b_FB_BaseHMIGroupElement_Command\ITF_BaseHMIGroupElement_Command.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06b_FB_BaseHMIGroupElement_Command\ST_BaseHMIGroupElement_Command.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06b_FB_BaseHMIGroupElement_Command\ST_BaseHMIGroupElement_Command_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07a_FB_BaseHMITopElement_View\FB_BaseHMITopElement_View.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07a_FB_BaseHMITopElement_View\ITF_BaseHMITopElement_View.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07a_FB_BaseHMITopElement_View\ST_BaseHMITopElement_View.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07a_FB_BaseHMITopElement_View\ST_BaseHMITopElement_View_Link.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07b_FB_BaseHMITopElement_Command\FB_BaseHMITopElement_Command.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07b_FB_BaseHMITopElement_Command\ITF_BaseHMITopElement_Command.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07b_FB_BaseHMITopElement_Command\ST_BaseHMITopElement_Command.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07b_FB_BaseHMITopElement_Command\ST_BaseHMITopElement_Command_Link.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\B02_Recipe\FB_BaseRecipe_HMI.TcPOU">
@@ -198,14 +255,19 @@
     <Folder Include="ITFs" />
     <Folder Include="POUs Compilation" />
     <Folder Include="POUs\A00_BasicHMI" />
-    <Folder Include="POUs\A01_Base_HMI" />
-    <Folder Include="POUs\A02_FB_BaseLogger_HMI" />
-    <Folder Include="POUs\A03_FB_BaseLoggerElement_HMI" />
-    <Folder Include="POUs\A04_FB_BaseComponent_HMI" />
-    <Folder Include="POUs\A05_FB_BaseControlElement_HMI" />
-    <Folder Include="POUs\A06_FB_BaseGroupElement_HMI" />
-    <Folder Include="POUs\A07_FB_BaseTopElement_HMI" />
+    <Folder Include="POUs\A01_BaseHMI" />
+    <Folder Include="POUs\A02_FB_BaseHMILogger" />
+    <Folder Include="POUs\A03a_FB_BaseHMILoggerElement_View" />
+    <Folder Include="POUs\A04a_FB_BaseHMIComponent_View" />
+    <Folder Include="POUs\A05a_FB_BaseHMIControlElement_View" />
+    <Folder Include="POUs\A06a_FB_BaseHMIGroupElement_View" />
+    <Folder Include="POUs\A07a_FB_BaseHMITopElement_View" />
     <Folder Include="POUs\B02_Recipe" />
+    <Folder Include="POUs\A05b_FB_BaseHMIControlElement_Command" />
+    <Folder Include="POUs\A06b_FB_BaseHMIGroupElement_Command" />
+    <Folder Include="POUs\A07b_FB_BaseHMITopElement_Command" />
+    <Folder Include="POUs\A04b_FB_BaseHMIComponent_Command" />
+    <Folder Include="POUs\A03b_FB_BaseHMILoggerElement_Command" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

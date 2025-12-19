@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseHMIControlElement_Command" Id="{e607bb09-e421-057d-2449-fbc2bfa87169}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseHMIControlElement_Command EXTENDS FB_BaseHMIComponent_Command IMPLEMENTS ITF_BaseHMIControlElement_Command
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

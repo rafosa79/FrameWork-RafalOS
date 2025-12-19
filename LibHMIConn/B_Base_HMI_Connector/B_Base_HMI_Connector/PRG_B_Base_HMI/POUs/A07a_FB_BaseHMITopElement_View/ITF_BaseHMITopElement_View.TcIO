@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseHMITopElement_View" Id="{02116d65-3c4f-0345-19e7-8c8d9b7515ea}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseHMITopElement_View EXTENDS ITF_BaseHMIComponent_View
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

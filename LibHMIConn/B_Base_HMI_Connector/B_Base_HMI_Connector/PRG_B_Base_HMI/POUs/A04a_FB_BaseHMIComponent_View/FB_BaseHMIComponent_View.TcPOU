@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseHMIComponent_View" Id="{52a5d3de-74e5-09ff-1362-d8678f55ad3c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseHMIComponent_View EXTENDS FB_BaseHMILoggerElement_View IMPLEMENTS ITF_BaseHMIComponent_View
+VAR
+	itfBaseComponentConnector			: ITF_BaseComponent_HMI_Connector;
+	refstBaseComponentDataHMI			: REFERENCE TO ST_BaseHMIComponent_View;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="ITF_BaseLoggerElement_HMI" Id="{a7bde6f3-dd07-01ad-312e-4b18ae6dfe2c}" />
+    <Folder Name="WiazanieZmiennych" Id="{870c23bf-4b00-0970-28a0-73e67a9b4230}" />
+    <Method Name="IsLinkedReferences" Id="{7e0f46e5-1712-0fd2-084d-d6fe8737dc5c}" FolderPath="WiazanieZmiennych\">
+      <Declaration><![CDATA[METHOD PUBLIC IsLinkedReferences : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (SUPER^.IsLinkedReferences () AND __ISVALIDREF (THIS^.refstBaseComponentDataHMI)) THEN
+	IsLinkedReferences			:= TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="JoinTheList" Id="{9c9a65cc-394a-42f3-8449-c5b446cfc626}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[METHOD PUBLIC JoinTheList : INT
+VAR_INPUT
+	refstList				: REFERENCE TO ST_ListOfElement_HMI;
+	iNumberOfParent			: INT; 	//numer rodzica na liście
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (refstList.iNumberOfAdded + 1 <= TO_INT (GVL_BaseConstans.MAX_NUMBER_OF_ALL_ITEM) AND THIS^.itfBaseComponentConnector <> 0) THEN
+	refstList.iNumberOfAdded := refstList.iNumberOfAdded + 1;
+	refstList.arrRow [refstList.iNumberOfAdded].stIdentifiers := THIS^.itfBaseComponentConnector.GetIdentyfier ();
+	refstList.arrRow [refstList.iNumberOfAdded].itfElement := THIS^;
+	IF (refstList.arrRow [refstList.iNumberOfAdded].stIdentifiers.eType = E_BaseElementType.eTop) THEN
+		(*	Zapisujemy w tablicy arrListaPB indekxy PB	*)
+		refstList.iNumberOfAddedTE := refstList.iNumberOfAddedTE + 1;
+		refstList.arrRowOfListTE [refstList.iNumberOfAddedTE] := refstList.iNumberOfAdded;
+		JoinTheList := refstList.iNumberOfAdded;
+	ELSE
+		(*	Dopisanie numeru swojego indeksu do poprzedniego idneksu czyli do swojego rodzica 	*)
+		refstList.arrRow [iNumberOfParent].iNumberOfChildAdded := refstList.arrRow [iNumberOfParent].iNumberOfChildAdded + 1;
+		refstList.arrRow [iNumberOfParent].arrChild [refstList.arrRow [iNumberOfParent].iNumberOfChildAdded] := refstList.iNumberOfAdded;
+		JoinTheList := refstList.iNumberOfAdded;
+	END_IF
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareDataForHMI" Id="{49fd316c-5d5b-0f7d-2ccf-0b061cb6666d}" FolderPath="ITF_BaseLoggerElement_HMI\">
+      <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		14.11.2025		TC 4024.66
+	Metoda przygotowywania danych dla HMI 
+	W niej odbywa się odpytywanie właściego elementu przez łącznik
+*)
+METHOD PUBLIC PrepareDataForHMI : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.refstBaseComponentDataHMI.wsName := THIS^.GetTextFromLabelForActiveLocation (stLabel := THIS^.itfBaseComponentConnector.GetName ());
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

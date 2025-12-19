@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Actuator_HMI_Command" Id="{c268d550-dba1-0670-11fa-33910f88f20f}">
+    <Declaration><![CDATA[INTERFACE ITF_Actuator_HMI_Command
+]]></Declaration>
+    <Method Name="MoveToEnd" Id="{3006b99f-44e9-40f1-95c8-49a478cbb81b}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Uruchomienie cyklu przesuwania do początku
+*)
+METHOD PUBLIC MoveToEnd
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="MoveToStart" Id="{908e00cc-d40c-427f-8007-88045ebc36fe}">
+      <Declaration><![CDATA[(*			
+	EVERDE sp. z o.o.
+	Rafał Osajda		31.03.2025		TC 4024.66
+	Uruchomienie cyklu przesuwania do początku
+*)
+METHOD PUBLIC MoveToStart
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

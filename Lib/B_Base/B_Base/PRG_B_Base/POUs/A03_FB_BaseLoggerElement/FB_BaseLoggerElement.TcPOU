@@ -6,7 +6,8 @@
 	Rafał Osajda		19.09.2025		TC 4024.66
 	Element bazowy umożliwiający potomkom wysyłaś zgłoszenia do logera
 *)
-FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, ITF_BaseLoggerElement_HMI_Connector, ITF_BaseLogger_Item, ITF_DecoratedElement
+FUNCTION_BLOCK FB_BaseLoggerElement EXTENDS FB_Base IMPLEMENTS ITF_BaseLoggerElement, 
+		ITF_BaseLoggerElement_HMI_Connector, ITF_BaseLogger_Item, ITF_DecoratedElement
 VAR
 	stIdentifier					: ST_BaseElementIdentifier;	//Identyfikacja elementu
 	stEvents						: ST_BaseEvents;			//dane elementu dotyczące zdarzeń

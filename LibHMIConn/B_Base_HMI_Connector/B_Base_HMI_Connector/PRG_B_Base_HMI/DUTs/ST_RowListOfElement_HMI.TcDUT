@@ -4,7 +4,7 @@
     <Declaration><![CDATA[TYPE ST_RowListOfElement_HMI :
 STRUCT
 	stIdentifiers		: ST_BaseElementIdentifier;
-	itfElement			: ITF_BaseComponent_HMI;
+	itfElement			: ITF_BaseHMIComponent_View;
 //
 	arrChild			: ARRAY [0..GVL_BaseConstans.MAX_ITEM_PER_ELEMENT] OF INT;
 	iNumberOfChildAdded	: INT;

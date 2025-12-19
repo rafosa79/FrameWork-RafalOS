@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BaseLoggerElement_HMI_Connector_Command" Id="{26cd0ad0-561e-081a-2614-e63e2addf549}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseLoggerElement_HMI_Connector_Command
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

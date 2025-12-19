@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseHMILoggerElement_Command" Id="{8f426e87-d199-0feb-30a3-798673a26f74}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseHMILoggerElement_Command
+VAR
+	stDataCheck					: ST_BaseHMILoggerElement_Command_DataCheck;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

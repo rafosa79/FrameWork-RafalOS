@@ -20,7 +20,7 @@
     <CombineIds>true</CombineIds>
     <Company>RafalOS</Company>
     <Title>B_Base</Title>
-    <ProjectVersion>0.0.0.72</ProjectVersion>
+    <ProjectVersion>0.0.1.0</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{944723cc-fefd-4a50-bf71-33a8e3da7c70}</Id>
@@ -158,10 +158,46 @@
     <Compile Include="POUs\A01_Base\ITF_Base.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\A02_FB_BaseLogger\ITF_BaseLogger_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A02_FB_BaseLogger\ITF_BaseLogger_HMI_Connector_Command.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A03_FB_BaseLoggerElement\ITF_BaseLoggerElement_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A03_FB_BaseLoggerElement\ITF_BaseLoggerElement_HMI_Connector_Command.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A04_FB_BaseComponent\ITF_BaseComponent_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A04_FB_BaseComponent\ITF_BaseComponent_HMI_Connector_Command.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A05_FB_BaseControlElement\ITF_BaseControlElement_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A05_FB_BaseControlElement\ITF_BaseControlElement_HMI_Connector_Command.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06_FB_BaseGroupElement\ITF_BaseGroupElement_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A06_FB_BaseGroupElement\ITF_BaseGroupElement_HMI_Connector_Command.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseSaM.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseSaMStateMethod.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseTopElement_HMI_Connector.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseTopElement_HMI_Connector_Command.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\B01_Komunikator\ITF_BaseCommunicator.TcIO">
@@ -242,7 +278,7 @@
     <Compile Include="POUs\A02_FB_BaseLogger\ITF_BaseLogger.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A02_FB_BaseLogger\ITF_BaseLogger_HMI_Connector.TcIO">
+    <Compile Include="POUs\A02_FB_BaseLogger\ITF_BaseLogger_HMI_Connector_View.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A02_FB_BaseLogger\ITF_BaseLogger_Item.TcIO">
@@ -257,7 +293,7 @@
     <Compile Include="POUs\A03_FB_BaseLoggerElement\ITF_BaseLoggerElement.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A03_FB_BaseLoggerElement\ITF_BaseLoggerElement_HMI_Connector.TcIO">
+    <Compile Include="POUs\A03_FB_BaseLoggerElement\ITF_BaseLoggerElement_HMI_Connector_View.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A04_FB_BaseComponent\FB_BaseComponent.TcPOU">
@@ -266,7 +302,7 @@
     <Compile Include="POUs\A04_FB_BaseComponent\ITF_BaseComponent.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A04_FB_BaseComponent\ITF_BaseComponent_HMI_Connector.TcIO">
+    <Compile Include="POUs\A04_FB_BaseComponent\ITF_BaseComponent_HMI_Connector_View.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A04_FB_BaseComponent\ST_Parameters.TcDUT">
@@ -278,7 +314,7 @@
     <Compile Include="POUs\A05_FB_BaseControlElement\ITF_BaseControlElement.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A05_FB_BaseControlElement\ITF_BaseControlElement_HMI_Connector.TcIO">
+    <Compile Include="POUs\A05_FB_BaseControlElement\ITF_BaseControlElement_HMI_Connector_View.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A05_FB_BaseControlElement\ST_BaseControlElement_Power.TcDUT">
@@ -293,7 +329,7 @@
     <Compile Include="POUs\A06_FB_BaseGroupElement\ITF_BaseGroupElement.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A06_FB_BaseGroupElement\ITF_BaseGroupElement_HMI_Connector.TcIO">
+    <Compile Include="POUs\A06_FB_BaseGroupElement\ITF_BaseGroupElement_HMI_Connector_View.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\A07_FB_BaseTopElement\FB_BaseTopElement.TcPOU">
@@ -302,7 +338,7 @@
     <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseTopElement.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseTopElement_HMI_Connector.TcIO">
+    <Compile Include="POUs\A07_FB_BaseTopElement\ITF_BaseTopElement_HMI_Connector_View.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\B02_Recipes\ITF_BaseCreateTemplateOfRecipe.TcIO">

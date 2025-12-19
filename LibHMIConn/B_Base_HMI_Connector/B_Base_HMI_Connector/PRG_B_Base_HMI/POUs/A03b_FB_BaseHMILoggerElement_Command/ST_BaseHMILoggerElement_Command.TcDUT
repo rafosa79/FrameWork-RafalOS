@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseHMILoggerElement_Command" Id="{f8918eb0-a077-0ca9-01f2-5f406b2b0692}">
+    <Declaration><![CDATA[TYPE ST_BaseHMILoggerElement_Command :
+STRUCT
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

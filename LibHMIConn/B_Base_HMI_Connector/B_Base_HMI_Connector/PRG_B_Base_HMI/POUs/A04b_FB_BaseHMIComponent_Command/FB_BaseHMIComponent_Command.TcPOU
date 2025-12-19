@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseHMIComponent_Command" Id="{73764720-e0f7-07a7-1da8-8457f7d7a39c}" SpecialFunc="None">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		19.12.2025		TC 4024.66
+	Obsługa sterowania z HMI testowanie czy można uzyć rozkazu i przekazać do dalej do elementu logicznego
+*)
+FUNCTION_BLOCK FB_BaseHMIComponent_Command EXTENDS FB_BaseHMILoggerElement_Command IMPLEMENTS ITF_BaseHMIComponent_Command
+VAR
+//	itfParent					: itf_basecontrolelement_command_; w komponencie musi byc itf do rodzica by się spytac czy można się ruszać czy coś innego się nei rusza 
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BaseHMITopElement_Command" Id="{3d2cdd0f-2e5a-0535-2ab6-7bd0042bd59f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BaseHMITopElement_Command EXTENDS FB_BaseHMIGroupElement_Command IMPLEMENTS ITF_BaseHMITopElement_Command
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

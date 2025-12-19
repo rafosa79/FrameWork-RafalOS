@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_BaseHMILoggerElement_Command_DataCheck" Id="{38b16661-31b2-0e6d-25ac-1afea4bf4eca}">
+    <Declaration><![CDATA[TYPE ST_BaseHMILoggerElement_Command_DataCheck :
+STRUCT
+	eMode			: REFERENCE TO E_BaseMachineMode;	//tryb pracy
+	bSafety			: REFERENCE TO BOOL;	//ogólna flaga czy safety pozwala na pracę 
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

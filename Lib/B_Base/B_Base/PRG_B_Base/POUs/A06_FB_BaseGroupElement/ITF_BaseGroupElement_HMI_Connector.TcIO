@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <Itf Name="ITF_BaseGroupElement_HMI_Connector" Id="{886a85bc-d9f2-0b34-350a-7828be6ba314}">
-    <Declaration><![CDATA[INTERFACE ITF_BaseGroupElement_HMI_Connector EXTENDS ITF_BaseControlElement_HMI_Connector
+  <Itf Name="ITF_BaseGroupElement_HMI_Connector" Id="{05989430-ed19-0f83-3f5e-45021d208310}">
+    <Declaration><![CDATA[INTERFACE ITF_BaseGroupElement_HMI_Connector EXTENDS 
+		ITF_BaseGroupElement_HMI_Connector_View, ITF_BaseGroupElement_HMI_Connector_Command
 ]]></Declaration>
   </Itf>
 </TcPlcObject>
