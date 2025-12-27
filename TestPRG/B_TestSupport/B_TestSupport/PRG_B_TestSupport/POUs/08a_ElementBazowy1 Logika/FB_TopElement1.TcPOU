@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_TopElement1" Id="{b1e71e9b-83a6-0217-24ec-51604ba673ef}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TopElement1 EXTENDS FB_BaseTopElement IMPLEMENTS ITF_TopElement1, ITF_TopElement1_HMI_Connector
+VAR
+	itfCon1				: ITF_Control1;
+	itfCom1				: ITF_Component1;
+	itfCom2				: ITF_Component1;
+	
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{0c9de31c-dfbd-0bbe-26bb-693713d1d847}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfCon1				: ITF_Control1;
+	itfCom1				: ITF_Component1;
+	itfCom2				: ITF_Component1;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfCon1 := itfCon1;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Control 1 T1");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Control 1 T1");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Control 1 T1");
+THIS^.itfCon1.SetName (stName := THIS^.GetTexts ());
+
+THIS^.itfCom1 := itfCom1;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Component 1 T1");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Component 1 T1");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Component 1 T1");
+THIS^.itfCom1.SetName (stName := THIS^.GetTexts ());
+
+THIS^.itfCom2 := itfCom2;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Component 2 T1");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Component 2 T1");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Component 2 T1");
+THIS^.itfCom2.SetName (stName := THIS^.GetTexts ());]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

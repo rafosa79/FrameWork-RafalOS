@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_BaseComponent_HMI_Connector_View" Id="{397afef2-32a5-01a5-03e5-ceebae83b9f0}">
-    <Declaration><![CDATA[INTERFACE ITF_BaseComponent_HMI_Connector_View EXTENDS ITF_BaseLoggerElement_HMI_Connector_View
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		22.12.2025		TC 4024.66
+	Iterfejs służący do odczytu danych z komponentu bazowego
+*)
+INTERFACE ITF_BaseComponent_HMI_Connector_View EXTENDS ITF_BaseLoggerElement_HMI_Connector_View
 ]]></Declaration>
   </Itf>
 </TcPlcObject>

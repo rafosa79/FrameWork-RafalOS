@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Group3_HMI_Connector_View" Id="{7d5088e5-42b3-07d4-1015-89bd172ef654}">
+    <Declaration><![CDATA[INTERFACE ITF_Group3_HMI_Connector_View EXTENDS ITF_BaseGroupElement_HMI_Connector_View
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

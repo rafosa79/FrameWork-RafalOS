@@ -208,6 +208,10 @@
     </PlaceholderReference>
     <PlaceholderReference Include="B_Base_HMI_Connector">
       <DefaultResolution>B_Base_HMI_Connector, * (RafalOS)</DefaultResolution>
+      <Namespace>B_Base_HMI_Connector</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="B_TestSupport">
+      <DefaultResolution>B_TestSupport, * (RafałOS)</DefaultResolution>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>

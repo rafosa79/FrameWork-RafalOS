@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_BaseComponent_HMI_Connector" Id="{4a87bd4f-d701-0073-225c-a3573008b8a3}">
-    <Declaration><![CDATA[INTERFACE ITF_BaseComponent_HMI_Connector EXTENDS ITF_BaseComponent_HMI_Connector_View, ITF_BaseComponent_HMI_Connector_Command]]></Declaration>
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		22.12.2025		TC 4024.66
+	Interfejs łączący dwa nie powinien posiadać metod
+*)
+INTERFACE ITF_BaseComponent_HMI_Connector EXTENDS ITF_BaseComponent_HMI_Connector_View, ITF_BaseComponent_HMI_Connector_Command]]></Declaration>
   </Itf>
 </TcPlcObject>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_Components" Id="{6069a170-b72a-0ff7-2fbc-6f3c2b3bb1a7}">
+    <Declaration><![CDATA[TYPE ST_Components :
+STRUCT
+	fbCom01_Con01_T01		: FB_Component1;
+	fbCom02_Con01_T01		: FB_Component1;
+	fbCom03_Con01_T01		: FB_Component2;
+	fbCom01_T01				: FB_Component1;
+	fbCom02_T01				: FB_Component1;
+	
+	
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

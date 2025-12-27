@@ -1,0 +1,20 @@
+											ID		Code		IloscZg³oszeñ		Zakres ID zg³
+1	fbTopElement1 (fbTopElement1)			1		1.0.0.0.0
+2		fbCon1 (FBControl1)					2		1.1.0.0.0
+3			fbCom1 (fbComponent1)			3		1.1.1.0.0
+4			fbCom2 (fbComponent1)			4		1.1.2.0.0
+5			fbCom3 (fbComponent2)			5		1.1.3.0.0
+6		fbCom1 (fbComponent1)				6		1.2.0.0.0
+7		fbCom2 (fbComponent1)				7		1.3.0.0.0
+
+8	fbTopElement2 (fbTopElement2)			8		2.0.0.0.0
+9		fbCon1 (fbControl1)					9		2.1.0.0.0
+10			fbCom1 (fbComponent1)			10		2.1.1.0.0
+11			fbCom2 (fbComponent1)			11		2.1.2.0.0
+12			fbCom3 (fbComponent2)			12		2.1.3.0.0
+13		fbCon2 (fbControl1)					13		2.2.0.0.0
+14			fbCom1 (fbComponent1)			14		2.2.1.0.0
+15			fbCom2 (fbComponent1)			15		2.2.2.0.0
+16			fbCom3 (fbComponent2)			16		2.2.3.0.0
+17		fbCom1 (fbComponent1)				17		2.3.0.0.0
+

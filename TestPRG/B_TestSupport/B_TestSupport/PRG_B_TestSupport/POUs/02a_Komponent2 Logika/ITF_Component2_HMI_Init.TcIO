@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Component2_HMI_Init" Id="{50fa0980-a28e-0635-272d-33349b3eea9a}">
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		22.12.2025		TC 4024.66
+	Interfejs służacy jedynie w init do przekazywania elementu do łącznika HMI nie powinien posiadać żadnych metod
+*)
+INTERFACE ITF_Component2_HMI_Init EXTENDS ITF_BaseComponent, ITF_Component2_HMI_Connector
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

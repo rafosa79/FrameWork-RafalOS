@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Component1" Id="{96fc589f-86c3-0491-2f4e-1904054f2b22}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Component1 EXTENDS FB_BaseComponent IMPLEMENTS ITF_Component1, ITF_Component1_HMI_Connector
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

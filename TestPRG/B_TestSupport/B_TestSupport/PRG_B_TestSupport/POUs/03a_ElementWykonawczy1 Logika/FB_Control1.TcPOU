@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Control1" Id="{bcb5a58c-df60-07ef-18a0-1cde3ba77040}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Control1 EXTENDS FB_BaseControlElement IMPLEMENTS ITF_Control1, ITF_Control1_HMI_Connector
+VAR
+	itfCom1			: ITF_Component1;
+	itfCom2			: ITF_Component1;
+	itfCom3			: ITF_Component2;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{fa49433f-cba7-0d10-1b28-c9a1a5c88c36}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	itfC1			: ITF_Component1;
+	itfC2			: ITF_Component1;
+	itfC3			: ITF_Component2;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.itfCom1 := itfC1;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Control 1 C1");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Control 1 C1");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Control 1 C1");
+THIS^.itfCom1.SetName (stName := THIS^.GetTexts ());
+
+THIS^.itfCom2 := itfC2;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Control 1 C2");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Control 1 C2");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Control 1 C2");
+THIS^.itfCom2.SetName (stName := THIS^.GetTexts ());
+
+THIS^.itfCom3 := itfC3;
+THIS^.SetText (eLocation := E_BaseLocation.pl, wsDescription := "Control 1 C3");
+THIS^.SetText (eLocation := E_BaseLocation.en, wsDescription := "Control 1 C3");
+THIS^.SetText (eLocation := E_BaseLocation.de, wsDescription := "Control 1 C3");
+THIS^.itfCom3.SetName (stName := THIS^.GetTexts ());
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

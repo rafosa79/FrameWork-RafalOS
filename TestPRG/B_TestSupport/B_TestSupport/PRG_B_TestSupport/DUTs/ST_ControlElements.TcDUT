@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_ControlElements" Id="{ef490dbb-078a-074c-1f9f-e88a2a5f6d13}">
+    <Declaration><![CDATA[TYPE ST_ControlElements :
+STRUCT
+	fbCon01_T01			: FB_Control1 (
+							itfC1	:= GVL_Elements.stComponents.fbCom01_Con01_T01,
+	                	    itfC2	:= GVL_Elements.stComponents.fbCom02_Con01_T01,
+	                	    itfC3	:= GVL_Elements.stComponents.fbCom03_Con01_T01
+						);
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

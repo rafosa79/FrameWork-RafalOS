@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="ITF_BaseComponent_HMI_Connector_Command" Id="{2b2ab637-b14f-0ee4-2559-e4337058232e}">
-    <Declaration><![CDATA[INTERFACE ITF_BaseComponent_HMI_Connector_Command
+    <Declaration><![CDATA[(*			
+	RafalOS
+	Rafał Osajda		22.12.2025		TC 4024.66
+	Iterfejs dla łacznika posiadający metody służące do sterowanie komponentem bazowym - wydawanie rozkazów
+*)
+INTERFACE ITF_BaseComponent_HMI_Connector_Command
 ]]></Declaration>
   </Itf>
 </TcPlcObject>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="PRG_Compilation" Id="{467eb2b3-ada0-4736-a305-ff78f2de95cf}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_Compilation
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

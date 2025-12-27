@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Group2" Id="{41af1ba0-dc48-0a1a-181f-1bd4cd827794}">
+    <Declaration><![CDATA[INTERFACE ITF_Group2 EXTENDS ITF_BaseGroupElement
+]]></Declaration>
+  </Itf>
+</TcPlcObject>
